@@ -1,0 +1,39 @@
+name: Build paper
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Verify anonymous submission settings
+        shell: bash
+        run: |
+          grep -F '\documentclass[sigconf,anonymous,nonacm]{acmart}' main.tex
+          grep -F '\author{Anonymous Author(s)}' main.tex
+          grep -F '\institution{Anonymous Institution}' main.tex
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v7
+        with:
+          name: archsync-paper-${{ github.sha }}
+          path: main.pdf
+          if-no-files-found: error
+          retention-days: 30

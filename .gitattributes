@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+
+# Preserve the upstream ACM template files byte-for-byte.
+acmart.cls whitespace=-blank-at-eol
+ACM-Reference-Format.bst whitespace=-blank-at-eol
