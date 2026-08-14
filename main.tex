@@ -188,59 +188,69 @@ Figure~\ref{fig:architecture} separates approved intent from base and proposed i
 
 \begin{figure*}[t]
   \centering
-  \resizebox{\textwidth}{!}{%
+  \resizebox{0.98\textwidth}{!}{%
   \begin{tikzpicture}[
-    every node/.style={font=\sffamily\scriptsize},
-    input/.style={draw=gray!70, fill=gray!7, rounded corners=2pt, align=center, minimum height=10mm, minimum width=25mm},
-    process/.style={draw=blue!60!black, fill=blue!8, rounded corners=2pt, align=center, minimum height=10mm, minimum width=28mm},
-    artifact/.style={draw=violet!60!black, fill=violet!7, rounded corners=2pt, align=center, minimum height=9mm, minimum width=29mm},
-    engine/.style={draw=orange!70!black, fill=orange!12, rounded corners=2pt, align=center, minimum height=14mm, minimum width=31mm},
-    result/.style={draw=teal!65!black, fill=teal!9, rounded corners=2pt, align=center, minimum height=14mm, minimum width=31mm},
-    decision/.style={draw=green!55!black, fill=green!10, rounded corners=2pt, align=left, minimum height=17mm, minimum width=34mm, inner xsep=3mm},
-    group/.style={draw=gray!55, dashed, rounded corners=3pt, inner sep=3.5mm},
-    group title/.style={font=\sffamily\scriptsize\bfseries, text=gray!70!black},
-    flow/.style={-{Latex[length=2.1mm]}, semithick, draw=gray!85},
-    evidence flow/.style={-{Latex[length=2.1mm]}, semithick, dashed, draw=teal!70!black}
+    every node/.style={font=\sffamily\footnotesize},
+    panel/.style={draw=gray!42, fill=gray!3, rounded corners=4pt, minimum height=47mm},
+    declare title/.style={draw=violet!72!black, fill=violet!72!black, text=white, rounded corners=3pt, align=center, minimum height=9mm, text width=39mm, font=\sffamily\footnotesize\bfseries},
+    observe title/.style={draw=blue!68!black, fill=blue!68!black, text=white, rounded corners=3pt, align=center, minimum height=9mm, text width=51mm, font=\sffamily\footnotesize\bfseries},
+    gate title/.style={draw=teal!72!black, fill=teal!72!black, text=white, rounded corners=3pt, align=center, minimum height=9mm, text width=49mm, font=\sffamily\footnotesize\bfseries},
+    input/.style={draw=gray!62, fill=white, rounded corners=3pt, align=center, minimum height=9mm, text width=35mm},
+    process/.style={draw=blue!62!black, fill=blue!7, rounded corners=3pt, align=center, minimum height=9mm, text width=35mm},
+    artifact/.style={draw=violet!62!black, fill=violet!7, rounded corners=3pt, align=center, minimum height=9mm, text width=35mm},
+    lane input/.style={draw=gray!62, fill=white, rounded corners=3pt, align=center, minimum height=12mm, text width=22mm},
+    lane output/.style={draw=blue!62!black, fill=blue!7, rounded corners=3pt, align=center, minimum height=12mm, text width=25mm},
+    compare/.style={draw=orange!72!black, fill=orange!10, rounded corners=3pt, align=center, minimum height=11mm, text width=43mm},
+    finding/.style={draw=teal!68!black, fill=teal!8, rounded corners=3pt, align=center, minimum height=11mm, text width=43mm},
+    pass/.style={draw=green!62!black, fill=green!10, rounded corners=3pt, align=center, minimum height=11mm, text width=12mm, font=\sffamily\scriptsize},
+    block/.style={draw=red!68!black, fill=red!8, rounded corners=3pt, align=center, minimum height=11mm, text width=12mm, font=\sffamily\scriptsize},
+    review/.style={draw=orange!75!black, fill=orange!12, rounded corners=3pt, align=center, minimum height=11mm, text width=12mm, font=\sffamily\scriptsize},
+    flow/.style={-{Latex[length=2.2mm]}, semithick, draw=gray!82},
+    intent flow/.style={-{Latex[length=2.2mm]}, semithick, draw=violet!68!black},
+    flow label/.style={font=\sffamily\scriptsize\bfseries, fill=white, inner sep=1.2pt, text=gray!72!black}
   ]
-    \node[input]    (model)    at (0,2.35) {Approved Contract $M$\\\texttt{architecture.yaml}};
-    \node[process]  (validate) at (3.15,2.35) {Core Validation\\schema + semantics};
-    \node[artifact] (expected) at (6.35,3.05) {Expected Graph\\$(C_E,E_E)$};
-    \node[artifact] (rules)    at (6.35,1.65) {Rules $R$\\model evidence};
+    % Three stage cards keep the contract, implementation state, and gate visually separate.
+    \node[panel, minimum width=45mm] (declarePanel) at (2.30,0) {};
+    \node[panel, minimum width=59mm] (observePanel) at (8.05,0) {};
+    \node[panel, minimum width=58mm] (gatePanel) at (14.25,0) {};
 
-    \node[input]    (base)     at (0,-2.35) {Git Base $S_b$\\committed source tree};
-    \node[process]  (baseScan) at (3.15,-2.35) {Baseline Analysis\\validated graph cache};
-    \node[artifact] (baseGraph) at (6.35,-2.35) {Base Observed Graph\\$G_b=A(S_b)$};
+    \node[declare title] at (2.30,1.88) {1. DECLARE\\[-1mm]{\scriptsize Approved architecture intent}};
+    \node[observe title] at (8.05,1.88) {2. OBSERVE\\[-1mm]{\scriptsize Base snapshot and proposed change}};
+    \node[gate title] at (14.25,1.88) {3. COMPARE AND GATE\\[-1mm]{\scriptsize Introduced findings control the PR}};
 
-    \node[input]    (head)     at (0,-0.55) {Git Head $S_h$ + Diff\\changed paths and hunks};
-    \node[process]  (incremental) at (3.15,-0.55) {Affected Components\\incremental AST analysis};
-    \node[artifact] (headGraph) at (6.35,0.05) {Head Observed Graph\\$G_h=A(S_h)$};
-    \node[artifact] (evidence) at (6.35,-1.15) {Source Evidence $P$\\file $\cdot$ line $\cdot$ detector};
+    \node[input] (model) at (2.30,0.82) {\textbf{Approved contract $M$}\\\texttt{architecture.yaml}};
+    \node[process] (validate) at (2.30,-0.12) {\textbf{Core validation}\\schema + semantics};
+    \node[artifact] (intent) at (2.30,-1.08) {\textbf{Expected graph $G_E$}\\rules $R$ + model evidence};
 
-    \node[engine]   (engine)   at (9.75,0.55) {Base/Head Conformance\\$\mathcal{F}_b=F(M,G_b)$\\$\mathcal{F}_h=F(M,G_h)$};
-    \node[result]   (result)   at (13.20,0.55) {Diff-Scoped Result\\introduced $\mathcal{F}^{+}$\\pre-existing + resolved\\linked model/source evidence};
-    \node[decision] (decision) at (16.95,0.55) {\textbf{Pull-Request Decision}\\no new drift $\rightarrow$ \textbf{PASS}\\new violation $\rightarrow$ \textbf{BLOCK}\\new evolution $\rightarrow$ \textbf{REVIEW}};
+    \node[lane input] (base) at (6.65,0.58) {\textbf{Git base $S_b$}\\committed tree};
+    \node[lane output] (baseGraph) at (9.45,0.58) {\textbf{Baseline analysis}\\cached graph $G_b$};
+    \node[lane input] (head) at (6.65,-0.92) {\textbf{Git head $S_h$ + diff}\\paths + hunks};
+    \node[lane output] (headGraph) at (9.45,-0.92) {\textbf{Affected-component AST}\\$G_h$ + source evidence $P$};
+
+    \node[compare] (conformance) at (14.25,0.74) {\textbf{Base/head conformance}\\$F(M,G_b)$ versus $F(M,G_h)$};
+    \node[finding] (findingDelta) at (14.25,-0.32) {\textbf{Finding delta}\\introduced $\mathcal{F}^{+}$ + linked evidence};
+    \node[pass] (passDecision) at (12.55,-1.47) {\textbf{PASS}\\no new drift};
+    \node[block] (blockDecision) at (14.25,-1.47) {\textbf{BLOCK}\\new violation};
+    \node[review] (reviewDecision) at (15.95,-1.47) {\textbf{REVIEW}\\new evolution};
 
     \draw[flow] (model) -- (validate);
-    \draw[flow] (validate) -- (expected);
-    \draw[flow] (validate) -- (rules);
-    \draw[flow] (base) -- (baseScan);
-    \draw[flow] (baseScan) -- (baseGraph);
-    \draw[flow] (head) -- (incremental);
-    \draw[flow] (incremental) -- (headGraph);
-    \draw[flow] (incremental) -- (evidence);
-    \draw[flow] (expected) -- (engine);
-    \draw[flow] (rules) -- (engine);
-    \draw[flow] (baseGraph) -- (engine);
-    \draw[flow] (headGraph) -- (engine);
-    \draw[flow] (engine) -- (result);
-    \draw[evidence flow] (evidence.east) to[out=0,in=-125] (result.south west);
-    \draw[flow] (result) -- (decision);
+    \draw[flow] (validate) -- (intent);
+    \draw[flow] (base) -- node[flow label, above] {full base scan} (baseGraph);
+    \draw[flow] (head) -- node[flow label, above] {incremental scan} (headGraph);
 
-    \node[group, fit=(model)(validate)(expected)(rules), label={[group title]above:Approved architecture intent}] {};
-    \node[group, fit=(base)(baseScan)(baseGraph)(head)(incremental)(headGraph)(evidence), label={[group title]below:Dynamic observed implementation}] {};
+    \draw[intent flow] (intent.east) -- ++(0.35,0) |- node[flow label, near start, right] {approved intent} ([yshift=4mm]conformance.north west) -- (conformance.north west);
+    \draw[flow] (baseGraph.east) -- node[flow label, above] {base} (conformance.west);
+    \draw[flow] (headGraph.east) -- ++(0.38,0) |- node[flow label, near start, above] {head} (conformance.south west);
+    \draw[flow] (conformance) -- (findingDelta);
+
+    \coordinate (decisionHub) at (14.25,-0.92);
+    \draw[flow] (findingDelta.south) -- (decisionHub);
+    \draw[flow] (decisionHub) -| (passDecision.north);
+    \draw[flow] (decisionHub) -- (blockDecision.north);
+    \draw[flow] (decisionHub) -| (reviewDecision.north);
   \end{tikzpicture}}
-  \caption{ArchSync Phase 3 system architecture. The approved model remains authoritative while the base and head Observed Graphs track implementation. Only findings introduced by the Git diff determine PASS, BLOCK, or REVIEW.}
-  \Description{The upper route validates an approved architecture contract into an expected graph and rules. The lower routes cache a graph for the Git base and incrementally analyze affected components at the head. Base and head conformance findings are compared, evidence is attached, and the pull request receives PASS, BLOCK, or REVIEW.}
+  \caption{ArchSync Phase 3 system architecture. The three-stage view separates approved intent, observed implementation state, and the pull-request gate. The model remains authoritative; only findings introduced by the Git diff determine PASS, BLOCK, or REVIEW.}
+  \Description{Stage one validates the approved architecture contract into an expected graph, rules, and model evidence. Stage two builds a cached base graph and incrementally reconstructs the proposed head with source evidence. Stage three compares base and head findings, keeps the introduced set, and maps it to PASS, BLOCK, or REVIEW.}
   \label{fig:architecture}
 \end{figure*}
 
