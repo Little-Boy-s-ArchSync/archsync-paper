@@ -16,7 +16,7 @@ Repository này phải được giữ ở chế độ **private** trong thời g
     └── build-paper.yml         # Biên dịch và kiểm tra trên GitHub Actions
 ```
 
-Hai sơ đồ hệ thống và quy trình evaluation được viết trực tiếp bằng TikZ trong `main.tex`, vì vậy không cần chỉnh sửa một file ảnh độc lập. Paper báo cáo hai dataset: benchmark end-to-end gồm 20 patch độc lập và corpus detector gồm 20 tín hiệu dương cùng 20 hard negative. Phase 3 tái sử dụng 20 patch dưới dạng Git diff để đo pull-request decision, cache, incremental scan scope và latency; đây là một protocol bổ sung, không phải dataset độc lập thứ ba.
+Hai sơ đồ hệ thống và quy trình evaluation được viết trực tiếp bằng TikZ trong `main.tex`, vì vậy không cần chỉnh sửa một file ảnh độc lập. Paper báo cáo hai dataset: benchmark end-to-end gồm 20 patch độc lập và corpus detector gồm 20 tín hiệu dương cùng 20 hard negative. Phase 3 tái sử dụng 20 patch dưới dạng Git diff để đo pull-request decision, architecture-delta agreement, incremental/full-scan equivalence, cache, scan scope và latency; đây là một protocol bổ sung, không phải dataset độc lập thứ ba.
 
 ## Biên dịch cục bộ
 
