@@ -16,7 +16,7 @@ Repository này phải được giữ ở chế độ **private** trong thời g
     └── build-paper.yml         # Biên dịch và kiểm tra trên GitHub Actions
 ```
 
-Hai sơ đồ hệ thống và quy trình evaluation được viết trực tiếp bằng TikZ trong `main.tex`, vì vậy không cần chỉnh sửa một file ảnh độc lập.
+Hai sơ đồ hệ thống và quy trình evaluation được viết trực tiếp bằng TikZ trong `main.tex`, vì vậy không cần chỉnh sửa một file ảnh độc lập. Paper hiện báo cáo hai dataset: benchmark end-to-end gồm 20 patch độc lập và corpus detector gồm 20 tín hiệu dương cùng 20 hard negative.
 
 ## Biên dịch cục bộ
 
@@ -52,4 +52,4 @@ latexmk -C
 
 ## Nguồn đồng bộ
 
-Source ban đầu được xuất từ dự án Overleaf `ArchSync Research Draft`. Bản GitHub được chuẩn hóa với `main.tex` và `references.bib`; nội dung paper, công thức, bảng và TikZ giữ nguyên so với bản Overleaf tại thời điểm khởi tạo repository.
+Source ban đầu được xuất từ dự án Overleaf `ArchSync Research Draft`. Bản GitHub được chuẩn hóa với `main.tex` và `references.bib`; sau mỗi thay đổi đã kiểm chứng, hai file này phải được đồng bộ trở lại Overleaf và compile không lỗi.

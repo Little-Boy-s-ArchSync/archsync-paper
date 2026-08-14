@@ -19,7 +19,7 @@
 }
 
 \begin{abstract}
-Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a repository as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. We evaluate the prototype on a controlled Order Platform benchmark containing one baseline and ten independently applied patches: five no-impact changes, three violations, and two evolutions. Across the ten patched repositories, full-graph node and edge detection produced 53 and 54 true positives with no false positives or false negatives; changed-graph detection produced three node and six edge true positives with no errors. ArchSync classified 10/10 cases correctly, matched the expected violated-rule set in 3/3 violation cases, and matched both the expected file and an exact source line in 5/5 finding-bearing cases. The baseline and all cases produced byte-identical normalized results across duplicate executions. These results establish feasibility on a small development benchmark, not general accuracy: the benchmark and analyzer were co-developed, the system is synthetic, and only explicit TypeScript/Node.js patterns are covered.
+Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a repository as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. We evaluate the prototype with two controlled datasets. First, an Order Platform benchmark contains 20 independently applied patches: nine no-impact changes, seven violations, and four evolutions. Across these repositories, full-graph node and edge detection produced 105 and 108 true positives; changed-graph detection produced five node and 12 edge true positives, with no false positives or false negatives. ArchSync classified 20/20 cases, matched 7/7 violated-rule sets, and localized 11/11 finding-bearing cases to the expected file and exact line. Second, a 40-signal challenge corpus contains 20 positives and 20 hard negatives across five detectors. A frozen v0.1 analyzer produced 18 true positives, four false positives, two false negatives, and 16 true negatives; provenance-aware v0.2 produced 20, zero, zero, and 20 respectively on the same corpus. All duplicate executions were byte-identical. These are feasibility and regression results, not estimates of general accuracy: both datasets were co-developed with the analyzer, the system is synthetic, and only explicit TypeScript/Node.js patterns are covered.
 \end{abstract}
 
 \begin{CCSXML}
@@ -52,14 +52,15 @@ The underlying problem is not the absence of documentation alone. It is the abse
 
 We present ArchSync, an architecture-conformance workflow based on two graphs. The expected graph is derived from a versioned \texttt{architecture.yaml} document containing components, relationships, and deterministic rules. The observed graph is inferred from source code by stack-specific analyzers. ArchSync compares the graphs and produces one of three classifications: \emph{no-impact} when implementation conforms without topology changes, \emph{violation} when one or more rules are broken, and \emph{evolution} when a non-forbidden topology change requires human review. Findings retain both the model location that establishes the expectation and the source location supporting the observation.
 
-The prototype deliberately focuses on TypeScript and Node.js. It recognizes HTTP calls through \texttt{fetch}, PostgreSQL access through \texttt{pg}, Redis operations, and AMQP publishing and consumption. This bounded scope permits deterministic contracts and reproducible measurement without probabilistic inference. Large-language-model explanations and automatic repairs are excluded from the decision path.
+The prototype deliberately focuses on TypeScript and Node.js. It recognizes HTTP calls through \texttt{fetch}, PostgreSQL access through \texttt{pg}, Redis operations, and AMQP publishing and consumption. This is an empirical boundary rather than a claim that architecture drift is TypeScript-specific: the expected graph, rule engine, finding contract, and metrics are language-neutral, while each additional language requires a separately implemented and evaluated source-to-graph analyzer. The bounded TypeScript scope permits deterministic contracts and reproducible measurement without probabilistic inference. Large-language-model explanations and automatic repairs are excluded from the decision path.
 
 This paper makes the following contributions:
 \begin{itemize}
   \item a machine-readable architecture contract with typed components and relationships plus deny, allow, require, and require-path rules;
-  \item a deterministic TypeScript source-to-graph pipeline with file, line, column, detector, snippet, and confidence evidence;
+  \item a provenance-aware TypeScript source-to-graph pipeline with file, line, column, detector, snippet, and confidence evidence;
   \item a three-way decision model separating violations from topology evolution; and
-  \item a reproducible controlled evaluation whose machine-readable artifact binds the model, baseline, patches, dependencies, outcomes, and result through SHA-256 provenance.
+  \item a reproducible 20-patch end-to-end evaluation plus a 40-signal positive/hard-negative detector corpus; and
+  \item machine-readable evidence that binds models, source trees, patches, runtime packages, outcomes, and results through SHA-256 provenance.
 \end{itemize}
 
 \section{Background and Related Work}
@@ -79,6 +80,12 @@ ArchSync inherits the central expected-versus-implemented comparison from this l
 \subsection{Conformance in Continuous Integration}
 
 Pinto et al. integrate DCL-based conformance into Jenkins and report an industrial-style Java evaluation in which 44 constraints were introduced across six releases and 42 detected violations were corrected before the following release \cite{pinto2017archci}. This demonstrates the value of moving conformance into the integration loop. ArchSync Phase 2 stops one layer earlier: it establishes deterministic analysis, evidence, and benchmark contracts. Pull-request annotations and merge-gate automation remain future work, so the present evaluation concerns detector and decision correctness rather than CI adoption or developer behavior.
+
+\subsection{Evaluation and Static-Analysis Reliability}
+
+Empirical rigor and artifact availability are recurring concerns in software-architecture research. Konersmann et al. classify evaluation and replication support in 153 ICSA and ECSA papers and argue that improved repeatability and generalizability would strengthen the field \cite{konersmann2022replicability}. In adjacent microservice-recovery research, Abgaz et al. report that standardized datasets, metrics, and baselines remain scarce and that bespoke evaluations limit comparison \cite{abgaz2023decomposition}. These findings motivate ArchSync's executable manifests, pinned runtime artifacts, explicit denominators, and cross-platform replay, but they do not make a synthetic development benchmark representative.
+
+False positives and false negatives are also central to static-analysis reliability. Cui et al. study 350 historical FP/FN issues across three analyzers and show that missing cases, language/library handling, and analysis limitations are recurring causes; their metamorphic strategy found additional confirmed defects \cite{cui2024static}. ArchSync therefore complements end-to-end topology changes with annotated positive and hard-negative source signals. The challenge corpus is intentionally a regression instrument: it tests method-name lookalikes, unused imports, aliases, namespace imports, and previously unsupported operations, but is not an independent holdout.
 
 \section{Problem Definition}
 
@@ -112,7 +119,7 @@ The research problem is to determine whether an implementation-level analyzer ca
 
 \textbf{RQ1: How accurately can ArchSync reconstruct software architecture components and relationships from TypeScript source code?}
 
-This question measures precision, recall, and F1 score for complete observed graphs and for nodes and edges changed by a patch.
+This question measures precision, recall, and F1 score for complete observed graphs and for nodes and edges changed by a patch. At the detector-signal level it additionally measures true negatives and specificity on annotated hard negatives.
 
 \textbf{RQ2: How accurately can ArchSync distinguish no-impact changes, architecture-rule violations, and architecture evolution?}
 
@@ -138,7 +145,7 @@ The validated model is converted into an expected graph with stable node identif
 
 A Guardian analyzer traverses TypeScript files under component roots and parses them through the TypeScript Compiler API. Rather than matching arbitrary text, detectors inspect syntax-tree nodes, imports, call expressions, variable initialization, environment-variable references, and URL literals. Stack-specific detectors translate these signals into typed architectural relationships.
 
-The initial detector set recognizes HTTP requests, PostgreSQL clients and queries, Redis clients and operations, and AMQP publishing and consumption. Endpoint resolution uses explicit literals and deterministic environment-variable fallbacks when available. Every detected relationship carries one or more source locations. Detected components and relationships are sorted and deduplicated before serialization.
+The detector set recognizes HTTP requests, PostgreSQL clients and queries, Redis clients and operations, and AMQP publishing and consumption. Version 0.2 tracks local bindings introduced by named, aliased, and namespace imports from \texttt{pg}, \texttt{redis}, and \texttt{amqplib}. PostgreSQL and Redis edges are emitted only for operations on clients derived from those bindings; AMQP edges require a channel derived from a tracked connection. This package provenance prevents unrelated objects named \texttt{query}, \texttt{get}, \texttt{publish}, or \texttt{consume} from becoming edges merely because an infrastructure package appears in the same file. Endpoint resolution uses explicit literals and deterministic environment-variable fallbacks when available. Every detected relationship carries one or more source locations. Detected components and relationships are sorted and deduplicated before serialization.
 
 \subsection{Conformance and Decision Semantics}
 
@@ -221,70 +228,74 @@ The architecture is divided across focused repositories. \texttt{archsync-\allow
 
 The implementation is divided across three repositories used in this study. \texttt{archsync-core} implements Architecture Model version 0.1, JSON Schema and semantic validation, normalized graphs, graph difference, deny/allow/require/require-path semantics, command-line reports, and deterministic Mermaid and draw.io projections. Its verification suite contains 83 tests and reports 98.89\% statement coverage, 91.97\% branch coverage, 100\% function coverage, and 98.89\% line coverage.
 
-\texttt{archsync-guardian} implements Observed Graph and Finding Contract version 0.1. The analyzer traverses TypeScript files, maps component roots, parses syntax trees through the TypeScript Compiler API, resolves explicit literals and selected environment-variable fallbacks, runs HTTP/PostgreSQL/Redis/AMQP detectors, captures evidence, and sorts and deduplicates output. Guardian delegates graph difference and rule semantics to Core. Its verification suite contains 22 tests and reports 96.59\% statement coverage, 89.57\% branch coverage, 97.56\% function coverage, and 96.59\% line coverage.
+\texttt{archsync-guardian} implements Observed Graph and Finding Contract version 0.1 with analyzer implementation version 0.2. The analyzer traverses TypeScript files, maps component roots, parses syntax trees through the TypeScript Compiler API, resolves explicit literals and selected environment-variable fallbacks, runs HTTP/PostgreSQL/Redis/AMQP detectors, captures evidence, and sorts and deduplicates output. Guardian delegates graph difference and rule semantics to Core. Its verification suite contains 24 tests and reports 96.54\% statement coverage, 88.95\% branch coverage, 97.67\% function coverage, and 96.54\% line coverage.
 
-\texttt{archsync-benchmark} provides the Order Platform baseline, ten real unified-diff patches, the ground-truth manifest, integrity validation, mutation tests, and the evaluation runner. Each patch is applied to a fresh temporary copy of the baseline. The benchmark suite contains 14 invariant and mutation tests. \texttt{archsync-mcp} is not used in the experiment.
+\texttt{archsync-benchmark} provides the Order Platform baseline, 20 real unified-diff patches, the ground-truth manifest, a 40-signal TypeScript challenge corpus, integrity validation, mutation tests, and evaluation runners. Each patch is applied to a fresh temporary copy of the baseline. Signal annotations bind detector, file, exact line, expected edge, and a required source substring. The benchmark suite contains 14 invariant and mutation tests. \texttt{archsync-mcp} is not used in the experiment.
 
 \subsection{Reproducibility Controls}
 
-The benchmark pins Core commit \texttt{304f4ac48137} and Guardian commit \texttt{e1cd98956856}. The manifest records SHA-256 values for the architecture model, nine-file baseline tree, and ten-patch set. The generated evidence additionally hashes the manifest and normalized result and records explicit denominators for classification, rule-set, evidence, and determinism measures.
+The benchmark pins Core commit \texttt{304f4ac48137} and Guardian commit \texttt{6677c462c685}. The end-to-end manifest records SHA-256 values for the architecture model, nine-file baseline tree, and 20-patch set. The challenge evidence separately hashes its signal manifest, architecture, source tree, normalized result, and analyzer package. A frozen v0.1 result remains bound to Guardian commit \texttt{e1cd98956856} and its original package hash. Generated evidence records explicit denominators for classification, rule-set, evidence, determinism, and the signal-level confusion matrix.
 
-We executed the complete verification commands from clean repository clones on Windows with Node.js 22.16.0 and pnpm 11.16.0. The clean working trees remained unchanged after installation and verification. Core passed 83/83 tests and 13/13 CLI smoke checks; Guardian passed 22/22 tests and 7/7 CLI smoke checks; the benchmark passed 14/14 tests, validated all 10 patches, and reproduced the committed result. After packaging the pinned Core and Guardian revisions as SHA-256-verified runtime artifacts, GitHub Actions also ran the complete benchmark gate from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts at benchmark commit \texttt{278019c06929}; both jobs passed, including all 22 analyzer executions and the evidence-drift check.
+We executed the complete verification commands on Windows with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. Core passed 83/83 tests and 13/13 CLI smoke checks; Guardian passed 24/24 tests and 7/7 CLI smoke checks; the benchmark passed 14/14 tests, validated all 20 patches and 40 annotated signals, and reproduced both current evidence artifacts plus the frozen baseline provenance. After packaging the pinned Core and Guardian revisions as SHA-256-verified runtime artifacts, GitHub Actions ran the complete gates from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts. Both benchmark jobs passed at commit \texttt{021b17b5a645}, as did both Guardian jobs at \texttt{6677c462c685} and both Core jobs at \texttt{df1945e90ac0}.
 
 \section{Evaluation Methodology}
 
-\subsection{Experimental Object}
+\subsection{Experimental Objects}
 
-The experiment uses a controlled Order Platform implemented in TypeScript and Node.js. Its expected baseline contains five components and five directed relationships. Ten patches are distributed as five no-impact changes, three rule violations, and two architecture evolutions. They include internal refactoring, forbidden service bypasses, removal of a required dependency, addition of Redis, and introduction of AMQP communication.
+The evaluation uses two controlled TypeScript/Node.js datasets. Dataset D1 is an end-to-end Order Platform benchmark whose expected baseline contains five components and five directed relationships. Twenty patches are distributed as nine no-impact changes, seven rule violations, and four architecture evolutions. In addition to refactoring, service bypass, required-edge removal, Redis, and AMQP cases from the initial benchmark, the expansion includes documentation-only URLs, type-only imports, method-name lookalikes, direct gateway database access, allow-rule violations, a broken multi-hop path, aliased PostgreSQL construction, a new service, and a Redis hash operation.
 
-Each case declares changed files, expected graph delta, classification, findings, and source location. The topology labels and classifications originated in Phase 1. Patch implementations and exact evidence lines were refined while the Phase 2 analyzer was integrated. The resulting artifact is therefore a development benchmark and regression oracle, not a blinded holdout set. Validators check structural consistency, patch applicability, changed-file membership, patch-hunk containment, and integrity hashes; they do not replace independent semantic review.
+Each D1 case declares changed files, expected graph delta, classification, findings, and source location. The topology labels and classifications originated in Phase 1. Patch implementations and exact evidence lines were refined while the Phase 2 analyzer was integrated. D1 is therefore a development benchmark and regression oracle, not a blinded holdout. Validators check structural consistency, distribution, patch applicability, changed-file membership, patch-hunk containment, and integrity hashes; they do not replace independent semantic review.
+
+Dataset D2 is a detector challenge corpus with five groups: \texttt{fetch}, PostgreSQL, Redis, AMQP publish, and AMQP consume. Each group contains four positive and four hard-negative source lines, giving 20 positives and 20 negatives. Positive variants include aliases, namespace imports, environment fallbacks, and multiple supported operations. Hard negatives include URL text without a call, custom functions, unused package imports, local objects with detector-shaped method names, lifecycle calls, comments, and string literals. The manifest binds each signal to a detector, source file, exact line, expected edge, description, and required source substring.
+
+D2 was authored after the initial v0.1 analyzer and deliberately targets its weaknesses. We execute both the frozen v0.1 artifact and provenance-aware v0.2 on the same corpus. This paired comparison identifies concrete regression behavior but is not an unbiased estimate of improvement on unseen programs.
 
 Figure~\ref{fig:evaluation-protocol} summarizes the executable evaluation protocol and shows how raw analyzer executions become the reported metrics and evidence artifact.
 
 \begin{figure*}[t]
   \centering
   \begin{tikzpicture}[
-    every node/.style={font=\sffamily\footnotesize},
-    stage/.style={rounded corners=3pt, align=center, inner xsep=2.2mm, inner ysep=2.2mm, minimum height=22mm},
-    data/.style={stage, draw=gray!70, fill=gray!7, text width=25mm},
-    gate/.style={stage, draw=blue!65!black, fill=blue!9, text width=24mm},
-    run/.style={rounded corners=3pt, align=center, inner xsep=2.5mm, inner ysep=2mm, minimum height=13mm, text width=26mm, draw=violet!65!black, fill=violet!8},
+    every node/.style={font=\sffamily\scriptsize},
+    stage/.style={rounded corners=3pt, align=center, inner xsep=1.8mm, inner ysep=1.7mm, minimum height=17mm},
+    data/.style={stage, draw=gray!70, fill=gray!7, text width=27mm},
+    gate/.style={stage, draw=blue!65!black, fill=blue!9, text width=25mm},
+    run/.style={stage, draw=violet!65!black, fill=violet!8, text width=27mm},
     verify/.style={stage, draw=orange!75!black, fill=orange!13, text width=28mm},
-    output/.style={stage, draw=green!55!black, fill=green!11, text width=30mm},
-    route note/.style={font=\sffamily\scriptsize\itshape, text=gray!70!black, align=center},
-    flow/.style={-{Latex[length=2.2mm]}, thick, draw=gray!80},
-    connector/.style={thick, draw=gray!80},
-    merge dot/.style={circle, fill=gray!70, inner sep=1.4pt}
+    output/.style={stage, draw=green!55!black, fill=green!11, text width=31mm},
+    row label/.style={font=\sffamily\scriptsize\bfseries, text=gray!70!black, anchor=east},
+    flow/.style={-{Latex[length=2.0mm]}, semithick, draw=gray!80}
   ]
-    \node[data] (inputs) at (0,0) {\textbf{1. BENCHMARK\\INPUTS}\\[0.8mm]\texttt{architecture.yaml}\\9-file baseline\\10 patches + expected\\labels};
+    \node[row label] at (-1.72,1.25) {D1};
+    \node[data] (d1) at (0,1.25) {\textbf{END-TO-END}\\9-file baseline\\20 isolated patches\\expected graph + outcome};
+    \node[gate] (d1gate) at (3.35,1.25) {\textbf{INTEGRITY}\\schema + semantics\\patch applicability\\model/tree/patch hashes};
+    \node[run] (d1run) at (6.75,1.25) {\textbf{EXECUTION}\\baseline twice\\each patched copy twice\\42 analyzer runs};
+    \node[verify] (d1verify) at (10.15,1.25) {\textbf{ORACLES}\\nodes + edges + class\\rules + file + exact line\\byte-identical replay};
+    \node[output] (d1out) at (13.85,1.25) {\textbf{D1 EVIDENCE}\\TP/FP/FN + P/R/F1\\20 class; 7 rule sets\\11 exact locations};
 
-    \node[gate] (integrity) at (3.35,0) {\textbf{2. INTEGRITY GATE}\\[0.8mm]schema + semantics\\patch applicability\\SHA-256 provenance};
+    \node[row label] at (-1.72,-1.25) {D2};
+    \node[data] (d2) at (0,-1.25) {\textbf{DETECTOR CORPUS}\\5 detector groups\\20 positive signals\\20 hard negatives};
+    \node[gate] (d2gate) at (3.35,-1.25) {\textbf{ANNOTATIONS}\\detector + edge\\file + exact line\\manifest/tree hashes};
+    \node[run] (d2run) at (6.75,-1.25) {\textbf{PAIRED RUN}\\frozen v0.1 twice\\v0.2 twice\\4 analyzer runs};
+    \node[verify] (d2verify) at (10.15,-1.25) {\textbf{SIGNAL ORACLE}\\TP + FP + FN + TN\\P/R/F1 + specificity\\byte-identical replay};
+    \node[output] (d2out) at (13.85,-1.25) {\textbf{D2 EVIDENCE}\\v0.1: 18/4/2/16\\v0.2: 20/0/0/20\\artifact provenance};
 
-    \node[run] (baseline) at (6.75,1.05) {\textbf{3a. BASELINE ROUTE}\\unchanged repository\\analyze twice};
-    \node[run] (cases) at (6.75,-1.05) {\textbf{3b. TEN CASE ROUTES}\\fresh baseline + one patch\\analyze twice per case};
-    \node[route note, below=2mm of cases] {each patch is applied independently};
-
-    \coordinate[merge dot] (merge) at (8.52,0);
-    \node[verify] (verification) at (10.35,0) {\textbf{4. VERIFICATION}\\[0.8mm]byte-identical replay\\nodes + edges + classification\\rules + file + exact line\\\textit{22 analyzer executions}};
-
-    \node[output] (evidence) at (14.05,0) {\textbf{5. EVIDENCE ARTIFACT}\\[0.8mm]TP / FP / FN and P / R / F1\\10/10 class $\cdot$ 3/3 rules\\5/5 file + exact-line evidence\\Windows + Ubuntu CI};
-
-    \draw[flow] (inputs.east) -- (integrity.west);
-    \draw[flow] (integrity.east) to[out=0,in=180] (baseline.west);
-    \draw[flow] (integrity.east) to[out=0,in=180] (cases.west);
-    \draw[connector] (baseline.east) to[out=0,in=90] (merge);
-    \draw[connector] (cases.east) to[out=0,in=-90] (merge);
-    \draw[flow] (merge) -- (verification.west);
-    \draw[flow] (verification.east) -- (evidence.west);
+    \draw[flow] (d1.east) -- (d1gate.west);
+    \draw[flow] (d1gate.east) -- (d1run.west);
+    \draw[flow] (d1run.east) -- (d1verify.west);
+    \draw[flow] (d1verify.east) -- (d1out.west);
+    \draw[flow] (d2.east) -- (d2gate.west);
+    \draw[flow] (d2gate.east) -- (d2run.west);
+    \draw[flow] (d2run.east) -- (d2verify.west);
+    \draw[flow] (d2verify.east) -- (d2out.west);
   \end{tikzpicture}
-  \caption{Reproducible Phase 2 evaluation protocol. Integrity checks precede two isolated execution routes; only replay- and ground-truth-verified outputs enter the reported evidence artifact.}
-  \Description{Benchmark inputs pass schema, semantic, patch-applicability, and SHA-256 checks. The unchanged baseline is analyzed twice, while each of ten patches is independently applied to a fresh baseline and analyzed twice. Replay, graph, classification, rule, file, and exact-line checks verify 22 analyzer executions before metrics and multi-platform CI evidence are recorded.}
+  \caption{Two-dataset Phase 2 evaluation protocol. D1 measures end-to-end graph, decision, evidence, and replay behavior; D2 isolates positive and hard-negative detector signals and compares the frozen v0.1 artifact with v0.2.}
+  \Description{The upper route validates a baseline and 20 independent patches, performs 42 analyzer executions, and compares graphs, classifications, rules, source locations, and replay. The lower route validates 40 annotated signals, runs two analyzer versions twice each, and records signal-level confusion matrices and artifact provenance.}
   \label{fig:evaluation-protocol}
 \end{figure*}
 
 \subsection{Procedure}
 
-The executed procedure was:
+The executed procedure for D1 was:
 \begin{enumerate}
   \item validate the expected architecture, ground-truth manifest, hashes, and all patch applications;
   \item analyze the unchanged baseline twice;
@@ -294,29 +305,32 @@ The executed procedure was:
   \item remove the temporary directory before the next case.
 \end{enumerate}
 
-This protocol performs 22 analyzer executions per evaluation: two for the baseline and two for each of ten cases. Repeated results are compared as normalized JSON. Reproducibility is checked locally and in CI. The benchmark workflow installs SHA-256-verified runtime packages and executes the full protocol from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts; both jobs passed for benchmark commit \texttt{278019c06929}.
+D1 performs 42 analyzer executions: two for the baseline and two for each of 20 cases. For D2, the manifest and annotated lines are validated before the entire repository is analyzed twice with each pinned analyzer version. Each observed relationship is expanded into detector--edge--file--line signals and compared with the annotations. D2 therefore adds four recorded executions, 46 across the reported current and historical evidence. The continuously rerun v0.2 gate executes 44 of them and verifies the frozen v0.1 package, hashes, metrics, and evidence without rewriting that historical result.
+
+Repeated results are compared as normalized JSON. The benchmark workflow installs SHA-256-verified runtime packages and executes the v0.2 protocol from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts; both jobs passed for benchmark commit \texttt{021b17b5a645}.
 
 \subsection{Metrics}
 
-For node and edge detection, true positives, false positives, and false negatives are aggregated across cases. Precision, recall, and F1 are
+For D1 node and edge detection, true positives, false positives, and false negatives are aggregated across cases. D2 adds true negatives for explicitly annotated hard-negative signals. Precision, recall, F1, and specificity are
 \begin{align}
   \operatorname{Precision} &= \frac{TP}{TP+FP},\\
   \operatorname{Recall} &= \frac{TP}{TP+FN},\\
   F_1 &= 2\cdot\frac{\operatorname{Precision}\cdot\operatorname{Recall}}
-  {\operatorname{Precision}+\operatorname{Recall}}.
+  {\operatorname{Precision}+\operatorname{Recall}},\\
+  \operatorname{Specificity} &= \frac{TN}{TN+FP}.
 \end{align}
-We report both complete-graph and patch-changed node and edge metrics. When both expected and predicted changed sets are empty, the case is an exact match but contributes no positive item to the aggregate TP/FP/FN counts.
+We report both complete-graph and patch-changed node and edge metrics. When both expected and predicted changed sets are empty, the case is an exact match but contributes no positive item to the aggregate TP/FP/FN counts. D2's TP, FP, FN, and TN units are annotated detector signals rather than distinct graph edges; several positive source locations may support the same edge.
 
-Classification agreement is measured across all ten cases. Rule-set agreement is measured on the three violation cases. File and exact-line agreement are measured on the five finding-bearing cases; exact-line agreement means that at least one evidence item for the matched finding has the expected file and line. Determinism requires byte-identical normalized output across the two executions of each input.
+Classification agreement is measured across all 20 cases. Rule-set agreement is measured on the seven violation cases. File and exact-line agreement are measured on the 11 finding-bearing cases; exact-line agreement means that at least one evidence item for the matched finding has the expected file and line. Determinism requires byte-identical normalized output across duplicate executions.
 
 \subsection{Acceptance Criteria}
 
-Before reporting the run, the engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard; the raw counts and exact denominators are therefore reported alongside it.
+Before reporting the run, the D1 engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. D2 v0.2 additionally required zero missed positive signals, zero unexpected detections, all 20 hard negatives rejected, and byte-identical replay. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard; raw counts and exact denominators are therefore reported alongside it.
 
 \section{Results}
 
 \begin{table*}[t]
-  \caption{Aggregate node and edge detection on ten independently applied patches.}
+  \caption{D1 aggregate node and edge detection on 20 independently applied patches.}
   \label{tab:detection-results}
   \centering
   \small
@@ -324,10 +338,10 @@ Before reporting the run, the engineering exit gate required node and edge preci
     \hline
     Measure & TP & FP & FN & Precision & Recall & F1 \\
     \hline
-    Full-graph nodes & 53 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-    Full-graph edges & 54 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-    Changed nodes & 3 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-    Changed edges & 6 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Full-graph nodes & 105 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Full-graph edges & 108 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Changed nodes & 5 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Changed edges & 12 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
     \hline
   \end{tabular}
 \end{table*}
@@ -341,61 +355,86 @@ Before reporting the run, the engineering exit gate required node and edge preci
     \hline
     Measure & Matches & Total \\
     \hline
-    Classification & 10 & 10 \\
-    Violation rule set & 3 & 3 \\
-    Evidence file & 5 & 5 \\
-    Evidence exact line & 5 & 5 \\
-    Deterministic cases & 10 & 10 \\
+    Classification & 20 & 20 \\
+    Violation rule set & 7 & 7 \\
+    Evidence file & 11 & 11 \\
+    Evidence exact line & 11 & 11 \\
+    Deterministic cases & 20 & 20 \\
     \hline
   \end{tabular}
 \end{table}
 
-\textbf{RQ1: graph reconstruction.}
-The unchanged repository was reconstructed as five components and five relationships with a no-impact classification. Table~\ref{tab:detection-results} reports no false positive or false negative in the controlled cases. The full-graph totals aggregate 53 expected nodes and 54 expected edges across ten patched repositories. Changed-graph totals are much smaller: three node changes and six edge changes.
+\begin{table*}[t]
+  \caption{D2 signal-level confusion matrices for the frozen v0.1 and provenance-aware v0.2 analyzers on the same 40-signal corpus.}
+  \label{tab:pattern-results}
+  \centering
+  \small
+  \begin{tabular}{lrrrrrrrr}
+    \hline
+    & \multicolumn{4}{c}{v0.1} & \multicolumn{4}{c}{v0.2} \\
+    Detector & TP & FP & FN & TN & TP & FP & FN & TN \\
+    \hline
+    \texttt{fetch} & 4 & 0 & 0 & 4 & 4 & 0 & 0 & 4 \\
+    PostgreSQL & 4 & 1 & 0 & 3 & 4 & 0 & 0 & 4 \\
+    Redis & 2 & 0 & 2 & 4 & 4 & 0 & 0 & 4 \\
+    AMQP publish & 4 & 2 & 0 & 2 & 4 & 0 & 0 & 4 \\
+    AMQP consume & 4 & 1 & 0 & 3 & 4 & 0 & 0 & 4 \\
+    \hline
+    Overall & 18 & 4 & 2 & 16 & 20 & 0 & 0 & 20 \\
+    \hline
+  \end{tabular}
+\end{table*}
+
+\textbf{RQ1: graph reconstruction and detector signals.}
+The unchanged repository was reconstructed as five components and five relationships with a no-impact classification. Table~\ref{tab:detection-results} reports no false positive or false negative in D1. Full-graph totals aggregate 105 expected nodes and 108 expected edges across 20 patched repositories. Changed-graph denominators are smaller but doubled relative to the initial benchmark: five node changes and 12 edge changes.
+
+Table~\ref{tab:pattern-results} gives the harder signal-level result. On D2, v0.1 achieved precision 0.818182, recall 0.900000, F1 0.857143, and specificity 0.800000. Its four false positives were a PostgreSQL-shaped local query, two AMQP-publish lookalikes, and an AMQP-consume lookalike; its two false negatives were Redis \texttt{hSet} and \texttt{lPush}. On the same annotated signals, v0.2 achieved 1.000000 for all four metrics. Package-provenance tracking removed the four method-name false positives, while the expanded Redis operation set recovered the two missed positives. This is a targeted regression improvement on D2, not an estimate over arbitrary TypeScript syntax.
 
 \textbf{RQ2: change classification.}
-ArchSync matched all ten labels: five no-impact, three violation, and two evolution cases. It also matched the complete expected rule-identifier set for all three violations. Redis and AMQP additions were classified as evolution rather than violation, preserving a human-review path.
+ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evolution cases. It also matched the complete expected rule-identifier set for all seven violations. The added allow and require-path cases exercise rule semantics beyond direct deny and require checks. Redis, AMQP, Fraud Service, and payment-cache additions were classified as evolution rather than violation, preserving a human-review path.
 
 \textbf{RQ3: evidence localization.}
-All five finding-bearing cases contained the expected file and at least one evidence item at the exact expected line. The three violation cases pointed to either the introducing call site or, for a missing required edge, a deterministic component anchor. The two evolution cases pointed to Redis or AMQP operations. The metric does not evaluate uniqueness or ranking when multiple evidence items exist.
+All 11 finding-bearing D1 cases contained the expected file and at least one evidence item at the exact expected line. Violation cases pointed to either the introducing call site or, for a missing required edge or path, a deterministic component anchor. Evolution cases pointed to the operation that created the new observed relationship. The metric does not evaluate uniqueness or ranking when multiple evidence items exist.
 
 \textbf{RQ4: determinism and reproducibility.}
-The baseline and all ten cases produced byte-identical normalized JSON across duplicate executions. Thus one evaluation comprised 22 analyzer executions with no replay mismatch. A separate clean-clone verification on Windows reproduced the stored result and all repository quality gates. GitHub Actions independently reproduced the full benchmark and stored result on both \texttt{ubuntu-latest} and \texttt{windows-latest}.
+The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. Local verification reproduced the stored result and all repository quality gates. GitHub Actions independently reproduced the full current-version benchmark and corpus evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}.
 
-The evidence artifact records model SHA-256 \texttt{9f3d7602d5e0}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{a4d216d80752}, the pinned Core and Guardian revisions, and runtime-package SHA-256 values \texttt{ea2727f9d564} and \texttt{2fd7a085e338}.
+The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{ea2727f9d564} for Core and \texttt{05da612cdaca} for Guardian v0.2. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.
 
 \section{Discussion}
 
-The experiment provides a positive feasibility result for the defined TypeScript/Node.js slice. For RQ1, deterministic AST detectors reconstructed every expected node and edge represented by the benchmark. For RQ2, the rule engine correctly gave violation precedence over topology evolution, while the REVIEW path avoided treating every new technology as forbidden. For RQ3, source locations made findings inspectable without asking a reviewer to rediscover the relevant call. For RQ4, normalized ordering and evidence deduplication removed observed replay variation.
+The experiment provides a positive feasibility result for the defined TypeScript/Node.js slice. For RQ1, deterministic AST detectors reconstructed every expected node and edge represented by D1, while D2 exposed six concrete v0.1 signal errors that the provenance-aware implementation corrected. For RQ2, the rule engine correctly gave violation precedence over topology evolution, while the REVIEW path avoided treating every new technology as forbidden. For RQ3, source locations made findings inspectable without asking a reviewer to rediscover the relevant call. For RQ4, normalized ordering and evidence deduplication removed observed replay variation.
 
-The perfect scores must be interpreted with the denominators in Tables~\ref{tab:detection-results} and~\ref{tab:outcome-results}. Five no-impact cases contain no changed graph items. Only three changed nodes, six changed edges, three violation rule sets, and five finding-bearing cases exercise the corresponding positive outcomes. Moreover, the benchmark and analyzer were co-developed. The result is strong evidence that the implemented contracts and regression scenarios agree, but it is not an unbiased estimate of performance on unseen repositories.
+The v0.2 perfect scores must be interpreted with the denominators in Tables~\ref{tab:detection-results}--\ref{tab:pattern-results}. Nine no-impact cases contain no changed graph items. D1 contains only five changed nodes, 12 changed edges, seven violation rule sets, and 11 finding-bearing cases. D2 contains 20 positives and 20 deliberately selected hard negatives, four of each per detector. Moreover, both datasets and the analyzer were co-developed. The result is strong evidence that the implemented contracts and regression scenarios agree, but it is not an unbiased estimate of performance on unseen repositories.
 
-The three-way decision is practically significant even in this small study. Cases that bypassed architectural rules were blocked, whereas Redis and AMQP additions were surfaced for review. This distinction supports architecture evolution without silently rewriting the expected model. Missing-edge evidence also exposes an inherent limitation: because an absent call has no call site, ArchSync anchors the finding to a deterministic source location in the responsible component.
+The v0.1--v0.2 comparison illustrates why end-to-end patches alone are insufficient. Repeated baseline structure can dominate aggregate graph counts, and ordinary no-impact patches may not contain adversarial method-name collisions. Exact source-line signal annotations made false positives and false negatives visible and linked the implementation change to measured behavior. Nevertheless, because D2 was designed after observing v0.1, its value is regression protection and causal diagnosis rather than external validation.
 
-A stronger next experiment should freeze the current analyzer, construct a blinded holdout set through an independent reviewer, and evaluate at least one real TypeScript repository. Challenge cases should include aliased imports, wrapper libraries, dynamic endpoint construction, dependency injection, monorepo layouts, generated code, unsupported Redis operations, and runtime-only dependencies. Performance and developer-comprehension measurements should be added only after correctness is tested on that broader corpus.
+The three-way decision is practically significant even in this study. Cases that bypassed architectural rules were blocked, whereas non-forbidden Redis, AMQP, service, and cache additions were surfaced for review. This distinction supports architecture evolution without silently rewriting the expected model. Missing-edge evidence also exposes an inherent limitation: because an absent call has no call site, ArchSync anchors the finding to a deterministic source location in the responsible component.
+
+A stronger next experiment should freeze v0.2, construct a blinded holdout through independent reviewers, and evaluate multiple real TypeScript repositories. Challenge cases should include wrapper libraries, re-exports, dynamic endpoint construction, dependency injection, unconventional monorepos, generated code, and runtime-only dependencies. Performance and developer-comprehension measurements should follow correctness evaluation on that broader corpus. The Core model and conformance engine can be reused for Java, Python, C\#, or Go, but each language requires a separately implemented analyzer and language-specific benchmark before cross-language claims are justified.
 
 \section{Threats to Validity}
 
 \textbf{Construct validity.}
-Node, edge, classification, and evidence measures capture detectable topology and explicit rules, not component responsibility, architectural rationale, or runtime quality attributes. Exact-line agreement requires at least one matching evidence item and does not measure ranking, completeness of all supporting locations, or reviewer effort. Full-graph counts repeatedly include baseline structure, so changed-graph counts are necessary for interpretation.
+Node, edge, classification, and evidence measures capture detectable topology and explicit rules, not component responsibility, architectural rationale, or runtime quality attributes. Exact-line agreement requires at least one matching evidence item and does not measure ranking, completeness of all supporting locations, or reviewer effort. D2 treats annotated file-line-detector-edge tuples as signals, so multiple signals may support one relationship. Its specificity covers the declared hard negatives, not all unannotated syntax. Full-graph counts repeatedly include baseline structure, so changed-graph counts remain necessary for interpretation.
 
 \textbf{Internal validity.}
-The authors curated both analyzer and benchmark. Although topology intent was established in Phase 1, executable patches and exact evidence lines were refined during Phase 2 integration. This creates benchmark-tuning and confirmation risks. Schema checks, mutation tests, independent patch application, hash binding, and raw per-case predictions prevent accidental inconsistency but do not provide an independent ground-truth judgment.
+The authors curated the analyzer and both datasets. Although D1 topology intent was established in Phase 1, executable patches and exact evidence lines were refined during Phase 2 integration. D2 was explicitly authored after v0.1 and used to guide v0.2, creating benchmark-tuning and confirmation risks. Schema checks, mutation tests, independent patch application, source-line annotations, frozen artifacts, hash binding, and raw predictions prevent accidental inconsistency and retrospective number changes but do not provide independent ground-truth judgment.
 
 \textbf{External validity.}
-The study contains one small synthetic TypeScript/Node.js system and ten changes. Detectors cover selected \texttt{fetch}, \texttt{pg}, Redis, and AMQP patterns. Results may not generalize to wrapper libraries, dynamic endpoints, reflection, dependency injection, unconventional monorepos, generated code, other languages, infrastructure-as-code, or runtime-only relationships.
+The study contains one small synthetic TypeScript/Node.js system, 20 changes, and 40 controlled detector signals. Detectors cover selected \texttt{fetch}, \texttt{pg}, Redis, and AMQP patterns. Results may not generalize to wrapper libraries, dynamic endpoints, reflection, dependency injection, unconventional monorepos, generated code, other languages, infrastructure-as-code, or runtime-only relationships. The architecture and conformance contracts are designed to be language-neutral, but only the TypeScript analyzer has empirical evidence.
 
 \textbf{Conclusion validity.}
-The benchmark has only three positive changed-node items, six positive changed-edge items, three violation rule sets, and five evidence-bearing cases. Perfect agreement on these counts is a feasibility and regression result, not a statistical claim about a population. No confidence interval or significance test is meaningful for the current development set.
+D1 has only five positive changed-node items, 12 positive changed-edge items, seven violation rule sets, and 11 evidence-bearing cases. D2 has 20 positive and 20 hard-negative signals. Perfect v0.2 agreement on these finite, co-developed sets is a feasibility and regression result, not a statistical claim about a population. No confidence interval or significance test is used because the samples are not random draws from a defined population.
 
 \textbf{Reliability.}
-Dependencies and inputs are pinned and hashed, paths and JSON are normalized, patches are isolated, and every input is executed twice. A clean local Windows clone reproduced the result with Node.js 22.16.0 and pnpm 11.16.0. GitHub Actions additionally reproduced the full benchmark on clean \texttt{ubuntu-latest} and \texttt{windows-latest} runners at commit \texttt{278019c06929} using SHA-256-verified artifacts built from the pinned Core and Guardian revisions. These controls reduce, but do not eliminate, platform and toolchain threats; the study still uses one Node.js major version and one pnpm version.
+Dependencies and inputs are pinned and hashed, paths and JSON are normalized, patches are isolated, and every current input is executed twice. Local Windows verification reproduced the result with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. GitHub Actions additionally reproduced the complete current gate on clean \texttt{ubuntu-latest} and \texttt{windows-latest} runners at benchmark commit \texttt{021b17b5a645} using SHA-256-verified artifacts. The v0.1 challenge result is frozen and provenance-validated rather than re-executed by the current gate. These controls reduce, but do not eliminate, platform and toolchain threats; the study still uses one Node.js major version and one pnpm major version.
 
 \section{Conclusion and Future Work}
 
-ArchSync implements a deterministic bridge between a declared architecture contract and a source-derived TypeScript service graph. In the controlled ten-patch Order Platform benchmark, it achieved 1.000 precision, recall, and F1 for aggregate full and changed node and edge detection, classified 10/10 cases, matched 3/3 violation rule sets, localized 5/5 finding-bearing cases to the expected file and line, and reproduced all outputs across duplicate executions.
+ArchSync implements a deterministic bridge between a declared architecture contract and a source-derived TypeScript service graph. In D1, it achieved 1.000 precision, recall, and F1 for aggregate full and changed node and edge detection, classified 20/20 patches, matched 7/7 violation rule sets, localized 11/11 finding-bearing cases to the expected file and line, and reproduced all outputs across 42 executions. In D2, the frozen v0.1 analyzer produced 18 TP, 4 FP, 2 FN, and 16 TN; provenance-aware v0.2 produced 20 TP, 0 FP, 0 FN, and 20 TN on the same annotated corpus.
 
-These numbers demonstrate that the current contracts, detectors, and benchmark scenarios operate coherently; they do not establish general accuracy because the development benchmark is small and co-evolved with the implementation. The immediate research priority is therefore an independently curated holdout evaluation on additional TypeScript systems and toolchain versions. Engineering work will extend analysis to Git diffs, pull-request annotations, and merge gates while preserving the deterministic result as the authoritative decision. Later studies should investigate unsupported language patterns, scalability, false-positive and false-negative causes, evidence comprehension, and architect decision time.
+These numbers demonstrate that the current contracts, detectors, and regression scenarios operate coherently; they do not establish general accuracy because the datasets are synthetic and co-evolved with the implementation. The immediate research priority is an independently curated holdout evaluation on additional TypeScript systems and toolchain versions. Engineering work will extend analysis to Git diffs, pull-request annotations, and merge gates while preserving the deterministic result as the authoritative decision. Later studies should investigate wrapper and dynamic language patterns, scalability, evidence comprehension, architect decision time, and independently evaluated analyzers for additional languages.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
