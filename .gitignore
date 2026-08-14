@@ -29,6 +29,8 @@
 
 # Generated paper output
 main.pdf
+/output/
+/tmp/
 
 # Editor and operating-system files
 .DS_Store
