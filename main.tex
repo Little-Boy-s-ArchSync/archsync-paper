@@ -19,7 +19,7 @@
 }
 
 \begin{abstract}
-Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a repository as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. We evaluate the prototype with two controlled datasets. First, an Order Platform benchmark contains 20 independently applied patches: nine no-impact changes, seven violations, and four evolutions. Across these repositories, full-graph node and edge detection produced 105 and 108 true positives; changed-graph detection produced five node and 12 edge true positives, with no false positives or false negatives. ArchSync classified 20/20 cases, matched 7/7 violated-rule sets, and localized 11/11 finding-bearing cases to the expected file and exact line. Second, a 40-signal challenge corpus contains 20 positives and 20 hard negatives across five detectors. A frozen v0.1 analyzer produced 18 true positives, four false positives, two false negatives, and 16 true negatives; provenance-aware v0.2 produced 20, zero, zero, and 20 respectively on the same corpus. All duplicate executions were byte-identical. These are feasibility and regression results, not estimates of general accuracy: both datasets were co-developed with the analyzer, the system is synthetic, and only explicit TypeScript/Node.js patterns are covered.
+Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a change as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. A Git-diff gate caches the base graph, incrementally rescans affected components, and maps these classes to PASS, BLOCK, or REVIEW without silently rewriting the approved model. We evaluate the prototype with two controlled datasets and a change-scoped protocol. An Order Platform benchmark contains 20 independently applied patches: nine no-impact changes, seven violations, and four evolutions. Full-graph and changed-graph detection had no false positives or false negatives; ArchSync classified 20/20 cases, matched 7/7 violated-rule sets, and localized 11/11 finding-bearing cases to the expected file and line. Replaying the same patches as Git diffs matched 20/20 merge decisions and changed-file sets, hit the baseline cache on 20/20 repeated checks, and parsed 57 of 189 TypeScript file instances. On the recorded Windows environment, cold and warm median check latency was 549.30 and 255.89 ms. A separate 40-signal challenge corpus improved from 18 true positives, four false positives, two false negatives, and 16 true negatives in frozen v0.1 to 20, zero, zero, and 20 in provenance-aware v0.2. These are feasibility and regression results, not estimates of general accuracy: the datasets were co-developed with the analyzer, the system is synthetic, timings come from one machine, and only explicit TypeScript/Node.js patterns are covered.
 \end{abstract}
 
 \begin{CCSXML}
@@ -52,13 +52,16 @@ The underlying problem is not the absence of documentation alone. It is the abse
 
 We present ArchSync, an architecture-conformance workflow based on two graphs. The expected graph is derived from a versioned \texttt{architecture.yaml} document containing components, relationships, and deterministic rules. The observed graph is inferred from source code by stack-specific analyzers. ArchSync compares the graphs and produces one of three classifications: \emph{no-impact} when implementation conforms without topology changes, \emph{violation} when one or more rules are broken, and \emph{evolution} when a non-forbidden topology change requires human review. Findings retain both the model location that establishes the expectation and the source location supporting the observation.
 
+For pull requests, the workflow compares findings at the Git merge base with findings at the proposed head. Only findings introduced by the change determine its gate decision: violations block, non-forbidden topology changes request review, and changes without new drift pass. The observed graph therefore follows implementation changes, while the expected graph remains the approved design baseline. An approved evolution changes that baseline only through an explicit model change and architecture-owner approval.
+
 The prototype deliberately focuses on TypeScript and Node.js. It recognizes HTTP calls through \texttt{fetch}, PostgreSQL access through \texttt{pg}, Redis operations, and AMQP publishing and consumption. This is an empirical boundary rather than a claim that architecture drift is TypeScript-specific: the expected graph, rule engine, finding contract, and metrics are language-neutral, while each additional language requires a separately implemented and evaluated source-to-graph analyzer. The bounded TypeScript scope permits deterministic contracts and reproducible measurement without probabilistic inference. Large-language-model explanations and automatic repairs are excluded from the decision path.
 
 This paper makes the following contributions:
 \begin{itemize}
   \item a machine-readable architecture contract with typed components and relationships plus deny, allow, require, and require-path rules;
   \item a provenance-aware TypeScript source-to-graph pipeline with file, line, column, detector, snippet, and confidence evidence;
-  \item a three-way decision model separating violations from topology evolution; and
+  \item a three-way decision model separating violations from topology evolution;
+  \item a Git-diff gate with cached baseline graphs, component-incremental analysis, GitHub annotations, and explicit handling of introduced, pre-existing, and resolved findings;
   \item a reproducible 20-patch end-to-end evaluation plus a 40-signal positive/hard-negative detector corpus; and
   \item machine-readable evidence that binds models, source trees, patches, runtime packages, outcomes, and results through SHA-256 provenance.
 \end{itemize}
@@ -79,7 +82,7 @@ ArchSync inherits the central expected-versus-implemented comparison from this l
 
 \subsection{Conformance in Continuous Integration}
 
-Pinto et al. integrate DCL-based conformance into Jenkins and report an industrial-style Java evaluation in which 44 constraints were introduced across six releases and 42 detected violations were corrected before the following release \cite{pinto2017archci}. This demonstrates the value of moving conformance into the integration loop. ArchSync Phase 2 stops one layer earlier: it establishes deterministic analysis, evidence, and benchmark contracts. Pull-request annotations and merge-gate automation remain future work, so the present evaluation concerns detector and decision correctness rather than CI adoption or developer behavior.
+Pinto et al. integrate DCL-based conformance into Jenkins and report an industrial-style Java evaluation in which 44 constraints were introduced across six releases and 42 detected violations were corrected before the following release \cite{pinto2017archci}. This demonstrates the value of moving conformance into the integration loop. ArchSync similarly exposes deterministic findings as GitHub annotations and exit-code merge decisions. Its evaluation remains narrower: it tests change-scoped correctness, cache behavior, and replay on a controlled benchmark, not adoption, developer behavior, or organizational effectiveness.
 
 \subsection{Evaluation and Static-Analysis Reliability}
 
@@ -113,6 +116,12 @@ The conformance function compares $M$ and $G_O$ and returns a graph difference $
 \end{cases}
 \end{equation}
 
+For a Git change from base repository $S_b$ to head repository $S_h$, ArchSync computes base and head finding sets and compares them by stable semantic identity:
+\begin{equation}
+  \mathcal{F}^{+} = \mathcal{F}(M,A(S_h)) \setminus \mathcal{F}(M,A(S_b)).
+\end{equation}
+Only $\mathcal{F}^{+}$ controls the pull-request decision. A newly introduced rule finding yields BLOCK; introduced evolution findings yield REVIEW; an empty $\mathcal{F}^{+}$ yields PASS. Findings in both sets are pre-existing, while findings only at the base are resolved. This distinction prevents an unrelated change from being blocked by historical drift without allowing new drift to enter silently.
+
 The research problem is to determine whether a source analyzer can reconstruct enough architectural information to make this classification accurately, reproducibly, and with actionable evidence. A useful solution must minimize both missed architectural relationships and spurious relationships, preserve stable outputs for identical inputs, and separate rule-breaking changes from topology changes that may be valid but require approval.
 
 \section{Research Questions}
@@ -129,9 +138,9 @@ This question evaluates exact classification agreement with a manually curated g
 
 This question evaluates whether a finding identifies the expected changed file and exact source line. Column, detector, excerpt, and model path are retained as additional diagnostic evidence.
 
-\textbf{RQ4: Are ArchSync outputs deterministic and reproducible for identical model and repository inputs?}
+\textbf{RQ4: Are ArchSync full-repository and Git-diff outputs deterministic and reproducible, and what analysis scope and latency are observed for the cached incremental gate?}
 
-This question compares serialized observed graphs and findings across repeated executions and across clean installations on supported operating systems.
+This question compares normalized observed graphs, findings, and pull-request decisions across repeated executions and clean installations. For Git-diff checks it additionally records cache behavior, files parsed relative to the head repository, and cold/warm latency on the measured environment.
 
 \section{Proposed Approach}
 
@@ -139,7 +148,7 @@ This question compares serialized observed graphs and findings across repeated e
 
 ArchSync uses a YAML document as the source of truth for architecture intent. The model defines stable component identifiers, component types, layers, directed relationships, rule severity, ownership metadata, and optional quality goals. JSON Schema validation rejects malformed documents, while semantic validation rejects unknown component references, duplicate edges, invalid identifiers, and other topology inconsistencies. Mermaid and draw.io views are derived from the model; they are not independent sources of truth.
 
-The validated model is converted into an expected graph with stable node identifiers and canonical edge keys. This normalization makes graph comparison and evidence manifests reproducible. It also enables the same conformance semantics to be used by command-line tools, benchmark evaluation, and future continuous-integration adapters.
+The validated model is converted into an expected graph with stable node identifiers and canonical edge keys. This normalization makes graph comparison and evidence manifests reproducible. It also enables the same conformance semantics to be used by command-line tools, benchmark evaluation, and continuous-integration adapters.
 
 \subsection{Source-to-Graph Analysis}
 
@@ -159,6 +168,14 @@ The repository-facing decision is derived from the classification:
 \end{itemize}
 The REVIEW outcome is important because a new component or relationship is not necessarily incorrect. ArchSync reports the change without automatically modifying the approved architecture contract.
 
+\subsection{Diff-Scoped Living Architecture Loop}
+
+The Phase 3 gate resolves the merge base, enumerates modified, added, deleted, renamed, and untracked files, and maps changed TypeScript paths to source components. A cold check reconstructs the base Observed Graph from the committed source tree. The graph is cached inside Git metadata under a key derived from the base commit, architecture-contract hash, and analyzer version. A warm check validates and reuses that cache.
+
+For the proposed head, Guardian parses all TypeScript files in affected source components, rather than only changed lines, so relationships assembled across multiple files remain visible. Evidence and relationships owned by those components replace their baseline counterparts; unaffected components remain from the cached graph. Base and head are then evaluated with the same Core semantics, and stable finding identities determine introduced, pre-existing, and resolved findings. GitHub workflow commands annotate source locations, a Markdown artifact summarizes the graph delta, and exit codes implement the merge gate.
+
+This mechanism makes the observed architecture dynamic but not self-authorizing. The expected model remains versioned in Git and is never rewritten by the analyzer. A REVIEW outcome can become an accepted evolution only through an explicit model change protected by architecture-owner approval; a hard-rule violation cannot be legitimized merely by changing implementation.
+
 \subsection{Evidence-Rich Findings}
 
 A finding contains a stable contract version, identifier, kind, severity, message, optional rule identifier, affected component or edge, source evidence, and model evidence. For an observed forbidden edge, the evidence points to the call site that introduced the relationship. For a missing required edge or path, the source component is used as a deterministic anchor and the relevant rule location is retained as model evidence.
@@ -167,7 +184,7 @@ This separation allows the deterministic engine to state \emph{what} changed and
 
 \section{System Architecture}
 
-Figure~\ref{fig:architecture} separates the declared-architecture path from the observed-implementation path and makes their information flow explicit. ArchSync Core validates the model and provides the expected graph, executable rules, graph difference, and rule evaluation. Guardian analyzes source code, constructs the observed graph, and preserves source evidence. The conformance result combines graph difference, violations, findings, and linked evidence before deriving the repository-facing decision.
+Figure~\ref{fig:architecture} separates approved intent from base and proposed implementation state. ArchSync Core validates the model and provides the expected graph and executable rules. Guardian caches a base Observed Graph, scopes the Git diff to affected source components, incrementally constructs the head graph, and preserves source evidence. The gate compares base and head findings before deriving the pull-request decision.
 
 \begin{figure*}[t]
   \centering
@@ -185,38 +202,45 @@ Figure~\ref{fig:architecture} separates the declared-architecture path from the 
     flow/.style={-{Latex[length=2.1mm]}, semithick, draw=gray!85},
     evidence flow/.style={-{Latex[length=2.1mm]}, semithick, dashed, draw=teal!70!black}
   ]
-    \node[input]    (model)    at (0,1.65) {Architecture Contract $M$\\\texttt{architecture.yaml}};
-    \node[process]  (validate) at (3.35,1.65) {Core Validation\\schema + semantics};
-    \node[artifact] (expected) at (6.65,2.35) {Expected Graph\\$(C_E,E_E)$};
-    \node[artifact] (rules)    at (6.65,0.90) {Rules $R$\\model evidence};
+    \node[input]    (model)    at (0,2.35) {Approved Contract $M$\\\texttt{architecture.yaml}};
+    \node[process]  (validate) at (3.15,2.35) {Core Validation\\schema + semantics};
+    \node[artifact] (expected) at (6.35,3.05) {Expected Graph\\$(C_E,E_E)$};
+    \node[artifact] (rules)    at (6.35,1.65) {Rules $R$\\model evidence};
 
-    \node[input]    (source)   at (0,-1.65) {Source Repository $S$\\TypeScript / Node.js};
-    \node[process]  (analyze)  at (3.35,-1.65) {Guardian Analysis $A$\\deterministic AST detectors};
-    \node[artifact] (observed) at (6.65,-0.90) {Observed Graph $G_O$\\$(C_O,E_O)$};
-    \node[artifact] (evidence) at (6.65,-2.35) {Source Evidence $P$\\file $\cdot$ line $\cdot$ detector};
+    \node[input]    (base)     at (0,-2.35) {Git Base $S_b$\\committed source tree};
+    \node[process]  (baseScan) at (3.15,-2.35) {Baseline Analysis\\validated graph cache};
+    \node[artifact] (baseGraph) at (6.35,-2.35) {Base Observed Graph\\$G_b=A(S_b)$};
 
-    \node[engine]   (engine)   at (10.10,0) {Conformance Engine\\$\Delta=\operatorname{diff}(G_E,G_O)$\\$\mathcal{V}=\operatorname{eval}(R,G_O)$};
-    \node[result]   (result)   at (13.75,0) {Conformance Result\\$\Delta$, $\mathcal{V}$, findings $\mathcal{F}$\\linked model + source evidence};
-    \node[decision] (decision) at (17.55,0) {\textbf{Repository Decision}\\no-impact $\rightarrow$ \textbf{PASS}\\violation $\rightarrow$ \textbf{BLOCK}\\evolution $\rightarrow$ \textbf{REVIEW}};
+    \node[input]    (head)     at (0,-0.55) {Git Head $S_h$ + Diff\\changed paths and hunks};
+    \node[process]  (incremental) at (3.15,-0.55) {Affected Components\\incremental AST analysis};
+    \node[artifact] (headGraph) at (6.35,0.05) {Head Observed Graph\\$G_h=A(S_h)$};
+    \node[artifact] (evidence) at (6.35,-1.15) {Source Evidence $P$\\file $\cdot$ line $\cdot$ detector};
+
+    \node[engine]   (engine)   at (9.75,0.55) {Base/Head Conformance\\$\mathcal{F}_b=F(M,G_b)$\\$\mathcal{F}_h=F(M,G_h)$};
+    \node[result]   (result)   at (13.20,0.55) {Diff-Scoped Result\\introduced $\mathcal{F}^{+}$\\pre-existing + resolved\\linked model/source evidence};
+    \node[decision] (decision) at (16.95,0.55) {\textbf{Pull-Request Decision}\\no new drift $\rightarrow$ \textbf{PASS}\\new violation $\rightarrow$ \textbf{BLOCK}\\new evolution $\rightarrow$ \textbf{REVIEW}};
 
     \draw[flow] (model) -- (validate);
     \draw[flow] (validate) -- (expected);
     \draw[flow] (validate) -- (rules);
-    \draw[flow] (source) -- (analyze);
-    \draw[flow] (analyze) -- (observed);
-    \draw[flow] (analyze) -- (evidence);
+    \draw[flow] (base) -- (baseScan);
+    \draw[flow] (baseScan) -- (baseGraph);
+    \draw[flow] (head) -- (incremental);
+    \draw[flow] (incremental) -- (headGraph);
+    \draw[flow] (incremental) -- (evidence);
     \draw[flow] (expected) -- (engine);
     \draw[flow] (rules) -- (engine);
-    \draw[flow] (observed) -- (engine);
+    \draw[flow] (baseGraph) -- (engine);
+    \draw[flow] (headGraph) -- (engine);
     \draw[flow] (engine) -- (result);
     \draw[evidence flow] (evidence.east) to[out=0,in=-125] (result.south west);
     \draw[flow] (result) -- (decision);
 
-    \node[group, fit=(model)(validate)(expected)(rules), label={[group title]above:Declared architecture}] {};
-    \node[group, fit=(source)(analyze)(observed)(evidence), label={[group title]below:Observed implementation}] {};
+    \node[group, fit=(model)(validate)(expected)(rules), label={[group title]above:Approved architecture intent}] {};
+    \node[group, fit=(base)(baseScan)(baseGraph)(head)(incremental)(headGraph)(evidence), label={[group title]below:Dynamic observed implementation}] {};
   \end{tikzpicture}}
-  \caption{ArchSync system architecture. Solid arrows carry contract or graph data used for deterministic conformance; the dashed arrow attaches traceable source evidence to the resulting findings.}
-  \Description{The declared architecture path validates an architecture YAML contract into an expected graph, rules, and model evidence. The observed implementation path analyzes a TypeScript repository into an observed graph and source evidence. The conformance engine computes graph differences and rule violations, produces evidence-linked findings, and derives PASS, BLOCK, or REVIEW.}
+  \caption{ArchSync Phase 3 system architecture. The approved model remains authoritative while the base and head Observed Graphs track implementation. Only findings introduced by the Git diff determine PASS, BLOCK, or REVIEW.}
+  \Description{The upper route validates an approved architecture contract into an expected graph and rules. The lower routes cache a graph for the Git base and incrementally analyze affected components at the head. Base and head conformance findings are compared, evidence is attached, and the pull request receives PASS, BLOCK, or REVIEW.}
   \label{fig:architecture}
 \end{figure*}
 
@@ -226,17 +250,17 @@ The architecture is divided across focused repositories. \texttt{archsync-\allow
 
 \subsection{Implemented Prototype}
 
-The implementation is divided across three repositories used in this study. \texttt{archsync-core} implements Architecture Model version 0.1, JSON Schema and semantic validation, normalized graphs, graph difference, deny/allow/require/require-path semantics, command-line reports, and deterministic Mermaid and draw.io projections. Its verification suite contains 83 tests and reports 98.89\% statement coverage, 91.97\% branch coverage, 100\% function coverage, and 98.89\% line coverage.
+The implementation is divided across three repositories used in this study. \texttt{archsync-core} implements Architecture Model version 0.1, JSON Schema and semantic validation, normalized graphs, graph difference, deny/allow/require/require-path semantics, command-line reports, and deterministic Mermaid and draw.io projections. Its verification suite contains 84 tests and reports 98.41\% statement coverage, 91.73\% branch coverage, 100\% function coverage, and 98.41\% line coverage.
 
-\texttt{archsync-guardian} implements Observed Graph and Finding Contract version 0.1 with analyzer implementation version 0.2. The analyzer traverses TypeScript files, maps component roots, parses syntax trees through the TypeScript Compiler API, resolves explicit literals and selected environment-variable fallbacks, runs HTTP/PostgreSQL/Redis/AMQP detectors, captures evidence, and sorts and deduplicates output. Guardian delegates graph difference and rule semantics to Core. Its verification suite contains 24 tests and reports 96.54\% statement coverage, 88.95\% branch coverage, 97.67\% function coverage, and 96.54\% line coverage.
+\texttt{archsync-guardian} version 0.3 implements Observed Graph and Finding Contract version 0.1 with analyzer implementation version 0.2. The analyzer traverses TypeScript files, maps component roots, parses syntax trees through the TypeScript Compiler API, resolves explicit literals and selected environment-variable fallbacks, runs HTTP/PostgreSQL/Redis/AMQP detectors, captures evidence, and sorts and deduplicates output. The Phase 3 module invokes Git without a shell, reconstructs base source snapshots, validates or rebuilds graph-cache entries, maps changed paths to components, merges partial observations, compares stable finding identities, and renders human, JSON, Markdown, and GitHub-annotation outputs. Guardian delegates graph difference and rule semantics to Core. Its verification suite contains 34 tests and reports 97.31\% statement coverage, 88.34\% branch coverage, 98.63\% function coverage, and 97.31\% line coverage.
 
-\texttt{archsync-benchmark} provides the Order Platform baseline, 20 real unified-diff patches, the ground-truth manifest, a 40-signal TypeScript challenge corpus, integrity validation, mutation tests, and evaluation runners. Each patch is applied to a fresh temporary copy of the baseline. Signal annotations bind detector, file, exact line, expected edge, and a required source substring. The benchmark suite contains 14 invariant and mutation tests. \texttt{archsync-mcp} is not used in the experiment.
+\texttt{archsync-benchmark} provides the Order Platform baseline, 20 real unified-diff patches, the ground-truth manifest, a 40-signal TypeScript challenge corpus, integrity validation, mutation tests, and evaluation runners. Phase 2 applies each patch to a fresh temporary copy; Phase 3 initializes that copy as a Git repository, commits the baseline, applies the patch as a working-tree diff, and performs cold and warm checks. Signal annotations bind detector, file, exact line, expected edge, and a required source substring. The benchmark suite contains 14 invariant and mutation tests. \texttt{archsync-mcp} is not used in the experiment.
 
 \subsection{Reproducibility Controls}
 
-The benchmark pins Core commit \texttt{304f4ac48137} and Guardian commit \texttt{6677c462c685}. The end-to-end manifest records SHA-256 values for the architecture model, nine-file baseline tree, and 20-patch set. The challenge evidence separately hashes its signal manifest, architecture, source tree, normalized result, and analyzer package. A frozen v0.1 result remains bound to Guardian commit \texttt{e1cd98956856} and its original package hash. Generated evidence records explicit denominators for classification, rule-set, evidence, determinism, and the signal-level confusion matrix.
+The benchmark pins Core commit \texttt{304f4ac48137} and Guardian commit \texttt{97109c8acab1}. The end-to-end manifest records SHA-256 values for the architecture model, nine-file baseline tree, and 20-patch set. Phase 3 evidence additionally hashes the Guardian v0.3 package and normalized Git-diff results while recording the cache protocol, incremental scope, environment, and raw timing samples. The challenge evidence separately hashes its signal manifest, architecture, source tree, normalized result, and analyzer package. A frozen v0.1 result remains bound to Guardian commit \texttt{e1cd98956856} and its original package hash.
 
-We executed the complete verification commands on Windows with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. Core passed 83/83 tests and 13/13 CLI smoke checks; Guardian passed 24/24 tests and 7/7 CLI smoke checks; the benchmark passed 14/14 tests, validated all 20 patches and 40 annotated signals, and reproduced both current evidence artifacts plus the frozen baseline provenance. After packaging the pinned Core and Guardian revisions as SHA-256-verified runtime artifacts, GitHub Actions ran the complete gates from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts. Both benchmark jobs passed at commit \texttt{021b17b5a645}, as did both Guardian jobs at \texttt{6677c462c685} and both Core jobs at \texttt{df1945e90ac0}.
+We executed the complete verification commands on Windows with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. Core passed 84/84 tests and 13/13 CLI smoke checks; Guardian passed 34/34 tests and 10/10 CLI smoke checks; the benchmark passed 14/14 tests, validated all 20 patches and 40 annotated signals, and reproduced the Phase 2, detector, and Phase 3 evidence artifacts plus the frozen baseline provenance. After packaging the pinned Core and Guardian revisions as SHA-256-verified runtime artifacts, GitHub Actions ran the complete gates from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts. Both benchmark jobs passed at commit \texttt{fbe19e185431}, both Guardian jobs passed at \texttt{97109c8acab1}, and both Core jobs passed at \texttt{131a797a11ad}.
 
 \section{Evaluation Methodology}
 
@@ -249,6 +273,8 @@ Each D1 case declares changed files, expected graph delta, classification, findi
 Dataset D2 is a detector challenge corpus with five groups: \texttt{fetch}, PostgreSQL, Redis, AMQP publish, and AMQP consume. Each group contains four positive and four hard-negative source lines, giving 20 positives and 20 negatives. Positive variants include aliases, namespace imports, environment fallbacks, and multiple supported operations. Hard negatives include URL text without a call, custom functions, unused package imports, local objects with detector-shaped method names, lifecycle calls, comments, and string literals. The manifest binds each signal to a detector, source file, exact line, expected edge, description, and required source substring.
 
 D2 was authored after the initial v0.1 analyzer and deliberately targets its weaknesses. We execute both the frozen v0.1 artifact and provenance-aware v0.2 on the same corpus. This paired comparison identifies concrete regression behavior but is not an unbiased estimate of improvement on unseen programs.
+
+The Phase 3 protocol reuses D1 rather than introducing a third dataset. For each case, it creates a fresh Git repository from the unchanged baseline, commits that baseline with fixed author metadata, applies one patch to the working tree, and runs the diff gate twice. The first execution reconstructs and caches the base graph; the second must hit the cache. Ground truth is extended operationally with expected changed files and the PASS/BLOCK/REVIEW mapping already implied by each D1 label. We compare normalized cold and warm results, decisions, changed-file sets, rule identifiers, and evidence locations. Timings are retained only from the recorded Windows run because shared CI runners do not provide a controlled performance environment.
 
 Figure~\ref{fig:evaluation-protocol} summarizes the executable evaluation protocol and shows how raw analyzer executions become the reported metrics and evidence artifact.
 
@@ -265,19 +291,26 @@ Figure~\ref{fig:evaluation-protocol} summarizes the executable evaluation protoc
     row label/.style={font=\sffamily\scriptsize\bfseries, text=gray!70!black, anchor=east},
     flow/.style={-{Latex[length=2.0mm]}, semithick, draw=gray!80}
   ]
-    \node[row label] at (-1.72,1.25) {D1};
-    \node[data] (d1) at (0,1.25) {\textbf{END-TO-END}\\9-file baseline\\20 isolated patches\\expected graph + outcome};
-    \node[gate] (d1gate) at (3.35,1.25) {\textbf{INTEGRITY}\\schema + semantics\\patch applicability\\model/tree/patch hashes};
-    \node[run] (d1run) at (6.75,1.25) {\textbf{EXECUTION}\\baseline twice\\each patched copy twice\\42 analyzer runs};
-    \node[verify] (d1verify) at (10.15,1.25) {\textbf{ORACLES}\\nodes + edges + class\\rules + file + exact line\\byte-identical replay};
-    \node[output] (d1out) at (13.85,1.25) {\textbf{D1 EVIDENCE}\\TP/FP/FN + P/R/F1\\20 class; 7 rule sets\\11 exact locations};
+    \node[row label] at (-1.72,2.40) {D1};
+    \node[data] (d1) at (0,2.40) {\textbf{END-TO-END}\\9-file baseline\\20 isolated patches\\expected graph + outcome};
+    \node[gate] (d1gate) at (3.35,2.40) {\textbf{INTEGRITY}\\schema + semantics\\patch applicability\\model/tree/patch hashes};
+    \node[run] (d1run) at (6.75,2.40) {\textbf{FULL SCANS}\\baseline twice\\each patched copy twice\\42 analyzer runs};
+    \node[verify] (d1verify) at (10.15,2.40) {\textbf{ORACLES}\\nodes + edges + class\\rules + file + exact line\\byte-identical replay};
+    \node[output] (d1out) at (13.85,2.40) {\textbf{D1 EVIDENCE}\\TP/FP/FN + P/R/F1\\20 class; 7 rule sets\\11 exact locations};
 
-    \node[row label] at (-1.72,-1.25) {D2};
-    \node[data] (d2) at (0,-1.25) {\textbf{DETECTOR CORPUS}\\5 detector groups\\20 positive signals\\20 hard negatives};
-    \node[gate] (d2gate) at (3.35,-1.25) {\textbf{ANNOTATIONS}\\detector + edge\\file + exact line\\manifest/tree hashes};
-    \node[run] (d2run) at (6.75,-1.25) {\textbf{PAIRED RUN}\\frozen v0.1 twice\\v0.2 twice\\4 analyzer runs};
-    \node[verify] (d2verify) at (10.15,-1.25) {\textbf{SIGNAL ORACLE}\\TP + FP + FN + TN\\P/R/F1 + specificity\\byte-identical replay};
-    \node[output] (d2out) at (13.85,-1.25) {\textbf{D2 EVIDENCE}\\v0.1: 18/4/2/16\\v0.2: 20/0/0/20\\artifact provenance};
+    \node[row label] at (-1.72,0) {D2};
+    \node[data] (d2) at (0,0) {\textbf{DETECTOR CORPUS}\\5 detector groups\\20 positive signals\\20 hard negatives};
+    \node[gate] (d2gate) at (3.35,0) {\textbf{ANNOTATIONS}\\detector + edge\\file + exact line\\manifest/tree hashes};
+    \node[run] (d2run) at (6.75,0) {\textbf{PAIRED RUN}\\frozen v0.1 twice\\v0.2 twice\\4 analyzer runs};
+    \node[verify] (d2verify) at (10.15,0) {\textbf{SIGNAL ORACLE}\\TP + FP + FN + TN\\P/R/F1 + specificity\\byte-identical replay};
+    \node[output] (d2out) at (13.85,0) {\textbf{D2 EVIDENCE}\\v0.1: 18/4/2/16\\v0.2: 20/0/0/20\\artifact provenance};
+
+    \node[row label] at (-1.72,-2.40) {P3};
+    \node[data] (p3) at (0,-2.40) {\textbf{GIT-DIFF GATE}\\same 20 patches\\committed base + head diff\\expected merge decision};
+    \node[gate] (p3gate) at (3.35,-2.40) {\textbf{CHANGE SCOPE}\\changed files + hunks\\affected components\\base/model/package hashes};
+    \node[run] (p3run) at (6.75,-2.40) {\textbf{COLD + WARM}\\20 cache misses\\20 required cache hits\\60 analyzer calls};
+    \node[verify] (p3verify) at (10.15,-2.40) {\textbf{PR ORACLES}\\decision + changed files\\rules + exact evidence\\normalized replay};
+    \node[output] (p3out) at (13.85,-2.40) {\textbf{P3 EVIDENCE}\\20 decisions + cache hits\\11 exact locations\\57/189 files parsed};
 
     \draw[flow] (d1.east) -- (d1gate.west);
     \draw[flow] (d1gate.east) -- (d1run.west);
@@ -287,9 +320,13 @@ Figure~\ref{fig:evaluation-protocol} summarizes the executable evaluation protoc
     \draw[flow] (d2gate.east) -- (d2run.west);
     \draw[flow] (d2run.east) -- (d2verify.west);
     \draw[flow] (d2verify.east) -- (d2out.west);
+    \draw[flow] (p3.east) -- (p3gate.west);
+    \draw[flow] (p3gate.east) -- (p3run.west);
+    \draw[flow] (p3run.east) -- (p3verify.west);
+    \draw[flow] (p3verify.east) -- (p3out.west);
   \end{tikzpicture}
-  \caption{Two-dataset Phase 2 evaluation protocol. D1 measures end-to-end graph, decision, evidence, and replay behavior; D2 isolates positive and hard-negative detector signals and compares the frozen v0.1 artifact with v0.2.}
-  \Description{The upper route validates a baseline and 20 independent patches, performs 42 analyzer executions, and compares graphs, classifications, rules, source locations, and replay. The lower route validates 40 annotated signals, runs two analyzer versions twice each, and records signal-level confusion matrices and artifact provenance.}
+  \caption{Evaluation protocol. D1 measures full-repository reconstruction and classification, D2 isolates detector signals, and P3 replays D1 as cold and warm Git-diff pull-request checks.}
+  \Description{The first route validates 20 independent patches and compares graphs, classifications, rules, evidence, and replay. The second validates 40 detector signals with two analyzer versions. The third commits the same baseline, applies each patch as a Git diff, performs cold and warm checks, and measures decisions, changed files, cache behavior, incremental scope, evidence, and latency.}
   \label{fig:evaluation-protocol}
 \end{figure*}
 
@@ -305,9 +342,11 @@ The executed procedure for D1 was:
   \item remove the temporary directory before the next case.
 \end{enumerate}
 
-D1 performs 42 analyzer executions: two for the baseline and two for each of 20 cases. For D2, the manifest and annotated lines are validated before the entire repository is analyzed twice with each pinned analyzer version. Each observed relationship is expanded into detector--edge--file--line signals and compared with the annotations. D2 therefore adds four recorded executions, 46 across the reported current and historical evidence. The continuously rerun v0.2 gate executes 44 of them and verifies the frozen v0.1 package, hashes, metrics, and evidence without rewriting that historical result.
+D1 performs 42 analyzer executions: two for the baseline and two for each of 20 cases. For D2, the manifest and annotated lines are validated before the entire repository is analyzed twice with each pinned analyzer version. Each observed relationship is expanded into detector--edge--file--line signals and compared with the annotations. D2 therefore adds four recorded executions, 46 across the reported current and historical Phase 2 evidence. The continuously rerun v0.2 gate executes 44 of them and verifies the frozen v0.1 package without rewriting that historical result.
 
-Repeated results are compared as normalized JSON. The benchmark workflow installs SHA-256-verified runtime packages and executes the v0.2 protocol from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts; both jobs passed for benchmark commit \texttt{021b17b5a645}.
+P3 performs 40 change-scoped checks, one cold and one warm per case. Each cold check invokes a full baseline analysis and an affected-component analysis; each warm check reuses the baseline cache and invokes only the affected-component analysis, giving 60 analyzer calls. The normalized results compared across cold and warm runs exclude elapsed time and cache-hit state but retain changed files, affected components, graph delta, findings, evidence, and scan scope.
+
+Repeated results are compared as normalized JSON. The benchmark workflow installs SHA-256-verified runtime packages and executes the Phase 2 and Phase 3 protocols from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts; both jobs passed for benchmark commit \texttt{fbe19e185431}.
 
 \subsection{Metrics}
 
@@ -323,9 +362,15 @@ We report both complete-graph and patch-changed node and edge metrics. When both
 
 Classification agreement is measured across all 20 cases. Rule-set agreement is measured on the seven violation cases. File and exact-line agreement are measured on the 11 finding-bearing cases; exact-line agreement means that at least one evidence item for the matched finding has the expected file and line. Determinism requires byte-identical normalized output across duplicate executions.
 
+P3 additionally measures exact merge-decision and changed-file-set agreement. Incremental scope is
+\begin{equation}
+  r_{\mathrm{parse}}=\frac{\sum_i |T_i^{\mathrm{parsed}}|}{\sum_i |T_i^{\mathrm{head}}|},
+\end{equation}
+where $T_i^{\mathrm{parsed}}$ contains TypeScript files parsed in affected components and $T_i^{\mathrm{head}}$ contains TypeScript files represented by the reconstructed head graph. Cache correctness requires a miss followed by a hit for every isolated case and identical normalized results. Cold and warm check latency are summarized by median and 95th percentile; no inferential comparison is made.
+
 \subsection{Acceptance Criteria}
 
-Before reporting the run, the D1 engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. D2 v0.2 additionally required zero missed positive signals, zero unexpected detections, all 20 hard negatives rejected, and byte-identical replay. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard; raw counts and exact denominators are therefore reported alongside it.
+Before reporting the run, the D1 engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. D2 v0.2 additionally required zero missed positive signals, zero unexpected detections, all 20 hard negatives rejected, and byte-identical replay. P3 required exact classification, decision, changed-file sets, rule sets, source files and lines for all applicable cases; cache hits and identical normalized replay for all repeated checks; and cross-platform completion of the full benchmark workflow. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard; raw counts and exact denominators are therefore reported alongside it.
 
 \section{Results}
 
@@ -364,6 +409,29 @@ Before reporting the run, the D1 engineering exit gate required node and edge pr
   \end{tabular}
 \end{table}
 
+\begin{table}[t]
+  \caption{P3 Git-diff gate outcomes and measured scope.}
+  \label{tab:phase3-results}
+  \centering
+  \small
+  \begin{tabular}{lr}
+    \hline
+    Measure & Result \\
+    \hline
+    Classification agreement & 20/20 \\
+    Merge-decision agreement & 20/20 \\
+    Changed-file agreement & 20/20 \\
+    Violation rule-set agreement & 7/7 \\
+    Exact evidence line & 11/11 \\
+    Cache hit on repeated check & 20/20 \\
+    Normalized cold/warm replay & 20/20 \\
+    Incremental files / head files & 57/189 \\
+    Cold median / p95 (ms) & 549.30 / 561.91 \\
+    Warm median / p95 (ms) & 255.89 / 262.68 \\
+    \hline
+  \end{tabular}
+\end{table}
+
 \begin{table*}[t]
   \caption{D2 signal-level confusion matrices for the frozen v0.1 and provenance-aware v0.2 analyzers on the same 40-signal corpus.}
   \label{tab:pattern-results}
@@ -397,44 +465,48 @@ ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evo
 All 11 finding-bearing D1 cases contained the expected file and at least one evidence item at the exact expected line. Violation cases pointed to either the introducing call site or, for a missing required edge or path, a deterministic component anchor. Evolution cases pointed to the operation that created the new observed relationship. The metric does not evaluate uniqueness or ranking when multiple evidence items exist.
 
 \textbf{RQ4: determinism and reproducibility.}
-The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. Local verification reproduced the stored result and all repository quality gates. GitHub Actions independently reproduced the full current-version benchmark and corpus evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}.
+The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 likewise produced identical normalized cold and warm results for 20/20 cases and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm median latency was 255.89 ms compared with 549.30 ms cold, a descriptive 53.4\% reduction; warm p95 was 262.68 ms compared with 561.91 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
 
-The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{ea2727f9d564} for Core and \texttt{05da612cdaca} for Guardian v0.2. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.
+The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{ea2727f9d564} for Core and \texttt{7e8375276af0} for Guardian v0.3. P3 records normalized-result SHA-256 \texttt{97139aae7c3c}. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.
 
 \section{Discussion}
 
-The experiment provides a positive feasibility result for the defined TypeScript/Node.js slice. For RQ1, deterministic AST detectors reconstructed every expected node and edge represented by D1, while D2 exposed six concrete v0.1 signal errors that the provenance-aware implementation corrected. For RQ2, the rule engine correctly gave violation precedence over topology evolution, while the REVIEW path avoided treating every new technology as forbidden. For RQ3, source locations made findings inspectable without asking a reviewer to rediscover the relevant call. For RQ4, normalized ordering and evidence deduplication removed observed replay variation.
+The experiment provides a positive feasibility result for the defined TypeScript/Node.js slice. For RQ1, deterministic AST detectors reconstructed every expected node and edge represented by D1, while D2 exposed six concrete v0.1 signal errors that the provenance-aware implementation corrected. For RQ2, the rule engine correctly gave violation precedence over topology evolution, while the REVIEW path avoided treating every new technology as forbidden. For RQ3, source locations made findings inspectable without asking a reviewer to rediscover the relevant call. For RQ4, normalized ordering and evidence deduplication removed observed replay variation, and P3 showed that the same result contract can be applied to an incrementally reconstructed Git head.
 
 The v0.2 perfect scores must be interpreted with the denominators in Tables~\ref{tab:detection-results}--\ref{tab:pattern-results}. Nine no-impact cases contain no changed graph items. D1 contains only five changed nodes, 12 changed edges, seven violation rule sets, and 11 finding-bearing cases. D2 contains 20 positives and 20 deliberately selected hard negatives, four of each per detector. Moreover, both datasets and the analyzer were co-developed. The result is strong evidence that the implemented contracts and regression scenarios agree, but it is not an unbiased estimate of performance on unseen repositories.
 
 The v0.1--v0.2 comparison illustrates why end-to-end patches alone are insufficient. Repeated baseline structure can dominate aggregate graph counts, and ordinary no-impact patches may not contain adversarial method-name collisions. Exact source-line signal annotations made false positives and false negatives visible and linked the implementation change to measured behavior. Nevertheless, because D2 was designed after observing v0.1, its value is regression protection and causal diagnosis rather than external validation.
 
-The three-way decision is practically significant even in this study. Cases that bypassed architectural rules were blocked, whereas non-forbidden Redis, AMQP, service, and cache additions were surfaced for review. This distinction supports architecture evolution without silently rewriting the expected model. Missing-edge evidence also exposes an inherent limitation: because an absent call has no call site, ArchSync anchors the finding to a deterministic source location in the responsible component.
+The three-way decision is practically significant even in this study. Cases that bypassed architectural rules were blocked, whereas non-forbidden Redis, AMQP, service, and cache additions were surfaced for review. P3 applies this distinction only to findings introduced at the head: a pre-existing baseline violation remains visible but does not block an unrelated patch, while a patch that removes it is recorded as resolving the finding. This supports gradual adoption without silently accepting new drift. Missing-edge evidence also exposes an inherent limitation: because an absent call has no call site, ArchSync anchors the finding to a deterministic source location in the responsible component.
 
-A stronger next experiment should freeze v0.2, construct a blinded holdout through independent reviewers, and evaluate multiple real TypeScript repositories. Challenge cases should include wrapper libraries, re-exports, dynamic endpoint construction, dependency injection, unconventional monorepos, generated code, and runtime-only dependencies. Performance and developer-comprehension measurements should follow correctness evaluation on that broader corpus. The Core model and conformance engine can be reused for Java, Python, C\#, or Go, but each language requires a separately implemented analyzer and language-specific benchmark before cross-language claims are justified.
+The living-architecture claim is deliberately governed. The Observed Graph changes whenever source changes, but the expected graph is not inferred back into design. A REVIEW result is a proposal, not approval. The supplied CI workflow turns exit status into a merge gate and emits annotations and a report; a repository must separately protect model changes with architecture-owner review. Without that policy, the technical gate alone cannot prevent a contributor from changing both code and contract to self-approve an evolution.
+
+P3's measured scope and latency are engineering observations, not a scalability result. Parsing 57 of 189 file instances shows that component scoping avoided parsing 69.84\% of head-file instances in this corpus. The 53.4\% median cold-to-warm reduction also includes Git process startup, diff parsing, cache I/O, conformance, and reporting. The benchmark is small, runs sequentially on one machine, and does not isolate those costs or compare against alternative incremental analyzers.
+
+A stronger next experiment should freeze v0.3, construct a blinded holdout through independent reviewers, and evaluate multiple real TypeScript repositories and pull-request histories. Challenge cases should include wrapper libraries, re-exports, dynamic endpoint construction, dependency injection, unconventional monorepos, generated code, and runtime-only dependencies. A team pilot should measure annotation comprehension, approval delay, false-block burden, and attempts to change the model alongside implementation. The Core model and conformance engine can be reused for Java, Python, C\#, or Go, but each language requires a separately implemented analyzer and language-specific benchmark before cross-language claims are justified.
 
 \section{Threats to Validity}
 
 \textbf{Construct validity.}
-Node, edge, classification, and evidence measures capture detectable topology and explicit rules, not component responsibility, architectural rationale, or runtime quality attributes. Exact-line agreement requires at least one matching evidence item and does not measure ranking, completeness of all supporting locations, or reviewer effort. D2 treats annotated file-line-detector-edge tuples as signals, so multiple signals may support one relationship. Its specificity covers the declared hard negatives, not all unannotated syntax. Full-graph counts repeatedly include baseline structure, so changed-graph counts remain necessary for interpretation.
+Node, edge, classification, and evidence measures capture detectable topology and explicit rules, not component responsibility, architectural rationale, or runtime quality attributes. Exact-line agreement requires at least one matching evidence item and does not measure ranking, completeness of all supporting locations, annotation comprehension, or reviewer effort. Changed-file agreement checks Git scope, not whether the resulting report is sufficient for an architecture decision. The parsed-file fraction measures AST input scope rather than CPU work. D2 treats annotated file-line-detector-edge tuples as signals, so multiple signals may support one relationship. Its specificity covers the declared hard negatives, not all unannotated syntax.
 
 \textbf{Internal validity.}
-The authors curated the analyzer and both datasets. Although D1 topology intent was established in Phase 1, executable patches and exact evidence lines were refined during Phase 2 integration. D2 was explicitly authored after v0.1 and used to guide v0.2, creating benchmark-tuning and confirmation risks. Schema checks, mutation tests, independent patch application, source-line annotations, frozen artifacts, hash binding, and raw predictions prevent accidental inconsistency and retrospective number changes but do not provide independent ground-truth judgment.
+The authors curated the analyzer and both datasets. Although D1 topology intent was established in Phase 1, executable patches and exact evidence lines were refined during Phase 2 integration. P3 reuses those same patches and was developed against their known labels, so its perfect decision agreement is a regression result, not independent validation of the Git-diff design. D2 was explicitly authored after v0.1 and used to guide v0.2, creating similar benchmark-tuning and confirmation risks. Schema checks, mutation tests, independent patch application, source-line annotations, frozen artifacts, hash binding, and raw predictions prevent accidental inconsistency and retrospective number changes but do not provide independent ground-truth judgment.
 
 \textbf{External validity.}
-The study contains one small synthetic TypeScript/Node.js system, 20 changes, and 40 controlled detector signals. Detectors cover selected \texttt{fetch}, \texttt{pg}, Redis, and AMQP patterns. Results may not generalize to wrapper libraries, dynamic endpoints, reflection, dependency injection, unconventional monorepos, generated code, other languages, infrastructure-as-code, or runtime-only relationships. The architecture and conformance contracts are designed to be language-neutral, but only the TypeScript analyzer has empirical evidence.
+The study contains one small synthetic TypeScript/Node.js system, 20 changes, and 40 controlled detector signals. Phase 3 checks working-tree and feature-branch Git states but not a longitudinal project history, large monorepository, or human approval process. Detectors cover selected \texttt{fetch}, \texttt{pg}, Redis, and AMQP patterns. Results may not generalize to wrapper libraries, dynamic endpoints, reflection, dependency injection, unconventional monorepos, generated code, other languages, infrastructure-as-code, or runtime-only relationships. The architecture and conformance contracts are designed to be language-neutral, but only the TypeScript analyzer has empirical evidence.
 
 \textbf{Conclusion validity.}
-D1 has only five positive changed-node items, 12 positive changed-edge items, seven violation rule sets, and 11 evidence-bearing cases. D2 has 20 positive and 20 hard-negative signals. Perfect v0.2 agreement on these finite, co-developed sets is a feasibility and regression result, not a statistical claim about a population. No confidence interval or significance test is used because the samples are not random draws from a defined population.
+D1 has only five positive changed-node items, 12 positive changed-edge items, seven violation rule sets, and 11 evidence-bearing cases. D2 has 20 positive and 20 hard-negative signals. P3 has 20 cold and 20 warm checks over the same D1 changes. Perfect agreement on these finite, co-developed sets is a feasibility and regression result, not a statistical claim about a population. Latency percentiles are descriptive measurements from one environment; no confidence interval or significance test is used because the samples are neither independent random draws nor a defined workload population.
 
 \textbf{Reliability.}
-Dependencies and inputs are pinned and hashed, paths and JSON are normalized, patches are isolated, and every current input is executed twice. Local Windows verification reproduced the result with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. GitHub Actions additionally reproduced the complete current gate on clean \texttt{ubuntu-latest} and \texttt{windows-latest} runners at benchmark commit \texttt{021b17b5a645} using SHA-256-verified artifacts. The v0.1 challenge result is frozen and provenance-validated rather than re-executed by the current gate. These controls reduce, but do not eliminate, platform and toolchain threats; the study still uses one Node.js major version and one pnpm major version.
+Dependencies and inputs are pinned and hashed, paths and JSON are normalized, patches are isolated, and every current input is executed twice. Phase 3 commits the same baseline metadata for each case, requires a cache miss followed by a hit, and excludes timing and cache state from normalized replay comparison. Local Windows verification reproduced the result with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. GitHub Actions additionally reproduced the functional gate on clean \texttt{ubuntu-latest} and \texttt{windows-latest} runners at benchmark commit \texttt{fbe19e185431} using SHA-256-verified artifacts. The v0.1 challenge result is frozen and provenance-validated rather than re-executed by the current gate. Timing is retained only for the recorded Windows environment. These controls reduce, but do not eliminate, platform and toolchain threats.
 
 \section{Conclusion and Future Work}
 
-ArchSync implements a deterministic bridge between a declared architecture contract and a source-derived TypeScript service graph. In D1, it achieved 1.000 precision, recall, and F1 for aggregate full and changed node and edge detection, classified 20/20 patches, matched 7/7 violation rule sets, localized 11/11 finding-bearing cases to the expected file and line, and reproduced all outputs across 42 executions. In D2, the frozen v0.1 analyzer produced 18 TP, 4 FP, 2 FN, and 16 TN; provenance-aware v0.2 produced 20 TP, 0 FP, 0 FN, and 20 TN on the same annotated corpus.
+ArchSync implements a deterministic bridge between a declared architecture contract and a source-derived TypeScript service graph. In D1, it achieved 1.000 precision, recall, and F1 for aggregate full and changed node and edge detection, classified 20/20 patches, matched 7/7 violation rule sets, localized 11/11 finding-bearing cases to the expected file and line, and reproduced all outputs across 42 executions. P3 replayed those patches as Git diffs and matched 20/20 merge decisions and changed-file sets, hit the base cache on 20/20 repeated checks, preserved 20/20 normalized results, and parsed 57/189 TypeScript file instances. In D2, the frozen v0.1 analyzer produced 18 TP, 4 FP, 2 FN, and 16 TN; provenance-aware v0.2 produced 20 TP, 0 FP, 0 FN, and 20 TN on the same annotated corpus.
 
-These numbers demonstrate that the current contracts, detectors, and regression scenarios operate coherently; they do not establish general accuracy because the datasets are synthetic and co-evolved with the implementation. The immediate research priority is an independently curated holdout evaluation on additional TypeScript systems and toolchain versions. Engineering work will extend analysis to Git diffs, pull-request annotations, and merge gates while preserving the deterministic result as the authoritative decision. Later studies should investigate wrapper and dynamic language patterns, scalability, evidence comprehension, architect decision time, and independently evaluated analyzers for additional languages.
+These numbers demonstrate that the current contracts, detectors, and Git-diff regression scenarios operate coherently; they do not establish general accuracy or governance effectiveness because the datasets are synthetic and co-evolved with the implementation. ArchSync makes architecture dynamic by reconstructing implementation state continuously, but keeps design changes human-governed: the analyzer never rewrites the approved model, violations block, and evolution requires review. The immediate research priority is an independently curated holdout and a real pull-request pilot on additional TypeScript systems. Later studies should investigate wrapper and dynamic language patterns, scalability, evidence comprehension, approval load, architect decision time, IaC/runtime evidence, and independently evaluated analyzers for additional languages.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
