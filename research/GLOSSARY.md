@@ -3,9 +3,9 @@
 | Field | Value |
 | --- | --- |
 | Task | RES-101 |
-| Glossary version | 1.0.0 |
+| Glossary version | 1.0.1 |
 | Status | Frozen |
-| Effective date | 2026-08-15 |
+| Effective date | 2026-08-16 |
 | Owner | Hiếu, research lead and architecture owner |
 | Applies to | Roadmap, paper, implementation documentation, CLI/report language, datasets, and task tracker |
 
@@ -147,7 +147,7 @@ independent clean rerun.
 
 ## Version and change rule
 
-Glossary 1.0.0 is frozen with Research Baseline 1.0.0. Any later clarification,
+Glossary 1.0.1 is frozen with Research Baseline 1.0.1. Any later clarification,
 addition, or semantic change must update the glossary version and baseline
 version in the same pull request and must append an accepted entry to
 `decision-log.md`. A semantic redefinition is a MAJOR change because it can
@@ -157,4 +157,5 @@ invalidate prior datasets, metrics, findings, or paper claims.
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 1.0.1 | 2026-08-16 | D-007 | Coordinated PATCH version for the RQ namespace clarification; canonical term definitions are unchanged |
 | 1.0.0 | 2026-08-15 | D-006 | Establish one canonical definition for each required and supporting term |

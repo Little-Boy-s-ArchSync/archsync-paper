@@ -48,8 +48,8 @@ for (const [documentName, text] of [
 const requiredSections = [
   "Target users",
   "Problem statement",
-  "Scope IN: baseline 1.0.0",
-  "Scope OUT: baseline 1.0.0",
+  `Scope IN: baseline ${baselineVersion}`,
+  `Scope OUT: baseline ${baselineVersion}`,
   "Terminology contract",
   "Evidence gate",
   "Freeze and change control",
@@ -112,20 +112,22 @@ requireMatch(
 
 if (baselineVersion) {
   const escapedVersion = baselineVersion.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  requireMatch(
-    "decision-log.md",
-    decisions,
-    new RegExp(`^## D-\\d{3}: Freeze Research Baseline and Canonical Glossary ${escapedVersion}$`, "m"),
-    `missing accepted freeze decision for version ${baselineVersion}`,
+  const decisionHeadingPattern = new RegExp(
+    `^## D-\\d{3}: (?:Freeze|Version) Research Baseline and Canonical Glossary ${escapedVersion}(?: .*)?$`,
+    "m",
   );
+  const decisionHeading = decisions.match(decisionHeadingPattern);
+  if (!decisionHeading || decisionHeading.index === undefined) {
+    issues.push(`decision-log.md: missing version decision for ${baselineVersion}`);
+  } else {
+    const blockStart = decisionHeading.index;
+    const nextHeading = decisions.indexOf("\n## ", blockStart + decisionHeading[0].length);
+    const decisionBlock = decisions.slice(blockStart, nextHeading === -1 ? undefined : nextHeading);
+    if (!/^- Status: Accepted$/m.test(decisionBlock)) {
+      issues.push(`decision-log.md: version decision for ${baselineVersion} must be accepted`);
+    }
+  }
 }
-
-requireMatch(
-  "decision-log.md",
-  decisions,
-  /^- Status: Accepted$/m,
-  "freeze decision must be accepted",
-);
 
 if (issues.length > 0) {
   console.error("INVALID RESEARCH BASELINE");

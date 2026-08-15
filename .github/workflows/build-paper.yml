@@ -27,6 +27,9 @@ jobs:
       - name: Verify research baseline and glossary
         run: node research/validate-baseline.mjs
 
+      - name: Verify RQ traceability matrix
+        run: node research/validate-rq-traceability.mjs
+
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v4
         with:
