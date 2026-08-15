@@ -12,6 +12,12 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 ├── references.bib              # Tài liệu tham khảo
 ├── acmart.cls                  # ACM document class từ Overleaf
 ├── ACM-Reference-Format.bst    # ACM bibliography style
+├── research/
+│   ├── RESEARCH.md             # Research baseline, scope và evidence policy
+│   ├── GLOSSARY.md             # Thuật ngữ chuẩn có version
+│   ├── claim-evidence.csv      # Claim-to-evidence ledger
+│   ├── decision-log.md         # Quyết định và change control
+│   └── risk-register.csv       # Rủi ro nghiên cứu
 └── .github/workflows/
     └── build-paper.yml         # Biên dịch và kiểm tra trên GitHub Actions
 ```
@@ -19,10 +25,17 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 Hai sơ đồ hệ thống và quy trình evaluation được viết trực tiếp bằng TikZ trong `main.tex`, vì vậy không cần chỉnh sửa một file ảnh độc lập. Paper báo cáo hai dataset: benchmark end-to-end gồm 20 patch độc lập và corpus detector gồm 20 tín hiệu dương cùng 20 hard negative. Phase 3 tái sử dụng 20 patch dưới dạng Git diff để đo pull-request decision, architecture-delta agreement, incremental/full-scan equivalence, cache, scan scope và latency; đây là một protocol bổ sung, không phải dataset độc lập thứ ba.
 
 Research scope, thuật ngữ, evidence gate và phân công được khóa tại
-`research/RESEARCH.md`. Mỗi claim định lượng phải có hàng tương ứng trong
+`research/RESEARCH.md`; định nghĩa chuẩn nằm tại `research/GLOSSARY.md`. Mỗi
+claim định lượng phải có hàng tương ứng trong
 `research/claim-evidence.csv`; thay đổi RQ, ground truth, metric hoặc scope phải
 được ghi trong `research/decision-log.md`. Xem `CONTRIBUTING.md` trước khi sửa
 paper.
+
+Kiểm tra baseline và glossary bằng:
+
+```bash
+node research/validate-baseline.mjs
+```
 
 ## Biên dịch cục bộ
 

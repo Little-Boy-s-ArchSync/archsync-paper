@@ -48,3 +48,25 @@
   finding decisions.
 - Verification: The pull request must compile under `Build paper`, and the PDF
   artifact must be inspected before merge.
+
+## D-006: Freeze Research Baseline and Canonical Glossary 1.0.0
+
+- Date: 2026-08-15
+- Status: Accepted
+- Task: RES-101
+- Decision: Freeze `RESEARCH.md` baseline 1.0.0 and `GLOSSARY.md` 1.0.0 as the
+  authoritative scope and terminology contract for the roadmap, current paper,
+  implementation documentation, evaluation artifacts, and team task tracker.
+- Rationale: The prior research policy documented evidence and current phases
+  but did not explicitly identify target users, state an IN/OUT boundary, or
+  prevent architecture, model, diagram, drift, violation, evolution, finding,
+  and evidence from acquiring competing definitions.
+- Alignment: The baseline preserves the roadmap's deterministic P1--P3 MVP and
+  keeps AI, IaC, runtime, MCP implementation, and broader evaluation in P4--P7.
+  It matches the TypeScript/Node.js empirical boundary and limitations in
+  `main.tex` and the ownership split between Core and Guardian.
+- Change rule: Every post-freeze change requires a semantic version bump and an
+  accepted decision-log entry in the same pull request. Definition or scope
+  changes that can alter an existing claim, metric, dataset, or finding require
+  a MAJOR version bump plus migration and impact notes.
+- Approver: Hiếu, research lead and architecture owner.

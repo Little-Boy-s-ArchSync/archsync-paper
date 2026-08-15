@@ -24,6 +24,9 @@ jobs:
           grep -F '\author{Anonymous Author(s)}' main.tex
           grep -F '\institution{Anonymous Institution}' main.tex
 
+      - name: Verify research baseline and glossary
+        run: node research/validate-baseline.mjs
+
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v4
         with:
