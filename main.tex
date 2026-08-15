@@ -19,7 +19,7 @@
 }
 
 \begin{abstract}
-Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a change as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. A Git-diff gate caches the base graph, incrementally rescans affected components, and maps these classes to PASS, BLOCK, or REVIEW without silently rewriting the approved model. We evaluate the prototype with two controlled datasets and a change-scoped protocol. An Order Platform benchmark contains 20 independently applied patches: nine no-impact changes, seven violations, and four evolutions. Full-graph and changed-graph detection had no false positives or false negatives; ArchSync classified 20/20 cases, matched 7/7 violated-rule sets, and localized 11/11 finding-bearing cases to the expected file and line. Replaying the same patches as Git diffs matched 20/20 merge decisions, changed-file sets, and architecture deltas; every incremental result also matched a separate full scan of the same head repository. The gate hit the baseline cache on 20/20 repeated checks and parsed 57 of 189 TypeScript file instances. On the recorded Windows environment, cold and warm median check latency was 540.00 and 249.75 ms. A separate 40-signal challenge corpus improved from 18 true positives, four false positives, two false negatives, and 16 true negatives in frozen v0.1 to 20, zero, zero, and 20 in provenance-aware v0.2. These are feasibility and regression results, not estimates of general accuracy: the datasets were co-developed with the analyzer, the system is synthetic, timings come from one machine, and only explicit TypeScript/Node.js patterns are covered.
+Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a change as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. A Git-diff gate caches the base graph, incrementally rescans affected components, and maps these classes to PASS, BLOCK, or REVIEW without silently rewriting the approved model. We evaluate the prototype with two controlled datasets and a change-scoped protocol. An Order Platform benchmark contains 20 independently applied patches: nine no-impact changes, seven violations, and four evolutions. Full-graph and changed-graph detection had no false positives or false negatives; ArchSync classified 20/20 cases, matched 7/7 violated-rule sets, and localized 11/11 finding-bearing cases to the expected file and line. Replaying the same patches as Git diffs matched 20/20 merge decisions, changed-file sets, and architecture deltas; every incremental result also matched a separate full scan of the same head repository. The gate hit the baseline cache on 20/20 repeated checks and parsed 57 of 189 TypeScript file instances. On the recorded Windows environment, cold and warm median check latency was 518.51 and 242.62 ms. A separate 40-signal challenge corpus improved from 18 true positives, four false positives, two false negatives, and 16 true negatives in frozen v0.1 to 20, zero, zero, and 20 in provenance-aware v0.2. These are feasibility and regression results, not estimates of general accuracy: the datasets were co-developed with the analyzer, the system is synthetic, timings come from one machine, and only explicit TypeScript/Node.js patterns are covered.
 \end{abstract}
 
 \begin{CCSXML}
@@ -191,64 +191,68 @@ Figure~\ref{fig:architecture} separates approved intent from base and proposed i
   \resizebox{0.98\textwidth}{!}{%
   \begin{tikzpicture}[
     every node/.style={font=\sffamily\footnotesize},
-    panel/.style={draw=gray!42, fill=gray!3, rounded corners=4pt, minimum height=47mm},
-    declare title/.style={draw=violet!72!black, fill=violet!72!black, text=white, rounded corners=3pt, align=center, minimum height=9mm, text width=39mm, font=\sffamily\footnotesize\bfseries},
-    observe title/.style={draw=blue!68!black, fill=blue!68!black, text=white, rounded corners=3pt, align=center, minimum height=9mm, text width=51mm, font=\sffamily\footnotesize\bfseries},
-    gate title/.style={draw=teal!72!black, fill=teal!72!black, text=white, rounded corners=3pt, align=center, minimum height=9mm, text width=49mm, font=\sffamily\footnotesize\bfseries},
-    input/.style={draw=gray!62, fill=white, rounded corners=3pt, align=center, minimum height=9mm, text width=35mm},
-    process/.style={draw=blue!62!black, fill=blue!7, rounded corners=3pt, align=center, minimum height=9mm, text width=35mm},
-    artifact/.style={draw=violet!62!black, fill=violet!7, rounded corners=3pt, align=center, minimum height=9mm, text width=35mm},
-    lane input/.style={draw=gray!62, fill=white, rounded corners=3pt, align=center, minimum height=12mm, text width=22mm},
-    lane output/.style={draw=blue!62!black, fill=blue!7, rounded corners=3pt, align=center, minimum height=12mm, text width=25mm},
-    compare/.style={draw=orange!72!black, fill=orange!10, rounded corners=3pt, align=center, minimum height=11mm, text width=43mm},
-    finding/.style={draw=teal!68!black, fill=teal!8, rounded corners=3pt, align=center, minimum height=11mm, text width=43mm},
-    pass/.style={draw=green!62!black, fill=green!10, rounded corners=3pt, align=center, minimum height=11mm, text width=12mm, font=\sffamily\scriptsize},
-    block/.style={draw=red!68!black, fill=red!8, rounded corners=3pt, align=center, minimum height=11mm, text width=12mm, font=\sffamily\scriptsize},
-    review/.style={draw=orange!75!black, fill=orange!12, rounded corners=3pt, align=center, minimum height=11mm, text width=12mm, font=\sffamily\scriptsize},
-    flow/.style={-{Latex[length=2.2mm]}, semithick, draw=gray!82},
-    intent flow/.style={-{Latex[length=2.2mm]}, semithick, draw=violet!68!black}
+    panel/.style={draw=gray!30, fill=gray!2, rounded corners=6pt, minimum height=54mm, line width=0.6pt},
+    stage title/.style={text=white, rounded corners=4pt, align=center, minimum height=10mm, font=\sffamily\small\bfseries},
+    declare title/.style={stage title, draw=violet!78!black, fill=violet!78!black, text width=39mm},
+    observe title/.style={stage title, draw=blue!72!black, fill=blue!72!black, text width=59mm},
+    gate title/.style={stage title, draw=teal!70!black, fill=teal!70!black, text width=55mm},
+    card/.style={draw=gray!56, fill=white, rounded corners=3pt, align=center, minimum height=10.5mm, line width=0.65pt},
+    input/.style={card, text width=35mm},
+    process/.style={card, draw=violet!65!black, fill=violet!5, text width=35mm},
+    artifact/.style={card, draw=violet!65!black, fill=violet!8, text width=35mm},
+    lane input/.style={card, text width=24mm, minimum height=15mm},
+    lane output/.style={card, draw=blue!65!black, fill=blue!6, text width=27mm, minimum height=15mm},
+    compare/.style={card, draw=orange!72!black, fill=orange!8, text width=46mm, minimum height=14mm},
+    finding/.style={card, draw=teal!68!black, fill=teal!7, text width=46mm, minimum height=12mm},
+    decision/.style={rounded corners=3pt, align=center, minimum height=12mm, text width=14mm, font=\sffamily\scriptsize, line width=0.7pt},
+    pass/.style={decision, draw=green!62!black, fill=green!9},
+    block/.style={decision, draw=red!68!black, fill=red!8},
+    review/.style={decision, draw=orange!75!black, fill=orange!11},
+    flow/.style={-{Latex[length=2.2mm]}, semithick, draw=gray!75},
+    intent flow/.style={-{Latex[length=2.2mm]}, semithick, draw=violet!68!black},
+    edge label/.style={font=\sffamily\scriptsize, fill=white, inner sep=1.2pt, text=gray!78!black}
   ]
-    % Three stage cards keep the contract, implementation state, and gate visually separate.
+    % Three stage cards keep authority, observation, and decision semantics separate.
     \node[panel, minimum width=45mm] (declarePanel) at (2.30,0) {};
-    \node[panel, minimum width=59mm] (observePanel) at (8.05,0) {};
-    \node[panel, minimum width=58mm] (gatePanel) at (14.25,0) {};
+    \node[panel, minimum width=66mm] (observePanel) at (8.10,0) {};
+    \node[panel, minimum width=61mm] (gatePanel) at (14.75,0) {};
 
-    \node[declare title] at (2.30,1.88) {1. DECLARE\\[-1mm]{\scriptsize Approved architecture intent}};
-    \node[observe title] at (8.05,1.88) {2. OBSERVE\\[-1mm]{\scriptsize Base snapshot and proposed change}};
-    \node[gate title] at (14.25,1.88) {3. COMPARE AND GATE\\[-1mm]{\scriptsize Introduced findings control the PR}};
+    \node[declare title] at (2.30,2.16) {1. DECLARE INTENT\\[-0.7mm]{\scriptsize One approved architecture contract}};
+    \node[observe title] at (8.10,2.16) {2. OBSERVE CHANGE\\[-0.7mm]{\scriptsize Base snapshot and affected head components}};
+    \node[gate title] at (14.75,2.16) {3. COMPARE AND GATE\\[-0.7mm]{\scriptsize Only introduced findings control the PR}};
 
-    \node[input] (model) at (2.30,0.82) {\textbf{Approved contract $M$}\\\texttt{architecture.yaml}};
-    \node[process] (validate) at (2.30,-0.12) {\textbf{Core validation}\\schema + semantics};
-    \node[artifact] (intent) at (2.30,-1.08) {\textbf{Expected graph $G_E$}\\rules $R$ + model evidence};
+    \node[input] (model) at (2.30,1.02) {\textbf{Approved contract $M$}\\{\scriptsize\texttt{architecture.yaml}}};
+    \node[process] (validate) at (2.30,-0.08) {\textbf{Validate contract}\\{\scriptsize schema + semantic checks}};
+    \node[artifact] (intent) at (2.30,-1.20) {\textbf{Expected architecture}\\$G_E$ + rules $R$ + model evidence};
 
-    \node[lane input] (base) at (6.65,0.42) {\textbf{Git base $S_b$}\\committed tree};
-    \node[lane output] (baseGraph) at (9.45,0.42) {\textbf{Full baseline scan}\\cached graph $G_b$};
-    \node[lane input] (head) at (6.65,-1.02) {\textbf{Git head $S_h$ + diff}\\paths + hunks};
-    \node[lane output] (headGraph) at (9.45,-1.02) {\textbf{Affected-component AST}\\$G_h$ + source evidence $P$};
+    \node[lane input] (base) at (6.55,0.82) {{\scriptsize\bfseries BASE SNAPSHOT}\\\textbf{Git base $S_b$}\\{\scriptsize committed tree}};
+    \node[lane output] (baseGraph) at (9.55,0.82) {\textbf{Full AST scan}\\{\scriptsize cached observed graph}\\$G_b$};
+    \node[lane input] (head) at (6.55,-0.92) {{\scriptsize\bfseries PROPOSED CHANGE}\\\textbf{Git diff $S_b\!\rightarrow\!S_h$}\\{\scriptsize paths + hunks}};
+    \node[lane output] (headGraph) at (9.55,-0.92) {\textbf{Incremental AST scan}\\{\scriptsize affected components only}\\$G_h$ + evidence $P$};
 
-    \node[compare] (conformance) at (14.25,0.66) {\textbf{Base/head conformance}\\$F(M,G_b)$ versus $F(M,G_h)$};
-    \node[finding] (findingDelta) at (14.25,-0.42) {\textbf{Finding delta}\\introduced $\mathcal{F}^{+}$ + linked evidence};
-    \node[pass] (passDecision) at (12.55,-1.56) {\textbf{PASS}\\no new drift};
-    \node[block] (blockDecision) at (14.25,-1.56) {\textbf{BLOCK}\\new violation};
-    \node[review] (reviewDecision) at (15.95,-1.56) {\textbf{REVIEW}\\new evolution};
+    \node[compare] (conformance) at (14.75,0.88) {\textbf{Evaluate base and head}\\$F(M,G_b)$ versus $F(M,G_h)$};
+    \node[finding] (findingDelta) at (14.75,-0.45) {\textbf{Introduced finding set}\\$\mathcal{F}^{+}=\mathcal{F}_h\setminus\mathcal{F}_b$ + linked evidence};
+    \node[pass] (passDecision) at (12.75,-1.70) {\textbf{PASS}\\no new drift};
+    \node[block] (blockDecision) at (14.75,-1.70) {\textbf{BLOCK}\\new violation};
+    \node[review] (reviewDecision) at (16.75,-1.70) {\textbf{REVIEW}\\new evolution};
 
     \draw[flow] (model) -- (validate);
     \draw[flow] (validate) -- (intent);
     \draw[flow] (base) -- (baseGraph);
     \draw[flow] (head) -- (headGraph);
 
-    \draw[intent flow] (intent.east) -- ++(0.32,0) |- ([xshift=-2mm]conformance.north west) -- (conformance.north west);
-    \draw[flow] (baseGraph.east) -- (conformance.west);
-    \draw[flow] (headGraph.east) -- ++(0.38,0) |- (conformance.south west);
+    \draw[intent flow] (intent.east) -- ++(0.34,0) |- node[edge label, near end, above] {$M,R$} (conformance.north);
+    \draw[flow] (baseGraph.east) -- node[edge label, above] {$G_b$} ([yshift=3.2mm]conformance.west);
+    \draw[flow] (headGraph.east) -- ++(0.38,0) |- node[edge label, near end, below] {$G_h,P$} ([yshift=-3.2mm]conformance.west);
     \draw[flow] (conformance) -- (findingDelta);
 
-    \coordinate (decisionHub) at (14.25,-1.02);
+    \coordinate (decisionHub) at (14.75,-1.08);
     \draw[flow] (findingDelta.south) -- (decisionHub);
     \draw[flow] (decisionHub) -| (passDecision.north);
     \draw[flow] (decisionHub) -- (blockDecision.north);
     \draw[flow] (decisionHub) -| (reviewDecision.north);
   \end{tikzpicture}}
-  \caption{ArchSync Phase 3 system architecture. The three-stage view separates approved intent, observed implementation state, and the pull-request gate. The model remains authoritative; only findings introduced by the Git diff determine PASS, BLOCK, or REVIEW.}
+  \caption{ArchSync Phase 3 system architecture. The three-stage pipeline separates approved intent, base/head observation, and the pull-request gate. The model remains authoritative; only findings introduced by the Git diff determine PASS, BLOCK, or REVIEW.}
   \Description{Stage one validates the approved architecture contract into an expected graph, rules, and model evidence. Stage two builds a cached base graph and incrementally reconstructs the proposed head with source evidence. Stage three compares base and head findings, keeps the introduced set, and maps it to PASS, BLOCK, or REVIEW.}
   \label{fig:architecture}
 \end{figure*}
@@ -259,17 +263,17 @@ The architecture is divided across focused repositories. \texttt{archsync-\allow
 
 \subsection{Implemented Prototype}
 
-The implementation is divided across three repositories used in this study. \texttt{archsync-core} implements Architecture Model version 0.1, JSON Schema and semantic validation, normalized graphs, graph difference, deny/allow/require/require-path semantics, command-line reports, and deterministic Mermaid and draw.io projections. The roadmap called this Phase 1 planning milestone v0.0; model version 0.1 is the first executable contract rather than a change of phase scope. Its verification suite contains 84 tests and reports 98.41\% statement coverage, 91.73\% branch coverage, 100\% function coverage, and 98.41\% line coverage.
+The implementation is divided across three repositories used in this study. \texttt{archsync-core} implements Architecture Model version 0.1, JSON Schema and semantic validation, normalized graphs, graph difference, deny/allow/require/require-path semantics, command-line reports, and deterministic Mermaid and draw.io projections. The roadmap called this Phase 1 planning milestone v0.0; model version 0.1 is the first executable contract rather than a change of phase scope. Its current verification suite contains 100 tests, enforces 100\% statement, branch, function, and line coverage for the deterministic engine, and exercises 13 built-CLI smoke checks.
 
-\texttt{archsync-guardian} version 0.3 implements Observed Graph and Finding Contract version 0.1 with analyzer implementation version 0.2. The package number differs from the roadmap's planning label v0.2 because v0.2 was used for provenance-aware analyzer hardening before the PR gate; the Phase 3 scope is unchanged. The analyzer traverses TypeScript files, maps component roots, parses syntax trees through the TypeScript Compiler API, resolves explicit literals and selected environment-variable fallbacks, runs HTTP/PostgreSQL/Redis/AMQP detectors, captures evidence, and sorts and deduplicates output. The Phase 3 module invokes Git without a shell, reconstructs base source snapshots, validates or rebuilds graph-cache entries, maps changed paths to components, merges partial observations, compares stable finding identities, and renders human, JSON, Markdown, and GitHub-annotation outputs. Guardian delegates graph difference and rule semantics to Core. Its verification suite contains 34 tests and reports 97.31\% statement coverage, 88.34\% branch coverage, 98.63\% function coverage, and 97.31\% line coverage.
+\texttt{archsync-guardian} version 0.3 implements Observed Graph and Finding Contract version 0.1 with analyzer implementation version 0.2. The package number differs from the roadmap's planning label v0.2 because v0.2 was used for provenance-aware analyzer hardening before the PR gate; the Phase 3 scope is unchanged. The analyzer traverses TypeScript files, maps component roots, parses syntax trees through the TypeScript Compiler API, resolves explicit literals and selected environment-variable fallbacks, runs HTTP/PostgreSQL/Redis/AMQP detectors, captures evidence, and sorts and deduplicates output. The Phase 3 module invokes Git without a shell, reconstructs base source snapshots, validates or rebuilds graph-cache entries, maps changed paths to components, merges partial observations, compares stable finding identities, and renders human, JSON, Markdown, and GitHub-annotation outputs. Guardian delegates graph difference and rule semantics to Core. Its current verification suite contains 58 tests, enforces 100\% statement, branch, function, and line coverage for the deterministic engine, and exercises 22 built-CLI smoke checks.
 
 \texttt{archsync-benchmark} provides the Order Platform baseline, 20 real unified-diff patches, the ground-truth manifest, a 40-signal TypeScript challenge corpus, integrity validation, mutation tests, and evaluation runners. Phase 2 applies each patch to a fresh temporary copy; Phase 3 initializes that copy as a Git repository, commits the baseline, applies the patch as a working-tree diff, performs cold and warm checks, and runs a separate full scan as an equivalence oracle for the incrementally reconstructed head. Signal annotations bind detector, file, exact line, expected edge, and a required source substring. The benchmark suite contains 14 invariant and mutation tests. \texttt{archsync-mcp} is not used in the experiment.
 
 \subsection{Reproducibility Controls}
 
-The benchmark pins Core commit \texttt{304f4ac48137} and Guardian commit \texttt{97109c8acab1}. These are the runtime artifacts used to generate the reported measurements; later audit commits do not silently replace them. The end-to-end manifest records SHA-256 values for the architecture model, nine-file baseline tree, and 20-patch set. Phase 3 evidence additionally hashes the Guardian v0.3 package and normalized Git-diff results while recording the cache protocol, incremental scope, environment, and raw timing samples. Its verifier recomputes derived timing statistics and rejects any incremental result that differs from the full-scan oracle or declared architecture delta. Core's Phase 1 evidence binds production source, tests, the complete fixture tree, verification configuration, package metadata, and lockfile. Guardian's Phase 2 and Phase 3 evidence similarly binds implementation and verification source, fixture trees, package metadata, lockfile, and the pinned Core artifact. The challenge evidence separately hashes its signal manifest, architecture, source tree, normalized result, and analyzer package. A frozen v0.1 result remains bound to Guardian commit \texttt{e1cd98956856} and its original package hash.
+The benchmark pins Core commit \texttt{2affbbb0da85} and Guardian commit \texttt{8779bf7965b3}. These are the runtime artifacts used to generate the reported measurements; later audit and documentation commits do not silently replace them. The end-to-end manifest records SHA-256 values for the architecture model, nine-file baseline tree, and 20-patch set. Phase 3 evidence additionally hashes the Guardian v0.3 package and normalized Git-diff results while recording the cache protocol, incremental scope, environment, and raw timing samples. Its verifier recomputes derived timing statistics and rejects any incremental result that differs from the full-scan oracle or declared architecture delta. Core's Phase 1 evidence binds production source, tests, the complete fixture tree, verification configuration, package metadata, and lockfile. Guardian's Phase 2 and Phase 3 evidence similarly binds implementation and verification source, fixture trees, package metadata, lockfile, and the pinned Core artifact. The challenge evidence separately hashes its signal manifest, architecture, source tree, normalized result, and analyzer package. A frozen v0.1 result remains bound to Guardian commit \texttt{e1cd98956856} and its original package hash.
 
-We executed the complete verification commands on Windows with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. Core passed 84/84 tests and 13/13 CLI smoke checks; Guardian passed 34/34 tests and 10/10 CLI smoke checks; the benchmark passed 14/14 tests, validated all 20 patches and 40 annotated signals, and reproduced the Phase 2, detector, and Phase 3 evidence artifacts plus the frozen baseline provenance. After packaging the pinned Core and Guardian revisions as SHA-256-verified runtime artifacts, GitHub Actions ran the complete gates from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts. Both benchmark jobs passed at audit commit \texttt{5fe3679}, both Guardian jobs passed at \texttt{baee7f9}, and both Core jobs passed at \texttt{b638615}.
+We executed the complete verification commands on Windows with Node.js 22.16.0 and the repository-declared pnpm 11.16.0 toolchain. Core passed 100/100 tests and 13/13 CLI smoke checks; Guardian passed 58/58 tests and 22/22 CLI smoke checks; the benchmark passed 55/55 validation-library tests at 100\% line, branch, and function coverage, validated all 20 patches and 40 annotated signals, and reproduced the Phase 2, detector, and Phase 3 evidence artifacts plus the frozen baseline provenance. After packaging the pinned Core and Guardian revisions as SHA-256-verified runtime artifacts, GitHub Actions ran the complete gates from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts. The benchmark workflow passed at audit commit \texttt{24d63eb}, the Guardian workflow passed at \texttt{8779bf7}, and the portable Core evidence workflow passed at \texttt{e3d050e} without changing the pinned runtime package.
 
 \section{Evaluation Methodology}
 
@@ -437,8 +441,8 @@ Before reporting the run, the D1 engineering exit gate required node and edge pr
     Cache hit on repeated check & 20/20 \\
     Normalized cold/warm replay & 20/20 \\
     Incremental files / head files & 57/189 \\
-    Cold median / p95 (ms) & 540.00 / 571.60 \\
-    Warm median / p95 (ms) & 249.75 / 278.27 \\
+    Cold median / p95 (ms) & 518.51 / 531.05 \\
+    Warm median / p95 (ms) & 242.62 / 249.30 \\
     \hline
   \end{tabular}
 \end{table}
@@ -476,9 +480,9 @@ ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evo
 All 11 finding-bearing D1 cases contained the expected file and at least one evidence item at the exact expected line. Violation cases pointed to either the introducing call site or, for a missing required edge or path, a deterministic component anchor. Evolution cases pointed to the operation that created the new observed relationship. The metric does not evaluate uniqueness or ranking when multiple evidence items exist.
 
 \textbf{RQ4: determinism and reproducibility.}
-The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 produced identical normalized cold and warm results for 20/20 cases, matched all 20 declared architecture deltas, matched a separate full head scan in all 20 cases, and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm median latency was 249.75 ms compared with 540.00 ms cold, a descriptive 53.8\% reduction; warm p95 was 278.27 ms compared with 571.60 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
+The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 produced identical normalized cold and warm results for 20/20 cases, matched all 20 declared architecture deltas, matched a separate full head scan in all 20 cases, and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm median latency was 242.62 ms compared with 518.51 ms cold, a descriptive 53.2\% reduction; warm p95 was 249.30 ms compared with 531.05 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
 
-The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{ea2727f9d564} for Core and \texttt{7e8375276af0} for Guardian v0.3. P3 records normalized-result SHA-256 \texttt{9dfede4e4274}. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.
+The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{015c9bbb0cf4} for Core and \texttt{d7b1a431c2a5} for Guardian v0.3. P3 records normalized-result SHA-256 \texttt{9dfede4e4274}. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.
 
 \section{Discussion}
 

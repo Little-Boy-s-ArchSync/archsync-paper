@@ -1,0 +1,9 @@
+risk_id,phase,description,likelihood,impact,trigger,mitigation,owner,status,review_cadence
+R-001,P0-P7,"Paper claim diverges from evidence artifact",medium,critical,"Number or hash changes without claim-evidence update","Require claim-evidence row and reviewer comparison in the same PR",Hiếu,open,Every paper PR
+R-002,P0-P7,"Private repository lacks enforced branch protection",medium,high,"Direct push or merge without green CI/review","Manual PR-only policy; CODEOWNERS; Hiếu final merge; decision log",Hiếu,mitigated,Weekly
+R-003,P2-P3,"Development benchmark is misrepresented as general accuracy",medium,critical,"Conclusion omits synthetic/co-developed limitation","Keep explicit feasibility/regression wording and build D3 holdout",Hiếu,open,Every results edit
+R-004,P0-P7,"Generated output is mistaken for research evidence",medium,high,"Untracked result appears outside evidence bundle","Use ignored .archsync workspace and provenance gate",Thành viên 1,mitigated,Every demo/release
+R-005,P4,"Secret or private code is sent to an AI provider",medium,critical,"Canary secret appears in request or log","Redaction tests; retention review; egress policy; stop switch",Thành viên 2,planned,Before any provider run
+R-006,P4,"Prompt injection changes hard decisions or citations",medium,critical,"Provider output bypasses deterministic verification","Adversarial corpus; citation validator; no auto-approval",Thành viên 2,planned,Every Phase 4 gate
+R-007,P5-P6,"Cross-source conflict is hidden by a single score",medium,high,"Model/code/IaC/runtime evidence disagree","Preserve per-source provenance, unknown state and human approval",Thành viên 3,planned,Every Phase 5-6 gate
+R-008,P7,"Independent reproduction fails near submission",medium,critical,"Clean machine requires undocumented dependency or private token","Early release dry-run; checksum/SBOM/license; independent reviewer",Thành viên 1,open,Each release candidate
