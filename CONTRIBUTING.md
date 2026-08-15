@@ -43,6 +43,15 @@ Mỗi section phải có ít nhất một reviewer ngoài người viết chính
 ground truth, metric, acceptance criterion hoặc architecture contract cần được
 ghi vào `research/decision-log.md` trước khi merge.
 
+`research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
+freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng
+version theo change rule trong baseline và thêm một decision được chấp nhận ở
+cùng pull request. Trước khi mở PR, chạy:
+
+```bash
+node research/validate-baseline.mjs
+```
+
 ## Double-blind
 
 Giữ `anonymous` trong `acmart`; không thêm tên, email, affiliation, URL nhận diện,

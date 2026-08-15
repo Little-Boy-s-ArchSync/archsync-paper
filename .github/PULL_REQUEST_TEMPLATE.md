@@ -18,5 +18,8 @@
 - [ ] Every quantitative statement maps to a verified claim-evidence row.
 - [ ] Planned Phase 4--6 work is not written as an observed result.
 - [ ] Dataset scope and threats to validity remain explicit.
+- [ ] A terminology or scope change bumps the baseline/glossary version and has
+  an accepted `research/decision-log.md` entry in this pull request.
+- [ ] `node research/validate-baseline.mjs` passes.
 - [ ] No author identity, private URL, secret or PII is present.
 - [ ] A reviewer other than the primary author checked the change.
