@@ -70,3 +70,24 @@
   changes that can alter an existing claim, metric, dataset, or finding require
   a MAJOR version bump plus migration and impact notes.
 - Approver: Hiếu, research lead and architecture owner.
+
+## D-007: Version Research Baseline and Canonical Glossary 1.0.1 for RQ Traceability
+
+- Date: 2026-08-16
+- Status: Accepted
+- Task: RQ-102
+- Decision: Use `F-RQ1`--`F-RQ4` as the internal identifiers for the four
+  feasibility questions answered by the current Phase 1--3 paper. Use
+  `V-RQ1`--`V-RQ4` for the four longer-term roadmap questions about AI versus
+  human development, multi-source evidence, explanation and repair, and
+  productivity. Keep the publication-facing labels RQ1--RQ4 in `main.tex`.
+- Evidence boundary: F-RQ1--F-RQ4 have current verified evidence. V-RQ2 has
+  verified code-only prerequisite evidence but no full spec--code--IaC--runtime
+  evaluation. V-RQ1, V-RQ3, and V-RQ4 are planned and have no result evidence.
+- Mapping rule: A feasibility RQ may be a prerequisite for a vision RQ without
+  answering it. No roadmap metric becomes a paper result until its protocol,
+  dataset, raw evidence, verifier, and claim ledger entry pass the evidence gate.
+- Version impact: This is a PATCH clarification. It changes identifiers and adds
+  traceability but does not change the frozen scope, canonical definitions,
+  current RQ wording, metrics, datasets, or empirical claims.
+- Approver: Hiếu, research lead and architecture owner.

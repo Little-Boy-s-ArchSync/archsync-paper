@@ -3,10 +3,10 @@
 | Field | Value |
 | --- | --- |
 | Task | RES-101 |
-| Baseline version | 1.0.0 |
-| Canonical glossary | `GLOSSARY.md` version 1.0.0 |
+| Baseline version | 1.0.1 |
+| Canonical glossary | `GLOSSARY.md` version 1.0.1 |
 | Status | Frozen |
-| Effective date | 2026-08-15 |
+| Effective date | 2026-08-16 |
 | Owner | Hiếu, research lead and architecture owner |
 | Change authority | Pull request plus an accepted entry in `decision-log.md` |
 
@@ -67,7 +67,7 @@ workflow that:
 4. gates only findings introduced by a proposed Git change; and
 5. preserves enough provenance to reproduce each reported result.
 
-## Scope IN: baseline 1.0.0
+## Scope IN: baseline 1.0.1
 
 The following work is inside the frozen empirical scope of the current paper.
 
@@ -84,7 +84,7 @@ The expected graph, rule semantics, finding contract, and evaluation metrics are
 designed so that another analyzer can reuse them, but only the declared
 TypeScript/Node.js analyzer has current empirical evidence.
 
-## Scope OUT: baseline 1.0.0
+## Scope OUT: baseline 1.0.1
 
 The following items are not implemented evidence or validated claims in the
 current paper:
@@ -116,18 +116,25 @@ match the limitations and future-work statements in `main.tex`.
 
 ## Research questions covered by the current baseline
 
-- RQ1: accuracy of component and relationship reconstruction from supported
+- F-RQ1: accuracy of component and relationship reconstruction from supported
   TypeScript source patterns.
-- RQ2: accuracy of no-impact, violation, and evolution classification.
-- RQ3: accuracy of finding localization by file and line, with additional model
+- F-RQ2: accuracy of no-impact, violation, and evolution classification.
+- F-RQ3: accuracy of finding localization by file and line, with additional model
   and detector evidence retained.
-- RQ4: determinism, reproducibility, incremental/full-scan equivalence, parsed
+- F-RQ4: determinism, reproducibility, incremental/full-scan equivalence, parsed
   scope, cache behavior, and observed latency of the Git-diff gate.
+
+The `F-` namespace means current-paper feasibility RQ. The visible labels in
+`main.tex` remain RQ1--RQ4 for publication. The roadmap's longer-term questions
+use the separate `V-RQ1`--`V-RQ4` namespace and must not be interpreted as
+results of the current paper. The canonical mapping, unit of analysis, metric,
+dataset, owner, paper section, and evidence status are frozen in
+`RQ-TRACEABILITY.md` and `rq-traceability.csv`.
 
 Every RQ must declare its unit of analysis, dataset, metric, denominator,
 acceptance rule, and evidence artifact. Changing an RQ requires the protocol,
-`claim-evidence.csv`, baseline version, and decision log to change in the same
-pull request.
+`rq-traceability.csv`, `claim-evidence.csv`, baseline version, and decision log
+to change in the same pull request.
 
 ## Experimental objects
 
@@ -143,7 +150,7 @@ pull request.
 
 ## Terminology contract
 
-`research/GLOSSARY.md` version 1.0.0 is the only normative definition source for
+`research/GLOSSARY.md` version 1.0.1 is the only normative definition source for
 the following terms: Architecture, Architecture Model, Architecture Diagram,
 Architecture Drift, Violation, Evolution, Finding, and Evidence. It also defines
 the supporting terms Expected Graph, Observed Graph, No-impact, Gate Decision,
@@ -215,8 +222,9 @@ a provenance-bound bundle with a verifier.
 
 ## Freeze and change control
 
-Baseline 1.0.0 and Glossary 1.0.0 become frozen when RES-101 is merged into
-`main`. A later change is valid only when one pull request contains all affected
+Baseline 1.0.1 and Glossary 1.0.1 are frozen on the default branch. Every
+subsequent change must be merged through a pull request into `main`. A later
+change is valid only when one pull request contains all affected
 artifacts and an accepted decision-log entry with rationale, impact, migration,
 owner, reviewer, and date.
 
@@ -241,9 +249,10 @@ baseline.
 | Target user is explicit | Primary decision user and operational users are stated above |
 | Problem is explicit | Problem statement distinguishes static documentation, observed structure, and executable intent |
 | Scope IN/OUT is explicit | P0--P3 evidence is IN; P4--P7 and unsupported claims are OUT |
-| Required terminology is unambiguous | Eight required terms have one canonical definition in `GLOSSARY.md` 1.0.0 |
+| Required terminology is unambiguous | Eight required terms have one canonical definition in `GLOSSARY.md` 1.0.1 |
 | Roadmap alignment | P0 baseline and deterministic-before-expansion dependency are preserved |
-| Paper alignment | RQ1--RQ4, TypeScript boundary, datasets, limitations, and future work match `main.tex` |
+| RQ alignment | F-RQ1--F-RQ4 map to the current paper; V-RQ1--V-RQ4 remain distinct roadmap questions with explicit evidence status |
+| Paper alignment | Published RQ1--RQ4, TypeScript boundary, datasets, limitations, and future work match `main.tex` |
 | Implementation alignment | Core owns model/rules; Guardian owns observation/findings/gate; MCP is excluded |
 | Post-freeze change control | Semantic version bump plus accepted decision-log entry is mandatory |
 
@@ -254,4 +263,5 @@ research policy and does not replace task status management.
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 1.0.1 | 2026-08-16 | D-007 | Add non-semantic F-RQ/V-RQ namespaces and a governed traceability matrix without changing the frozen scope, definitions, metrics, datasets, or empirical claims |
 | 1.0.0 | 2026-08-15 | D-006 | Freeze target users, problem, Phase 1--3 IN scope, Phase 4--7 OUT scope, terminology authority, evidence gate, and post-freeze change control |
