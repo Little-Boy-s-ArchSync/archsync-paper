@@ -1,0 +1,14 @@
+claim_id,rq,phase,claim,denominator_or_scope,status,evidence_artifact,verification,owner
+C-001,RQ1,P2,"D1 aggregate full and changed node/edge detection has precision, recall and F1 of 1.000","20 patches; 5 baseline nodes; 5 baseline edges; declared per-case deltas",verified,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu
+C-002,RQ2,P2,"Classification matches ground truth","20 of 20 D1 patches",verified,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu
+C-003,RQ2,P2,"Violated rule sets match ground truth","7 of 7 violation cases",verified,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu
+C-004,RQ3,P2,"Finding-bearing cases match expected file and exact line","11 of 11 cases",verified,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu
+C-005,RQ1,P2,"Provenance-aware v0.2 classifies the controlled detector signals without error","20 positive and 20 hard-negative signals",verified,"archsync-benchmark/evidence/typescript-pattern-results.json","pnpm verify",Thành viên 3
+C-006,RQ4,P3,"Git-diff decision, changed-file, architecture-delta and incremental/full-scan results match","20 of 20 D1 patches",verified,"archsync-benchmark/evidence/phase-3-results.json","pnpm verify",Thành viên 3
+C-007,RQ4,P3,"Repeated Git-diff checks reuse the base cache and preserve normalized output","20 of 20 repeated checks",verified,"archsync-benchmark/evidence/phase-3-results.json","pnpm verify",Thành viên 3
+C-008,RQ4,P3,"Incremental analysis parses 57 of 189 TypeScript file instances","D1 Phase 3 protocol",verified,"archsync-benchmark/evidence/phase-3-results.json","pnpm verify",Thành viên 3
+C-009,RQ4,P3,"Recorded Windows cold/warm median latency is 518.51/242.62 ms","20 cold and 20 warm samples on the recorded environment",verified,"archsync-benchmark/evidence/phase-3-results.json","pnpm verify; recompute statistics",Thành viên 3
+P-001,Future,P4,"AI explanations are evidence-grounded and unsupported claims remain within the frozen threshold","Planned protocol; no result yet",planned,"Not available","Phase 4 evidence gate",Thành viên 2
+P-002,Future,P4,"Repair candidates pass sandbox verification without changing deterministic decisions","Planned protocol; no result yet",planned,"Not available","Phase 4 evidence gate",Thành viên 2
+P-003,Future,P5,"IaC evidence can be reconciled with model and code evidence","Planned protocol; no result yet",planned,"Not available","Phase 5 evidence gate",Thành viên 3
+P-004,Future,P6,"Runtime evidence supports a human-governed architecture evolution scorecard","Planned protocol; no result yet",planned,"Not available","Phase 6 evidence gate",Thành viên 3

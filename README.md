@@ -18,6 +18,12 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 
 Hai sơ đồ hệ thống và quy trình evaluation được viết trực tiếp bằng TikZ trong `main.tex`, vì vậy không cần chỉnh sửa một file ảnh độc lập. Paper báo cáo hai dataset: benchmark end-to-end gồm 20 patch độc lập và corpus detector gồm 20 tín hiệu dương cùng 20 hard negative. Phase 3 tái sử dụng 20 patch dưới dạng Git diff để đo pull-request decision, architecture-delta agreement, incremental/full-scan equivalence, cache, scan scope và latency; đây là một protocol bổ sung, không phải dataset độc lập thứ ba.
 
+Research scope, thuật ngữ, evidence gate và phân công được khóa tại
+`research/RESEARCH.md`. Mỗi claim định lượng phải có hàng tương ứng trong
+`research/claim-evidence.csv`; thay đổi RQ, ground truth, metric hoặc scope phải
+được ghi trong `research/decision-log.md`. Xem `CONTRIBUTING.md` trước khi sửa
+paper.
+
 ## Biên dịch cục bộ
 
 Cài TeX Live hoặc MiKTeX có `latexmk`, sau đó chạy:
