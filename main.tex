@@ -90,6 +90,12 @@ Empirical rigor and artifact availability are recurring concerns in software-arc
 
 False positives and false negatives are also central to static-analysis reliability. Cui et al. study 350 historical FP/FN issues across three analyzers and show that missing cases, language/library handling, and analysis limitations are recurring causes; their metamorphic strategy found additional confirmed defects \cite{cui2024static}. ArchSync therefore complements end-to-end topology changes with annotated positive and hard-negative source signals. The challenge corpus is intentionally a regression instrument: it tests method-name lookalikes, unused imports, aliases, namespace imports, and previously unsupported operations, but is not an independent holdout.
 
+\subsection{Related-Work Review Protocol and Current Status}
+
+The preceding synthesis positions ArchSync against selected foundational, secondary, and empirical studies. It is not the outcome of a completed systematic literature review and makes no claim that the relevant literature has been exhaustively identified. A separate versioned protocol follows the software-engineering review process of Kitchenham and Charters \cite{kitchenham2007slr}, supplements database search with backward and forward snowballing \cite{wohlin2014snowballing}, and plans transparent reporting with PRISMA 2020 and the software-engineering-specific SEGRESS guidance \cite{page2021prisma,kitchenham2023segress}.
+
+The candidate protocol predeclares six secondary questions, IEEE Xplore, the ACM Digital Library, Scopus, and the Web of Science Core Collection, three query families, a fixed 16 August 2026 search cutoff, sentinel recall checks, eligibility and deduplication rules, independent title/abstract and full-text screening, quality assessment, extraction, and synthesis. At this manuscript snapshot, protocol version \texttt{0.1.0} is a review candidate. The official search has not started, and no result list has been inspected. Search remains blocked until a non-author reviewer validates the method and sentinel recall and the protocol is frozen. Consequently, this paper reports no search count, study-selection count, PRISMA flow, or literature-derived coverage claim.
+
 \section{Problem Definition}
 
 Let the expected architecture contract be
@@ -510,6 +516,9 @@ The authors curated the analyzer and both datasets. Although D1 topology intent 
 
 \textbf{External validity.}
 The study contains one small synthetic TypeScript/Node.js system, 20 changes, and 40 controlled detector signals. Phase 3 checks working-tree and feature-branch Git states but not a longitudinal project history, large monorepository, or human approval process. The current private repository plan did not permit required-check or ruleset enforcement, so the workflow, annotations, exit decisions, and CODEOWNERS were evaluated as technical artifacts rather than as a non-bypassable production merge policy. Detectors cover selected \texttt{fetch}, \texttt{pg}, Redis, and AMQP patterns. Results may not generalize to wrapper libraries, dynamic endpoints, reflection, dependency injection, unconventional monorepos, generated code, other languages, infrastructure-as-code, or runtime-only relationships. The architecture and conformance contracts are designed to be language-neutral, but only the TypeScript analyzer has empirical evidence.
+
+\textbf{Literature-positioning validity.}
+The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias. The unexecuted review protocol documents controls for a future secondary study but does not retroactively make the current selection systematic. Until independent protocol review, multi-database search, deduplication, dual screening, quality assessment, and synthesis are complete, the cited literature supports scoped positioning only; it does not support claims of coverage completeness or absence of evidence.
 
 \textbf{Conclusion validity.}
 D1 has only five positive changed-node items, 12 positive changed-edge items, seven violation rule sets, and 11 evidence-bearing cases. D2 has 20 positive and 20 hard-negative signals. P3 has 20 cold and 20 warm checks over the same D1 changes. Perfect agreement on these finite, co-developed sets is a feasibility and regression result, not a statistical claim about a population. Latency percentiles are descriptive measurements from one environment; no confidence interval or significance test is used because the samples are neither independent random draws nor a defined workload population.

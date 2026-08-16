@@ -4,11 +4,13 @@ import { dirname, join } from "node:path";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 
-const [protocol, decisions, baseline, traceability] = await Promise.all([
+const [protocol, decisions, baseline, traceability, paper, bibliography] = await Promise.all([
   readFile(join(researchDirectory, "literature-protocol.md"), "utf8"),
   readFile(join(researchDirectory, "decision-log.md"), "utf8"),
   readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
   readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
+  readFile(join(researchDirectory, "..", "main.tex"), "utf8"),
+  readFile(join(researchDirectory, "..", "references.bib"), "utf8"),
 ]);
 
 const issues = [];
@@ -62,6 +64,50 @@ if (execution !== "Not started") {
 }
 if (inspected !== "No") {
   issues.push("literature-protocol.md: search results must not be inspected in SLR-101");
+}
+
+requireText(
+  "main.tex",
+  paper,
+  /The preceding synthesis positions ArchSync against selected foundational, secondary, and empirical studies\. It is not the outcome of a completed systematic literature review/,
+  "must disclose that current Related Work is not a completed systematic review",
+);
+requireText(
+  "main.tex",
+  paper,
+  /The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias/,
+  "must disclose literature-positioning validity risk",
+);
+
+if (candidateState) {
+  requireText(
+    "main.tex",
+    paper,
+    /protocol version \\texttt\{0\.1\.0\} is a review candidate\. The official search has not started, and no result list has been inspected\./,
+    "candidate status must match protocol 0.1.0 without implying completed search",
+  );
+}
+if (frozenState) {
+  requireText(
+    "main.tex",
+    paper,
+    /protocol version \\texttt\{1\.0\.0\} is frozen\. The official search is authorized but has not started, and no result list has been inspected\./,
+    "frozen status must match reviewed protocol 1.0.0 without implying completed search",
+  );
+}
+
+for (const citationKey of [
+  "kitchenham2007slr",
+  "wohlin2014snowballing",
+  "page2021prisma",
+  "kitchenham2023segress",
+]) {
+  if (!paper.includes(citationKey)) {
+    issues.push(`main.tex: missing literature-method citation ${citationKey}`);
+  }
+  if (!new RegExp(`@[a-zA-Z]+\\{${citationKey},`).test(bibliography)) {
+    issues.push(`references.bib: missing entry ${citationKey}`);
+  }
 }
 
 for (const [field, expected] of [
