@@ -10,7 +10,9 @@ evidence; CI rejects an incomplete or self-approved frozen protocol.
 | Task | SLR-101 |
 | Protocol version | 1.0.0 |
 | Review PR | `<approved ArchSync paper PR URL>` |
+| Review URL | `<exact GitHub pull-request review URL>` |
 | Reviewer | Member 3 |
+| Reviewer GitHub login | `<GitHub login of Member 3>` |
 | Review decision | Approved |
 | Review commit | `<full 40-character commit SHA>` |
 | Review timestamp | `<ISO-8601 UTC timestamp>` |

@@ -289,6 +289,28 @@ export function validateLiteratureProtocol({
           "literature-protocol.md: freeze decision must cite the approved Review PR",
         );
       }
+      const reviewUrl = metadataValue(reviewRecord, "Review URL");
+      const reviewUrlMatch = reviewUrl?.match(
+        /^https:\/\/github\.com\/Little-Boy-s-ArchSync\/archsync-paper\/pull\/([1-9][0-9]*)#pullrequestreview-([1-9][0-9]*)$/,
+      );
+      if (!reviewUrlMatch) {
+        issues.push(
+          "slr-review-record.md: Review URL must identify an exact GitHub pull-request review",
+        );
+      } else if (reviewPr && !reviewUrl.startsWith(`${reviewPr}#`)) {
+        issues.push(
+          "slr-review-record.md: Review URL must belong to the governed Review PR",
+        );
+      }
+      if (
+        !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
+          metadataValue(reviewRecord, "Reviewer GitHub login") ?? "",
+        )
+      ) {
+        issues.push(
+          "slr-review-record.md: Reviewer GitHub login must be a valid GitHub login",
+        );
+      }
       if (
         !/^[0-9a-f]{40}$/.test(
           metadataValue(reviewRecord, "Review commit") ?? "",

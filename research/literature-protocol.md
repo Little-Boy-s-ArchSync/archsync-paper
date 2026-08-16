@@ -495,14 +495,25 @@ metadata to version 1.0.0 and `Frozen`, changes search authorization to
 `Authorized`, records review evidence, and changes D-008 to `Accepted` before
 the official search begins.
 
-The freeze commit must also create `slr-review-record.md` from
-`slr-review-record.template.md` and `literature-sentinel-recall.csv` from
-`literature-sentinel-recall.template.csv`. The review record identifies the
-approved pull request, reviewer, exact commit, UTC timestamp, and confirmation
-that results were not inspected. The sentinel ledger records all six fixed
-DOIs, the sources in which each item is indexed and retrieved, the reviewer,
-and an immutable evidence reference. CI rejects a frozen state that omits or
-contradicts either artifact.
+Before approval, the freeze branch must contain
+`literature-sentinel-recall.csv`, created from
+`literature-sentinel-recall.template.csv`, and all referenced JSON artifacts so
+the independent reviewer can inspect the exact evidence. After approving that
+commit, the owner creates `slr-review-record.md` from
+`slr-review-record.template.md`. The record identifies the approved pull
+request, exact GitHub review URL, reviewer role and GitHub login, reviewed
+commit, UTC timestamp, and confirmation that results were not inspected. The
+sentinel ledger records all six fixed DOIs, the sources in which each item is
+indexed and retrieved, the reviewer, and an immutable evidence reference.
+
+CI queries the GitHub API and requires the recorded review to remain
+`APPROVED`, to belong to the current pull request, to come from a repository
+member or collaborator other than the pull-request author, and to match the
+recorded commit, reviewer, URL, and timestamp. After approval, only
+`slr-review-record.md` and the three deterministic freeze outputs
+(`literature-protocol.md`, `decision-log.md`, and `main.tex`) may change. Any
+sentinel, bibliography, query, criterion, or implementation change invalidates
+the approval and requires another independent review.
 
 After both evidence files and their referenced JSON artifacts are committed on
 the freeze branch, the owner runs:
@@ -515,8 +526,9 @@ node research/freeze-literature-protocol.mjs --write
 The check command performs the complete prospective 1.0.0 validation without
 editing a file. The write command is enabled only by the same evidence gate and
 updates exactly this protocol, `decision-log.md`, and `main.tex`. It does not
-create review or sentinel evidence. CI then reruns the validator, coverage
-thresholds, and PDF build before the freeze pull request can be approved.
+create review or sentinel evidence. The owner pushes the mechanical freeze
+commit after approval. CI then validates live GitHub review provenance, reruns
+the validators and coverage thresholds, and compiles the PDF before merge.
 
 ## 19. Method sources
 
