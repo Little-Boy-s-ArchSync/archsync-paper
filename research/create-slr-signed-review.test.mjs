@@ -27,6 +27,10 @@ const reviewCommit = "a".repeat(40);
 const reviewTimestamp = "2026-08-17T03:04:05Z";
 const sourceResearch = dirname(fileURLToPath(import.meta.url));
 const sourceRepository = dirname(sourceResearch);
+const syntheticPrivateKeyPath = join(
+  tmpdir(),
+  "archsync-member-3-private.pem",
+);
 
 function keyBytes(keys = generateKeyPairSync("ed25519")) {
   return {
@@ -137,6 +141,14 @@ test("CLI rejects invalid usage and private keys stored inside the repository", 
   assert.equal(usage.exitCode(), 2);
   assert.match(usage.errors[0], /^USAGE:/);
 
+  const relative = capture({
+    args: ["generate-key", "..\\member-3-private.pem"],
+    repositoryDirectory: join(tmpdir(), "archsync-relative-repository"),
+  });
+  await runSignedReviewTool(relative.options);
+  assert.equal(relative.exitCode(), 1);
+  assert.match(relative.errors[0], /path must be absolute/);
+
   const repository = join(tmpdir(), "archsync-inside-repository");
   const inside = capture({
     args: ["generate-key", join(repository, "private.pem")],
@@ -194,8 +206,8 @@ test("sign blocks before key access when candidate evidence is invalid", async (
   let readCount = 0;
   let writeCount = 0;
   const blocked = capture({
-    args: ["sign", "C:\\outside\\private.pem", reviewPr, reviewCommit, reviewTimestamp],
-    repositoryDirectory: "C:\\repo",
+    args: ["sign", syntheticPrivateKeyPath, reviewPr, reviewCommit, reviewTimestamp],
+    repositoryDirectory: join(tmpdir(), "archsync-blocked-repository"),
     candidatePreflight: async () => ({ issues: ["sentinel hash mismatch"] }),
     readBytes: async () => {
       readCount += 1;
@@ -328,11 +340,109 @@ test("sign writes exactly three governed files and refuses replacement", async (
   );
 });
 
+test("exclusive key bundle rolls back files written before a failure", async () => {
+  const repository = join(tmpdir(), "archsync-key-rollback-repository");
+  const privateKeyPath = join(tmpdir(), "archsync-key-rollback-private.pem");
+  const writes = [];
+  const removals = [];
+  const state = capture({
+    args: ["generate-key", privateKeyPath],
+    repositoryDirectory: repository,
+    pathExists: async () => false,
+    makeDirectory: async () => {},
+    writeBytes: async (path) => {
+      writes.push(path);
+      if (writes.length === 2) throw new Error("simulated public-key write failure");
+    },
+    removePath: async (path) => removals.push(path),
+  });
+  await runSignedReviewTool(state.options);
+  assert.equal(state.exitCode(), 1);
+  assert.match(state.errors[0], /simulated public-key write failure/);
+  assert.deepEqual(removals, [privateKeyPath]);
+  assert.deepEqual(state.output, []);
+});
+
+test("default rollback removes only the key created by the failed operation", async (context) => {
+  const root = await mkdtemp(join(tmpdir(), "archsync-default-rollback-"));
+  context.after(() => rm(root, { recursive: true, force: true }));
+  const repository = join(root, "repo");
+  const privateKeyPath = join(root, "member-3", "private.pem");
+  const publicKeyPath = join(
+    repository,
+    ...SIGNED_REVIEW_PATHS.publicKey.split("/"),
+  );
+  await mkdir(dirname(publicKeyPath), { recursive: true });
+  const existingPublicKey = Buffer.from("externally-created-public-key\n");
+  await writeFile(publicKeyPath, existingPublicKey, { flag: "wx" });
+
+  const state = capture({
+    args: ["generate-key", privateKeyPath],
+    repositoryDirectory: repository,
+    pathExists: async () => false,
+  });
+  await runSignedReviewTool(state.options);
+  assert.equal(state.exitCode(), 1);
+  assert.match(state.errors[0], /EEXIST|file already exists/i);
+  await assert.rejects(() => readFile(privateKeyPath), { code: "ENOENT" });
+  assert.deepEqual(await readFile(publicKeyPath), existingPublicKey);
+});
+
+test("exclusive review bundle rolls back partial evidence in reverse order", async () => {
+  const repository = join(tmpdir(), "archsync-review-rollback-repository");
+  const privateKeyPath = join(tmpdir(), "archsync-review-rollback-private.pem");
+  const keys = keyBytes();
+  const writes = [];
+  const removals = [];
+  const state = capture({
+    args: ["sign", privateKeyPath, reviewPr, reviewCommit, reviewTimestamp],
+    repositoryDirectory: repository,
+    candidatePreflight: async () => ({ issues: [] }),
+    readBytes: async (path) =>
+      path === privateKeyPath ? keys.privateKeyBytes : keys.publicKeyBytes,
+    pathExists: async () => false,
+    makeDirectory: async () => {},
+    writeBytes: async (path) => {
+      writes.push(path);
+      if (writes.length === 3) throw new Error("simulated record write failure");
+    },
+    removePath: async (path) => removals.push(path),
+  });
+  await runSignedReviewTool(state.options);
+  assert.equal(state.exitCode(), 1);
+  assert.match(state.errors[0], /simulated record write failure/);
+  assert.deepEqual(removals, writes.slice(0, 2).reverse());
+  assert.deepEqual(state.output, []);
+});
+
+test("reports rollback failures instead of hiding partial-write risk", async () => {
+  const repository = join(tmpdir(), "archsync-rollback-error-repository");
+  const privateKeyPath = join(tmpdir(), "archsync-rollback-error-private.pem");
+  let writeCount = 0;
+  const state = capture({
+    args: ["generate-key", privateKeyPath],
+    repositoryDirectory: repository,
+    pathExists: async () => false,
+    makeDirectory: async () => {},
+    writeBytes: async () => {
+      writeCount += 1;
+      if (writeCount === 2) throw new Error("write failed");
+    },
+    removePath: async () => {
+      throw new Error("cleanup denied");
+    },
+  });
+  await runSignedReviewTool(state.options);
+  assert.equal(state.exitCode(), 1);
+  assert.match(state.errors[0], /write failed; rollback failed/);
+  assert.match(state.errors[0], /cleanup denied/);
+});
+
 test("CLI reports key and filesystem failures without producing approval", async () => {
   const writes = [];
   const invalidKey = capture({
-    args: ["sign", "C:\\outside\\private.pem", reviewPr, reviewCommit, reviewTimestamp],
-    repositoryDirectory: "C:\\repo",
+    args: ["sign", syntheticPrivateKeyPath, reviewPr, reviewCommit, reviewTimestamp],
+    repositoryDirectory: join(tmpdir(), "archsync-invalid-key-repository"),
     candidatePreflight: async () => ({ issues: [] }),
     readBytes: async () => Buffer.from("not a key"),
     pathExists: async () => false,
@@ -344,8 +454,8 @@ test("CLI reports key and filesystem failures without producing approval", async
   assert.equal(writes.length, 0);
 
   const failedStat = capture({
-    args: ["generate-key", "C:\\outside\\private.pem"],
-    repositoryDirectory: "C:\\repo",
+    args: ["generate-key", syntheticPrivateKeyPath],
+    repositoryDirectory: join(tmpdir(), "archsync-stat-repository"),
     pathExists: async () => {
       throw new Error("access denied");
     },

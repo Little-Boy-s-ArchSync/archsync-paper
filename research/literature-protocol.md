@@ -521,8 +521,10 @@ node research/create-slr-signed-review.mjs sign <private-key-path-outside-reposi
 
 The command first validates the candidate protocol and real sentinel artifact
 hashes, confirms that the private key matches the governed Ed25519 public key,
-and refuses to overwrite any key or review evidence. It creates exactly the
-review record, JSON attestation, and detached signature. The default shared-
+requires an absolute private-key path outside the repository, refuses to
+overwrite any key or review evidence, and rolls back files it created if a later
+exclusive write fails. It creates exactly the review record, JSON attestation,
+and detached signature. The default shared-
 account record includes the pull request, reviewer role, reviewed commit, UTC
 timestamp, pinned public key, all ten checklist confirmations, and confirmation
 that official results were not inspected. Every artifact reference includes its

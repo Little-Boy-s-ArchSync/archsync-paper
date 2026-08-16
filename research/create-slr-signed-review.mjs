@@ -5,7 +5,7 @@ import {
   generateKeyPairSync,
   sign,
 } from "node:crypto";
-import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -36,6 +36,31 @@ function isCanonicalUtcSecond(value) {
     !Number.isNaN(timestamp) &&
     new Date(timestamp).toISOString().replace(".000Z", "Z") === value
   );
+}
+
+async function writeExclusiveBundle(entries, { writeBytes, removePath }) {
+  const written = [];
+  try {
+    for (const [path, bytes, options] of entries) {
+      await writeBytes(path, bytes, options);
+      written.push(path);
+    }
+  } catch (writeError) {
+    const cleanupErrors = [];
+    for (const path of written.reverse()) {
+      try {
+        await removePath(path);
+      } catch (cleanupError) {
+        cleanupErrors.push(`${path}: ${cleanupError.message}`);
+      }
+    }
+    if (cleanupErrors.length > 0) {
+      throw new Error(
+        `${writeError.message}; rollback failed for ${cleanupErrors.join(", ")}`,
+      );
+    }
+    throw writeError;
+  }
 }
 
 export function createSignedReviewFiles({
@@ -170,6 +195,7 @@ export async function main({
   repositoryDirectory = dirname(dirname(fileURLToPath(import.meta.url))),
   readBytes = (path) => readFile(path),
   writeBytes = (path, bytes, options) => writeFile(path, bytes, options),
+  removePath = (path) => rm(path, { force: true }),
   makeDirectory = (path) => mkdir(path, { recursive: true }),
   candidatePreflight = validateCandidateReviewInputs,
   pathExists = async (path) => {
@@ -200,6 +226,13 @@ export async function main({
     return;
   }
 
+  if (!isAbsolute(args[1])) {
+    error(
+      "SIGNED REVIEW BLOCKED: private key path must be absolute and outside the repository",
+    );
+    setExitCode(1);
+    return;
+  }
   const privateKeyPath = resolve(args[1]);
   if (isInside(repositoryDirectory, privateKeyPath)) {
     error("SIGNED REVIEW BLOCKED: private key must be stored outside the repository");
@@ -227,18 +260,21 @@ export async function main({
         makeDirectory(dirname(privateKeyPath)),
         makeDirectory(dirname(publicKeyPath)),
       ]);
-      await Promise.all([
-        writeBytes(
-          privateKeyPath,
-          privateKey.export({ type: "pkcs8", format: "pem" }),
-          { flag: "wx", mode: 0o600 },
-        ),
-        writeBytes(
-          publicKeyPath,
-          publicKey.export({ type: "spki", format: "pem" }),
-          { flag: "wx" },
-        ),
-      ]);
+      await writeExclusiveBundle(
+        [
+          [
+            privateKeyPath,
+            privateKey.export({ type: "pkcs8", format: "pem" }),
+            { flag: "wx", mode: 0o600 },
+          ],
+          [
+            publicKeyPath,
+            publicKey.export({ type: "spki", format: "pem" }),
+            { flag: "wx" },
+          ],
+        ],
+        { writeBytes, removePath },
+      );
       log(`WROTE MEMBER 3 PRIVATE KEY OUTSIDE REPOSITORY: ${privateKeyPath}`);
       log(`WROTE GOVERNED PUBLIC KEY: ${SIGNED_REVIEW_PATHS.publicKey}`);
       return;
@@ -298,9 +334,10 @@ export async function main({
         `refusing to overwrite existing review evidence: ${occupied.join(", ")}`,
       );
     }
-    for (const [path, bytes] of outputs) {
-      await writeBytes(path, bytes, { flag: "wx" });
-    }
+    await writeExclusiveBundle(
+      outputs.map(([path, bytes]) => [path, bytes, { flag: "wx" }]),
+      { writeBytes, removePath },
+    );
     log("WROTE SIGNED MEMBER 3 REVIEW EVIDENCE");
   } catch (operationError) {
     error(`SIGNED REVIEW BLOCKED: ${operationError.message}`);
