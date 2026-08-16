@@ -18,6 +18,7 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được
 │   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
+│   ├── slr-sentinel-evidence.template.json # Schema ghi nhận calibration, không phải evidence
 │   ├── claim-evidence.csv      # Claim-to-evidence ledger
 │   ├── decision-log.md         # Quyết định và change control
 │   └── risk-register.csv       # Rủi ro nghiên cứu
@@ -43,6 +44,11 @@ node --test research/validate-claim-evidence.test.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 ```
+
+Sau khi Member 3 đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger
+bằng `node research/build-slr-sentinel-ledger.mjs --write` rồi chạy lại với
+`--check`. Công cụ này chỉ tính ledger/hash từ artifact đã có, không sinh kết
+quả nghiên cứu.
 
 ## Biên dịch cục bộ
 

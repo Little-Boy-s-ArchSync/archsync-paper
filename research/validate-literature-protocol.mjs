@@ -4,15 +4,12 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 
 import { parseCsv } from "./validate-claim-evidence.mjs";
+import {
+  PRIMARY_SOURCES,
+  SENTINEL_DOIS,
+  verifySlrSentinelEvidence,
+} from "./verify-slr-sentinel-evidence.mjs";
 
-const SENTINEL_DOIS = [
-  "10.1145/222124.222136",
-  "10.1109/WICSA.2007.1",
-  "10.1002/spe.931",
-  "10.1016/j.jss.2011.07.036",
-  "10.3217/jucs-023-08-0769",
-  "10.1002/smr.2423",
-];
 const SENTINEL_HEADERS = [
   "sentinel_id",
   "doi",
@@ -22,12 +19,20 @@ const SENTINEL_HEADERS = [
   "reviewer",
   "evidence",
 ];
-const PRIMARY_SOURCES = new Set([
-  "IEEE Xplore",
-  "ACM Digital Library",
-  "Scopus",
-  "Web of Science Core Collection",
-]);
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function isCanonicalUtcSecond(value) {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(value ?? "")) {
+    return false;
+  }
+  const timestamp = Date.parse(value);
+  return (
+    !Number.isNaN(timestamp) &&
+    new Date(timestamp).toISOString().replace(".000Z", "Z") === value
+  );
+}
 
 export function validateLiteratureProtocol({
   protocol,
@@ -39,12 +44,9 @@ export function validateLiteratureProtocol({
   reviewRecord = null,
   sentinelRecall = null,
   sentinelEvidenceHashes = new Map(),
+  sentinelEvidenceArtifacts = new Map(),
 }) {
   const issues = [];
-
-  function escapeRegExp(value) {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
 
   function metadataValue(text, field) {
     return text
@@ -75,6 +77,7 @@ export function validateLiteratureProtocol({
   const execution = metadataValue(protocol, "Official search execution");
   const inspected = metadataValue(protocol, "Search results inspected");
   const decision = metadataValue(protocol, "Freeze decision");
+  let governedReviewPr = null;
 
   const candidateState =
     version === "0.1.0" &&
@@ -92,9 +95,9 @@ export function validateLiteratureProtocol({
       "literature-protocol.md: metadata must be either the governed 0.1.0 candidate state or the reviewed 1.0.0 frozen state",
     );
   }
-  if (candidateState && (reviewRecord || sentinelRecall)) {
+  if (candidateState && reviewRecord) {
     issues.push(
-      "literature protocol: final review artifacts must not exist while the protocol remains a review candidate",
+      "literature protocol: final review record must not exist while the protocol remains a review candidate",
     );
   }
   if (execution !== "Not started") {
@@ -186,7 +189,9 @@ export function validateLiteratureProtocol({
     "## 17. Amendment and integrity rule",
     "## 18. Review and freeze checklist",
     "## 19. Method sources",
-    "## 20. Candidate version history",
+    candidateState
+      ? "## 20. Candidate version history"
+      : "## 20. Protocol version history",
   ];
   for (const section of requiredSections)
     requireUniqueHeading(protocol, section);
@@ -247,7 +252,8 @@ export function validateLiteratureProtocol({
     }
     if (
       paper.includes("The candidate protocol predeclares") ||
-      paper.includes("Search remains blocked until a non-author reviewer")
+      paper.includes("Search remains blocked until a non-author reviewer") ||
+      protocol.includes("The protocol is deliberately a review candidate")
     ) {
       issues.push(
         "main.tex: frozen protocol state must not retain candidate or pre-review blocking language",
@@ -271,6 +277,7 @@ export function validateLiteratureProtocol({
         }
       }
       const reviewPr = metadataValue(reviewRecord, "Review PR");
+      governedReviewPr = reviewPr;
       if (
         !/^https:\/\/github\.com\/Little-Boy-s-ArchSync\/archsync-paper\/pull\/[1-9][0-9]*$/.test(
           reviewPr ?? "",
@@ -284,6 +291,61 @@ export function validateLiteratureProtocol({
           "literature-protocol.md: freeze decision must cite the approved Review PR",
         );
       }
+      const reviewMode = metadataValue(reviewRecord, "Review mode");
+      if (reviewMode === "GitHub approval") {
+        const reviewUrl = metadataValue(reviewRecord, "Review URL");
+        const reviewUrlMatch = reviewUrl?.match(
+          /^https:\/\/github\.com\/Little-Boy-s-ArchSync\/archsync-paper\/pull\/([1-9][0-9]*)#pullrequestreview-([1-9][0-9]*)$/,
+        );
+        if (!reviewUrlMatch) {
+          issues.push(
+            "slr-review-record.md: Review URL must identify an exact GitHub pull-request review",
+          );
+        } else if (reviewPr && !reviewUrl.startsWith(`${reviewPr}#`)) {
+          issues.push(
+            "slr-review-record.md: Review URL must belong to the governed Review PR",
+          );
+        }
+        if (
+          !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
+            metadataValue(reviewRecord, "Reviewer GitHub login") ?? "",
+          )
+        ) {
+          issues.push(
+            "slr-review-record.md: Reviewer GitHub login must be a valid GitHub login",
+          );
+        }
+      } else if (reviewMode === "Signed attestation") {
+        for (const [field, path] of [
+          [
+            "Review attestation",
+            "research/evidence/slr-review/member-3-attestation.json",
+          ],
+          [
+            "Review signature",
+            "research/evidence/slr-review/member-3-attestation.sig",
+          ],
+          [
+            "Reviewer public key",
+            "research/evidence/slr-review/member-3-public-key.pem",
+          ],
+        ]) {
+          const value = metadataValue(reviewRecord, field) ?? "";
+          if (
+            !new RegExp(`^${escapeRegExp(path)}#sha256=[0-9a-f]{64}$`).test(
+              value,
+            )
+          ) {
+            issues.push(
+              `slr-review-record.md: ${field} must reference ${path} with SHA-256`,
+            );
+          }
+        }
+      } else {
+        issues.push(
+          "slr-review-record.md: Review mode must be 'GitHub approval' or 'Signed attestation'",
+        );
+      }
       if (
         !/^[0-9a-f]{40}$/.test(
           metadataValue(reviewRecord, "Review commit") ?? "",
@@ -295,21 +357,20 @@ export function validateLiteratureProtocol({
       }
       const reviewTimestamp =
         metadataValue(reviewRecord, "Review timestamp") ?? "";
-      if (
-        !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(reviewTimestamp) ||
-        Number.isNaN(Date.parse(reviewTimestamp))
-      ) {
+      if (!isCanonicalUtcSecond(reviewTimestamp)) {
         issues.push(
           "slr-review-record.md: Review timestamp must be an ISO-8601 UTC timestamp",
         );
       }
     }
+  }
 
-    if (!sentinelRecall) {
-      issues.push(
-        "literature-sentinel-recall.csv: required before the protocol can be frozen",
-      );
-    } else {
+  if (frozenState && !sentinelRecall) {
+    issues.push(
+      "literature-sentinel-recall.csv: required before the protocol can be frozen",
+    );
+  }
+  if (sentinelRecall) {
       let rows = [];
       try {
         rows = parseCsv(sentinelRecall);
@@ -390,7 +451,7 @@ export function validateLiteratureProtocol({
                   .map((value) => value.trim())
                   .filter(Boolean);
           for (const source of [...indexed, ...retrieved]) {
-            if (!PRIMARY_SOURCES.has(source)) {
+            if (!PRIMARY_SOURCES.includes(source)) {
               issues.push(
                 `literature-sentinel-recall.csv: ${record.sentinel_id} uses unknown source '${source}'`,
               );
@@ -423,6 +484,17 @@ export function validateLiteratureProtocol({
                 `literature-sentinel-recall.csv: ${record.sentinel_id} evidence SHA-256 does not match the artifact`,
               );
             }
+            const semanticResult = verifySlrSentinelEvidence({
+              artifactBytes: sentinelEvidenceArtifacts.get(artifactPath),
+              ledgerRecord: {
+                sentinel_id: record.sentinel_id,
+                doi: record.doi,
+                indexed_sources: indexed,
+                retrieved_sources: retrieved,
+                classification: record.classification,
+              },
+            });
+            issues.push(...semanticResult.issues);
           }
           if (record.classification === "retrieved") {
             if (indexed.length === 0 || retrieved.length === 0) {
@@ -448,7 +520,6 @@ export function validateLiteratureProtocol({
           }
         }
       }
-    }
   }
 
   for (const prefix of ["I", "E"]) {
@@ -537,7 +608,9 @@ export function validateLiteratureProtocol({
   }
 
   const decisionHeading = decisions.match(
-    /^## D-008: Propose Systematic Literature Review Protocol 0\.1\.0 for Independent Review$/m,
+    candidateState
+      ? /^## D-008: Propose Systematic Literature Review Protocol 0\.1\.0 for Independent Review$/m
+      : /^## D-008: Freeze Systematic Literature Review Protocol 1\.0\.0 after Independent Review$/m,
   );
   if (!decisionHeading || decisionHeading.index === undefined) {
     issues.push("decision-log.md: missing D-008 literature protocol decision");
@@ -562,6 +635,29 @@ export function validateLiteratureProtocol({
       /Search remains blocked while the protocol is a review\s+candidate/m,
       "D-008 must preserve the pre-search review gate",
     );
+    if (frozenState) {
+      requireText(
+        "decision-log.md",
+        block,
+        new RegExp(
+          `^- Independent review: Member 3 approved[\\s\\S]+${escapeRegExp(governedReviewPr ?? "missing-review-pr")}`,
+          "m",
+        ),
+        "D-008 must record the independent approval and governed Review PR",
+      );
+      requireText(
+        "literature-protocol.md",
+        protocol,
+        /^This protocol is frozen at version 1\.0\.0 after independent method review and$/m,
+        "frozen state must replace candidate authorization language",
+      );
+      requireText(
+        "literature-protocol.md",
+        protocol,
+        /^\| 1\.0\.0 \| \d{4}-\d{2}-\d{2} \| D-008 accepted \|/m,
+        "frozen state must add a 1.0.0 version-history row",
+      );
+    }
   }
 
   return { issues, version, status, searchAuthorization };
@@ -576,17 +672,18 @@ async function readOptional(path) {
   }
 }
 
-export async function loadSentinelEvidenceHashes(
+export async function loadSentinelEvidence(
   repositoryDirectory,
   sentinelRecall,
 ) {
   const hashes = new Map();
-  if (!sentinelRecall) return hashes;
+  const artifacts = new Map();
+  if (!sentinelRecall) return { hashes, artifacts };
   let rows;
   try {
     rows = parseCsv(sentinelRecall);
   } catch {
-    return hashes;
+    return { hashes, artifacts };
   }
   for (const row of rows.slice(1)) {
     const artifactPath = row[6]?.match(
@@ -597,6 +694,7 @@ export async function loadSentinelEvidenceHashes(
       const bytes = await readFile(
         join(repositoryDirectory, ...artifactPath.split("/")),
       );
+      artifacts.set(artifactPath, bytes);
       hashes.set(
         artifactPath,
         createHash("sha256").update(bytes).digest("hex"),
@@ -605,7 +703,14 @@ export async function loadSentinelEvidenceHashes(
       if (error?.code !== "ENOENT") throw error;
     }
   }
-  return hashes;
+  return { hashes, artifacts };
+}
+
+export async function loadSentinelEvidenceHashes(
+  repositoryDirectory,
+  sentinelRecall,
+) {
+  return (await loadSentinelEvidence(repositoryDirectory, sentinelRecall)).hashes;
 }
 
 export async function main({
@@ -636,7 +741,7 @@ export async function main({
     readOptional(join(researchDirectory, "slr-review-record.md")),
     readOptional(join(researchDirectory, "literature-sentinel-recall.csv")),
   ]);
-  const sentinelEvidenceHashes = await loadSentinelEvidenceHashes(
+  const sentinelEvidence = await loadSentinelEvidence(
     repositoryDirectory,
     sentinelRecall,
   );
@@ -649,7 +754,8 @@ export async function main({
     bibliography,
     reviewRecord,
     sentinelRecall,
-    sentinelEvidenceHashes,
+    sentinelEvidenceHashes: sentinelEvidence.hashes,
+    sentinelEvidenceArtifacts: sentinelEvidence.artifacts,
   });
   if (result.issues.length > 0) {
     error("INVALID LITERATURE REVIEW PROTOCOL");

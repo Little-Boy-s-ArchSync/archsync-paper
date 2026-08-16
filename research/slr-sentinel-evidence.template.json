@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "task": "SLR-101",
+  "protocol_version": "0.1.0",
+  "sentinel_id": "REPLACE-SENTINEL-ID",
+  "doi": "REPLACE-DOI",
+  "reviewer": "Member 3",
+  "recorded_at": "REPLACE-WITH-UTC-TIMESTAMP",
+  "classification": "retrieved",
+  "indexed_sources": [
+    "REPLACE-WITH-GOVERNED-SOURCE"
+  ],
+  "retrieved_sources": [
+    "REPLACE-WITH-GOVERNED-SOURCE"
+  ],
+  "official_search_executed": false,
+  "candidate_results_screened": false,
+  "runs": [
+    {
+      "source": "REPLACE-WITH-GOVERNED-SOURCE",
+      "query_family": "Index-check",
+      "query": "REPLACE-WITH-THE-EXACT-EXECUTED-QUERY",
+      "executed_at": "REPLACE-WITH-UTC-TIMESTAMP",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://REPLACE-WITH-EVIDENCE-LOCATOR"
+    }
+  ],
+  "rationale": "REPLACE-WITH-A-FACTUAL-CLASSIFICATION-RATIONALE"
+}

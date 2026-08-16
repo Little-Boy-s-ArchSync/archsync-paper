@@ -107,9 +107,10 @@
   search results are viewed, criteria and query concepts cannot be silently
   changed.
 - Required review: Member 3 reviews method and sentinel recall as a non-author.
-  Version 1.0.0 may be frozen only after an approved pull-request review; the
-  same freeze change sets this decision to `Accepted` and records review
-  evidence.
+  Version 1.0.0 may be frozen only after either an approved pull-request review
+  from a distinct account or an Ed25519-signed Member 3 attestation when the
+  team shares `L1nkinPark` for all pushes. The same freeze change sets this
+  decision to `Accepted` and records review evidence.
 - Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
   Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
 - Owner: Hiếu.

@@ -1,14 +1,17 @@
 # SLR-101 Independent Review Record Template
 
-This file is a template, not review evidence. Copy it to
-`slr-review-record.md` only after Member 3 has completed the review and approved
-the exact commit in the pull request. Replace every placeholder with immutable
-evidence; CI rejects an incomplete or self-approved frozen protocol.
+This file is a template, not review evidence. In shared-account mode, Member 3
+must generate `slr-review-record.md` with
+`create-slr-signed-review.mjs sign` only after reviewing the exact commit. The
+tool replaces every placeholder with immutable evidence and signs the matching
+JSON attestation; CI rejects a manual, incomplete, overwritten, or self-approved
+frozen protocol.
 
 | Field | Value |
 | --- | --- |
 | Task | SLR-101 |
 | Protocol version | 1.0.0 |
+| Review mode | Signed attestation |
 | Review PR | `<approved ArchSync paper PR URL>` |
 | Reviewer | Member 3 |
 | Review decision | Approved |
@@ -16,3 +19,6 @@ evidence; CI rejects an incomplete or self-approved frozen protocol.
 | Review timestamp | `<ISO-8601 UTC timestamp>` |
 | Search results inspected | No |
 | Sentinel recall | Passed |
+| Review attestation | `research/evidence/slr-review/member-3-attestation.json#sha256=<SHA-256>` |
+| Review signature | `research/evidence/slr-review/member-3-attestation.sig#sha256=<SHA-256>` |
+| Reviewer public key | `research/evidence/slr-review/member-3-public-key.pem#sha256=<SHA-256>` |

@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   build:
@@ -40,18 +41,38 @@ jobs:
           node --experimental-test-coverage \
             --test-coverage-include=research/validate-claim-evidence.mjs \
             --test-coverage-include=research/validate-literature-protocol.mjs \
+            --test-coverage-include=research/freeze-literature-protocol.mjs \
+            --test-coverage-include=research/verify-slr-review-provenance.mjs \
+            --test-coverage-include=research/verify-slr-signed-attestation.mjs \
+            --test-coverage-include=research/create-slr-signed-review.mjs \
+            --test-coverage-include=research/verify-slr-sentinel-evidence.mjs \
+            --test-coverage-include=research/build-slr-sentinel-ledger.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
             --test \
             research/validate-claim-evidence.test.mjs \
-            research/validate-literature-protocol.test.mjs
+            research/validate-literature-protocol.test.mjs \
+            research/freeze-literature-protocol.test.mjs \
+            research/verify-slr-review-provenance.test.mjs \
+            research/verify-slr-signed-attestation.test.mjs \
+            research/create-slr-signed-review.test.mjs \
+            research/verify-slr-sentinel-evidence.test.mjs \
+            research/build-slr-sentinel-ledger.test.mjs
 
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
 
       - name: Verify literature review protocol
         run: node research/validate-literature-protocol.mjs
+
+      - name: Verify live SLR review provenance
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLR_CURRENT_PR: ${{ github.event.pull_request.number }}
+          SLR_CURRENT_COMMIT: ${{ github.event.pull_request.head.sha }}
+        run: node research/verify-slr-review-provenance.mjs
 
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v4

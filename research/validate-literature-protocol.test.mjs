@@ -7,10 +7,12 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
 import {
+  loadSentinelEvidence,
   loadSentinelEvidenceHashes,
   main as runLiteratureProtocolValidator,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
+import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
@@ -24,6 +26,12 @@ const [protocol, decisions, baseline, traceability, paper, bibliography] =
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);
 
+const {
+  sentinelRecall,
+  sentinelEvidenceHashes,
+  sentinelEvidenceArtifacts,
+} = createSentinelEvidenceFixture();
+
 const source = {
   protocol,
   decisions,
@@ -31,6 +39,7 @@ const source = {
   traceability,
   paper,
   bibliography,
+  sentinelEvidenceArtifacts,
 };
 
 function validate(overrides = {}) {
@@ -56,14 +65,32 @@ function frozenProtocol() {
       "| Freeze decision | D-008 pending independent review |",
       "| Freeze decision | D-008 accepted; review evidence: https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5 |",
     )
+    .replace(
+      /The protocol is deliberately a review candidate\.[\s\S]*?no candidate-paper list may be screened or used to change criteria\./,
+      "This protocol is frozen at version 1.0.0 after independent method review and\nsentinel-query calibration. Official search is authorized under D-008, but has\nnot started and no result list has been inspected. All later amendments follow\nSection 17 and may not silently change the frozen criteria.",
+    )
+    .replace(
+      "## 20. Candidate version history",
+      "## 20. Protocol version history",
+    )
+    .replace(
+      "| 0.1.0 | 2026-08-16 | D-008 proposed |",
+      "| 1.0.0 | 2026-08-16 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5; review commit 0123456789abcdef0123456789abcdef01234567; governed evidence hashes verified |\n| 0.1.0 | 2026-08-16 | D-008 proposed |",
+    )
     .replaceAll("- [ ]", "- [x]");
 }
 
 function acceptedDecisions() {
-  return decisions.replace(
-    /(^## D-008:[\s\S]*?^- Status:) Proposed$/m,
-    "$1 Accepted",
-  );
+  return decisions
+    .replace(
+      "## D-008: Propose Systematic Literature Review Protocol 0.1.0 for Independent Review",
+      "## D-008: Freeze Systematic Literature Review Protocol 1.0.0 after Independent Review",
+    )
+    .replace(/(^## D-008:[\s\S]*?^- Status:) Proposed$/m, "$1 Accepted")
+    .replace(
+      /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
+      "- Independent review: Member 3 approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5\n  at commit `0123456789abcdef0123456789abcdef01234567` on 2026-08-16T08:00:00Z.\n- Freeze evidence: `slr-review-record.md` and\n  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified\n  by CI before search authorization.",
+    );
 }
 
 function frozenPaper() {
@@ -88,8 +115,11 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | --- | --- |
 | Task | SLR-101 |
 | Protocol version | 1.0.0 |
+| Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5 |
+| Review URL | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5#pullrequestreview-12345 |
 | Reviewer | Member 3 |
+| Reviewer GitHub login | teikv |
 | Review decision | Approved |
 | Review commit | 0123456789abcdef0123456789abcdef01234567 |
 | Review timestamp | 2026-08-16T08:00:00Z |
@@ -97,21 +127,18 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Sentinel recall | Passed |
 `;
 
-const sentinelRecall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence
-S-001,10.1145/222124.222136,ACM Digital Library;Scopus,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${"1".repeat(64)}
-S-002,10.1109/WICSA.2007.1,IEEE Xplore;Scopus,IEEE Xplore,retrieved,Member 3,research/evidence/slr-sentinel/S-002.json#sha256=${"2".repeat(64)}
-S-003,10.1002/spe.931,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-003.json#sha256=${"3".repeat(64)}
-S-004,10.1016/j.jss.2011.07.036,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-004.json#sha256=${"4".repeat(64)}
-S-005,10.3217/jucs-023-08-0769,Scopus,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-005.json#sha256=${"5".repeat(64)}
-S-006,10.1002/smr.2423,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-006.json#sha256=${"6".repeat(64)}
-`;
-const sentinelEvidenceHashes = new Map(
-  [
-    ...sentinelRecall.matchAll(
-      /(research\/evidence\/slr-sentinel\/S-[0-9]{3}\.json)#sha256=([0-9a-f]{64})/g,
-    ),
-  ].map((match) => [match[1], match[2]]),
-);
+const signedReviewRecord = reviewRecord
+  .replace(
+    "| Review mode | GitHub approval |",
+    "| Review mode | Signed attestation |",
+  )
+  .replace(
+    "| Sentinel recall | Passed |",
+    `| Sentinel recall | Passed |
+| Review attestation | research/evidence/slr-review/member-3-attestation.json#sha256=${"a".repeat(64)} |
+| Review signature | research/evidence/slr-review/member-3-attestation.sig#sha256=${"b".repeat(64)} |
+| Reviewer public key | research/evidence/slr-review/member-3-public-key.pem#sha256=${"c".repeat(64)} |`,
+  );
 
 test("accepts the governed review-candidate protocol", () => {
   const result = validate();
@@ -188,7 +215,12 @@ test("rejects removal of an execution artifact or research-integrity guard", () 
 });
 
 test("rejects a decision-log state that disagrees with the candidate", () => {
-  const result = validate({ decisions: acceptedDecisions() });
+  const result = validate({
+    decisions: decisions.replace(
+      /(^## D-008:[\s\S]*?^- Status:) Proposed$/m,
+      "$1 Accepted",
+    ),
+  });
   assertIssue(result, "D-008 must be Proposed");
 });
 
@@ -214,6 +246,43 @@ test("rejects review artifacts while metadata still declares a candidate", () =>
   );
 });
 
+test("validates sentinel calibration evidence before the candidate is reviewed", () => {
+  const accepted = validate({
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assert.deepEqual(accepted.issues, []);
+
+  const forged = new Map(sentinelEvidenceHashes);
+  forged.set("research/evidence/slr-sentinel/S-001.json", "0".repeat(64));
+  const rejected = validate({
+    sentinelRecall,
+    sentinelEvidenceHashes: forged,
+  });
+  assertIssue(rejected, "evidence SHA-256 does not match");
+});
+
+test("rejects semantically empty JSON even when its ledger digest matches", () => {
+  const path = "research/evidence/slr-sentinel/S-001.json";
+  const bytes = Buffer.from("{}\n", "utf8");
+  const digest = createHash("sha256").update(bytes).digest("hex");
+  const artifacts = new Map(sentinelEvidenceArtifacts);
+  const hashes = new Map(sentinelEvidenceHashes);
+  artifacts.set(path, bytes);
+  hashes.set(path, digest);
+  const governedDigest = sentinelEvidenceHashes.get(path);
+  const result = validate({
+    sentinelRecall: sentinelRecall.replace(governedDigest, digest),
+    sentinelEvidenceHashes: hashes,
+    sentinelEvidenceArtifacts: artifacts,
+  });
+  assertIssue(result, "artifact fields do not match schema 1.0.0");
+  assert.ok(
+    !result.issues.some((issue) => issue.includes("SHA-256 does not match")),
+    "the negative case must isolate semantic validation after a valid digest",
+  );
+});
+
 test("accepts a fully evidenced synthetic frozen state", () => {
   const result = validate({
     protocol: frozenProtocol(),
@@ -226,6 +295,46 @@ test("accepts a fully evidenced synthetic frozen state", () => {
   assert.deepEqual(result.issues, []);
   assert.equal(result.version, "1.0.0");
   assert.equal(result.searchAuthorization, "Authorized");
+});
+
+test("accepts signed-attestation references for a shared GitHub account", () => {
+  const result = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: signedReviewRecord,
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assert.deepEqual(result.issues, []);
+});
+
+test("rejects an unknown review mode or malformed signed evidence reference", () => {
+  const unknown = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: reviewRecord.replace(
+      "| Review mode | GitHub approval |",
+      "| Review mode | Unknown |",
+    ),
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(unknown, "Review mode must be 'GitHub approval' or 'Signed attestation'");
+
+  const malformed = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: signedReviewRecord.replace(
+      /research\/evidence\/slr-review\/member-3-attestation\.sig#sha256=[0-9a-f]{64}/,
+      "wrong.sig#sha256=short",
+    ),
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(malformed, "Review signature must reference");
 });
 
 test("rejects self-review and malformed sentinel evidence", () => {
@@ -348,7 +457,7 @@ test("rejects malformed review identity, timestamp and PR linkage", () => {
   const malformedReview = reviewRecord
     .replace("/pull/5", "/pull/6")
     .replace("0123456789abcdef0123456789abcdef01234567", "short-commit")
-    .replace("2026-08-16T08:00:00Z", "2026-99-99T99:99:99Z");
+    .replace("2026-08-16T08:00:00Z", "2026-02-30T08:00:00Z");
   const result = validate({
     protocol: frozenProtocol(),
     decisions: acceptedDecisions(),
@@ -383,7 +492,7 @@ test("rejects malformed sentinel CSV schema, row width and unknown sources", () 
     .replace("sentinel_id,doi", "id,doi")
     .replace("ACM Digital Library;Scopus", "Unknown Index")
     .replace(
-      `,research/evidence/slr-sentinel/S-006.json#sha256=${"6".repeat(64)}`,
+      /,research\/evidence\/slr-sentinel\/S-006\.json#sha256=[0-9a-f]{64}(?=\r?\n?$)/,
       "",
     );
   const result = validate({
@@ -412,17 +521,25 @@ test("rejects malformed sentinel CSV quoting", () => {
 });
 
 test("accepts documented not-indexed sentinels and rejects contradictory classifications", () => {
-  const notIndexed = sentinelRecall.replace(
-    "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
-    "none,none,not-indexed",
-  );
+  const notIndexedFixture = createSentinelEvidenceFixture({
+    mutateRecord: (record, ordinal) =>
+      ordinal === 0
+        ? {
+            ...record,
+            indexed_sources: [],
+            retrieved_sources: [],
+            classification: "not-indexed",
+          }
+        : record,
+  });
   const accepted = validate({
     protocol: frozenProtocol(),
     decisions: acceptedDecisions(),
     paper: frozenPaper(),
     reviewRecord,
-    sentinelRecall: notIndexed,
-    sentinelEvidenceHashes,
+    sentinelRecall: notIndexedFixture.sentinelRecall,
+    sentinelEvidenceHashes: notIndexedFixture.sentinelEvidenceHashes,
+    sentinelEvidenceArtifacts: notIndexedFixture.sentinelEvidenceArtifacts,
   });
   assert.deepEqual(accepted.issues, []);
 
@@ -488,6 +605,14 @@ test("loads and hashes a real sentinel evidence artifact", async (context) => {
   const recall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence\nS-001,10.1145/222124.222136,ACM Digital Library,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${digest}\n`;
   const hashes = await loadSentinelEvidenceHashes(repository, recall);
   assert.equal(hashes.get("research/evidence/slr-sentinel/S-001.json"), digest);
+  const evidence = await loadSentinelEvidence(repository, recall);
+  assert.equal(evidence.hashes.get("research/evidence/slr-sentinel/S-001.json"), digest);
+  assert.equal(
+    evidence.artifacts
+      .get("research/evidence/slr-sentinel/S-001.json")
+      .toString("utf8"),
+    artifact,
+  );
   assert.deepEqual(
     await loadSentinelEvidenceHashes(repository, '"unterminated'),
     new Map(),
