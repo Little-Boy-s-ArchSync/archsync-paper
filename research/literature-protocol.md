@@ -521,8 +521,24 @@ Before approval, the freeze branch must contain
 `literature-sentinel-recall.csv`, created from
 `literature-sentinel-recall.template.csv`, the reviewer's pinned public key, and
 all referenced JSON artifacts so the independent reviewer can inspect the exact
-evidence. For shared-account review, Member 3 first creates an Ed25519 key pair;
-the private-key path must be absolute and outside the repository:
+evidence.
+
+After Member 3 has filled all six JSON artifacts from real sentinel-only query
+runs, the following deterministic commands validate their semantics, calculate
+the exact SHA-256 digests, and create then re-check the canonical CSV ledger:
+
+```text
+node research/build-slr-sentinel-ledger.mjs --write
+node research/build-slr-sentinel-ledger.mjs --check
+```
+
+The builder requires exactly `S-001.json` through `S-006.json`, rejects extra,
+missing, non-regular, placeholder, malformed, or contradictory artifacts, and
+refuses to rewrite the ledger after a review record exists. It derives only the
+mechanical ledger and hashes; it never performs a query or invents a result.
+
+For shared-account review, Member 3 then creates an Ed25519 key pair; the
+private-key path must be absolute and outside the repository:
 
 ```text
 node research/create-slr-signed-review.mjs generate-key <private-key-path-outside-repository>

@@ -45,6 +45,11 @@ node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 ```
 
+Sau khi Member 3 đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger
+bằng `node research/build-slr-sentinel-ledger.mjs --write` rồi chạy lại với
+`--check`. Công cụ này chỉ tính ledger/hash từ artifact đã có, không sinh kết
+quả nghiên cứu.
+
 ## Biên dịch cục bộ
 
 Cài TeX Live hoặc MiKTeX có `latexmk`, sau đó chạy:
