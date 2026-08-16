@@ -17,6 +17,7 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 │   ├── GLOSSARY.md             # Thuật ngữ chuẩn có version
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được
+│   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
 │   ├── claim-evidence.csv      # Claim-to-evidence ledger
 │   ├── decision-log.md         # Quyết định và change control
 │   └── risk-register.csv       # Rủi ro nghiên cứu
@@ -38,6 +39,7 @@ Kiểm tra baseline và glossary bằng:
 ```bash
 node research/validate-baseline.mjs
 node research/validate-rq-traceability.mjs
+node research/validate-literature-protocol.mjs
 ```
 
 ## Biên dịch cục bộ

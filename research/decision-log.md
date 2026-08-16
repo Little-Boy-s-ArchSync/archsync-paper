@@ -91,3 +91,25 @@
   traceability but does not change the frozen scope, canonical definitions,
   current RQ wording, metrics, datasets, or empirical claims.
 - Approver: Hiếu, research lead and architecture owner.
+
+## D-008: Propose Systematic Literature Review Protocol 0.1.0 for Independent Review
+
+- Date: 2026-08-16
+- Status: Proposed
+- Task: SLR-101
+- Proposal: Review `research/literature-protocol.md` before any official search
+  is executed. The candidate predeclares SLR-RQ1--SLR-RQ6, four required
+  databases, a fixed search cutoff, three query families, sentinel validation,
+  eligibility, deduplication, independent screening, snowballing, quality
+  assessment, extraction, synthesis, execution artifacts, and amendment rules.
+- Integrity gate: Search remains blocked while the protocol is a review
+  candidate. No result list may be screened or used to tune eligibility. After
+  search results are viewed, criteria and query concepts cannot be silently
+  changed.
+- Required review: Member 3 reviews method and sentinel recall as a non-author.
+  Version 1.0.0 may be frozen only after an approved pull-request review; the
+  same freeze change sets this decision to `Accepted` and records review
+  evidence.
+- Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
+  Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
+- Owner: Hiếu.
