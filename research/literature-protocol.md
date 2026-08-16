@@ -504,6 +504,20 @@ DOIs, the sources in which each item is indexed and retrieved, the reviewer,
 and an immutable evidence reference. CI rejects a frozen state that omits or
 contradicts either artifact.
 
+After both evidence files and their referenced JSON artifacts are committed on
+the freeze branch, the owner runs:
+
+```text
+node research/freeze-literature-protocol.mjs --check
+node research/freeze-literature-protocol.mjs --write
+```
+
+The check command performs the complete prospective 1.0.0 validation without
+editing a file. The write command is enabled only by the same evidence gate and
+updates exactly this protocol, `decision-log.md`, and `main.tex`. It does not
+create review or sentinel evidence. CI then reruns the validator, coverage
+thresholds, and PDF build before the freeze pull request can be approved.
+
 ## 19. Method sources
 
 - Kitchenham, B. and Charters, S. (2007), *Guidelines for Performing

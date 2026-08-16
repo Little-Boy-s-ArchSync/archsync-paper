@@ -56,14 +56,32 @@ function frozenProtocol() {
       "| Freeze decision | D-008 pending independent review |",
       "| Freeze decision | D-008 accepted; review evidence: https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5 |",
     )
+    .replace(
+      /The protocol is deliberately a review candidate\.[\s\S]*?no candidate-paper list may be screened or used to change criteria\./,
+      "This protocol is frozen at version 1.0.0 after independent method review and\nsentinel-query calibration. Official search is authorized under D-008, but has\nnot started and no result list has been inspected. All later amendments follow\nSection 17 and may not silently change the frozen criteria.",
+    )
+    .replace(
+      "## 20. Candidate version history",
+      "## 20. Protocol version history",
+    )
+    .replace(
+      "| 0.1.0 | 2026-08-16 | D-008 proposed |",
+      "| 1.0.0 | 2026-08-16 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5; review commit 0123456789abcdef0123456789abcdef01234567; governed evidence hashes verified |\n| 0.1.0 | 2026-08-16 | D-008 proposed |",
+    )
     .replaceAll("- [ ]", "- [x]");
 }
 
 function acceptedDecisions() {
-  return decisions.replace(
-    /(^## D-008:[\s\S]*?^- Status:) Proposed$/m,
-    "$1 Accepted",
-  );
+  return decisions
+    .replace(
+      "## D-008: Propose Systematic Literature Review Protocol 0.1.0 for Independent Review",
+      "## D-008: Freeze Systematic Literature Review Protocol 1.0.0 after Independent Review",
+    )
+    .replace(/(^## D-008:[\s\S]*?^- Status:) Proposed$/m, "$1 Accepted")
+    .replace(
+      /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?  evidence\./,
+      "- Independent review: Member 3 approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5\n  at commit `0123456789abcdef0123456789abcdef01234567` on 2026-08-16T08:00:00Z.\n- Freeze evidence: `slr-review-record.md` and\n  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified\n  by CI before search authorization.",
+    );
 }
 
 function frozenPaper() {
@@ -188,7 +206,12 @@ test("rejects removal of an execution artifact or research-integrity guard", () 
 });
 
 test("rejects a decision-log state that disagrees with the candidate", () => {
-  const result = validate({ decisions: acceptedDecisions() });
+  const result = validate({
+    decisions: decisions.replace(
+      /(^## D-008:[\s\S]*?^- Status:) Proposed$/m,
+      "$1 Accepted",
+    ),
+  });
   assertIssue(result, "D-008 must be Proposed");
 });
 

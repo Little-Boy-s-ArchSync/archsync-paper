@@ -75,6 +75,7 @@ export function validateLiteratureProtocol({
   const execution = metadataValue(protocol, "Official search execution");
   const inspected = metadataValue(protocol, "Search results inspected");
   const decision = metadataValue(protocol, "Freeze decision");
+  let governedReviewPr = null;
 
   const candidateState =
     version === "0.1.0" &&
@@ -186,7 +187,9 @@ export function validateLiteratureProtocol({
     "## 17. Amendment and integrity rule",
     "## 18. Review and freeze checklist",
     "## 19. Method sources",
-    "## 20. Candidate version history",
+    candidateState
+      ? "## 20. Candidate version history"
+      : "## 20. Protocol version history",
   ];
   for (const section of requiredSections)
     requireUniqueHeading(protocol, section);
@@ -247,7 +250,8 @@ export function validateLiteratureProtocol({
     }
     if (
       paper.includes("The candidate protocol predeclares") ||
-      paper.includes("Search remains blocked until a non-author reviewer")
+      paper.includes("Search remains blocked until a non-author reviewer") ||
+      protocol.includes("The protocol is deliberately a review candidate")
     ) {
       issues.push(
         "main.tex: frozen protocol state must not retain candidate or pre-review blocking language",
@@ -271,6 +275,7 @@ export function validateLiteratureProtocol({
         }
       }
       const reviewPr = metadataValue(reviewRecord, "Review PR");
+      governedReviewPr = reviewPr;
       if (
         !/^https:\/\/github\.com\/Little-Boy-s-ArchSync\/archsync-paper\/pull\/[1-9][0-9]*$/.test(
           reviewPr ?? "",
@@ -537,7 +542,9 @@ export function validateLiteratureProtocol({
   }
 
   const decisionHeading = decisions.match(
-    /^## D-008: Propose Systematic Literature Review Protocol 0\.1\.0 for Independent Review$/m,
+    candidateState
+      ? /^## D-008: Propose Systematic Literature Review Protocol 0\.1\.0 for Independent Review$/m
+      : /^## D-008: Freeze Systematic Literature Review Protocol 1\.0\.0 after Independent Review$/m,
   );
   if (!decisionHeading || decisionHeading.index === undefined) {
     issues.push("decision-log.md: missing D-008 literature protocol decision");
@@ -562,6 +569,29 @@ export function validateLiteratureProtocol({
       /Search remains blocked while the protocol is a review\s+candidate/m,
       "D-008 must preserve the pre-search review gate",
     );
+    if (frozenState) {
+      requireText(
+        "decision-log.md",
+        block,
+        new RegExp(
+          `^- Independent review: Member 3 approved[\\s\\S]+${escapeRegExp(governedReviewPr ?? "missing-review-pr")}`,
+          "m",
+        ),
+        "D-008 must record the independent approval and governed Review PR",
+      );
+      requireText(
+        "literature-protocol.md",
+        protocol,
+        /^This protocol is frozen at version 1\.0\.0 after independent method review and$/m,
+        "frozen state must replace candidate authorization language",
+      );
+      requireText(
+        "literature-protocol.md",
+        protocol,
+        /^\| 1\.0\.0 \| \d{4}-\d{2}-\d{2} \| D-008 accepted \|/m,
+        "frozen state must add a 1.0.0 version-history row",
+      );
+    }
   }
 
   return { issues, version, status, searchAuthorization };
