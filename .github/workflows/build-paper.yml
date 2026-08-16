@@ -45,6 +45,7 @@ jobs:
             --test-coverage-include=research/verify-slr-review-provenance.mjs \
             --test-coverage-include=research/verify-slr-signed-attestation.mjs \
             --test-coverage-include=research/create-slr-signed-review.mjs \
+            --test-coverage-include=research/verify-slr-sentinel-evidence.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -54,7 +55,8 @@ jobs:
             research/freeze-literature-protocol.test.mjs \
             research/verify-slr-review-provenance.test.mjs \
             research/verify-slr-signed-attestation.test.mjs \
-            research/create-slr-signed-review.test.mjs
+            research/create-slr-signed-review.test.mjs \
+            research/verify-slr-sentinel-evidence.test.mjs
 
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
