@@ -207,6 +207,36 @@ test("rejects unfilled placeholders and cross-source or generic evidence URLs", 
   );
 });
 
+test("rejects a generic Clarivate page as Web of Science result evidence", () => {
+  const record = {
+    sentinel_id: "S-001",
+    doi: "10.1145/222124.222136",
+    indexed_sources: ["Web of Science Core Collection"],
+    retrieved_sources: [],
+    classification: "retrieved",
+  };
+  const value = artifact({
+    indexed_sources: ["Web of Science Core Collection"],
+    retrieved_sources: [],
+    runs: [
+      {
+        source: "Web of Science Core Collection",
+        query_family: "Index-check",
+        query: "DOI lookup 10.1145/222124.222136",
+        executed_at: "2026-08-16T08:00:00Z",
+        result_count: 0,
+        sentinel_found: false,
+        result_url: "https://clarivate.com/products/web-of-science/",
+      },
+    ],
+  });
+  const result = verify(value, record);
+  assertIssue(
+    result,
+    "result_url must be an official HTTPS evidence locator for Web of Science",
+  );
+});
+
 test("rejects calibration timestamps materially ahead of the verification clock", () => {
   const value = artifact({ recorded_at: "2099-01-01T00:10:00Z" });
   value.runs[0] = {

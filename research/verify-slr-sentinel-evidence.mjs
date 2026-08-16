@@ -24,7 +24,7 @@ const SOURCE_EVIDENCE_DOMAINS = Object.freeze({
   "IEEE Xplore": ["ieeexplore.ieee.org"],
   "ACM Digital Library": ["dl.acm.org"],
   Scopus: ["scopus.com"],
-  "Web of Science Core Collection": ["webofscience.com", "clarivate.com"],
+  "Web of Science Core Collection": ["webofscience.com"],
 });
 const ARTIFACT_FIELDS = Object.freeze([
   "schema_version",
