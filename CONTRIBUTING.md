@@ -48,7 +48,9 @@ danh sách kết quả khi protocol còn ở trạng thái `Review candidate`. M
 viên không phải tác giả phải review protocol, kiểm tra sentinel recall và chấp
 thuận freeze version 1.0.0 trước khi search được chuyển sang `Authorized`. Mọi
 thay đổi tiêu chí sau khi đã xem kết quả phải đi qua amendment có version và
-không được ghi đè âm thầm lên protocol đã freeze.
+không được ghi đè âm thầm lên protocol đã freeze. Thành viên 3 thực hiện phần
+review theo `research/SLR-REVIEWER-RUNBOOK.md`; private key và thao tác ký không
+được chuyển giao cho tác giả protocol.
 
 `research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
 freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng
