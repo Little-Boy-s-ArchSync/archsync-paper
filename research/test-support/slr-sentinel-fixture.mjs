@@ -7,6 +7,20 @@ const PRIMARY_SOURCES = Object.freeze([
   "Web of Science Core Collection",
 ]);
 
+function testEvidenceLocator(source, sentinelId, sourceOrdinal) {
+  const token = `${sentinelId}-${sourceOrdinal}`;
+  if (source === "IEEE Xplore") {
+    return `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=${token}`;
+  }
+  if (source === "ACM Digital Library") {
+    return `https://dl.acm.org/action/doSearch?AllField=${token}`;
+  }
+  if (source === "Scopus") {
+    return `https://www.scopus.com/results/results.uri?sort=plf-f&src=s&sid=${token}`;
+  }
+  return `https://www.webofscience.com/wos/woscc/summary/${token}/relevance/1`;
+}
+
 export const TEST_SENTINELS = Object.freeze([
   {
     sentinel_id: "S-001",
@@ -60,7 +74,11 @@ function createArtifact(record, ordinal) {
       executed_at: `2026-08-16T07:${String(ordinal * 3 + sourceOrdinal).padStart(2, "0")}:00Z`,
       result_count: found ? 1 : 0,
       sentinel_found: found,
-      result_url: `https://example.test/slr/${record.sentinel_id}/${sourceOrdinal}`,
+      result_url: testEvidenceLocator(
+        source,
+        record.sentinel_id,
+        sourceOrdinal,
+      ),
     };
   });
   return {

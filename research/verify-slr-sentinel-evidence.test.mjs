@@ -54,10 +54,11 @@ function artifact(overrides = {}) {
   };
 }
 
-function verify(value, record = ledgerRecord) {
+function verify(value, record = ledgerRecord, now = undefined) {
   return verifySlrSentinelEvidence({
     artifactBytes: Buffer.from(`${JSON.stringify(value, null, 2)}\n`),
     ledgerRecord: record,
+    now,
   });
 }
 
@@ -66,6 +67,19 @@ function assertIssue(result, fragment) {
     result.issues.some((issue) => issue.includes(fragment)),
     `expected '${fragment}', received:\n${result.issues.join("\n")}`,
   );
+}
+
+function sourceEvidenceUrl(source, index) {
+  if (source === "IEEE Xplore") {
+    return `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=sentinel-${index}`;
+  }
+  if (source === "ACM Digital Library") {
+    return `https://dl.acm.org/action/doSearch?AllField=sentinel-${index}`;
+  }
+  if (source === "Scopus") {
+    return `https://www.scopus.com/results/results.uri?sid=sentinel-${index}`;
+  }
+  return `https://www.webofscience.com/wos/woscc/summary/sentinel-${index}/relevance/1`;
 }
 
 test("accepts an evidence-rich retrieved sentinel artifact", () => {
@@ -167,6 +181,47 @@ test("rejects missing and malformed query-run contracts", () => {
   }
 });
 
+test("rejects unfilled placeholders and cross-source or generic evidence URLs", () => {
+  const value = artifact({
+    rationale: "REPLACE-WITH-A-FACTUAL-CLASSIFICATION-RATIONALE",
+  });
+  value.runs[0] = {
+    ...value.runs[0],
+    query: "REPLACE-WITH-THE-EXACT-EXECUTED-QUERY",
+    result_url: "https://example.test/search/result?id=1",
+  };
+  value.runs[1] = {
+    ...value.runs[1],
+    result_url: "https://dl.acm.org/action/doSearch?AllField=wrong-source",
+  };
+  const result = verify(value);
+  assertIssue(result, "rationale must contain");
+  assertIssue(result, "runs[0].query must contain");
+  assertIssue(
+    result,
+    "runs[0].result_url must be an official HTTPS evidence locator",
+  );
+  assertIssue(
+    result,
+    "runs[1].result_url must be an official HTTPS evidence locator for Scopus",
+  );
+});
+
+test("rejects calibration timestamps materially ahead of the verification clock", () => {
+  const value = artifact({ recorded_at: "2099-01-01T00:10:00Z" });
+  value.runs[0] = {
+    ...value.runs[0],
+    executed_at: "2099-01-01T00:00:00Z",
+  };
+  const result = verify(
+    value,
+    ledgerRecord,
+    new Date("2026-08-16T09:00:00Z"),
+  );
+  assertIssue(result, "recorded_at cannot be in the future");
+  assertIssue(result, "runs[0].executed_at cannot be in the future");
+});
+
 test("binds query executions, timestamps and found sources to the ledger", () => {
   const duplicate = { ...artifact().runs[0] };
   const result = verify(
@@ -206,7 +261,7 @@ test("accepts a documented not-indexed sentinel only after all four source check
     executed_at: `2026-08-16T08:0${index}:00Z`,
     result_count: 0,
     sentinel_found: false,
-    result_url: `https://example.org/index-check/${index}`,
+    result_url: sourceEvidenceUrl(source, index),
   }));
   const valid = verify(
     artifact({

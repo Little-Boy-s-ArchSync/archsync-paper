@@ -236,8 +236,13 @@ indexed/retrieved source sets, a factual rationale, and every executed
 sentinel-only query. Each run records one of the four governed sources, the
 query family, exact query text, execution time, non-negative result count,
 whether the sentinel was found, and an HTTPS evidence locator. The ledger and
-artifact must agree exactly; a retrieved source must have a positive matching
-run, while a `not-indexed` conclusion requires negative checks in all four
+artifact must agree exactly. Each locator must use the official domain for its
+declared source (IEEE Xplore, ACM Digital Library, Scopus, or Web of Science),
+contain a result path or query, and contain no template placeholder; a retrieved
+source must have a positive matching run. Calibration and recording timestamps
+must be canonical UTC values and cannot be materially ahead of the verification
+clock. Each indexed source must have at least one documented run, while a
+`not-indexed` conclusion requires negative checks in all four
 sources. Both `official_search_executed` and `candidate_results_screened` must
 remain `false`. CI parses and validates these semantics after verifying the
 digest, so empty, placeholder, contradictory, or hash-consistent fabricated

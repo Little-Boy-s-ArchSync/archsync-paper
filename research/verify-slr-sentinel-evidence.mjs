@@ -20,6 +20,12 @@ const QUERY_FAMILIES = new Set([
   "Search-C",
   "Index-check",
 ]);
+const SOURCE_EVIDENCE_DOMAINS = Object.freeze({
+  "IEEE Xplore": ["ieeexplore.ieee.org"],
+  "ACM Digital Library": ["dl.acm.org"],
+  Scopus: ["scopus.com"],
+  "Web of Science Core Collection": ["webofscience.com", "clarivate.com"],
+});
 const ARTIFACT_FIELDS = Object.freeze([
   "schema_version",
   "task",
@@ -83,9 +89,44 @@ function sameSet(actual, expected) {
   );
 }
 
-export function verifySlrSentinelEvidence({ artifactBytes, ledgerRecord }) {
+function containsPlaceholder(value) {
+  return (
+    typeof value !== "string" ||
+    /\b(?:pending|todo|tbd|placeholder|dummy)\b|\breplace(?:[-_\s]|$)/i.test(
+      value,
+    )
+  );
+}
+
+function isOfficialEvidenceLocator(value, source) {
+  if (typeof value !== "string" || containsPlaceholder(value)) return false;
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    return false;
+  }
+  const hostname = parsed.hostname.toLowerCase();
+  const domains = SOURCE_EVIDENCE_DOMAINS[source] ?? [];
+  return (
+    parsed.protocol === "https:" &&
+    parsed.username === "" &&
+    parsed.password === "" &&
+    domains.some(
+      (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
+    ) &&
+    (parsed.pathname !== "/" || parsed.search.length > 1)
+  );
+}
+
+export function verifySlrSentinelEvidence({
+  artifactBytes,
+  ledgerRecord,
+  now = new Date(),
+}) {
   const issues = [];
   const prefix = `sentinel evidence ${ledgerRecord?.sentinel_id ?? "unknown"}`;
+  const latestAllowedTimestamp = now.getTime() + 5 * 60 * 1000;
   if (!Buffer.isBuffer(artifactBytes)) {
     return { issues: [`${prefix}: artifact is missing or unreadable`] };
   }
@@ -122,11 +163,13 @@ export function verifySlrSentinelEvidence({ artifactBytes, ledgerRecord }) {
   }
   if (!isCanonicalUtcSecond(artifact.recorded_at)) {
     issues.push(`${prefix}: recorded_at must be a canonical UTC timestamp`);
+  } else if (Date.parse(artifact.recorded_at) > latestAllowedTimestamp) {
+    issues.push(`${prefix}: recorded_at cannot be in the future`);
   }
   if (
     typeof artifact.rationale !== "string" ||
     artifact.rationale.trim().length < 20 ||
-    /\bpending\b/i.test(artifact.rationale)
+    containsPlaceholder(artifact.rationale)
   ) {
     issues.push(
       `${prefix}: rationale must contain at least 20 non-placeholder characters`,
@@ -178,14 +221,18 @@ export function verifySlrSentinelEvidence({ artifactBytes, ledgerRecord }) {
     if (
       typeof run.query !== "string" ||
       run.query.trim().length < 10 ||
-      /\bpending\b/i.test(run.query)
+      containsPlaceholder(run.query)
     ) {
       issues.push(`${runPrefix}.query must contain the executed query`);
     }
     if (!isCanonicalUtcSecond(run.executed_at)) {
       issues.push(`${runPrefix}.executed_at must be a canonical UTC timestamp`);
     } else {
-      latestExecution = Math.max(latestExecution, Date.parse(run.executed_at));
+      const executionTimestamp = Date.parse(run.executed_at);
+      latestExecution = Math.max(latestExecution, executionTimestamp);
+      if (executionTimestamp > latestAllowedTimestamp) {
+        issues.push(`${runPrefix}.executed_at cannot be in the future`);
+      }
     }
     if (!Number.isSafeInteger(run.result_count) || run.result_count < 0) {
       issues.push(`${runPrefix}.result_count must be a non-negative integer`);
@@ -200,11 +247,10 @@ export function verifySlrSentinelEvidence({ artifactBytes, ledgerRecord }) {
         );
       }
     }
-    if (
-      typeof run.result_url !== "string" ||
-      !/^https:\/\/[^\s]+$/.test(run.result_url)
-    ) {
-      issues.push(`${runPrefix}.result_url must be an HTTPS evidence locator`);
+    if (!isOfficialEvidenceLocator(run.result_url, run.source)) {
+      issues.push(
+        `${runPrefix}.result_url must be an official HTTPS evidence locator for ${run.source ?? "the governed source"}`,
+      );
     }
     const identity = `${run.source}|${run.query_family}|${run.query}`;
     if (runIdentities.has(identity)) {
