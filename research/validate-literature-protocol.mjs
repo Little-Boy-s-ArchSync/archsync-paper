@@ -576,7 +576,10 @@ async function readOptional(path) {
   }
 }
 
-async function loadSentinelEvidenceHashes(repositoryDirectory, sentinelRecall) {
+export async function loadSentinelEvidenceHashes(
+  repositoryDirectory,
+  sentinelRecall,
+) {
   const hashes = new Map();
   if (!sentinelRecall) return hashes;
   let rows;
@@ -605,7 +608,13 @@ async function loadSentinelEvidenceHashes(repositoryDirectory, sentinelRecall) {
   return hashes;
 }
 
-async function main() {
+export async function main({
+  log = console.log,
+  error = console.error,
+  setExitCode = (code) => {
+    process.exitCode = code;
+  },
+} = {}) {
   const researchDirectory = dirname(fileURLToPath(import.meta.url));
   const repositoryDirectory = dirname(researchDirectory);
   const [
@@ -643,12 +652,12 @@ async function main() {
     sentinelEvidenceHashes,
   });
   if (result.issues.length > 0) {
-    console.error("INVALID LITERATURE REVIEW PROTOCOL");
-    for (const issue of result.issues) console.error(`- ${issue}`);
-    process.exitCode = 1;
+    error("INVALID LITERATURE REVIEW PROTOCOL");
+    for (const issue of result.issues) error(`- ${issue}`);
+    setExitCode(1);
     return;
   }
-  console.log(
+  log(
     `VALID LITERATURE PROTOCOL ${result.version} (${result.status.toLowerCase()}, 6 SLR-RQs, 4 databases, 3 query families, search ${result.searchAuthorization.toLowerCase()})`,
   );
 }

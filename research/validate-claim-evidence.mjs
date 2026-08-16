@@ -14,11 +14,20 @@ const REQUIRED_HEADERS = [
   "owner",
 ];
 
-const EXPECTED_CURRENT_IDS = Array.from({ length: 9 }, (_, index) => `C-${String(index + 1).padStart(3, "0")}`);
-const EXPECTED_PLANNED_IDS = Array.from({ length: 4 }, (_, index) => `P-${String(index + 1).padStart(3, "0")}`);
+const EXPECTED_CURRENT_IDS = Array.from(
+  { length: 9 },
+  (_, index) => `C-${String(index + 1).padStart(3, "0")}`,
+);
+const EXPECTED_PLANNED_IDS = Array.from(
+  { length: 4 },
+  (_, index) => `P-${String(index + 1).padStart(3, "0")}`,
+);
 
 const PAPER_MARKERS = new Map([
-  ["C-001", ["achieved 1.000 precision, recall, and F1", "20 patched repositories"]],
+  [
+    "C-001",
+    ["achieved 1.000 precision, recall, and F1", "20 patched repositories"],
+  ],
   ["C-002", ["classified 20/20 patches"]],
   ["C-003", ["matched 7/7 violation rule sets"]],
   ["C-004", ["localized 11/11 finding-bearing cases"]],
@@ -75,88 +84,144 @@ export function validateClaimEvidence(csvText, paperText) {
   try {
     rows = parseCsv(csvText);
   } catch (error) {
-    return { issues: [`claim-evidence.csv: ${error.message}`], verified: 0, planned: 0 };
+    return {
+      issues: [`claim-evidence.csv: ${error.message}`],
+      verified: 0,
+      planned: 0,
+    };
   }
 
   if (rows.length === 0) {
-    return { issues: ["claim-evidence.csv: empty CSV"], verified: 0, planned: 0 };
+    return {
+      issues: ["claim-evidence.csv: empty CSV"],
+      verified: 0,
+      planned: 0,
+    };
   }
 
   const [headers, ...dataRows] = rows;
   if (headers.join("|") !== REQUIRED_HEADERS.join("|")) {
-    issues.push("claim-evidence.csv: header order does not match the governed schema");
+    issues.push(
+      "claim-evidence.csv: header order does not match the governed schema",
+    );
   }
 
   const records = dataRows.map((row, index) => {
     if (row.length !== headers.length) {
-      issues.push(`claim-evidence.csv: row ${index + 2} has ${row.length} fields; expected ${headers.length}`);
+      issues.push(
+        `claim-evidence.csv: row ${index + 2} has ${row.length} fields; expected ${headers.length}`,
+      );
     }
-    return Object.fromEntries(headers.map((header, column) => [header, row[column] ?? ""]));
+    return Object.fromEntries(
+      headers.map((header, column) => [header, row[column] ?? ""]),
+    );
   });
 
   const ids = records.map((record) => record.claim_id);
-  if (new Set(ids).size !== ids.length) issues.push("claim-evidence.csv: claim_id values must be unique");
+  if (new Set(ids).size !== ids.length)
+    issues.push("claim-evidence.csv: claim_id values must be unique");
 
   const expectedIds = [...EXPECTED_CURRENT_IDS, ...EXPECTED_PLANNED_IDS];
   for (const id of expectedIds) {
     if (!ids.includes(id)) issues.push(`claim-evidence.csv: missing ${id}`);
   }
-  for (const id of ids.filter((candidate) => !expectedIds.includes(candidate))) {
+  for (const id of ids.filter(
+    (candidate) => !expectedIds.includes(candidate),
+  )) {
     issues.push(`claim-evidence.csv: unexpected claim identifier ${id}`);
   }
 
   for (const record of records) {
     for (const header of REQUIRED_HEADERS) {
       if (!record[header]?.trim()) {
-        issues.push(`claim-evidence.csv: ${record.claim_id || "unknown row"} has empty ${header}`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id || "unknown row"} has empty ${header}`,
+        );
       }
     }
 
     if (record.claim_id?.startsWith("C-")) {
       if (!/^F-RQ[1-4]$/.test(record.rq)) {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must reference F-RQ1 through F-RQ4`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must reference F-RQ1 through F-RQ4`,
+        );
       }
       if (record.status !== "verified") {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must use verified status`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must use verified status`,
+        );
       }
-      if (!/^archsync-benchmark\/evidence\/.+\.json$/.test(record.evidence_artifact)) {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must reference a versioned benchmark evidence JSON artifact`);
+      if (
+        !/^archsync-benchmark\/evidence\/.+\.json$/.test(
+          record.evidence_artifact,
+        )
+      ) {
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must reference a versioned benchmark evidence JSON artifact`,
+        );
       }
       if (!record.verification.includes("pnpm verify")) {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must name the executable pnpm verify gate`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must name the executable pnpm verify gate`,
+        );
       }
       for (const marker of PAPER_MARKERS.get(record.claim_id) ?? []) {
         if (!paperText.includes(marker)) {
-          issues.push(`main.tex: missing governed result marker '${marker}' for ${record.claim_id}`);
+          issues.push(
+            `main.tex: missing governed result marker '${marker}' for ${record.claim_id}`,
+          );
         }
       }
     } else if (record.claim_id?.startsWith("P-")) {
       if (record.rq !== "Future") {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must remain outside the current feasibility RQs`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must remain outside the current feasibility RQs`,
+        );
       }
       if (record.status !== "planned") {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must remain planned until its phase gate passes`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must remain planned until its phase gate passes`,
+        );
       }
       if (record.evidence_artifact !== "Not available") {
-        issues.push(`claim-evidence.csv: ${record.claim_id} cannot cite result evidence before its phase gate`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} cannot cite result evidence before its phase gate`,
+        );
       }
       if (!/^Phase [456] evidence gate$/.test(record.verification)) {
-        issues.push(`claim-evidence.csv: ${record.claim_id} must identify its future evidence gate`);
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must identify its future evidence gate`,
+        );
       }
     }
   }
 
-  const verifiedRecords = records.filter((record) => record.status === "verified");
-  const plannedRecords = records.filter((record) => record.status === "planned");
+  const verifiedRecords = records.filter(
+    (record) => record.status === "verified",
+  );
+  const plannedRecords = records.filter(
+    (record) => record.status === "planned",
+  );
   const coveredRqs = new Set(verifiedRecords.map((record) => record.rq));
   for (const rq of ["F-RQ1", "F-RQ2", "F-RQ3", "F-RQ4"]) {
-    if (!coveredRqs.has(rq)) issues.push(`claim-evidence.csv: no verified result claim covers ${rq}`);
+    if (!coveredRqs.has(rq))
+      issues.push(`claim-evidence.csv: no verified result claim covers ${rq}`);
   }
 
-  return { issues, verified: verifiedRecords.length, planned: plannedRecords.length };
+  return {
+    issues,
+    verified: verifiedRecords.length,
+    planned: plannedRecords.length,
+  };
 }
 
-async function main() {
+export async function main({
+  log = console.log,
+  error = console.error,
+  setExitCode = (code) => {
+    process.exitCode = code;
+  },
+} = {}) {
   const researchDirectory = dirname(fileURLToPath(import.meta.url));
   const repositoryDirectory = dirname(researchDirectory);
   const [csvText, paperText] = await Promise.all([
@@ -165,16 +230,19 @@ async function main() {
   ]);
   const result = validateClaimEvidence(csvText, paperText);
   if (result.issues.length > 0) {
-    console.error("INVALID CLAIM EVIDENCE");
-    for (const issue of result.issues) console.error(`- ${issue}`);
-    process.exitCode = 1;
+    error("INVALID CLAIM EVIDENCE");
+    for (const issue of result.issues) error(`- ${issue}`);
+    setExitCode(1);
     return;
   }
-  console.log(
+  log(
     `VALID CLAIM EVIDENCE (${result.verified} verified, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   await main();
 }

@@ -1,10 +1,16 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import test from "node:test";
 import { dirname, join } from "node:path";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
-import { validateLiteratureProtocol } from "./validate-literature-protocol.mjs";
+import {
+  loadSentinelEvidenceHashes,
+  main as runLiteratureProtocolValidator,
+  validateLiteratureProtocol,
+} from "./validate-literature-protocol.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
@@ -289,4 +295,217 @@ test("rejects duplicate or incomplete sentinel rows", () => {
   assertIssue(result, "DOI values must be unique");
   assertIssue(result, "missing S-006");
   assertIssue(result, "missing sentinel DOI 10.1002/smr.2423");
+});
+
+test("rejects missing paper disclosures, method citations and protocol metadata", () => {
+  const result = validate({
+    protocol: protocol
+      .replace("| Owner | Hiếu |", "| Owner | Unknown |")
+      .replace("### SLR-RQ1:", "### Removed-RQ1:")
+      .replace(
+        "## 20. Candidate version history",
+        "## Removed version history",
+      ),
+    paper: paper
+      .replace(
+        "The preceding synthesis positions ArchSync against selected foundational, secondary, and empirical studies. It is not the outcome of a completed systematic literature review",
+        "The literature is complete",
+      )
+      .replace(
+        "The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias",
+        "There is no literature-selection risk",
+      )
+      .replaceAll("kitchenham2007slr", "removed-method-citation"),
+    bibliography: bibliography.replaceAll(
+      "kitchenham2007slr",
+      "removed-method-entry",
+    ),
+  });
+  for (const fragment of [
+    "not a completed systematic review",
+    "literature-positioning validity risk",
+    "missing literature-method citation kitchenham2007slr",
+    "missing entry kitchenham2007slr",
+    "Owner must be 'Hiếu'",
+    "SLR-RQ1 must have one canonical heading",
+    "Candidate version history",
+  ]) {
+    assertIssue(result, fragment);
+  }
+});
+
+test("rejects a protocol and baseline that lose an RQ traceability link", () => {
+  const result = validate({
+    protocol: protocol.replaceAll("F-RQ1", "REMOVED-RQ1"),
+    baseline: baseline.replaceAll("F-RQ1", "REMOVED-RQ1"),
+    traceability: traceability.replaceAll("F-RQ1", "REMOVED-RQ1"),
+  });
+  assertIssue(result, "missing link to F-RQ1");
+  assertIssue(result, "missing governed RQ F-RQ1");
+});
+
+test("rejects malformed review identity, timestamp and PR linkage", () => {
+  const malformedReview = reviewRecord
+    .replace("/pull/5", "/pull/6")
+    .replace("0123456789abcdef0123456789abcdef01234567", "short-commit")
+    .replace("2026-08-16T08:00:00Z", "2026-99-99T99:99:99Z");
+  const result = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: malformedReview,
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(result, "freeze decision must cite the approved Review PR");
+  assertIssue(result, "Review commit must be a full Git commit SHA");
+  assertIssue(result, "Review timestamp must be an ISO-8601 UTC timestamp");
+});
+
+test("rejects frozen metadata while the paper retains candidate language", () => {
+  const result = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper,
+    reviewRecord,
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(result, "frozen status must match reviewed protocol 1.0.0");
+  assertIssue(
+    result,
+    "must not retain candidate or pre-review blocking language",
+  );
+});
+
+test("rejects malformed sentinel CSV schema, row width and unknown sources", () => {
+  const malformed = sentinelRecall
+    .replace("sentinel_id,doi", "id,doi")
+    .replace("ACM Digital Library;Scopus", "Unknown Index")
+    .replace(
+      `,research/evidence/slr-sentinel/S-006.json#sha256=${"6".repeat(64)}`,
+      "",
+    );
+  const result = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord,
+    sentinelRecall: malformed,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(result, "header order does not match the governed schema");
+  assertIssue(result, "row 7 has 6 fields; expected 7");
+  assertIssue(result, "uses unknown source 'Unknown Index'");
+});
+
+test("rejects malformed sentinel CSV quoting", () => {
+  const result = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord,
+    sentinelRecall: 'sentinel_id,doi\n"unterminated',
+    sentinelEvidenceHashes,
+  });
+  assertIssue(result, "unterminated quoted CSV field");
+});
+
+test("accepts documented not-indexed sentinels and rejects contradictory classifications", () => {
+  const notIndexed = sentinelRecall.replace(
+    "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
+    "none,none,not-indexed",
+  );
+  const accepted = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord,
+    sentinelRecall: notIndexed,
+    sentinelEvidenceHashes,
+  });
+  assert.deepEqual(accepted.issues, []);
+
+  const contradictory = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord,
+    sentinelRecall: sentinelRecall
+      .replace(
+        "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
+        "ACM Digital Library,ACM Digital Library,not-indexed",
+      )
+      .replace(
+        "IEEE Xplore;Scopus,IEEE Xplore,retrieved",
+        "none,none,retrieved",
+      )
+      .replace(
+        "Scopus;Web of Science Core Collection,Scopus,retrieved",
+        "Scopus,Scopus,invalid",
+      ),
+    sentinelEvidenceHashes,
+  });
+  assertIssue(contradictory, "not-indexed classification requires 'none'");
+  assertIssue(
+    contradictory,
+    "retrieved classification requires indexed and retrieved sources",
+  );
+  assertIssue(contradictory, "classification must be retrieved or not-indexed");
+});
+
+test("rejects removal of D-008 or its pre-search integrity guard", () => {
+  const missingDecision = validate({
+    decisions: decisions.replace(
+      "## D-008: Propose Systematic Literature Review Protocol 0.1.0 for Independent Review",
+      "## Removed D-008",
+    ),
+  });
+  assertIssue(missingDecision, "missing D-008 literature protocol decision");
+
+  const missingGuard = validate({
+    decisions: decisions.replace(
+      "Search remains blocked while the protocol is a review",
+      "Search may start while the protocol is a review",
+    ),
+  });
+  assertIssue(missingGuard, "must preserve the pre-search review gate");
+});
+
+test("loads and hashes a real sentinel evidence artifact", async (context) => {
+  const repository = await mkdtemp(join(tmpdir(), "archsync-slr-evidence-"));
+  context.after(() => rm(repository, { recursive: true, force: true }));
+  const evidenceDirectory = join(
+    repository,
+    "research",
+    "evidence",
+    "slr-sentinel",
+  );
+  await mkdir(evidenceDirectory, { recursive: true });
+  const artifact = '{"sentinel":"S-001","retrieved":true}\n';
+  await writeFile(join(evidenceDirectory, "S-001.json"), artifact, "utf8");
+  const digest = createHash("sha256").update(artifact).digest("hex");
+  const recall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence\nS-001,10.1145/222124.222136,ACM Digital Library,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${digest}\n`;
+  const hashes = await loadSentinelEvidenceHashes(repository, recall);
+  assert.equal(hashes.get("research/evidence/slr-sentinel/S-001.json"), digest);
+  assert.deepEqual(
+    await loadSentinelEvidenceHashes(repository, '"unterminated'),
+    new Map(),
+  );
+});
+
+test("runs the real candidate protocol through the CLI entry point", async () => {
+  const output = [];
+  const errors = [];
+  let exitCode = null;
+  await runLiteratureProtocolValidator({
+    log: (message) => output.push(message),
+    error: (message) => errors.push(message),
+    setExitCode: (code) => {
+      exitCode = code;
+    },
+  });
+  assert.equal(exitCode, null);
+  assert.deepEqual(errors, []);
+  assert.ok(output.some((message) => message.includes("search blocked")));
 });
