@@ -30,6 +30,12 @@ jobs:
       - name: Verify RQ traceability matrix
         run: node research/validate-rq-traceability.mjs
 
+      - name: Test claim-to-evidence contract
+        run: node --test research/validate-claim-evidence.test.mjs
+
+      - name: Verify claim-to-evidence contract
+        run: node research/validate-claim-evidence.mjs
+
       - name: Verify literature review protocol
         run: node research/validate-literature-protocol.mjs
 

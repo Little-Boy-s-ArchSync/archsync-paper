@@ -39,6 +39,8 @@ Kiểm tra baseline và glossary bằng:
 ```bash
 node research/validate-baseline.mjs
 node research/validate-rq-traceability.mjs
+node --test research/validate-claim-evidence.test.mjs
+node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 ```
 
