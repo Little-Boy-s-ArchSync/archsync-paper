@@ -18,6 +18,7 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được
 │   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
+│   ├── slr-sentinel-evidence.template.json # Schema ghi nhận calibration, không phải evidence
 │   ├── claim-evidence.csv      # Claim-to-evidence ledger
 │   ├── decision-log.md         # Quyết định và change control
 │   └── risk-register.csv       # Rủi ro nghiên cứu

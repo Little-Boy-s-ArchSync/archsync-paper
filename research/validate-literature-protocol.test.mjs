@@ -7,10 +7,12 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
 import {
+  loadSentinelEvidence,
   loadSentinelEvidenceHashes,
   main as runLiteratureProtocolValidator,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
+import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
@@ -24,6 +26,12 @@ const [protocol, decisions, baseline, traceability, paper, bibliography] =
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);
 
+const {
+  sentinelRecall,
+  sentinelEvidenceHashes,
+  sentinelEvidenceArtifacts,
+} = createSentinelEvidenceFixture();
+
 const source = {
   protocol,
   decisions,
@@ -31,6 +39,7 @@ const source = {
   traceability,
   paper,
   bibliography,
+  sentinelEvidenceArtifacts,
 };
 
 function validate(overrides = {}) {
@@ -117,22 +126,6 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Search results inspected | No |
 | Sentinel recall | Passed |
 `;
-
-const sentinelRecall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence
-S-001,10.1145/222124.222136,ACM Digital Library;Scopus,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${"1".repeat(64)}
-S-002,10.1109/WICSA.2007.1,IEEE Xplore;Scopus,IEEE Xplore,retrieved,Member 3,research/evidence/slr-sentinel/S-002.json#sha256=${"2".repeat(64)}
-S-003,10.1002/spe.931,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-003.json#sha256=${"3".repeat(64)}
-S-004,10.1016/j.jss.2011.07.036,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-004.json#sha256=${"4".repeat(64)}
-S-005,10.3217/jucs-023-08-0769,Scopus,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-005.json#sha256=${"5".repeat(64)}
-S-006,10.1002/smr.2423,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-006.json#sha256=${"6".repeat(64)}
-`;
-const sentinelEvidenceHashes = new Map(
-  [
-    ...sentinelRecall.matchAll(
-      /(research\/evidence\/slr-sentinel\/S-[0-9]{3}\.json)#sha256=([0-9a-f]{64})/g,
-    ),
-  ].map((match) => [match[1], match[2]]),
-);
 
 const signedReviewRecord = reviewRecord
   .replace(
@@ -267,6 +260,27 @@ test("validates sentinel calibration evidence before the candidate is reviewed",
     sentinelEvidenceHashes: forged,
   });
   assertIssue(rejected, "evidence SHA-256 does not match");
+});
+
+test("rejects semantically empty JSON even when its ledger digest matches", () => {
+  const path = "research/evidence/slr-sentinel/S-001.json";
+  const bytes = Buffer.from("{}\n", "utf8");
+  const digest = createHash("sha256").update(bytes).digest("hex");
+  const artifacts = new Map(sentinelEvidenceArtifacts);
+  const hashes = new Map(sentinelEvidenceHashes);
+  artifacts.set(path, bytes);
+  hashes.set(path, digest);
+  const governedDigest = sentinelEvidenceHashes.get(path);
+  const result = validate({
+    sentinelRecall: sentinelRecall.replace(governedDigest, digest),
+    sentinelEvidenceHashes: hashes,
+    sentinelEvidenceArtifacts: artifacts,
+  });
+  assertIssue(result, "artifact fields do not match schema 1.0.0");
+  assert.ok(
+    !result.issues.some((issue) => issue.includes("SHA-256 does not match")),
+    "the negative case must isolate semantic validation after a valid digest",
+  );
 });
 
 test("accepts a fully evidenced synthetic frozen state", () => {
@@ -478,7 +492,7 @@ test("rejects malformed sentinel CSV schema, row width and unknown sources", () 
     .replace("sentinel_id,doi", "id,doi")
     .replace("ACM Digital Library;Scopus", "Unknown Index")
     .replace(
-      `,research/evidence/slr-sentinel/S-006.json#sha256=${"6".repeat(64)}`,
+      /,research\/evidence\/slr-sentinel\/S-006\.json#sha256=[0-9a-f]{64}(?=\r?\n?$)/,
       "",
     );
   const result = validate({
@@ -507,17 +521,25 @@ test("rejects malformed sentinel CSV quoting", () => {
 });
 
 test("accepts documented not-indexed sentinels and rejects contradictory classifications", () => {
-  const notIndexed = sentinelRecall.replace(
-    "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
-    "none,none,not-indexed",
-  );
+  const notIndexedFixture = createSentinelEvidenceFixture({
+    mutateRecord: (record, ordinal) =>
+      ordinal === 0
+        ? {
+            ...record,
+            indexed_sources: [],
+            retrieved_sources: [],
+            classification: "not-indexed",
+          }
+        : record,
+  });
   const accepted = validate({
     protocol: frozenProtocol(),
     decisions: acceptedDecisions(),
     paper: frozenPaper(),
     reviewRecord,
-    sentinelRecall: notIndexed,
-    sentinelEvidenceHashes,
+    sentinelRecall: notIndexedFixture.sentinelRecall,
+    sentinelEvidenceHashes: notIndexedFixture.sentinelEvidenceHashes,
+    sentinelEvidenceArtifacts: notIndexedFixture.sentinelEvidenceArtifacts,
   });
   assert.deepEqual(accepted.issues, []);
 
@@ -583,6 +605,14 @@ test("loads and hashes a real sentinel evidence artifact", async (context) => {
   const recall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence\nS-001,10.1145/222124.222136,ACM Digital Library,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${digest}\n`;
   const hashes = await loadSentinelEvidenceHashes(repository, recall);
   assert.equal(hashes.get("research/evidence/slr-sentinel/S-001.json"), digest);
+  const evidence = await loadSentinelEvidence(repository, recall);
+  assert.equal(evidence.hashes.get("research/evidence/slr-sentinel/S-001.json"), digest);
+  assert.equal(
+    evidence.artifacts
+      .get("research/evidence/slr-sentinel/S-001.json")
+      .toString("utf8"),
+    artifact,
+  );
   assert.deepEqual(
     await loadSentinelEvidenceHashes(repository, '"unterminated'),
     new Map(),

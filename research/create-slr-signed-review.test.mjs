@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import {
-  createHash,
   createPublicKey,
   generateKeyPairSync,
 } from "node:crypto";
@@ -20,6 +19,7 @@ import {
   SIGNED_REVIEW_PATHS,
   verifySignedReviewAttestation,
 } from "./verify-slr-signed-attestation.mjs";
+import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 
 const reviewPr =
   "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6";
@@ -250,29 +250,13 @@ test("real candidate preflight validates governed sentinel files and hashes", as
     );
   }
 
-  const rows = [
-    ["S-001", "10.1145/222124.222136", "ACM Digital Library;Scopus", "ACM Digital Library"],
-    ["S-002", "10.1109/WICSA.2007.1", "IEEE Xplore;Scopus", "IEEE Xplore"],
-    ["S-003", "10.1002/spe.931", "Scopus;Web of Science Core Collection", "Scopus"],
-    ["S-004", "10.1016/j.jss.2011.07.036", "Scopus;Web of Science Core Collection", "Scopus"],
-    ["S-005", "10.3217/jucs-023-08-0769", "Scopus", "Scopus"],
-    ["S-006", "10.1002/smr.2423", "Scopus;Web of Science Core Collection", "Scopus"],
-  ];
-  const ledger = [
-    "sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence",
-  ];
-  for (const [id, doi, indexed, retrieved] of rows) {
-    const artifact = Buffer.from(`${JSON.stringify({ sentinel_id: id })}\n`);
-    const relative = `research/evidence/slr-sentinel/${id}.json`;
+  const fixture = createSentinelEvidenceFixture();
+  for (const [relative, artifact] of fixture.sentinelEvidenceArtifacts) {
     await writeFile(join(repository, ...relative.split("/")), artifact);
-    const digest = createHash("sha256").update(artifact).digest("hex");
-    ledger.push(
-      `${id},${doi},${indexed},${retrieved},retrieved,Member 3,${relative}#sha256=${digest}`,
-    );
   }
   await writeFile(
     join(research, "literature-sentinel-recall.csv"),
-    `${ledger.join("\n")}\n`,
+    fixture.sentinelRecall,
     "utf8",
   );
 

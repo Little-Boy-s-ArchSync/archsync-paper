@@ -4,15 +4,12 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 
 import { parseCsv } from "./validate-claim-evidence.mjs";
+import {
+  PRIMARY_SOURCES,
+  SENTINEL_DOIS,
+  verifySlrSentinelEvidence,
+} from "./verify-slr-sentinel-evidence.mjs";
 
-const SENTINEL_DOIS = [
-  "10.1145/222124.222136",
-  "10.1109/WICSA.2007.1",
-  "10.1002/spe.931",
-  "10.1016/j.jss.2011.07.036",
-  "10.3217/jucs-023-08-0769",
-  "10.1002/smr.2423",
-];
 const SENTINEL_HEADERS = [
   "sentinel_id",
   "doi",
@@ -22,13 +19,6 @@ const SENTINEL_HEADERS = [
   "reviewer",
   "evidence",
 ];
-const PRIMARY_SOURCES = new Set([
-  "IEEE Xplore",
-  "ACM Digital Library",
-  "Scopus",
-  "Web of Science Core Collection",
-]);
-
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -54,6 +44,7 @@ export function validateLiteratureProtocol({
   reviewRecord = null,
   sentinelRecall = null,
   sentinelEvidenceHashes = new Map(),
+  sentinelEvidenceArtifacts = new Map(),
 }) {
   const issues = [];
 
@@ -460,7 +451,7 @@ export function validateLiteratureProtocol({
                   .map((value) => value.trim())
                   .filter(Boolean);
           for (const source of [...indexed, ...retrieved]) {
-            if (!PRIMARY_SOURCES.has(source)) {
+            if (!PRIMARY_SOURCES.includes(source)) {
               issues.push(
                 `literature-sentinel-recall.csv: ${record.sentinel_id} uses unknown source '${source}'`,
               );
@@ -493,6 +484,17 @@ export function validateLiteratureProtocol({
                 `literature-sentinel-recall.csv: ${record.sentinel_id} evidence SHA-256 does not match the artifact`,
               );
             }
+            const semanticResult = verifySlrSentinelEvidence({
+              artifactBytes: sentinelEvidenceArtifacts.get(artifactPath),
+              ledgerRecord: {
+                sentinel_id: record.sentinel_id,
+                doi: record.doi,
+                indexed_sources: indexed,
+                retrieved_sources: retrieved,
+                classification: record.classification,
+              },
+            });
+            issues.push(...semanticResult.issues);
           }
           if (record.classification === "retrieved") {
             if (indexed.length === 0 || retrieved.length === 0) {
@@ -670,17 +672,18 @@ async function readOptional(path) {
   }
 }
 
-export async function loadSentinelEvidenceHashes(
+export async function loadSentinelEvidence(
   repositoryDirectory,
   sentinelRecall,
 ) {
   const hashes = new Map();
-  if (!sentinelRecall) return hashes;
+  const artifacts = new Map();
+  if (!sentinelRecall) return { hashes, artifacts };
   let rows;
   try {
     rows = parseCsv(sentinelRecall);
   } catch {
-    return hashes;
+    return { hashes, artifacts };
   }
   for (const row of rows.slice(1)) {
     const artifactPath = row[6]?.match(
@@ -691,6 +694,7 @@ export async function loadSentinelEvidenceHashes(
       const bytes = await readFile(
         join(repositoryDirectory, ...artifactPath.split("/")),
       );
+      artifacts.set(artifactPath, bytes);
       hashes.set(
         artifactPath,
         createHash("sha256").update(bytes).digest("hex"),
@@ -699,7 +703,14 @@ export async function loadSentinelEvidenceHashes(
       if (error?.code !== "ENOENT") throw error;
     }
   }
-  return hashes;
+  return { hashes, artifacts };
+}
+
+export async function loadSentinelEvidenceHashes(
+  repositoryDirectory,
+  sentinelRecall,
+) {
+  return (await loadSentinelEvidence(repositoryDirectory, sentinelRecall)).hashes;
 }
 
 export async function main({
@@ -730,7 +741,7 @@ export async function main({
     readOptional(join(researchDirectory, "slr-review-record.md")),
     readOptional(join(researchDirectory, "literature-sentinel-recall.csv")),
   ]);
-  const sentinelEvidenceHashes = await loadSentinelEvidenceHashes(
+  const sentinelEvidence = await loadSentinelEvidence(
     repositoryDirectory,
     sentinelRecall,
   );
@@ -743,7 +754,8 @@ export async function main({
     bibliography,
     reviewRecord,
     sentinelRecall,
-    sentinelEvidenceHashes,
+    sentinelEvidenceHashes: sentinelEvidence.hashes,
+    sentinelEvidenceArtifacts: sentinelEvidence.artifacts,
   });
   if (result.issues.length > 0) {
     error("INVALID LITERATURE REVIEW PROTOCOL");

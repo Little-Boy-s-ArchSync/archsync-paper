@@ -3,7 +3,7 @@ import { basename, dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
-  loadSentinelEvidenceHashes,
+  loadSentinelEvidence,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
 
@@ -48,6 +48,7 @@ export function freezeLiteratureProtocol({
   reviewRecord,
   sentinelRecall,
   sentinelEvidenceHashes = new Map(),
+  sentinelEvidenceArtifacts = new Map(),
 }) {
   const candidate = validateLiteratureProtocol({
     protocol,
@@ -216,6 +217,7 @@ export function freezeLiteratureProtocol({
     reviewRecord,
     sentinelRecall,
     sentinelEvidenceHashes,
+    sentinelEvidenceArtifacts,
   });
   return {
     issues: frozen.issues.map((issue) => `frozen state: ${issue}`),
@@ -230,7 +232,7 @@ export async function main({
   repositoryDirectory = dirname(dirname(fileURLToPath(import.meta.url))),
   readText = (path) => readFile(path, "utf8"),
   writeText = (path, text) => writeFile(path, text, "utf8"),
-  loadHashes = loadSentinelEvidenceHashes,
+  loadEvidence = loadSentinelEvidence,
   log = console.log,
   error = console.error,
   setExitCode = (code) => {
@@ -281,13 +283,14 @@ export async function main({
     setExitCode(1);
     return;
   }
-  const sentinelEvidenceHashes = await loadHashes(
+  const sentinelEvidence = await loadEvidence(
     repositoryDirectory,
     documents.sentinelRecall,
   );
   const result = freezeLiteratureProtocol({
     ...documents,
-    sentinelEvidenceHashes,
+    sentinelEvidenceHashes: sentinelEvidence.hashes,
+    sentinelEvidenceArtifacts: sentinelEvidence.artifacts,
   });
   if (result.issues.length > 0) {
     error("FREEZE BLOCKED");

@@ -10,7 +10,7 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
-  loadSentinelEvidenceHashes,
+  loadSentinelEvidence,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
 import {
@@ -174,7 +174,7 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
     readFile(join(research, "literature-sentinel-recall.csv"), "utf8"),
   ]);
-  const sentinelEvidenceHashes = await loadSentinelEvidenceHashes(
+  const sentinelEvidence = await loadSentinelEvidence(
     repositoryDirectory,
     sentinelRecall,
   );
@@ -186,7 +186,8 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     paper,
     bibliography,
     sentinelRecall,
-    sentinelEvidenceHashes,
+    sentinelEvidenceHashes: sentinelEvidence.hashes,
+    sentinelEvidenceArtifacts: sentinelEvidence.artifacts,
   });
 }
 

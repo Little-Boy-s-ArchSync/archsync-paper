@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import test from "node:test";
 import { dirname, join } from "node:path";
@@ -10,6 +9,7 @@ import {
   freezeLiteratureProtocol,
   main as runFreezeTool,
 } from "./freeze-literature-protocol.mjs";
+import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
@@ -41,21 +41,11 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Sentinel recall | Passed |
 `;
 
-const sentinelRecall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence
-S-001,10.1145/222124.222136,ACM Digital Library;Scopus,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${"1".repeat(64)}
-S-002,10.1109/WICSA.2007.1,IEEE Xplore;Scopus,IEEE Xplore,retrieved,Member 3,research/evidence/slr-sentinel/S-002.json#sha256=${"2".repeat(64)}
-S-003,10.1002/spe.931,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-003.json#sha256=${"3".repeat(64)}
-S-004,10.1016/j.jss.2011.07.036,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-004.json#sha256=${"4".repeat(64)}
-S-005,10.3217/jucs-023-08-0769,Scopus,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-005.json#sha256=${"5".repeat(64)}
-S-006,10.1002/smr.2423,Scopus;Web of Science Core Collection,Scopus,retrieved,Member 3,research/evidence/slr-sentinel/S-006.json#sha256=${"6".repeat(64)}
-`;
-const sentinelEvidenceHashes = new Map(
-  [
-    ...sentinelRecall.matchAll(
-      /(research\/evidence\/slr-sentinel\/S-[0-9]{3}\.json)#sha256=([0-9a-f]{64})/g,
-    ),
-  ].map((match) => [match[1], match[2]]),
-);
+const {
+  sentinelRecall,
+  sentinelEvidenceHashes,
+  sentinelEvidenceArtifacts,
+} = createSentinelEvidenceFixture();
 
 const source = {
   protocol,
@@ -67,6 +57,7 @@ const source = {
   reviewRecord,
   sentinelRecall,
   sentinelEvidenceHashes,
+  sentinelEvidenceArtifacts,
 };
 
 test("produces a validator-approved 1.0.0 freeze state from governed evidence", () => {
@@ -147,6 +138,30 @@ test("refuses forged sentinel hashes after generating the prospective state", ()
   );
 });
 
+test("refuses digest-valid sentinel JSON that violates the semantic schema", () => {
+  const invalid = createSentinelEvidenceFixture({
+    mutateArtifact: (artifact, _record, ordinal) =>
+      ordinal === 0 ? {} : artifact,
+  });
+  const result = freezeLiteratureProtocol({
+    ...source,
+    sentinelRecall: invalid.sentinelRecall,
+    sentinelEvidenceHashes: invalid.sentinelEvidenceHashes,
+    sentinelEvidenceArtifacts: invalid.sentinelEvidenceArtifacts,
+  });
+  assert.ok(
+    result.issues.some(
+      (issue) =>
+        issue.includes("frozen state:") &&
+        issue.includes("artifact fields do not match schema 1.0.0"),
+    ),
+  );
+  assert.ok(
+    !result.issues.some((issue) => issue.includes("SHA-256 does not match")),
+    "the negative case must reach semantic validation with a valid digest",
+  );
+});
+
 function inMemoryCli(overrides = {}) {
   const files = new Map([
     ["literature-protocol.md", protocol],
@@ -181,7 +196,10 @@ function inMemoryCli(overrides = {}) {
       writeText: async (path, text) => {
         writes.set(path.split(/[\\/]/).at(-1), text);
       },
-      loadHashes: async () => sentinelEvidenceHashes,
+      loadEvidence: async () => ({
+        hashes: sentinelEvidenceHashes,
+        artifacts: sentinelEvidenceArtifacts,
+      }),
       log: (message) => output.push(message),
       error: (message) => errors.push(message),
       setExitCode: (code) => {
@@ -239,19 +257,8 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
   const evidence = join(research, "evidence", "slr-sentinel");
   await mkdir(evidence, { recursive: true });
 
-  const evidenceHashes = new Map();
-  for (let index = 1; index <= 6; index += 1) {
-    const id = `S-${String(index).padStart(3, "0")}`;
-    const content = `${JSON.stringify({ sentinel_id: id, retrieved: true })}\n`;
-    await writeFile(join(evidence, `${id}.json`), content, "utf8");
-    evidenceHashes.set(id, createHash("sha256").update(content).digest("hex"));
-  }
-  let realRecall = sentinelRecall;
-  for (let index = 1; index <= 6; index += 1) {
-    realRecall = realRecall.replace(
-      String(index).repeat(64),
-      evidenceHashes.get(`S-${String(index).padStart(3, "0")}`),
-    );
+  for (const [path, content] of sentinelEvidenceArtifacts) {
+    await writeFile(join(repository, ...path.split("/")), content);
   }
 
   await Promise.all([
@@ -264,7 +271,7 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
     writeFile(join(research, "slr-review-record.md"), reviewRecord, "utf8"),
     writeFile(
       join(research, "literature-sentinel-recall.csv"),
-      realRecall,
+      sentinelRecall,
       "utf8",
     ),
   ]);

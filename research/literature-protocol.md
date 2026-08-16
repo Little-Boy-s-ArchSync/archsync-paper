@@ -228,6 +228,23 @@ access failure. Query terms may be changed only while the protocol remains a
 review candidate; every change and rerun is recorded in the pull request. The
 candidate result list must not be screened or used to tune eligibility criteria.
 
+Each calibration row must reference one reviewer-created JSON artifact under
+`research/evidence/slr-sentinel/` and pin its exact SHA-256 digest. The artifact
+uses schema version 1.0.0 and records the fixed task/protocol identity, sentinel
+ID and DOI, Member 3 as reviewer, canonical UTC timestamps, classification,
+indexed/retrieved source sets, a factual rationale, and every executed
+sentinel-only query. Each run records one of the four governed sources, the
+query family, exact query text, execution time, non-negative result count,
+whether the sentinel was found, and an HTTPS evidence locator. The ledger and
+artifact must agree exactly; a retrieved source must have a positive matching
+run, while a `not-indexed` conclusion requires negative checks in all four
+sources. Both `official_search_executed` and `candidate_results_screened` must
+remain `false`. CI parses and validates these semantics after verifying the
+digest, so empty, placeholder, contradictory, or hash-consistent fabricated
+JSON cannot authorize review or freeze. The file
+`slr-sentinel-evidence.template.json` documents the shape only and is never
+research evidence.
+
 ## 8. Eligibility criteria
 
 Reviewers apply the criteria exactly as written. An uncertain title or abstract
@@ -519,8 +536,9 @@ reviews that exact commit, and then runs the signing command personally:
 node research/create-slr-signed-review.mjs sign <private-key-path-outside-repository> <review-PR-URL> <reviewed-40-character-commit> <review-UTC-timestamp>
 ```
 
-The command first validates the candidate protocol and real sentinel artifact
-hashes, confirms that the private key matches the governed Ed25519 public key,
+The command first validates the candidate protocol plus the hash and semantic
+contract of every sentinel artifact, confirms that the private key matches the
+governed Ed25519 public key,
 requires an absolute private-key path outside the repository, refuses to
 overwrite any key or review evidence, and rolls back files it created if a later
 exclusive write fails. It creates exactly the review record, JSON attestation,
