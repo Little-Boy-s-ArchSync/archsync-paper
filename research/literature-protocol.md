@@ -495,6 +495,15 @@ metadata to version 1.0.0 and `Frozen`, changes search authorization to
 `Authorized`, records review evidence, and changes D-008 to `Accepted` before
 the official search begins.
 
+The freeze commit must also create `slr-review-record.md` from
+`slr-review-record.template.md` and `literature-sentinel-recall.csv` from
+`literature-sentinel-recall.template.csv`. The review record identifies the
+approved pull request, reviewer, exact commit, UTC timestamp, and confirmation
+that results were not inspected. The sentinel ledger records all six fixed
+DOIs, the sources in which each item is indexed and retrieved, the reviewer,
+and an immutable evidence reference. CI rejects a frozen state that omits or
+contradicts either artifact.
+
 ## 19. Method sources
 
 - Kitchenham, B. and Charters, S. (2007), *Guidelines for Performing
