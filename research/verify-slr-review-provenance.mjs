@@ -2,6 +2,12 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import {
+  loadSignedReviewArtifacts,
+  SIGNED_REVIEW_PATHS,
+  verifySignedReviewAttestation,
+} from "./verify-slr-signed-attestation.mjs";
+
 const REPOSITORY = "Little-Boy-s-ArchSync/archsync-paper";
 const ALLOWED_ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
 const ALLOWED_POST_REVIEW_FILES = new Set([
@@ -9,6 +15,11 @@ const ALLOWED_POST_REVIEW_FILES = new Set([
   "research/decision-log.md",
   "research/literature-protocol.md",
   "research/slr-review-record.md",
+]);
+const ALLOWED_POST_SIGNED_REVIEW_FILES = new Set([
+  ...ALLOWED_POST_REVIEW_FILES,
+  SIGNED_REVIEW_PATHS.attestation,
+  SIGNED_REVIEW_PATHS.signature,
 ]);
 
 function escapeRegExp(value) {
@@ -27,13 +38,26 @@ function issueIf(issues, condition, message) {
   if (condition) issues.push(message);
 }
 
+function isCanonicalUtcSecond(value) {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(value ?? "")) {
+    return false;
+  }
+  const timestamp = Date.parse(value);
+  return (
+    !Number.isNaN(timestamp) &&
+    new Date(timestamp).toISOString().replace(".000Z", "Z") === value
+  );
+}
+
 export async function verifySlrReviewProvenance({
   reviewRecord,
   currentPullRequest,
   currentCommit,
   requestJson,
+  signedReviewArtifacts,
 }) {
   const issues = [];
+  const reviewMode = metadataValue(reviewRecord, "Review mode");
   const reviewPr = metadataValue(reviewRecord, "Review PR");
   const reviewUrl = metadataValue(reviewRecord, "Review URL");
   const reviewerLogin = metadataValue(reviewRecord, "Reviewer GitHub login");
@@ -47,13 +71,10 @@ export async function verifySlrReviewProvenance({
   );
 
   issueIf(issues, !prMatch, "review provenance: Review PR is invalid");
-  issueIf(issues, !reviewMatch, "review provenance: Review URL is invalid");
   issueIf(
     issues,
-    !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
-      reviewerLogin ?? "",
-    ),
-    "review provenance: Reviewer GitHub login is invalid",
+    !["GitHub approval", "Signed attestation"].includes(reviewMode),
+    "review provenance: Review mode must be GitHub approval or Signed attestation",
   );
   issueIf(
     issues,
@@ -62,9 +83,7 @@ export async function verifySlrReviewProvenance({
   );
   issueIf(
     issues,
-    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(
-      reviewTimestamp ?? "",
-    ) || Number.isNaN(Date.parse(reviewTimestamp ?? "")),
+    !isCanonicalUtcSecond(reviewTimestamp),
     "review provenance: Review timestamp is invalid",
   );
   issueIf(
@@ -78,8 +97,24 @@ export async function verifySlrReviewProvenance({
     "review provenance: current head commit is unavailable",
   );
 
-  if (prMatch && reviewMatch && prMatch[1] !== reviewMatch[1]) {
-    issues.push("review provenance: Review URL does not belong to Review PR");
+  if (reviewMode === "GitHub approval") {
+    issueIf(issues, !reviewMatch, "review provenance: Review URL is invalid");
+    issueIf(
+      issues,
+      !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
+        reviewerLogin ?? "",
+      ),
+      "review provenance: Reviewer GitHub login is invalid",
+    );
+    if (prMatch && reviewMatch && prMatch[1] !== reviewMatch[1]) {
+      issues.push("review provenance: Review URL does not belong to Review PR");
+    }
+  } else if (reviewMode === "Signed attestation") {
+    const signed = verifySignedReviewAttestation({
+      reviewRecord,
+      ...(signedReviewArtifacts ?? {}),
+    });
+    issues.push(...signed.issues);
   }
   if (prMatch && String(currentPullRequest) !== prMatch[1]) {
     issues.push(
@@ -89,20 +124,31 @@ export async function verifySlrReviewProvenance({
   if (issues.length > 0) return { issues };
 
   const pullNumber = prMatch[1];
-  const reviewId = reviewMatch[2];
+  const reviewId = reviewMatch?.[2] ?? null;
   let pullRequest;
-  let review;
   let comparison;
+  let review = null;
+  let reviewedCommit = null;
   try {
-    [pullRequest, review, comparison] = await Promise.all([
+    const requests = [
       requestJson(`/repos/${REPOSITORY}/pulls/${pullNumber}`),
-      requestJson(
-        `/repos/${REPOSITORY}/pulls/${pullNumber}/reviews/${reviewId}`,
-      ),
       requestJson(
         `/repos/${REPOSITORY}/compare/${reviewCommit}...${currentCommit}`,
       ),
-    ]);
+    ];
+    if (reviewMode === "Signed attestation") {
+      requests.push(
+        requestJson(`/repos/${REPOSITORY}/commits/${reviewCommit}`),
+      );
+    }
+    [pullRequest, comparison, reviewedCommit = null] = await Promise.all(
+      requests,
+    );
+    if (reviewMode === "GitHub approval") {
+      review = await requestJson(
+        `/repos/${REPOSITORY}/pulls/${pullNumber}/reviews/${reviewId}`,
+      );
+    }
   } catch (error) {
     return {
       issues: [
@@ -126,54 +172,80 @@ export async function verifySlrReviewProvenance({
     pullRequest.state !== "open",
     "review provenance: freeze pull request must still be open",
   );
-  issueIf(
-    issues,
-    review.id !== Number(reviewId),
-    "review provenance: GitHub returned a different review",
-  );
-  issueIf(
-    issues,
-    review.html_url !== reviewUrl,
-    "review provenance: review URL does not match GitHub",
-  );
-  issueIf(
-    issues,
-    review.state !== "APPROVED",
-    "review provenance: review state must be APPROVED",
-  );
-  issueIf(
-    issues,
-    review.user?.login !== reviewerLogin,
-    "review provenance: reviewer login does not match GitHub",
-  );
-  issueIf(
-    issues,
-    review.commit_id !== reviewCommit,
-    "review provenance: approved commit does not match the review record",
-  );
-  issueIf(
-    issues,
-    review.submitted_at !== reviewTimestamp,
-    "review provenance: review timestamp does not match GitHub",
-  );
-  issueIf(
-    issues,
-    !ALLOWED_ASSOCIATIONS.has(review.author_association),
-    "review provenance: reviewer is not an organization member or collaborator",
-  );
-  issueIf(
-    issues,
-    pullRequest.user?.login === reviewerLogin,
-    "review provenance: pull-request author cannot approve their own protocol",
-  );
+  if (reviewMode === "GitHub approval") {
+    issueIf(
+      issues,
+      review.id !== Number(reviewId),
+      "review provenance: GitHub returned a different review",
+    );
+    issueIf(
+      issues,
+      review.html_url !== reviewUrl,
+      "review provenance: review URL does not match GitHub",
+    );
+    issueIf(
+      issues,
+      review.state !== "APPROVED",
+      "review provenance: review state must be APPROVED",
+    );
+    issueIf(
+      issues,
+      review.user?.login !== reviewerLogin,
+      "review provenance: reviewer login does not match GitHub",
+    );
+    issueIf(
+      issues,
+      review.commit_id !== reviewCommit,
+      "review provenance: approved commit does not match the review record",
+    );
+    issueIf(
+      issues,
+      review.submitted_at !== reviewTimestamp,
+      "review provenance: review timestamp does not match GitHub",
+    );
+    issueIf(
+      issues,
+      !ALLOWED_ASSOCIATIONS.has(review.author_association),
+      "review provenance: reviewer is not an organization member or collaborator",
+    );
+    issueIf(
+      issues,
+      pullRequest.user?.login === reviewerLogin,
+      "review provenance: pull-request author cannot approve their own protocol",
+    );
+  } else {
+    const commitTimestamp = reviewedCommit?.commit?.committer?.date;
+    issueIf(
+      issues,
+      reviewedCommit?.sha !== reviewCommit,
+      "review provenance: GitHub returned a different reviewed commit",
+    );
+    issueIf(
+      issues,
+      !isCanonicalUtcSecond(commitTimestamp),
+      "review provenance: reviewed commit timestamp is unavailable or invalid",
+    );
+    if (
+      isCanonicalUtcSecond(commitTimestamp) &&
+      Date.parse(reviewTimestamp) < Date.parse(commitTimestamp)
+    ) {
+      issues.push(
+        "review provenance: signed review timestamp predates the reviewed commit",
+      );
+    }
+  }
   issueIf(
     issues,
     !["ahead", "identical"].includes(comparison.status),
     "review provenance: reviewed commit is not an ancestor of the current head",
   );
 
+  const allowedFiles =
+    reviewMode === "Signed attestation"
+      ? ALLOWED_POST_SIGNED_REVIEW_FILES
+      : ALLOWED_POST_REVIEW_FILES;
   for (const file of comparison.files ?? []) {
-    if (!ALLOWED_POST_REVIEW_FILES.has(file.filename)) {
+    if (!allowedFiles.has(file.filename)) {
       issues.push(
         `review provenance: '${file.filename}' changed after approval; a new review is required`,
       );
@@ -182,9 +254,11 @@ export async function verifySlrReviewProvenance({
 
   return {
     issues,
+    reviewMode,
     pullRequest: Number(pullNumber),
-    reviewId: Number(reviewId),
-    reviewerLogin,
+    reviewId: reviewId ? Number(reviewId) : null,
+    reviewerLogin:
+      reviewMode === "Signed attestation" ? "Member 3 (signed)" : reviewerLogin,
     reviewCommit,
   };
 }
@@ -211,6 +285,7 @@ export async function main({
   repositoryDirectory = dirname(dirname(fileURLToPath(import.meta.url))),
   environment = process.env,
   readText = (path) => readFile(path, "utf8"),
+  loadSignedArtifacts = loadSignedReviewArtifacts,
   requestJson,
   log = console.log,
   error = console.error,
@@ -233,6 +308,19 @@ export async function main({
     return;
   }
 
+  let signedReviewArtifacts;
+  if (metadataValue(reviewRecord, "Review mode") === "Signed attestation") {
+    try {
+      signedReviewArtifacts = await loadSignedArtifacts(repositoryDirectory);
+    } catch (readError) {
+      error(
+        `INVALID SLR REVIEW PROVENANCE: cannot read signed review artifact ${readError?.path ?? ""}`.trim(),
+      );
+      setExitCode(1);
+      return;
+    }
+  }
+
   const apiRequest =
     requestJson ??
     ((path) =>
@@ -244,6 +332,7 @@ export async function main({
     currentPullRequest: environment.SLR_CURRENT_PR,
     currentCommit: environment.SLR_CURRENT_COMMIT,
     requestJson: apiRequest,
+    signedReviewArtifacts,
   });
   if (result.issues.length > 0) {
     error("INVALID SLR REVIEW PROVENANCE");
@@ -251,8 +340,12 @@ export async function main({
     setExitCode(1);
     return;
   }
+  const evidence =
+    result.reviewMode === "Signed attestation"
+      ? "signed attestation"
+      : `review ${result.reviewId}`;
   log(
-    `VALID SLR REVIEW PROVENANCE (PR #${result.pullRequest}, review ${result.reviewId}, reviewer ${result.reviewerLogin}, commit ${result.reviewCommit.slice(0, 7)})`,
+    `VALID SLR REVIEW PROVENANCE (PR #${result.pullRequest}, ${evidence}, reviewer ${result.reviewerLogin}, commit ${result.reviewCommit.slice(0, 7)})`,
   );
 }
 

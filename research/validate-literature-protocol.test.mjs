@@ -79,7 +79,7 @@ function acceptedDecisions() {
     )
     .replace(/(^## D-008:[\s\S]*?^- Status:) Proposed$/m, "$1 Accepted")
     .replace(
-      /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?  evidence\./,
+      /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
       "- Independent review: Member 3 approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5\n  at commit `0123456789abcdef0123456789abcdef01234567` on 2026-08-16T08:00:00Z.\n- Freeze evidence: `slr-review-record.md` and\n  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified\n  by CI before search authorization.",
     );
 }
@@ -106,6 +106,7 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | --- | --- |
 | Task | SLR-101 |
 | Protocol version | 1.0.0 |
+| Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5 |
 | Review URL | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5#pullrequestreview-12345 |
 | Reviewer | Member 3 |
@@ -132,6 +133,19 @@ const sentinelEvidenceHashes = new Map(
     ),
   ].map((match) => [match[1], match[2]]),
 );
+
+const signedReviewRecord = reviewRecord
+  .replace(
+    "| Review mode | GitHub approval |",
+    "| Review mode | Signed attestation |",
+  )
+  .replace(
+    "| Sentinel recall | Passed |",
+    `| Sentinel recall | Passed |
+| Review attestation | research/evidence/slr-review/member-3-attestation.json#sha256=${"a".repeat(64)} |
+| Review signature | research/evidence/slr-review/member-3-attestation.sig#sha256=${"b".repeat(64)} |
+| Reviewer public key | research/evidence/slr-review/member-3-public-key.pem#sha256=${"c".repeat(64)} |`,
+  );
 
 test("accepts the governed review-candidate protocol", () => {
   const result = validate();
@@ -239,6 +253,22 @@ test("rejects review artifacts while metadata still declares a candidate", () =>
   );
 });
 
+test("validates sentinel calibration evidence before the candidate is reviewed", () => {
+  const accepted = validate({
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assert.deepEqual(accepted.issues, []);
+
+  const forged = new Map(sentinelEvidenceHashes);
+  forged.set("research/evidence/slr-sentinel/S-001.json", "0".repeat(64));
+  const rejected = validate({
+    sentinelRecall,
+    sentinelEvidenceHashes: forged,
+  });
+  assertIssue(rejected, "evidence SHA-256 does not match");
+});
+
 test("accepts a fully evidenced synthetic frozen state", () => {
   const result = validate({
     protocol: frozenProtocol(),
@@ -251,6 +281,46 @@ test("accepts a fully evidenced synthetic frozen state", () => {
   assert.deepEqual(result.issues, []);
   assert.equal(result.version, "1.0.0");
   assert.equal(result.searchAuthorization, "Authorized");
+});
+
+test("accepts signed-attestation references for a shared GitHub account", () => {
+  const result = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: signedReviewRecord,
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assert.deepEqual(result.issues, []);
+});
+
+test("rejects an unknown review mode or malformed signed evidence reference", () => {
+  const unknown = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: reviewRecord.replace(
+      "| Review mode | GitHub approval |",
+      "| Review mode | Unknown |",
+    ),
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(unknown, "Review mode must be 'GitHub approval' or 'Signed attestation'");
+
+  const malformed = validate({
+    protocol: frozenProtocol(),
+    decisions: acceptedDecisions(),
+    paper: frozenPaper(),
+    reviewRecord: signedReviewRecord.replace(
+      /research\/evidence\/slr-review\/member-3-attestation\.sig#sha256=[0-9a-f]{64}/,
+      "wrong.sig#sha256=short",
+    ),
+    sentinelRecall,
+    sentinelEvidenceHashes,
+  });
+  assertIssue(malformed, "Review signature must reference");
 });
 
 test("rejects self-review and malformed sentinel evidence", () => {
@@ -373,7 +443,7 @@ test("rejects malformed review identity, timestamp and PR linkage", () => {
   const malformedReview = reviewRecord
     .replace("/pull/5", "/pull/6")
     .replace("0123456789abcdef0123456789abcdef01234567", "short-commit")
-    .replace("2026-08-16T08:00:00Z", "2026-99-99T99:99:99Z");
+    .replace("2026-08-16T08:00:00Z", "2026-02-30T08:00:00Z");
   const result = validate({
     protocol: frozenProtocol(),
     decisions: acceptedDecisions(),

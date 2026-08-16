@@ -29,6 +29,7 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | --- | --- |
 | Task | SLR-101 |
 | Protocol version | 1.0.0 |
+| Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6 |
 | Review URL | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6#pullrequestreview-12345 |
 | Reviewer | Member 3 |

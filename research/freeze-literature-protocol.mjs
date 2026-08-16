@@ -162,7 +162,7 @@ export function freezeLiteratureProtocol({
   );
   nextDecisions = replaceExactly(
     nextDecisions,
-    /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?  evidence\./,
+    /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
     [
       `- Independent review: Member 3 approved the method and sentinel recall as a non-author in ${reviewPr}`,
       `  at commit \`${reviewCommit}\` on ${reviewTimestamp}.`,

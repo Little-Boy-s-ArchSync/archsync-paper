@@ -490,33 +490,61 @@ The independent reviewer must confirm all items before D-008 is accepted:
 - [ ] AI is not an authority in screening, extraction, or adjudication.
 - [ ] No official result list was inspected while developing the protocol.
 
-Approval must be a non-author pull-request review. The freeze commit updates the
-metadata to version 1.0.0 and `Frozen`, changes search authorization to
-`Authorized`, records review evidence, and changes D-008 to `Accepted` before
-the official search begins.
+Approval must be attributable to the non-author Member 3. When contributors use
+distinct GitHub accounts, an approved pull-request review is sufficient. When
+all implementation is pushed through the shared `L1nkinPark` account, Member 3
+instead signs the governed review attestation with a separately controlled
+Ed25519 key. Sharing the repository account does not permit self-review or an
+unsigned `Reviewed-by` claim. The freeze commit updates the metadata to version
+1.0.0 and `Frozen`, changes search authorization to `Authorized`, records the
+review evidence, and changes D-008 to `Accepted` before the official search
+begins.
 
 Before approval, the freeze branch must contain
 `literature-sentinel-recall.csv`, created from
-`literature-sentinel-recall.template.csv`, and all referenced JSON artifacts so
-the independent reviewer can inspect the exact evidence. After approving that
-commit, the owner creates `slr-review-record.md` from
-`slr-review-record.template.md`. The record identifies the approved pull
-request, exact GitHub review URL, reviewer role and GitHub login, reviewed
-commit, UTC timestamp, and confirmation that results were not inspected. The
-sentinel ledger records all six fixed DOIs, the sources in which each item is
-indexed and retrieved, the reviewer, and an immutable evidence reference.
+`literature-sentinel-recall.template.csv`, the reviewer's pinned public key, and
+all referenced JSON artifacts so the independent reviewer can inspect the exact
+evidence. For shared-account review, Member 3 first creates an Ed25519 key pair;
+the private-key path must be absolute and outside the repository:
 
-CI queries the GitHub API and requires the recorded review to remain
-`APPROVED`, to belong to the current pull request, to come from a repository
-member or collaborator other than the pull-request author, and to match the
-recorded commit, reviewer, URL, and timestamp. After approval, only
-`slr-review-record.md` and the three deterministic freeze outputs
+```text
+node research/create-slr-signed-review.mjs generate-key <private-key-path-outside-repository>
+```
+
+Only the generated public key is committed with the sentinel ledger and its
+referenced artifacts. Member 3 keeps exclusive control of the private key,
+reviews that exact commit, and then runs the signing command personally:
+
+```text
+node research/create-slr-signed-review.mjs sign <private-key-path-outside-repository> <review-PR-URL> <reviewed-40-character-commit> <review-UTC-timestamp>
+```
+
+The command first validates the candidate protocol and real sentinel artifact
+hashes, confirms that the private key matches the governed Ed25519 public key,
+and refuses to overwrite any key or review evidence. It creates exactly the
+review record, JSON attestation, and detached signature. The default shared-
+account record includes the pull request, reviewer role, reviewed commit, UTC
+timestamp, pinned public key, all ten checklist confirmations, and confirmation
+that official results were not inspected. Every artifact reference includes its
+SHA-256 digest. The sentinel ledger records all six fixed DOIs, the sources in
+which each item is indexed and retrieved, the reviewer, and an immutable
+evidence reference. The template remains documentation for the required record
+shape and is not itself approval evidence.
+
+CI always queries the GitHub API to bind the record to the current pull request,
+head, reviewed ancestor, and post-review file set. In GitHub-approval mode it
+also requires the recorded review to remain `APPROVED` and match the reviewer,
+URL, commit, and timestamp. In signed-attestation mode it verifies the exact
+attestation/public-key/signature hashes, the complete ten-item checklist, and
+the Ed25519 signature. The public key and all sentinel evidence must already
+exist in the reviewed commit. After approval, only the review record, signed
+attestation and signature, and the three deterministic freeze outputs
 (`literature-protocol.md`, `decision-log.md`, and `main.tex`) may change. Any
-sentinel, bibliography, query, criterion, or implementation change invalidates
-the approval and requires another independent review.
+sentinel, public-key, bibliography, query, criterion, or implementation change
+invalidates the approval and requires another independent review/signature.
 
-After both evidence files and their referenced JSON artifacts are committed on
-the freeze branch, the owner runs:
+After the review record, attestation/signature, sentinel ledger, and referenced
+JSON artifacts are committed on the freeze branch, the owner runs:
 
 ```text
 node research/freeze-literature-protocol.mjs --check
@@ -527,8 +555,9 @@ The check command performs the complete prospective 1.0.0 validation without
 editing a file. The write command is enabled only by the same evidence gate and
 updates exactly this protocol, `decision-log.md`, and `main.tex`. It does not
 create review or sentinel evidence. The owner pushes the mechanical freeze
-commit after approval. CI then validates live GitHub review provenance, reruns
-the validators and coverage thresholds, and compiles the PDF before merge.
+commit after approval. CI then validates GitHub commit provenance and the
+selected GitHub-review or signed-attestation evidence, reruns the validators and
+coverage thresholds, and compiles the PDF before merge.
 
 ## 19. Method sources
 

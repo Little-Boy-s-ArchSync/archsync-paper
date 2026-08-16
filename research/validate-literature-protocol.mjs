@@ -29,6 +29,21 @@ const PRIMARY_SOURCES = new Set([
   "Web of Science Core Collection",
 ]);
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function isCanonicalUtcSecond(value) {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(value ?? "")) {
+    return false;
+  }
+  const timestamp = Date.parse(value);
+  return (
+    !Number.isNaN(timestamp) &&
+    new Date(timestamp).toISOString().replace(".000Z", "Z") === value
+  );
+}
+
 export function validateLiteratureProtocol({
   protocol,
   decisions,
@@ -41,10 +56,6 @@ export function validateLiteratureProtocol({
   sentinelEvidenceHashes = new Map(),
 }) {
   const issues = [];
-
-  function escapeRegExp(value) {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
 
   function metadataValue(text, field) {
     return text
@@ -93,9 +104,9 @@ export function validateLiteratureProtocol({
       "literature-protocol.md: metadata must be either the governed 0.1.0 candidate state or the reviewed 1.0.0 frozen state",
     );
   }
-  if (candidateState && (reviewRecord || sentinelRecall)) {
+  if (candidateState && reviewRecord) {
     issues.push(
-      "literature protocol: final review artifacts must not exist while the protocol remains a review candidate",
+      "literature protocol: final review record must not exist while the protocol remains a review candidate",
     );
   }
   if (execution !== "Not started") {
@@ -289,26 +300,59 @@ export function validateLiteratureProtocol({
           "literature-protocol.md: freeze decision must cite the approved Review PR",
         );
       }
-      const reviewUrl = metadataValue(reviewRecord, "Review URL");
-      const reviewUrlMatch = reviewUrl?.match(
-        /^https:\/\/github\.com\/Little-Boy-s-ArchSync\/archsync-paper\/pull\/([1-9][0-9]*)#pullrequestreview-([1-9][0-9]*)$/,
-      );
-      if (!reviewUrlMatch) {
-        issues.push(
-          "slr-review-record.md: Review URL must identify an exact GitHub pull-request review",
+      const reviewMode = metadataValue(reviewRecord, "Review mode");
+      if (reviewMode === "GitHub approval") {
+        const reviewUrl = metadataValue(reviewRecord, "Review URL");
+        const reviewUrlMatch = reviewUrl?.match(
+          /^https:\/\/github\.com\/Little-Boy-s-ArchSync\/archsync-paper\/pull\/([1-9][0-9]*)#pullrequestreview-([1-9][0-9]*)$/,
         );
-      } else if (reviewPr && !reviewUrl.startsWith(`${reviewPr}#`)) {
+        if (!reviewUrlMatch) {
+          issues.push(
+            "slr-review-record.md: Review URL must identify an exact GitHub pull-request review",
+          );
+        } else if (reviewPr && !reviewUrl.startsWith(`${reviewPr}#`)) {
+          issues.push(
+            "slr-review-record.md: Review URL must belong to the governed Review PR",
+          );
+        }
+        if (
+          !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
+            metadataValue(reviewRecord, "Reviewer GitHub login") ?? "",
+          )
+        ) {
+          issues.push(
+            "slr-review-record.md: Reviewer GitHub login must be a valid GitHub login",
+          );
+        }
+      } else if (reviewMode === "Signed attestation") {
+        for (const [field, path] of [
+          [
+            "Review attestation",
+            "research/evidence/slr-review/member-3-attestation.json",
+          ],
+          [
+            "Review signature",
+            "research/evidence/slr-review/member-3-attestation.sig",
+          ],
+          [
+            "Reviewer public key",
+            "research/evidence/slr-review/member-3-public-key.pem",
+          ],
+        ]) {
+          const value = metadataValue(reviewRecord, field) ?? "";
+          if (
+            !new RegExp(`^${escapeRegExp(path)}#sha256=[0-9a-f]{64}$`).test(
+              value,
+            )
+          ) {
+            issues.push(
+              `slr-review-record.md: ${field} must reference ${path} with SHA-256`,
+            );
+          }
+        }
+      } else {
         issues.push(
-          "slr-review-record.md: Review URL must belong to the governed Review PR",
-        );
-      }
-      if (
-        !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
-          metadataValue(reviewRecord, "Reviewer GitHub login") ?? "",
-        )
-      ) {
-        issues.push(
-          "slr-review-record.md: Reviewer GitHub login must be a valid GitHub login",
+          "slr-review-record.md: Review mode must be 'GitHub approval' or 'Signed attestation'",
         );
       }
       if (
@@ -322,21 +366,20 @@ export function validateLiteratureProtocol({
       }
       const reviewTimestamp =
         metadataValue(reviewRecord, "Review timestamp") ?? "";
-      if (
-        !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(reviewTimestamp) ||
-        Number.isNaN(Date.parse(reviewTimestamp))
-      ) {
+      if (!isCanonicalUtcSecond(reviewTimestamp)) {
         issues.push(
           "slr-review-record.md: Review timestamp must be an ISO-8601 UTC timestamp",
         );
       }
     }
+  }
 
-    if (!sentinelRecall) {
-      issues.push(
-        "literature-sentinel-recall.csv: required before the protocol can be frozen",
-      );
-    } else {
+  if (frozenState && !sentinelRecall) {
+    issues.push(
+      "literature-sentinel-recall.csv: required before the protocol can be frozen",
+    );
+  }
+  if (sentinelRecall) {
       let rows = [];
       try {
         rows = parseCsv(sentinelRecall);
@@ -475,7 +518,6 @@ export function validateLiteratureProtocol({
           }
         }
       }
-    }
   }
 
   for (const prefix of ["I", "E"]) {

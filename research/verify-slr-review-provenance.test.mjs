@@ -1,4 +1,9 @@
 import assert from "node:assert/strict";
+import {
+  createHash,
+  generateKeyPairSync,
+  sign,
+} from "node:crypto";
 import test from "node:test";
 
 import {
@@ -6,6 +11,10 @@ import {
   main as runReviewProvenanceVerifier,
   verifySlrReviewProvenance,
 } from "./verify-slr-review-provenance.mjs";
+import {
+  REVIEW_CHECKLIST,
+  SIGNED_REVIEW_PATHS,
+} from "./verify-slr-signed-attestation.mjs";
 
 const reviewCommit = "1".repeat(40);
 const currentCommit = "2".repeat(40);
@@ -18,6 +27,7 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | --- | --- |
 | Task | SLR-101 |
 | Protocol version | 1.0.0 |
+| Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
 | Review URL | ${reviewUrl} |
 | Reviewer | Member 3 |
@@ -28,6 +38,61 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Search results inspected | No |
 | Sentinel recall | Passed |
 `;
+
+function signedFixture() {
+  const keys = generateKeyPairSync("ed25519");
+  const attestationBytes = Buffer.from(
+    `${JSON.stringify(
+      {
+        schema_version: "1.0.0",
+        task: "SLR-101",
+        reviewer: "Member 3",
+        review_decision: "Approved",
+        review_commit: reviewCommit,
+        review_timestamp: reviewTimestamp,
+        search_results_inspected: false,
+        sentinel_recall: "Passed",
+        checklist: [...REVIEW_CHECKLIST],
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  const signatureBytes = Buffer.from(
+    `${sign(null, attestationBytes, keys.privateKey).toString("base64")}\n`,
+  );
+  const publicKeyBytes = Buffer.from(
+    keys.publicKey.export({ type: "spki", format: "pem" }),
+  );
+  const digest = (bytes) =>
+    createHash("sha256").update(bytes).digest("hex");
+  const record = `# SLR-101 Independent Review Record
+
+| Field | Value |
+| --- | --- |
+| Task | SLR-101 |
+| Protocol version | 1.0.0 |
+| Review mode | Signed attestation |
+| Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
+| Reviewer | Member 3 |
+| Review decision | Approved |
+| Review commit | ${reviewCommit} |
+| Review timestamp | ${reviewTimestamp} |
+| Search results inspected | No |
+| Sentinel recall | Passed |
+| Review attestation | ${SIGNED_REVIEW_PATHS.attestation}#sha256=${digest(attestationBytes)} |
+| Review signature | ${SIGNED_REVIEW_PATHS.signature}#sha256=${digest(signatureBytes)} |
+| Reviewer public key | ${SIGNED_REVIEW_PATHS.publicKey}#sha256=${digest(publicKeyBytes)} |
+`;
+  return {
+    reviewRecord: record,
+    signedReviewArtifacts: {
+      attestationBytes,
+      signatureBytes,
+      publicKeyBytes,
+    },
+  };
+}
 
 function githubFixture(overrides = {}) {
   const pullRequest = {
@@ -57,9 +122,15 @@ function githubFixture(overrides = {}) {
     ],
     ...overrides.comparison,
   };
+  const commit = {
+    sha: reviewCommit,
+    commit: { committer: { date: "2026-08-17T03:00:00Z" } },
+    ...overrides.commit,
+  };
   return async (path) => {
     if (path.endsWith("/pulls/7")) return pullRequest;
     if (path.endsWith("/pulls/7/reviews/12345")) return review;
+    if (path.endsWith(`/commits/${reviewCommit}`)) return commit;
     if (path.includes("/compare/")) return comparison;
     throw new Error(`unexpected GitHub path ${path}`);
   };
@@ -99,6 +170,91 @@ test("accepts an unchanged approved head with no comparison file list", async ()
     }),
   });
   assert.deepEqual(result.issues, []);
+});
+
+test("accepts a Member 3 signed attestation when all code uses L1nkinPark", async () => {
+  const signed = signedFixture();
+  const paths = [];
+  const requestJson = async (path) => {
+    paths.push(path);
+    if (path.endsWith("/pulls/7")) {
+      return {
+        number: 7,
+        state: "open",
+        user: { login: "L1nkinPark" },
+        head: { sha: currentCommit },
+      };
+    }
+    if (path.includes("/compare/")) {
+      return {
+        status: "ahead",
+        files: [
+          { filename: "research/slr-review-record.md" },
+          { filename: SIGNED_REVIEW_PATHS.attestation },
+          { filename: SIGNED_REVIEW_PATHS.signature },
+          { filename: "research/literature-protocol.md" },
+          { filename: "research/decision-log.md" },
+          { filename: "main.tex" },
+        ],
+      };
+    }
+    if (path.endsWith(`/commits/${reviewCommit}`)) {
+      return {
+        sha: reviewCommit,
+        commit: { committer: { date: "2026-08-17T03:00:00Z" } },
+      };
+    }
+    throw new Error(`unexpected GitHub path ${path}`);
+  };
+  const result = await verify({ ...signed, requestJson });
+  assert.deepEqual(result.issues, []);
+  assert.equal(result.reviewMode, "Signed attestation");
+  assert.equal(result.reviewId, null);
+  assert.equal(result.reviewerLogin, "Member 3 (signed)");
+  assert.equal(paths.length, 3);
+  assert.ok(paths.every((path) => !path.includes("/reviews/")));
+});
+
+test("signed review requires a new signature if key or sentinel evidence changes", async () => {
+  const signed = signedFixture();
+  const result = await verify({
+    ...signed,
+    requestJson: githubFixture({
+      comparison: {
+        files: [
+          { filename: SIGNED_REVIEW_PATHS.publicKey },
+          { filename: "research/literature-sentinel-recall.csv" },
+        ],
+      },
+    }),
+  });
+  assertIssue(result, "member-3-public-key.pem' changed after approval");
+  assertIssue(result, "literature-sentinel-recall.csv' changed after approval");
+});
+
+test("signed review binds its timestamp to the exact reviewed Git commit", async () => {
+  const signed = signedFixture();
+  const wrongCommit = await verify({
+    ...signed,
+    requestJson: githubFixture({
+      commit: {
+        sha: "9".repeat(40),
+        commit: { committer: { date: "invalid" } },
+      },
+    }),
+  });
+  assertIssue(wrongCommit, "different reviewed commit");
+  assertIssue(wrongCommit, "commit timestamp is unavailable or invalid");
+
+  const predates = await verify({
+    ...signed,
+    requestJson: githubFixture({
+      commit: {
+        commit: { committer: { date: "2026-08-17T04:00:00Z" } },
+      },
+    }),
+  });
+  assertIssue(predates, "timestamp predates the reviewed commit");
 });
 
 test("rejects malformed or cross-PR review-record metadata before network access", async () => {
@@ -314,6 +470,55 @@ test("CLI reports a verified live approval", async () => {
   assert.deepEqual(state.output, [
     "VALID SLR REVIEW PROVENANCE (PR #7, review 12345, reviewer teikv, commit 1111111)",
   ]);
+});
+
+test("CLI verifies a signed review under the shared L1nkinPark account", async () => {
+  const signed = signedFixture();
+  const state = cli({
+    readText: async () => signed.reviewRecord,
+    loadSignedArtifacts: async () => signed.signedReviewArtifacts,
+    requestJson: async (path) => {
+      if (path.endsWith("/pulls/7")) {
+        return {
+          number: 7,
+          state: "open",
+          user: { login: "L1nkinPark" },
+          head: { sha: currentCommit },
+        };
+      }
+      if (path.includes("/compare/")) {
+        return { status: "ahead", files: [] };
+      }
+      if (path.endsWith(`/commits/${reviewCommit}`)) {
+        return {
+          sha: reviewCommit,
+          commit: { committer: { date: "2026-08-17T03:00:00Z" } },
+        };
+      }
+      throw new Error(`unexpected GitHub path ${path}`);
+    },
+  });
+  await runReviewProvenanceVerifier(state.options);
+  assert.equal(state.exitCode(), null);
+  assert.deepEqual(state.errors, []);
+  assert.deepEqual(state.output, [
+    "VALID SLR REVIEW PROVENANCE (PR #7, signed attestation, reviewer Member 3 (signed), commit 1111111)",
+  ]);
+});
+
+test("CLI rejects an unreadable signed-review artifact", async () => {
+  const signed = signedFixture();
+  const state = cli({
+    readText: async () => signed.reviewRecord,
+    loadSignedArtifacts: async () => {
+      const error = new Error("missing signature");
+      error.path = SIGNED_REVIEW_PATHS.signature;
+      throw error;
+    },
+  });
+  await runReviewProvenanceVerifier(state.options);
+  assert.equal(state.exitCode(), 1);
+  assert.ok(state.errors[0].includes(SIGNED_REVIEW_PATHS.signature));
 });
 
 test("CLI default filesystem adapter skips the real candidate repository", async () => {
