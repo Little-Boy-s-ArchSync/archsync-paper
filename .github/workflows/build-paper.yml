@@ -36,6 +36,9 @@ jobs:
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
 
+      - name: Test literature review protocol contract
+        run: node --test research/validate-literature-protocol.test.mjs
+
       - name: Verify literature review protocol
         run: node research/validate-literature-protocol.mjs
 
