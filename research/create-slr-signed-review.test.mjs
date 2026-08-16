@@ -137,9 +137,10 @@ test("CLI rejects invalid usage and private keys stored inside the repository", 
   assert.equal(usage.exitCode(), 2);
   assert.match(usage.errors[0], /^USAGE:/);
 
+  const repository = join(tmpdir(), "archsync-inside-repository");
   const inside = capture({
-    args: ["generate-key", "C:\\repo\\private.pem"],
-    repositoryDirectory: "C:\\repo",
+    args: ["generate-key", join(repository, "private.pem")],
+    repositoryDirectory: repository,
   });
   await runSignedReviewTool(inside.options);
   assert.equal(inside.exitCode(), 1);
