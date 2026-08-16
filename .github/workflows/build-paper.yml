@@ -30,6 +30,9 @@ jobs:
       - name: Verify RQ traceability matrix
         run: node research/validate-rq-traceability.mjs
 
+      - name: Verify literature review protocol
+        run: node research/validate-literature-protocol.mjs
+
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v4
         with:

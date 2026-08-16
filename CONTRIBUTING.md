@@ -43,6 +43,13 @@ Mỗi section phải có ít nhất một reviewer ngoài người viết chính
 ground truth, metric, acceptance criterion hoặc architecture contract cần được
 ghi vào `research/decision-log.md` trước khi merge.
 
+Đối với systematic literature review, không chạy tìm kiếm chính thức hoặc xem
+danh sách kết quả khi protocol còn ở trạng thái `Review candidate`. Một thành
+viên không phải tác giả phải review protocol, kiểm tra sentinel recall và chấp
+thuận freeze version 1.0.0 trước khi search được chuyển sang `Authorized`. Mọi
+thay đổi tiêu chí sau khi đã xem kết quả phải đi qua amendment có version và
+không được ghi đè âm thầm lên protocol đã freeze.
+
 `research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
 freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng
 version theo change rule trong baseline và thêm một decision được chấp nhận ở
@@ -50,6 +57,8 @@ cùng pull request. Trước khi mở PR, chạy:
 
 ```bash
 node research/validate-baseline.mjs
+node research/validate-rq-traceability.mjs
+node research/validate-literature-protocol.mjs
 ```
 
 ## Double-blind
