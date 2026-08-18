@@ -158,3 +158,27 @@
   candidate result list was inspected, and SLR-103 remains `Đang làm` until
   SLR-101 and the codebook are frozen at 1.0.0 with real review evidence.
 - Owner: Hiếu.
+
+## D-011: Version SLR Literature Matrix Contract 0.1.0
+
+- Date: 2026-08-18
+- Status: Schema complete; population blocked
+- Task: SLR-104
+- Decision: Create `literature-matrix.md` and `literature-matrix.csv` as the
+  governed publication-level summary for later extraction. The schema includes
+  citation, method, system, language, dataset, evidence source, metric,
+  limitation, relevance, claim mapping, DOI/URL, SLR-RQ, exact source location,
+  extractor, independent verifier, timestamps, and frozen-record hash.
+- Audit rule: Every populated row must have a normalized DOI or canonical HTTPS
+  URL, a source location, a stable record/study identity, a distinct extractor
+  and verifier, and a SHA-256 link to the immutable screened record. Missing
+  publication information is `NR`; structurally inapplicable information uses
+  `NA:<reason>` and is never inferred.
+- Integrity boundary: The committed matrix has zero publication rows because
+  SLR-101 is not frozen, the official search has not run, and no included-study
+  set exists. Existing Related Work citations and sentinel papers are not copied
+  into the matrix as mock extraction evidence.
+- Completion boundary: SLR-104's schema design is complete. Population remains
+  blocked until SLR-101, SLR-102, and SLR-103 execution gates have produced the
+  immutable inputs required by the protocol.
+- Owner: Hieu.
