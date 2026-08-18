@@ -25,6 +25,9 @@ hoặc email.
 │   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
 │   ├── literature-search-queries.md # Search strings SLR-102 có version
 │   ├── literature-search-log.template.csv # 24 run dự kiến, chưa phải evidence
+│   ├── literature-screening-criteria.md # Codebook I/E của SLR-103
+│   ├── literature-screening-criteria.csv # Mapping I/E và precedence máy đọc được
+│   ├── literature-screening.template.csv # Schema quyết định, chưa phải evidence
 │   ├── SLR-REVIEWER-RUNBOOK.md # Các bước evidence và ký cho Independent SLR Reviewer
 │   ├── slr-sentinel-evidence.template.json # Schema ghi nhận calibration, không phải evidence
 │   ├── claim-evidence.csv      # Claim-to-evidence ledger
@@ -52,6 +55,7 @@ node --test research/validate-claim-evidence.test.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
+node research/validate-screening-criteria.mjs
 ```
 
 Sau khi người giữ vai trò Independent SLR Reviewer đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger

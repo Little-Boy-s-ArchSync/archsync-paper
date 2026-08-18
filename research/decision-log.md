@@ -135,3 +135,26 @@
   every authorized database-query run has a verified log row and immutable
   export hash.
 - Owner: Hiếu.
+
+## D-010: Version SLR Screening Criteria Codebook 0.1.0
+
+- Date: 2026-08-18
+- Status: Accepted for design; final lock blocked by SLR-101
+- Task: SLR-103
+- Decision: Replace broad eligibility prose with eight atomic inclusion
+  criteria, ten controlled exclusion reasons, a fixed primary-reason
+  precedence, explicit evidence classes, stage-specific rules, and a
+  machine-readable decision contract.
+- Reviewer rule: Two reviewers screen the same immutable record snapshot and
+  criteria version independently. Exclusions require a controlled reason,
+  factual note, and evidence location; original decisions remain immutable
+  through adjudication.
+- Calibration gate: Before final lock, the two reviewers independently apply
+  the candidate to at least eight predeclared pilot records. The gate requires
+  at least 80% decision agreement, at least 80% primary-reason agreement where
+  both exclude, and resolution of every disagreement.
+- Integrity boundary: The candidate codebook and empty CSV template are method
+  artifacts, not screening results. No official screening row exists, no
+  candidate result list was inspected, and SLR-103 remains `Đang làm` until
+  SLR-101 and the codebook are frozen at 1.0.0 with real review evidence.
+- Owner: Hiếu.

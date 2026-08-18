@@ -1,0 +1,1 @@
+record_id,round,protocol_version,criteria_version,reviewer_role,reviewer_id,decision,evidence_class,primary_reason_code,secondary_reason_codes,evidence_location,factual_note,decided_at_utc,record_sha256,decision_sha256

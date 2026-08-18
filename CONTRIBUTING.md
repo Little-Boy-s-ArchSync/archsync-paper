@@ -61,6 +61,15 @@ placeholder. Sau freeze, mỗi database-query pair phải ghi đúng expanded qu
 filter, UTC timestamp, result count và immutable export hash trước khi mở danh
 sách kết quả để screening.
 
+Tiêu chí screening SLR-103 được version trong
+`research/literature-screening-criteria.md` và
+`literature-screening-criteria.csv`. Không thêm quyết định vào
+`literature-screening.template.csv`; đây chỉ là schema. Khi SLR-101 chưa
+freeze, không được dùng result thật hoặc dữ liệu mock để tuyên bố calibration.
+Mọi exclusion sau khi được authorize phải có đúng một primary E-code, factual
+note và evidence location; hai reviewer phải ghi quyết định độc lập trước khi
+adjudication.
+
 `research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
 freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng
 version theo change rule trong baseline và thêm một decision được chấp nhận ở
@@ -71,6 +80,7 @@ node research/validate-baseline.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
+node research/validate-screening-criteria.mjs
 ```
 
 ## Double-blind

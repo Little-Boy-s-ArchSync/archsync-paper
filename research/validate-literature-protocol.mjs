@@ -527,15 +527,22 @@ export function validateLiteratureProtocol({
       }
   }
 
-  for (const prefix of ["I", "E"]) {
-    for (let index = 1; index <= 7; index += 1) {
-      requireText(
-        "literature-protocol.md",
-        protocol,
-        new RegExp(`^- ${prefix}${index}:`, "m"),
-        `missing eligibility criterion ${prefix}${index}`,
-      );
-    }
+  for (let index = 1; index <= 8; index += 1) {
+    requireText(
+      "literature-protocol.md",
+      protocol,
+      new RegExp(`^- I${index}:`, "m"),
+      `missing eligibility criterion I${index}`,
+    );
+  }
+  for (let index = 1; index <= 10; index += 1) {
+    const code = `E${String(index).padStart(2, "0")}`;
+    requireText(
+      "literature-protocol.md",
+      protocol,
+      new RegExp(`^- ${code}:`, "m"),
+      `missing eligibility criterion ${code}`,
+    );
   }
   for (let index = 1; index <= 6; index += 1) {
     requireText(

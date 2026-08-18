@@ -190,11 +190,11 @@ test("rejects removal of a sentinel, eligibility criterion, or workflow stage", 
   const result = validate({
     protocol: protocol
       .replace("10.1002/smr.2423", "missing-sentinel-doi")
-      .replace("- E7:", "- Removed-E7:")
+      .replace("- E10:", "- Removed-E10:")
       .replace("### Stage 4: full-text screening", "### Removed Stage 4"),
   });
   assertIssue(result, "missing predeclared sentinel DOI 10.1002/smr.2423");
-  assertIssue(result, "missing eligibility criterion E7");
+  assertIssue(result, "missing eligibility criterion E10");
   assertIssue(result, "missing governed workflow Stage 4: full-text screening");
 });
 

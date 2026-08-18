@@ -54,7 +54,34 @@ node research/validate-literature-protocol.mjs
 Builder phải tạo `research/literature-sentinel-recall.csv` từ sáu artifact và
 SHA-256 thật. Không chỉnh tay ledger sau khi tạo.
 
-## 4. Tạo khóa reviewer
+## 4. Calibration tiêu chí screening SLR-103
+
+Trước khi xem official search result, Hiếu và Independent SLR Reviewer chọn
+trước ít nhất tám pilot record gồm trường hợp rõ ràng được nhận, rõ ràng bị loại
+và trường hợp mơ hồ. Pilot có thể dùng các sentinel cố định hoặc method fixture
+được chọn độc lập với result list; không tính pilot là kết quả SLR.
+
+Mỗi reviewer tạo bản riêng từ `literature-screening.template.csv`, dùng cùng
+criteria version, protocol version, record SHA-256 và round. Hai bên không xem
+quyết định của nhau trước khi khóa file. Exclusion phải ghi primary E-code,
+factual note và evidence location theo `literature-screening-criteria.md`.
+
+Sau khi cả hai file đã hash, mới đối chiếu và tính decision agreement cùng
+primary-reason agreement. Mỗi chỉ số phải đạt ít nhất 80% và mọi disagreement
+phải có resolution. Nếu không đạt, dừng freeze, sửa candidate có version và lặp
+calibration bằng pilot set mới. Không dùng dữ liệu giả để điền gate này.
+
+Chạy validator của codebook trước và sau calibration:
+
+```powershell
+node research/validate-screening-criteria.mjs
+```
+
+SLR-103 vẫn là `Đang làm` cho tới khi có calibration evidence thật và codebook
+được final lock cùng review evidence; codebook candidate và test fixture không
+thay thế quyết định độc lập của hai reviewer.
+
+## 5. Tạo khóa reviewer
 
 Private key phải do Independent SLR Reviewer tự tạo, nằm ở đường dẫn tuyệt đối
 ngoài repository và không được gửi cho Hiếu hoặc commit lên GitHub:
@@ -67,7 +94,7 @@ Chỉ file public key do công cụ tạo tại
 `research/evidence/slr-review/independent-slr-reviewer-public-key.pem` được
 commit cùng sentinel artifacts và ledger.
 
-## 5. Review exact commit
+## 6. Review exact commit
 
 Independent SLR Reviewer commit và push branch evidence, mở pull request, sau đó
 kiểm tra exact 40-character commit bằng:
@@ -84,7 +111,7 @@ việc official results chưa bị xem.
 Nếu một mục chưa đạt, không ký. Ghi comment hoặc issue cụ thể và sửa trên một
 commit mới; commit cũ không được dùng làm review commit.
 
-## 6. Ký attestation
+## 7. Ký attestation
 
 Sau khi exact commit đạt yêu cầu, Independent SLR Reviewer tự chạy lệnh sau bằng
 private key của mình:
@@ -103,13 +130,15 @@ Công cụ phải tạo đúng ba artifact review và `research/slr-review-recor
 Không tạo hoặc chỉnh các file này bằng tay. Không ký lại một commit đã thay đổi
 sau review.
 
-## 7. Gate trước khi giao lại cho Hiếu
+## 8. Gate trước khi giao lại cho Hiếu
 
 Independent SLR Reviewer chạy toàn bộ kiểm tra sau trên branch review:
 
 ```powershell
 node research/build-slr-sentinel-ledger.mjs --check
 node research/validate-literature-protocol.mjs
+node research/validate-search-queries.mjs
+node research/validate-screening-criteria.mjs
 node research/freeze-literature-protocol.mjs --check
 node --test research/*.test.mjs
 ```
@@ -125,7 +154,7 @@ Branch chỉ sẵn sàng giao lại khi `freeze-literature-protocol.mjs --check`
 Nếu lệnh vẫn in `FREEZE BLOCKED`, giữ SLR-101 ở trạng thái `Đang làm` và chuyển
 nguyên thông báo lỗi cho Hiếu; không đổi trạng thái Sheet để che blocker.
 
-## 8. Freeze do owner thực hiện
+## 9. Freeze do owner thực hiện
 
 Sau khi review evidence đã được kiểm chứng, Hiếu chạy:
 

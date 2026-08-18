@@ -268,48 +268,72 @@ research evidence.
 ## 8. Eligibility criteria
 
 Reviewers apply the criteria exactly as written. An uncertain title or abstract
-moves forward rather than being excluded speculatively.
+moves forward rather than being excluded speculatively. The operational
+SLR-103 codebook is versioned in `literature-screening-criteria.md`; its
+machine-readable mapping is `literature-screening-criteria.csv`, and its empty
+decision schema is `literature-screening.template.csv`. Version 0.1.0 is a
+candidate and cannot be finally locked until this protocol is independently
+reviewed and frozen at 1.0.0.
 
 ### 8.1 Inclusion criteria
 
-- I1: The study concerns software architecture rather than only hardware,
-  network, data-enterprise, or civil architecture.
+- I1: The publication concerns architecture of software systems, repositories,
+  components, services, modules, layers, boundaries, dependencies,
+  architecture models, or architecture decisions rather than another
+  architecture domain.
 - I2: It addresses at least one of architecture drift, erosion, conformance,
   compliance, reconstruction, recovery, governance, evidence, explanation, or
   repair.
 - I3: It presents a method, tool, framework, empirical study, case study,
   experiment, dataset, benchmark, systematic secondary study, or substantive
   survey with an explicit method.
-- I4: It provides enough information to identify the architecture
-  representation, observation source, technique, or evaluation approach needed
-  by at least one SLR-RQ.
-- I5: It is a peer-reviewed journal, conference, or workshop paper. A thesis,
-  standard, or technical report may be retained as a clearly labeled contextual
-  source but is not pooled with peer-reviewed primary evidence.
-- I6: The full text is available legally to the team.
-- I7: The full text is in English.
+- I4: It provides enough information to identify at least one architecture
+  representation or constraint, observed evidence source, analysis technique,
+  governance mechanism, or evaluation method needed by an SLR-RQ.
+- I5: It is a full peer-reviewed journal, conference, or workshop paper and the
+  peer-review status is verifiable. A thesis, standard, technical report, or
+  preprint may be retained as `contextual-only` but is excluded from the
+  systematic evidence set.
+- I6: Its governed publication date is on or before 2026-08-16; no lower year
+  limit applies.
+- I7: A complete English full text or verified English version is available.
+- I8: The full text is obtained legally through the DOI, library, publisher, or
+  author repository.
 
 ### 8.2 Exclusion criteria
 
-- E1: The work uses the word architecture only for hardware, networks, neural
+- E01: The work uses the word architecture only for hardware, networks, neural
   networks, data platforms, enterprise organization, or a product's internal
   design without studying software-architecture conformance or evolution.
-- E2: It studies generic code quality, defect prediction, refactoring, or static
-  analysis without an architecture-level representation, constraint, relation,
-  boundary, or outcome.
-- E3: It is a tutorial, poster abstract, keynote summary, editorial, slide deck,
+- E02: Software architecture is mentioned, but no governed drift, conformance,
+  reconstruction, governance, evidence, explanation, or repair topic is
+  studied.
+- E03: It is a tutorial, poster or extended abstract, keynote summary,
+  editorial, slide deck,
   vendor page, or opinion piece without a reviewable method.
-- E4: It is a duplicate publication or a shorter version of the same study;
-  companion publications are linked and the most complete version is retained.
-- E5: No legal full text can be obtained after two documented attempts through
-  DOI resolution, library access, publisher page, or author repository.
-- E6: The full text is not English and no verified English version exists.
-- E7: The publication is retracted or its status cannot be resolved after a
-  documented integrity check.
+- E04: The full text exposes no inspectable architecture representation or
+  constraint, observed evidence source, analysis technique, governance
+  mechanism, or evaluation method relevant to an SLR-RQ.
+- E05: Peer review is absent or cannot be verified; relevant non-peer-reviewed
+  sources are labeled `contextual-only` before exclusion.
+- E06: The governed publication date is after 2026-08-16.
+- E07: No complete verified English full text exists.
+- E08: No legal full text can be obtained after two documented attempts on
+  different access routes.
+- E09: It is a duplicate publication or a shorter report of the same study with
+  no unique relevant evidence; companion publications are linked and the most
+  complete version is retained.
+- E10: The publication is retracted or its integrity status cannot be resolved
+  after a documented publisher and retraction check.
 
-Secondary studies that pass I1--I7 are labeled `secondary-context`. They inform
+Secondary studies that pass I1--I8 are labeled `secondary-context`. They inform
 terminology, prior-review coverage, and snowballing but are kept separate from
-primary-study counts and outcome synthesis.
+primary-study counts and outcome synthesis. Every exclusion records exactly one
+primary E-code using the fixed precedence in the SLR-103 codebook plus any
+known secondary E-codes, a factual note, and an evidence location. The final
+lock also requires independent calibration on at least eight predeclared pilot
+records with at least 80% decision agreement and 80% primary-reason agreement
+where both reviewers exclude.
 
 ## 9. Record management and deduplication
 
@@ -357,18 +381,21 @@ and produce a deduplication ledger rather than deleting provenance.
 ### Stage 3: title and abstract screening
 
 Hiếu and the Independent SLR Reviewer independently assign `include`, `exclude`,
-or `uncertain` to every deduplicated record. Each exclusion records one
-controlled E-code. A
+or `uncertain` to every deduplicated record using the same criteria version and
+record snapshot. Each exclusion records one controlled primary E-code, a
+factual note, and a metadata evidence location. A
 record advances when either reviewer selects `include` or `uncertain`. Reviewers
 must not see each other's decisions until both have completed the round.
 
 ### Stage 4: full-text screening
 
-The same two reviewers independently apply I1--I7 and E1--E7 to every advanced
-record. Full-text exclusion requires one primary E-code plus a short factual
-note. Disagreement is adjudicated by Member 1 after both original decisions are
-frozen; the adjudicator records the final decision and rationale without
-overwriting either original decision.
+The same two reviewers independently apply I1--I8 and E01--E10 to every advanced
+record. Full-text inclusion assigns `primary-study` or `secondary-context`.
+Exclusion requires one primary E-code, all known secondary E-codes, a factual
+note, and a full-text or publisher evidence location. Disagreement is
+adjudicated by the Adjudicator and Reproducibility Reviewer after both original
+decisions and hashes are frozen; the final decision and rationale are appended
+without overwriting either original decision.
 
 ### Stage 5: backward and forward snowballing
 
@@ -397,7 +424,7 @@ denominators into inferred precision, recall, effect, or productivity claims.
 | --- | --- | --- | --- |
 | Protocol author | Hiếu | Prepare candidate without inspecting search results | Complete |
 | Method and screening reviewer | Independent SLR Reviewer | Review protocol and independently screen all records | Pending |
-| Adjudicator and reproducibility reviewer | Member 1 | Resolve screening conflicts and verify logs/hashes | Pending |
+| Adjudicator and reproducibility reviewer | Adjudicator and Reproducibility Reviewer | Resolve screening conflicts and verify logs/hashes | Pending |
 
 Raw agreement and Cohen's kappa are reported separately for title/abstract and
 full-text rounds. Kappa is descriptive and cannot replace reconciliation.
@@ -484,7 +511,7 @@ The official review must create, version, and verify:
 | `literature-search-log.csv` | Source, query ID, exact query, fields, filters, timestamp, result count, export path, SHA-256, operator |
 | `literature-records.csv` | Stable record ID, normalized metadata, all database origins, DOI/title keys and duplicate state |
 | `literature-dedup-log.csv` | Duplicate record, retained record, rule, similarity if used, reviewer, timestamp and rationale |
-| `literature-screening.csv` | Both independent decisions per round, E-code, notes, adjudication and final status |
+| `literature-screening.csv` | Both independent decisions per round, criteria version, decision hashes, evidence class, primary and secondary E-codes, evidence locations, notes, adjudication and final status |
 | `literature-quality.csv` | QA1--QA6 scores from both reviewers, conflicts and resolution |
 | `literature-extraction.csv` | Section 13 fields with reviewer and verification state |
 | `literature-flow.json` | Raw counts for every PRISMA-style stage and exclusion code |
@@ -520,8 +547,10 @@ The independent reviewer must confirm all items before D-008 is accepted:
 - [ ] All four primary sources are accessible to the team.
 - [ ] Search-A/B/C are semantically equivalent in each database-specific form.
 - [ ] Every indexed sentinel is retrieved or has a documented indexing reason.
-- [ ] I1--I7 and E1--E7 are mutually understandable and usable without seeing
-  another reviewer's decision.
+- [ ] I1--I8 and E01--E10 are mutually understandable and usable without seeing
+  another reviewer's decision, and both reviewers pass the SLR-103 pilot gate
+  on at least eight predeclared records with the required decision and
+  primary-reason agreement.
 - [ ] Deduplication preserves provenance and does not auto-merge fuzzy matches.
 - [ ] Both screening rounds are independent and disagreements are adjudicated.
 - [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs.
