@@ -258,7 +258,9 @@ export async function verifySlrReviewProvenance({
     pullRequest: Number(pullNumber),
     reviewId: reviewId ? Number(reviewId) : null,
     reviewerLogin:
-      reviewMode === "Signed attestation" ? "Member 3 (signed)" : reviewerLogin,
+      reviewMode === "Signed attestation"
+        ? "Independent SLR Reviewer (signed)"
+        : reviewerLogin,
     reviewCommit,
   };
 }

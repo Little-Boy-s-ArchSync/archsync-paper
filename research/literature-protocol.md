@@ -8,7 +8,7 @@
 | Prepared date | 2026-08-16 |
 | Search cutoff | 2026-08-16 inclusive |
 | Owner | Hiếu |
-| Required independent reviewer | Member 3, evaluation and statistics |
+| Required independent reviewer | Independent SLR Reviewer |
 | Search authorization | Blocked |
 | Official search execution | Not started |
 | Search results inspected | No |
@@ -161,6 +161,16 @@ must remain equivalent. The exact executed query, source, filters, timestamp,
 result count, export filename, and SHA-256 hash are recorded before the next
 source is queried.
 
+`literature-search-queries.md` version 0.1.0 is the governed SLR-102
+translation of this section. It versions six keyword groups for drift and
+erosion, conformance and compliance, reconstruction and recovery, CI
+governance, AI coding agents, and evidence-grounded explanation and repair. It
+splits Search-A into A1/A2/A3 and Search-C into C1/C2 to satisfy database term
+limits without changing union semantics. The accompanying
+`literature-search-log.template.csv` predeclares all 24 database-query pairs but
+contains no execution date, result count, or export evidence while SLR-101
+remains unfrozen.
+
 ### Search-A: architecture drift, erosion, reconstruction, and conformance
 
 ```text
@@ -174,7 +184,7 @@ AND
  OR reconstruct* OR recover*)
 ```
 
-### Search-B: multi-source architecture evidence
+### Search-B: multi-source architecture evidence and CI governance
 
 ```text
 ("software architecture" OR "software architectural" OR "architectural")
@@ -183,8 +193,10 @@ AND
  OR reconstruction)
 AND
 ("source code" OR "dependency graph*" OR "version control" OR commit*
- OR "pull request*" OR "infrastructure as code" OR IaC OR runtime
- OR "execution trace*" OR telemetry OR repository)
+ OR "pull request*" OR "continuous integration" OR "continuous delivery"
+ OR CI/CD OR "merge gate*" OR "quality gate*" OR "architecture governance"
+ OR "infrastructure as code" OR IaC OR runtime OR "execution trace*"
+ OR telemetry OR repository)
 ```
 
 ### Search-C: AI-assisted governance, explanation, and repair
@@ -197,13 +209,16 @@ AND
 AND
 ("artificial intelligence" OR "large language model*" OR LLM
  OR "generative AI" OR "AI-assisted" OR "AI assisted" OR "coding agent*"
- OR "code generation")
+ OR "AI-generated code" OR "code generation" OR "evidence-grounded"
+ OR "evidence grounded" OR "source evidence" OR "evidence localization"
+ OR "root cause" OR "repair verification" OR "human approval")
 ```
 
 The three families are run separately so that deterministic foundations,
 multi-source evidence, and AI-assisted governance can be analyzed without
 requiring every study to use AI terminology. Results are unioned before
-deduplication.
+deduplication. The six SLR-102 logical query IDs are execution units within
+these three families, not additional research questions or post-hoc searches.
 
 ## 7. Sentinel validation before freeze
 
@@ -231,10 +246,10 @@ candidate result list must not be screened or used to tune eligibility criteria.
 Each calibration row must reference one reviewer-created JSON artifact under
 `research/evidence/slr-sentinel/` and pin its exact SHA-256 digest. The artifact
 uses schema version 1.0.0 and records the fixed task/protocol identity, sentinel
-ID and DOI, Member 3 as reviewer, canonical UTC timestamps, classification,
-indexed/retrieved source sets, a factual rationale, and every executed
-sentinel-only query. Each run records one of the four governed sources, the
-query family, exact query text, execution time, non-negative result count,
+ID and DOI, Independent SLR Reviewer as reviewer, canonical UTC timestamps,
+classification, indexed/retrieved source sets, a factual rationale, and every
+executed sentinel-only query. Each run records one of the four governed sources,
+the query family, exact query text, execution time, non-negative result count,
 whether the sentinel was found, and an HTTPS evidence locator. The ledger and
 artifact must agree exactly. Each locator must use the official domain for its
 declared source (IEEE Xplore, ACM Digital Library, Scopus, or Web of Science),
@@ -341,8 +356,9 @@ and produce a deduplication ledger rather than deleting provenance.
 
 ### Stage 3: title and abstract screening
 
-Hiếu and Member 3 independently assign `include`, `exclude`, or `uncertain` to
-every deduplicated record. Each exclusion records one controlled E-code. A
+Hiếu and the Independent SLR Reviewer independently assign `include`, `exclude`,
+or `uncertain` to every deduplicated record. Each exclusion records one
+controlled E-code. A
 record advances when either reviewer selects `include` or `uncertain`. Reviewers
 must not see each other's decisions until both have completed the round.
 
@@ -380,7 +396,7 @@ denominators into inferred precision, recall, effect, or productivity claims.
 | Role | Person | Required action | Current status |
 | --- | --- | --- | --- |
 | Protocol author | Hiếu | Prepare candidate without inspecting search results | Complete |
-| Method and screening reviewer | Member 3 | Review protocol and independently screen all records | Pending |
+| Method and screening reviewer | Independent SLR Reviewer | Review protocol and independently screen all records | Pending |
 | Adjudicator and reproducibility reviewer | Member 1 | Resolve screening conflicts and verify logs/hashes | Pending |
 
 Raw agreement and Cohen's kappa are reported separately for title/abstract and
@@ -512,12 +528,13 @@ The independent reviewer must confirm all items before D-008 is accepted:
 - [ ] AI is not an authority in screening, extraction, or adjudication.
 - [ ] No official result list was inspected while developing the protocol.
 
-Approval must be attributable to the non-author Member 3. When contributors use
-distinct GitHub accounts, an approved pull-request review is sufficient. When
-all implementation is pushed through the shared `L1nkinPark` account, Member 3
-instead signs the governed review attestation with a separately controlled
-Ed25519 key. Sharing the repository account does not permit self-review or an
-unsigned `Reviewed-by` claim. The freeze commit updates the metadata to version
+Approval must be attributable to the non-author assigned to the Independent SLR
+Reviewer role. When contributors use distinct GitHub accounts, an approved
+pull-request review is sufficient. When all implementation is pushed through the
+shared `L1nkinPark` account, the Independent SLR Reviewer instead signs the
+governed review attestation with a separately controlled Ed25519 key. Sharing
+the repository account does not permit self-review or an unsigned `Reviewed-by`
+claim. The freeze commit updates the metadata to version
 1.0.0 and `Frozen`, changes search authorization to `Authorized`, records the
 review evidence, and changes D-008 to `Accepted` before the official search
 begins.
@@ -528,7 +545,7 @@ Before approval, the freeze branch must contain
 all referenced JSON artifacts so the independent reviewer can inspect the exact
 evidence.
 
-After Member 3 has filled all six JSON artifacts from real sentinel-only query
+After the Independent SLR Reviewer has filled all six JSON artifacts from real sentinel-only query
 runs, the following deterministic commands validate their semantics, calculate
 the exact SHA-256 digests, and create then re-check the canonical CSV ledger:
 
@@ -542,7 +559,7 @@ missing, non-regular, placeholder, malformed, or contradictory artifacts, and
 refuses to rewrite the ledger after a review record exists. It derives only the
 mechanical ledger and hashes; it never performs a query or invents a result.
 
-For shared-account review, Member 3 then creates an Ed25519 key pair; the
+For shared-account review, the Independent SLR Reviewer then creates an Ed25519 key pair; the
 private-key path must be absolute and outside the repository:
 
 ```text
@@ -550,7 +567,7 @@ node research/create-slr-signed-review.mjs generate-key <private-key-path-outsid
 ```
 
 Only the generated public key is committed with the sentinel ledger and its
-referenced artifacts. Member 3 keeps exclusive control of the private key,
+referenced artifacts. The Independent SLR Reviewer keeps exclusive control of the private key,
 reviews that exact commit, and then runs the signing command personally:
 
 ```text

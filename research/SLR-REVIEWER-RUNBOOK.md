@@ -1,6 +1,7 @@
 # SLR-101 Independent Reviewer Runbook
 
-Tài liệu này là hướng dẫn thao tác dành riêng cho Thành viên 3. Quy định nghiên
+Tài liệu này là hướng dẫn thao tác dành cho người được phân công vai trò
+Independent SLR Reviewer. Quy định nghiên
 cứu chính thức vẫn nằm trong `literature-protocol.md`; runbook không thay đổi
 query, tiêu chí, nguồn dữ liệu hoặc Definition of Done của protocol.
 
@@ -8,8 +9,8 @@ query, tiêu chí, nguồn dữ liệu hoặc Definition of Done của protocol.
 
 - Hiếu là tác giả và owner của protocol, không được tự tạo review approval hoặc
   ký thay reviewer.
-- Thành viên 3 phải tự thực hiện sentinel-only calibration, kiểm tra mười mục
-  review và giữ private key Ed25519 ngoài repository.
+- Independent SLR Reviewer phải tự thực hiện sentinel-only calibration, kiểm
+  tra mười mục review và giữ private key Ed25519 ngoài repository.
 - Không chạy official Search-A/B/C, không mở danh sách kết quả để screening và
   không dùng candidate results để sửa inclusion/exclusion criteria.
 - Nếu không truy cập được IEEE Xplore, ACM Digital Library, Scopus hoặc Web of
@@ -26,11 +27,11 @@ query, tiêu chí, nguồn dữ liệu hoặc Definition of Done của protocol.
 | `S-005.json` | `10.3217/jucs-023-08-0769` |
 | `S-006.json` | `10.1002/smr.2423` |
 
-Với từng DOI, Thành viên 3 chạy truy vấn chỉ nhằm kiểm tra sentinel trong các
-nguồn có quyền truy cập. Mỗi run phải ghi nguyên văn query, source, query family,
-UTC timestamp, result count, `sentinel_found` và URL HTTPS trên domain chính
-thức của nguồn. Không ghi lại kết quả từ trí nhớ, ảnh minh họa hoặc URL tìm kiếm
-chung không tái mở được.
+Với từng DOI, Independent SLR Reviewer chạy truy vấn chỉ nhằm kiểm tra sentinel
+trong các nguồn có quyền truy cập. Mỗi run phải ghi nguyên văn query, source,
+query family, UTC timestamp, result count, `sentinel_found` và URL HTTPS trên
+domain chính thức của nguồn. Không ghi lại kết quả từ trí nhớ, ảnh minh họa hoặc
+URL tìm kiếm chung không tái mở được.
 
 ## 3. Tạo sentinel artifacts
 
@@ -55,21 +56,21 @@ SHA-256 thật. Không chỉnh tay ledger sau khi tạo.
 
 ## 4. Tạo khóa reviewer
 
-Private key phải do Thành viên 3 tự tạo, nằm ở đường dẫn tuyệt đối ngoài
-repository và không được gửi cho Hiếu hoặc commit lên GitHub:
+Private key phải do Independent SLR Reviewer tự tạo, nằm ở đường dẫn tuyệt đối
+ngoài repository và không được gửi cho Hiếu hoặc commit lên GitHub:
 
 ```powershell
-node research/create-slr-signed-review.mjs generate-key "D:\private\archsync-member3-slr.pem"
+node research/create-slr-signed-review.mjs generate-key "D:\private\archsync-independent-slr-reviewer.pem"
 ```
 
 Chỉ file public key do công cụ tạo tại
-`research/evidence/slr-review/member-3-public-key.pem` được commit cùng sentinel
-artifacts và ledger.
+`research/evidence/slr-review/independent-slr-reviewer-public-key.pem` được
+commit cùng sentinel artifacts và ledger.
 
 ## 5. Review exact commit
 
-Thành viên 3 commit và push branch evidence, mở pull request, sau đó kiểm tra
-exact 40-character commit bằng:
+Independent SLR Reviewer commit và push branch evidence, mở pull request, sau đó
+kiểm tra exact 40-character commit bằng:
 
 ```powershell
 git rev-parse HEAD
@@ -85,18 +86,18 @@ commit mới; commit cũ không được dùng làm review commit.
 
 ## 6. Ký attestation
 
-Sau khi exact commit đạt yêu cầu, Thành viên 3 tự chạy lệnh sau bằng private key
-của mình:
+Sau khi exact commit đạt yêu cầu, Independent SLR Reviewer tự chạy lệnh sau bằng
+private key của mình:
 
 ```powershell
-node research/create-slr-signed-review.mjs sign "D:\private\archsync-member3-slr.pem" "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/PR_NUMBER" "REVIEW_COMMIT_40_HEX" "YYYY-MM-DDTHH:MM:SSZ"
+node research/create-slr-signed-review.mjs sign "D:\private\archsync-independent-slr-reviewer.pem" "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/PR_NUMBER" "REVIEW_COMMIT_40_HEX" "YYYY-MM-DDTHH:MM:SSZ"
 ```
 
 Công cụ phải tạo đúng ba artifact review và `research/slr-review-record.md`:
 
-- `research/evidence/slr-review/member-3-attestation.json`;
-- `research/evidence/slr-review/member-3-attestation.sig`;
-- `research/evidence/slr-review/member-3-public-key.pem`; và
+- `research/evidence/slr-review/independent-slr-reviewer-attestation.json`;
+- `research/evidence/slr-review/independent-slr-reviewer-attestation.sig`;
+- `research/evidence/slr-review/independent-slr-reviewer-public-key.pem`; và
 - `research/slr-review-record.md`.
 
 Không tạo hoặc chỉnh các file này bằng tay. Không ký lại một commit đã thay đổi
@@ -104,7 +105,7 @@ sau review.
 
 ## 7. Gate trước khi giao lại cho Hiếu
 
-Thành viên 3 chạy toàn bộ kiểm tra sau trên branch review:
+Independent SLR Reviewer chạy toàn bộ kiểm tra sau trên branch review:
 
 ```powershell
 node research/build-slr-sentinel-ledger.mjs --check

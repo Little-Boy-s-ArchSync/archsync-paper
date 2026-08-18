@@ -106,11 +106,32 @@
   candidate. No result list may be screened or used to tune eligibility. After
   search results are viewed, criteria and query concepts cannot be silently
   changed.
-- Required review: Member 3 reviews method and sentinel recall as a non-author.
+- Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author.
   Version 1.0.0 may be frozen only after either an approved pull-request review
-  from a distinct account or an Ed25519-signed Member 3 attestation when the
+  from a distinct account or an Ed25519-signed Independent SLR Reviewer attestation when the
   team shares `L1nkinPark` for all pushes. The same freeze change sets this
   decision to `Accepted` and records review evidence.
 - Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
   Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
+- Owner: Hiếu.
+
+## D-009: Version SLR Search Query Specification 0.1.0
+
+- Date: 2026-08-18
+- Status: Accepted for design; execution blocked by SLR-101
+- Task: SLR-102
+- Decision: Version six keyword groups and six logical query IDs across
+  Search-A, Search-B, and Search-C. Translate them for IEEE Xplore, ACM Digital
+  Library, Scopus, and Web of Science Core Collection without executing the
+  official search.
+- Integrity boundary: `literature-search-log.template.csv` predeclares all 24
+  database-query pairs. Execution timestamps, exact expanded queries, result
+  counts, exports, hashes, and operators remain empty while SLR-101 is not
+  frozen. No mock count is research evidence.
+- Syntax evidence: Database-specific field scopes and limits are bound to the
+  official IEEE, ACM, Elsevier, and Clarivate help sources recorded in
+  `literature-search-queries.md`.
+- Completion gate: SLR-102 remains `Đang làm` until SLR-101 reaches 1.0.0 and
+  every authorized database-query run has a verified log row and immutable
+  export hash.
 - Owner: Hiếu.

@@ -88,8 +88,8 @@ function acceptedDecisions() {
     )
     .replace(/(^## D-008:[\s\S]*?^- Status:) Proposed$/m, "$1 Accepted")
     .replace(
-      /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
-      "- Independent review: Member 3 approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5\n  at commit `0123456789abcdef0123456789abcdef01234567` on 2026-08-16T08:00:00Z.\n- Freeze evidence: `slr-review-record.md` and\n  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified\n  by CI before search authorization.",
+      /- Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
+      "- Independent review: Independent SLR Reviewer approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5\n  at commit `0123456789abcdef0123456789abcdef01234567` on 2026-08-16T08:00:00Z.\n- Freeze evidence: `slr-review-record.md` and\n  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified\n  by CI before search authorization.",
     );
 }
 
@@ -118,7 +118,7 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5 |
 | Review URL | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5#pullrequestreview-12345 |
-| Reviewer | Member 3 |
+| Reviewer role | Independent SLR Reviewer |
 | Reviewer GitHub login | teikv |
 | Review decision | Approved |
 | Review commit | 0123456789abcdef0123456789abcdef01234567 |
@@ -135,9 +135,9 @@ const signedReviewRecord = reviewRecord
   .replace(
     "| Sentinel recall | Passed |",
     `| Sentinel recall | Passed |
-| Review attestation | research/evidence/slr-review/member-3-attestation.json#sha256=${"a".repeat(64)} |
-| Review signature | research/evidence/slr-review/member-3-attestation.sig#sha256=${"b".repeat(64)} |
-| Reviewer public key | research/evidence/slr-review/member-3-public-key.pem#sha256=${"c".repeat(64)} |`,
+| Review attestation | research/evidence/slr-review/independent-slr-reviewer-attestation.json#sha256=${"a".repeat(64)} |
+| Review signature | research/evidence/slr-review/independent-slr-reviewer-attestation.sig#sha256=${"b".repeat(64)} |
+| Reviewer public key | research/evidence/slr-review/independent-slr-reviewer-public-key.pem#sha256=${"c".repeat(64)} |`,
   );
 
 test("accepts the governed review-candidate protocol", () => {
@@ -328,7 +328,7 @@ test("rejects an unknown review mode or malformed signed evidence reference", ()
     decisions: acceptedDecisions(),
     paper: frozenPaper(),
     reviewRecord: signedReviewRecord.replace(
-      /research\/evidence\/slr-review\/member-3-attestation\.sig#sha256=[0-9a-f]{64}/,
+      /research\/evidence\/slr-review\/independent-slr-reviewer-attestation\.sig#sha256=[0-9a-f]{64}/,
       "wrong.sig#sha256=short",
     ),
     sentinelRecall,
@@ -343,19 +343,19 @@ test("rejects self-review and malformed sentinel evidence", () => {
     decisions: acceptedDecisions(),
     paper: frozenPaper(),
     reviewRecord: reviewRecord.replace(
-      "| Reviewer | Member 3 |",
-      "| Reviewer | Hiếu |",
+      "| Reviewer role | Independent SLR Reviewer |",
+      "| Reviewer role | Hiếu |",
     ),
     sentinelRecall: sentinelRecall
-      .replaceAll(",Member 3,", ",Hiếu,")
+      .replaceAll(",Independent SLR Reviewer,", ",Hiếu,")
       .replace(
         "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
         "ACM Digital Library,Scopus,retrieved",
       ),
     sentinelEvidenceHashes,
   });
-  assertIssue(result, "Reviewer must be 'Member 3'");
-  assertIssue(result, "must be verified by Member 3");
+  assertIssue(result, "Reviewer role must be 'Independent SLR Reviewer'");
+  assertIssue(result, "must be verified by Independent SLR Reviewer");
   assertIssue(result, "retrieved sources must be a subset of indexed sources");
 });
 
@@ -602,7 +602,7 @@ test("loads and hashes a real sentinel evidence artifact", async (context) => {
   const artifact = '{"sentinel":"S-001","retrieved":true}\n';
   await writeFile(join(evidenceDirectory, "S-001.json"), artifact, "utf8");
   const digest = createHash("sha256").update(artifact).digest("hex");
-  const recall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence\nS-001,10.1145/222124.222136,ACM Digital Library,ACM Digital Library,retrieved,Member 3,research/evidence/slr-sentinel/S-001.json#sha256=${digest}\n`;
+  const recall = `sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence\nS-001,10.1145/222124.222136,ACM Digital Library,ACM Digital Library,retrieved,Independent SLR Reviewer,research/evidence/slr-sentinel/S-001.json#sha256=${digest}\n`;
   const hashes = await loadSentinelEvidenceHashes(repository, recall);
   assert.equal(hashes.get("research/evidence/slr-sentinel/S-001.json"), digest);
   const evidence = await loadSentinelEvidence(repository, recall);

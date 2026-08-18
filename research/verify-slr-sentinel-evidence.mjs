@@ -7,6 +7,8 @@ export const SENTINEL_DOIS = Object.freeze([
   "10.1002/smr.2423",
 ]);
 
+export const SENTINEL_REVIEWER_ROLE = "Independent SLR Reviewer";
+
 export const PRIMARY_SOURCES = Object.freeze([
   "IEEE Xplore",
   "ACM Digital Library",
@@ -150,7 +152,7 @@ export function verifySlrSentinelEvidence({
     ["protocol_version", "0.1.0"],
     ["sentinel_id", ledgerRecord?.sentinel_id],
     ["doi", ledgerRecord?.doi],
-    ["reviewer", "Member 3"],
+    ["reviewer", SENTINEL_REVIEWER_ROLE],
     ["classification", ledgerRecord?.classification],
     ["official_search_executed", false],
     ["candidate_results_screened", false],

@@ -15,6 +15,7 @@ import {
 } from "./validate-literature-protocol.mjs";
 import {
   REVIEW_CHECKLIST,
+  REVIEWER_ROLE,
   SIGNED_REVIEW_PATHS,
 } from "./verify-slr-signed-attestation.mjs";
 
@@ -117,7 +118,7 @@ export function createSignedReviewFiles({
       {
         schema_version: "1.0.0",
         task: "SLR-101",
-        reviewer: "Member 3",
+        reviewer: REVIEWER_ROLE,
         review_decision: "Approved",
         review_commit: reviewCommit,
         review_timestamp: reviewTimestamp,
@@ -142,7 +143,7 @@ export function createSignedReviewFiles({
 | Protocol version | 1.0.0 |
 | Review mode | Signed attestation |
 | Review PR | ${reviewPr} |
-| Reviewer | Member 3 |
+| Reviewer role | ${REVIEWER_ROLE} |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
 | Review timestamp | ${reviewTimestamp} |
@@ -276,7 +277,7 @@ export async function main({
         ],
         { writeBytes, removePath },
       );
-      log(`WROTE MEMBER 3 PRIVATE KEY OUTSIDE REPOSITORY: ${privateKeyPath}`);
+      log(`WROTE INDEPENDENT SLR REVIEWER PRIVATE KEY OUTSIDE REPOSITORY: ${privateKeyPath}`);
       log(`WROTE GOVERNED PUBLIC KEY: ${SIGNED_REVIEW_PATHS.publicKey}`);
       return;
     }
@@ -339,7 +340,7 @@ export async function main({
       outputs.map(([path, bytes]) => [path, bytes, { flag: "wx" }]),
       { writeBytes, removePath },
     );
-    log("WROTE SIGNED MEMBER 3 REVIEW EVIDENCE");
+    log("WROTE SIGNED INDEPENDENT SLR REVIEWER EVIDENCE");
   } catch (operationError) {
     error(`SIGNED REVIEW BLOCKED: ${operationError.message}`);
     setExitCode(1);

@@ -8,10 +8,14 @@ import { join } from "node:path";
 
 export const SIGNED_REVIEW_PATHS = Object.freeze({
   attestation:
-    "research/evidence/slr-review/member-3-attestation.json",
-  signature: "research/evidence/slr-review/member-3-attestation.sig",
-  publicKey: "research/evidence/slr-review/member-3-public-key.pem",
+    "research/evidence/slr-review/independent-slr-reviewer-attestation.json",
+  signature:
+    "research/evidence/slr-review/independent-slr-reviewer-attestation.sig",
+  publicKey:
+    "research/evidence/slr-review/independent-slr-reviewer-public-key.pem",
 });
+
+export const REVIEWER_ROLE = "Independent SLR Reviewer";
 
 export const REVIEW_CHECKLIST = Object.freeze([
   "objective-rq-alignment",
@@ -141,7 +145,7 @@ export function verifySignedReviewAttestation({
   const expectedValues = [
     ["schema_version", "1.0.0"],
     ["task", "SLR-101"],
-    ["reviewer", "Member 3"],
+    ["reviewer", REVIEWER_ROLE],
     ["review_decision", "Approved"],
     ["review_commit", metadataValue(reviewRecord, "Review commit")],
     ["review_timestamp", metadataValue(reviewRecord, "Review timestamp")],

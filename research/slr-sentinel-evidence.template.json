@@ -4,7 +4,7 @@
   "protocol_version": "0.1.0",
   "sentinel_id": "REPLACE-SENTINEL-ID",
   "doi": "REPLACE-DOI",
-  "reviewer": "Member 3",
+  "reviewer": "Independent SLR Reviewer",
   "recorded_at": "REPLACE-WITH-UTC-TIMESTAMP",
   "classification": "retrieved",
   "indexed_sources": [

@@ -12,6 +12,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
   SENTINEL_DOIS,
+  SENTINEL_REVIEWER_ROLE,
   verifySlrSentinelEvidence,
 } from "./verify-slr-sentinel-evidence.mjs";
 
@@ -88,7 +89,7 @@ export function buildSentinelLedger({
           ? ledgerRecord.retrieved_sources.join(";")
           : "none",
         ledgerRecord.classification,
-        "Member 3",
+        SENTINEL_REVIEWER_ROLE,
         `${path}#sha256=${digest}`,
       ].join(","),
     );

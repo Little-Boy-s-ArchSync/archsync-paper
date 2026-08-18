@@ -28,7 +28,7 @@ function fixture(overrides = {}) {
   const attestation = {
     schema_version: "1.0.0",
     task: "SLR-101",
-    reviewer: "Member 3",
+    reviewer: "Independent SLR Reviewer",
     review_decision: "Approved",
     review_commit: reviewCommit,
     review_timestamp: reviewTimestamp,
@@ -57,7 +57,7 @@ function fixture(overrides = {}) {
 | Protocol version | 1.0.0 |
 | Review mode | Signed attestation |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
-| Reviewer | Member 3 |
+| Reviewer role | Independent SLR Reviewer |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
 | Review timestamp | ${reviewTimestamp} |
@@ -87,7 +87,7 @@ function assertIssue(result, fragment) {
   );
 }
 
-test("accepts an exact Ed25519-signed Member 3 review attestation", () => {
+test("accepts an exact Ed25519-signed independent-reviewer attestation", () => {
   const result = verify(fixture());
   assert.deepEqual(result.issues, []);
   assert.equal(result.attestation.task, "SLR-101");

@@ -7,8 +7,13 @@ import { parseCsv } from "./validate-claim-evidence.mjs";
 import {
   PRIMARY_SOURCES,
   SENTINEL_DOIS,
+  SENTINEL_REVIEWER_ROLE,
   verifySlrSentinelEvidence,
 } from "./verify-slr-sentinel-evidence.mjs";
+import {
+  REVIEWER_ROLE,
+  SIGNED_REVIEW_PATHS,
+} from "./verify-slr-signed-attestation.mjs";
 
 const SENTINEL_HEADERS = [
   "sentinel_id",
@@ -162,7 +167,7 @@ export function validateLiteratureProtocol({
     ["Prepared date", "2026-08-16"],
     ["Search cutoff", "2026-08-16 inclusive"],
     ["Owner", "Hiếu"],
-    ["Required independent reviewer", "Member 3, evaluation and statistics"],
+    ["Required independent reviewer", REVIEWER_ROLE],
   ]) {
     if (metadataValue(protocol, field) !== expected) {
       issues.push(`literature-protocol.md: ${field} must be '${expected}'`);
@@ -267,7 +272,7 @@ export function validateLiteratureProtocol({
       for (const [field, expected] of [
         ["Task", "SLR-101"],
         ["Protocol version", "1.0.0"],
-        ["Reviewer", "Member 3"],
+        ["Reviewer role", REVIEWER_ROLE],
         ["Review decision", "Approved"],
         ["Search results inspected", "No"],
         ["Sentinel recall", "Passed"],
@@ -319,15 +324,15 @@ export function validateLiteratureProtocol({
         for (const [field, path] of [
           [
             "Review attestation",
-            "research/evidence/slr-review/member-3-attestation.json",
+            SIGNED_REVIEW_PATHS.attestation,
           ],
           [
             "Review signature",
-            "research/evidence/slr-review/member-3-attestation.sig",
+            SIGNED_REVIEW_PATHS.signature,
           ],
           [
             "Reviewer public key",
-            "research/evidence/slr-review/member-3-public-key.pem",
+            SIGNED_REVIEW_PATHS.publicKey,
           ],
         ]) {
           const value = metadataValue(reviewRecord, field) ?? "";
@@ -457,9 +462,9 @@ export function validateLiteratureProtocol({
               );
             }
           }
-          if (record.reviewer !== "Member 3") {
+          if (record.reviewer !== SENTINEL_REVIEWER_ROLE) {
             issues.push(
-              `literature-sentinel-recall.csv: ${record.sentinel_id} must be verified by Member 3`,
+              `literature-sentinel-recall.csv: ${record.sentinel_id} must be verified by ${SENTINEL_REVIEWER_ROLE}`,
             );
           }
           const evidenceMatch = record.evidence.match(
@@ -640,7 +645,7 @@ export function validateLiteratureProtocol({
         "decision-log.md",
         block,
         new RegExp(
-          `^- Independent review: Member 3 approved[\\s\\S]+${escapeRegExp(governedReviewPr ?? "missing-review-pr")}`,
+          `^- Independent review: ${REVIEWER_ROLE} approved[\\s\\S]+${escapeRegExp(governedReviewPr ?? "missing-review-pr")}`,
           "m",
         ),
         "D-008 must record the independent approval and governed Review PR",

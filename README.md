@@ -2,13 +2,18 @@
 
 Nguồn LaTeX của bài nghiên cứu **ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems**.
 
-Repository này phải được giữ ở chế độ **private** trong thời gian bài báo được phản biện ẩn danh. Không thêm tên tác giả, đơn vị, email hoặc liên kết có thể nhận diện nhóm trước khi kết thúc quy trình double-blind review.
+Repository này phải được giữ ở chế độ **private** trong thời gian bài báo được
+phản biện ẩn danh. `main.tex` là bản làm việc có tên để nhóm kiểm tra metadata
+trên Overleaf. `main-anonymous.tex` là wrapper double-blind được CI biên dịch;
+nó truyền tùy chọn `anonymous` cho `acmart` và tạo PDF không hiển thị tên, đơn vị
+hoặc email.
 
 ## Cấu trúc
 
 ```text
 .
-├── main.tex                    # Tài liệu chính
+├── main.tex                    # Bản làm việc có metadata tác giả
+├── main-anonymous.tex          # Wrapper tạo PDF double-blind
 ├── references.bib              # Tài liệu tham khảo
 ├── acmart.cls                  # ACM document class từ Overleaf
 ├── ACM-Reference-Format.bst    # ACM bibliography style
@@ -18,7 +23,9 @@ Repository này phải được giữ ở chế độ **private** trong thời g
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được
 │   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
-│   ├── SLR-REVIEWER-RUNBOOK.md # Các bước evidence và ký review cho Thành viên 3
+│   ├── literature-search-queries.md # Search strings SLR-102 có version
+│   ├── literature-search-log.template.csv # 24 run dự kiến, chưa phải evidence
+│   ├── SLR-REVIEWER-RUNBOOK.md # Các bước evidence và ký cho Independent SLR Reviewer
 │   ├── slr-sentinel-evidence.template.json # Schema ghi nhận calibration, không phải evidence
 │   ├── claim-evidence.csv      # Claim-to-evidence ledger
 │   ├── decision-log.md         # Quyết định và change control
@@ -44,9 +51,10 @@ node research/validate-rq-traceability.mjs
 node --test research/validate-claim-evidence.test.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
+node research/validate-search-queries.mjs
 ```
 
-Sau khi Member 3 đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger
+Sau khi người giữ vai trò Independent SLR Reviewer đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger
 bằng `node research/build-slr-sentinel-ledger.mjs --write` rồi chạy lại với
 `--check`. Công cụ này chỉ tính ledger/hash từ artifact đã có, không sinh kết
 quả nghiên cứu. Quy trình thao tác, ký attestation và bàn giao lại cho owner nằm
@@ -54,13 +62,21 @@ tại `research/SLR-REVIEWER-RUNBOOK.md`.
 
 ## Biên dịch cục bộ
 
-Cài TeX Live hoặc MiKTeX có `latexmk`, sau đó chạy:
+Cài TeX Live hoặc MiKTeX có `latexmk`. Biên dịch bản làm việc có tên bằng:
 
 ```bash
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex
 ```
 
-PDF được tạo tại `main.pdf`. File này không được commit; GitHub Actions sẽ tạo PDF artifact cho mỗi lần push và pull request.
+Biên dịch bản gửi phản biện ẩn danh bằng:
+
+```bash
+latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex
+```
+
+Hai lệnh tạo lần lượt `main.pdf` và `main-anonymous.pdf`. Các file này không
+được commit; GitHub Actions sẽ tạo PDF ẩn danh làm artifact cho mỗi lần push và
+pull request.
 
 Xóa các file build:
 
@@ -78,8 +94,9 @@ latexmk -C
 
 ## Trước khi nộp bài
 
-- Giữ `anonymous` trong tùy chọn của `acmart`.
-- Giữ tác giả và affiliation ở dạng ẩn danh.
+- Nộp PDF được tạo từ `main-anonymous.tex`, không nộp PDF có tên từ `main.tex`.
+- Kiểm tra PDF phản biện hiển thị `Anonymous Author(s)` và không chứa email hoặc
+  affiliation.
 - Kiểm tra không có thông tin nhận diện trong nội dung, metadata, README hoặc lịch sử commit.
 - Tải PDF artifact từ tab **Actions** và kiểm tra trực quan lần cuối.
 - Chỉ công khai repository sau khi chính sách của venue cho phép.

@@ -26,9 +26,13 @@ jobs:
       - name: Verify anonymous submission settings
         shell: bash
         run: |
-          grep -F '\documentclass[sigconf,anonymous,nonacm]{acmart}' main.tex
-          grep -F '\author{Anonymous Author(s)}' main.tex
-          grep -F '\institution{Anonymous Institution}' main.tex
+          grep -F '\documentclass[sigconf,nonacm]{acmart}' main.tex
+          grep -F '\PassOptionsToClass{anonymous}{acmart}' main-anonymous.tex
+          grep -F '\input{main.tex}' main-anonymous.tex
+          test "$(grep -c '^\\author{' main.tex)" -eq 4
+          test "$(grep -c '^\\email{' main.tex)" -eq 4
+          ! grep -F 'Anonymous Author' main.tex
+          ! grep -F 'Anonymous Institution' main.tex
 
       - name: Verify research baseline and glossary
         run: node research/validate-baseline.mjs
@@ -47,6 +51,7 @@ jobs:
             --test-coverage-include=research/create-slr-signed-review.mjs \
             --test-coverage-include=research/verify-slr-sentinel-evidence.mjs \
             --test-coverage-include=research/build-slr-sentinel-ledger.mjs \
+            --test-coverage-include=research/validate-search-queries.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -58,13 +63,17 @@ jobs:
             research/verify-slr-signed-attestation.test.mjs \
             research/create-slr-signed-review.test.mjs \
             research/verify-slr-sentinel-evidence.test.mjs \
-            research/build-slr-sentinel-ledger.test.mjs
+            research/build-slr-sentinel-ledger.test.mjs \
+            research/validate-search-queries.test.mjs
 
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
 
       - name: Verify literature review protocol
         run: node research/validate-literature-protocol.mjs
+
+      - name: Verify versioned literature search queries
+        run: node research/validate-search-queries.mjs
 
       - name: Verify live SLR review provenance
         if: github.event_name == 'pull_request'
@@ -77,13 +86,13 @@ jobs:
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: main.tex
+          root_file: main-anonymous.tex
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Upload compiled PDF
         uses: actions/upload-artifact@v7
         with:
           name: archsync-paper-${{ github.sha }}
-          path: main.pdf
+          path: main-anonymous.pdf
           if-no-files-found: error
           retention-days: 30

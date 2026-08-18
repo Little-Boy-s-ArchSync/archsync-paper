@@ -6,6 +6,7 @@ import {
   loadSentinelEvidence,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
+import { REVIEWER_ROLE } from "./verify-slr-signed-attestation.mjs";
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -163,9 +164,9 @@ export function freezeLiteratureProtocol({
   );
   nextDecisions = replaceExactly(
     nextDecisions,
-    /- Required review: Member 3 reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
+    /- Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author\.[\s\S]*?(?=\n- Baseline impact:)/,
     [
-      `- Independent review: Member 3 approved the method and sentinel recall as a non-author in ${reviewPr}`,
+      `- Independent review: ${REVIEWER_ROLE} approved the method and sentinel recall as a non-author in ${reviewPr}`,
       `  at commit \`${reviewCommit}\` on ${reviewTimestamp}.`,
       "- Freeze evidence: `slr-review-record.md` and",
       "  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified",

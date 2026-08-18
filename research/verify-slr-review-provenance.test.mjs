@@ -30,7 +30,7 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
 | Review URL | ${reviewUrl} |
-| Reviewer | Member 3 |
+| Reviewer role | Independent SLR Reviewer |
 | Reviewer GitHub login | teikv |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
@@ -46,7 +46,7 @@ function signedFixture() {
       {
         schema_version: "1.0.0",
         task: "SLR-101",
-        reviewer: "Member 3",
+        reviewer: "Independent SLR Reviewer",
         review_decision: "Approved",
         review_commit: reviewCommit,
         review_timestamp: reviewTimestamp,
@@ -74,7 +74,7 @@ function signedFixture() {
 | Protocol version | 1.0.0 |
 | Review mode | Signed attestation |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
-| Reviewer | Member 3 |
+| Reviewer role | Independent SLR Reviewer |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
 | Review timestamp | ${reviewTimestamp} |
@@ -172,7 +172,7 @@ test("accepts an unchanged approved head with no comparison file list", async ()
   assert.deepEqual(result.issues, []);
 });
 
-test("accepts a Member 3 signed attestation when all code uses L1nkinPark", async () => {
+test("accepts an independent-reviewer signed attestation when all code uses L1nkinPark", async () => {
   const signed = signedFixture();
   const paths = [];
   const requestJson = async (path) => {
@@ -210,7 +210,7 @@ test("accepts a Member 3 signed attestation when all code uses L1nkinPark", asyn
   assert.deepEqual(result.issues, []);
   assert.equal(result.reviewMode, "Signed attestation");
   assert.equal(result.reviewId, null);
-  assert.equal(result.reviewerLogin, "Member 3 (signed)");
+  assert.equal(result.reviewerLogin, "Independent SLR Reviewer (signed)");
   assert.equal(paths.length, 3);
   assert.ok(paths.every((path) => !path.includes("/reviews/")));
 });
@@ -228,7 +228,10 @@ test("signed review requires a new signature if key or sentinel evidence changes
       },
     }),
   });
-  assertIssue(result, "member-3-public-key.pem' changed after approval");
+  assertIssue(
+    result,
+    "independent-slr-reviewer-public-key.pem' changed after approval",
+  );
   assertIssue(result, "literature-sentinel-recall.csv' changed after approval");
 });
 
@@ -502,7 +505,7 @@ test("CLI verifies a signed review under the shared L1nkinPark account", async (
   assert.equal(state.exitCode(), null);
   assert.deepEqual(state.errors, []);
   assert.deepEqual(state.output, [
-    "VALID SLR REVIEW PROVENANCE (PR #7, signed attestation, reviewer Member 3 (signed), commit 1111111)",
+    "VALID SLR REVIEW PROVENANCE (PR #7, signed attestation, reviewer Independent SLR Reviewer (signed), commit 1111111)",
   ]);
 });
 

@@ -1,7 +1,7 @@
 sentinel_id,doi,indexed_sources,retrieved_sources,classification,reviewer,evidence
-S-001,10.1145/222124.222136,pending,pending,pending,Member 3,pending
-S-002,10.1109/WICSA.2007.1,pending,pending,pending,Member 3,pending
-S-003,10.1002/spe.931,pending,pending,pending,Member 3,pending
-S-004,10.1016/j.jss.2011.07.036,pending,pending,pending,Member 3,pending
-S-005,10.3217/jucs-023-08-0769,pending,pending,pending,Member 3,pending
-S-006,10.1002/smr.2423,pending,pending,pending,Member 3,pending
+S-001,10.1145/222124.222136,pending,pending,pending,Independent SLR Reviewer,pending
+S-002,10.1109/WICSA.2007.1,pending,pending,pending,Independent SLR Reviewer,pending
+S-003,10.1002/spe.931,pending,pending,pending,Independent SLR Reviewer,pending
+S-004,10.1016/j.jss.2011.07.036,pending,pending,pending,Independent SLR Reviewer,pending
+S-005,10.3217/jucs-023-08-0769,pending,pending,pending,Independent SLR Reviewer,pending
+S-006,10.1002/smr.2423,pending,pending,pending,Independent SLR Reviewer,pending

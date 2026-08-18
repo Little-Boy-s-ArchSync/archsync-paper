@@ -1,22 +1,60 @@
-\documentclass[sigconf,anonymous,nonacm]{acmart}
+% !TeX program = pdflatex
+\documentclass[sigconf,nonacm]{acmart}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,fit}
 
 \setcopyright{none}
-\settopmatter{printacmref=false}
+\settopmatter{printacmref=false,authorsperrow=2}
 \renewcommand\footnotetextcopyrightpermission[1]{}
+\renewcommand{\textbullet}{\textnormal{-}}
+\renewcommand{\labelitemi}{\textnormal{-}}
 \emergencystretch=2em
 
 \begin{document}
 
 \title{ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems}
 
-\author{Anonymous Author(s)}
+\author{Vo Duc Hieu}
+\orcid{0009-0007-5389-5177}
+\authornote{Corresponding author.}
 \affiliation{%
-  \institution{Anonymous Institution}
-  \country{Anonymous}
+  \department{Software Engineering}
+  \institution{FPT University}
+  \city{Ho Chi Minh City}
+  \country{Vietnam}
 }
+\email{voduchieu@littleboys.biz}
+
+\author{Tran Minh Hoang}
+\orcid{0009-0000-0302-1841}
+\affiliation{%
+  \department{Computer Science and Engineering}
+  \institution{VNUK Institute for Research and Executive Education, The University of Danang}
+  \city{Da Nang}
+  \country{Vietnam}
+}
+\email{an1dee@littleboys.biz}
+
+\author{Ha Hoang Bach}
+\orcid{0009-0000-5118-0660}
+\affiliation{%
+  \department{Information Assurance}
+  \institution{FPT University}
+  \city{Ho Chi Minh City}
+  \country{Vietnam}
+}
+\email{bachcp6@littleboys.biz}
+
+\author{Le Van Kiet}
+\orcid{0009-0007-8434-882X}
+\affiliation{%
+  \department{Software Engineering}
+  \institution{VNUK Institute for Research and Executive Education, The University of Danang}
+  \city{Da Nang}
+  \country{Vietnam}
+}
+\email{levankiet1212.2004@littleboys.biz}
 
 \begin{abstract}
 Software architecture descriptions can diverge from the source code they are intended to govern. This paper presents ArchSync, a deterministic architecture-conformance prototype that treats a machine-readable architecture model as an executable contract and reconstructs an observed service graph from TypeScript source code. Stack-specific analyzers detect selected HTTP, PostgreSQL, Redis, and AMQP interactions; a conformance engine then classifies a change as no-impact, rule violation, or architecture evolution and attaches model and file-line-column evidence. A Git-diff gate caches the base graph, incrementally rescans affected components, and maps these classes to PASS, BLOCK, or REVIEW without silently rewriting the approved model. We evaluate the prototype with two controlled datasets and a change-scoped protocol. An Order Platform benchmark contains 20 independently applied patches: nine no-impact changes, seven violations, and four evolutions. Full-graph and changed-graph detection had no false positives or false negatives; ArchSync classified 20/20 cases, matched 7/7 violated-rule sets, and localized 11/11 finding-bearing cases to the expected file and line. Replaying the same patches as Git diffs matched 20/20 merge decisions, changed-file sets, and architecture deltas; every incremental result also matched a separate full scan of the same head repository. The gate hit the baseline cache on 20/20 repeated checks and parsed 57 of 189 TypeScript file instances. On the recorded Windows environment, cold and warm median check latency was 518.51 and 242.62 ms. A separate 40-signal challenge corpus improved from 18 true positives, four false positives, two false negatives, and 16 true negatives in frozen v0.1 to 20, zero, zero, and 20 in provenance-aware v0.2. These are feasibility and regression results, not estimates of general accuracy: the datasets were co-developed with the analyzer, the system is synthetic, timings come from one machine, and only explicit TypeScript/Node.js patterns are covered.
@@ -94,7 +132,7 @@ False positives and false negatives are also central to static-analysis reliabil
 
 The preceding synthesis positions ArchSync against selected foundational, secondary, and empirical studies. It is not the outcome of a completed systematic literature review and makes no claim that the relevant literature has been exhaustively identified. A separate versioned protocol follows the software-engineering review process of Kitchenham and Charters \cite{kitchenham2007slr}, supplements database search with backward and forward snowballing \cite{wohlin2014snowballing}, and plans transparent reporting with PRISMA 2020 and the software-engineering-specific SEGRESS guidance \cite{page2021prisma,kitchenham2023segress}.
 
-The candidate protocol predeclares six secondary questions, IEEE Xplore, the ACM Digital Library, Scopus, and the Web of Science Core Collection, three query families, a fixed 16 August 2026 search cutoff, sentinel recall checks, eligibility and deduplication rules, independent title/abstract and full-text screening, quality assessment, extraction, and synthesis. At this manuscript snapshot, protocol version \texttt{0.1.0} is a review candidate. The official search has not started, and no result list has been inspected. Search remains blocked until a non-author reviewer validates the method and sentinel recall and the protocol is frozen. Consequently, this paper reports no search count, study-selection count, PRISMA flow, or literature-derived coverage claim.
+The candidate protocol predeclares six secondary questions, IEEE Xplore, the ACM Digital Library, Scopus, and the Web of Science Core Collection, three query families, a fixed 16 August 2026 search cutoff, sentinel recall checks, eligibility and deduplication rules, independent title/abstract and full-text screening, quality assessment, extraction, and synthesis. The SLR-102 query specification version \texttt{0.1.0} decomposes six keyword groups into six logical queries, supplies database-specific field and filter translations, and predeclares 24 execution-log rows. These rows contain no execution timestamp, result count, or export hash and therefore are planning metadata rather than search evidence. At this manuscript snapshot, protocol version \texttt{0.1.0} is a review candidate. The official search has not started, and no result list has been inspected. Search remains blocked until a non-author reviewer validates the method and sentinel recall and the protocol is frozen. Consequently, this paper reports no search count, study-selection count, PRISMA flow, or literature-derived coverage claim.
 
 \section{Problem Definition}
 
@@ -233,7 +271,7 @@ Figure~\ref{fig:architecture} separates approved intent from base and proposed i
 
     \node[lane input] (base) at (6.55,0.82) {{\scriptsize\bfseries BASE SNAPSHOT}\\\textbf{Git base $S_b$}\\{\scriptsize committed tree}};
     \node[lane output] (baseGraph) at (9.55,0.82) {\textbf{Full AST scan}\\{\scriptsize cached observed graph}\\$G_b$};
-    \node[lane input] (head) at (6.55,-0.92) {{\scriptsize\bfseries PROPOSED CHANGE}\\\textbf{Git diff $S_b\!\rightarrow\!S_h$}\\{\scriptsize paths + hunks}};
+    \node[lane input] (head) at (6.55,-0.92) {{\scriptsize\bfseries PROPOSED CHANGE}\\\textbf{Git diff $S_b\!\to\!S_h$}\\{\scriptsize paths + hunks}};
     \node[lane output] (headGraph) at (9.55,-0.92) {\textbf{Incremental AST scan}\\{\scriptsize affected components only}\\$G_h$ + evidence $P$};
 
     \node[compare] (conformance) at (14.75,0.88) {\textbf{Evaluate base and head}\\$F(M,G_b)$ versus $F(M,G_h)$};
@@ -531,6 +569,22 @@ Dependencies and inputs are pinned and hashed, paths and JSON are normalized, pa
 ArchSync implements a deterministic bridge between a declared architecture contract and a source-derived TypeScript service graph. In D1, it achieved 1.000 precision, recall, and F1 for aggregate full and changed node and edge detection, classified 20/20 patches, matched 7/7 violation rule sets, localized 11/11 finding-bearing cases to the expected file and line, and reproduced all outputs across 42 executions. P3 replayed those patches as Git diffs and matched 20/20 merge decisions, changed-file sets, and architecture deltas; matched full-scan results in 20/20 cases; hit the base cache on 20/20 repeated checks; preserved 20/20 normalized results; and parsed 57/189 TypeScript file instances. In D2, the frozen v0.1 analyzer produced 18 TP, 4 FP, 2 FN, and 16 TN; provenance-aware v0.2 produced 20 TP, 0 FP, 0 FN, and 20 TN on the same annotated corpus.
 
 These numbers demonstrate that the current contracts, detectors, and Git-diff regression scenarios operate coherently; they do not establish general accuracy or governance effectiveness because the datasets are synthetic and co-evolved with the implementation. ArchSync makes architecture dynamic by reconstructing implementation state continuously, but keeps design changes human-governed: the analyzer never rewrites the approved model, violations block, and evolution requires review. The immediate research priority is an independently curated holdout and a real pull-request pilot on additional TypeScript systems. Later studies should investigate wrapper and dynamic language patterns, scalability, evidence comprehension, approval load, architect decision time, IaC/runtime evidence, and independently evaluated analyzers for additional languages.
+
+\makeatletter
+\if@ACM@anonymous\else
+\noindent\begin{minipage}{\columnwidth}
+\section*{Author Information and Contributions}
+
+\noindent\textbf{Vo Duc Hieu} (ORCID: \href{https://orcid.org/0009-0007-5389-5177}{0009-0007-5389-5177}) - Conceptualization; Methodology; Software; Project administration; Writing.
+
+\noindent\textbf{Tran Minh Hoang} (ORCID: \href{https://orcid.org/0009-0000-0302-1841}{0009-0000-0302-1841}) - Software; AI methodology; Validation.
+
+\noindent\textbf{Ha Hoang Bach} (ORCID: \href{https://orcid.org/0009-0000-5118-0660}{0009-0000-5118-0660}) - Investigation; Data curation; Formal analysis; Evaluation.
+
+\noindent\textbf{Le Van Kiet} (ORCID: \href{https://orcid.org/0009-0007-8434-882X}{0009-0007-8434-882X}) - Software; Validation; Reproducibility.
+\end{minipage}
+\fi
+\makeatother
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}

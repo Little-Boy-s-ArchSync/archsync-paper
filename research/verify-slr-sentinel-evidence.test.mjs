@@ -21,7 +21,7 @@ function artifact(overrides = {}) {
     protocol_version: "0.1.0",
     sentinel_id: "S-001",
     doi: "10.1145/222124.222136",
-    reviewer: "Member 3",
+    reviewer: "Independent SLR Reviewer",
     recorded_at: "2026-08-16T08:10:00Z",
     classification: "retrieved",
     indexed_sources: ["ACM Digital Library", "Scopus"],

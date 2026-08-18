@@ -29,7 +29,7 @@ const sourceResearch = dirname(fileURLToPath(import.meta.url));
 const sourceRepository = dirname(sourceResearch);
 const syntheticPrivateKeyPath = join(
   tmpdir(),
-  "archsync-member-3-private.pem",
+  "archsync-independent-slr-reviewer-private.pem",
 );
 
 function keyBytes(keys = generateKeyPairSync("ed25519")) {
@@ -142,7 +142,7 @@ test("CLI rejects invalid usage and private keys stored inside the repository", 
   assert.match(usage.errors[0], /^USAGE:/);
 
   const relative = capture({
-    args: ["generate-key", "..\\member-3-private.pem"],
+    args: ["generate-key", "..\\independent-slr-reviewer-private.pem"],
     repositoryDirectory: join(tmpdir(), "archsync-relative-repository"),
   });
   await runSignedReviewTool(relative.options);
@@ -163,7 +163,7 @@ test("generate-key writes matching Ed25519 keys once and refuses overwrite", asy
   const root = await mkdtemp(join(tmpdir(), "archsync-review-key-"));
   context.after(() => rm(root, { recursive: true, force: true }));
   const repository = join(root, "repo");
-  const privateKeyPath = join(root, "member-3", "private.pem");
+  const privateKeyPath = join(root, "independent-slr-reviewer", "private.pem");
   await mkdir(repository, { recursive: true });
 
   const generated = capture({
@@ -269,7 +269,7 @@ test("sign writes exactly three governed files and refuses replacement", async (
   const root = await mkdtemp(join(tmpdir(), "archsync-review-sign-"));
   context.after(() => rm(root, { recursive: true, force: true }));
   const repository = join(root, "repo");
-  const privateKeyPath = join(root, "member-3-private.pem");
+  const privateKeyPath = join(root, "independent-slr-reviewer-private.pem");
   const publicKeyPath = join(
     repository,
     ...SIGNED_REVIEW_PATHS.publicKey.split("/"),
@@ -290,7 +290,9 @@ test("sign writes exactly three governed files and refuses replacement", async (
   await runSignedReviewTool(signed.options);
   assert.equal(signed.exitCode(), null);
   assert.deepEqual(signed.errors, []);
-  assert.deepEqual(signed.output, ["WROTE SIGNED MEMBER 3 REVIEW EVIDENCE"]);
+  assert.deepEqual(signed.output, [
+    "WROTE SIGNED INDEPENDENT SLR REVIEWER EVIDENCE",
+  ]);
 
   const reviewRecordPath = join(repository, "research", "slr-review-record.md");
   const reviewRecord = await readFile(reviewRecordPath, "utf8");
@@ -351,7 +353,7 @@ test("default rollback removes only the key created by the failed operation", as
   const root = await mkdtemp(join(tmpdir(), "archsync-default-rollback-"));
   context.after(() => rm(root, { recursive: true, force: true }));
   const repository = join(root, "repo");
-  const privateKeyPath = join(root, "member-3", "private.pem");
+  const privateKeyPath = join(root, "independent-slr-reviewer", "private.pem");
   const publicKeyPath = join(
     repository,
     ...SIGNED_REVIEW_PATHS.publicKey.split("/"),

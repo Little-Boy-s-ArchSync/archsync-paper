@@ -32,7 +32,7 @@ const reviewRecord = `# SLR-101 Independent Review Record
 | Review mode | GitHub approval |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6 |
 | Review URL | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6#pullrequestreview-12345 |
-| Reviewer | Member 3 |
+| Reviewer role | Independent SLR Reviewer |
 | Reviewer GitHub login | teikv |
 | Review decision | Approved |
 | Review commit | abcdef0123456789abcdef0123456789abcdef01 |
@@ -74,7 +74,10 @@ test("produces a validator-approved 1.0.0 freeze state from governed evidence", 
   );
   assert.equal((result.protocol.match(/^- \[x\]/gm) ?? []).length, 10);
   assert.match(result.decisions, /^- Status: Accepted$/m);
-  assert.match(result.decisions, /Independent review: Member 3 approved/);
+  assert.match(
+    result.decisions,
+    /Independent review: Independent SLR Reviewer approved/,
+  );
   assert.match(result.paper, /The frozen protocol predeclares/);
   assert.match(result.paper, /protocol version \\texttt\{1\.0\.0\} is frozen/);
 });

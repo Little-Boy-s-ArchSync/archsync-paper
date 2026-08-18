@@ -48,9 +48,18 @@ danh sách kết quả khi protocol còn ở trạng thái `Review candidate`. M
 viên không phải tác giả phải review protocol, kiểm tra sentinel recall và chấp
 thuận freeze version 1.0.0 trước khi search được chuyển sang `Authorized`. Mọi
 thay đổi tiêu chí sau khi đã xem kết quả phải đi qua amendment có version và
-không được ghi đè âm thầm lên protocol đã freeze. Thành viên 3 thực hiện phần
-review theo `research/SLR-REVIEWER-RUNBOOK.md`; private key và thao tác ký không
-được chuyển giao cho tác giả protocol.
+không được ghi đè âm thầm lên protocol đã freeze. Người được phân công vai trò
+Independent SLR Reviewer thực hiện phần review theo
+`research/SLR-REVIEWER-RUNBOOK.md`; private key và thao tác ký không được chuyển
+giao cho tác giả protocol.
+
+Search strings của SLR-102 được version trong
+`research/literature-search-queries.md`. Khi SLR-101 chưa freeze, file
+`literature-search-log.template.csv` phải giữ trống query đã chạy, timestamp,
+result count, export, hash và operator; không dùng `0` hoặc dữ liệu mock để làm
+placeholder. Sau freeze, mỗi database-query pair phải ghi đúng expanded query,
+filter, UTC timestamp, result count và immutable export hash trước khi mở danh
+sách kết quả để screening.
 
 `research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
 freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng
@@ -61,10 +70,13 @@ cùng pull request. Trước khi mở PR, chạy:
 node research/validate-baseline.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-literature-protocol.mjs
+node research/validate-search-queries.mjs
 ```
 
 ## Double-blind
 
-Giữ `anonymous` trong `acmart`; không thêm tên, email, affiliation, URL nhận diện,
-acknowledgement hoặc metadata có thể lộ nhóm. Repository phải giữ private cho đến
-khi chính sách của venue cho phép công khai.
+`main.tex` là bản làm việc có tên; `main-anonymous.tex` là wrapper double-blind.
+Không để PDF tạo từ wrapper hiển thị tên, email, affiliation, URL nhận diện hoặc
+acknowledgement có thể lộ nhóm. Metadata tác giả chỉ được lưu trong source
+private. Repository phải giữ private cho đến khi chính sách của venue cho phép
+công khai.

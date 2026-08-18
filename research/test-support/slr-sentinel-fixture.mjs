@@ -87,7 +87,7 @@ function createArtifact(record, ordinal) {
     protocol_version: "0.1.0",
     sentinel_id: record.sentinel_id,
     doi: record.doi,
-    reviewer: "Member 3",
+    reviewer: "Independent SLR Reviewer",
     recorded_at: `2026-08-16T08:${String(ordinal).padStart(2, "0")}:00Z`,
     classification: record.classification,
     indexed_sources: record.indexed_sources,
@@ -125,7 +125,7 @@ export function createSentinelEvidenceFixture({
         record.indexed_sources.join(";"),
         record.retrieved_sources.join(";"),
         record.classification,
-        "Member 3",
+        "Independent SLR Reviewer",
         `${path}#sha256=${digest}`,
       ].join(","),
     );
