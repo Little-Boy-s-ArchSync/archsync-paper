@@ -452,6 +452,16 @@ weight as a reproducible one. Reviewer scores and disagreements are retained.
 
 ## 13. Data extraction schema
 
+The governed SLR-104 summary contract is versioned in
+`literature-matrix.md`, and its machine-readable artifact is
+`literature-matrix.csv`. The matrix explicitly records citation, method,
+system, language, dataset, evidence source, metric, limitation, relevance, and
+claim support together with DOI/URL, SLR-RQ, source location, reviewer,
+timestamp, and record-hash provenance. Version 0.1.0 contains only the header:
+population is forbidden until SLR-101 is frozen, the official SLR-102 search
+and SLR-103 screening are complete, and the included-study set is immutable.
+The empty schema is planning metadata, not literature evidence.
+
 The extraction table contains at least:
 
 - stable study/publication identifiers, title, authors, year, venue, DOI, URLs,
@@ -513,6 +523,7 @@ The official review must create, version, and verify:
 | `literature-dedup-log.csv` | Duplicate record, retained record, rule, similarity if used, reviewer, timestamp and rationale |
 | `literature-screening.csv` | Both independent decisions per round, criteria version, decision hashes, evidence class, primary and secondary E-codes, evidence locations, notes, adjudication and final status |
 | `literature-quality.csv` | QA1--QA6 scores from both reviewers, conflicts and resolution |
+| `literature-matrix.csv` | SLR-104 auditable publication summary, persistent locator, claim/RQ mapping, exact source location, two-person verification and record hash |
 | `literature-extraction.csv` | Section 13 fields with reviewer and verification state |
 | `literature-flow.json` | Raw counts for every PRISMA-style stage and exclusion code |
 | `literature-manifest.json` | Protocol/commit hashes, tool versions and SHA-256 of every immutable input/output |
