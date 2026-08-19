@@ -591,10 +591,12 @@ export function validateLiteratureProtocol({
   for (const guard of [
     /must not see each other's decisions until both have completed the round/,
     /a threshold of\s+0\.95 never merges records automatically/,
-    /Members may use an LLM or other AI system to help translate governed queries/,
-    /AI output is an unverified proposal and is not a database run/,
+    /Members may use an LLM or other AI system to translate governed queries/,
+    /AI may perform database operations\s+and create the files; it is not the accountable operator/,
     /AI must not fabricate or infer missing DOI\/URL/,
-    /Human reviewers remain independent and\s+accountable even when they use AI assistance/,
+    /Human reviewers remain independent\s+and accountable/,
+    /The reviewer does not need to repeat mechanical queries or retype artifacts/,
+    /AI may invoke the local signing command only after the\s+reviewer explicitly authorizes/,
     /No search count, included-study count, or synthesized result belongs in this\s+protocol/,
   ]) {
     requireText(

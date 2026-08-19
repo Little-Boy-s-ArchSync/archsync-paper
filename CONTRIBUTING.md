@@ -23,6 +23,10 @@ song rồi ghi đè lại GitHub.
 - Mọi thành viên được phép nhờ AI hỗ trợ lên ý tưởng, viết code, soạn thảo,
   dịch, tóm tắt, chuẩn hóa metadata, đề xuất screening/extraction và kiểm tra
   chất lượng theo `research/AI-EVIDENCE-POLICY.md`.
+- Thành viên được phép giao AI thực hiện workflow kỹ thuật bằng browser, CLI và
+  phiên database thật đã được cấp quyền, bao gồm tạo artifact, ledger, hash,
+  validator, PR và chuẩn bị freeze. Thành viên không phải tự gõ lại các bước cơ
+  học nếu bundle có đủ source capture và provenance để kiểm tra.
 - AI output chỉ là đề xuất chưa xác minh, không phải evidence. Người được giao
   việc phải đối chiếu từng thông tin evidence với nguồn thật và chịu trách
   nhiệm cho artifact cuối cùng.
@@ -59,8 +63,9 @@ thuận freeze version 1.0.0 trước khi search được chuyển sang `Authori
 thay đổi tiêu chí sau khi đã xem kết quả phải đi qua amendment có version và
 không được ghi đè âm thầm lên protocol đã freeze. Người được phân công vai trò
 Independent SLR Reviewer thực hiện phần review theo
-`research/SLR-REVIEWER-RUNBOOK.md`; private key và thao tác ký không được chuyển
-giao cho tác giả protocol.
+`research/SLR-REVIEWER-RUNBOOK.md`. AI có thể gọi automation tạo khóa hoặc ký
+trên máy reviewer sau khi reviewer phê duyệt exact commit và exact action,
+nhưng không được đọc, xuất hoặc chuyển private key cho tác giả protocol.
 
 Search strings của SLR-102 được version trong
 `research/literature-search-queries.md`. Khi SLR-101 chưa freeze, file
@@ -77,9 +82,9 @@ Tiêu chí screening SLR-103 được version trong
 freeze, không được dùng result thật hoặc dữ liệu mock để tuyên bố calibration.
 Mọi exclusion sau khi được authorize phải có đúng một primary E-code, factual
 note và evidence location; hai reviewer phải ghi quyết định độc lập trước khi
-adjudication. AI có thể đề xuất quyết định hoặc E-code, nhưng mỗi reviewer phải
-tự kiểm tra record/full text, tự lưu quyết định cuối cùng và khai báo phần hỗ
-trợ AI có ảnh hưởng đáng kể.
+adjudication. AI có thể tạo đề xuất và file quyết định từ record/full text thật;
+mỗi reviewer kiểm tra bundle nguồn, chấp nhận hoặc sửa quyết định cuối cùng và
+khai báo phần AI đã thực hiện. Reviewer không cần nhập lại file bằng tay.
 
 `research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
 freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng

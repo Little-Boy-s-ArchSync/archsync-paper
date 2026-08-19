@@ -5,30 +5,61 @@ Independent SLR Reviewer. Quy định nghiên
 cứu chính thức vẫn nằm trong `literature-protocol.md`; runbook không thay đổi
 query, tiêu chí, nguồn dữ liệu hoặc Definition of Done của protocol.
 
+## 0. Lệnh giao việc cho AI của reviewer
+
+Independent SLR Reviewer có thể gửi nguyên văn yêu cầu sau cho AI đang có quyền
+điều khiển browser và workspace của reviewer:
+
+```text
+Bạn được tôi, Independent SLR Reviewer, ủy quyền thực hiện workflow kỹ thuật
+SLR-REV-101 theo research/SLR-REVIEWER-RUNBOOK.md và
+research/AI-EVIDENCE-POLICY.md 1.1.0. Hãy dùng phiên đăng nhập thật của tôi để
+chạy sáu DOI sentinel, lưu official source capture và provenance, tạo đúng sáu
+JSON, build ledger, chạy validator/test, chuẩn bị branch/PR và bundle review.
+Không được tạo số liệu giả hoặc điền thông tin không quan sát được. Nếu một
+database chưa đăng nhập hoặc không truy cập được, yêu cầu tôi mở quyền truy cập
+rồi tiếp tục. Sau khi bundle hoàn tất, dừng để tôi kiểm tra và chấp thuận exact
+commit. Chỉ sau khi tôi xác nhận rõ exact commit, attestation, UTC time và hành
+động ký, bạn mới được gọi automation ký cục bộ. Không đọc, hiển thị, sao chép,
+upload hoặc lưu nội dung private key.
+```
+
+Yêu cầu này cho phép AI làm toàn bộ phần cơ học. AI không được dừng chỉ vì nó
+không phải reviewer hoặc vì output tự sinh không phải evidence; thay vào đó nó
+phải thu thập output thật, tạo artifact có provenance và chuyển bundle cho
+reviewer xác minh. Những điểm duy nhất cần quyết định của người thật là cấp
+quyền truy cập, chấp nhận/sửa kết quả cuối và phê duyệt exact action ký.
+
 ## 1. Ranh giới trách nhiệm
 
 - Hiếu là tác giả và owner của protocol, không được tự tạo review approval hoặc
   ký thay reviewer.
-- Independent SLR Reviewer phải tự thực hiện sentinel-only calibration, kiểm
-  tra mười mục review và giữ private key Ed25519 ngoài repository.
+- Independent SLR Reviewer chịu trách nhiệm cho sentinel-only calibration,
+  mười mục review và private key Ed25519 ngoài repository. Reviewer được phép
+  giao AI thực hiện các thao tác kỹ thuật theo phiên truy cập đã được cấp quyền.
 - Không chạy official Search-A/B/C, không mở danh sách kết quả để screening và
   không dùng candidate results để sửa inclusion/exclusion criteria.
 - Nếu không truy cập được IEEE Xplore, ACM Digital Library, Scopus hoặc Web of
   Science, dừng lại và ghi blocker; không thay nguồn khác một cách im lặng.
 
-### AI được phép hỗ trợ
+### AI được phép thực hiện
 
-Independent SLR Reviewer và các thành viên khác được phép nhờ AI hướng dẫn thao
-tác, giải thích protocol, soạn query nháp, chuẩn hóa metadata, đề xuất
-classification, kiểm tra JSON/CSV, viết script hoặc rà checklist. Rule đầy đủ
-nằm trong `AI-EVIDENCE-POLICY.md`.
+Independent SLR Reviewer và các thành viên khác được phép giao AI thực hiện gần
+như toàn bộ workflow kỹ thuật: điều khiển browser/CLI, chạy truy vấn sentinel
+trong phiên database thật đã được cấp quyền, lưu source capture, tạo sáu JSON,
+build ledger, chuẩn hóa metadata, đề xuất classification, chạy validator/test,
+chuẩn bị PR và chuẩn bị freeze bundle. Rule đầy đủ nằm trong
+`AI-EVIDENCE-POLICY.md`.
 
-AI output không phải evidence. Reviewer phải tự truy cập nguồn thật, kiểm tra
-DOI/URL và kết quả thật, lưu exact query, UTC time, result count, official URL
-và artifact thật. AI không được bịa dữ liệu còn thiếu, tự nhận đã truy cập
-database, ký thay reviewer, giữ private key, tạo approval hoặc được tính là
-reviewer độc lập. Reviewer chịu trách nhiệm cuối cùng và phải khai báo AI đã hỗ
-trợ phần nào khi sự hỗ trợ ảnh hưởng đáng kể đến artifact.
+AI output tự sinh không phải evidence, nhưng output chính thức được AI thu thập
+từ một database run thật có source capture và provenance có thể trở thành
+evidence sau gate xác minh. AI không được bịa dữ liệu còn thiếu hoặc tuyên bố
+một thao tác chưa thực sự xảy ra. Reviewer không phải tự gõ lại query hay JSON;
+reviewer chỉ cần kiểm tra bundle cuối với official page/export đã lưu, sửa sai
+nếu có và chấp thuận exact commit. AI có thể thực hiện thao tác submit approval
+hoặc chạy lệnh ký sau khi reviewer đã phê duyệt chính xác hành động đó. AI
+không được đọc, hiển thị, sao chép, upload hoặc lưu nội dung private key và
+không được tính là reviewer độc lập.
 
 ## 2. Sáu sentinel cố định
 
@@ -41,11 +72,11 @@ trợ phần nào khi sự hỗ trợ ảnh hưởng đáng kể đến artifact
 | `S-005.json` | `10.3217/jucs-023-08-0769` |
 | `S-006.json` | `10.1002/smr.2423` |
 
-Với từng DOI, Independent SLR Reviewer chạy truy vấn chỉ nhằm kiểm tra sentinel
-trong các nguồn có quyền truy cập. Mỗi run phải ghi nguyên văn query, source,
-query family, UTC timestamp, result count, `sentinel_found` và URL HTTPS trên
-domain chính thức của nguồn. Không ghi lại kết quả từ trí nhớ, ảnh minh họa hoặc
-URL tìm kiếm chung không tái mở được.
+Với từng DOI, Independent SLR Reviewer hoặc AI được reviewer ủy quyền chạy truy
+vấn chỉ nhằm kiểm tra sentinel trong các nguồn có quyền truy cập. Mỗi run phải
+ghi nguyên văn query, source, query family, UTC timestamp, result count,
+`sentinel_found` và URL HTTPS trên domain chính thức của nguồn. Không ghi lại
+kết quả từ trí nhớ, ảnh minh họa hoặc URL tìm kiếm chung không tái mở được.
 
 ## 3. Tạo sentinel artifacts
 
@@ -53,7 +84,7 @@ URL tìm kiếm chung không tái mở được.
 2. Tạo thư mục `research/evidence/slr-sentinel/`.
 3. Dùng `slr-sentinel-evidence.template.json` làm khuôn và tạo đúng sáu file từ
    `S-001.json` đến `S-006.json`.
-4. Điền dữ liệu ngay sau mỗi truy vấn thật. Giữ
+4. Reviewer hoặc AI được ủy quyền điền dữ liệu ngay sau mỗi truy vấn thật. Giữ
    `official_search_executed: false` và `candidate_results_screened: false`.
 5. Không sửa template để biến placeholder thành evidence.
 
@@ -97,8 +128,10 @@ thay thế quyết định độc lập của hai reviewer.
 
 ## 5. Tạo khóa reviewer
 
-Private key phải do Independent SLR Reviewer tự tạo, nằm ở đường dẫn tuyệt đối
-ngoài repository và không được gửi cho Hiếu hoặc commit lên GitHub:
+Private key thuộc quyền kiểm soát của Independent SLR Reviewer, nằm ở đường dẫn
+tuyệt đối ngoài repository và không được gửi cho Hiếu hoặc commit lên GitHub.
+Reviewer có thể tự chạy hoặc cho phép AI chạy lệnh tạo khóa cục bộ; AI chỉ được
+dùng đường dẫn, không được đọc hoặc truyền nội dung private key:
 
 ```powershell
 node research/create-slr-signed-review.mjs generate-key "D:\private\archsync-independent-slr-reviewer.pem"
@@ -110,14 +143,15 @@ commit cùng sentinel artifacts và ledger.
 
 ## 6. Review exact commit
 
-Independent SLR Reviewer commit và push branch evidence, mở pull request, sau đó
-kiểm tra exact 40-character commit bằng:
+Independent SLR Reviewer có thể giao AI commit, push branch evidence, mở pull
+request và lấy exact 40-character commit bằng:
 
 ```powershell
 git rev-parse HEAD
 ```
 
-Reviewer phải xác nhận đủ mười mục trong Section 18 của protocol, bao gồm query
+Reviewer phải trực tiếp xác nhận đủ mười mục trong Section 18 của protocol sau
+khi kiểm tra bundle do mình hoặc AI chuẩn bị, bao gồm query
 equivalence, accessibility của bốn nguồn, sentinel recall, eligibility,
 deduplication, dual screening, quality/extraction fields, AI-use boundary và
 việc official results chưa bị xem.
@@ -127,8 +161,9 @@ commit mới; commit cũ không được dùng làm review commit.
 
 ## 7. Ký attestation
 
-Sau khi exact commit đạt yêu cầu, Independent SLR Reviewer tự chạy lệnh sau bằng
-private key của mình:
+Sau khi exact commit đạt yêu cầu, Independent SLR Reviewer phê duyệt chính xác
+commit, attestation, thời điểm và thao tác ký. Reviewer có thể tự chạy hoặc cho
+phép AI chạy lệnh sau trong máy của reviewer bằng private key cục bộ:
 
 ```powershell
 node research/create-slr-signed-review.mjs sign "D:\private\archsync-independent-slr-reviewer.pem" "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/PR_NUMBER" "REVIEW_COMMIT_40_HEX" "YYYY-MM-DDTHH:MM:SSZ"
@@ -141,12 +176,13 @@ Công cụ phải tạo đúng ba artifact review và `research/slr-review-recor
 - `research/evidence/slr-review/independent-slr-reviewer-public-key.pem`; và
 - `research/slr-review-record.md`.
 
-Không tạo hoặc chỉnh các file này bằng tay. Không ký lại một commit đã thay đổi
-sau review.
+Không tạo hoặc chỉnh các file này bằng tay. AI không được đọc hay xuất private
+key. Không ký lại một commit đã thay đổi sau review.
 
 ## 8. Gate trước khi giao lại cho Hiếu
 
-Independent SLR Reviewer chạy toàn bộ kiểm tra sau trên branch review:
+Independent SLR Reviewer hoặc AI được ủy quyền chạy toàn bộ kiểm tra sau trên
+branch review:
 
 ```powershell
 node research/build-slr-sentinel-ledger.mjs --check

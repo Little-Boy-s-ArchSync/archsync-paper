@@ -102,10 +102,10 @@ requireMatch(
 
 for (const [field, expected] of [
   ["Task", "GOV-AI-001"],
-  ["Policy version", "1.0.0"],
+  ["Policy version", "1.1.0"],
   ["Status", "Frozen"],
   ["Effective date", "2026-08-19"],
-  ["Decision", "D-012"],
+  ["Decision", "D-013"],
 ]) {
   const actual = metadataValue(aiPolicy, field);
   if (actual !== expected) {
@@ -114,13 +114,15 @@ for (const [field, expected] of [
 }
 
 for (const [pattern, message] of [
-  [/Every member may use an AI system to help perform assigned work/, "must permit AI assistance for every member"],
+  [/Every member may use an AI system to help perform or technically execute\s+assigned work/, "must permit AI-executed work for every member"],
   [/AI output is an unverified proposal/, "must state that AI output is not evidence"],
   [/real evidence includes:/, "must define real evidence sources"],
   [/must not fabricate or silently infer/, "must forbid fabricated evidence"],
   [/personally checked and recorded by the named human reviewer/, "must retain human reviewer accountability"],
-  [/AI is not counted as a reviewer, adjudicator, database\s+operator, or evidence source/, "must preserve the human review boundary"],
+  [/AI may perform database operations but is not the\s+accountable database operator, reviewer, adjudicator, or evidence source/, "must permit AI database operations while preserving accountability"],
   [/AI must not receive private keys, access tokens, passwords, secrets/, "must protect secrets and private keys"],
+  [/AI may invoke the local key-generation or signing command after the named human\s+explicitly authorizes/, "must permit authorized local key automation"],
+  [/The reviewer is not required to repeat every mechanical database query or\s+retype AI-created artifacts/, "must not require manual repetition of AI-executed work"],
 ]) {
   requireMatch("AI-EVIDENCE-POLICY.md", aiPolicy, pattern, message);
 }
@@ -128,8 +130,8 @@ for (const [pattern, message] of [
 requireMatch(
   "RESEARCH.md",
   baseline,
-  /AI output is an unverified proposal, not evidence/,
-  "must link AI assistance to the real-evidence boundary",
+  /AI may perform technical execution through authorized browser, database, CLI/,
+  "must link AI execution to the real-evidence boundary",
 );
 requireMatch(
   "GLOSSARY.md",

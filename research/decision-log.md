@@ -206,3 +206,31 @@
   criterion, or current paper scope.
 - Governed artifact: `research/AI-EVIDENCE-POLICY.md` version 1.0.0.
 - Approver: Hieu, research lead and architecture owner.
+
+## D-013: Version Research Baseline and Canonical Glossary 1.0.3 for AI-Executed Work
+
+- Date: 2026-08-19
+- Status: Accepted
+- Task: GOV-AI-001
+- Decision: Permit an AI tool authorized by the assigned member to execute the
+  mechanical SLR workflow, including real database queries, official-source
+  capture, six sentinel JSON files, ledger and hash generation, validation,
+  pull-request preparation, and freeze preparation.
+- Evidence boundary: AI-generated assertions remain non-evidence. Output that
+  AI captures from a real authorized source can become evidence only when the
+  exact query or command, source, UTC time, retained artifact, and hash are
+  preserved and the accountable human verifies the bundle.
+- Reviewer boundary: AI is not the independent reviewer. The named reviewer
+  may delegate browser, CLI, database, and file operations, then inspect the
+  final evidence bundle, adopt or correct the decisions, approve the exact
+  commit, and explicitly authorize any signing or approval-submission action.
+- Key boundary: AI may invoke local key-generation and signing automation after
+  explicit authorization, but it must not read, display, copy, upload, retain,
+  or transmit private-key contents. The human remains the key owner and named
+  accountable reviewer.
+- Version impact: Baseline and Glossary advance from 1.0.2 to 1.0.3 as a PATCH
+  clarification. AI Evidence Policy advances from 1.0.0 to 1.1.0 because the
+  permitted execution surface expands. No RQ, dataset, metric, eligibility
+  criterion, source list, empirical result, or canonical term meaning changes.
+- Governed artifact: `research/AI-EVIDENCE-POLICY.md` version 1.1.0.
+- Approver: Hieu, research lead and architecture owner.
