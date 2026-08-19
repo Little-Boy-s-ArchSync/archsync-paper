@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Task | RES-101 |
-| Glossary version | 1.0.2 |
+| Glossary version | 1.0.3 |
 | Status | Frozen |
 | Effective date | 2026-08-19 |
 | Owner | Hiếu, research lead and architecture owner |
@@ -150,7 +150,7 @@ independent clean rerun.
 
 ## Version and change rule
 
-Glossary 1.0.2 is frozen with Research Baseline 1.0.2. Any later clarification,
+Glossary 1.0.3 is frozen with Research Baseline 1.0.3. Any later clarification,
 addition, or semantic change must update the glossary version and baseline
 version in the same pull request and must append an accepted entry to
 `decision-log.md`. A semantic redefinition is a MAJOR change because it can
@@ -160,6 +160,7 @@ invalidate prior datasets, metrics, findings, or paper claims.
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 1.0.3 | 2026-08-19 | D-013 | Clarify that AI may collect real source output and construct evidence artifacts under authorization; the definition of Evidence and all other canonical terms are unchanged |
 | 1.0.2 | 2026-08-19 | D-012 | Clarify that AI output is not Evidence until checked against a real source with governed provenance; canonical term meanings are otherwise unchanged |
 | 1.0.1 | 2026-08-16 | D-007 | Coordinated PATCH version for the RQ namespace clarification; canonical term definitions are unchanged |
 | 1.0.0 | 2026-08-15 | D-006 | Establish one canonical definition for each required and supporting term |

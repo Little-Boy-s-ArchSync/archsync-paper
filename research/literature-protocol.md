@@ -504,19 +504,25 @@ results are retained.
 
 ## 15. AI-use policy for the review
 
-Members may use an LLM or other AI system to help translate governed queries,
-normalize metadata, propose duplicate candidates, draft `include`, `exclude`,
-or `uncertain` suggestions, propose E-codes, extract candidate fields, locate
-possible supporting passages, summarize studies, and check formatting or
-completeness. Deterministic scripts may additionally hash exports, identify
-exact DOI/title duplicates, and calculate agreement from frozen records.
+Members may use an LLM or other AI system to translate governed queries,
+operate an authorized browser or database session, execute sentinel queries,
+retain official pages and exports, create governed JSON/CSV artifacts, build
+ledgers and hashes, normalize metadata, propose duplicate candidates, draft
+`include`, `exclude`, or `uncertain` suggestions, propose E-codes, extract
+candidate fields, locate possible supporting passages, summarize studies, run
+validators, and check formatting or completeness. Official queries remain
+blocked until the protocol reaches `Authorized` regardless of who operates the
+tool.
 
-AI output is an unverified proposal and is not a database run, reviewer record,
-source publication, or research evidence. Each named human reviewer must inspect
-the real record or full text, verify the evidence location, and personally save
-the final decision or extracted value. Human reviewers remain independent and
-accountable even when they use AI assistance; AI is not counted as a reviewer,
-adjudicator, database operator, approver, or evidence source.
+AI-generated assertions are unverified proposals and are not database runs,
+reviewer records, source publications, or research evidence. Output captured by
+AI from a real authorized database run can become evidence when the official
+source, exact query, UTC time, result, retained artifact, and hash are preserved
+and the named reviewer verifies the bundle. AI may perform database operations
+and create the files; it is not the accountable operator, reviewer,
+adjudicator, approver, or evidence source. Human reviewers remain independent
+and accountable, inspect the real record/full text or retained official
+capture, and explicitly adopt or correct each final decision.
 
 AI must not fabricate or infer missing DOI/URL, citation metadata, quotation,
 page, search execution, result count, export, timestamp, hash, decision,
@@ -526,6 +532,16 @@ disclosed with the system/tool, assistance scope, and real source used for
 verification in the pull request, review note, or available governed artifact
 field. The global requirements in `AI-EVIDENCE-POLICY.md` apply throughout the
 review.
+
+For SLR-REV-101, the Independent SLR Reviewer may delegate browser, database,
+file-generation, ledger, validation, PR, and freeze-preparation operations to
+AI. The reviewer does not need to repeat mechanical queries or retype artifacts
+when the retained official capture is auditable. The reviewer must inspect the
+exact evidence bundle, approve or reject the exact commit, and remain the named
+accountable reviewer. AI may invoke the local signing command only after the
+reviewer explicitly authorizes the exact commit, attestation, time, and action;
+the AI must not read, display, copy, upload, retain, or transmit private-key
+contents.
 
 ## 16. Required execution artifacts
 
@@ -580,8 +596,9 @@ The independent reviewer must confirm all items before D-008 is accepted:
 - [ ] Deduplication preserves provenance and does not auto-merge fuzzy matches.
 - [ ] Both screening rounds are independent and disagreements are adjudicated.
 - [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs.
-- [ ] AI assistance is disclosed; AI output is not treated as evidence, and
-  named humans remain accountable for screening, extraction, and adjudication.
+- [ ] AI-executed work is disclosed; generated assertions are not treated as
+  evidence, captured source output has provenance, and named humans remain
+  accountable for review, screening, extraction, and adjudication.
 - [ ] No official result list was inspected while developing the protocol.
 
 Approval must be attributable to the non-author assigned to the Independent SLR
@@ -601,8 +618,9 @@ Before approval, the freeze branch must contain
 all referenced JSON artifacts so the independent reviewer can inspect the exact
 evidence.
 
-After the Independent SLR Reviewer has filled all six JSON artifacts from real sentinel-only query
-runs, the following deterministic commands validate their semantics, calculate
+After the Independent SLR Reviewer or an AI tool authorized by that reviewer has
+filled all six JSON artifacts from real sentinel-only query runs, the following
+deterministic commands validate their semantics, calculate
 the exact SHA-256 digests, and create then re-check the canonical CSV ledger:
 
 ```text
@@ -623,8 +641,10 @@ node research/create-slr-signed-review.mjs generate-key <private-key-path-outsid
 ```
 
 Only the generated public key is committed with the sentinel ledger and its
-referenced artifacts. The Independent SLR Reviewer keeps exclusive control of the private key,
-reviews that exact commit, and then runs the signing command personally:
+referenced artifacts. The Independent SLR Reviewer keeps control of the private
+key, reviews that exact commit, and either runs the signing command or
+explicitly authorizes an AI tool to invoke it locally without reading or
+exporting the key contents:
 
 ```text
 node research/create-slr-signed-review.mjs sign <private-key-path-outside-repository> <review-PR-URL> <reviewed-40-character-commit> <review-UTC-timestamp>
