@@ -4,10 +4,11 @@ import { dirname, join } from "node:path";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 
-const [baseline, glossary, decisions] = await Promise.all([
+const [baseline, glossary, decisions, aiPolicy] = await Promise.all([
   readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
   readFile(join(researchDirectory, "GLOSSARY.md"), "utf8"),
   readFile(join(researchDirectory, "decision-log.md"), "utf8"),
+  readFile(join(researchDirectory, "AI-EVIDENCE-POLICY.md"), "utf8"),
 ]);
 
 const issues = [];
@@ -51,6 +52,7 @@ const requiredSections = [
   `Scope IN: baseline ${baselineVersion}`,
   `Scope OUT: baseline ${baselineVersion}`,
   "Terminology contract",
+  "AI-assisted work and evidence policy",
   "Evidence gate",
   "Freeze and change control",
   "Version history",
@@ -97,6 +99,44 @@ requireMatch(
   /P0--P3 evidence is IN; P4--P7 and unsupported claims are OUT/,
   "acceptance record must state the phase boundary",
 );
+
+for (const [field, expected] of [
+  ["Task", "GOV-AI-001"],
+  ["Policy version", "1.0.0"],
+  ["Status", "Frozen"],
+  ["Effective date", "2026-08-19"],
+  ["Decision", "D-012"],
+]) {
+  const actual = metadataValue(aiPolicy, field);
+  if (actual !== expected) {
+    issues.push(`AI-EVIDENCE-POLICY.md: ${field} must be '${expected}'`);
+  }
+}
+
+for (const [pattern, message] of [
+  [/Every member may use an AI system to help perform assigned work/, "must permit AI assistance for every member"],
+  [/AI output is an unverified proposal/, "must state that AI output is not evidence"],
+  [/real evidence includes:/, "must define real evidence sources"],
+  [/must not fabricate or silently infer/, "must forbid fabricated evidence"],
+  [/personally checked and recorded by the named human reviewer/, "must retain human reviewer accountability"],
+  [/AI is not counted as a reviewer, adjudicator, database\s+operator, or evidence source/, "must preserve the human review boundary"],
+  [/AI must not receive private keys, access tokens, passwords, secrets/, "must protect secrets and private keys"],
+]) {
+  requireMatch("AI-EVIDENCE-POLICY.md", aiPolicy, pattern, message);
+}
+
+requireMatch(
+  "RESEARCH.md",
+  baseline,
+  /AI output is an unverified proposal, not evidence/,
+  "must link AI assistance to the real-evidence boundary",
+);
+requireMatch(
+  "GLOSSARY.md",
+  glossary,
+  /AI-generated text, suggestions, citations, numbers, decisions, or summaries are\s+not Evidence unless every evidence-bearing value is verified against the real\s+underlying source/,
+  "Evidence definition must reject unverified AI output",
+);
 requireMatch(
   "RESEARCH.md",
   baseline,
@@ -135,6 +175,6 @@ if (issues.length > 0) {
   process.exitCode = 1;
 } else {
   console.log(
-    `VALID RESEARCH BASELINE ${baselineVersion} (${requiredTerms.length} required terms, scope IN/OUT, decision logged)`,
+    `VALID RESEARCH BASELINE ${baselineVersion} (${requiredTerms.length} required terms, scope IN/OUT, governed AI assistance, decision logged)`,
   );
 }

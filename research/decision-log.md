@@ -182,3 +182,27 @@
   blocked until SLR-101, SLR-102, and SLR-103 execution gates have produced the
   immutable inputs required by the protocol.
 - Owner: Hieu.
+
+## D-012: Version Research Baseline and Canonical Glossary 1.0.2 for AI-Assisted Work
+
+- Date: 2026-08-19
+- Status: Accepted
+- Task: GOV-AI-001
+- Decision: Permit every member to use AI for planning, drafting, coding,
+  testing, metadata work, candidate literature-screening or extraction
+  suggestions, summarization, formatting, and quality checks. The accountable
+  member must verify the final artifact and every evidence-bearing value.
+- Evidence boundary: AI output is an unverified proposal and is never research
+  evidence by itself. DOI/URL, citations, quotations, counts, timestamps,
+  exports, hashes, metrics, decisions, approvals, signatures, and reproduction
+  claims must come from real inspectable sources and actual executions.
+- Reviewer boundary: AI may assist a reviewer but is not counted as a reviewer,
+  adjudicator, database operator, approver, or evidence source. Human reviewers
+  retain independent decisions, private-key control, signatures, disclosure,
+  and accountability.
+- Version impact: Baseline and Glossary advance from 1.0.1 to 1.0.2. This PATCH
+  clarifies evidence provenance and permitted tooling; it does not change an RQ,
+  metric, dataset, architecture definition, empirical result, SLR eligibility
+  criterion, or current paper scope.
+- Governed artifact: `research/AI-EVIDENCE-POLICY.md` version 1.0.0.
+- Approver: Hieu, research lead and architecture owner.

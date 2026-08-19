@@ -20,6 +20,15 @@ song rồi ghi đè lại GitHub.
 
 ## Quy tắc research integrity
 
+- Mọi thành viên được phép nhờ AI hỗ trợ lên ý tưởng, viết code, soạn thảo,
+  dịch, tóm tắt, chuẩn hóa metadata, đề xuất screening/extraction và kiểm tra
+  chất lượng theo `research/AI-EVIDENCE-POLICY.md`.
+- AI output chỉ là đề xuất chưa xác minh, không phải evidence. Người được giao
+  việc phải đối chiếu từng thông tin evidence với nguồn thật và chịu trách
+  nhiệm cho artifact cuối cùng.
+- Không dùng AI để bịa DOI/URL, citation, quote, số lượng kết quả, timestamp,
+  hash, metric, reviewer decision, approval, signature hoặc tuyên bố đã chạy
+  một thao tác không thực sự xảy ra.
 - Không thêm số liệu vào Abstract, Results, Discussion hoặc Conclusion nếu chưa
   có hàng tương ứng trong `research/claim-evidence.csv`.
 - Mọi số liệu phải truy được đến raw/normalized artifact, commit hoặc package
@@ -68,7 +77,9 @@ Tiêu chí screening SLR-103 được version trong
 freeze, không được dùng result thật hoặc dữ liệu mock để tuyên bố calibration.
 Mọi exclusion sau khi được authorize phải có đúng một primary E-code, factual
 note và evidence location; hai reviewer phải ghi quyết định độc lập trước khi
-adjudication.
+adjudication. AI có thể đề xuất quyết định hoặc E-code, nhưng mỗi reviewer phải
+tự kiểm tra record/full text, tự lưu quyết định cuối cùng và khai báo phần hỗ
+trợ AI có ảnh hưởng đáng kể.
 
 `research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
 freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng

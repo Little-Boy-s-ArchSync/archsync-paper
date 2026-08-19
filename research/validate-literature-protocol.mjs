@@ -591,7 +591,10 @@ export function validateLiteratureProtocol({
   for (const guard of [
     /must not see each other's decisions until both have completed the round/,
     /a threshold of\s+0\.95 never merges records automatically/,
-    /No LLM or generative-AI system may decide inclusion\/exclusion/,
+    /Members may use an LLM or other AI system to help translate governed queries/,
+    /AI output is an unverified proposal and is not a database run/,
+    /AI must not fabricate or infer missing DOI\/URL/,
+    /Human reviewers remain independent and\s+accountable even when they use AI assistance/,
     /No search count, included-study count, or synthesized result belongs in this\s+protocol/,
   ]) {
     requireText(
