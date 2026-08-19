@@ -7,7 +7,7 @@
 | Status | Frozen |
 | Effective date | 2026-08-16 |
 | Owner | Hiếu |
-| Baseline dependency | `RESEARCH.md` and `GLOSSARY.md` version 1.0.1 |
+| Baseline dependency | `RESEARCH.md` and `GLOSSARY.md` version 1.0.2 |
 | Machine-readable source | `rq-traceability.csv` |
 | Roadmap source | `../../archsync-examples/docs/roadmap/ArchSync_Roadmap.pdf`, research questions and experiment design |
 | Paper source | `../main.tex`, Sections 4 and 8--12 |

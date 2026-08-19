@@ -16,6 +16,20 @@ query, tiêu chí, nguồn dữ liệu hoặc Definition of Done của protocol.
 - Nếu không truy cập được IEEE Xplore, ACM Digital Library, Scopus hoặc Web of
   Science, dừng lại và ghi blocker; không thay nguồn khác một cách im lặng.
 
+### AI được phép hỗ trợ
+
+Independent SLR Reviewer và các thành viên khác được phép nhờ AI hướng dẫn thao
+tác, giải thích protocol, soạn query nháp, chuẩn hóa metadata, đề xuất
+classification, kiểm tra JSON/CSV, viết script hoặc rà checklist. Rule đầy đủ
+nằm trong `AI-EVIDENCE-POLICY.md`.
+
+AI output không phải evidence. Reviewer phải tự truy cập nguồn thật, kiểm tra
+DOI/URL và kết quả thật, lưu exact query, UTC time, result count, official URL
+và artifact thật. AI không được bịa dữ liệu còn thiếu, tự nhận đã truy cập
+database, ký thay reviewer, giữ private key, tạo approval hoặc được tính là
+reviewer độc lập. Reviewer chịu trách nhiệm cuối cùng và phải khai báo AI đã hỗ
+trợ phần nào khi sự hỗ trợ ảnh hưởng đáng kể đến artifact.
+
 ## 2. Sáu sentinel cố định
 
 | Artifact | DOI |

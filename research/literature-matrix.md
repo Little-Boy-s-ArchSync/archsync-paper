@@ -124,8 +124,11 @@ missing-value tokens.
    the protocol, record set, screening, quality, and extraction artifacts.
 
 The verifier cannot use the same `verified_by_id` as the extractor's
-`extracted_by_id`. An automated script may validate syntax but cannot act as
-the human verifier or infer missing research data.
+`extracted_by_id`. AI and deterministic tools may help propose or check fields,
+but they cannot act as the named human verifier, replace the real publication,
+or infer missing research data. Material AI assistance follows
+`AI-EVIDENCE-POLICY.md` and is disclosed in the review note or governed field
+available during execution.
 
 ## 6. Claim traceability
 

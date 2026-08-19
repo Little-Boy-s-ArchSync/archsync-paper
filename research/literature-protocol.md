@@ -504,13 +504,28 @@ results are retained.
 
 ## 15. AI-use policy for the review
 
-No LLM or generative-AI system may decide inclusion/exclusion, assign quality
-scores, extract evidence, infer missing data, or adjudicate disagreements in
-protocol version 1.0.0. Deterministic scripts may normalize metadata, hash
-exports, identify exact DOI/title duplicates, and propose fuzzy duplicate
-candidates for manual confirmation. Any later AI-assisted review experiment
-must use a separately approved protocol and cannot rewrite this review's human
-decisions.
+Members may use an LLM or other AI system to help translate governed queries,
+normalize metadata, propose duplicate candidates, draft `include`, `exclude`,
+or `uncertain` suggestions, propose E-codes, extract candidate fields, locate
+possible supporting passages, summarize studies, and check formatting or
+completeness. Deterministic scripts may additionally hash exports, identify
+exact DOI/title duplicates, and calculate agreement from frozen records.
+
+AI output is an unverified proposal and is not a database run, reviewer record,
+source publication, or research evidence. Each named human reviewer must inspect
+the real record or full text, verify the evidence location, and personally save
+the final decision or extracted value. Human reviewers remain independent and
+accountable even when they use AI assistance; AI is not counted as a reviewer,
+adjudicator, database operator, approver, or evidence source.
+
+AI must not fabricate or infer missing DOI/URL, citation metadata, quotation,
+page, search execution, result count, export, timestamp, hash, decision,
+quality score, agreement, approval, or signature. Missing source information is
+recorded as `NR` or the governed missing-value form. Material AI assistance is
+disclosed with the system/tool, assistance scope, and real source used for
+verification in the pull request, review note, or available governed artifact
+field. The global requirements in `AI-EVIDENCE-POLICY.md` apply throughout the
+review.
 
 ## 16. Required execution artifacts
 
@@ -565,7 +580,8 @@ The independent reviewer must confirm all items before D-008 is accepted:
 - [ ] Deduplication preserves provenance and does not auto-merge fuzzy matches.
 - [ ] Both screening rounds are independent and disagreements are adjudicated.
 - [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs.
-- [ ] AI is not an authority in screening, extraction, or adjudication.
+- [ ] AI assistance is disclosed; AI output is not treated as evidence, and
+  named humans remain accountable for screening, extraction, and adjudication.
 - [ ] No official result list was inspected while developing the protocol.
 
 Approval must be attributable to the non-author assigned to the Independent SLR

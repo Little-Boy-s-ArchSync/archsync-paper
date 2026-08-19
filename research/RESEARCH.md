@@ -3,10 +3,10 @@
 | Field | Value |
 | --- | --- |
 | Task | RES-101 |
-| Baseline version | 1.0.1 |
-| Canonical glossary | `GLOSSARY.md` version 1.0.1 |
+| Baseline version | 1.0.2 |
+| Canonical glossary | `GLOSSARY.md` version 1.0.2 |
 | Status | Frozen |
-| Effective date | 2026-08-16 |
+| Effective date | 2026-08-19 |
 | Owner | Hiếu, research lead and architecture owner |
 | Change authority | Pull request plus an accepted entry in `decision-log.md` |
 
@@ -67,7 +67,7 @@ workflow that:
 4. gates only findings introduced by a proposed Git change; and
 5. preserves enough provenance to reproduce each reported result.
 
-## Scope IN: baseline 1.0.1
+## Scope IN: baseline 1.0.2
 
 The following work is inside the frozen empirical scope of the current paper.
 
@@ -84,7 +84,7 @@ The expected graph, rule semantics, finding contract, and evaluation metrics are
 designed so that another analyzer can reuse them, but only the declared
 TypeScript/Node.js analyzer has current empirical evidence.
 
-## Scope OUT: baseline 1.0.1
+## Scope OUT: baseline 1.0.2
 
 The following items are not implemented evidence or validated claims in the
 current paper:
@@ -150,7 +150,7 @@ to change in the same pull request.
 
 ## Terminology contract
 
-`research/GLOSSARY.md` version 1.0.1 is the only normative definition source for
+`research/GLOSSARY.md` version 1.0.2 is the only normative definition source for
 the following terms: Architecture, Architecture Model, Architecture Diagram,
 Architecture Drift, Violation, Evolution, Finding, and Evidence. It also defines
 the supporting terms Expected Graph, Observed Graph, No-impact, Gate Decision,
@@ -167,6 +167,26 @@ context, but it must not introduce a competing definition. In particular:
 - evidence supports inspection and reproduction but does not by itself justify
   a general claim beyond the evaluated scope.
 
+## AI-assisted work and evidence policy
+
+All members may use AI to help plan, draft, code, debug, translate, summarize,
+normalize metadata, propose literature-screening or extraction decisions, and
+perform quality checks. The governing rules are frozen in
+`research/AI-EVIDENCE-POLICY.md` version 1.0.0.
+
+AI output is an unverified proposal, not evidence. Every evidence-bearing value
+must point to a real source artifact and be checked by the member accountable
+for the task. AI cannot be used to invent or impersonate a database run,
+result count, DOI, citation, quote, benchmark output, timestamp, hash, reviewer
+decision, approval, signature, or independent reproduction. Missing information
+remains missing until a real source resolves it.
+
+AI may assist a human reviewer, but it is not counted as the reviewer or
+evidence source. Human reviewers retain final decisions, independent-review
+obligations, private-key control, and accountability. Material AI assistance is
+disclosed in the pull request, review note, or governed artifact field required
+by the task.
+
 ## Evidence gate
 
 A quantitative or empirical claim may move to `verified` only when all of the
@@ -181,9 +201,11 @@ following are present:
 7. a reviewer other than the result producer checks claim-to-evidence mapping;
 8. CI or a clean-environment rerun succeeds.
 
-Mock output, manually invented numbers, and unverified CLI output are not
-research evidence. A local output becomes evidence only when it is included in
-a provenance-bound bundle with a verifier.
+Mock output, manually invented numbers, unverified CLI output, and AI-generated
+statements are not research evidence. A local or AI-assisted output becomes
+evidence only when it is backed by the real source artifact, included in a
+provenance-bound bundle, and checked by the required human and deterministic
+verifier.
 
 ## Workflow from protocol to paper
 
@@ -222,7 +244,7 @@ a provenance-bound bundle with a verifier.
 
 ## Freeze and change control
 
-Baseline 1.0.1 and Glossary 1.0.1 are frozen on the default branch. Every
+Baseline 1.0.2 and Glossary 1.0.2 are frozen on the default branch. Every
 subsequent change must be merged through a pull request into `main`. A later
 change is valid only when one pull request contains all affected
 artifacts and an accepted decision-log entry with rationale, impact, migration,
@@ -249,7 +271,8 @@ baseline.
 | Target user is explicit | Primary decision user and operational users are stated above |
 | Problem is explicit | Problem statement distinguishes static documentation, observed structure, and executable intent |
 | Scope IN/OUT is explicit | P0--P3 evidence is IN; P4--P7 and unsupported claims are OUT |
-| Required terminology is unambiguous | Eight required terms have one canonical definition in `GLOSSARY.md` 1.0.1 |
+| Required terminology is unambiguous | Eight required terms have one canonical definition in `GLOSSARY.md` 1.0.2 |
+| AI assistance is governed | Every member may use AI, but AI output is not evidence; real sources, human verification, provenance, and accountability remain mandatory under `AI-EVIDENCE-POLICY.md` 1.0.0 |
 | Roadmap alignment | P0 baseline and deterministic-before-expansion dependency are preserved |
 | RQ alignment | F-RQ1--F-RQ4 map to the current paper; V-RQ1--V-RQ4 remain distinct roadmap questions with explicit evidence status |
 | Paper alignment | Published RQ1--RQ4, TypeScript boundary, datasets, limitations, and future work match `main.tex` |
@@ -263,5 +286,6 @@ research policy and does not replace task status management.
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 1.0.2 | 2026-08-19 | D-012 | Permit governed AI assistance for every member while preserving real-evidence, human-verification, provenance, disclosure, and accountability requirements |
 | 1.0.1 | 2026-08-16 | D-007 | Add non-semantic F-RQ/V-RQ namespaces and a governed traceability matrix without changing the frozen scope, definitions, metrics, datasets, or empirical claims |
 | 1.0.0 | 2026-08-15 | D-006 | Freeze target users, problem, Phase 1--3 IN scope, Phase 4--7 OUT scope, terminology authority, evidence gate, and post-freeze change control |

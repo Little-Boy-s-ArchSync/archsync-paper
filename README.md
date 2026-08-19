@@ -20,6 +20,7 @@ hoặc email.
 ├── research/
 │   ├── RESEARCH.md             # Research baseline, scope và evidence policy
 │   ├── GLOSSARY.md             # Thuật ngữ chuẩn có version
+│   ├── AI-EVIDENCE-POLICY.md   # AI được hỗ trợ; evidence phải thật và được người phụ trách xác minh
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được
 │   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
@@ -47,6 +48,11 @@ claim định lượng phải có hàng tương ứng trong
 `research/claim-evidence.csv`; thay đổi RQ, ground truth, metric hoặc scope phải
 được ghi trong `research/decision-log.md`. Xem `CONTRIBUTING.md` trước khi sửa
 paper.
+
+Mọi thành viên có thể nhờ AI hỗ trợ theo
+`research/AI-EVIDENCE-POLICY.md`. AI output không phải evidence; các dữ liệu,
+nguồn, lần chạy, quyết định reviewer, chữ ký và hash phải tồn tại thật, có
+provenance và được người chịu trách nhiệm xác minh.
 
 Kiểm tra baseline và glossary bằng:
 
