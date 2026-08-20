@@ -234,3 +234,52 @@
   criterion, source list, empirical result, or canonical term meaning changes.
 - Governed artifact: `research/AI-EVIDENCE-POLICY.md` version 1.1.0.
 - Approver: Hieu, research lead and architecture owner.
+
+## D-014: Adopt Reference Quality and Recency Policy 1.0.0
+
+- Date: 2026-08-20
+- Status: Accepted
+- Task: GOV-LIT-001
+- Decision: Require every new paper proposed for direct manuscript citation to
+  have verified identity, relevance, publication recency, venue quality, and
+  provenance. Prefer journal Q1, treat Q1/Q2 as high-ranked, and prefer the five
+  publication years 2022--2026 under the fixed 2026 search cutoff.
+- Foundational exception: An older paper may be selected when it introduces a
+  foundational term, method, model, benchmark, standard, or necessary historical
+  result. The exception requires a factual reason and evidence location.
+- Tool rule: Rapid Journal Quality Check is required as the initial support
+  check when it recognizes the journal. The final record must verify the
+  underlying ranking source, year, category, and official URL. Conference papers
+  record journal quartile as not applicable and use venue/indexing evidence.
+- SLR boundary: Recency and quartile govern citation priority and evidence
+  weighting. They are not added to I1--I8 or E01--E10 and cannot silently exclude
+  relevant systematic-review records.
+- Evidence contract: `research/reference-quality-check.template.csv` defines
+  the required future record. The empty template is planning metadata, not proof
+  that the existing bibliography has been audited.
+- Governed artifact: `research/REFERENCE-QUALITY-POLICY.md` version 1.0.0.
+- Approver: Hieu, research lead and architecture owner.
+
+## D-015: Remediate the Existing Bibliography Under the Reference Policy
+
+- Date: 2026-08-20
+- Status: Implemented; final owner verification of the audit record is pending.
+- Task: GOV-LIT-AUDIT-001
+- Decision: Remove `cui2024static` from the direct manuscript claim because it
+  remains an arXiv/CoRR preprint under review. Replace it with the peer-reviewed
+  ASE 2024 paper `kaindlstorfer2024interrogation`, DOI
+  `10.1145/3691620.3695034`, and narrow the claim to the replacement paper's
+  reported analyzer, issue, and soundness counts.
+- Sentinel finding: Keep all six frozen sentinel DOI values. Five use
+  foundational exceptions and the 2022 mapping study satisfies the default
+  recency preference. The JUCS DOI is DataCite-registered and publisher-resolved;
+  a Crossref 404 is not a malformed-DOI result.
+- Venue finding: The JUCS article requires a low-quartile and age exception due
+  to its direct architecture-conformance-in-CI relevance. Conference papers use
+  venue rank rather than journal quartile.
+- Evidence: `REFERENCE-QUALITY-AUDIT.md` version 0.1.0, Crossref/DataCite and
+  publisher identity records, named 2024 journal metrics, ICORE venue records,
+  and the TU Wien ASE publication record.
+- Integrity boundary: The audit contains candidate decisions prepared with AI
+  assistance. It is not the final populated quality ledger until Hieu checks the
+  exact records and accepts them with retained evidence and hashes.

@@ -44,6 +44,16 @@ song rồi ghi đè lại GitHub.
   shared CI runner làm ngưỡng hiệu năng.
 - Phase 4--6 là planned work cho đến khi evidence gate tương ứng hoàn tất. Không
   viết kết quả dự kiến như kết quả đã quan sát.
+- Paper mới đề xuất cho Background, Related Work hoặc Discussion phải tuân thủ
+  `research/REFERENCE-QUALITY-POLICY.md`: ưu tiên journal Q1, xem Q1/Q2 là nhóm
+  xếp hạng cao, ưu tiên công bố trong 2022--2026 và chỉ dùng paper cũ hơn khi có
+  lý do nền tảng được ghi bằng evidence thật.
+- Rapid Journal Quality Check là extension hỗ trợ kiểm tra ban đầu, không phải
+  evidence cuối. Phải ghi nguồn ranking, năm, category và URL chính thức; với
+  conference phải ghi quartile không áp dụng và kiểm tra venue/indexing riêng.
+- Không dùng tuổi paper hoặc quartile để tự ý loại record khỏi systematic
+  review. Hai thuộc tính này dùng để ưu tiên nguồn trích dẫn và diễn giải trọng
+  lượng evidence sau screening.
 
 ## Phân công review
 
@@ -97,6 +107,7 @@ node research/validate-rq-traceability.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
+node research/validate-reference-quality-policy.mjs
 ```
 
 ## Double-blind

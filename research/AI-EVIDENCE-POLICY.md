@@ -49,7 +49,8 @@ the underlying source artifact.
 AI and members using AI must not fabricate or silently infer any of the
 following:
 
-- DOI, title, author, venue, publication date, quotation, page, URL, or access;
+- DOI, title, author, venue, publication date, indexing status, quartile,
+  ranking system/year/category, quotation, page, URL, or access;
 - database query execution, result count, export, timestamp, operator, or hash;
 - benchmark execution, metric, denominator, timing, environment, or CI result;
 - screening decision, exclusion reason, quality score, adjudication, or reviewer
