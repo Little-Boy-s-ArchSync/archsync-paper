@@ -31,6 +31,32 @@ export const REFERENCE_QUALITY_HEADERS = Object.freeze([
   "decision_reason",
 ]);
 
+export const AUDITED_CITATION_KEYS = Object.freeze([
+  "murphy1995reflexion",
+  "knodel2007comparison",
+  "terra2009dcl",
+  "ducasse2009reconstruction",
+  "desilva2012erosion",
+  "pinto2017archci",
+  "li2022erosion",
+  "konersmann2022replicability",
+  "abgaz2023decomposition",
+  "kaindlstorfer2024interrogation",
+  "kitchenham2007slr",
+  "wohlin2014snowballing",
+  "page2021prisma",
+  "kitchenham2023segress",
+]);
+
+export const AUDITED_SENTINEL_DOIS = Object.freeze([
+  "10.1145/222124.222136",
+  "10.1109/WICSA.2007.1",
+  "10.1002/spe.931",
+  "10.1016/j.jss.2011.07.036",
+  "10.3217/jucs-023-08-0769",
+  "10.1002/smr.2423",
+]);
+
 function metadataValue(text, field) {
   const escaped = field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text
@@ -55,6 +81,8 @@ export function validateReferenceQualityPolicy({
   contributing,
   readme,
   paper,
+  audit,
+  bibliography,
 }) {
   const issues = [];
 
@@ -133,6 +161,12 @@ export function validateReferenceQualityPolicy({
   );
   requireMarker(
     issues,
+    "decision-log.md",
+    decisions,
+    "## D-015: Remediate the Existing Bibliography Under the Reference Policy",
+  );
+  requireMarker(
+    issues,
     "CONTRIBUTING.md",
     contributing,
     "Rapid Journal Quality Check là extension hỗ trợ kiểm tra ban đầu",
@@ -149,6 +183,44 @@ export function validateReferenceQualityPolicy({
     "they do not exclude records from the systematic review",
   ]) {
     requireMarker(issues, "main.tex", paper, marker);
+  }
+
+  for (const marker of [
+    "| Audit version | 0.1.0 |",
+    "Candidate decisions complete; human acceptance pending",
+    "A Crossref 404 for this DOI only means",
+    "The removed `cui2024static` entry is an arXiv/CoRR preprint",
+    "`kaindlstorfer2024interrogation`, DOI `10.1145/3691620.3695034`",
+    "Do not copy the candidate",
+  ]) {
+    requireMarker(issues, "REFERENCE-QUALITY-AUDIT.md", audit, marker);
+  }
+
+  for (const key of AUDITED_CITATION_KEYS) {
+    requireMarker(issues, "REFERENCE-QUALITY-AUDIT.md", audit, `| \`${key}\` |`);
+  }
+  for (const doi of AUDITED_SENTINEL_DOIS) {
+    requireMarker(issues, "REFERENCE-QUALITY-AUDIT.md", audit, doi);
+  }
+
+  const bibliographyKeys = [
+    ...bibliography.matchAll(/^@\w+\{([^,]+),/gm),
+  ].map((match) => match[1]);
+  if (bibliographyKeys.length !== AUDITED_CITATION_KEYS.length) {
+    issues.push(
+      `references.bib: expected ${AUDITED_CITATION_KEYS.length} audited entries; found ${bibliographyKeys.length}`,
+    );
+  }
+  for (const key of AUDITED_CITATION_KEYS) {
+    if (!bibliographyKeys.includes(key)) {
+      issues.push(`references.bib: missing audited citation '${key}'`);
+    }
+  }
+  if (bibliography.includes("cui2024static") || paper.includes("cui2024static")) {
+    issues.push("bibliography remediation: rejected arXiv-only citation cui2024static is still retained");
+  }
+  if (!paper.includes("\\cite{kaindlstorfer2024interrogation}")) {
+    issues.push("main.tex: peer-reviewed ASE replacement citation is missing");
   }
 
   return { issues, templateRows: Math.max(rows.length - 1, 0) };
@@ -174,6 +246,8 @@ export async function main({
     contributing,
     readme,
     paper,
+    audit,
+    bibliography,
   ] = await Promise.all([
     read(join(research, "REFERENCE-QUALITY-POLICY.md"), "utf8"),
     read(join(research, "reference-quality-check.template.csv"), "utf8"),
@@ -185,6 +259,8 @@ export async function main({
     read(join(repositoryDirectory, "CONTRIBUTING.md"), "utf8"),
     read(join(repositoryDirectory, "README.md"), "utf8"),
     read(join(repositoryDirectory, "main.tex"), "utf8"),
+    read(join(research, "REFERENCE-QUALITY-AUDIT.md"), "utf8"),
+    read(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);
 
   const result = validateReferenceQualityPolicy({
@@ -198,6 +274,8 @@ export async function main({
     contributing,
     readme,
     paper,
+    audit,
+    bibliography,
   });
   if (result.issues.length > 0) {
     output("INVALID REFERENCE QUALITY POLICY");

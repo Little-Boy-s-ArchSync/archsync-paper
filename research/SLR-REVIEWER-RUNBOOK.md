@@ -72,6 +72,12 @@ không được tính là reviewer độc lập.
 | `S-005.json` | `10.3217/jucs-023-08-0769` |
 | `S-006.json` | `10.1002/smr.2423` |
 
+Lưu ý registry cho `S-005`: DOI `10.3217/jucs-023-08-0769` resolve đến trang
+publisher và có metadata trên DataCite. Crossref trả 404 không có nghĩa DOI sai
+format, vì Crossref không phải registration agency của DOI này. Khi kiểm tra
+identity, thử DOI resolver trước, sau đó tra đúng registry hoặc publisher; không
+được dùng riêng kết quả Crossref để kết luận DOI không hợp lệ.
+
 Các DOI trên là tập kiểm tra khả năng truy hồi, không mặc nhiên là sáu nguồn
 tham khảo tốt nhất cho mọi claim trong paper. Khi một sentinel hoặc paper mới
 được đề xuất làm nguồn trích dẫn, reviewer áp dụng thêm

@@ -22,6 +22,7 @@ hoặc email.
 │   ├── GLOSSARY.md             # Thuật ngữ chuẩn có version
 │   ├── AI-EVIDENCE-POLICY.md   # AI được thực hiện workflow; evidence phải thật và được người phụ trách xác minh
 │   ├── REFERENCE-QUALITY-POLICY.md # Q1-first, 5-year recency và ngoại lệ paper nền tảng
+│   ├── REFERENCE-QUALITY-AUDIT.md # Audit candidate toàn bộ citation và 6 DOI sentinel
 │   ├── reference-quality-check.template.csv # Schema kiểm tra rank/recency, chưa phải evidence
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được

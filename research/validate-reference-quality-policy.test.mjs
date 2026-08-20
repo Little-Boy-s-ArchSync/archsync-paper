@@ -21,6 +21,8 @@ async function loadFixture() {
     contributing,
     readme,
     paper,
+    audit,
+    bibliography,
   ] = await Promise.all([
     readFile(join(researchDirectory, "REFERENCE-QUALITY-POLICY.md"), "utf8"),
     readFile(join(researchDirectory, "reference-quality-check.template.csv"), "utf8"),
@@ -32,6 +34,8 @@ async function loadFixture() {
     readFile(join(repositoryDirectory, "CONTRIBUTING.md"), "utf8"),
     readFile(join(repositoryDirectory, "README.md"), "utf8"),
     readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+    readFile(join(researchDirectory, "REFERENCE-QUALITY-AUDIT.md"), "utf8"),
+    readFile(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);
   return {
     policy,
@@ -44,6 +48,8 @@ async function loadFixture() {
     contributing,
     readme,
     paper,
+    audit,
+    bibliography,
   };
 }
 
@@ -89,4 +95,31 @@ test("rejects removal of the systematic-review non-exclusion boundary", async ()
   );
   const result = validateReferenceQualityPolicy(fixture);
   assertIssue(result, "These annotations do not create I9 or E11");
+});
+
+test("rejects an unaudited bibliography entry", async () => {
+  const fixture = await loadFixture();
+  fixture.bibliography = fixture.bibliography.replace(
+    "kaindlstorfer2024interrogation",
+    "unreviewedReplacement",
+  );
+  const result = validateReferenceQualityPolicy(fixture);
+  assertIssue(result, "missing audited citation 'kaindlstorfer2024interrogation'");
+});
+
+test("rejects restoration of the arXiv-only citation", async () => {
+  const fixture = await loadFixture();
+  fixture.paper += "\\cite{cui2024static}";
+  const result = validateReferenceQualityPolicy(fixture);
+  assertIssue(result, "rejected arXiv-only citation cui2024static is still retained");
+});
+
+test("rejects removal of the DataCite fallback finding", async () => {
+  const fixture = await loadFixture();
+  fixture.audit = fixture.audit.replace(
+    "A Crossref 404 for this DOI only means",
+    "A registry response was observed",
+  );
+  const result = validateReferenceQualityPolicy(fixture);
+  assertIssue(result, "A Crossref 404 for this DOI only means");
 });

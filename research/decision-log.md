@@ -259,3 +259,27 @@
   that the existing bibliography has been audited.
 - Governed artifact: `research/REFERENCE-QUALITY-POLICY.md` version 1.0.0.
 - Approver: Hieu, research lead and architecture owner.
+
+## D-015: Remediate the Existing Bibliography Under the Reference Policy
+
+- Date: 2026-08-20
+- Status: Implemented; final owner verification of the audit record is pending.
+- Task: GOV-LIT-AUDIT-001
+- Decision: Remove `cui2024static` from the direct manuscript claim because it
+  remains an arXiv/CoRR preprint under review. Replace it with the peer-reviewed
+  ASE 2024 paper `kaindlstorfer2024interrogation`, DOI
+  `10.1145/3691620.3695034`, and narrow the claim to the replacement paper's
+  reported analyzer, issue, and soundness counts.
+- Sentinel finding: Keep all six frozen sentinel DOI values. Five use
+  foundational exceptions and the 2022 mapping study satisfies the default
+  recency preference. The JUCS DOI is DataCite-registered and publisher-resolved;
+  a Crossref 404 is not a malformed-DOI result.
+- Venue finding: The JUCS article requires a low-quartile and age exception due
+  to its direct architecture-conformance-in-CI relevance. Conference papers use
+  venue rank rather than journal quartile.
+- Evidence: `REFERENCE-QUALITY-AUDIT.md` version 0.1.0, Crossref/DataCite and
+  publisher identity records, named 2024 journal metrics, ICORE venue records,
+  and the TU Wien ASE publication record.
+- Integrity boundary: The audit contains candidate decisions prepared with AI
+  assistance. It is not the final populated quality ledger until Hieu checks the
+  exact records and accepts them with retained evidence and hashes.
