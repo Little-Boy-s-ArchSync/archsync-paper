@@ -234,3 +234,28 @@
   criterion, source list, empirical result, or canonical term meaning changes.
 - Governed artifact: `research/AI-EVIDENCE-POLICY.md` version 1.1.0.
 - Approver: Hieu, research lead and architecture owner.
+
+## D-014: Adopt Reference Quality and Recency Policy 1.0.0
+
+- Date: 2026-08-20
+- Status: Accepted
+- Task: GOV-LIT-001
+- Decision: Require every new paper proposed for direct manuscript citation to
+  have verified identity, relevance, publication recency, venue quality, and
+  provenance. Prefer journal Q1, treat Q1/Q2 as high-ranked, and prefer the five
+  publication years 2022--2026 under the fixed 2026 search cutoff.
+- Foundational exception: An older paper may be selected when it introduces a
+  foundational term, method, model, benchmark, standard, or necessary historical
+  result. The exception requires a factual reason and evidence location.
+- Tool rule: Rapid Journal Quality Check is required as the initial support
+  check when it recognizes the journal. The final record must verify the
+  underlying ranking source, year, category, and official URL. Conference papers
+  record journal quartile as not applicable and use venue/indexing evidence.
+- SLR boundary: Recency and quartile govern citation priority and evidence
+  weighting. They are not added to I1--I8 or E01--E10 and cannot silently exclude
+  relevant systematic-review records.
+- Evidence contract: `research/reference-quality-check.template.csv` defines
+  the required future record. The empty template is planning metadata, not proof
+  that the existing bibliography has been audited.
+- Governed artifact: `research/REFERENCE-QUALITY-POLICY.md` version 1.0.0.
+- Approver: Hieu, research lead and architecture owner.

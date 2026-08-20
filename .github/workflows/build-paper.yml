@@ -68,7 +68,8 @@ jobs:
             research/build-slr-sentinel-ledger.test.mjs \
             research/validate-search-queries.test.mjs \
             research/validate-screening-criteria.test.mjs \
-            research/validate-literature-matrix.test.mjs
+            research/validate-literature-matrix.test.mjs \
+            research/validate-reference-quality-policy.test.mjs
 
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
@@ -84,6 +85,9 @@ jobs:
 
       - name: Verify versioned literature matrix contract
         run: node research/validate-literature-matrix.mjs
+
+      - name: Verify reference quality and recency policy
+        run: node research/validate-reference-quality-policy.mjs
 
       - name: Verify live SLR review provenance
         if: github.event_name == 'pull_request'

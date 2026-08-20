@@ -21,6 +21,8 @@ hoặc email.
 │   ├── RESEARCH.md             # Research baseline, scope và evidence policy
 │   ├── GLOSSARY.md             # Thuật ngữ chuẩn có version
 │   ├── AI-EVIDENCE-POLICY.md   # AI được thực hiện workflow; evidence phải thật và được người phụ trách xác minh
+│   ├── REFERENCE-QUALITY-POLICY.md # Q1-first, 5-year recency và ngoại lệ paper nền tảng
+│   ├── reference-quality-check.template.csv # Schema kiểm tra rank/recency, chưa phải evidence
 │   ├── RQ-TRACEABILITY.md       # Giải thích mapping RQ paper và roadmap
 │   ├── rq-traceability.csv      # Ma trận RQ máy đọc được
 │   ├── literature-protocol.md   # Protocol SLR phải review/freeze trước search
@@ -67,6 +69,7 @@ node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
+node research/validate-reference-quality-policy.mjs
 ```
 
 Sau khi người giữ vai trò Independent SLR Reviewer đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger

@@ -152,6 +152,22 @@ silently after other results have been viewed.
   as snowballing seeds, but their primary-study claims are not double-counted as
   independent evidence.
 
+### 5.3 Reference quality and recency governance
+
+`REFERENCE-QUALITY-POLICY.md` version 1.0.0 governs papers proposed for direct
+citation in Background, Related Work, discussion, sentinel justification, and
+search seeds. It requires verified publication identity, a five-publication-year
+preference covering 2022--2026, a documented foundational exception for older
+work, and Q1-first journal selection. Q1 and Q2 are treated as high-ranked;
+Q3, Q4, discontinued, or unranked journal use requires a factual exception.
+
+Rapid Journal Quality Check is the required extension-assisted first check when
+it supports the journal. Its display must be verified against the named ranking
+source, year, and subject category. Conference papers use venue and indexing
+evidence rather than a journal quartile. These rules govern citation priority
+and evidence weight. They do not add a lower-year or quartile exclusion to the
+systematic search because that would silently bias the eligible study set.
+
 ## 6. Search concepts and query families
 
 Every database is searched in title, abstract, and author-keyword fields where
@@ -450,6 +466,12 @@ Quality score does not exclude a study after inclusion. It supports sensitivity
 analysis and prevents a weak study from being presented with the same evidential
 weight as a reproducible one. Reviewer scores and disagreements are retained.
 
+Publication recency, indexing, and venue rank are recorded separately under
+`REFERENCE-QUALITY-POLICY.md`. They cannot replace QA1--QA6, and Q1 status alone
+does not establish methodological rigor. When selecting publications to support
+the manuscript narrative, Q1 is preferred, Q1/Q2 are high-ranked, and an older
+or lower-ranked source requires the governed exception record.
+
 ## 13. Data extraction schema
 
 The governed SLR-104 summary contract is versioned in
@@ -466,6 +488,10 @@ The extraction table contains at least:
 
 - stable study/publication identifiers, title, authors, year, venue, DOI, URLs,
   publication type, and database origins;
+- reference-quality annotations when the publication is used in the manuscript:
+  five-year recency status, foundational exception, extension-check status,
+  ranking system/year/category, quartile or conference rank, indexing status,
+  official quality-source URL, and checker provenance;
 - study type, research method, software domain, system scale, repository type,
   languages, technologies, and industrial/open-source/synthetic context;
 - terminology and definition used for architecture, drift, erosion, violation,
@@ -595,7 +621,10 @@ The independent reviewer must confirm all items before D-008 is accepted:
   primary-reason agreement.
 - [ ] Deduplication preserves provenance and does not auto-merge fuzzy matches.
 - [ ] Both screening rounds are independent and disagreements are adjudicated.
-- [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs.
+- [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs, and the
+  separate reference-quality policy records recency, foundational exceptions,
+  Q1/Q2 status, ranking context, and authoritative evidence without excluding
+  systematic-review records by age or quartile.
 - [ ] AI-executed work is disclosed; generated assertions are not treated as
   evidence, captured source output has provenance, and named humans remain
   accountable for review, screening, extraction, and adjudication.

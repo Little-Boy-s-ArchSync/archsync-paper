@@ -74,6 +74,19 @@ single failed criterion is sufficient for exclusion.
 - I8 - Access: the team can obtain the complete text legally through the DOI,
   library, publisher, or author repository.
 
+### 2.1 Reference-quality annotation is not an exclusion criterion
+
+Publication recency and venue rank are governed by
+`REFERENCE-QUALITY-POLICY.md` when a paper is proposed as a direct manuscript
+reference. Q1 is preferred for journals, Q1/Q2 are treated as high-ranked, and
+papers from 2022--2026 are preferred. Older foundational work and justified
+lower-ranked sources require an auditable exception.
+
+These annotations do not create I9 or E11. A relevant systematic-review record
+must not be excluded only because it is older than five years, is not Q1, or is
+a conference paper. The record continues through I1--I8, E01--E10, QA1--QA6,
+and the governed synthesis process.
+
 ## 3. Exclusion reason codes
 
 Every exclusion has exactly one primary reason code. Other failed rules may be

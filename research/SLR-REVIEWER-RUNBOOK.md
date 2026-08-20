@@ -72,6 +72,19 @@ không được tính là reviewer độc lập.
 | `S-005.json` | `10.3217/jucs-023-08-0769` |
 | `S-006.json` | `10.1002/smr.2423` |
 
+Các DOI trên là tập kiểm tra khả năng truy hồi, không mặc nhiên là sáu nguồn
+tham khảo tốt nhất cho mọi claim trong paper. Khi một sentinel hoặc paper mới
+được đề xuất làm nguồn trích dẫn, reviewer áp dụng thêm
+`REFERENCE-QUALITY-POLICY.md`: ưu tiên journal Q1, chấp nhận Q1/Q2 là nhóm xếp
+hạng cao, ưu tiên 2022--2026 và ghi lý do thật cho paper nền tảng cũ hơn.
+
+Rapid Journal Quality Check được dùng để hỗ trợ kiểm tra ban đầu. Với journal,
+phải đối chiếu kết quả extension với nguồn xếp hạng, năm và category được ghi
+trong evidence. Với conference, ghi quartile là không áp dụng và kiểm tra venue,
+peer review, indexing cùng độ liên quan. Không đổi hoặc loại sentinel chỉ vì nó
+không phải Q1; thay đổi tập sentinel phải đi qua protocol amendment trước khi
+xem official results.
+
 Với từng DOI, Independent SLR Reviewer hoặc AI được reviewer ủy quyền chạy truy
 vấn chỉ nhằm kiểm tra sentinel trong các nguồn có quyền truy cập. Mỗi run phải
 ghi nguyên văn query, source, query family, UTC timestamp, result count,
