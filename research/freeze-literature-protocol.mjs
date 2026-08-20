@@ -86,7 +86,7 @@ export function freezeLiteratureProtocol({
   let nextProtocol = protocol;
   nextProtocol = replaceExactly(
     nextProtocol,
-    "| Protocol version | 0.1.0 |",
+    "| Protocol version | 0.2.0 |",
     "| Protocol version | 1.0.0 |",
     "candidate protocol version",
     issues,
@@ -133,8 +133,8 @@ export function freezeLiteratureProtocol({
   );
   nextProtocol = replaceExactly(
     nextProtocol,
-    "| 0.1.0 | 2026-08-16 | D-008 proposed |",
-    `| 1.0.0 | ${acceptedDate} | D-008 accepted | Independent review and sentinel recall approved in ${reviewPr}; review commit ${reviewCommit}; governed evidence hashes verified |${eol}| 0.1.0 | 2026-08-16 | D-008 proposed |`,
+    "| 0.2.0 | 2026-08-20 | D-016 accepted |",
+    `| 1.0.0 | ${acceptedDate} | D-008 accepted | Independent review and sentinel recall approved in ${reviewPr}; review commit ${reviewCommit}; governed evidence hashes verified |${eol}| 0.2.0 | 2026-08-20 | D-016 accepted |`,
     "candidate version-history row",
     issues,
   );
@@ -186,7 +186,7 @@ export function freezeLiteratureProtocol({
   );
   nextPaper = replaceExactly(
     nextPaper,
-    "protocol version \\texttt{0.1.0} is a review candidate. The official search has not started, and no result list has been inspected.",
+    "protocol version \\texttt{0.2.0} is a review candidate. The official search has not started, and no result list has been inspected.",
     "protocol version \\texttt{1.0.0} is frozen. The official search is authorized but has not started, and no result list has been inspected.",
     "candidate paper status",
     issues,

@@ -55,7 +55,7 @@ function assertIssue(result, fragment) {
 
 function frozenProtocol() {
   return protocol
-    .replace("| Protocol version | 0.1.0 |", "| Protocol version | 1.0.0 |")
+    .replace("| Protocol version | 0.2.0 |", "| Protocol version | 1.0.0 |")
     .replace("| Status | Review candidate |", "| Status | Frozen |")
     .replace(
       "| Search authorization | Blocked |",
@@ -74,8 +74,8 @@ function frozenProtocol() {
       "## 20. Protocol version history",
     )
     .replace(
-      "| 0.1.0 | 2026-08-16 | D-008 proposed |",
-      "| 1.0.0 | 2026-08-16 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5; review commit 0123456789abcdef0123456789abcdef01234567; governed evidence hashes verified |\n| 0.1.0 | 2026-08-16 | D-008 proposed |",
+      "| 0.2.0 | 2026-08-20 | D-016 accepted |",
+      "| 1.0.0 | 2026-08-16 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5; review commit 0123456789abcdef0123456789abcdef01234567; governed evidence hashes verified |\n| 0.2.0 | 2026-08-20 | D-016 accepted |",
     )
     .replaceAll("- [ ]", "- [x]");
 }
@@ -100,7 +100,7 @@ function frozenPaper() {
       "The frozen protocol predeclares",
     )
     .replace(
-      "protocol version \\texttt{0.1.0} is a review candidate. The official search has not started, and no result list has been inspected.",
+      "protocol version \\texttt{0.2.0} is a review candidate. The official search has not started, and no result list has been inspected.",
       "protocol version \\texttt{1.0.0} is frozen. The official search is authorized but has not started, and no result list has been inspected.",
     )
     .replace(
@@ -143,7 +143,7 @@ const signedReviewRecord = reviewRecord
 test("accepts the governed review-candidate protocol", () => {
   const result = validate();
   assert.deepEqual(result.issues, []);
-  assert.equal(result.version, "0.1.0");
+  assert.equal(result.version, "0.2.0");
   assert.equal(result.searchAuthorization, "Blocked");
 });
 
@@ -154,7 +154,7 @@ test("rejects premature search authorization", () => {
       "| Search authorization | Authorized |",
     ),
   });
-  assertIssue(result, "governed 0.1.0 candidate state");
+  assertIssue(result, "governed 0.2.0 candidate state");
 });
 
 test("rejects search execution or result inspection during SLR-101", () => {
@@ -177,12 +177,12 @@ test("rejects removal of a required database or query family", () => {
   const result = validate({
     protocol: protocol
       .replace(
-        "| Scopus | Broad multidisciplinary index",
-        "| Removed index | Broad multidisciplinary index",
+        "| OpenAlex | Open cross-publisher index",
+        "| Removed index | Open cross-publisher index",
       )
       .replace("### Search-C:", "### Removed-C:"),
   });
-  assertIssue(result, "missing required primary source Scopus");
+  assertIssue(result, "missing required primary source OpenAlex");
   assertIssue(result, "missing query family Search-C");
 });
 
@@ -276,7 +276,7 @@ test("rejects semantically empty JSON even when its ledger digest matches", () =
     sentinelEvidenceHashes: hashes,
     sentinelEvidenceArtifacts: artifacts,
   });
-  assertIssue(result, "artifact fields do not match schema 1.0.0");
+  assertIssue(result, "artifact fields do not match schema 1.1.0");
   assert.ok(
     !result.issues.some((issue) => issue.includes("SHA-256 does not match")),
     "the negative case must isolate semantic validation after a valid digest",
@@ -349,8 +349,8 @@ test("rejects self-review and malformed sentinel evidence", () => {
     sentinelRecall: sentinelRecall
       .replaceAll(",Independent SLR Reviewer,", ",Hiếu,")
       .replace(
-        "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
-        "ACM Digital Library,Scopus,retrieved",
+        "ACM Digital Library;OpenAlex,ACM Digital Library,retrieved",
+        "ACM Digital Library,OpenAlex,retrieved",
       ),
     sentinelEvidenceHashes,
   });
@@ -410,6 +410,7 @@ test("rejects missing paper disclosures, method citations and protocol metadata"
   const result = validate({
     protocol: protocol
       .replace("| Owner | Hiếu |", "| Owner | Unknown |")
+      .replace("does not claim equivalence to Scopus", "claims equivalence to Scopus")
       .replace("### SLR-RQ1:", "### Removed-RQ1:")
       .replace(
         "## 20. Candidate version history",
@@ -424,6 +425,10 @@ test("rejects missing paper disclosures, method citations and protocol metadata"
         "The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias",
         "There is no literature-selection risk",
       )
+      .replace(
+        "OpenAlex and Semantic Scholar may differ from Scopus and the Web of Science Core Collection in publication coverage",
+        "The open indexes have identical coverage",
+      )
       .replaceAll("kitchenham2007slr", "removed-method-citation"),
     bibliography: bibliography.replaceAll(
       "kitchenham2007slr",
@@ -433,6 +438,8 @@ test("rejects missing paper disclosures, method citations and protocol metadata"
   for (const fragment of [
     "not a completed systematic review",
     "literature-positioning validity risk",
+    "not subscription-index equivalents",
+    "open-index coverage and query-semantics risk",
     "missing literature-method citation kitchenham2007slr",
     "missing entry kitchenham2007slr",
     "Owner must be 'Hiếu'",
@@ -490,7 +497,7 @@ test("rejects frozen metadata while the paper retains candidate language", () =>
 test("rejects malformed sentinel CSV schema, row width and unknown sources", () => {
   const malformed = sentinelRecall
     .replace("sentinel_id,doi", "id,doi")
-    .replace("ACM Digital Library;Scopus", "Unknown Index")
+    .replace("ACM Digital Library;OpenAlex", "Unknown Index")
     .replace(
       /,research\/evidence\/slr-sentinel\/S-006\.json#sha256=[0-9a-f]{64}(?=\r?\n?$)/,
       "",
@@ -550,16 +557,16 @@ test("accepts documented not-indexed sentinels and rejects contradictory classif
     reviewRecord,
     sentinelRecall: sentinelRecall
       .replace(
-        "ACM Digital Library;Scopus,ACM Digital Library,retrieved",
+        "ACM Digital Library;OpenAlex,ACM Digital Library,retrieved",
         "ACM Digital Library,ACM Digital Library,not-indexed",
       )
       .replace(
-        "IEEE Xplore;Scopus,IEEE Xplore,retrieved",
+        "IEEE Xplore;OpenAlex,IEEE Xplore,retrieved",
         "none,none,retrieved",
       )
       .replace(
-        "Scopus;Web of Science Core Collection,Scopus,retrieved",
-        "Scopus,Scopus,invalid",
+        "OpenAlex;Semantic Scholar,OpenAlex,retrieved",
+        "OpenAlex,OpenAlex,invalid",
       ),
     sentinelEvidenceHashes,
   });

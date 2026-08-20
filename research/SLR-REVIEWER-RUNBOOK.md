@@ -39,8 +39,18 @@ quyền truy cập, chấp nhận/sửa kết quả cuối và phê duyệt exac
   giao AI thực hiện các thao tác kỹ thuật theo phiên truy cập đã được cấp quyền.
 - Không chạy official Search-A/B/C, không mở danh sách kết quả để screening và
   không dùng candidate results để sửa inclusion/exclusion criteria.
-- Nếu không truy cập được IEEE Xplore, ACM Digital Library, Scopus hoặc Web of
-  Science, dừng lại và ghi blocker; không thay nguồn khác một cách im lặng.
+- Nếu không truy cập được IEEE Xplore, ACM Digital Library, OpenAlex hoặc
+  Semantic Scholar, dừng lại và ghi blocker; không thay nguồn khác một cách im
+  lặng.
+- Trước khi chạy, reviewer phải có quyền truy cập IEEE/ACM và hai API key miễn
+  phí do nhóm kiểm soát cho OpenAlex và Semantic Scholar. Key phải được đọc từ
+  secret store hoặc biến môi trường cục bộ. OpenAlex client chỉ được chèn key
+  vào tham số `api_key` tại lúc gửi request rồi xóa tham số đó khỏi mọi output;
+  Semantic Scholar client dùng header `x-api-key`. Không lưu key trong terminal
+  output, JSON, CSV, ảnh chụp, issue, pull request hoặc Git history.
+- Nếu Semantic Scholar trả HTTP 429 trong chế độ không xác thực, đó là lỗi
+  preflight chứ không phải kết luận `not-indexed`. Cấu hình API key rồi chạy lại
+  sentinel-only query; không ghi số đếm từ lần bị rate-limit.
 
 ### AI được phép thực hiện
 

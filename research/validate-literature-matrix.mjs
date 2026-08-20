@@ -40,8 +40,8 @@ export const MATRIX_HEADERS = Object.freeze([
 
 const REQUIRED_METADATA = Object.freeze([
   ["Task", "SLR-104"],
-  ["Matrix version", "0.1.0"],
-  ["Protocol version", "0.1.0"],
+  ["Matrix version", "0.2.0"],
+  ["Protocol version", "0.2.0"],
   ["Prepared date", "2026-08-18"],
   ["Search cutoff", "2026-08-16 inclusive"],
   ["Owner", "Hieu"],
@@ -59,8 +59,8 @@ const BLOCKED_METADATA = Object.freeze([
 const SOURCE_DATABASES = new Set([
   "IEEE Xplore",
   "ACM Digital Library",
-  "Scopus",
-  "Web of Science Core Collection",
+  "OpenAlex",
+  "Semantic Scholar",
   "Backward snowballing",
   "Forward snowballing",
 ]);
@@ -140,8 +140,8 @@ function validateRow(issues, record, rowNumber, now) {
   }
   for (const field of SUBSTANTIVE_FIELDS) validateSubstantiveValue(issues, record, field);
 
-  if (record.matrix_version !== "0.1.0") {
-    issues.push(`literature-matrix.csv: ${record.record_id} matrix_version must be '0.1.0'`);
+  if (record.matrix_version !== "0.2.0") {
+    issues.push(`literature-matrix.csv: ${record.record_id} matrix_version must be '0.2.0'`);
   }
   if (!/^LIT-\d{4}$/.test(record.record_id)) {
     issues.push(`literature-matrix.csv: row ${rowNumber} has invalid record_id '${record.record_id}'`);
@@ -322,14 +322,14 @@ export function validateLiteratureMatrix({
     requireMarker(issues, "literature-protocol.md", protocol, marker);
   }
   for (const marker of [
-    "## D-011: Version SLR Literature Matrix Contract 0.1.0",
+    "## D-016: Replace Inaccessible Subscription Indexes Before SLR Freeze",
     "Schema complete; population blocked",
     "zero publication rows",
   ]) {
     requireMarker(issues, "decision-log.md", decisions, marker);
   }
   for (const marker of [
-    "SLR-104 literature matrix schema version \\texttt{0.1.0}",
+    "SLR-104 literature matrix schema version \\texttt{0.2.0}",
     "contains zero publication rows",
     "does not constitute literature evidence",
   ]) {
@@ -371,7 +371,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR LITERATURE MATRIX 0.1.0 (${result.recordCount} extracted records; population ${result.blocked ? "blocked" : "active"})`,
+    `VALID SLR LITERATURE MATRIX 0.2.0 (${result.recordCount} extracted records; population ${result.blocked ? "blocked" : "active"})`,
   );
   return result;
 }

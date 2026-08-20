@@ -7,8 +7,8 @@ import { parseCsv } from "./validate-claim-evidence.mjs";
 export const DATABASES = Object.freeze([
   ["IEEE", "IEEE Xplore"],
   ["ACM", "ACM Digital Library"],
-  ["SCOPUS", "Scopus"],
-  ["WOS", "Web of Science Core Collection"],
+  ["OPENALEX", "OpenAlex"],
+  ["S2", "Semantic Scholar"],
 ]);
 export const QUERY_IDS = Object.freeze(["A1", "A2", "A3", "B1", "C1", "C2"]);
 
@@ -44,8 +44,8 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
   const issues = [];
   for (const [field, expected] of [
     ["Task", "SLR-102"],
-    ["Query specification version", "0.1.0"],
-    ["Protocol version", "0.1.0"],
+    ["Query specification version", "0.2.0"],
+    ["Protocol version", "0.2.0"],
     ["Status", "Designed - execution blocked"],
     ["Prepared date", "2026-08-18"],
     ["Search cutoff", "2026-08-16 inclusive"],
@@ -89,8 +89,10 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
   for (const marker of [
     "IEEE_Xplore_Searching_and_Saving_Searches.pdf",
     "new_acm-digital-library-user-guide.pdf",
-    "a_id/11365/supporthub/scopus",
-    "woscc-search-field-tags.htm",
+    "https://developers.openalex.org/guides/searching",
+    "https://api.semanticscholar.org/api-docs/",
+    "Never persist the unredacted authenticated URL",
+    "continuation token. Preserve each raw JSON response",
     "24 database-query pairs",
     "blocked-slr-101",
   ]) {
@@ -99,7 +101,7 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
     }
   }
   if (
-    !protocol.includes("`literature-search-queries.md` version 0.1.0") ||
+    !protocol.includes("`literature-search-queries.md` version 0.2.0") ||
     !protocol.includes("all 24 database-query pairs")
   ) {
     issues.push("literature-protocol.md: missing SLR-102 query specification linkage");
@@ -145,8 +147,8 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
       return;
     }
     for (const [field, value] of [
-      ["query_spec_version", "0.1.0"],
-      ["protocol_version", "0.1.0"],
+      ["query_spec_version", "0.2.0"],
+      ["protocol_version", "0.2.0"],
       ["database", expected.database],
       ["query_id", expected.queryId],
       ["status", "blocked-slr-101"],
@@ -207,7 +209,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SEARCH QUERY SPEC 0.1.0 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
+    `VALID SLR SEARCH QUERY SPEC 0.2.0 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
   );
   return result;
 }

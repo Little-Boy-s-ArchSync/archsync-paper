@@ -33,7 +33,7 @@ function activeContract(count = 1) {
 
 function sampleRow(overrides = {}) {
   const values = {
-    matrix_version: "0.1.0",
+    matrix_version: "0.2.0",
     record_id: "LIT-0001",
     study_id: "STUDY-0001",
     citation: "Example Author. Example architecture study. 2020.",
@@ -45,7 +45,7 @@ function sampleRow(overrides = {}) {
     publication_type: "conference paper",
     doi: "10.1234/example.2020.1",
     canonical_url: "https://doi.org/10.1234/example.2020.1",
-    source_databases: "IEEE Xplore;Scopus",
+    source_databases: "IEEE Xplore;OpenAlex",
     method: "controlled case study",
     system: "three open-source service repositories",
     language: "TypeScript",
@@ -176,7 +176,7 @@ test("enforces stable identifiers, cutoff year and evidence class", () => {
       evidence_class: "contextual-only",
     })),
   });
-  assertIssue(result, "matrix_version must be '0.1.0'");
+  assertIssue(result, "matrix_version must be '0.2.0'");
   assertIssue(result, "invalid record_id");
   assertIssue(result, "invalid study_id");
   assertIssue(result, "no later than 2026");
@@ -258,16 +258,16 @@ test("requires protocol, decision-log and paper traceability", () => {
   const result = validate({
     protocol: protocol.replaceAll("`literature-matrix.csv`", "missing-matrix-csv"),
     decisions: decisions.replace(
-      "## D-011: Version SLR Literature Matrix Contract 0.1.0",
-      "## removed D-011",
+      "## D-016: Replace Inaccessible Subscription Indexes Before SLR Freeze",
+      "## removed D-016",
     ),
     paper: paper.replace(
-      "SLR-104 literature matrix schema version \\texttt{0.1.0}",
+      "SLR-104 literature matrix schema version \\texttt{0.2.0}",
       "missing paper marker",
     ),
   });
   assertIssue(result, "literature-protocol.md: missing governed marker '`literature-matrix.csv`'");
-  assertIssue(result, "decision-log.md: missing governed marker '## D-011");
+  assertIssue(result, "decision-log.md: missing governed marker '## D-016");
   assertIssue(result, "main.tex: missing governed marker 'SLR-104 literature matrix schema");
 });
 
@@ -279,7 +279,7 @@ test("CLI reports valid and invalid states deterministically", async () => {
     now: NOW,
   });
   assert.deepEqual(valid.issues, []);
-  assert.match(validOutput[0], /^VALID SLR LITERATURE MATRIX 0\.1\.0 \(0 extracted records/);
+  assert.match(validOutput[0], /^VALID SLR LITERATURE MATRIX 0\.2\.0 \(0 extracted records/);
 
   let exitCode;
   const invalidOutput = [];

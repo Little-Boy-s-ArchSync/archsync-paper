@@ -85,7 +85,7 @@ export function validateLiteratureProtocol({
   let governedReviewPr = null;
 
   const candidateState =
-    version === "0.1.0" &&
+    version === "0.2.0" &&
     status === "Review candidate" &&
     searchAuthorization === "Blocked" &&
     decision === "D-008 pending independent review";
@@ -97,7 +97,7 @@ export function validateLiteratureProtocol({
 
   if (!candidateState && !frozenState) {
     issues.push(
-      "literature-protocol.md: metadata must be either the governed 0.1.0 candidate state or the reviewed 1.0.0 frozen state",
+      "literature-protocol.md: metadata must be either the governed 0.2.0 candidate state or the reviewed 1.0.0 frozen state",
     );
   }
   if (candidateState && reviewRecord) {
@@ -128,13 +128,25 @@ export function validateLiteratureProtocol({
     /The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias/,
     "must disclose literature-positioning validity risk",
   );
+  requireText(
+    "literature-protocol.md",
+    protocol,
+    /does not claim equivalence to Scopus\s+or Web of Science/,
+    "must disclose that the open indexes are not subscription-index equivalents",
+  );
+  requireText(
+    "main.tex",
+    paper,
+    /OpenAlex and Semantic Scholar may differ from Scopus and the Web of Science Core Collection in publication coverage/,
+    "must disclose open-index coverage and query-semantics risk",
+  );
 
   if (candidateState) {
     requireText(
       "main.tex",
       paper,
-      /protocol version \\texttt\{0\.1\.0\} is a review candidate\. The official search has not started, and no result list has been inspected\./,
-      "candidate status must match protocol 0.1.0 without implying completed search",
+      /protocol version \\texttt\{0\.2\.0\} is a review candidate\. The official search has not started, and no result list has been inspected\./,
+      "candidate status must match protocol 0.2.0 without implying completed search",
     );
   }
   if (frozenState) {
@@ -215,8 +227,8 @@ export function validateLiteratureProtocol({
   for (const source of [
     "IEEE Xplore",
     "ACM Digital Library",
-    "Scopus",
-    "Web of Science Core Collection",
+    "OpenAlex",
+    "Semantic Scholar",
   ]) {
     requireText(
       "literature-protocol.md",
@@ -674,6 +686,18 @@ export function validateLiteratureProtocol({
         /^\| 1\.0\.0 \| \d{4}-\d{2}-\d{2} \| D-008 accepted \|/m,
         "frozen state must add a 1.0.0 version-history row",
       );
+    }
+  }
+
+  if (candidateState) {
+    for (const marker of [
+      "## D-016: Replace Inaccessible Subscription Indexes Before SLR Freeze",
+      "OpenAlex and Semantic Scholar",
+      "No official search has run and no candidate result list",
+    ]) {
+      if (!decisions.includes(marker)) {
+        issues.push(`decision-log.md: missing D-016 marker '${marker}'`);
+      }
     }
   }
 

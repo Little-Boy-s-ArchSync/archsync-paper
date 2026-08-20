@@ -262,7 +262,7 @@ test("real candidate preflight validates governed sentinel files and hashes", as
 
   const result = await validateCandidateReviewInputs(repository);
   assert.deepEqual(result.issues, []);
-  assert.equal(result.version, "0.1.0");
+  assert.equal(result.version, "0.2.0");
 });
 
 test("sign writes exactly three governed files and refuses replacement", async (context) => {
