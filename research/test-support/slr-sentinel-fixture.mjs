@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 const PRIMARY_SOURCES = Object.freeze([
   "IEEE Xplore",
   "ACM Digital Library",
-  "Scopus",
-  "Web of Science Core Collection",
+  "OpenAlex",
+  "Semantic Scholar",
 ]);
 
 function testEvidenceLocator(source, sentinelId, sourceOrdinal) {
@@ -15,48 +15,48 @@ function testEvidenceLocator(source, sentinelId, sourceOrdinal) {
   if (source === "ACM Digital Library") {
     return `https://dl.acm.org/action/doSearch?AllField=${token}`;
   }
-  if (source === "Scopus") {
-    return `https://www.scopus.com/results/results.uri?sort=plf-f&src=s&sid=${token}`;
+  if (source === "OpenAlex") {
+    return `https://api.openalex.org/works?search=${token}`;
   }
-  return `https://www.webofscience.com/wos/woscc/summary/${token}/relevance/1`;
+  return `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=${token}`;
 }
 
 export const TEST_SENTINELS = Object.freeze([
   {
     sentinel_id: "S-001",
     doi: "10.1145/222124.222136",
-    indexed_sources: ["ACM Digital Library", "Scopus"],
+    indexed_sources: ["ACM Digital Library", "OpenAlex"],
     retrieved_sources: ["ACM Digital Library"],
   },
   {
     sentinel_id: "S-002",
     doi: "10.1109/WICSA.2007.1",
-    indexed_sources: ["IEEE Xplore", "Scopus"],
+    indexed_sources: ["IEEE Xplore", "OpenAlex"],
     retrieved_sources: ["IEEE Xplore"],
   },
   {
     sentinel_id: "S-003",
     doi: "10.1002/spe.931",
-    indexed_sources: ["Scopus", "Web of Science Core Collection"],
-    retrieved_sources: ["Scopus"],
+    indexed_sources: ["OpenAlex", "Semantic Scholar"],
+    retrieved_sources: ["OpenAlex"],
   },
   {
     sentinel_id: "S-004",
     doi: "10.1016/j.jss.2011.07.036",
-    indexed_sources: ["Scopus", "Web of Science Core Collection"],
-    retrieved_sources: ["Scopus"],
+    indexed_sources: ["OpenAlex", "Semantic Scholar"],
+    retrieved_sources: ["OpenAlex"],
   },
   {
     sentinel_id: "S-005",
     doi: "10.3217/jucs-023-08-0769",
-    indexed_sources: ["Scopus"],
-    retrieved_sources: ["Scopus"],
+    indexed_sources: ["OpenAlex"],
+    retrieved_sources: ["OpenAlex"],
   },
   {
     sentinel_id: "S-006",
     doi: "10.1002/smr.2423",
-    indexed_sources: ["Scopus", "Web of Science Core Collection"],
-    retrieved_sources: ["Scopus"],
+    indexed_sources: ["OpenAlex", "Semantic Scholar"],
+    retrieved_sources: ["OpenAlex"],
   },
 ]);
 
@@ -82,9 +82,9 @@ function createArtifact(record, ordinal) {
     };
   });
   return {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     task: "SLR-101",
-    protocol_version: "0.1.0",
+    protocol_version: "0.2.0",
     sentinel_id: record.sentinel_id,
     doi: record.doi,
     reviewer: "Independent SLR Reviewer",

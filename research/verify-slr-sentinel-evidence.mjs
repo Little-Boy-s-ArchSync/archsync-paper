@@ -12,8 +12,8 @@ export const SENTINEL_REVIEWER_ROLE = "Independent SLR Reviewer";
 export const PRIMARY_SOURCES = Object.freeze([
   "IEEE Xplore",
   "ACM Digital Library",
-  "Scopus",
-  "Web of Science Core Collection",
+  "OpenAlex",
+  "Semantic Scholar",
 ]);
 
 const QUERY_FAMILIES = new Set([
@@ -25,8 +25,8 @@ const QUERY_FAMILIES = new Set([
 const SOURCE_EVIDENCE_DOMAINS = Object.freeze({
   "IEEE Xplore": ["ieeexplore.ieee.org"],
   "ACM Digital Library": ["dl.acm.org"],
-  Scopus: ["scopus.com"],
-  "Web of Science Core Collection": ["webofscience.com"],
+  OpenAlex: ["api.openalex.org", "openalex.org"],
+  "Semantic Scholar": ["api.semanticscholar.org", "semanticscholar.org"],
 });
 const ARTIFACT_FIELDS = Object.freeze([
   "schema_version",
@@ -143,13 +143,13 @@ export function verifySlrSentinelEvidence({
     return { issues: [`${prefix}: artifact must be a JSON object`] };
   }
   if (!exactFields(artifact, ARTIFACT_FIELDS)) {
-    issues.push(`${prefix}: artifact fields do not match schema 1.0.0`);
+    issues.push(`${prefix}: artifact fields do not match schema 1.1.0`);
   }
 
   for (const [field, expected] of [
-    ["schema_version", "1.0.0"],
+    ["schema_version", "1.1.0"],
     ["task", "SLR-101"],
-    ["protocol_version", "0.1.0"],
+    ["protocol_version", "0.2.0"],
     ["sentinel_id", ledgerRecord?.sentinel_id],
     ["doi", ledgerRecord?.doi],
     ["reviewer", SENTINEL_REVIEWER_ROLE],

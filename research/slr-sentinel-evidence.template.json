@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "task": "SLR-101",
-  "protocol_version": "0.1.0",
+  "protocol_version": "0.2.0",
   "sentinel_id": "REPLACE-SENTINEL-ID",
   "doi": "REPLACE-DOI",
   "reviewer": "Independent SLR Reviewer",

@@ -33,21 +33,23 @@ test("rejects metadata drift, missing keyword groups and missing syntax evidence
     specification: specification
       .replace("| Task | SLR-102 |", "| Task | wrong |")
       .replace("### K6: Evidence-grounded explanation and repair", "### removed")
-      .replace("new_acm-digital-library-user-guide.pdf", "missing-acm-source"),
+      .replace("new_acm-digital-library-user-guide.pdf", "missing-acm-source")
+      .replace("Never persist the unredacted authenticated URL", "credential guard removed"),
   });
   assertIssue(result, "Task must be 'SLR-102'");
   assertIssue(result, "K6: Evidence-grounded explanation and repair");
   assertIssue(result, "new_acm-digital-library-user-guide.pdf");
+  assertIssue(result, "Never persist the unredacted authenticated URL");
 });
 
 test("rejects a duplicate query heading and a missing database translation", () => {
   const result = validate({
     specification: specification
       .replace("### A1: Search-A drift and erosion", "### A1: first\n\n### A1: second")
-      .replace("### Scopus", "### Removed Scopus"),
+      .replace("### OpenAlex", "### Removed OpenAlex"),
   });
   assertIssue(result, "query A1 must occur exactly once; found 2");
-  assertIssue(result, "database Scopus must occur exactly once; found 0");
+  assertIssue(result, "database OpenAlex must occur exactly once; found 0");
 });
 
 test("rejects malformed CSV and an incomplete run matrix", () => {
@@ -58,12 +60,12 @@ test("rejects malformed CSV and an incomplete run matrix", () => {
   const lines = logTemplate.trimEnd().split(/\r?\n/);
   const incomplete = validate({ logTemplate: `${lines.slice(0, -1).join("\n")}\n` });
   assertIssue(incomplete, "expected 24 rows; found 23");
-  assertIssue(incomplete, "missing run_id WOS-C2");
+  assertIssue(incomplete, "missing run_id S2-C2");
 });
 
 test("rejects premature execution evidence and stale blocked metadata", () => {
   const premature = logTemplate
-    .replace("IEEE-A1,0.1.0,0.1.0,IEEE Xplore,A1,,,", "IEEE-A1,0.1.0,0.1.0,IEEE Xplore,A1,query,2026-08-18T00:00:00Z,")
+    .replace("IEEE-A1,0.2.0,0.2.0,IEEE Xplore,A1,,,", "IEEE-A1,0.2.0,0.2.0,IEEE Xplore,A1,query,2026-08-18T00:00:00Z,")
     .replace(",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0", ",7,export.csv,deadbeef,Hieu,executed,done");
   const result = validate({ logTemplate: premature });
   assertIssue(result, "IEEE-A1 status must be 'blocked-slr-101'");
@@ -85,7 +87,7 @@ test("rejects row width, unknown and duplicate run identifiers", () => {
 
 test("requires protocol linkage and non-empty field plans", () => {
   const result = validate({
-    protocol: protocol.replace("`literature-search-queries.md` version 0.1.0", "missing query link"),
+    protocol: protocol.replace("`literature-search-queries.md` version 0.2.0", "missing query link"),
     logTemplate: logTemplate.replace('"Document Title; Abstract; Author Keywords"', ""),
   });
   assertIssue(result, "missing SLR-102 query specification linkage");
@@ -97,7 +99,7 @@ test("CLI reports valid and invalid states deterministically", async () => {
   let exitCode;
   const valid = await main({ repositoryDirectory: repository, output: (line) => output.push(line) });
   assert.equal(valid.issues.length, 0);
-  assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.1\.0/);
+  assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.2\.0/);
 
   const invalidOutput = [];
   const invalid = await main({

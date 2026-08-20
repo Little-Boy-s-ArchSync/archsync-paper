@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-101 |
-| Protocol version | 0.1.0 |
+| Protocol version | 0.2.0 |
 | Status | Review candidate |
 | Prepared date | 2026-08-16 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -130,13 +130,19 @@ while preventing an undocumented moving search window.
 | --- | --- | --- |
 | IEEE Xplore | Core software engineering and architecture venue coverage | Citation, abstract, keywords, DOI, year, venue, authors, URL; BibTeX or CSV export |
 | ACM Digital Library | Core computing conference and journal coverage | Citation, abstract, keywords, DOI, year, venue, authors, URL; BibTeX or CSV export |
-| Scopus | Broad multidisciplinary index and deduplication cross-check | Citation, abstract, author keywords, DOI, year, venue, authors, cited-by count, URL; CSV or RIS export |
-| Web of Science Core Collection | Independent broad-index coverage and cited-reference search | Citation, abstract, keywords, DOI, year, venue, authors, accession identifier, URL; tab-delimited or RIS export |
+| OpenAlex | Open cross-publisher index and reproducible authenticated API search | OpenAlex work ID, citation, title, abstract, keywords when available, DOI, publication date, venue, authors, cited-by count, canonical URL; paginated JSON export |
+| Semantic Scholar | Independent open cross-publisher index and authenticated title/abstract API search | Semantic Scholar paper ID, title, abstract, external identifiers, publication date, venue, authors, citation count, canonical URL; paginated JSON export |
 
-All four sources are required for the official search. If access to a required
-source is unavailable, the review must stop before search execution. A proposed
-replacement must be approved as a protocol amendment; it may not be substituted
-silently after other results have been viewed.
+All four sources are required for the official search. OpenAlex and Semantic
+Scholar replace the inaccessible subscription indexes proposed in version
+0.1.0. This selection prioritizes auditable access, exact retained requests,
+paginated exports, and reproducibility; it does not claim equivalence to Scopus
+or Web of Science. The governed OpenAlex and Semantic Scholar runs require
+team-controlled API keys supplied outside committed URLs and artifacts; shared
+unauthenticated throttling is not accepted as reproducible access. If access to
+a required source is unavailable, the review must stop before search execution.
+A proposed replacement must be approved as a protocol amendment; it may not be
+substituted silently after other results have been viewed.
 
 ### 5.2 Supplementary discovery
 
@@ -145,6 +151,10 @@ silently after other results have been viewed.
 - Google Scholar may be used only to locate full text or verify a specific
   citation; it is not a primary database and its ranking is not an inclusion
   criterion.
+- Scopus, Web of Science, or Dimensions may be used only as a declared
+  supplementary sensitivity check if access later becomes available. Records
+  found that way enter the same deduplication and screening workflow, and their
+  counts are reported separately from the four-source primary search.
 - DBLP, Crossref, publisher pages, author repositories, and DOI resolution may
   repair metadata or locate legal full text. They do not add a study unless the
   study also passes the same eligibility and screening process.
@@ -173,11 +183,13 @@ systematic search because that would silently bias the eligible study set.
 Every database is searched in title, abstract, and author-keyword fields where
 the source supports those fields. Syntax is adapted only for field names,
 wildcards, quoting, and proximity operators; concept terms and Boolean meaning
-must remain equivalent. The exact executed query, source, filters, timestamp,
-result count, export filename, and SHA-256 hash are recorded before the next
-source is queried.
+must remain equivalent. OpenAlex is a predeclared field-scope exception because
+its current Works API `search` parameter covers title, abstract, and fulltext;
+the same governed terms are used and its source-specific yield is reported
+separately. The exact executed query, source, filters, timestamp, result count,
+export filename, and SHA-256 hash are recorded before the next source is queried.
 
-`literature-search-queries.md` version 0.1.0 is the governed SLR-102
+`literature-search-queries.md` version 0.2.0 is the governed SLR-102
 translation of this section. It versions six keyword groups for drift and
 erosion, conformance and compliance, reconstruction and recovery, CI
 governance, AI coding agents, and evidence-grounded explanation and repair. It
@@ -261,14 +273,14 @@ candidate result list must not be screened or used to tune eligibility criteria.
 
 Each calibration row must reference one reviewer-created JSON artifact under
 `research/evidence/slr-sentinel/` and pin its exact SHA-256 digest. The artifact
-uses schema version 1.0.0 and records the fixed task/protocol identity, sentinel
+uses schema version 1.1.0 and records the fixed task/protocol identity, sentinel
 ID and DOI, Independent SLR Reviewer as reviewer, canonical UTC timestamps,
 classification, indexed/retrieved source sets, a factual rationale, and every
 executed sentinel-only query. Each run records one of the four governed sources,
 the query family, exact query text, execution time, non-negative result count,
 whether the sentinel was found, and an HTTPS evidence locator. The ledger and
 artifact must agree exactly. Each locator must use the official domain for its
-declared source (IEEE Xplore, ACM Digital Library, Scopus, or Web of Science),
+declared source (IEEE Xplore, ACM Digital Library, OpenAlex, or Semantic Scholar),
 contain a result path or query, and contain no template placeholder; a retrieved
 source must have a positive matching run. Calibration and recording timestamps
 must be canonical UTC values and cannot be materially ahead of the verification
@@ -479,7 +491,7 @@ The governed SLR-104 summary contract is versioned in
 `literature-matrix.csv`. The matrix explicitly records citation, method,
 system, language, dataset, evidence source, metric, limitation, relevance, and
 claim support together with DOI/URL, SLR-RQ, source location, reviewer,
-timestamp, and record-hash provenance. Version 0.1.0 contains only the header:
+timestamp, and record-hash provenance. Version 0.2.0 contains only the header:
 population is forbidden until SLR-101 is frozen, the official SLR-102 search
 and SLR-103 screening are complete, and the included-study set is immutable.
 The empty schema is planning metadata, not literature evidence.
@@ -738,9 +750,15 @@ coverage thresholds, and compiles the PDF before merge.
 - Kitchenham, B., Madeyski, L., and Budgen, D. (2023), *SEGRESS: Software
   Engineering Guidelines for REporting Secondary Studies*:
   https://doi.org/10.1109/TSE.2022.3174092
+- OpenAlex API documentation for governed work search, filtering, pagination,
+  and authentication: https://developers.openalex.org/
+- Semantic Scholar Academic Graph API documentation for governed bulk paper
+  search, Boolean syntax, filtering, and token pagination:
+  https://api.semanticscholar.org/api-docs/
 
 ## 20. Candidate version history
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 0.2.0 | 2026-08-20 | D-016 accepted | Replace inaccessible Scopus and Web of Science primary searches with reproducible OpenAlex and Semantic Scholar API searches; version the query, sentinel, matrix, validator, runbook, and paper contracts before any official result is inspected |
 | 0.1.0 | 2026-08-16 | D-008 proposed | Define objective, SLR-RQs, required databases, fixed cutoff, three query families, sentinel gate, eligibility, deduplication, dual screening, snowballing, quality, extraction, synthesis, artifacts, AI-use boundary, and post-result amendment prohibition |

@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-104 |
-| Matrix version | 0.1.0 |
-| Protocol version | 0.1.0 |
+| Matrix version | 0.2.0 |
+| Protocol version | 0.2.0 |
 | Status | Schema complete - population blocked |
 | Prepared date | 2026-08-18 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -142,7 +142,7 @@ matrix row.
 
 ## 7. Population gate and task status
 
-The SLR-104 schema is complete at version 0.1.0. Population remains blocked
+The SLR-104 schema is complete at version 0.2.0. Population remains blocked
 until all of the following are true:
 
 - SLR-101 is independently approved and frozen at 1.0.0;
@@ -165,11 +165,12 @@ node research/validate-literature-matrix.mjs
 node --test research/validate-literature-matrix.test.mjs
 ```
 
-The current expected result is a valid version 0.1.0 schema with zero extracted
+The current expected result is a valid version 0.2.0 schema with zero extracted
 records and population blocked by the governed upstream gates.
 
 ## 9. Version history
 
 | Version | Date | Decision | Change |
 | --- | --- | --- | --- |
+| 0.2.0 | 2026-08-20 | D-016 | Replace Scopus and Web of Science controlled source values with OpenAlex and Semantic Scholar before population starts |
 | 0.1.0 | 2026-08-18 | D-011 | Define the auditable publication matrix, persistent-locator rule, missing-value policy, reviewer separation, and zero-row population gate |

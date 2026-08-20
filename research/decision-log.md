@@ -283,3 +283,35 @@
 - Integrity boundary: The audit contains candidate decisions prepared with AI
   assistance. It is not the final populated quality ledger until Hieu checks the
   exact records and accepts them with retained evidence and hashes.
+
+## D-016: Replace Inaccessible Subscription Indexes Before SLR Freeze
+
+- Date: 2026-08-20
+- Status: Accepted for candidate protocol 0.2.0; execution blocked by SLR-101
+- Tasks: SLR-101, SLR-102, SLR-104, SLR-REV-101
+- Decision: Replace Scopus and Web of Science Core Collection as required
+  primary sources with OpenAlex and Semantic Scholar. Retain IEEE Xplore and
+  ACM Digital Library. The governed primary set is now IEEE Xplore, ACM Digital
+  Library, OpenAlex, and Semantic Scholar.
+- Reason: The team cannot reproducibly access the two subscription indexes.
+  OpenAlex and Semantic Scholar provide accessible cross-publisher search,
+  stable identifiers, paginated exports, and request-level provenance suitable
+  for the student review workflow.
+- Non-equivalence disclosure: The open indexes are not claimed to be equivalent
+  to Scopus or Web of Science in coverage, metadata, ranking, or query behavior.
+  This source choice and its possible coverage bias must be reported in the
+  paper and assessed as a threat to validity.
+- Execution contract: OpenAlex uses its governed Works API advanced search and
+  cursor pagination. Semantic Scholar uses Academic Graph bulk paper search and
+  continuation-token pagination. OpenAlex receives its key as a runtime query
+  parameter that is stripped before persistence; Semantic Scholar receives its
+  key through a header. Credentials remain outside persisted URLs, logs,
+  exports, evidence, diagnostics, and Git history.
+- Version impact: Protocol and query specification advance to 0.2.0, the
+  sentinel evidence schema advances to 1.1.0, and the literature matrix advances
+  to 0.2.0. SLR-103 criteria remain 0.1.0 because eligibility semantics do not
+  change; only their protocol linkage advances to 0.2.0.
+- Integrity boundary: No official search has run and no candidate result list
+  has been inspected. All six sentinel calibrations must be rerun against the
+  new four-source set before independent review and freeze 1.0.0.
+- Owner: Hieu.

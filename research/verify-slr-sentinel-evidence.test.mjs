@@ -9,22 +9,22 @@ import {
 const ledgerRecord = {
   sentinel_id: "S-001",
   doi: "10.1145/222124.222136",
-  indexed_sources: ["ACM Digital Library", "Scopus"],
+  indexed_sources: ["ACM Digital Library", "OpenAlex"],
   retrieved_sources: ["ACM Digital Library"],
   classification: "retrieved",
 };
 
 function artifact(overrides = {}) {
   return {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     task: "SLR-101",
-    protocol_version: "0.1.0",
+    protocol_version: "0.2.0",
     sentinel_id: "S-001",
     doi: "10.1145/222124.222136",
     reviewer: "Independent SLR Reviewer",
     recorded_at: "2026-08-16T08:10:00Z",
     classification: "retrieved",
-    indexed_sources: ["ACM Digital Library", "Scopus"],
+    indexed_sources: ["ACM Digital Library", "OpenAlex"],
     retrieved_sources: ["ACM Digital Library"],
     official_search_executed: false,
     candidate_results_screened: false,
@@ -39,13 +39,13 @@ function artifact(overrides = {}) {
         result_url: "https://dl.acm.org/action/doSearch?AllField=architecture",
       },
       {
-        source: "Scopus",
+        source: "OpenAlex",
         query_family: "Search-A",
-        query: "TITLE-ABS-KEY architecture conformance drift",
+        query: "architecture conformance drift",
         executed_at: "2026-08-16T08:05:00Z",
         result_count: 37,
         sentinel_found: false,
-        result_url: "https://www.scopus.com/results/results.uri?query=architecture",
+        result_url: "https://api.openalex.org/works?search=architecture",
       },
     ],
     rationale:
@@ -76,10 +76,10 @@ function sourceEvidenceUrl(source, index) {
   if (source === "ACM Digital Library") {
     return `https://dl.acm.org/action/doSearch?AllField=sentinel-${index}`;
   }
-  if (source === "Scopus") {
-    return `https://www.scopus.com/results/results.uri?sid=sentinel-${index}`;
+  if (source === "OpenAlex") {
+    return `https://api.openalex.org/works?search=sentinel-${index}`;
   }
-  return `https://www.webofscience.com/wos/woscc/summary/sentinel-${index}/relevance/1`;
+  return `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=sentinel-${index}`;
 }
 
 test("accepts an evidence-rich retrieved sentinel artifact", () => {
@@ -203,37 +203,37 @@ test("rejects unfilled placeholders and cross-source or generic evidence URLs", 
   );
   assertIssue(
     result,
-    "runs[1].result_url must be an official HTTPS evidence locator for Scopus",
+    "runs[1].result_url must be an official HTTPS evidence locator for OpenAlex",
   );
 });
 
-test("rejects a generic Clarivate page as Web of Science result evidence", () => {
+test("rejects a generic Semantic Scholar page as result evidence", () => {
   const record = {
     sentinel_id: "S-001",
     doi: "10.1145/222124.222136",
-    indexed_sources: ["Web of Science Core Collection"],
+    indexed_sources: ["Semantic Scholar"],
     retrieved_sources: [],
     classification: "retrieved",
   };
   const value = artifact({
-    indexed_sources: ["Web of Science Core Collection"],
+    indexed_sources: ["Semantic Scholar"],
     retrieved_sources: [],
     runs: [
       {
-        source: "Web of Science Core Collection",
+        source: "Semantic Scholar",
         query_family: "Index-check",
         query: "DOI lookup 10.1145/222124.222136",
         executed_at: "2026-08-16T08:00:00Z",
         result_count: 0,
         sentinel_found: false,
-        result_url: "https://clarivate.com/products/web-of-science/",
+        result_url: "https://www.semanticscholar.org/",
       },
     ],
   });
   const result = verify(value, record);
   assertIssue(
     result,
-    "result_url must be an official HTTPS evidence locator for Web of Science",
+    "result_url must be an official HTTPS evidence locator for Semantic Scholar",
   );
 });
 
@@ -272,7 +272,7 @@ test("binds query executions, timestamps and found sources to the ledger", () =>
   assertIssue(result, "result_count must be positive");
   assertIssue(result, "duplicates an earlier query execution");
   assertIssue(result, "recorded_at cannot predate");
-  assertIssue(result, "missing query execution for indexed source Scopus");
+  assertIssue(result, "missing query execution for indexed source OpenAlex");
   assertIssue(result, "sentinel_found=true must match retrieved_sources");
 });
 

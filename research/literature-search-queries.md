@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-102 |
-| Query specification version | 0.1.0 |
-| Protocol version | 0.1.0 |
+| Query specification version | 0.2.0 |
+| Protocol version | 0.2.0 |
 | Status | Designed - execution blocked |
 | Prepared date | 2026-08-18 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -22,7 +22,7 @@ and frozen at version 1.0.0.
 ## 1. Integrity boundary
 
 - The six logical queries below are the only governed SLR-102 search strings.
-- IEEE Xplore, ACM Digital Library, Scopus, and Web of Science Core Collection
+- IEEE Xplore, ACM Digital Library, OpenAlex, and Semantic Scholar
   are all required by the protocol. SLR-102 is not complete if one is omitted.
 - A syntax check must not be used to inspect, screen, or tune against candidate
   results before the protocol freeze.
@@ -109,7 +109,7 @@ E = "source code" OR "dependency graph*" OR "version control"
 
 ## 4. Governed logical queries
 
-The identifiers remain stable within version 0.1.0. Search-A is the union of
+The identifiers remain stable within version 0.2.0. Search-A is the union of
 A1, A2, and A3; Search-B is B1; Search-C is the union of C1 and C2.
 
 ### A1: Search-A drift and erosion
@@ -188,27 +188,49 @@ each IEEE Xplore clause below its documented term limit.
 - Filters: publication date no later than the fixed cutoff; no publisher,
   content-access, or language filter.
 
-### Scopus
+### OpenAlex
 
-- Interface: Advanced Search.
-- Fields: title, abstract, and keywords.
-- Form: wrap each expanded query with `TITLE-ABS-KEY(...)`.
-- Filters: publication year through 2026; document types Article, Conference
-  Paper, and Review; no language filter. Records after 2026-08-16 are removed
-  deterministically after export and before screening.
-- Copy-paste pattern: `TITLE-ABS-KEY(<expanded A1|A2|A3|B1|C1|C2>)`.
+- Interface: Works API advanced search at `https://api.openalex.org/works`.
+- Search surface: the governed `search` parameter over title, abstract, and
+  fulltext as documented by OpenAlex. This field-scope expansion is predeclared;
+  it does not change the Boolean concepts. OpenAlex keywords are retained as
+  metadata when available but are not claimed as a separate searched field.
+- Form: translate Boolean operators, quoted phrases, prefixes, and grouping to
+  OpenAlex advanced-search syntax without semantic expansion. Store the decoded
+  search expression and a canonical request URL with credentials removed.
+- Filters: `to_publication_date:2026-08-16`; no language, open-access, venue, or
+  work-type filter. Eligibility is applied after the immutable export.
+- Pagination: request 100 records per page and follow the returned cursor until
+  exhausted. Preserve every raw JSON response. `result_count` is the number of
+  unique OpenAlex work IDs in the complete export; retain the first-response
+  metadata count in `notes` for comparison.
+- API guard: read a team-controlled key from a local secret store or environment
+  variable and inject it as OpenAlex's required `api_key` query parameter only
+  inside the HTTP client. Never persist the unredacted authenticated URL. Strip
+  `api_key` before writing the search log, evidence locator, diagnostic output,
+  screenshot, issue, commit, or export manifest.
+- Request pattern before runtime credential injection: `https://api.openalex.org/works?search=<url-encoded-expanded-query>&filter=to_publication_date:2026-08-16&per_page=100&cursor=*`.
 
-### Web of Science Core Collection
+### Semantic Scholar
 
-- Interface: Advanced Search.
-- Fields: Topic, which covers title, abstract, author keywords, and Keywords
-  Plus in the governed source.
-- Form: wrap each expanded query with `TS=(...)`.
-- Filters: Core Collection; all available indexes; publication year through
-  2026; document types Article, Review, and Proceedings Paper; no language
-  filter. Records after 2026-08-16 are removed deterministically after export
-  and before screening.
-- Copy-paste pattern: `TS=(<expanded A1|A2|A3|B1|C1|C2>)`.
+- Interface: Academic Graph bulk paper search at
+  `https://api.semanticscholar.org/graph/v1/paper/search/bulk`.
+- Search surface: title and abstract, as documented for the bulk endpoint.
+- Form: translate Boolean `AND` to `+`, Boolean `OR` to `|`, retain quoted
+  phrases, prefixes, and parentheses, and URL-encode the fully expanded query.
+- Filters: `year=-2026`; no language, open-access, venue, field-of-study, or
+  publication-type filter. Records dated after 2026-08-16 are removed
+  deterministically after export and before screening, with the removal count
+  retained in the manifest.
+- Pagination: request the governed metadata fields and follow every returned
+  continuation token. Preserve each raw JSON response. `result_count` is the
+  number of unique Semantic Scholar paper IDs in the complete pre-cutoff export;
+  retain the endpoint's reported total in `notes` because it may be estimated.
+- API guard: a team-controlled free API key is required for governed execution
+  and must be supplied through the `x-api-key` header or environment, never in
+  a committed URL or artifact. Unauthenticated shared throttling is not an
+  acceptable execution mode for the official search.
+- Request pattern: `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=<url-encoded-expanded-query>&year=-2026&fields=paperId,externalIds,title,abstract,authors,year,publicationDate,venue,publicationTypes,url,citationCount`.
 
 ## 6. Execution record contract
 
@@ -231,10 +253,13 @@ authorized execution; it must never be used as a placeholder.
   https://ieeexplore.ieee.org/Xplorehelp/downloads/user-guides/IEEE_Xplore_Advanced_Search_Tips.pdf
 - ACM Digital Library user guide:
   https://libraries.acm.org/binaries/content/assets/libraries/new_acm-digital-library-user-guide.pdf
-- Scopus Advanced Search:
-  https://service.elsevier.com/app/answers/detail/a_id/11365/supporthub/scopus/
-- Web of Science Core Collection field tags:
-  https://webofscience.help.clarivate.com/en-us/Content/wos-core-collection/woscc-search-field-tags.htm
+- OpenAlex search and authentication documentation:
+  https://developers.openalex.org/guides/searching and
+  https://developers.openalex.org/api-reference/authentication
+- Semantic Scholar Academic Graph API documentation:
+  https://api.semanticscholar.org/api-docs/
+- Semantic Scholar API key request:
+  https://www.semanticscholar.org/product/api#api-key
 
 These sources govern syntax only. They are not SLR search results and do not
 authorize screening.
@@ -243,4 +268,5 @@ authorize screening.
 
 | Version | Date | Decision | Change |
 | --- | --- | --- | --- |
+| 0.2.0 | 2026-08-20 | D-016 | Replace inaccessible Scopus and Web of Science forms with credential-safe, paginated OpenAlex and Semantic Scholar API execution contracts; no official search executed |
 | 0.1.0 | 2026-08-18 | D-009 | Define six keyword groups, six logical queries, four database translations, filters, and the blocked execution contract |
