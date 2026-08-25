@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1.0",
+  "task": "SLR-101",
+  "protocol_version": "0.2.0",
+  "sentinel_id": "S-006",
+  "doi": "10.1002/smr.2423",
+  "reviewer": "Independent SLR Reviewer",
+  "recorded_at": "2026-08-25T18:23:21Z",
+  "classification": "retrieved",
+  "indexed_sources": [
+    "ACM Digital Library",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "retrieved_sources": [
+    "ACM Digital Library",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "official_search_executed": false,
+  "candidate_results_screened": false,
+  "runs": [
+    {
+      "source": "IEEE Xplore",
+      "query_family": "Index-check",
+      "query": "\"10.1002/smr.2423\"",
+      "executed_at": "2026-08-25T18:04:54Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=%2210.1002%2Fsmr.2423%22"
+    },
+    {
+      "source": "ACM Digital Library",
+      "query_family": "Index-check",
+      "query": "10.1002/smr.2423",
+      "executed_at": "2026-08-25T18:09:45Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://dl.acm.org/action/doSearch?AllField=10.1002%2Fsmr.2423&expand=all"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Index-check",
+      "query": "DOI singleton lookup 10.1002/smr.2423",
+      "executed_at": "2026-08-25T18:06:38Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://api.openalex.org/works/https://doi.org/10.1002/smr.2423"
+    },
+    {
+      "source": "Semantic Scholar",
+      "query_family": "Index-check",
+      "query": "DOI singleton lookup 10.1002/smr.2423",
+      "executed_at": "2026-08-25T18:20:09Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1002/smr.2423?fields=paperId%2CexternalIds%2Ctitle%2Curl"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Search-A",
+      "query": "(\"software architecture\" OR \"software architectural\" OR \"architectural design\" OR \"architecture model*\"~1) AND (\"architecture drift\" OR \"architectural drift\" OR \"architecture erosion\" OR \"architectural erosion\" OR \"architecture decay\" OR \"architectural decay\" OR \"architecture divergence\" OR \"architectural degradation\") AND (detect* OR analy* OR check* OR monitor* OR govern* OR reconstruct* OR recover*)",
+      "executed_at": "2026-08-25T18:13:02Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://api.openalex.org/works?search.exact=%28%22software+architecture%22+OR+%22software+architectural%22+OR+%22architectural+design%22+OR+%22architecture+model*%22%7E1%29+AND+%28%22architecture+drift%22+OR+%22architectural+drift%22+OR+%22architecture+erosion%22+OR+%22architectural+erosion%22+OR+%22architecture+decay%22+OR+%22architectural+decay%22+OR+%22architecture+divergence%22+OR+%22architectural+degradation%22%29+AND+%28detect*+OR+analy*+OR+check*+OR+monitor*+OR+govern*+OR+reconstruct*+OR+recover*%29&filter=doi%3Ahttps%3A%2F%2Fdoi.org%2F10.1002%2Fsmr.2423%2Cto_publication_date%3A2026-08-16&per_page=100"
+    }
+  ],
+  "rationale": "ACM Guide, OpenAlex, and Semantic Scholar retrieved the exact DOI identity while IEEE Xplore returned zero. The sentinel-scoped OpenAlex A1 diagnostic retrieved it."
+}
