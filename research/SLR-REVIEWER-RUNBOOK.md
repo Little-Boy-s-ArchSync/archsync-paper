@@ -208,10 +208,33 @@ Công cụ phải tạo đúng ba artifact review và `research/slr-review-recor
 Không tạo hoặc chỉnh các file này bằng tay. AI không được đọc hay xuất private
 key. Không ký lại một commit đã thay đổi sau review.
 
-## 8. Gate trước khi giao lại cho Hiếu
+## 8. Gate theo từng trạng thái trước khi giao lại cho Hiếu
 
-Independent SLR Reviewer hoặc AI được ủy quyền chạy toàn bộ kiểm tra sau trên
-branch review:
+Không chạy một danh sách lệnh duy nhất rồi kỳ vọng cả candidate state và frozen
+state cùng hợp lệ. Workflow có ba trạng thái tuần tự; output mong đợi của mỗi
+trạng thái khác nhau.
+
+### 8.1 Candidate evidence, trước review và ký
+
+Independent SLR Reviewer hoặc AI được ủy quyền chạy:
+
+```powershell
+node research/build-slr-sentinel-ledger.mjs --check
+node research/validate-literature-protocol.mjs
+node research/validate-search-queries.mjs
+node research/validate-screening-criteria.mjs
+node --test research/*.test.mjs
+```
+
+Ở trạng thái này, `validate-literature-protocol.mjs` phải xác nhận candidate hợp
+lệ. `freeze-literature-protocol.mjs --check` chưa phải acceptance gate và được
+phép in `FREEZE BLOCKED` vì review record, attestation hoặc signature chưa tồn
+tại. Không dùng lỗi dự kiến đó để tạo approval giả hoặc bỏ qua review.
+
+### 8.2 Sau khi reviewer chấp thuận exact commit và ký
+
+Chỉ sau Section 6 và Section 7, chạy lại candidate validators rồi kiểm tra
+prospective freeze:
 
 ```powershell
 node research/build-slr-sentinel-ledger.mjs --check
@@ -222,16 +245,35 @@ node research/freeze-literature-protocol.mjs --check
 node --test research/*.test.mjs
 ```
 
+Lúc này `freeze-literature-protocol.mjs --check` phải in
+`READY TO FREEZE SLR PROTOCOL 1.0.0`. Lệnh `--check` chỉ dựng và xác minh trạng
+thái 1.0.0 dự kiến trong bộ nhớ; reviewer không chạy `--write` và không tự nhận
+vai trò protocol owner. Commit signed-review cùng output gate được giao cho
+Hiếu.
+
+### 8.3 Sau khi owner ghi freeze state
+
+Hiếu thực hiện Section 9. Trên commit freeze mới, chạy lại:
+
+```powershell
+node research/build-slr-sentinel-ledger.mjs --check
+node research/validate-literature-protocol.mjs
+node research/validate-search-queries.mjs
+node research/validate-screening-criteria.mjs
+node --test research/*.test.mjs
+```
+
+GitHub Actions trên pull request sau đó kiểm tra live provenance giữa current
+head, reviewed ancestor, các file review được phép thêm và đúng ba output freeze.
 Hai lệnh `validate-literature-protocol.mjs` và
 `freeze-literature-protocol.mjs --check` tải và kiểm tra toàn bộ sentinel JSON,
 ledger, review record, attestation, public key, detached signature và quan hệ
 giữa các commit. Các module `verify-slr-*.mjs` là thư viện nội bộ, không phải CLI
 để chạy trực tiếp.
 
-Branch chỉ sẵn sàng giao lại khi `freeze-literature-protocol.mjs --check` in
-`READY TO FREEZE SLR PROTOCOL 1.0.0`, toàn bộ tests pass và GitHub Actions xanh.
-Nếu lệnh vẫn in `FREEZE BLOCKED`, giữ SLR-101 ở trạng thái `Đang làm` và chuyển
-nguyên thông báo lỗi cho Hiếu; không đổi trạng thái Sheet để che blocker.
+Nếu gate đúng với trạng thái hiện tại vẫn lỗi, giữ SLR-101 ở trạng thái `Đang
+làm` và chuyển nguyên thông báo lỗi cho Hiếu; không đổi trạng thái Sheet để che
+blocker.
 
 ## 9. Freeze do owner thực hiện
 
