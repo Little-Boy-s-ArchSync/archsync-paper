@@ -23,6 +23,9 @@ kiểm tra ownership.
 .
 ├── main.tex                     # Preamble, author/CCS metadata, ordered inputs
 ├── main-anonymous.tex           # Minimal anonymous wrapper
+├── references.bib               # Tài liệu tham khảo
+├── acmart.cls                   # ACM document class từ Overleaf
+├── ACM-Reference-Format.bst     # ACM bibliography style
 ├── sections/
 │   ├── abstract.tex
 │   ├── introduction.tex
@@ -36,8 +39,26 @@ kiểm tra ownership.
 │   ├── threats-to-validity.tex
 │   ├── conclusion.tex
 │   └── author-information.tex   # Bị ẩn trong anonymous mode
-├── references.bib
-├── research/                    # Governed protocols, evidence and validators
+├── research/
+│   ├── RESEARCH.md              # Research baseline, scope và evidence policy
+│   ├── GLOSSARY.md              # Thuật ngữ chuẩn có version
+│   ├── AI-EVIDENCE-POLICY.md    # Ranh giới AI và evidence thật
+│   ├── REFERENCE-QUALITY-POLICY.md
+│   ├── REFERENCE-QUALITY-AUDIT.md
+│   ├── RQ-TRACEABILITY.md
+│   ├── rq-traceability.csv
+│   ├── literature-protocol.md
+│   ├── literature-search-queries.md
+│   ├── literature-screening-criteria.md
+│   ├── literature-screening-criteria.csv
+│   ├── literature-matrix.md
+│   ├── literature-matrix.csv
+│   ├── SLR-REVIEWER-RUNBOOK.md
+│   ├── claim-evidence.csv
+│   ├── statistical-analysis-plan.md # STAT-101 draft; chưa freeze hoặc có result
+│   ├── statistical-analysis.mjs
+│   ├── decision-log.md
+│   └── risk-register.csv
 ├── scripts/
 │   ├── validate-paper-structure.mjs
 │   └── verify-pdf-variants.mjs
