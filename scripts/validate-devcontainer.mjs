@@ -9,8 +9,8 @@ export const expectedPostCreateCommand =
   "node scripts/run-devcontainer-smoke.mjs";
 
 export const expectedContainerImages = [
-  "docker.io/library/node:22.16.0-bookworm-slim@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34",
-  "ghcr.io/xu-cheng/texlive-historic-debian:2024@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12",
+  "docker.io/library/node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34",
+  "ghcr.io/xu-cheng/texlive-historic-debian@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12",
 ];
 
 const expectedActionPins = new Map([
@@ -85,13 +85,13 @@ export function validateDevcontainerContract({
   assert.deepEqual(
     images,
     expectedContainerImages,
-    "every Docker stage must use the reviewed tag plus immutable manifest digest",
+    "every Docker stage must use the reviewed immutable manifest digest",
   );
   for (const image of images) {
     assert.match(
       image,
-      /:[^/@\s]+@sha256:[0-9a-f]{64}$/,
-      `tag-only or digest-only container reference is forbidden: ${image}`,
+      /@sha256:[0-9a-f]{64}$/,
+      `tag-only container reference is forbidden: ${image}`,
     );
   }
   assert.match(

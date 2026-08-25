@@ -57,8 +57,9 @@ LaTeX Workshop build đúng document khi đang sửa một section.
 1. Mở repository trong Codespaces, hoặc chọn **Dev Containers: Reopen in
    Container** trong VS Code.
 2. Container dùng TeX Live 2024, Node.js 22.16.0, `latexmk` và Poppler. Cả image
-   TeX Live và image cung cấp Node đều được khóa bằng manifest SHA-256; không có
-   Dev Container Feature dùng mutable tag.
+   TeX Live và image cung cấp Node đều được khóa trực tiếp bằng manifest
+   SHA-256; version dễ đọc được ghi cạnh mỗi `FROM`; không có Dev Container
+   Feature dùng mutable tag.
 3. Lần tạo đầu tiên tự kiểm tra cấu trúc, build cả hai PDF và xác minh redaction.
 4. Mở `main.pdf` hoặc `main-anonymous.pdf` trong tab VS Code để preview từ
    browser.

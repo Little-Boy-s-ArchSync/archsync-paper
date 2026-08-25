@@ -1,6 +1,8 @@
-FROM docker.io/library/node:22.16.0-bookworm-slim@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34 AS node-runtime
+# Node.js 22.16.0 bookworm-slim multi-platform manifest.
+FROM docker.io/library/node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34 AS node-runtime
 
-FROM ghcr.io/xu-cheng/texlive-historic-debian:2024@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12
+# TeX Live historic Debian 2024 multi-platform manifest.
+FROM ghcr.io/xu-cheng/texlive-historic-debian@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12
 
 COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
 

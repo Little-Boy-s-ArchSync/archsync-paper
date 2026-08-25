@@ -88,7 +88,7 @@ node scripts/verify-pdf-variants.mjs
 Nếu máy local chưa có TeX/Poppler, dùng **Reopen in Container** hoặc Codespaces;
 container tự chạy đúng các lệnh trên khi được tạo.
 
-Không được đổi image từ dạng `tag@sha256:digest` về tag đơn, đổi Action SHA về
+Không được đổi image từ dạng `image@sha256:digest` về tag đơn, đổi Action SHA về
 tag, bỏ frozen lockfile, hoặc thêm `--skip-post-create` vào CI. Job
 `Devcontainer smoke` phải build/start đúng config, chạy `postCreateCommand` và
 xuất fresh challenge evidence cùng hai PDF. Evidence này xác minh lifecycle bằng
