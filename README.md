@@ -80,11 +80,22 @@ LaTeX Workshop build đúng document khi đang sửa một section.
 
 1. Mở repository trong Codespaces, hoặc chọn **Dev Containers: Reopen in
    Container** trong VS Code.
-2. Container dùng TeX Live 2024, Node.js 22, `latexmk` và Poppler. Docker layer
-   chứa TeX được tái sử dụng nên không cài lại toàn bộ distribution mỗi lần mở.
+2. Container dùng TeX Live 2024, Node.js 22.16.0, `latexmk` và Poppler. Cả image
+   TeX Live và image cung cấp Node đều được khóa trực tiếp bằng manifest
+   SHA-256; version dễ đọc được ghi cạnh mỗi `FROM`; không có Dev Container
+   Feature dùng mutable tag.
 3. Lần tạo đầu tiên tự kiểm tra cấu trúc, build cả hai PDF và xác minh redaction.
 4. Mở `main.pdf` hoặc `main-anonymous.pdf` trong tab VS Code để preview từ
    browser.
+
+GitHub Actions còn chạy một smoke test độc lập bằng Dev Container CLI 0.88.0 đã
+khóa trong `package-lock.json`. Job này tạo challenge ngẫu nhiên mới, thực sự
+build và start `.devcontainer/devcontainer.json`, để CLI chạy
+`postCreateCommand`, rồi kiểm tra evidence và hai PDF ngay bên trong container.
+Artifact `archsync-devcontainer-smoke-<commit>` chứa hai PDF do container build
+và `.devcontainer/smoke-evidence.json` với SHA-256, tool version và challenge
+nonce. Đây là machine evidence của container lifecycle; không phải tuyên bố rằng
+một người đã mở giao diện Codespaces.
 
 ### VS Code local
 
@@ -95,6 +106,8 @@ hoặc MiKTeX có `latexmk`, mở một file `sections/*.tex`, sau đó dùng re
 ## Biên dịch bằng terminal
 
 ```bash
+node scripts/validate-devcontainer.mjs
+node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex
