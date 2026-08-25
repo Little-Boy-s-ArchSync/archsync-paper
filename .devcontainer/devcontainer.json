@@ -4,11 +4,6 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
-    }
-  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -21,7 +16,7 @@
       }
     }
   },
-  "postCreateCommand": "node scripts/validate-paper-structure.mjs && latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex && latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex && node scripts/verify-pdf-variants.mjs",
+  "postCreateCommand": "node scripts/run-devcontainer-smoke.mjs",
   "remoteUser": "root",
   "updateRemoteUserUID": false
 }

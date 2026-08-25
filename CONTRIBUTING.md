@@ -62,6 +62,8 @@ nhiều PR cùng sửa `abstract`, `results` và `conclusion` độc lập.
 Chạy structural và research validators:
 
 ```bash
+node scripts/validate-devcontainer.mjs
+node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
 node research/validate-baseline.mjs
 node research/validate-rq-traceability.mjs
@@ -85,6 +87,13 @@ node scripts/verify-pdf-variants.mjs
 `verify-pdf-variants.mjs` cần `pdftotext` từ Poppler. Devcontainer đã cài sẵn.
 Nếu máy local chưa có TeX/Poppler, dùng **Reopen in Container** hoặc Codespaces;
 container tự chạy đúng các lệnh trên khi được tạo.
+
+Không được đổi image từ dạng `tag@sha256:digest` về tag đơn, đổi Action SHA về
+tag, bỏ frozen lockfile, hoặc thêm `--skip-post-create` vào CI. Job
+`Devcontainer smoke` phải build/start đúng config, chạy `postCreateCommand` và
+xuất fresh challenge evidence cùng hai PDF. Evidence này xác minh lifecycle bằng
+máy; review bằng giao diện Codespaces của con người vẫn là một hoạt động riêng
+nếu reviewer yêu cầu.
 
 ## Nội dung pull request và review
 
