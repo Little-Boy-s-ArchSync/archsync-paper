@@ -1,0 +1,92 @@
+% !TeX root = ../main.tex
+\section{Problem Definition}
+
+Let the expected architecture contract be
+\begin{equation}
+  M = (C_E, E_E, R),
+\end{equation}
+where $C_E$ is the set of expected components, $E_E$ is the set of expected typed and directed relationships, and $R$ is the set of conformance rules. We denote the graph projection of this contract by $G_E=(C_E,E_E)$. A relationship is represented as a tuple $(u,t,v)$, where $u$ is the source component, $v$ is the target component, and $t$ is the relationship type.
+
+Given a source-code repository $S$, a stack-specific analyzer $A$ constructs an observed graph
+\begin{equation}
+  G_O = A(S) = (C_O, E_O, P),
+\end{equation}
+where $C_O$ and $E_O$ are observed components and relationships, and $P$ maps each observation to source evidence. Source evidence contains a repository-relative file path, line, column, detector identifier, excerpt, and confidence value.
+
+ArchSync supports four deterministic rule semantics. A \emph{deny} rule rejects every matching relationship. An \emph{allow} rule constrains the outgoing relationships of selected sources to an allowed target set. A \emph{require} rule states that every matching source must have a direct edge to a matching target. A \emph{require-path} rule states that every matching source must reach a matching target through a non-empty directed path. Rules may optionally constrain the relationship type and may use wildcard component selectors.
+
+The conformance function compares $M$ and $G_O$ and returns a graph difference $\Delta$, a set of rule violations $\mathcal{V}$, and a set of evidence-backed findings $\mathcal{F}$. Its classification is defined as
+\begin{equation}
+\operatorname{class}(M,G_O)=
+\begin{cases}
+\text{violation}, & \text{if } |\mathcal{V}| > 0,\\
+\text{evolution}, & \text{if } |\mathcal{V}| = 0 \land |\Delta| > 0,\\
+\text{no-impact}, & \text{otherwise.}
+\end{cases}
+\end{equation}
+
+For a Git change from base repository $S_b$ to head repository $S_h$, ArchSync computes base and head finding sets and compares them by stable semantic identity:
+\begin{equation}
+  \mathcal{F}^{+} = \mathcal{F}(M,A(S_h)) \setminus \mathcal{F}(M,A(S_b)).
+\end{equation}
+Only $\mathcal{F}^{+}$ controls the pull-request decision. A newly introduced rule finding yields BLOCK; introduced evolution findings yield REVIEW; an empty $\mathcal{F}^{+}$ yields PASS. Findings in both sets are pre-existing, while findings only at the base are resolved. This distinction prevents an unrelated change from being blocked by historical drift without allowing new drift to enter silently.
+
+The research problem is to determine whether a source analyzer can reconstruct enough architectural information to make this classification accurately, reproducibly, and with actionable evidence. A useful solution must minimize both missed architectural relationships and spurious relationships, preserve stable outputs for identical inputs, and separate rule-breaking changes from topology changes that may be valid but require approval.
+
+\section{Research Questions}
+
+\textbf{RQ1: How accurately can ArchSync reconstruct software architecture components and relationships from TypeScript source code?}
+
+This question measures precision, recall, and F1 score for complete observed graphs and for nodes and edges changed by a patch. At the detector-signal level it additionally measures true negatives and specificity on annotated hard negatives.
+
+\textbf{RQ2: How accurately can ArchSync distinguish no-impact changes, architecture-rule violations, and architecture evolution?}
+
+This question evaluates exact classification agreement with a manually curated ground truth and, for violations, agreement on the expected rule identifiers.
+
+\textbf{RQ3: How accurately can ArchSync localize architectural findings in source code?}
+
+This question evaluates whether a finding identifies the expected changed file and exact source line. Column, detector, excerpt, and model path are retained as additional diagnostic evidence.
+
+\textbf{RQ4: Are ArchSync full-repository and Git-diff outputs deterministic and reproducible, and what analysis scope and latency are observed for the cached incremental gate?}
+
+This question compares normalized observed graphs, findings, and pull-request decisions across repeated executions and clean installations. For Git-diff checks it additionally records cache behavior, files parsed relative to the head repository, and cold/warm latency on the measured environment.
+
+\section{Proposed Approach}
+
+\subsection{Architecture as an Executable Contract}
+
+ArchSync uses a YAML document as the source of truth for architecture intent. The model defines stable component identifiers, component types, layers, directed relationships, rule severity, ownership metadata, and optional quality goals. JSON Schema validation rejects malformed documents, while semantic validation rejects unknown component references, duplicate edges, invalid identifiers, and other topology inconsistencies. Mermaid and draw.io views are derived from the model; they are not independent sources of truth.
+
+The validated model is converted into an expected graph with stable node identifiers and canonical edge keys. This normalization makes graph comparison and evidence manifests reproducible. It also enables the same conformance semantics to be used by command-line tools, benchmark evaluation, and continuous-integration adapters.
+
+\subsection{Source-to-Graph Analysis}
+
+A Guardian analyzer traverses TypeScript files under component roots and parses them through the TypeScript Compiler API. Rather than matching arbitrary text, detectors inspect syntax-tree nodes, imports, call expressions, variable initialization, environment-variable references, and URL literals. Stack-specific detectors translate these signals into typed architectural relationships.
+
+The detector set recognizes HTTP requests, PostgreSQL clients and queries, Redis clients and operations, and AMQP publishing and consumption. Version 0.2 tracks local bindings introduced by named, aliased, and namespace imports from \texttt{pg}, \texttt{redis}, and \texttt{amqplib}. PostgreSQL and Redis edges are emitted only for operations on clients derived from those bindings; AMQP edges require a channel derived from a tracked connection. This package provenance prevents unrelated objects named \texttt{query}, \texttt{get}, \texttt{publish}, or \texttt{consume} from becoming edges merely because an infrastructure package appears in the same file. Endpoint resolution uses explicit literals and deterministic environment-variable fallbacks when available. Every detected relationship carries one or more source locations. Detected components and relationships are sorted and deduplicated before serialization.
+
+\subsection{Conformance and Decision Semantics}
+
+The conformance engine first computes node and edge differences between the expected and observed graphs. It then evaluates the observed graph against the architecture rules. A rule violation takes precedence over ordinary topology evolution. This precedence prevents a forbidden new edge from being reported only as an architectural change.
+
+The repository-facing decision is derived from the classification:
+\begin{itemize}
+  \item \textbf{PASS} for no-impact changes;
+  \item \textbf{BLOCK} for deterministic rule violations; and
+  \item \textbf{REVIEW} for non-forbidden architecture evolution.
+\end{itemize}
+The REVIEW outcome is important because a new component or relationship is not necessarily incorrect. ArchSync reports the change without automatically modifying the approved architecture contract.
+
+\subsection{Diff-Scoped Living Architecture Loop}
+
+The Phase 3 gate resolves the merge base, enumerates modified, added, deleted, renamed, and untracked files, and maps changed TypeScript paths to source components. A cold check reconstructs the base Observed Graph from the committed source tree. The graph is cached inside Git metadata under a key derived from the base commit, architecture-contract hash, and analyzer version. A warm check validates and reuses that cache.
+
+For the proposed head, Guardian parses all TypeScript files in affected source components, rather than only changed lines, so relationships assembled across multiple files remain visible. Evidence and relationships owned by those components replace their baseline counterparts; unaffected components remain from the cached graph. Base and head are then evaluated with the same Core semantics, and stable finding identities determine introduced, pre-existing, and resolved findings. GitHub workflow commands annotate source locations, a Markdown artifact summarizes the graph delta, and exit codes implement the merge gate.
+
+This mechanism makes the observed architecture dynamic but not self-authorizing. The expected model remains versioned in Git and is never rewritten by the analyzer. A REVIEW outcome can become an accepted evolution only through an explicit model change protected by architecture-owner approval; a hard-rule violation cannot be legitimized merely by changing implementation.
+
+\subsection{Evidence-Rich Findings}
+
+A finding contains a stable contract version, identifier, kind, severity, message, optional rule identifier, affected component or edge, source evidence, and model evidence. For an observed forbidden edge, the evidence points to the call site that introduced the relationship. For a missing required edge or path, the source component is used as a deterministic anchor and the relevant rule location is retained as model evidence.
+
+This separation allows the deterministic engine to state \emph{what} changed and \emph{why} it violates the contract, while preserving enough context for a developer or architect to inspect the implementation.

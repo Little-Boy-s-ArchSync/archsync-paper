@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
 
@@ -11,7 +13,7 @@ const [matrixText, narrative, baseline, claimsText, decisions, paper] = await Pr
   readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
   readFile(join(researchDirectory, "claim-evidence.csv"), "utf8"),
   readFile(join(researchDirectory, "decision-log.md"), "utf8"),
-  readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+  loadExpandedManuscript(repositoryDirectory),
 ]);
 
 const issues = [];

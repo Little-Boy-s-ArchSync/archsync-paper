@@ -29,6 +29,7 @@
 
 # Generated paper output
 main.pdf
+main-anonymous.pdf
 /output/
 /tmp/
 
@@ -40,4 +41,3 @@ Thumbs.db
 *.bak
 *.tmp
 .idea/
-.vscode/

@@ -1,0 +1,27 @@
+{
+  "name": "ArchSync Paper (TeX Live 2024)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "james-yu.latex-workshop",
+        "streetsidesoftware.code-spell-checker",
+        "davidanson.vscode-markdownlint"
+      ],
+      "settings": {
+        "latex-workshop.view.pdf.viewer": "tab"
+      }
+    }
+  },
+  "postCreateCommand": "node scripts/validate-paper-structure.mjs && latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex && latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex && node scripts/verify-pdf-variants.mjs",
+  "remoteUser": "root",
+  "updateRemoteUserUID": false
+}

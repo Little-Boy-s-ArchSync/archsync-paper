@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import { parseCsv } from "./validate-claim-evidence.mjs";
 
 export const REFERENCE_QUALITY_HEADERS = Object.freeze([
@@ -258,7 +260,9 @@ export async function main({
     read(join(research, "decision-log.md"), "utf8"),
     read(join(repositoryDirectory, "CONTRIBUTING.md"), "utf8"),
     read(join(repositoryDirectory, "README.md"), "utf8"),
-    read(join(repositoryDirectory, "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory, {
+      readText: (path) => read(path, "utf8"),
+    }),
     read(join(research, "REFERENCE-QUALITY-AUDIT.md"), "utf8"),
     read(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);

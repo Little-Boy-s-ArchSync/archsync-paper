@@ -1,8 +1,10 @@
 ## Paper change
 
+- Editing reservation (exact files; draft PRs reserve these files):
 - Section or research artifact changed:
 - Related RQ or claim IDs:
 - Reason for the change:
+- AI assistance and human verification, if any:
 
 ## Evidence
 
@@ -14,7 +16,10 @@
 
 ## Review checklist
 
-- [ ] `Build paper` passes and the PDF artifact was inspected.
+- [ ] No other open PR reserves the same section/shared file.
+- [ ] `node scripts/validate-paper-structure.mjs` passes.
+- [ ] `Build paper` passes and both named and anonymous PDF artifacts were inspected.
+- [ ] The anonymous PDF contains no name, email, affiliation or contribution block.
 - [ ] Every quantitative statement maps to a verified claim-evidence row.
 - [ ] Planned Phase 4--6 work is not written as an observed result.
 - [ ] Dataset scope and threats to validity remain explicit.

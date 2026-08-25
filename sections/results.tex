@@ -1,0 +1,99 @@
+% !TeX root = ../main.tex
+\section{Results}
+
+\begin{table*}[t]
+  \caption{D1 aggregate node and edge detection on 20 independently applied patches.}
+  \label{tab:detection-results}
+  \centering
+  \small
+  \begin{tabular}{lrrrrrr}
+    \hline
+    Measure & TP & FP & FN & Precision & Recall & F1 \\
+    \hline
+    Full-graph nodes & 105 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Full-graph edges & 108 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Changed nodes & 5 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Changed edges & 12 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    \hline
+  \end{tabular}
+\end{table*}
+
+\begin{table}[t]
+  \caption{Decision, evidence, and replay outcomes.}
+  \label{tab:outcome-results}
+  \centering
+  \small
+  \begin{tabular}{lrr}
+    \hline
+    Measure & Matches & Total \\
+    \hline
+    Classification & 20 & 20 \\
+    Violation rule set & 7 & 7 \\
+    Evidence file & 11 & 11 \\
+    Evidence exact line & 11 & 11 \\
+    Deterministic cases & 20 & 20 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[t]
+  \caption{P3 Git-diff gate outcomes and measured scope.}
+  \label{tab:phase3-results}
+  \centering
+  \small
+  \begin{tabular}{lr}
+    \hline
+    Measure & Result \\
+    \hline
+    Classification agreement & 20/20 \\
+    Merge-decision agreement & 20/20 \\
+    Changed-file agreement & 20/20 \\
+    Architecture-delta agreement & 20/20 \\
+    Incremental/full-scan agreement & 20/20 \\
+    Violation rule-set agreement & 7/7 \\
+    Exact evidence line & 11/11 \\
+    Cache hit on repeated check & 20/20 \\
+    Normalized cold/warm replay & 20/20 \\
+    Incremental files / head files & 57/189 \\
+    Cold median / p95 (ms) & 518.51 / 531.05 \\
+    Warm median / p95 (ms) & 242.62 / 249.30 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table*}[t]
+  \caption{D2 signal-level confusion matrices for the frozen v0.1 and provenance-aware v0.2 analyzers on the same 40-signal corpus.}
+  \label{tab:pattern-results}
+  \centering
+  \small
+  \begin{tabular}{lrrrrrrrr}
+    \hline
+    & \multicolumn{4}{c}{v0.1} & \multicolumn{4}{c}{v0.2} \\
+    Detector & TP & FP & FN & TN & TP & FP & FN & TN \\
+    \hline
+    \texttt{fetch} & 4 & 0 & 0 & 4 & 4 & 0 & 0 & 4 \\
+    PostgreSQL & 4 & 1 & 0 & 3 & 4 & 0 & 0 & 4 \\
+    Redis & 2 & 0 & 2 & 4 & 4 & 0 & 0 & 4 \\
+    AMQP publish & 4 & 2 & 0 & 2 & 4 & 0 & 0 & 4 \\
+    AMQP consume & 4 & 1 & 0 & 3 & 4 & 0 & 0 & 4 \\
+    \hline
+    Overall & 18 & 4 & 2 & 16 & 20 & 0 & 0 & 20 \\
+    \hline
+  \end{tabular}
+\end{table*}
+
+\textbf{RQ1: graph reconstruction and detector signals.}
+The unchanged repository was reconstructed as five components and five relationships with a no-impact classification. Table~\ref{tab:detection-results} reports no false positive or false negative in D1. Full-graph totals aggregate 105 expected nodes and 108 expected edges across 20 patched repositories. Changed-graph denominators are smaller but doubled relative to the initial benchmark: five node changes and 12 edge changes.
+
+Table~\ref{tab:pattern-results} gives the harder signal-level result. On D2, v0.1 achieved precision 0.818182, recall 0.900000, F1 0.857143, and specificity 0.800000. Its four false positives were a PostgreSQL-shaped local query, two AMQP-publish lookalikes, and an AMQP-consume lookalike; its two false negatives were Redis \texttt{hSet} and \texttt{lPush}. On the same annotated signals, v0.2 achieved 1.000000 for all four metrics. Package-provenance tracking removed the four method-name false positives, while the expanded Redis operation set recovered the two missed positives. This is a targeted regression improvement on D2, not an estimate over arbitrary TypeScript syntax.
+
+\textbf{RQ2: change classification.}
+ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evolution cases. It also matched the complete expected rule-identifier set for all seven violations. The added allow and require-path cases exercise rule semantics beyond direct deny and require checks. Redis, AMQP, Fraud Service, and payment-cache additions were classified as evolution rather than violation, preserving a human-review path.
+
+\textbf{RQ3: evidence localization.}
+All 11 finding-bearing D1 cases contained the expected file and at least one evidence item at the exact expected line. Violation cases pointed to either the introducing call site or, for a missing required edge or path, a deterministic component anchor. Evolution cases pointed to the operation that created the new observed relationship. The metric does not evaluate uniqueness or ranking when multiple evidence items exist.
+
+\textbf{RQ4: determinism and reproducibility.}
+The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 produced identical normalized cold and warm results for 20/20 cases, matched all 20 declared architecture deltas, matched a separate full head scan in all 20 cases, and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm median latency was 242.62 ms compared with 518.51 ms cold, a descriptive 53.2\% reduction; warm p95 was 249.30 ms compared with 531.05 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
+
+The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{015c9bbb0cf4} for Core and \texttt{d7b1a431c2a5} for Guardian v0.3. P3 records normalized-result SHA-256 \texttt{9dfede4e4274}. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.

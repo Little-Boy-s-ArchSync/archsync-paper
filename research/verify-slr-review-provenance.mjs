@@ -12,6 +12,7 @@ const REPOSITORY = "Little-Boy-s-ArchSync/archsync-paper";
 const ALLOWED_ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
 const ALLOWED_POST_REVIEW_FILES = new Set([
   "main.tex",
+  "sections/related-work.tex",
   "research/decision-log.md",
   "research/literature-protocol.md",
   "research/slr-review-record.md",

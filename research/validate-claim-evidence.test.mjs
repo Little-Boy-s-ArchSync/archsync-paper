@@ -4,6 +4,8 @@ import test from "node:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import {
   main as runClaimEvidenceValidator,
   parseCsv,
@@ -14,7 +16,7 @@ const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
 const [csvText, paperText] = await Promise.all([
   readFile(join(researchDirectory, "claim-evidence.csv"), "utf8"),
-  readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+  loadExpandedManuscript(repositoryDirectory),
 ]);
 
 test("accepts the governed paper claim ledger", () => {

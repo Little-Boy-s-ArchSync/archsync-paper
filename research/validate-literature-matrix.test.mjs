@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
 import test from "node:test";
 
 import {
@@ -17,7 +19,7 @@ const [contract, matrix, protocol, decisions, paper] = await Promise.all([
   readFile(join(research, "literature-matrix.csv"), "utf8"),
   readFile(join(research, "literature-protocol.md"), "utf8"),
   readFile(join(research, "decision-log.md"), "utf8"),
-  readFile(join(repository, "main.tex"), "utf8"),
+  loadExpandedManuscript(repository),
 ]);
 
 const NOW = Date.parse("2026-08-18T03:00:00Z");

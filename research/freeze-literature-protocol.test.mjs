@@ -5,6 +5,8 @@ import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import {
   freezeLiteratureProtocol,
   main as runFreezeTool,
@@ -19,7 +21,7 @@ const [protocol, decisions, baseline, traceability, paper, bibliography] =
     readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
     readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
-    readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory),
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);
 
@@ -259,6 +261,7 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
   const research = join(repository, "research");
   const evidence = join(research, "evidence", "slr-sentinel");
   await mkdir(evidence, { recursive: true });
+  await mkdir(join(repository, "sections"), { recursive: true });
 
   for (const [path, content] of sentinelEvidenceArtifacts) {
     await writeFile(join(repository, ...path.split("/")), content);
@@ -269,7 +272,16 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
     writeFile(join(research, "decision-log.md"), decisions, "utf8"),
     writeFile(join(research, "RESEARCH.md"), baseline, "utf8"),
     writeFile(join(research, "RQ-TRACEABILITY.md"), traceability, "utf8"),
-    writeFile(join(repository, "main.tex"), paper, "utf8"),
+    writeFile(
+      join(repository, "main.tex"),
+      "\\input{sections/related-work}\n",
+      "utf8",
+    ),
+    writeFile(
+      join(repository, "sections", "related-work.tex"),
+      paper,
+      "utf8",
+    ),
     writeFile(join(repository, "references.bib"), bibliography, "utf8"),
     writeFile(join(research, "slr-review-record.md"), reviewRecord, "utf8"),
     writeFile(
@@ -303,7 +315,11 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
     /^- Status: Accepted$/m,
   );
   assert.match(
-    await readFile(join(repository, "main.tex"), "utf8"),
+    await readFile(join(repository, "sections", "related-work.tex"), "utf8"),
     /The frozen protocol predeclares/,
+  );
+  assert.equal(
+    await readFile(join(repository, "main.tex"), "utf8"),
+    "\\input{sections/related-work}\n",
   );
 });

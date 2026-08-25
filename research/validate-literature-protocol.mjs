@@ -1,6 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
+
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
 import { dirname, join } from "node:path";
 
 import { parseCsv } from "./validate-claim-evidence.mjs";
@@ -777,7 +779,7 @@ export async function main({
     readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
     readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
-    readFile(join(researchDirectory, "..", "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory),
     readFile(join(researchDirectory, "..", "references.bib"), "utf8"),
     readOptional(join(researchDirectory, "slr-review-record.md")),
     readOptional(join(researchDirectory, "literature-sentinel-recall.csv")),

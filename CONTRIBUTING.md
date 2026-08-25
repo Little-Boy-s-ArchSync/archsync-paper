@@ -1,22 +1,137 @@
 # Contributing to the ArchSync Research Paper
 
-Repository này là nguồn chỉnh sửa chính cho paper. Overleaf chỉ được dùng để
-đọc, nhận xét hoặc đồng bộ theo mốc; không được tạo một lịch sử chỉnh sửa song
-song rồi ghi đè lại GitHub.
+## Nguồn chính duy nhất
 
-## Quy trình bắt buộc
+Nhánh `main` của repository GitHub này là nguồn LaTeX chính thức. Overleaf là
+bản mirror để đọc, comment và kiểm tra theo milestone; Overleaf không phải một
+lịch sử chỉnh sửa thứ hai. Không được tải một bản Overleaf cũ rồi ghi đè lên
+GitHub.
 
-1. Đồng bộ `main` và tạo branch có dạng `paper/<section>-<muc-tieu>`.
-2. Chỉ một người chỉnh trực tiếp cùng một vùng trong `main.tex` tại một thời
-   điểm. Nếu cần làm song song, thống nhất phạm vi dòng hoặc section trước.
-3. Biên dịch bằng `latexmk` nếu máy có TeX. Khi không có TeX cục bộ, push branch
-   và dùng artifact của workflow `Build paper` làm bằng chứng compile.
-4. Mở pull request, khai báo section đã sửa, claim bị ảnh hưởng và evidence liên
-   quan. Không push trực tiếp lên `main`.
-5. Một thành viên không phải tác giả chính của thay đổi phải review nội dung,
-   biểu đồ, citation và cách diễn giải kết quả. Hiếu thực hiện merge cuối.
-6. Sau merge, nếu cần đồng bộ Overleaf thì tải source/PDF từ commit đã merge;
-   không import file phụ hoặc bản cũ ngược vào repository.
+Các file có vai trò cố định:
+
+- `main.tex` chứa preamble, metadata tác giả, CCS metadata và thứ tự `\input`;
+- `main-anonymous.tex` chỉ là wrapper double-blind;
+- `sections/*.tex` chứa nội dung manuscript;
+- `references.bib` là bibliography dùng chung;
+- `research/` chứa protocol, evidence contract, ledger và decision log.
+
+Không đưa nội dung section trở lại `main.tex`. Dùng `\input`, không dùng
+`\include`, vì `\include` có thể thêm page break và làm thay đổi layout.
+
+## Bản đồ file và phạm vi chỉnh sửa
+
+| Nội dung | File chính | Người review nội dung |
+| --- | --- | --- |
+| Abstract | `sections/abstract.tex` | Reviewer của các claim bị ảnh hưởng |
+| Introduction | `sections/introduction.tex` | Hiếu |
+| Background / Related Work | `sections/related-work.tex` | Hiếu |
+| Problem, RQ và Proposed Approach | `sections/approach.tex` | Hiếu |
+| System Architecture | `sections/architecture.tex` | Hiếu + reviewer implementation |
+| Implementation / reproducibility | `sections/implementation.tex` | Thành viên 1 |
+| Evaluation methodology | `sections/evaluation.tex` | Thành viên 3 |
+| Results | `sections/results.tex` | Thành viên 3 + evidence reviewer |
+| Discussion | `sections/discussion.tex` | Hiếu |
+| Threats to Validity | `sections/threats-to-validity.tex` | Thành viên 3 |
+| Conclusion | `sections/conclusion.tex` | Hiếu |
+| Named contribution block | `sections/author-information.tex` | Hiếu |
+
+`main.tex`, `references.bib`, `sections/abstract.tex` và mọi file trong
+`research/` là file dùng chung có nguy cơ conflict cao. Mỗi thời điểm chỉ một PR
+được phép chỉnh trực tiếp cùng một file dùng chung.
+
+## Làm song song không tạo conflict
+
+1. Đồng bộ `main`, sau đó tạo branch `paper/<section>-<muc-tieu>`.
+2. Mở **draft pull request ngay khi bắt đầu** và điền mục `Editing reservation`:
+   file sẽ sửa, claim/RQ liên quan và thời gian dự kiến bàn giao. Draft PR là cơ
+   chế giữ phạm vi; không giữ file bằng chat riêng vì thành viên khác không nhìn
+   thấy.
+3. Kiểm tra các PR đang mở. Nếu một PR đã giữ cùng file, chia phạm vi sang file
+   khác hoặc chờ PR đó merge. Không sửa song song hai đoạn trong cùng một file.
+4. Một branch chỉ nên có một mục tiêu nội dung chính. Thay đổi tooling hoặc
+   research contract không liên quan phải ở PR khác.
+5. Trước khi chuyển PR sang ready, cập nhật từ `origin/main`, chỉ giải quyết
+   conflict trong phạm vi đã giữ, rồi chạy toàn bộ gate bên dưới.
+
+Nếu cần thay đổi nhiều section cho cùng một claim, chọn một người làm integration
+owner. Các thành viên còn lại review hoặc gửi commit theo từng file; không tạo
+nhiều PR cùng sửa `abstract`, `results` và `conclusion` độc lập.
+
+## Gate trước pull request
+
+Chạy structural và research validators:
+
+```bash
+node scripts/validate-paper-structure.mjs
+node research/validate-baseline.mjs
+node research/validate-rq-traceability.mjs
+node research/validate-claim-evidence.mjs
+node research/validate-literature-protocol.mjs
+node research/validate-search-queries.mjs
+node research/validate-screening-criteria.mjs
+node research/validate-literature-matrix.mjs
+node research/validate-reference-quality-policy.mjs
+node --test research/*.test.mjs
+```
+
+Biên dịch cả hai biến thể, không chỉ file đang mở trong editor:
+
+```bash
+latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex
+latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex
+node scripts/verify-pdf-variants.mjs
+```
+
+`verify-pdf-variants.mjs` cần `pdftotext` từ Poppler. Devcontainer đã cài sẵn.
+Nếu máy local chưa có TeX/Poppler, dùng **Reopen in Container** hoặc Codespaces;
+container tự chạy đúng các lệnh trên khi được tạo.
+
+## Nội dung pull request và review
+
+PR phải ghi:
+
+- file/section đã giữ và file thực tế đã sửa;
+- RQ, claim ID và evidence liên quan;
+- thay đổi citation, figure, table, number hoặc interpretation;
+- lệnh tái tạo evidence và checksum/manifest khi có;
+- ảnh hoặc PDF artifact đã kiểm tra;
+- AI assistance đã dùng và nguồn thật mà người phụ trách đã xác minh.
+
+Không push trực tiếp lên `main`. `Build paper` phải xanh, cả `main.pdf` và
+`main-anonymous.pdf` phải được tạo, và ít nhất một thành viên không phải tác giả
+chính của thay đổi phải review nội dung, citation, figure/table và cách diễn
+giải. Hiếu thực hiện merge cuối.
+
+Không resolve comment bằng cách thay đổi claim ngoài phạm vi PR. Nếu review phát
+hiện cần đổi RQ, ground truth, metric, acceptance criterion hoặc architecture
+contract, thêm entry vào `research/decision-log.md` và yêu cầu đúng owner review.
+
+## Xử lý rebase và conflict
+
+- Không dùng bản PDF hoặc Overleaf để chọn “phiên bản mới hơn”. So sánh commit
+  Git và evidence artifact.
+- Không chọn toàn bộ `ours` hoặc `theirs` cho section có claim định lượng.
+- Giữ nguyên cả hai nguồn citation khi chưa có reviewer quyết định; không xóa
+  citation chỉ để hết conflict.
+- File sinh từ automation phải được tái tạo bằng lệnh của nó, không sửa tay để
+  khớp conflict.
+- Sau rebase, chạy lại structural validator, research tests và cả hai PDF build.
+
+## Đồng bộ Overleaf theo milestone
+
+Chỉ designated sync steward thực hiện đồng bộ sau khi một milestone đã merge:
+
+1. ghi exact Git commit SHA được đồng bộ;
+2. tạo checkpoint có tên commit trong Overleaf;
+3. upload source từ commit đã merge, gồm `sections/`, không lấy source từ một
+   working tree chưa commit;
+4. compile `main-anonymous.tex` và so sánh với GitHub Actions artifact;
+5. ghi commit SHA vào mô tả/checkpoint Overleaf;
+6. sau đó chỉ comment trên Overleaf cho tới lần sync tiếp theo.
+
+Nếu ai đó lỡ sửa source trên Overleaf, steward tải diff đó về một Git branch mới
+và mở PR bình thường. Không import trực tiếp vào `main` và không ghi đè các file
+section đã thay đổi trên GitHub.
 
 ## Quy tắc research integrity
 
@@ -28,11 +143,11 @@ song rồi ghi đè lại GitHub.
   validator, PR và chuẩn bị freeze. Thành viên không phải tự gõ lại các bước cơ
   học nếu bundle có đủ source capture và provenance để kiểm tra.
 - AI output chỉ là đề xuất chưa xác minh, không phải evidence. Người được giao
-  việc phải đối chiếu từng thông tin evidence với nguồn thật và chịu trách
-  nhiệm cho artifact cuối cùng.
+  việc phải đối chiếu từng thông tin evidence với nguồn thật và chịu trách nhiệm
+  cho artifact cuối cùng.
 - Không dùng AI để bịa DOI/URL, citation, quote, số lượng kết quả, timestamp,
-  hash, metric, reviewer decision, approval, signature hoặc tuyên bố đã chạy
-  một thao tác không thực sự xảy ra.
+  hash, metric, reviewer decision, approval, signature hoặc tuyên bố đã chạy một
+  thao tác không thực sự xảy ra.
 - Không thêm số liệu vào Abstract, Results, Discussion hoặc Conclusion nếu chưa
   có hàng tương ứng trong `research/claim-evidence.csv`.
 - Mọi số liệu phải truy được đến raw/normalized artifact, commit hoặc package
@@ -51,69 +166,17 @@ song rồi ghi đè lại GitHub.
 - Rapid Journal Quality Check là extension hỗ trợ kiểm tra ban đầu, không phải
   evidence cuối. Phải ghi nguồn ranking, năm, category và URL chính thức; với
   conference phải ghi quartile không áp dụng và kiểm tra venue/indexing riêng.
-- Không dùng tuổi paper hoặc quartile để tự ý loại record khỏi systematic
-  review. Hai thuộc tính này dùng để ưu tiên nguồn trích dẫn và diễn giải trọng
-  lượng evidence sau screening.
+- Không dùng tuổi paper hoặc quartile để tự ý loại record khỏi systematic review.
 
-## Phân công review
+## SLR và double-blind
 
-- Hiếu: Introduction, Related Work, Research Questions, Discussion, paper scope.
-- Thành viên 1: Implementation, reproducibility, release và artifact workflow.
-- Thành viên 2: AI approach, AI safety, citation validation và human-review handoff.
-- Thành viên 3: Evaluation, statistics, results tables và threats to validity.
-
-Mỗi section phải có ít nhất một reviewer ngoài người viết chính. Thay đổi RQ,
-ground truth, metric, acceptance criterion hoặc architecture contract cần được
-ghi vào `research/decision-log.md` trước khi merge.
-
-Đối với systematic literature review, không chạy tìm kiếm chính thức hoặc xem
-danh sách kết quả khi protocol còn ở trạng thái `Review candidate`. Một thành
-viên không phải tác giả phải review protocol, kiểm tra sentinel recall và chấp
-thuận freeze version 1.0.0 trước khi search được chuyển sang `Authorized`. Mọi
-thay đổi tiêu chí sau khi đã xem kết quả phải đi qua amendment có version và
-không được ghi đè âm thầm lên protocol đã freeze. Người được phân công vai trò
-Independent SLR Reviewer thực hiện phần review theo
-`research/SLR-REVIEWER-RUNBOOK.md`. AI có thể gọi automation tạo khóa hoặc ký
-trên máy reviewer sau khi reviewer phê duyệt exact commit và exact action,
-nhưng không được đọc, xuất hoặc chuyển private key cho tác giả protocol.
-
-Search strings của SLR-102 được version trong
-`research/literature-search-queries.md`. Khi SLR-101 chưa freeze, file
-`literature-search-log.template.csv` phải giữ trống query đã chạy, timestamp,
-result count, export, hash và operator; không dùng `0` hoặc dữ liệu mock để làm
-placeholder. Sau freeze, mỗi database-query pair phải ghi đúng expanded query,
-filter, UTC timestamp, result count và immutable export hash trước khi mở danh
-sách kết quả để screening.
-
-Tiêu chí screening SLR-103 được version trong
-`research/literature-screening-criteria.md` và
-`literature-screening-criteria.csv`. Không thêm quyết định vào
-`literature-screening.template.csv`; đây chỉ là schema. Khi SLR-101 chưa
-freeze, không được dùng result thật hoặc dữ liệu mock để tuyên bố calibration.
-Mọi exclusion sau khi được authorize phải có đúng một primary E-code, factual
-note và evidence location; hai reviewer phải ghi quyết định độc lập trước khi
-adjudication. AI có thể tạo đề xuất và file quyết định từ record/full text thật;
-mỗi reviewer kiểm tra bundle nguồn, chấp nhận hoặc sửa quyết định cuối cùng và
-khai báo phần AI đã thực hiện. Reviewer không cần nhập lại file bằng tay.
-
-`research/RESEARCH.md` và `research/GLOSSARY.md` là hai artifact versioned đã
-freeze. Thay đổi target user, problem, scope hoặc nghĩa thuật ngữ phải tăng
-version theo change rule trong baseline và thêm một decision được chấp nhận ở
-cùng pull request. Trước khi mở PR, chạy:
-
-```bash
-node research/validate-baseline.mjs
-node research/validate-rq-traceability.mjs
-node research/validate-literature-protocol.mjs
-node research/validate-search-queries.mjs
-node research/validate-screening-criteria.mjs
-node research/validate-reference-quality-policy.mjs
-```
-
-## Double-blind
+Không chạy official SLR search hoặc xem result list khi protocol còn ở trạng
+thái `Review candidate`. Independent SLR Reviewer làm theo
+`research/SLR-REVIEWER-RUNBOOK.md`; AI chỉ được gọi automation ký sau khi reviewer
+phê duyệt exact commit, attestation, UTC time và exact signing action. Không đọc,
+hiển thị, sao chép hoặc commit private key.
 
 `main.tex` là bản làm việc có tên; `main-anonymous.tex` là wrapper double-blind.
-Không để PDF tạo từ wrapper hiển thị tên, email, affiliation, URL nhận diện hoặc
-acknowledgement có thể lộ nhóm. Metadata tác giả chỉ được lưu trong source
-private. Repository phải giữ private cho đến khi chính sách của venue cho phép
-công khai.
+Không để PDF ẩn danh hiển thị tên, email, affiliation, URL nhận diện hoặc
+acknowledgement. Repository phải giữ private đến khi chính sách venue cho phép
+công khai. Chỉ nộp artifact `main-anonymous.pdf` đã được kiểm tra từ commit merge.

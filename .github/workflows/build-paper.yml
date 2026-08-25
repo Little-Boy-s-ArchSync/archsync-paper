@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: 22.16.0
 
+      - name: Verify paper section structure
+        run: node scripts/validate-paper-structure.mjs
+
       - name: Verify anonymous submission settings
         shell: bash
         run: |
@@ -97,16 +100,30 @@ jobs:
           SLR_CURRENT_COMMIT: ${{ github.event.pull_request.head.sha }}
         run: node research/verify-slr-review-provenance.mjs
 
-      - name: Compile LaTeX
+      - name: Compile named and anonymous LaTeX variants
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: main-anonymous.tex
+          root_file: |
+            main.tex
+            main-anonymous.tex
+          texlive_version: 2024
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
-      - name: Upload compiled PDF
+      - name: Verify PDF content and double-blind redaction
+        shell: bash
+        run: |
+          if ! command -v pdftotext >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends poppler-utils
+          fi
+          node scripts/verify-pdf-variants.mjs
+
+      - name: Upload compiled PDFs
         uses: actions/upload-artifact@v7
         with:
           name: archsync-paper-${{ github.sha }}
-          path: main-anonymous.pdf
+          path: |
+            main.pdf
+            main-anonymous.pdf
           if-no-files-found: error
           retention-days: 30

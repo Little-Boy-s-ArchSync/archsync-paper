@@ -4,6 +4,8 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import { validateReferenceQualityPolicy } from "./validate-reference-quality-policy.mjs";
 
 const repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -33,7 +35,7 @@ async function loadFixture() {
     readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(repositoryDirectory, "CONTRIBUTING.md"), "utf8"),
     readFile(join(repositoryDirectory, "README.md"), "utf8"),
-    readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory),
     readFile(join(researchDirectory, "REFERENCE-QUALITY-AUDIT.md"), "utf8"),
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);

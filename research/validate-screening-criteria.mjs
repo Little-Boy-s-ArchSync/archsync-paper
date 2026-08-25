@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import { parseCsv } from "./validate-claim-evidence.mjs";
 
 export const CRITERIA = Object.freeze([
@@ -243,7 +245,9 @@ export async function main({
       read(join(researchDirectory, "literature-screening.template.csv"), "utf8"),
       read(join(researchDirectory, "literature-protocol.md"), "utf8"),
       read(join(researchDirectory, "decision-log.md"), "utf8"),
-      read(join(repositoryDirectory, "main.tex"), "utf8"),
+      loadExpandedManuscript(repositoryDirectory, {
+        readText: (path) => read(path, "utf8"),
+      }),
     ]);
   const result = validateScreeningCriteria({
     codebook,
