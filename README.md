@@ -57,6 +57,9 @@ kiểm tra ownership.
 │   ├── claim-evidence.csv
 │   ├── statistical-analysis-plan.md # STAT-101 draft; chưa freeze hoặc có result
 │   ├── statistical-analysis.mjs
+│   ├── holdout-report.template.md    # EVAL-111 scaffold; không có result
+│   ├── paper-results-manifest.schema.json
+│   ├── paper-results-manifest.template.json # ANALYSIS-101 handoff; không phải evidence
 │   ├── decision-log.md
 │   └── risk-register.csv
 ├── scripts/
@@ -136,8 +139,14 @@ node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
 node research/validate-reference-quality-policy.mjs
+node research/verify-evaluation-report-scaffold.mjs
 node --test research/*.test.mjs
 ```
+
+`holdout-report.template.md` và `paper-results-manifest.template.json` chỉ khóa
+cấu trúc bàn giao cho EVAL-111/ANALYSIS-101. Chúng giữ mọi trường dữ liệu và
+result rỗng, không thay thế D3 freeze, independent annotation, statistical-plan
+freeze, analysis run hoặc human review.
 
 AI có thể vận hành browser/CLI đã được cấp quyền, tạo artifact, ledger, hash,
 validator và PR. AI-generated assertion không phải evidence; source output, run,

@@ -1,0 +1,18 @@
+{
+  "$schema": "./paper-results-manifest.schema.json",
+  "schema_version": "0.1.0",
+  "status": "template-not-evidence",
+  "task_ids": [
+    "EVAL-111",
+    "ANALYSIS-101"
+  ],
+  "generated_at": null,
+  "dataset": null,
+  "analysis_plan": null,
+  "pipeline": [],
+  "tables": [],
+  "figures": [],
+  "report": null,
+  "limitations": [],
+  "deviations": null
+}
