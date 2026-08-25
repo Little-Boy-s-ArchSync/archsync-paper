@@ -54,6 +54,7 @@ jobs:
             --test-coverage-include=research/validate-search-queries.mjs \
             --test-coverage-include=research/validate-screening-criteria.mjs \
             --test-coverage-include=research/validate-literature-matrix.mjs \
+            --test-coverage-include=research/statistical-analysis.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -69,7 +70,8 @@ jobs:
             research/validate-search-queries.test.mjs \
             research/validate-screening-criteria.test.mjs \
             research/validate-literature-matrix.test.mjs \
-            research/validate-reference-quality-policy.test.mjs
+            research/validate-reference-quality-policy.test.mjs \
+            research/statistical-analysis.test.mjs
 
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs

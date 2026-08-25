@@ -37,6 +37,8 @@ hoặc email.
 │   ├── SLR-REVIEWER-RUNBOOK.md # Các bước evidence và ký cho Independent SLR Reviewer
 │   ├── slr-sentinel-evidence.template.json # Schema ghi nhận calibration, không phải evidence
 │   ├── claim-evidence.csv      # Claim-to-evidence ledger
+│   ├── statistical-analysis-plan.md # STAT-101 draft; chưa freeze hoặc có result
+│   ├── statistical-analysis.mjs # Công thức effect/CI/multiplicity và population accounting
 │   ├── decision-log.md         # Quyết định và change control
 │   └── risk-register.csv       # Rủi ro nghiên cứu
 └── .github/workflows/
@@ -71,6 +73,7 @@ node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
 node research/validate-reference-quality-policy.mjs
+node --test research/statistical-analysis.test.mjs
 ```
 
 Sau khi người giữ vai trò Independent SLR Reviewer đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger
