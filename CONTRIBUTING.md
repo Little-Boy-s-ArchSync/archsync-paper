@@ -71,6 +71,7 @@ node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
 node research/validate-reference-quality-policy.mjs
+node research/verify-evaluation-report-scaffold.mjs
 node --test research/*.test.mjs
 ```
 
