@@ -645,13 +645,19 @@ The independent reviewer must confirm all items before D-008 is accepted:
 Approval must be attributable to the non-author assigned to the Independent SLR
 Reviewer role. When contributors use distinct GitHub accounts, an approved
 pull-request review is sufficient. When all implementation is pushed through the
-shared `L1nkinPark` account, the Independent SLR Reviewer instead signs the
+delegated `an1dee3301` account, the Independent SLR Reviewer instead signs the
 governed review attestation with a separately controlled Ed25519 key. Sharing
 the repository account does not permit self-review or an unsigned `Reviewed-by`
 claim. The freeze commit updates the metadata to version
 1.0.0 and `Frozen`, changes search authorization to `Authorized`, records the
 review evidence, and changes D-008 to `Accepted` before the official search
 begins.
+
+The current assignment for SLR-REV-101 is Tran Minh Hoang, ORCID
+`0009-0000-0302-1841`, operating through `an1dee3301`. Ha Hoang Bach approval is
+not required for this task. Hoang's signed attestation identifies him and
+affirms that he did not author this protocol; if that assertion is not true, the
+freeze remains blocked until another eligible non-author reviewer is assigned.
 
 Before approval, the freeze branch must contain
 `literature-sentinel-recall.csv`, created from
