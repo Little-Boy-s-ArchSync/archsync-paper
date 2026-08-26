@@ -1,0 +1,42 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from local-verification.Dockerfile
+#1 transferring dockerfile: 691B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/xu-cheng/texlive-historic-debian@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [stage-1 1/3] FROM ghcr.io/xu-cheng/texlive-historic-debian@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12
+#5 resolve ghcr.io/xu-cheng/texlive-historic-debian@sha256:608a158f476de2fc7f49969298f194afe634ed0eae51d8fd1f8cc41cb94c7a12 0.0s done
+#5 DONE 0.0s
+
+#6 [node-runtime 1/1] FROM docker.io/library/node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34
+#6 resolve docker.io/library/node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-1 2/3] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#7 CACHED
+
+#8 [stage-1 3/3] RUN apt-get update     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends       poppler-utils     && rm -rf /var/lib/apt/lists/*     && test "$(node --version)" = "v22.16.0"
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers done
+#9 exporting manifest sha256:29eb12a68d84bd84e777b8dd9c84df4b5f158636deabcd663ba82ed5804b0206 done
+#9 exporting config sha256:596ff5987220551bc9ea25727c3b24fdffd69c487f22156c6ecda72094eb73b8 done
+#9 exporting attestation manifest sha256:5c34472e48503887518b63b3b9231bba679ffc866ac9990c6c56801324c35ebd 0.0s done
+#9 exporting manifest list sha256:2ed83de4895fca156e50b48151b1e7e145f7f66c87d7e0f445d1c2b5737bac2e
+#9 exporting manifest list sha256:2ed83de4895fca156e50b48151b1e7e145f7f66c87d7e0f445d1c2b5737bac2e done
+#9 naming to docker.io/library/archsync-paper-local-verification:1.0.0 done
+#9 unpacking to docker.io/library/archsync-paper-local-verification:1.0.0 done
+#9 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/cjtn5z5du4n2z6paenp6sc534
