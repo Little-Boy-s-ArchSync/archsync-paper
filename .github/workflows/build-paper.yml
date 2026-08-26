@@ -60,6 +60,8 @@ jobs:
             --test-coverage-include=research/validate-search-queries.mjs \
             --test-coverage-include=research/validate-screening-criteria.mjs \
             --test-coverage-include=research/validate-literature-matrix.mjs \
+            --test-coverage-include=research/statistical-analysis.mjs \
+            --test-coverage-include=research/validate-evaluation-report-scaffold.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -75,7 +77,9 @@ jobs:
             research/validate-search-queries.test.mjs \
             research/validate-screening-criteria.test.mjs \
             research/validate-literature-matrix.test.mjs \
-            research/validate-reference-quality-policy.test.mjs
+            research/validate-reference-quality-policy.test.mjs \
+            research/statistical-analysis.test.mjs \
+            research/validate-evaluation-report-scaffold.test.mjs
 
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
@@ -94,6 +98,9 @@ jobs:
 
       - name: Verify reference quality and recency policy
         run: node research/validate-reference-quality-policy.mjs
+
+      - name: Verify evaluation report and result-manifest scaffolds
+        run: node research/verify-evaluation-report-scaffold.mjs
 
       - name: Verify live SLR review provenance
         if: github.event_name == 'pull_request'

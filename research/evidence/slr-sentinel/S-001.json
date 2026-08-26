@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.1.0",
+  "task": "SLR-101",
+  "protocol_version": "0.2.0",
+  "sentinel_id": "S-001",
+  "doi": "10.1145/222124.222136",
+  "reviewer": "Independent SLR Reviewer",
+  "recorded_at": "2026-08-25T18:23:21Z",
+  "classification": "retrieved",
+  "indexed_sources": [
+    "ACM Digital Library",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "retrieved_sources": [
+    "ACM Digital Library",
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "official_search_executed": false,
+  "candidate_results_screened": false,
+  "runs": [
+    {
+      "source": "IEEE Xplore",
+      "query_family": "Index-check",
+      "query": "\"10.1145/222124.222136\"",
+      "executed_at": "2026-08-25T18:04:32Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=%2210.1145%2F222124.222136%22"
+    },
+    {
+      "source": "ACM Digital Library",
+      "query_family": "Index-check",
+      "query": "10.1145/222124.222136",
+      "executed_at": "2026-08-25T18:09:06Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://dl.acm.org/action/doSearch?AllField=10.1145%2F222124.222136&expand=all"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Index-check",
+      "query": "DOI singleton lookup 10.1145/222124.222136",
+      "executed_at": "2026-08-25T18:06:35Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://api.openalex.org/works/https://doi.org/10.1145/222124.222136"
+    },
+    {
+      "source": "Semantic Scholar",
+      "query_family": "Index-check",
+      "query": "DOI singleton lookup 10.1145/222124.222136",
+      "executed_at": "2026-08-25T18:20:06Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1145/222124.222136?fields=paperId%2CexternalIds%2Ctitle%2Curl"
+    },
+    {
+      "source": "ACM Digital Library",
+      "query_family": "Search-A",
+      "query": "((\"software architecture\" OR \"software architectural\" OR \"architectural design\" OR \"architecture model*\") AND (\"software architecture reconstruction\" OR \"architecture reconstruction\" OR \"architectural reconstruction\" OR \"architecture recovery\" OR \"architectural recovery\" OR \"reflexion model*\") AND (detect* OR analy* OR check* OR monitor* OR govern* OR reconstruct* OR recover*)) AND \"10.1145/222124.222136\"",
+      "executed_at": "2026-08-25T18:15:51Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://dl.acm.org/action/doSearch?AllField=((%22software%20architecture%22%20OR%20%22software%20architectural%22%20OR%20%22architectural%20design%22%20OR%20%22architecture%20model*%22)%20AND%20(%22software%20architecture%20reconstruction%22%20OR%20%22architecture%20reconstruction%22%20OR%20%22architectural%20reconstruction%22%20OR%20%22architecture%20recovery%22%20OR%20%22architectural%20recovery%22%20OR%20%22reflexion%20model*%22)%20AND%20(detect*%20OR%20analy*%20OR%20check*%20OR%20monitor*%20OR%20govern*%20OR%20reconstruct*%20OR%20recover*))%20AND%20%2210.1145%2F222124.222136%22&expand=all"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Search-A",
+      "query": "(\"software architecture\" OR \"software architectural\" OR \"architectural design\" OR \"architecture model*\"~1) AND (\"software architecture reconstruction\" OR \"architecture reconstruction\" OR \"architectural reconstruction\" OR \"architecture recovery\" OR \"architectural recovery\" OR \"reflexion model*\"~1) AND (detect* OR analy* OR check* OR monitor* OR govern* OR reconstruct* OR recover*)",
+      "executed_at": "2026-08-25T18:12:54Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://api.openalex.org/works?search.exact=%28%22software+architecture%22+OR+%22software+architectural%22+OR+%22architectural+design%22+OR+%22architecture+model*%22%7E1%29+AND+%28%22software+architecture+reconstruction%22+OR+%22architecture+reconstruction%22+OR+%22architectural+reconstruction%22+OR+%22architecture+recovery%22+OR+%22architectural+recovery%22+OR+%22reflexion+model*%22%7E1%29+AND+%28detect*+OR+analy*+OR+check*+OR+monitor*+OR+govern*+OR+reconstruct*+OR+recover*%29&filter=doi%3Ahttps%3A%2F%2Fdoi.org%2F10.1145%2F222124.222136%2Cto_publication_date%3A2026-08-16&per_page=100"
+    }
+  ],
+  "rationale": "DOI checks retrieved the sentinel from ACM Guide, OpenAlex, and Semantic Scholar but not IEEE Xplore. A sentinel-scoped ACM all-fields A3 diagnostic found it; OpenAlex A3 returned zero."
+}
