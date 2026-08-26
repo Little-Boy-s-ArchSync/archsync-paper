@@ -222,6 +222,22 @@ threshold fails or a rule is ambiguous, the team revises this candidate,
 increments its version, and repeats calibration on a fresh pilot set. Final
 version 1.0.0 is locked only with the SLR-101 freeze evidence.
 
+For the blind calibration, each reviewer must generate a cryptographically
+random nonce of at least 32 bytes with the operating system's secure random
+generator and retain it outside the repository until reveal. At the common
+commitment commit, the governed calibration tree contains only the predeclared
+pilot set, its immutable record snapshots, and each reviewer's context-bound
+HMAC-SHA256 commitment; it contains no decision, nonce, reveal, adjudication,
+or summary artifact. The commitment binds the pilot-set hash, reviewer role,
+canonical decision path, and exact private decision-file bytes. After both
+commitments are sealed in that strict ancestor commit, each reviewer adds a
+reveal manifest containing the nonce and exact decision-file digest. The
+verifier checks this bounded artifact chronology and byte integrity. It does not
+authenticate a typed reviewer identifier, prove that a nonce was random or
+withheld, or establish the truth of publication metadata. The named reviewers,
+adjudicator, and repository owner remain accountable for those facts through
+human review and the final signed approval.
+
 At this snapshot, no independent calibration file exists. Therefore this task
 is `Dang lam`, not `Da lam`, even though its candidate codebook, data contracts,
 validator, and CI gate are complete.
