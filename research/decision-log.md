@@ -1,5 +1,25 @@
 # Research Decision Log
 
+## D-016: Accept provider-neutral deterministic verification
+
+- Date: 2026-08-26
+- Status: Accepted
+- Decision: Accept either GitHub Actions or a clean local verification bundle
+  as the execution provider for deterministic code and paper checks. Keep
+  remote CI for milestones, releases and platform-specific integration when
+  hosted capacity is available.
+- Evidence rule: A local bundle must pin the exact clean commit, environment,
+  UTC interval, commands, exit codes, raw logs and SHA-256 hashes. Paper changes
+  also require both PDF builds and anonymous redaction to pass.
+- Boundary: Local verification does not replace an independent reviewer,
+  accepted ADR, signed attestation, database/search output, real-provider run,
+  protocol freeze, human annotation, Codespaces check, branch protection or
+  release publication required by a task.
+- Rationale: Hosted-runner quota is an execution-capacity constraint, not a
+  research result. Task status must reflect completed outputs and evidence
+  rather than one CI vendor's temporary availability.
+- Approver: Hiếu, research lead and project owner.
+
 ## D-001: GitHub is the paper source of truth
 
 - Date: 2026-08-15
