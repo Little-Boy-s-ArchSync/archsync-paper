@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.1.0",
+  "task": "SLR-101",
+  "protocol_version": "0.2.0",
+  "sentinel_id": "S-005",
+  "doi": "10.3217/jucs-023-08-0769",
+  "reviewer": "Independent SLR Reviewer",
+  "recorded_at": "2026-08-25T18:23:21Z",
+  "classification": "retrieved",
+  "indexed_sources": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "retrieved_sources": [
+    "OpenAlex",
+    "Semantic Scholar"
+  ],
+  "official_search_executed": false,
+  "candidate_results_screened": false,
+  "runs": [
+    {
+      "source": "IEEE Xplore",
+      "query_family": "Index-check",
+      "query": "\"10.3217/jucs-023-08-0769\"",
+      "executed_at": "2026-08-25T18:04:49Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=%2210.3217%2Fjucs-023-08-0769%22"
+    },
+    {
+      "source": "ACM Digital Library",
+      "query_family": "Index-check",
+      "query": "10.3217/jucs-023-08-0769",
+      "executed_at": "2026-08-25T18:09:37Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://dl.acm.org/action/doSearch?AllField=10.3217%2Fjucs-023-08-0769&expand=all"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Index-check",
+      "query": "DOI singleton lookup 10.3217/jucs-023-08-0769",
+      "executed_at": "2026-08-25T18:06:38Z",
+      "result_count": 1,
+      "sentinel_found": true,
+      "result_url": "https://api.openalex.org/works/https://doi.org/10.3217/jucs-023-08-0769"
+    },
+    {
+      "source": "Semantic Scholar",
+      "query_family": "Index-check",
+      "query": "DOI singleton lookup 10.3217/jucs-023-08-0769",
+      "executed_at": "2026-08-25T18:20:09Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.3217/jucs-023-08-0769?fields=paperId%2CexternalIds%2Ctitle%2Curl"
+    },
+    {
+      "source": "Semantic Scholar",
+      "query_family": "Index-check",
+      "query": "Exact-title lookup: Introducing an Architectural Conformance Process in Continuous Integration",
+      "executed_at": "2026-08-25T18:20:24Z",
+      "result_count": 27,
+      "sentinel_found": true,
+      "result_url": "https://www.semanticscholar.org/search?q=Introducing+an+Architectural+Conformance+Process+in+Continuous+Integration&sort=relevance"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Search-A",
+      "query": "(\"software architecture\" OR \"software architectural\" OR \"architectural design\" OR \"architecture model*\"~1) AND (\"architecture conformance\" OR \"architectural conformance\" OR \"architecture compliance\" OR \"architectural compliance\" OR \"architecture violation*\"~1 OR \"architectural violation*\"~1 OR \"dependency constraint*\"~1) AND (detect* OR analy* OR check* OR monitor* OR govern* OR reconstruct* OR recover*)",
+      "executed_at": "2026-08-25T18:13:01Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://api.openalex.org/works?search.exact=%28%22software+architecture%22+OR+%22software+architectural%22+OR+%22architectural+design%22+OR+%22architecture+model*%22%7E1%29+AND+%28%22architecture+conformance%22+OR+%22architectural+conformance%22+OR+%22architecture+compliance%22+OR+%22architectural+compliance%22+OR+%22architecture+violation*%22%7E1+OR+%22architectural+violation*%22%7E1+OR+%22dependency+constraint*%22%7E1%29+AND+%28detect*+OR+analy*+OR+check*+OR+monitor*+OR+govern*+OR+reconstruct*+OR+recover*%29&filter=doi%3Ahttps%3A%2F%2Fdoi.org%2F10.3217%2Fjucs-023-08-0769%2Cto_publication_date%3A2026-08-16&per_page=100"
+    },
+    {
+      "source": "OpenAlex",
+      "query_family": "Search-B",
+      "query": "(\"software architecture\" OR \"software architectural\" OR \"architectural design\" OR \"architecture model*\"~1) AND (\"architecture drift\" OR \"architecture conformance\" OR \"architectural violation*\"~1) AND (\"continuous integration\" OR \"continuous delivery\" OR \"CI/CD\" OR \"pull request*\"~1 OR \"merge gate*\"~1 OR \"quality gate*\"~1 OR \"architecture governance\" OR \"continuous architecture\") AND (\"source code\" OR \"dependency graph*\"~1 OR \"version control\" OR commit* OR \"pull request*\"~1 OR repository)",
+      "executed_at": "2026-08-25T18:18:33Z",
+      "result_count": 0,
+      "sentinel_found": false,
+      "result_url": "https://api.openalex.org/works?search.exact=%28%22software+architecture%22+OR+%22software+architectural%22+OR+%22architectural+design%22+OR+%22architecture+model*%22%7E1%29+AND+%28%22architecture+drift%22+OR+%22architecture+conformance%22+OR+%22architectural+violation*%22%7E1%29+AND+%28%22continuous+integration%22+OR+%22continuous+delivery%22+OR+%22CI%2FCD%22+OR+%22pull+request*%22%7E1+OR+%22merge+gate*%22%7E1+OR+%22quality+gate*%22%7E1+OR+%22architecture+governance%22+OR+%22continuous+architecture%22%29+AND+%28%22source+code%22+OR+%22dependency+graph*%22%7E1+OR+%22version+control%22+OR+commit*+OR+%22pull+request*%22%7E1+OR+repository%29&filter=doi%3Ahttps%3A%2F%2Fdoi.org%2F10.3217%2Fjucs-023-08-0769%2Cto_publication_date%3A2026-08-16&per_page=100"
+    }
+  ],
+  "rationale": "OpenAlex retrieved the canonical DataCite DOI. Semantic Scholar DOI lookup returned 404, but exact-title search retrieved the same paper under paper ID 931bc335706870d4a88317ceae6a934ed69d35f8. OpenAlex A2 and B1 diagnostics both returned zero."
+}

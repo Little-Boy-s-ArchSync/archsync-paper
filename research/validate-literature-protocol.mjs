@@ -13,6 +13,9 @@ import {
   verifySlrSentinelEvidence,
 } from "./verify-slr-sentinel-evidence.mjs";
 import {
+  REVIEWER_NAME,
+  REVIEWER_OPERATOR_LOGIN,
+  REVIEWER_ORCID,
   REVIEWER_ROLE,
   SIGNED_REVIEW_PATHS,
 } from "./verify-slr-signed-attestation.mjs";
@@ -298,6 +301,16 @@ export function validateLiteratureProtocol({
           );
         }
       } else if (reviewMode === "Signed attestation") {
+        for (const [field, expected] of [
+          ["Reviewer name", REVIEWER_NAME],
+          ["Reviewer ORCID", REVIEWER_ORCID],
+          ["Operator GitHub login", REVIEWER_OPERATOR_LOGIN],
+          ["Protocol author", "No"],
+        ]) {
+          if (metadataValue(reviewRecord, field) !== expected) {
+            issues.push(`slr-review-record.md: ${field} must be '${expected}'`);
+          }
+        }
         for (const [field, path] of [
           [
             "Review attestation",

@@ -222,11 +222,11 @@ test("sign blocks before key access when candidate evidence is invalid", async (
   assert.equal(blocked.exitCode(), 1);
   assert.equal(readCount, 0);
   assert.equal(writeCount, 0);
-  assert.match(blocked.errors[0], /candidate sentinel evidence is invalid/);
+  assert.match(blocked.errors[0], /candidate review evidence is invalid/);
   assert.match(blocked.errors[1], /sentinel hash mismatch/);
 });
 
-test("real candidate preflight validates governed sentinel files and hashes", async (context) => {
+test("real candidate preflight also requires governed SLR-103 calibration", async (context) => {
   const repository = await mkdtemp(join(tmpdir(), "archsync-review-preflight-"));
   context.after(() => rm(repository, { recursive: true, force: true }));
   const research = join(repository, "research");
@@ -265,7 +265,9 @@ test("real candidate preflight validates governed sentinel files and hashes", as
   );
 
   const result = await validateCandidateReviewInputs(repository);
-  assert.deepEqual(result.issues, []);
+  assertIssue(result, "SLR-103 calibration");
+  assertIssue(result, "literature-screening-calibration.json");
+  assert.equal(result.screeningCalibration, null);
   assert.equal(result.version, "0.2.0");
 });
 

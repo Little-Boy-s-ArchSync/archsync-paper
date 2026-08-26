@@ -12,6 +12,9 @@ import { tmpdir } from "node:os";
 import {
   loadSignedReviewArtifacts,
   REVIEW_CHECKLIST,
+  REVIEWER_NAME,
+  REVIEWER_OPERATOR_LOGIN,
+  REVIEWER_ORCID,
   SIGNED_REVIEW_PATHS,
   verifySignedReviewAttestation,
 } from "./verify-slr-signed-attestation.mjs";
@@ -26,9 +29,13 @@ function sha256(bytes) {
 function fixture(overrides = {}) {
   const keys = generateKeyPairSync("ed25519");
   const attestation = {
-    schema_version: "1.0.0",
+    schema_version: "1.1.0",
     task: "SLR-101",
     reviewer: "Independent SLR Reviewer",
+    reviewer_name: REVIEWER_NAME,
+    reviewer_orcid: REVIEWER_ORCID,
+    operator_login: REVIEWER_OPERATOR_LOGIN,
+    protocol_author: false,
     review_decision: "Approved",
     review_commit: reviewCommit,
     review_timestamp: reviewTimestamp,
@@ -58,6 +65,10 @@ function fixture(overrides = {}) {
 | Review mode | Signed attestation |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
 | Reviewer role | Independent SLR Reviewer |
+| Reviewer name | ${REVIEWER_NAME} |
+| Reviewer ORCID | ${REVIEWER_ORCID} |
+| Operator GitHub login | ${REVIEWER_OPERATOR_LOGIN} |
+| Protocol author | No |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
 | Review timestamp | ${reviewTimestamp} |
@@ -91,6 +102,9 @@ test("accepts an exact Ed25519-signed independent-reviewer attestation", () => {
   const result = verify(fixture());
   assert.deepEqual(result.issues, []);
   assert.equal(result.attestation.task, "SLR-101");
+  assert.equal(result.attestation.reviewer_name, REVIEWER_NAME);
+  assert.equal(result.attestation.operator_login, REVIEWER_OPERATOR_LOGIN);
+  assert.equal(result.attestation.protocol_author, false);
   assert.deepEqual(result.attestation.checklist, REVIEW_CHECKLIST);
 });
 

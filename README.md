@@ -23,6 +23,9 @@ kiểm tra ownership.
 .
 ├── main.tex                     # Preamble, author/CCS metadata, ordered inputs
 ├── main-anonymous.tex           # Minimal anonymous wrapper
+├── references.bib               # Tài liệu tham khảo
+├── acmart.cls                   # ACM document class từ Overleaf
+├── ACM-Reference-Format.bst     # ACM bibliography style
 ├── sections/
 │   ├── abstract.tex
 │   ├── introduction.tex
@@ -36,8 +39,32 @@ kiểm tra ownership.
 │   ├── threats-to-validity.tex
 │   ├── conclusion.tex
 │   └── author-information.tex   # Bị ẩn trong anonymous mode
-├── references.bib
-├── research/                    # Governed protocols, evidence and validators
+├── research/
+│   ├── RESEARCH.md              # Research baseline, scope và evidence policy
+│   ├── GLOSSARY.md              # Thuật ngữ chuẩn có version
+│   ├── AI-EVIDENCE-POLICY.md    # Ranh giới AI và evidence thật
+│   ├── REFERENCE-QUALITY-POLICY.md
+│   ├── REFERENCE-QUALITY-AUDIT.md
+│   ├── RESEARCH-QUALITY-GATES.md
+│   ├── EXTERNAL-BASELINE-PROTOCOL.md
+│   ├── PROJECT-EVIDENCE-AUDIT.md
+│   ├── RQ-TRACEABILITY.md
+│   ├── rq-traceability.csv
+│   ├── literature-protocol.md
+│   ├── literature-search-queries.md
+│   ├── literature-screening-criteria.md
+│   ├── literature-screening-criteria.csv
+│   ├── literature-matrix.md
+│   ├── literature-matrix.csv
+│   ├── SLR-REVIEWER-RUNBOOK.md
+│   ├── claim-evidence.csv
+│   ├── statistical-analysis-plan.md # STAT-101 draft; chưa freeze hoặc có result
+│   ├── statistical-analysis.mjs
+│   ├── holdout-report.template.md    # EVAL-111 scaffold; không có result
+│   ├── paper-results-manifest.schema.json
+│   ├── paper-results-manifest.template.json # ANALYSIS-101 handoff; không phải evidence
+│   ├── decision-log.md
+│   └── risk-register.csv
 ├── scripts/
 │   ├── validate-paper-structure.mjs
 │   └── verify-pdf-variants.mjs
@@ -114,9 +141,9 @@ Các artifact SLR chính gồm:
 - `research/SLR-REVIEWER-RUNBOOK.md` — independent-review workflow;
 - `research/AI-EVIDENCE-POLICY.md` — ranh giới AI/evidence;
 - `research/REFERENCE-QUALITY-POLICY.md` — policy rank/recency;
-- `research/RESEARCH-QUALITY-GATES.md` — claim/baseline/abstract/artifact gates;
-- `research/EXTERNAL-BASELINE-PROTOCOL.md` — fair external comparator plan;
-- `research/PROJECT-EVIDENCE-AUDIT.md` — project-wide mock and claim audit;
+- `research/RESEARCH-QUALITY-GATES.md` — claim, baseline, abstract và artifact gates;
+- `research/EXTERNAL-BASELINE-PROTOCOL.md` — protocol so sánh external tool công bằng;
+- `research/PROJECT-EVIDENCE-AUDIT.md` — audit mock data và research claims toàn dự án;
 - `research/rq-traceability.csv` — RQ mapping máy đọc được;
 - `research/risk-register.csv` — risk và stop/go gate.
 
@@ -131,9 +158,15 @@ node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
 node research/validate-reference-quality-policy.mjs
+node research/verify-evaluation-report-scaffold.mjs
 node research/validate-research-quality-gates.mjs
 node --test research/*.test.mjs
 ```
+
+`holdout-report.template.md` và `paper-results-manifest.template.json` chỉ khóa
+cấu trúc bàn giao cho EVAL-111/ANALYSIS-101. Chúng giữ mọi trường dữ liệu và
+result rỗng, không thay thế D3 freeze, independent annotation, statistical-plan
+freeze, analysis run hoặc human review.
 
 AI có thể vận hành browser/CLI đã được cấp quyền, tạo artifact, ledger, hash,
 validator và PR. AI-generated assertion không phải evidence; source output, run,

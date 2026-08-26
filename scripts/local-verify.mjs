@@ -70,6 +70,10 @@ const coverageArguments = [
   "--test-coverage-include=research/validate-search-queries.mjs",
   "--test-coverage-include=research/validate-screening-criteria.mjs",
   "--test-coverage-include=research/validate-literature-matrix.mjs",
+  "--test-coverage-include=research/verify-slr-screening-calibration.mjs",
+  "--test-coverage-include=research/build-slr-screening-calibration.mjs",
+  "--test-coverage-include=research/statistical-analysis.mjs",
+  "--test-coverage-include=research/validate-evaluation-report-scaffold.mjs",
   "--test-coverage-include=research/validate-research-quality-gates.mjs",
   "--test-coverage-lines=95",
   "--test-coverage-branches=88",
@@ -87,6 +91,10 @@ const coverageArguments = [
   "research/validate-screening-criteria.test.mjs",
   "research/validate-literature-matrix.test.mjs",
   "research/validate-reference-quality-policy.test.mjs",
+  "research/verify-slr-screening-calibration.test.mjs",
+  "research/build-slr-screening-calibration.test.mjs",
+  "research/statistical-analysis.test.mjs",
+  "research/validate-evaluation-report-scaffold.test.mjs",
   "research/validate-research-quality-gates.test.mjs",
 ];
 
@@ -115,8 +123,28 @@ const commands = [
   { id: "screening-criteria", command: process.execPath, args: ["research/validate-screening-criteria.mjs"] },
   { id: "literature-matrix", command: process.execPath, args: ["research/validate-literature-matrix.mjs"] },
   { id: "reference-quality", command: process.execPath, args: ["research/validate-reference-quality-policy.mjs"] },
+  { id: "evaluation-scaffold", command: process.execPath, args: ["research/verify-evaluation-report-scaffold.mjs"] },
   { id: "research-quality", command: process.execPath, args: ["research/validate-research-quality-gates.mjs"] },
 ];
+
+const screeningCalibration = "research/literature-screening-calibration.json";
+const calibrationTracked = run("git", ["ls-files", "--error-unmatch", screeningCalibration]).status === 0;
+const reviewEvidenceTracked = run("git", [
+  "ls-files",
+  "research/slr-review-record.md",
+  "research/evidence/slr-review/independent-slr-reviewer-attestation.json",
+  "research/evidence/slr-review/independent-slr-reviewer-attestation.sig",
+]).stdout.trim().length > 0;
+if (calibrationTracked) {
+  commands.push({
+    id: "screening-calibration",
+    command: process.execPath,
+    args: ["research/build-slr-screening-calibration.mjs", "--check"],
+  });
+} else if (reviewEvidenceTracked) {
+  console.error("LOCAL PAPER VERIFY REFUSED: SLR review evidence requires the governed screening calibration summary.");
+  process.exit(2);
+}
 
 if (!hostTexAvailable) {
   commands.push({

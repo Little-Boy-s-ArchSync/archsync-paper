@@ -15,8 +15,12 @@ import {
   loadSentinelEvidence,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
+import { verifyRepositorySlrScreeningCalibration } from "./verify-slr-screening-calibration.mjs";
 import {
   REVIEW_CHECKLIST,
+  REVIEWER_NAME,
+  REVIEWER_OPERATOR_LOGIN,
+  REVIEWER_ORCID,
   REVIEWER_ROLE,
   SIGNED_REVIEW_PATHS,
 } from "./verify-slr-signed-attestation.mjs";
@@ -118,9 +122,13 @@ export function createSignedReviewFiles({
   const attestationBytes = Buffer.from(
     `${JSON.stringify(
       {
-        schema_version: "1.0.0",
+        schema_version: "1.1.0",
         task: "SLR-101",
         reviewer: REVIEWER_ROLE,
+        reviewer_name: REVIEWER_NAME,
+        reviewer_orcid: REVIEWER_ORCID,
+        operator_login: REVIEWER_OPERATOR_LOGIN,
+        protocol_author: false,
         review_decision: "Approved",
         review_commit: reviewCommit,
         review_timestamp: reviewTimestamp,
@@ -146,6 +154,10 @@ export function createSignedReviewFiles({
 | Review mode | Signed attestation |
 | Review PR | ${reviewPr} |
 | Reviewer role | ${REVIEWER_ROLE} |
+| Reviewer name | ${REVIEWER_NAME} |
+| Reviewer ORCID | ${REVIEWER_ORCID} |
+| Operator GitHub login | ${REVIEWER_OPERATOR_LOGIN} |
+| Protocol author | No |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
 | Review timestamp | ${reviewTimestamp} |
@@ -181,7 +193,7 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     repositoryDirectory,
     sentinelRecall,
   );
-  return validateLiteratureProtocol({
+  const protocolResult = validateLiteratureProtocol({
     protocol,
     decisions,
     baseline,
@@ -192,6 +204,14 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     sentinelEvidenceHashes: sentinelEvidence.hashes,
     sentinelEvidenceArtifacts: sentinelEvidence.artifacts,
   });
+  const calibrationResult = await verifyRepositorySlrScreeningCalibration(
+    repositoryDirectory,
+  );
+  return {
+    ...protocolResult,
+    issues: [...protocolResult.issues, ...calibrationResult.issues],
+    screeningCalibration: calibrationResult.summary,
+  };
 }
 
 export async function main({
@@ -286,7 +306,7 @@ export async function main({
 
     const preflight = await candidatePreflight(repositoryDirectory);
     if (preflight.issues.length > 0) {
-      error("SIGNED REVIEW BLOCKED: candidate sentinel evidence is invalid");
+      error("SIGNED REVIEW BLOCKED: candidate review evidence is invalid");
       for (const issue of preflight.issues) error(`- ${issue}`);
       setExitCode(1);
       return;

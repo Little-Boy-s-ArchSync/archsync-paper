@@ -4,6 +4,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
   loadSignedReviewArtifacts,
+  REVIEWER_NAME,
+  REVIEWER_OPERATOR_LOGIN,
   SIGNED_REVIEW_PATHS,
   verifySignedReviewAttestation,
 } from "./verify-slr-signed-attestation.mjs";
@@ -258,7 +260,7 @@ export async function verifySlrReviewProvenance({
     reviewId: reviewId ? Number(reviewId) : null,
     reviewerLogin:
       reviewMode === "Signed attestation"
-        ? "Independent SLR Reviewer (signed)"
+        ? `${REVIEWER_NAME} (signed via ${REVIEWER_OPERATOR_LOGIN})`
         : reviewerLogin,
     reviewCommit,
   };
