@@ -129,7 +129,7 @@
 - Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author.
   Version 1.0.0 may be frozen only after either an approved pull-request review
   from a distinct account or an Ed25519-signed Independent SLR Reviewer attestation when the
-  team shares `L1nkinPark` for all pushes. The same freeze change sets this
+  team uses delegated `an1dee3301` for all pushes. The same freeze change sets this
   decision to `Accepted` and records review evidence.
 - Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
   Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
@@ -335,3 +335,31 @@
   has been inspected. All six sentinel calibrations must be rerun against the
   new four-source set before independent review and freeze 1.0.0.
 - Owner: Hieu.
+
+## D-017: Authorize a Delegated Cross-Role GitHub Operator
+
+- Date: 2026-08-27
+- Status: Accepted
+- Task: GOV-AI-001
+- Decision: Authorize GitHub login `an1dee3301` as the Delegated Technical
+  Operator for tasks assigned to TV1, TV2, and TV3. The account may implement,
+  query real authorized sources, construct evidence artifacts, validate,
+  commit, push, open or update pull requests, and invoke approved automation for
+  all three functional roles.
+- Attribution boundary: Git and GitHub metadata identify the operating account,
+  not the human who reviewed or accepted a result. Governed work distinguishes
+  `operator_login`, `accountable_role`, `accountable_person`, the retained
+  authorization, and any separately required independent verifier.
+- SLR consequence: `an1dee3301` may execute every mechanical step of
+  SLR-REV-101. If Ha Hoang Bach remains the assigned Independent SLR Reviewer,
+  Bach must verify and sign or approve the exact commit. If Tran Minh Hoang is
+  formally reassigned as reviewer, the evidence names Hoang and must establish
+  that he is not an author of the reviewed protocol. Repository metadata alone
+  cannot be presented as Bach's review evidence.
+- Integrity impact: This decision removes an account-access restriction but
+  does not relax real-evidence, non-fabrication, independent-review, private-key,
+  or Definition of Done requirements.
+- Version impact: AI Evidence Policy advances from 1.1.0 to 1.2.0. The Research
+  Baseline and Glossary remain 1.0.3 because no research question, scope,
+  dataset, metric, eligibility rule, empirical result, or canonical term changes.
+- Approver: Hieu, research lead and architecture owner.

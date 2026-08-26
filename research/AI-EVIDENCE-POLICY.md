@@ -3,11 +3,11 @@
 | Field | Value |
 | --- | --- |
 | Task | GOV-AI-001 |
-| Policy version | 1.1.0 |
+| Policy version | 1.2.0 |
 | Status | Frozen |
-| Effective date | 2026-08-19 |
+| Effective date | 2026-08-27 |
 | Owner | Hieu, research lead and architecture owner |
-| Decision | D-013 |
+| Decision | D-017 |
 | Applies to | All members, repositories, research tasks, paper work, datasets, reviews, and task tracking |
 
 ## 1. Core rule
@@ -171,6 +171,30 @@ AI is not an author, reviewer, approver, or accountable contributor. Human
 authors and maintainers retain responsibility for correctness, originality,
 licensing, confidentiality, and research integrity.
 
+### 8.1 Delegated cross-role GitHub operator
+
+The GitHub login `an1dee3301` is authorized as the Delegated Technical Operator
+for tasks assigned to TV1, TV2, and TV3. It may implement code and documents,
+operate authorized browsers and databases, collect real source output, create
+evidence bundles, run validators, commit, push, create or update pull requests,
+and invoke approved automation for any of those functional roles.
+
+This is an execution authorization, not an identity substitution. A governed
+artifact must distinguish the account that performed the operation from the
+human who checked and accepted the result. Where the schema has suitable
+fields, record `operator_login`, `accountable_role`, `accountable_person`,
+`authorization_reference`, and any required `independent_verifier`. Where it
+does not, retain the same information in the pull-request disclosure or signed
+review record.
+
+Git author, committer, pull-request author, and automation metadata prove only
+which account performed the action. They do not prove that Ha Hoang Bach, Tran
+Minh Hoang, Le Van Kiet, or Vo Duc Hieu personally reviewed a result. If Ha
+Hoang Bach remains the Independent SLR Reviewer, Bach must verify and sign or
+approve the exact commit even when `an1dee3301` performed every technical step.
+If the reviewer is formally reassigned to Tran Minh Hoang, the evidence must
+name Hoang and establish that he is not an author of the reviewed protocol.
+
 ## 9. Definition of Done
 
 AI-assisted work is complete only when:
@@ -190,5 +214,6 @@ AI-assisted work is complete only when:
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 1.2.0 | 2026-08-27 | D-017 | Authorize `an1dee3301` to execute TV1, TV2, and TV3 technical workflows while separating operator metadata from accountable-person and independent-review evidence |
 | 1.1.0 | 2026-08-19 | D-013 | Permit AI to execute authorized browser, database, artifact, validation, PR, and local signing workflows while preserving real evidence and named-human accountability |
 | 1.0.0 | 2026-08-19 | D-012 | Permit AI assistance for all members while requiring real source evidence, human verification, provenance, disclosure, and human accountability |

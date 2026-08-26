@@ -645,7 +645,7 @@ The independent reviewer must confirm all items before D-008 is accepted:
 Approval must be attributable to the non-author assigned to the Independent SLR
 Reviewer role. When contributors use distinct GitHub accounts, an approved
 pull-request review is sufficient. When all implementation is pushed through the
-shared `L1nkinPark` account, the Independent SLR Reviewer instead signs the
+delegated `an1dee3301` account, the Independent SLR Reviewer instead signs the
 governed review attestation with a separately controlled Ed25519 key. Sharing
 the repository account does not permit self-review or an unsigned `Reviewed-by`
 claim. The freeze commit updates the metadata to version

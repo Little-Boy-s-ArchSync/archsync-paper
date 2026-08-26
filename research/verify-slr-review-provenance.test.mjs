@@ -98,7 +98,7 @@ function githubFixture(overrides = {}) {
   const pullRequest = {
     number: 7,
     state: "open",
-    user: { login: "L1nkinPark" },
+    user: { login: "an1dee3301" },
     head: { sha: currentCommit },
     ...overrides.pullRequest,
   };
@@ -172,7 +172,7 @@ test("accepts an unchanged approved head with no comparison file list", async ()
   assert.deepEqual(result.issues, []);
 });
 
-test("accepts an independent-reviewer signed attestation when all code uses L1nkinPark", async () => {
+test("accepts an independent-reviewer signed attestation when all code uses an1dee3301", async () => {
   const signed = signedFixture();
   const paths = [];
   const requestJson = async (path) => {
@@ -181,7 +181,7 @@ test("accepts an independent-reviewer signed attestation when all code uses L1nk
       return {
         number: 7,
         state: "open",
-        user: { login: "L1nkinPark" },
+        user: { login: "an1dee3301" },
         head: { sha: currentCommit },
       };
     }
@@ -475,7 +475,7 @@ test("CLI reports a verified live approval", async () => {
   ]);
 });
 
-test("CLI verifies a signed review under the shared L1nkinPark account", async () => {
+test("CLI verifies a signed review under the delegated an1dee3301 account", async () => {
   const signed = signedFixture();
   const state = cli({
     readText: async () => signed.reviewRecord,
@@ -485,7 +485,7 @@ test("CLI verifies a signed review under the shared L1nkinPark account", async (
         return {
           number: 7,
           state: "open",
-          user: { login: "L1nkinPark" },
+          user: { login: "an1dee3301" },
           head: { sha: currentCommit },
         };
       }

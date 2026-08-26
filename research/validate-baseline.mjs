@@ -102,10 +102,10 @@ requireMatch(
 
 for (const [field, expected] of [
   ["Task", "GOV-AI-001"],
-  ["Policy version", "1.1.0"],
+  ["Policy version", "1.2.0"],
   ["Status", "Frozen"],
-  ["Effective date", "2026-08-19"],
-  ["Decision", "D-013"],
+  ["Effective date", "2026-08-27"],
+  ["Decision", "D-017"],
 ]) {
   const actual = metadataValue(aiPolicy, field);
   if (actual !== expected) {
@@ -123,6 +123,8 @@ for (const [pattern, message] of [
   [/AI must not receive private keys, access tokens, passwords, secrets/, "must protect secrets and private keys"],
   [/AI may invoke the local key-generation or signing command after the named human\s+explicitly authorizes/, "must permit authorized local key automation"],
   [/The reviewer is not required to repeat every mechanical database query or\s+retype AI-created artifacts/, "must not require manual repetition of AI-executed work"],
+  [/The GitHub login `an1dee3301` is authorized as the Delegated Technical Operator\s+for tasks assigned to TV1, TV2, and TV3/, "must authorize the registered cross-role technical operator"],
+  [/This is an execution authorization, not an identity substitution/, "must separate GitHub operation from human identity"],
 ]) {
   requireMatch("AI-EVIDENCE-POLICY.md", aiPolicy, pattern, message);
 }
