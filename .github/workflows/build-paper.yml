@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -60,6 +62,8 @@ jobs:
             --test-coverage-include=research/validate-search-queries.mjs \
             --test-coverage-include=research/validate-screening-criteria.mjs \
             --test-coverage-include=research/validate-literature-matrix.mjs \
+            --test-coverage-include=research/verify-slr-screening-calibration.mjs \
+            --test-coverage-include=research/build-slr-screening-calibration.mjs \
             --test-coverage-include=research/statistical-analysis.mjs \
             --test-coverage-include=research/validate-evaluation-report-scaffold.mjs \
             --test-coverage-lines=95 \
@@ -78,9 +82,25 @@ jobs:
             research/validate-screening-criteria.test.mjs \
             research/validate-literature-matrix.test.mjs \
             research/validate-reference-quality-policy.test.mjs \
+            research/verify-slr-screening-calibration.test.mjs \
+            research/build-slr-screening-calibration.test.mjs \
             research/statistical-analysis.test.mjs \
             research/validate-evaluation-report-scaffold.test.mjs
 
+      - name: Verify governed SLR screening calibration when present
+        shell: bash
+        run: |
+          if git ls-files --error-unmatch research/literature-screening-calibration.json >/dev/null 2>&1; then
+            node research/build-slr-screening-calibration.mjs --check
+          elif git ls-files \
+            research/slr-review-record.md \
+            research/evidence/slr-review/independent-slr-reviewer-attestation.json \
+            research/evidence/slr-review/independent-slr-reviewer-attestation.sig | grep -q .; then
+            echo "SLR-103 calibration summary is required before review evidence"
+            exit 1
+          else
+            echo "SLR-103 calibration pending; no review evidence exists"
+          fi
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
 

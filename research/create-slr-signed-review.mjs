@@ -15,6 +15,7 @@ import {
   loadSentinelEvidence,
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
+import { verifyRepositorySlrScreeningCalibration } from "./verify-slr-screening-calibration.mjs";
 import {
   REVIEW_CHECKLIST,
   REVIEWER_NAME,
@@ -192,7 +193,7 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     repositoryDirectory,
     sentinelRecall,
   );
-  return validateLiteratureProtocol({
+  const protocolResult = validateLiteratureProtocol({
     protocol,
     decisions,
     baseline,
@@ -203,6 +204,14 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     sentinelEvidenceHashes: sentinelEvidence.hashes,
     sentinelEvidenceArtifacts: sentinelEvidence.artifacts,
   });
+  const calibrationResult = await verifyRepositorySlrScreeningCalibration(
+    repositoryDirectory,
+  );
+  return {
+    ...protocolResult,
+    issues: [...protocolResult.issues, ...calibrationResult.issues],
+    screeningCalibration: calibrationResult.summary,
+  };
 }
 
 export async function main({
@@ -297,7 +306,7 @@ export async function main({
 
     const preflight = await candidatePreflight(repositoryDirectory);
     if (preflight.issues.length > 0) {
-      error("SIGNED REVIEW BLOCKED: candidate sentinel evidence is invalid");
+      error("SIGNED REVIEW BLOCKED: candidate review evidence is invalid");
       for (const issue of preflight.issues) error(`- ${issue}`);
       setExitCode(1);
       return;
