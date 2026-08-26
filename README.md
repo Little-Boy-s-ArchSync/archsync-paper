@@ -136,6 +136,25 @@ validator và PR. AI-generated assertion không phải evidence; source output, 
 decision, signature và hash phải tồn tại thật, có provenance và được đúng người
 chịu trách nhiệm xác minh. Không đưa secret hoặc private key vào repository.
 
+Chạy toàn bộ research contracts, biên dịch hai PDF và kiểm tra redaction bằng
+một lệnh local:
+
+```powershell
+node scripts/local-verify.mjs
+```
+
+Lệnh yêu cầu Node.js 22, từ chối tracked worktree bẩn và tạo bundle trong
+`artifacts/local-verification/`. Nếu host không có `latexmk` hoặc `pdftotext`,
+lệnh tự build môi trường Docker đã pin để biên dịch và kiểm tra redaction. Quy tắc evidence và cách
+publish bundle theo exact commit nằm tại
+[`research/LOCAL-VERIFICATION.md`](research/LOCAL-VERIFICATION.md).
+
+Sau khi người giữ vai trò Independent SLR Reviewer đã ghi đủ sáu artifact calibration thật, tạo và xác minh ledger
+bằng `node research/build-slr-sentinel-ledger.mjs --write` rồi chạy lại với
+`--check`. Công cụ này chỉ tính ledger/hash từ artifact đã có, không sinh kết
+quả nghiên cứu. Quy trình thao tác, ký attestation và bàn giao lại cho owner nằm
+tại `research/SLR-REVIEWER-RUNBOOK.md`.
+
 ## Collaboration
 
 Đọc `CONTRIBUTING.md` trước khi sửa. Tóm tắt bắt buộc:
