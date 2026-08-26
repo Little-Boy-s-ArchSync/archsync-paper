@@ -719,8 +719,8 @@ URL, commit, and timestamp. In signed-attestation mode it verifies the exact
 attestation/public-key/signature hashes, the complete ten-item checklist, and
 the Ed25519 signature. The public key and all sentinel evidence must already
 exist in the reviewed commit. After approval, only the review record, signed
-attestation and signature, and the three deterministic freeze outputs
-(`literature-protocol.md`, `decision-log.md`, and `main.tex`) may change. Any
+attestation and signature, and the two deterministic freeze outputs
+(`literature-protocol.md` and `decision-log.md`) may change. Any
 sentinel, public-key, bibliography, query, criterion, or implementation change
 invalidates the approval and requires another independent review/signature.
 
@@ -734,7 +734,7 @@ node research/freeze-literature-protocol.mjs --write
 
 The check command performs the complete prospective 1.0.0 validation without
 editing a file. The write command is enabled only by the same evidence gate and
-updates exactly this protocol, `decision-log.md`, and `main.tex`. It does not
+updates exactly this protocol and `decision-log.md`. It does not
 create review or sentinel evidence. The owner pushes the mechanical freeze
 commit after approval. CI then validates GitHub commit provenance and the
 selected GitHub-review or signed-attestation evidence, reruns the validators and

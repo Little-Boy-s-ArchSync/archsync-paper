@@ -55,7 +55,7 @@ test("rejects a verified claim without executable evidence", () => {
 test("rejects a planned claim promoted before its evidence gate", () => {
   const mutated = csvText.replace(
     'Planned protocol; no result yet",planned,"Not available',
-    'Planned protocol; no result yet",verified,"archsync-benchmark/evidence/future.json',
+    'Planned protocol; no result yet",verified-controlled,"archsync-benchmark/evidence/future.json',
   );
   const result = validateClaimEvidence(mutated, paperText);
   assert.ok(
@@ -133,13 +133,13 @@ test("rejects every governed field mutation on a verified claim", () => {
   const mutated = csvText
     .replace("C-001,F-RQ1,P2", "C-001,Future,P2")
     .replace(
-      ',verified,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu',
+      ',verified-controlled,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu',
       ',planned,"Not available","manual inspection",Hiếu',
     );
   const result = validateClaimEvidence(mutated, paperText);
   for (const fragment of [
     "must reference F-RQ1 through F-RQ4",
-    "must use verified status",
+    "must use verified-controlled status",
     "must reference a versioned benchmark evidence JSON artifact",
     "must name the executable pnpm verify gate",
   ]) {
@@ -196,6 +196,6 @@ test("runs the real claim-evidence files through the CLI entry point", async () 
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
   assert.ok(
-    output.some((message) => message.includes("9 verified, 4 planned")),
+    output.some((message) => message.includes("9 verified-controlled, 4 planned")),
   );
 });

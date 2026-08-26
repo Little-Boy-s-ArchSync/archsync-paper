@@ -28,12 +28,12 @@ const EXPECTED_PLANNED_IDS = Array.from(
 const PAPER_MARKERS = new Map([
   [
     "C-001",
-    ["achieved 1.000 precision, recall, and F1", "20 patched repositories"],
+    ["Full-graph nodes & 105 & 0 & 0 & 1.000", "20 patched repositories"],
   ],
-  ["C-002", ["classified 20/20 patches"]],
-  ["C-003", ["matched 7/7 violation rule sets"]],
-  ["C-004", ["localized 11/11 finding-bearing cases"]],
-  ["C-005", ["20, zero, zero, and 20"]],
+  ["C-002", ["ArchSync matched all 20 D1 labels"]],
+  ["C-003", ["all seven violations"]],
+  ["C-004", ["All 11 finding-bearing D1 cases"]],
+  ["C-005", ["Overall & 18 & 4 & 2 & 16 & 20 & 0 & 0 & 20"]],
   ["C-006", ["Incremental/full-scan agreement & 20/20"]],
   ["C-007", ["Cache hit on repeated check & 20/20"]],
   ["C-008", ["parsed 57 of 189 TypeScript file instances"]],
@@ -148,9 +148,14 @@ export function validateClaimEvidence(csvText, paperText) {
           `claim-evidence.csv: ${record.claim_id} must reference F-RQ1 through F-RQ4`,
         );
       }
-      if (record.status !== "verified") {
+      if (record.status !== "verified-controlled") {
         issues.push(
-          `claim-evidence.csv: ${record.claim_id} must use verified status`,
+          `claim-evidence.csv: ${record.claim_id} must use verified-controlled status`,
+        );
+      }
+      if (!record.claim.startsWith("Within ") && record.claim_id !== "C-009") {
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must state its controlled evidence boundary in the claim`,
         );
       }
       if (
@@ -199,7 +204,7 @@ export function validateClaimEvidence(csvText, paperText) {
   }
 
   const verifiedRecords = records.filter(
-    (record) => record.status === "verified",
+    (record) => record.status === "verified-controlled",
   );
   const plannedRecords = records.filter(
     (record) => record.status === "planned",
@@ -238,7 +243,7 @@ export async function main({
     return;
   }
   log(
-    `VALID CLAIM EVIDENCE (${result.verified} verified, ${result.planned} planned, all four feasibility RQs covered)`,
+    `VALID CLAIM EVIDENCE (${result.verified} verified-controlled, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 

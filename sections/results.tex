@@ -1,8 +1,8 @@
 % !TeX root = ../main.tex
-\section{Results}
+\section{Controlled Verification Results}
 
 \begin{table*}[t]
-  \caption{D1 aggregate node and edge detection on 20 independently applied patches.}
+  \caption{D1 aggregate node and edge detection on 20 isolated executable patches in the co-developed development benchmark.}
   \label{tab:detection-results}
   \centering
   \small
@@ -19,7 +19,7 @@
 \end{table*}
 
 \begin{table}[t]
-  \caption{Decision, evidence, and replay outcomes.}
+  \caption{Decision, evidence, and replay outcomes on controlled D1 cases.}
   \label{tab:outcome-results}
   \centering
   \small
@@ -37,7 +37,7 @@
 \end{table}
 
 \begin{table}[t]
-  \caption{P3 Git-diff gate outcomes and measured scope.}
+  \caption{P3 Git-diff gate outcomes and measured scope on the D1 replay.}
   \label{tab:phase3-results}
   \centering
   \small
@@ -62,7 +62,7 @@
 \end{table}
 
 \begin{table*}[t]
-  \caption{D2 signal-level confusion matrices for the frozen v0.1 and provenance-aware v0.2 analyzers on the same 40-signal corpus.}
+  \caption{D2 within-tool regression confusion matrices for the frozen v0.1 and provenance-aware v0.2 analyzers on the same co-developed 40-signal corpus.}
   \label{tab:pattern-results}
   \centering
   \small
@@ -85,7 +85,7 @@
 \textbf{RQ1: graph reconstruction and detector signals.}
 The unchanged repository was reconstructed as five components and five relationships with a no-impact classification. Table~\ref{tab:detection-results} reports no false positive or false negative in D1. Full-graph totals aggregate 105 expected nodes and 108 expected edges across 20 patched repositories. Changed-graph denominators are smaller but doubled relative to the initial benchmark: five node changes and 12 edge changes.
 
-Table~\ref{tab:pattern-results} gives the harder signal-level result. On D2, v0.1 achieved precision 0.818182, recall 0.900000, F1 0.857143, and specificity 0.800000. Its four false positives were a PostgreSQL-shaped local query, two AMQP-publish lookalikes, and an AMQP-consume lookalike; its two false negatives were Redis \texttt{hSet} and \texttt{lPush}. On the same annotated signals, v0.2 achieved 1.000000 for all four metrics. Package-provenance tracking removed the four method-name false positives, while the expanded Redis operation set recovered the two missed positives. This is a targeted regression improvement on D2, not an estimate over arbitrary TypeScript syntax.
+Table~\ref{tab:pattern-results} gives the signal-level regression result. On D2, v0.1 achieved precision 0.818182, recall 0.900000, F1 0.857143, and specificity 0.800000. Its four false positives were a PostgreSQL-shaped local query, two AMQP-publish lookalikes, and an AMQP-consume lookalike; its two false negatives were Redis \texttt{hSet} and \texttt{lPush}. On the same annotated signals, v0.2 achieved 1.000000 for all four metrics. Package-provenance tracking removed the four method-name false positives, while the expanded Redis operation set recovered the two missed positives. Because D2 was constructed from known v0.1 weaknesses, this is targeted regression evidence and not an estimate over arbitrary TypeScript syntax or an external baseline comparison.
 
 \textbf{RQ2: change classification.}
 ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evolution cases. It also matched the complete expected rule-identifier set for all seven violations. The added allow and require-path cases exercise rule semantics beyond direct deny and require checks. Redis, AMQP, Fraud Service, and payment-cache additions were classified as evolution rather than violation, preserving a human-review path.

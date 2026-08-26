@@ -74,6 +74,7 @@ const coverageArguments = [
   "--test-coverage-include=research/build-slr-screening-calibration.mjs",
   "--test-coverage-include=research/statistical-analysis.mjs",
   "--test-coverage-include=research/validate-evaluation-report-scaffold.mjs",
+  "--test-coverage-include=research/validate-research-quality-gates.mjs",
   "--test-coverage-lines=95",
   "--test-coverage-branches=88",
   "--test-coverage-functions=90",
@@ -94,6 +95,7 @@ const coverageArguments = [
   "research/build-slr-screening-calibration.test.mjs",
   "research/statistical-analysis.test.mjs",
   "research/validate-evaluation-report-scaffold.test.mjs",
+  "research/validate-research-quality-gates.test.mjs",
 ];
 
 const hostTexAvailable =
@@ -122,6 +124,7 @@ const commands = [
   { id: "literature-matrix", command: process.execPath, args: ["research/validate-literature-matrix.mjs"] },
   { id: "reference-quality", command: process.execPath, args: ["research/validate-reference-quality-policy.mjs"] },
   { id: "evaluation-scaffold", command: process.execPath, args: ["research/verify-evaluation-report-scaffold.mjs"] },
+  { id: "research-quality", command: process.execPath, args: ["research/validate-research-quality-gates.mjs"] },
 ];
 
 const screeningCalibration = "research/literature-screening-calibration.json";

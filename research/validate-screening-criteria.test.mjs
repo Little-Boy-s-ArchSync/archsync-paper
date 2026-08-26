@@ -118,21 +118,16 @@ test("rejects premature screening rows and screening header drift", () => {
   assertIssue(wrongHeader, "header order does not match schema");
 });
 
-test("requires protocol, decision-log and paper traceability", () => {
+test("requires protocol and decision-log traceability without publishing task status", () => {
   const result = validate({
     protocol: protocol.replaceAll("I1--I8 and E01--E10", "missing criteria range"),
     decisions: decisions.replace(
       "## D-010: Version SLR Screening Criteria Codebook 0.1.0",
       "## removed D-010",
     ),
-    paper: paper.replace(
-      "SLR-103 screening codebook version \\texttt{0.1.0}",
-      "missing paper status",
-    ),
   });
   assertIssue(result, "literature-protocol.md: missing governed marker 'I1--I8 and E01--E10'");
   assertIssue(result, "decision-log.md: missing governed marker '## D-010");
-  assertIssue(result, "main.tex: missing governed marker 'SLR-103 screening codebook");
 });
 
 test("CLI reports valid and invalid states deterministically", async () => {

@@ -103,7 +103,7 @@ const expectedIds = [
   "V-RQ4",
 ];
 const allowedStatuses = new Set([
-  "verified-current",
+  "verified-controlled",
   "partial-prerequisite",
   "planned-no-evidence",
 ]);
@@ -143,8 +143,8 @@ for (const record of records) {
     if (record.disposition !== "Current paper") {
       issues.push(`rq-traceability.csv: ${record.rq_id} must belong to the current paper`);
     }
-    if (record.evidence_status !== "verified-current") {
-      issues.push(`rq-traceability.csv: ${record.rq_id} must use verified-current evidence status`);
+    if (record.evidence_status !== "verified-controlled") {
+      issues.push(`rq-traceability.csv: ${record.rq_id} must use verified-controlled evidence status`);
     }
   }
 
@@ -152,7 +152,7 @@ for (const record of records) {
     if (record.family !== "roadmap-vision") {
       issues.push(`rq-traceability.csv: ${record.rq_id} must be roadmap-vision`);
     }
-    if (record.evidence_status === "verified-current") {
+    if (record.evidence_status === "verified-controlled") {
       issues.push(`rq-traceability.csv: ${record.rq_id} cannot claim current verified evidence`);
     }
     for (const linkedId of record.linked_rqs.split(";").map((value) => value.trim())) {
@@ -228,6 +228,6 @@ if (issues.length > 0) {
   process.exitCode = 1;
 } else {
   console.log(
-    "VALID RQ TRACEABILITY (4 current feasibility RQs, 4 roadmap vision RQs, evidence boundary enforced)",
+    "VALID RQ TRACEABILITY (4 controlled feasibility RQs, 4 roadmap vision RQs, evidence boundary enforced)",
   );
 }

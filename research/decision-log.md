@@ -365,3 +365,34 @@
   and Glossary remain 1.0.3 because no research question, scope, dataset,
   metric, eligibility rule, empirical result, or canonical term changes.
 - Approver: Hieu, research lead and architecture owner.
+
+## D-020: Adopt Manuscript and Evidence Quality Gates 1.0.0
+
+- Date: 2026-08-27
+- Status: Accepted
+- Task: GOV-RES-QUALITY-001
+- Trigger: Manuscript review identified five recurring risks: internally created
+  benchmarks presented too strongly, an irrelevant unfinished-SLR subsection,
+  missing repository links, a number-heavy abstract, and non-current references
+  without a necessary foundational role.
+- Decision: Classify every claim as controlled-development,
+  independent-holdout, field-study, or software-verification evidence. Replace
+  unqualified `verified` result status with `verified-controlled` for D1/D2/P3.
+  Treat v0.1 versus v0.2 as within-tool regression, never as an external
+  baseline.
+- Manuscript action: Rewrite the Abstract and Conclusion, remove unfinished SLR
+  progress from Related Work, add named/blinded repository links and immutable
+  evaluation commits, narrow result captions and discussion, and refresh the
+  bibliography with current 2024 drift studies while keeping only four direct
+  foundational exceptions.
+- External evidence gate: Comparative claims remain blocked until
+  `EXTERNAL-BASELINE-PROTOCOL.md` is executed on a frozen D3 common-capability
+  subset with retained external-tool configuration and raw outputs. Real-world
+  claims remain blocked until the independent holdout is frozen and evaluated.
+- Mock rule: Synthetic fixtures and generated artifacts are allowed for tests,
+  demos, and controlled regression only. No mock, placeholder, manually
+  invented, or hard-coded value may be used as empirical evidence.
+- Governed artifacts: `RESEARCH-QUALITY-GATES.md` 1.0.0,
+  `PROJECT-EVIDENCE-AUDIT.md` 1.0.0, and
+  `EXTERNAL-BASELINE-PROTOCOL.md` 0.1.0.
+- Approver: Hieu, research lead and architecture owner.

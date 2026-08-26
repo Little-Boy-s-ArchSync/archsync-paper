@@ -66,6 +66,7 @@ jobs:
             --test-coverage-include=research/build-slr-screening-calibration.mjs \
             --test-coverage-include=research/statistical-analysis.mjs \
             --test-coverage-include=research/validate-evaluation-report-scaffold.mjs \
+            --test-coverage-include=research/validate-research-quality-gates.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -85,7 +86,8 @@ jobs:
             research/verify-slr-screening-calibration.test.mjs \
             research/build-slr-screening-calibration.test.mjs \
             research/statistical-analysis.test.mjs \
-            research/validate-evaluation-report-scaffold.test.mjs
+            research/validate-evaluation-report-scaffold.test.mjs \
+            research/validate-research-quality-gates.test.mjs
 
       - name: Verify governed SLR screening calibration when present
         shell: bash
@@ -121,6 +123,9 @@ jobs:
 
       - name: Verify evaluation report and result-manifest scaffolds
         run: node research/verify-evaluation-report-scaffold.mjs
+
+      - name: Verify manuscript and evidence quality gates
+        run: node research/validate-research-quality-gates.mjs
 
       - name: Verify live SLR review provenance
         if: github.event_name == 'pull_request'

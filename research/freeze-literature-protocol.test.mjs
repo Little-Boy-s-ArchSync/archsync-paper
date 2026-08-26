@@ -80,8 +80,7 @@ test("produces a validator-approved 1.0.0 freeze state from governed evidence", 
     result.decisions,
     /Independent review: Independent SLR Reviewer approved/,
   );
-  assert.match(result.paper, /The frozen protocol predeclares/);
-  assert.match(result.paper, /protocol version \\texttt\{1\.0\.0\} is frozen/);
+  assert.equal(result.paper, paper);
 });
 
 test("refuses to freeze a modified or already-frozen source state", () => {
@@ -224,14 +223,13 @@ test("CLI check mode validates without writing", async () => {
   assert.deepEqual(cli.output, ["READY TO FREEZE SLR PROTOCOL 1.0.0"]);
 });
 
-test("CLI write mode updates exactly the three governed documents", async () => {
+test("CLI write mode updates exactly the two governed documents", async () => {
   const cli = inMemoryCli({ args: ["--write"] });
   await runFreezeTool(cli.options);
   assert.equal(cli.exitCode(), null);
   assert.deepEqual([...cli.writes.keys()].sort(), [
     "decision-log.md",
     "literature-protocol.md",
-    "main.tex",
   ]);
   assert.deepEqual(cli.output, ["WROTE SLR PROTOCOL 1.0.0 FREEZE STATE"]);
 });
@@ -314,9 +312,9 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
     await readFile(join(research, "decision-log.md"), "utf8"),
     /^- Status: Accepted$/m,
   );
-  assert.match(
+  assert.equal(
     await readFile(join(repository, "sections", "related-work.tex"), "utf8"),
-    /The frozen protocol predeclares/,
+    paper,
   );
   assert.equal(
     await readFile(join(repository, "main.tex"), "utf8"),

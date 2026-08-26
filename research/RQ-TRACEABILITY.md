@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Task | RQ-102 |
-| Matrix version | 1.0.0 |
+| Matrix version | 1.0.1 |
 | Status | Frozen |
 | Effective date | 2026-08-16 |
 | Owner | Hiếu |
@@ -24,17 +24,17 @@ same questions.
   governance files and evidence ledgers.
 - `V-RQ1`--`V-RQ4` are roadmap vision questions that require Phase 4--7
   capabilities or studies.
-- A verified feasibility result may be a prerequisite for a vision RQ without
+- A controlled-verified feasibility result may be a prerequisite for a vision RQ without
   answering that vision RQ.
 - Planned metrics are protocol fields, not reported results. A vision RQ cannot
-  become `verified-current` until its dataset, raw evidence, verifier, and claim
+  become `verified-controlled` until its dataset, raw evidence, verifier, and claim
   ledger entries pass the evidence gate.
 
 ## Evidence-status vocabulary
 
 | Status | Meaning |
 | --- | --- |
-| `verified-current` | The current paper has a frozen dataset, executable verifier, evidence artifact, and claim-ledger entry for the stated feasibility scope |
+| `verified-controlled` | The current paper has an executable verifier and evidence artifact for a declared controlled development scope; this status does not imply external validity or comparative performance |
 | `partial-prerequisite` | Current evidence verifies a bounded prerequisite, but the full vision question has not been evaluated |
 | `planned-no-evidence` | Metrics and data sources are specified for planning; no empirical result may be claimed |
 
@@ -42,10 +42,10 @@ same questions.
 
 | ID | Unit of analysis | Primary metrics | Dataset or data source | Owner | Paper section | Evidence status |
 | --- | --- | --- | --- | --- | --- | --- |
-| F-RQ1 | D1 graph item and D2 annotated detector signal | Node/edge P/R/F1; signal TP/FP/FN/TN, P/R/F1 and specificity | D1 Phase 2; D2 detector challenge | Hiếu | Section 4 RQ1; Sections 8 and 9 RQ1 | `verified-current` |
-| F-RQ2 | One D1 patch and its expected violated-rule set | Exact class, rule-set and P3 decision agreement | D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ2; Sections 8 and 9 RQ2 | `verified-current` |
-| F-RQ3 | One finding-bearing D1 patch | Expected-file and exact-line agreement | D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ3; Sections 8 and 9 RQ3 | `verified-current` |
-| F-RQ4 | Duplicate run, P3 cold/warm pair, parsed file instance and timed run | Replay, cache, full-scan equivalence, parsed fraction, median and p95 latency | D1/D2 replay; P3 evidence and raw timings | Hiếu | Section 4 RQ4; Sections 8 and 9 RQ4 | `verified-current` |
+| F-RQ1 | D1 graph item and D2 annotated detector signal | Node/edge P/R/F1; signal TP/FP/FN/TN, P/R/F1 and specificity | Co-developed D1 Phase 2; D2 detector challenge | Hiếu | Section 4 RQ1; Sections 8 and 9 RQ1 | `verified-controlled` |
+| F-RQ2 | One D1 patch and its expected violated-rule set | Exact class, rule-set and P3 decision agreement | Co-developed D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ2; Sections 8 and 9 RQ2 | `verified-controlled` |
+| F-RQ3 | One finding-bearing D1 patch | Expected-file and exact-line agreement | Co-developed D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ3; Sections 8 and 9 RQ3 | `verified-controlled` |
+| F-RQ4 | Duplicate run, P3 cold/warm pair, parsed file instance and timed run | Replay, cache, full-scan equivalence, parsed fraction, median and p95 latency | Co-developed D1/D2 replay; P3 evidence and raw timings | Hiếu | Section 4 RQ4; Sections 8 and 9 RQ4 | `verified-controlled` |
 
 The exact questions, denominators, artifact paths, and verification scope are in
 `rq-traceability.csv`. The numerical claims remain in `claim-evidence.csv`; this

@@ -330,14 +330,6 @@ export function validateLiteratureMatrix({
   ]) {
     requireMarker(issues, "decision-log.md", decisions, marker);
   }
-  for (const marker of [
-    "SLR-104 literature matrix schema version \\texttt{0.2.0}",
-    "contains zero publication rows",
-    "does not constitute literature evidence",
-  ]) {
-    requireMarker(issues, "main.tex", paper, marker);
-  }
-
   return { issues, recordCount: records.length, blocked };
 }
 

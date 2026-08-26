@@ -1,5 +1,5 @@
 % !TeX root = ../main.tex
-\section{Evaluation Methodology}
+\section{Controlled Verification Methodology}
 
 \subsection{Experimental Objects}
 
@@ -13,7 +13,11 @@ D2 was authored after the initial v0.1 analyzer and deliberately targets its wea
 
 The Phase 3 protocol reuses D1 rather than introducing a third dataset. For each case, it creates a fresh Git repository from the unchanged baseline, commits that baseline with fixed author metadata, applies one patch to the working tree, and runs the diff gate twice. The first execution reconstructs and caches the base graph; the second must hit the cache. A separate full scan of the same patched head acts as an equivalence oracle for the incremental result. Ground truth is extended operationally with expected changed files and the PASS/BLOCK/REVIEW mapping already implied by each D1 label. We compare normalized cold and warm results, decisions, changed-file sets, exact architecture deltas, rule identifiers, evidence locations, and incremental/full-scan equivalence. Timings are retained only from the recorded Windows run because shared CI runners do not provide a controlled performance environment.
 
-Figure~\ref{fig:evaluation-protocol} summarizes the executable evaluation protocol and shows how raw analyzer executions become the reported metrics and evidence artifact.
+Figure~\ref{fig:evaluation-protocol} summarizes the executable verification protocol and shows how raw analyzer executions become the reported metrics and evidence artifact.
+
+\subsection{External-Comparison Boundary}
+
+The current study reports no external baseline result. The frozen v0.1 to v0.2 run is a within-ArchSync regression comparison on a corpus designed after observing v0.1 errors; it is not a comparison with another tool. We selected \href{https://github.com/sverweij/dependency-cruiser}{dependency-cruiser} as the first external comparator candidate because it supports configurable JavaScript and TypeScript module-dependency rules. A governed protocol requires a pinned version, unchanged configuration, frozen D3 repositories, raw tool-native output, and scoring only on the module-dependency subset both systems can represent. ArchSync-only HTTP, database, cache, and message-broker relationships cannot be counted as baseline failures. No comparative advantage will be claimed until that protocol and the independent D3 holdout have been executed.
 
 \begin{figure*}[t]
   \centering
@@ -62,8 +66,8 @@ Figure~\ref{fig:evaluation-protocol} summarizes the executable evaluation protoc
     \draw[flow] (p3run.east) -- (p3verify.west);
     \draw[flow] (p3verify.east) -- (p3out.west);
   \end{tikzpicture}
-  \caption{Evaluation protocol. D1 measures full-repository reconstruction and classification, D2 isolates detector signals, and P3 replays D1 as cold and warm Git-diff pull-request checks.}
-  \Description{The first route validates 20 independent patches and compares graphs, classifications, rules, evidence, and replay. The second validates 40 detector signals with two analyzer versions. The third commits the same baseline, applies each patch as a Git diff, performs cold and warm checks plus a full head scan, and measures decisions, changed files, architecture deltas, incremental equivalence, cache behavior, scope, evidence, and latency.}
+  \caption{Controlled verification protocol. D1 measures full-repository reconstruction and classification, D2 isolates detector signals, and P3 replays D1 as cold and warm Git-diff pull-request checks. All three routes use co-developed development data.}
+  \Description{The first route validates 20 isolated executable patches and compares graphs, classifications, rules, evidence, and replay. The second validates 40 detector signals with two analyzer versions. The third commits the same baseline, applies each patch as a Git diff, performs cold and warm checks plus a full head scan, and measures decisions, changed files, architecture deltas, incremental equivalence, cache behavior, scope, evidence, and latency.}
   \label{fig:evaluation-protocol}
 \end{figure*}
 
@@ -105,6 +109,6 @@ P3 additionally measures exact merge-decision, changed-file-set, architecture-de
 \end{equation}
 where $T_i^{\mathrm{parsed}}$ contains TypeScript files parsed in affected components and $T_i^{\mathrm{head}}$ contains TypeScript files represented by the reconstructed head graph. Cache correctness requires a miss followed by a hit for every isolated case and identical normalized results. Cold and warm check latency are summarized by median and 95th percentile; no inferential comparison is made.
 
-\subsection{Acceptance Criteria}
+\subsection{Engineering Acceptance Criteria}
 
-Before reporting the run, the D1 engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. D2 v0.2 additionally required zero missed positive signals, zero unexpected detections, all 20 hard negatives rejected, and byte-identical replay. P3 required exact classification, decision, changed-file sets, architecture deltas, rule sets, source files and lines for all applicable cases; full-scan equivalence, cache hits, and identical normalized replay for all repeated checks; and cross-platform completion of the full benchmark workflow. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard; raw counts and exact denominators are therefore reported alongside it.
+Before reporting the controlled run, the D1 engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. D2 v0.2 additionally required zero missed positive signals, zero unexpected detections, all 20 hard negatives rejected, and byte-identical replay. P3 required exact classification, decision, changed-file sets, architecture deltas, rule sets, source files and lines for all applicable cases; full-scan equivalence, cache hits, and identical normalized replay for all repeated checks; and cross-platform completion of the full benchmark workflow. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard. Passing these criteria verifies the declared regression contract only; it does not establish superiority to an external tool or accuracy on unseen repositories.

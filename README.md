@@ -45,6 +45,9 @@ kiểm tra ownership.
 │   ├── AI-EVIDENCE-POLICY.md    # Ranh giới AI và evidence thật
 │   ├── REFERENCE-QUALITY-POLICY.md
 │   ├── REFERENCE-QUALITY-AUDIT.md
+│   ├── RESEARCH-QUALITY-GATES.md
+│   ├── EXTERNAL-BASELINE-PROTOCOL.md
+│   ├── PROJECT-EVIDENCE-AUDIT.md
 │   ├── RQ-TRACEABILITY.md
 │   ├── rq-traceability.csv
 │   ├── literature-protocol.md
@@ -138,6 +141,9 @@ Các artifact SLR chính gồm:
 - `research/SLR-REVIEWER-RUNBOOK.md` — independent-review workflow;
 - `research/AI-EVIDENCE-POLICY.md` — ranh giới AI/evidence;
 - `research/REFERENCE-QUALITY-POLICY.md` — policy rank/recency;
+- `research/RESEARCH-QUALITY-GATES.md` — claim, baseline, abstract và artifact gates;
+- `research/EXTERNAL-BASELINE-PROTOCOL.md` — protocol so sánh external tool công bằng;
+- `research/PROJECT-EVIDENCE-AUDIT.md` — audit mock data và research claims toàn dự án;
 - `research/rq-traceability.csv` — RQ mapping máy đọc được;
 - `research/risk-register.csv` — risk và stop/go gate.
 
@@ -153,6 +159,7 @@ node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
 node research/validate-reference-quality-policy.mjs
 node research/verify-evaluation-report-scaffold.mjs
+node research/validate-research-quality-gates.mjs
 node --test research/*.test.mjs
 ```
 

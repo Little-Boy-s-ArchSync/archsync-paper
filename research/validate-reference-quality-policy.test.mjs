@@ -125,3 +125,10 @@ test("rejects removal of the DataCite fallback finding", async () => {
   const result = validateReferenceQualityPolicy(fixture);
   assertIssue(result, "A Crossref 404 for this DOI only means");
 });
+
+test("rejects restoration of an old manuscript-only SLR method citation", async () => {
+  const fixture = await loadFixture();
+  fixture.bibliography += "\n@article{page2021prisma, title={PRISMA}, year={2021}}\n";
+  const result = validateReferenceQualityPolicy(fixture);
+  assertIssue(result, "removed manuscript citation 'page2021prisma'");
+});

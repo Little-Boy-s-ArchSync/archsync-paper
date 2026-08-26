@@ -366,5 +366,6 @@ node research/validate-literature-protocol.mjs
 ```
 
 Freeze chỉ được thay đổi `literature-protocol.md`, `decision-log.md` và
-`main.tex` theo automation. Sau merge và CI pass, Hiếu mới chuyển SLR-101 sang
-`Đã làm` và đồng bộ `main.tex` lên Overleaf.
+`decision-log.md` theo automation. Freeze SLR không tự sửa paper hoặc Overleaf;
+Related Work chỉ được cập nhật sau khi official search, screening và synthesis
+có evidence thật. Sau merge và CI pass, Hiếu mới chuyển SLR-101 sang `Đã làm`.
