@@ -96,19 +96,7 @@ function acceptedDecisions() {
 }
 
 function frozenPaper() {
-  return paper
-    .replace(
-      "The candidate protocol predeclares",
-      "The frozen protocol predeclares",
-    )
-    .replace(
-      "protocol version \\texttt{0.2.0} is a review candidate. The official search has not started, and no result list has been inspected.",
-      "protocol version \\texttt{1.0.0} is frozen. The official search is authorized but has not started, and no result list has been inspected.",
-    )
-    .replace(
-      "Search remains blocked until a non-author reviewer validates the method and sentinel recall and the protocol is frozen.",
-      "Official search may begin only from the frozen queries and governed evidence workflow.",
-    );
+  return paper;
 }
 
 const reviewRecord = `# SLR-101 Independent Review Record
@@ -408,7 +396,7 @@ test("rejects duplicate or incomplete sentinel rows", () => {
   assertIssue(result, "missing sentinel DOI 10.1002/smr.2423");
 });
 
-test("rejects missing paper disclosures, method citations and protocol metadata", () => {
+test("rejects missing paper boundary disclosures and protocol metadata", () => {
   const result = validate({
     protocol: protocol
       .replace("| Owner | Hiếu |", "| Owner | Unknown |")
@@ -420,7 +408,7 @@ test("rejects missing paper disclosures, method citations and protocol metadata"
       ),
     paper: paper
       .replace(
-        "The preceding synthesis positions ArchSync against selected foundational, secondary, and empirical studies. It is not the outcome of a completed systematic literature review",
+        "The synthesis above is a scoped narrative review, not the result of a completed systematic literature review",
         "The literature is complete",
       )
       .replace(
@@ -428,22 +416,15 @@ test("rejects missing paper disclosures, method citations and protocol metadata"
         "There is no literature-selection risk",
       )
       .replace(
-        "OpenAlex and Semantic Scholar may differ from Scopus and the Web of Science Core Collection in publication coverage",
-        "The open indexes have identical coverage",
-      )
-      .replaceAll("kitchenham2007slr", "removed-method-citation"),
-    bibliography: bibliography.replaceAll(
-      "kitchenham2007slr",
-      "removed-method-entry",
-    ),
+        "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+        "protocol progress is published in Related Work",
+      ),
   });
   for (const fragment of [
     "not a completed systematic review",
     "literature-positioning validity risk",
     "not subscription-index equivalents",
-    "open-index coverage and query-semantics risk",
-    "missing literature-method citation kitchenham2007slr",
-    "missing entry kitchenham2007slr",
+    "unfinished SLR progress outside the Related Work section",
     "Owner must be 'Hiếu'",
     "SLR-RQ1 must have one canonical heading",
     "Candidate version history",
@@ -480,7 +461,7 @@ test("rejects malformed review identity, timestamp and PR linkage", () => {
   assertIssue(result, "Review timestamp must be an ISO-8601 UTC timestamp");
 });
 
-test("rejects frozen metadata while the paper retains candidate language", () => {
+test("accepts frozen metadata while the paper remains protocol-status neutral", () => {
   const result = validate({
     protocol: frozenProtocol(),
     decisions: acceptedDecisions(),
@@ -489,11 +470,7 @@ test("rejects frozen metadata while the paper retains candidate language", () =>
     sentinelRecall,
     sentinelEvidenceHashes,
   });
-  assertIssue(result, "frozen status must match reviewed protocol 1.0.0");
-  assertIssue(
-    result,
-    "must not retain candidate or pre-review blocking language",
-  );
+  assert.deepEqual(result.issues, []);
 });
 
 test("rejects malformed sentinel CSV schema, row width and unknown sources", () => {

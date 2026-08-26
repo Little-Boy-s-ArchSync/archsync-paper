@@ -121,7 +121,7 @@ export function validateLiteratureProtocol({
   requireText(
     "main.tex",
     paper,
-    /The preceding synthesis positions ArchSync against selected foundational, secondary, and empirical studies\. It is not the outcome of a completed systematic literature review/,
+    /The synthesis above is a scoped narrative review, not the result of a completed systematic literature review/,
     "must disclose that current Related Work is not a completed systematic review",
   );
   requireText(
@@ -139,42 +139,9 @@ export function validateLiteratureProtocol({
   requireText(
     "main.tex",
     paper,
-    /OpenAlex and Semantic Scholar may differ from Scopus and the Web of Science Core Collection in publication coverage/,
-    "must disclose open-index coverage and query-semantics risk",
+    /versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript/,
+    "must keep unfinished SLR progress outside the Related Work section",
   );
-
-  if (candidateState) {
-    requireText(
-      "main.tex",
-      paper,
-      /protocol version \\texttt\{0\.2\.0\} is a review candidate\. The official search has not started, and no result list has been inspected\./,
-      "candidate status must match protocol 0.2.0 without implying completed search",
-    );
-  }
-  if (frozenState) {
-    requireText(
-      "main.tex",
-      paper,
-      /protocol version \\texttt\{1\.0\.0\} is frozen\. The official search is authorized but has not started, and no result list has been inspected\./,
-      "frozen status must match reviewed protocol 1.0.0 without implying completed search",
-    );
-  }
-
-  for (const citationKey of [
-    "kitchenham2007slr",
-    "wohlin2014snowballing",
-    "page2021prisma",
-    "kitchenham2023segress",
-  ]) {
-    if (!paper.includes(citationKey)) {
-      issues.push(
-        `main.tex: missing literature-method citation ${citationKey}`,
-      );
-    }
-    if (!new RegExp(`@[a-zA-Z]+\\{${citationKey},`).test(bibliography)) {
-      issues.push(`references.bib: missing entry ${citationKey}`);
-    }
-  }
 
   for (const [field, expected] of [
     ["Task", "SLR-101"],
@@ -269,13 +236,9 @@ export function validateLiteratureProtocol({
         `literature-protocol.md: frozen review checklist must contain 10 checked and 0 unchecked items; found ${checkedItems.length} checked and ${uncheckedItems.length} unchecked`,
       );
     }
-    if (
-      paper.includes("The candidate protocol predeclares") ||
-      paper.includes("Search remains blocked until a non-author reviewer") ||
-      protocol.includes("The protocol is deliberately a review candidate")
-    ) {
+    if (protocol.includes("The protocol is deliberately a review candidate")) {
       issues.push(
-        "main.tex: frozen protocol state must not retain candidate or pre-review blocking language",
+        "literature-protocol.md: frozen state must not retain candidate language",
       );
     }
     if (!reviewRecord) {

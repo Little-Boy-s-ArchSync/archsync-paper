@@ -34,8 +34,8 @@ const expectedHeadings = [
   "Proposed Approach",
   "System Architecture",
   "Implementation",
-  "Evaluation Methodology",
-  "Results",
+  "Controlled Verification Methodology",
+  "Controlled Verification Results",
   "Discussion",
   "Threats to Validity",
   "Conclusion and Future Work",
@@ -75,6 +75,7 @@ assert.equal(
   anonymous,
   "% Double-blind submission wrapper. The named working draft remains main.tex.\n" +
     "\\PassOptionsToClass{anonymous}{acmart}\n" +
+    "\\def\\archsyncanonymousmode{1}\n" +
     "\\input{main.tex}\n",
   "main-anonymous.tex must remain the minimal anonymous wrapper",
 );

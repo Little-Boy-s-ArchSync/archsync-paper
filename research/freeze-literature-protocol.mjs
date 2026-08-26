@@ -176,35 +176,12 @@ export function freezeLiteratureProtocol({
     issues,
   );
 
-  let nextPaper = paper;
-  nextPaper = replaceExactly(
-    nextPaper,
-    "The candidate protocol predeclares",
-    "The frozen protocol predeclares",
-    "candidate paper label",
-    issues,
-  );
-  nextPaper = replaceExactly(
-    nextPaper,
-    "protocol version \\texttt{0.2.0} is a review candidate. The official search has not started, and no result list has been inspected.",
-    "protocol version \\texttt{1.0.0} is frozen. The official search is authorized but has not started, and no result list has been inspected.",
-    "candidate paper status",
-    issues,
-  );
-  nextPaper = replaceExactly(
-    nextPaper,
-    "Search remains blocked until a non-author reviewer validates the method and sentinel recall and the protocol is frozen.",
-    "Official search may begin only from the frozen queries and governed evidence workflow.",
-    "paper search-block statement",
-    issues,
-  );
-
   if (issues.length > 0) {
     return {
       issues,
       protocol: nextProtocol,
       decisions: nextDecisions,
-      paper: nextPaper,
+      paper,
     };
   }
 
@@ -213,7 +190,7 @@ export function freezeLiteratureProtocol({
     decisions: nextDecisions,
     baseline,
     traceability,
-    paper: nextPaper,
+    paper,
     bibliography,
     reviewRecord,
     sentinelRecall,
@@ -224,7 +201,7 @@ export function freezeLiteratureProtocol({
     issues: frozen.issues.map((issue) => `frozen state: ${issue}`),
     protocol: nextProtocol,
     decisions: nextDecisions,
-    paper: nextPaper,
+    paper,
   };
 }
 
@@ -320,7 +297,6 @@ export async function main({
     await Promise.all([
       writeText(paths.protocol, result.protocol),
       writeText(paths.decisions, result.decisions),
-      writeText(paths.paper, result.paper),
     ]);
     log("WROTE SLR PROTOCOL 1.0.0 FREEZE STATE");
   } else {

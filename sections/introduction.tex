@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 \section{Introduction}
 
-Software architecture captures the intended decomposition of a system, the responsibilities of its components, and the relationships that are permitted between them. As systems evolve, this intent can diverge from implementation; surveys of architecture erosion report both structural violations and broader effects on maintenance and evolution \cite{desilva2012erosion,li2022erosion}. A locally reasonable change can bypass a gateway, couple an interface directly to a database, or introduce infrastructure without an explicit architecture decision while compilation and functional tests continue to pass.
+Software architecture captures the intended decomposition of a system, the responsibilities of its components, and the relationships that are permitted between them. As systems evolve, this intent can diverge from implementation; recent mapping and developer studies report structural violations, effects on maintenance and evolution, and continuing reliance on documentation and shared practices \cite{li2022erosion,anthony2024drifting}. A locally reasonable change can bypass a gateway, couple an interface directly to a database, or introduce infrastructure without an explicit architecture decision while compilation and functional tests continue to pass.
 
 The underlying problem is not the absence of documentation alone. It is the absence of a deterministic, evidence-backed connection between architecture intent and implementation. A diagram can communicate the desired system but is difficult to use as an automated quality gate. Conversely, a source-derived dependency graph can expose implementation relationships but does not by itself state which relationships are allowed, forbidden, required, or merely require review.
 
@@ -17,6 +17,6 @@ This paper makes the following contributions:
   \item a provenance-aware TypeScript source-to-graph pipeline with file, line, column, detector, snippet, and confidence evidence;
   \item a three-way decision model separating violations from topology evolution;
   \item a Git-diff gate with cached baseline graphs, component-incremental analysis, GitHub annotations, and explicit handling of introduced, pre-existing, and resolved findings;
-  \item a reproducible 20-patch end-to-end evaluation plus a 40-signal positive/hard-negative detector corpus; and
+  \item a reproducible 20-patch controlled development benchmark plus a 40-signal positive/hard-negative regression corpus; and
   \item machine-readable evidence that binds models, source trees, patches, runtime packages, outcomes, and results through SHA-256 provenance.
 \end{itemize}

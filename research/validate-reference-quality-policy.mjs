@@ -38,16 +38,12 @@ export const AUDITED_CITATION_KEYS = Object.freeze([
   "knodel2007comparison",
   "terra2009dcl",
   "ducasse2009reconstruction",
-  "desilva2012erosion",
-  "pinto2017archci",
   "li2022erosion",
   "konersmann2022replicability",
   "abgaz2023decomposition",
   "kaindlstorfer2024interrogation",
-  "kitchenham2007slr",
-  "wohlin2014snowballing",
-  "page2021prisma",
-  "kitchenham2023segress",
+  "uzun2024drift",
+  "anthony2024drifting",
 ]);
 
 export const AUDITED_SENTINEL_DOIS = Object.freeze([
@@ -180,20 +176,12 @@ export function validateReferenceQualityPolicy({
     "validate-reference-quality-policy.mjs",
   );
   for (const marker of [
-    "prefers papers from 2022--2026",
-    "gives journal Q1 first priority and treats Q1/Q2 as high-ranked",
-    "they do not exclude records from the systematic review",
-  ]) {
-    requireMarker(issues, "main.tex", paper, marker);
-  }
-
-  for (const marker of [
-    "| Audit version | 0.1.0 |",
+    "| Audit version | 0.2.0 |",
     "Candidate decisions complete; human acceptance pending",
     "A Crossref 404 for this DOI only means",
-    "The removed `cui2024static` entry is an arXiv/CoRR preprint",
+    "The earlier `cui2024static` preprint remains rejected",
     "`kaindlstorfer2024interrogation`, DOI `10.1145/3691620.3695034`",
-    "Do not copy the candidate",
+    "Do not copy candidate",
   ]) {
     requireMarker(issues, "REFERENCE-QUALITY-AUDIT.md", audit, marker);
   }
@@ -223,6 +211,23 @@ export function validateReferenceQualityPolicy({
   }
   if (!paper.includes("\\cite{kaindlstorfer2024interrogation}")) {
     issues.push("main.tex: peer-reviewed ASE replacement citation is missing");
+  }
+  for (const key of ["uzun2024drift", "anthony2024drifting"]) {
+    if (!paper.includes(key)) {
+      issues.push(`main.tex: current drift evidence citation '${key}' is missing`);
+    }
+  }
+  for (const key of [
+    "desilva2012erosion",
+    "pinto2017archci",
+    "kitchenham2007slr",
+    "wohlin2014snowballing",
+    "page2021prisma",
+    "kitchenham2023segress",
+  ]) {
+    if (bibliography.includes(`{${key},`) || paper.includes(key)) {
+      issues.push(`bibliography remediation: removed manuscript citation '${key}' is still retained`);
+    }
   }
 
   return { issues, templateRows: Math.max(rows.length - 1, 0) };

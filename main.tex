@@ -11,6 +11,27 @@
 \renewcommand{\labelitemi}{\textnormal{-}}
 \emergencystretch=2em
 
+\newif\ifarchsyncanonymous
+\ifdefined\archsyncanonymousmode
+  \archsyncanonymoustrue
+\else
+  \archsyncanonymousfalse
+\fi
+\newcommand{\archsyncrepository}[2]{%
+  \ifarchsyncanonymous
+    \nolinkurl{#1} (blinded)%
+  \else
+    \href{#2}{\nolinkurl{#1}}%
+  \fi
+}
+\newcommand{\archsynccommit}[4]{%
+  \ifarchsyncanonymous
+    \texttt{#1} commit \texttt{#4} (blinded artifact)%
+  \else
+    \href{#2/commit/#3}{\texttt{#1} commit \texttt{#4}}%
+  \fi
+}
+
 \begin{document}
 
 \title{ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems}

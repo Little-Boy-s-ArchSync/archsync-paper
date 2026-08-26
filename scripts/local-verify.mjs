@@ -70,6 +70,7 @@ const coverageArguments = [
   "--test-coverage-include=research/validate-search-queries.mjs",
   "--test-coverage-include=research/validate-screening-criteria.mjs",
   "--test-coverage-include=research/validate-literature-matrix.mjs",
+  "--test-coverage-include=research/validate-research-quality-gates.mjs",
   "--test-coverage-lines=95",
   "--test-coverage-branches=88",
   "--test-coverage-functions=90",
@@ -86,6 +87,7 @@ const coverageArguments = [
   "research/validate-screening-criteria.test.mjs",
   "research/validate-literature-matrix.test.mjs",
   "research/validate-reference-quality-policy.test.mjs",
+  "research/validate-research-quality-gates.test.mjs",
 ];
 
 const hostTexAvailable =
@@ -113,6 +115,7 @@ const commands = [
   { id: "screening-criteria", command: process.execPath, args: ["research/validate-screening-criteria.mjs"] },
   { id: "literature-matrix", command: process.execPath, args: ["research/validate-literature-matrix.mjs"] },
   { id: "reference-quality", command: process.execPath, args: ["research/validate-reference-quality-policy.mjs"] },
+  { id: "research-quality", command: process.execPath, args: ["research/validate-research-quality-gates.mjs"] },
 ];
 
 if (!hostTexAvailable) {

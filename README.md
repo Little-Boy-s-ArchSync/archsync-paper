@@ -114,6 +114,9 @@ Các artifact SLR chính gồm:
 - `research/SLR-REVIEWER-RUNBOOK.md` — independent-review workflow;
 - `research/AI-EVIDENCE-POLICY.md` — ranh giới AI/evidence;
 - `research/REFERENCE-QUALITY-POLICY.md` — policy rank/recency;
+- `research/RESEARCH-QUALITY-GATES.md` — claim/baseline/abstract/artifact gates;
+- `research/EXTERNAL-BASELINE-PROTOCOL.md` — fair external comparator plan;
+- `research/PROJECT-EVIDENCE-AUDIT.md` — project-wide mock and claim audit;
 - `research/rq-traceability.csv` — RQ mapping máy đọc được;
 - `research/risk-register.csv` — risk và stop/go gate.
 
@@ -128,6 +131,7 @@ node research/validate-search-queries.mjs
 node research/validate-screening-criteria.mjs
 node research/validate-literature-matrix.mjs
 node research/validate-reference-quality-policy.mjs
+node research/validate-research-quality-gates.mjs
 node --test research/*.test.mjs
 ```
 

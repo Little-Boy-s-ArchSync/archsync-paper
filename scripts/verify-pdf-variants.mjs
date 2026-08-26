@@ -29,7 +29,7 @@ const normalizedAnonymous = anonymous.toLowerCase();
 
 const sharedAnchors = [
   "ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems",
-  "Software architecture descriptions can diverge from the source code",
+  "Software teams can keep builds green while implementation relationships drift away from an approved architecture",
   "Introduction",
   "Background and Related Work",
   "Problem Definition",
@@ -37,8 +37,8 @@ const sharedAnchors = [
   "Proposed Approach",
   "System Architecture",
   "Implementation",
-  "Evaluation Methodology",
-  "Results",
+  "Controlled Verification Methodology",
+  "Controlled Verification Results",
   "Discussion",
   "Threats to Validity",
   "Conclusion and Future Work",

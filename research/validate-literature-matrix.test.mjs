@@ -256,21 +256,16 @@ test("rejects duplicate publication identity and provenance", () => {
   assertIssue(result, "doi values must be unique");
 });
 
-test("requires protocol, decision-log and paper traceability", () => {
+test("requires protocol and decision-log traceability without publishing task status", () => {
   const result = validate({
     protocol: protocol.replaceAll("`literature-matrix.csv`", "missing-matrix-csv"),
     decisions: decisions.replace(
       "## D-016: Replace Inaccessible Subscription Indexes Before SLR Freeze",
       "## removed D-016",
     ),
-    paper: paper.replace(
-      "SLR-104 literature matrix schema version \\texttt{0.2.0}",
-      "missing paper marker",
-    ),
   });
   assertIssue(result, "literature-protocol.md: missing governed marker '`literature-matrix.csv`'");
   assertIssue(result, "decision-log.md: missing governed marker '## D-016");
-  assertIssue(result, "main.tex: missing governed marker 'SLR-104 literature matrix schema");
 });
 
 test("CLI reports valid and invalid states deterministically", async () => {

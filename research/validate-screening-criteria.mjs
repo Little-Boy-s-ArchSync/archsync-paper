@@ -217,15 +217,6 @@ export function validateScreeningCriteria({
   ]) {
     requireMarker(issues, "decision-log.md", decisions, marker);
   }
-  for (const marker of [
-    "SLR-103 screening codebook version \\texttt{0.1.0}",
-    "eight inclusion criteria",
-    "ten controlled exclusion reasons",
-    "no execution timestamp, result count, screening decision, or export hash",
-  ]) {
-    requireMarker(issues, "main.tex", paper, marker);
-  }
-
   return { issues, criterionCount: criteriaRows ? criteriaRows.length - 1 : 0 };
 }
 

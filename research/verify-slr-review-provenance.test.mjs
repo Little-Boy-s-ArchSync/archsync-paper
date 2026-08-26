@@ -118,7 +118,6 @@ function githubFixture(overrides = {}) {
       { filename: "research/slr-review-record.md" },
       { filename: "research/literature-protocol.md" },
       { filename: "research/decision-log.md" },
-      { filename: "main.tex" },
     ],
     ...overrides.comparison,
   };
@@ -194,7 +193,6 @@ test("accepts an independent-reviewer signed attestation when all code uses L1nk
           { filename: SIGNED_REVIEW_PATHS.signature },
           { filename: "research/literature-protocol.md" },
           { filename: "research/decision-log.md" },
-          { filename: "main.tex" },
         ],
       };
     }
