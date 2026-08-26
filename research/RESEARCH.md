@@ -245,6 +245,11 @@ verifier.
 - Member 3: holdout construction, IaC/runtime experiment, statistics, and
   independent reproduction.
 
+Task exception: `SLR-REV-101` is assigned to Tran Minh Hoang as the Independent
+SLR Reviewer. Ha Hoang Bach approval is not required for this task. Hoang's
+signed review must identify him and affirm that he did not author the protocol
+under review.
+
 These assignments define accountability rather than repository access.
 `an1dee3301` is the Delegated Technical Operator for TV1, TV2, and TV3 and may
 execute their code, query, evidence-construction, validation, commit, push, PR,

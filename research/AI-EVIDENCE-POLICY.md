@@ -189,11 +189,12 @@ review record.
 
 Git author, committer, pull-request author, and automation metadata prove only
 which account performed the action. They do not prove that Ha Hoang Bach, Tran
-Minh Hoang, Le Van Kiet, or Vo Duc Hieu personally reviewed a result. If Ha
-Hoang Bach remains the Independent SLR Reviewer, Bach must verify and sign or
-approve the exact commit even when `an1dee3301` performed every technical step.
-If the reviewer is formally reassigned to Tran Minh Hoang, the evidence must
-name Hoang and establish that he is not an author of the reviewed protocol.
+Minh Hoang, Le Van Kiet, or Vo Duc Hieu personally reviewed a result.
+`SLR-REV-101` is formally assigned to Tran Minh Hoang; Ha Hoang Bach approval is
+not required for that task. Hoang must verify and sign the exact commit in his
+own name, and his signed attestation must affirm that he is not an author of the
+reviewed protocol. If that non-author condition is false, another eligible
+reviewer must be assigned before freeze.
 
 ## 9. Definition of Done
 
@@ -214,6 +215,6 @@ AI-assisted work is complete only when:
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
-| 1.2.0 | 2026-08-27 | D-017 | Authorize `an1dee3301` to execute TV1, TV2, and TV3 technical workflows while separating operator metadata from accountable-person and independent-review evidence |
+| 1.2.0 | 2026-08-27 | D-017 | Authorize `an1dee3301` across TV1/TV2/TV3, assign SLR-REV-101 to Tran Minh Hoang, and bind his identity plus non-author declaration in signed review evidence |
 | 1.1.0 | 2026-08-19 | D-013 | Permit AI to execute authorized browser, database, artifact, validation, PR, and local signing workflows while preserving real evidence and named-human accountability |
 | 1.0.0 | 2026-08-19 | D-012 | Permit AI assistance for all members while requiring real source evidence, human verification, provenance, disclosure, and human accountability |

@@ -653,6 +653,12 @@ claim. The freeze commit updates the metadata to version
 review evidence, and changes D-008 to `Accepted` before the official search
 begins.
 
+The current assignment for SLR-REV-101 is Tran Minh Hoang, ORCID
+`0009-0000-0302-1841`, operating through `an1dee3301`. Ha Hoang Bach approval is
+not required for this task. Hoang's signed attestation identifies him and
+affirms that he did not author this protocol; if that assertion is not true, the
+freeze remains blocked until another eligible non-author reviewer is assigned.
+
 Before approval, the freeze branch must contain
 `literature-sentinel-recall.csv`, created from
 `literature-sentinel-recall.template.csv`, the reviewer's pinned public key, and

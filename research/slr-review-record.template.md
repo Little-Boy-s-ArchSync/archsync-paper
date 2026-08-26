@@ -14,6 +14,10 @@ frozen protocol.
 | Review mode | Signed attestation |
 | Review PR | `<approved ArchSync paper PR URL>` |
 | Reviewer role | Independent SLR Reviewer |
+| Reviewer name | Tran Minh Hoang |
+| Reviewer ORCID | 0009-0000-0302-1841 |
+| Operator GitHub login | an1dee3301 |
+| Protocol author | No |
 | Review decision | Approved |
 | Review commit | `<full 40-character commit SHA>` |
 | Review timestamp | `<ISO-8601 UTC timestamp>` |

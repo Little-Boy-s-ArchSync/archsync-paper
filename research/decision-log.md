@@ -350,16 +350,18 @@
   not the human who reviewed or accepted a result. Governed work distinguishes
   `operator_login`, `accountable_role`, `accountable_person`, the retained
   authorization, and any separately required independent verifier.
-- SLR consequence: `an1dee3301` may execute every mechanical step of
-  SLR-REV-101. If Ha Hoang Bach remains the assigned Independent SLR Reviewer,
-  Bach must verify and sign or approve the exact commit. If Tran Minh Hoang is
-  formally reassigned as reviewer, the evidence names Hoang and must establish
-  that he is not an author of the reviewed protocol. Repository metadata alone
-  cannot be presented as Bach's review evidence.
+- SLR consequence: `SLR-REV-101` is formally reassigned to Tran Minh Hoang, and
+  Ha Hoang Bach approval is not required for this task. `an1dee3301` may execute
+  every mechanical step. Hoang must verify and sign the exact commit in his own
+  name, with ORCID `0009-0000-0302-1841`, and attest that he is not an author of
+  the reviewed protocol. If that condition is false, another eligible reviewer
+  must be assigned. Repository metadata alone is not review evidence.
 - Integrity impact: This decision removes an account-access restriction but
   does not relax real-evidence, non-fabrication, independent-review, private-key,
   or Definition of Done requirements.
-- Version impact: AI Evidence Policy advances from 1.1.0 to 1.2.0. The Research
-  Baseline and Glossary remain 1.0.3 because no research question, scope,
-  dataset, metric, eligibility rule, empirical result, or canonical term changes.
+- Version impact: AI Evidence Policy advances from 1.1.0 to 1.2.0 and the signed
+  SLR review attestation advances from schema 1.0.0 to 1.1.0 to bind reviewer
+  name, ORCID, operator login, and non-author declaration. The Research Baseline
+  and Glossary remain 1.0.3 because no research question, scope, dataset,
+  metric, eligibility rule, empirical result, or canonical term changes.
 - Approver: Hieu, research lead and architecture owner.

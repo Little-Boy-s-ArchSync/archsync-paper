@@ -13,6 +13,9 @@ import {
 } from "./verify-slr-review-provenance.mjs";
 import {
   REVIEW_CHECKLIST,
+  REVIEWER_NAME,
+  REVIEWER_OPERATOR_LOGIN,
+  REVIEWER_ORCID,
   SIGNED_REVIEW_PATHS,
 } from "./verify-slr-signed-attestation.mjs";
 
@@ -44,9 +47,13 @@ function signedFixture() {
   const attestationBytes = Buffer.from(
     `${JSON.stringify(
       {
-        schema_version: "1.0.0",
+        schema_version: "1.1.0",
         task: "SLR-101",
         reviewer: "Independent SLR Reviewer",
+        reviewer_name: REVIEWER_NAME,
+        reviewer_orcid: REVIEWER_ORCID,
+        operator_login: REVIEWER_OPERATOR_LOGIN,
+        protocol_author: false,
         review_decision: "Approved",
         review_commit: reviewCommit,
         review_timestamp: reviewTimestamp,
@@ -75,6 +82,10 @@ function signedFixture() {
 | Review mode | Signed attestation |
 | Review PR | https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/7 |
 | Reviewer role | Independent SLR Reviewer |
+| Reviewer name | ${REVIEWER_NAME} |
+| Reviewer ORCID | ${REVIEWER_ORCID} |
+| Operator GitHub login | ${REVIEWER_OPERATOR_LOGIN} |
+| Protocol author | No |
 | Review decision | Approved |
 | Review commit | ${reviewCommit} |
 | Review timestamp | ${reviewTimestamp} |
@@ -210,7 +221,7 @@ test("accepts an independent-reviewer signed attestation when all code uses an1d
   assert.deepEqual(result.issues, []);
   assert.equal(result.reviewMode, "Signed attestation");
   assert.equal(result.reviewId, null);
-  assert.equal(result.reviewerLogin, "Independent SLR Reviewer (signed)");
+  assert.equal(result.reviewerLogin, "Tran Minh Hoang (signed via an1dee3301)");
   assert.equal(paths.length, 3);
   assert.ok(paths.every((path) => !path.includes("/reviews/")));
 });
@@ -505,7 +516,7 @@ test("CLI verifies a signed review under the delegated an1dee3301 account", asyn
   assert.equal(state.exitCode(), null);
   assert.deepEqual(state.errors, []);
   assert.deepEqual(state.output, [
-    "VALID SLR REVIEW PROVENANCE (PR #7, signed attestation, reviewer Independent SLR Reviewer (signed), commit 1111111)",
+    "VALID SLR REVIEW PROVENANCE (PR #7, signed attestation, reviewer Tran Minh Hoang (signed via an1dee3301), commit 1111111)",
   ]);
 });
 
