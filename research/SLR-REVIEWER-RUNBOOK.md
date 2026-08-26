@@ -5,6 +5,14 @@ Independent SLR Reviewer. Quy định nghiên
 cứu chính thức vẫn nằm trong `literature-protocol.md`; runbook không thay đổi
 query, tiêu chí, nguồn dữ liệu hoặc Definition of Done của protocol.
 
+`SLR-REV-101` được chuyển chính thức cho Trần Minh Hoàng. GitHub login
+`an1dee3301` được phép làm Delegated Technical Operator cho toàn bộ workflow:
+chạy query, tạo artifact, commit, push, mở PR và gọi automation. Nhiệm vụ này
+không cần Hà Hoàng Bách approve. Hoàng phải tự kiểm tra bundle, ký exact commit
+dưới tên mình và xác nhận trong signed attestation rằng Hoàng không phải tác giả
+của protocol được review. Nếu điều kiện non-author không đúng thì phải giao vai
+trò phản biện cho một người đủ điều kiện khác trước khi freeze.
+
 ## 0. Lệnh giao việc cho AI của reviewer
 
 Independent SLR Reviewer có thể gửi nguyên văn yêu cầu sau cho AI đang có quyền
@@ -13,7 +21,7 @@ Independent SLR Reviewer có thể gửi nguyên văn yêu cầu sau cho AI đan
 ```text
 Bạn được tôi, Independent SLR Reviewer, ủy quyền thực hiện workflow kỹ thuật
 SLR-REV-101 theo research/SLR-REVIEWER-RUNBOOK.md và
-research/AI-EVIDENCE-POLICY.md 1.1.0. Hãy dùng phiên đăng nhập thật của tôi để
+research/AI-EVIDENCE-POLICY.md 1.2.0. Hãy dùng phiên đăng nhập thật của tôi để
 chạy sáu DOI sentinel, lưu official source capture và provenance, tạo đúng sáu
 JSON, build ledger, chạy validator/test, chuẩn bị branch/PR và bundle review.
 Không được tạo số liệu giả hoặc điền thông tin không quan sát được. Nếu một

@@ -16,6 +16,9 @@ export const SIGNED_REVIEW_PATHS = Object.freeze({
 });
 
 export const REVIEWER_ROLE = "Independent SLR Reviewer";
+export const REVIEWER_NAME = "Tran Minh Hoang";
+export const REVIEWER_ORCID = "0009-0000-0302-1841";
+export const REVIEWER_OPERATOR_LOGIN = "an1dee3301";
 
 export const REVIEW_CHECKLIST = Object.freeze([
   "objective-rq-alignment",
@@ -34,6 +37,10 @@ const ATTESTATION_FIELDS = [
   "schema_version",
   "task",
   "reviewer",
+  "reviewer_name",
+  "reviewer_orcid",
+  "operator_login",
+  "protocol_author",
   "review_decision",
   "review_commit",
   "review_timestamp",
@@ -140,12 +147,16 @@ export function verifySignedReviewAttestation({
 
   const fields = Object.keys(attestation).sort();
   if (fields.join("|") !== [...ATTESTATION_FIELDS].sort().join("|")) {
-    issues.push("signed review: attestation fields do not match schema 1.0.0");
+    issues.push("signed review: attestation fields do not match schema 1.1.0");
   }
   const expectedValues = [
-    ["schema_version", "1.0.0"],
+    ["schema_version", "1.1.0"],
     ["task", "SLR-101"],
     ["reviewer", REVIEWER_ROLE],
+    ["reviewer_name", REVIEWER_NAME],
+    ["reviewer_orcid", REVIEWER_ORCID],
+    ["operator_login", REVIEWER_OPERATOR_LOGIN],
+    ["protocol_author", false],
     ["review_decision", "Approved"],
     ["review_commit", metadataValue(reviewRecord, "Review commit")],
     ["review_timestamp", metadataValue(reviewRecord, "Review timestamp")],

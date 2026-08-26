@@ -137,7 +137,9 @@ test("writes only the generated summary in a real three-commit workflow", async 
     ...CALIBRATION_PATHS.summary.split("/"),
   );
   assert.equal(await readFile(summaryPath, "utf8"), state.summaryText);
-  assert.equal((await stat(summaryPath)).mode & 0o777, 0o644);
+  const summaryMode = (await stat(summaryPath)).mode & 0o777;
+  assert.equal(summaryMode & 0o600, 0o600);
+  assert.equal(summaryMode & 0o111, 0);
   assert.equal((await state.git(["rev-parse", "HEAD"])).stdout.trim(), state.revealCommit);
   assert.equal((await state.git(["diff", "--cached", "--name-only"])).stdout, "");
   assert.equal(

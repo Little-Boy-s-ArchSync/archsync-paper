@@ -64,6 +64,8 @@ jobs:
             --test-coverage-include=research/validate-literature-matrix.mjs \
             --test-coverage-include=research/verify-slr-screening-calibration.mjs \
             --test-coverage-include=research/build-slr-screening-calibration.mjs \
+            --test-coverage-include=research/statistical-analysis.mjs \
+            --test-coverage-include=research/validate-evaluation-report-scaffold.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -81,7 +83,9 @@ jobs:
             research/validate-literature-matrix.test.mjs \
             research/validate-reference-quality-policy.test.mjs \
             research/verify-slr-screening-calibration.test.mjs \
-            research/build-slr-screening-calibration.test.mjs
+            research/build-slr-screening-calibration.test.mjs \
+            research/statistical-analysis.test.mjs \
+            research/validate-evaluation-report-scaffold.test.mjs
 
       - name: Verify governed SLR screening calibration when present
         shell: bash
@@ -97,7 +101,6 @@ jobs:
           else
             echo "SLR-103 calibration pending; no review evidence exists"
           fi
-
       - name: Verify claim-to-evidence contract
         run: node research/validate-claim-evidence.mjs
 
@@ -115,6 +118,9 @@ jobs:
 
       - name: Verify reference quality and recency policy
         run: node research/validate-reference-quality-policy.mjs
+
+      - name: Verify evaluation report and result-manifest scaffolds
+        run: node research/verify-evaluation-report-scaffold.mjs
 
       - name: Verify live SLR review provenance
         if: github.event_name == 'pull_request'

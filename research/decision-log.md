@@ -129,7 +129,7 @@
 - Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author.
   Version 1.0.0 may be frozen only after either an approved pull-request review
   from a distinct account or an Ed25519-signed Independent SLR Reviewer attestation when the
-  team shares `L1nkinPark` for all pushes. The same freeze change sets this
+  team uses delegated `an1dee3301` for all pushes. The same freeze change sets this
   decision to `Accepted` and records review evidence.
 - Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
   Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
@@ -335,3 +335,33 @@
   has been inspected. All six sentinel calibrations must be rerun against the
   new four-source set before independent review and freeze 1.0.0.
 - Owner: Hieu.
+
+## D-017: Authorize a Delegated Cross-Role GitHub Operator
+
+- Date: 2026-08-27
+- Status: Accepted
+- Task: GOV-AI-001
+- Decision: Authorize GitHub login `an1dee3301` as the Delegated Technical
+  Operator for tasks assigned to TV1, TV2, and TV3. The account may implement,
+  query real authorized sources, construct evidence artifacts, validate,
+  commit, push, open or update pull requests, and invoke approved automation for
+  all three functional roles.
+- Attribution boundary: Git and GitHub metadata identify the operating account,
+  not the human who reviewed or accepted a result. Governed work distinguishes
+  `operator_login`, `accountable_role`, `accountable_person`, the retained
+  authorization, and any separately required independent verifier.
+- SLR consequence: `SLR-REV-101` is formally reassigned to Tran Minh Hoang, and
+  Ha Hoang Bach approval is not required for this task. `an1dee3301` may execute
+  every mechanical step. Hoang must verify and sign the exact commit in his own
+  name, with ORCID `0009-0000-0302-1841`, and attest that he is not an author of
+  the reviewed protocol. If that condition is false, another eligible reviewer
+  must be assigned. Repository metadata alone is not review evidence.
+- Integrity impact: This decision removes an account-access restriction but
+  does not relax real-evidence, non-fabrication, independent-review, private-key,
+  or Definition of Done requirements.
+- Version impact: AI Evidence Policy advances from 1.1.0 to 1.2.0 and the signed
+  SLR review attestation advances from schema 1.0.0 to 1.1.0 to bind reviewer
+  name, ORCID, operator login, and non-author declaration. The Research Baseline
+  and Glossary remain 1.0.3 because no research question, scope, dataset,
+  metric, eligibility rule, empirical result, or canonical term changes.
+- Approver: Hieu, research lead and architecture owner.
