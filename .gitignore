@@ -35,6 +35,7 @@ main-anonymous.pdf
 /node_modules/
 .devcontainer/smoke-challenge.json
 .devcontainer/smoke-evidence.json
+/artifacts/
 
 # Editor and operating-system files
 .DS_Store

@@ -135,6 +135,14 @@ const signedReviewRecord = reviewRecord
     "| Review mode | Signed attestation |",
   )
   .replace(
+    "| Reviewer role | Independent SLR Reviewer |",
+    `| Reviewer role | Independent SLR Reviewer |
+| Reviewer name | Tran Minh Hoang |
+| Reviewer ORCID | 0009-0000-0302-1841 |
+| Operator GitHub login | an1dee3301 |
+| Protocol author | No |`,
+  )
+  .replace(
     "| Sentinel recall | Passed |",
     `| Sentinel recall | Passed |
 | Review attestation | research/evidence/slr-review/independent-slr-reviewer-attestation.json#sha256=${"a".repeat(64)} |

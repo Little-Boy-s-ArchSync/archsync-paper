@@ -1,0 +1,902 @@
+TAP version 13
+# Subtest: builds the exact canonical ledger from six semantic artifacts
+ok 1 - builds the exact canonical ledger from six semantic artifacts
+  ---
+  duration_ms: 7.3342
+  type: 'test'
+  ...
+# Subtest: rejects missing, extra and semantically invalid artifacts
+ok 2 - rejects missing, extra and semantically invalid artifacts
+  ---
+  duration_ms: 1.0027
+  type: 'test'
+  ...
+# Subtest: CLI validates usage, stale ledgers and governed write state
+ok 3 - CLI validates usage, stale ledgers and governed write state
+  ---
+  duration_ms: 4.7731
+  type: 'test'
+  ...
+# Subtest: CLI converts artifact, ledger, review-state and write failures into deterministic blocks
+ok 4 - CLI converts artifact, ledger, review-state and write failures into deterministic blocks
+  ---
+  duration_ms: 2.9403
+  type: 'test'
+  ...
+# Subtest: default filesystem adapters write and then verify a disposable ledger
+ok 5 - default filesystem adapters write and then verify a disposable ledger
+  ---
+  duration_ms: 77.3003
+  type: 'test'
+  ...
+# Subtest: loader rejects unexpected directory entries and non-regular expected paths
+ok 6 - loader rejects unexpected directory entries and non-regular expected paths
+  ---
+  duration_ms: 22.522
+  type: 'test'
+  ...
+# Subtest: loader propagates a non-missing evidence-directory failure
+ok 7 - loader propagates a non-missing evidence-directory failure
+  ---
+  duration_ms: 14.3633
+  type: 'test'
+  ...
+# Subtest: default exit-code adapter marks invalid CLI usage
+ok 8 - default exit-code adapter marks invalid CLI usage
+  ---
+  duration_ms: 0.8307
+  type: 'test'
+  ...
+# Subtest: atomic writer replaces a ledger and cleans temporary state after failure
+ok 9 - atomic writer replaces a ledger and cleans temporary state after failure
+  ---
+  duration_ms: 10.4171
+  type: 'test'
+  ...
+# Subtest: creates an exact, verifier-approved signed review bundle
+ok 10 - creates an exact, verifier-approved signed review bundle
+  ---
+  duration_ms: 15.4814
+  type: 'test'
+  ...
+# Subtest: rejects malformed governance metadata and impossible UTC dates
+ok 11 - rejects malformed governance metadata and impossible UTC dates
+  ---
+  duration_ms: 3.7607
+  type: 'test'
+  ...
+# Subtest: rejects malformed, non-Ed25519 and mismatched key material
+ok 12 - rejects malformed, non-Ed25519 and mismatched key material
+  ---
+  duration_ms: 463.8347
+  type: 'test'
+  ...
+# Subtest: CLI rejects invalid usage and private keys stored inside the repository
+ok 13 - CLI rejects invalid usage and private keys stored inside the repository
+  ---
+  duration_ms: 1.2567
+  type: 'test'
+  ...
+# Subtest: generate-key writes matching Ed25519 keys once and refuses overwrite
+ok 14 - generate-key writes matching Ed25519 keys once and refuses overwrite
+  ---
+  duration_ms: 15.9991
+  type: 'test'
+  ...
+# Subtest: sign blocks before key access when candidate evidence is invalid
+ok 15 - sign blocks before key access when candidate evidence is invalid
+  ---
+  duration_ms: 0.3788
+  type: 'test'
+  ...
+# Subtest: real candidate preflight validates governed sentinel files and hashes
+ok 16 - real candidate preflight validates governed sentinel files and hashes
+  ---
+  duration_ms: 64.096
+  type: 'test'
+  ...
+# Subtest: sign writes exactly three governed files and refuses replacement
+ok 17 - sign writes exactly three governed files and refuses replacement
+  ---
+  duration_ms: 19.8598
+  type: 'test'
+  ...
+# Subtest: exclusive key bundle rolls back files written before a failure
+ok 18 - exclusive key bundle rolls back files written before a failure
+  ---
+  duration_ms: 0.9657
+  type: 'test'
+  ...
+# Subtest: default rollback removes only the key created by the failed operation
+ok 19 - default rollback removes only the key created by the failed operation
+  ---
+  duration_ms: 10.1794
+  type: 'test'
+  ...
+# Subtest: exclusive review bundle rolls back partial evidence in reverse order
+ok 20 - exclusive review bundle rolls back partial evidence in reverse order
+  ---
+  duration_ms: 2.2476
+  type: 'test'
+  ...
+# Subtest: reports rollback failures instead of hiding partial-write risk
+ok 21 - reports rollback failures instead of hiding partial-write risk
+  ---
+  duration_ms: 0.5997
+  type: 'test'
+  ...
+# Subtest: CLI reports key and filesystem failures without producing approval
+ok 22 - CLI reports key and filesystem failures without producing approval
+  ---
+  duration_ms: 1.0268
+  type: 'test'
+  ...
+# Subtest: produces a validator-approved 1.0.0 freeze state from governed evidence
+ok 23 - produces a validator-approved 1.0.0 freeze state from governed evidence
+  ---
+  duration_ms: 26.5919
+  type: 'test'
+  ...
+# Subtest: refuses to freeze a modified or already-frozen source state
+ok 24 - refuses to freeze a modified or already-frozen source state
+  ---
+  duration_ms: 17.7324
+  type: 'test'
+  ...
+# Subtest: refuses missing review metadata or sentinel evidence
+ok 25 - refuses missing review metadata or sentinel evidence
+  ---
+  duration_ms: 2.3647
+  type: 'test'
+  ...
+# Subtest: refuses forged sentinel hashes after generating the prospective state
+ok 26 - refuses forged sentinel hashes after generating the prospective state
+  ---
+  duration_ms: 7.0224
+  type: 'test'
+  ...
+# Subtest: refuses digest-valid sentinel JSON that violates the semantic schema
+ok 27 - refuses digest-valid sentinel JSON that violates the semantic schema
+  ---
+  duration_ms: 6.7404
+  type: 'test'
+  ...
+# Subtest: CLI check mode validates without writing
+ok 28 - CLI check mode validates without writing
+  ---
+  duration_ms: 7.0687
+  type: 'test'
+  ...
+# Subtest: CLI write mode updates exactly the three governed documents
+ok 29 - CLI write mode updates exactly the three governed documents
+  ---
+  duration_ms: 7.0374
+  type: 'test'
+  ...
+# Subtest: CLI rejects invalid usage and missing evidence files
+ok 30 - CLI rejects invalid usage and missing evidence files
+  ---
+  duration_ms: 1.0541
+  type: 'test'
+  ...
+# Subtest: CLI default filesystem adapters verify hashes and write a disposable freeze tree
+ok 31 - CLI default filesystem adapters verify hashes and write a disposable freeze tree
+  ---
+  duration_ms: 121.6567
+  type: 'test'
+  ...
+# Subtest: accepts the governed paper claim ledger
+ok 32 - accepts the governed paper claim ledger
+  ---
+  duration_ms: 4.442
+  type: 'test'
+  ...
+# Subtest: rejects duplicate claim identities
+ok 33 - rejects duplicate claim identities
+  ---
+  duration_ms: 1.9476
+  type: 'test'
+  ...
+# Subtest: rejects a verified claim without executable evidence
+ok 34 - rejects a verified claim without executable evidence
+  ---
+  duration_ms: 1.3765
+  type: 'test'
+  ...
+# Subtest: rejects a planned claim promoted before its evidence gate
+ok 35 - rejects a planned claim promoted before its evidence gate
+  ---
+  duration_ms: 0.9804
+  type: 'test'
+  ...
+# Subtest: rejects a paper whose reported metric no longer matches the ledger
+ok 36 - rejects a paper whose reported metric no longer matches the ledger
+  ---
+  duration_ms: 1.0472
+  type: 'test'
+  ...
+# Subtest: parses quoted CSV fields, escaped quotes, CRLF and a final row without a newline
+ok 37 - parses quoted CSV fields, escaped quotes, CRLF and a final row without a newline
+  ---
+  duration_ms: 1.6721
+  type: 'test'
+  ...
+# Subtest: rejects empty or unterminated CSV input
+ok 38 - rejects empty or unterminated CSV input
+  ---
+  duration_ms: 3.1308
+  type: 'test'
+  ...
+# Subtest: rejects a changed header and malformed row width
+ok 39 - rejects a changed header and malformed row width
+  ---
+  duration_ms: 1.8044
+  type: 'test'
+  ...
+# Subtest: rejects missing, unexpected and empty claim fields
+ok 40 - rejects missing, unexpected and empty claim fields
+  ---
+  duration_ms: 2.5119
+  type: 'test'
+  ...
+# Subtest: rejects every governed field mutation on a verified claim
+ok 41 - rejects every governed field mutation on a verified claim
+  ---
+  duration_ms: 4.4126
+  type: 'test'
+  ...
+# Subtest: rejects every governed field mutation on a planned claim
+ok 42 - rejects every governed field mutation on a planned claim
+  ---
+  duration_ms: 0.9841
+  type: 'test'
+  ...
+# Subtest: rejects loss of verified coverage for any feasibility RQ
+ok 43 - rejects loss of verified coverage for any feasibility RQ
+  ---
+  duration_ms: 0.9033
+  type: 'test'
+  ...
+# Subtest: runs the real claim-evidence files through the CLI entry point
+ok 44 - runs the real claim-evidence files through the CLI entry point
+  ---
+  duration_ms: 23.8263
+  type: 'test'
+  ...
+# Subtest: accepts the governed empty matrix while population is blocked
+ok 45 - accepts the governed empty matrix while population is blocked
+  ---
+  duration_ms: 4.6073
+  type: 'test'
+  ...
+# Subtest: accepts an auditable populated row after the upstream population gate
+ok 46 - accepts an auditable populated row after the upstream population gate
+  ---
+  duration_ms: 3.8641
+  type: 'test'
+  ...
+# Subtest: rejects metadata drift and a missing contract safeguard
+ok 47 - rejects metadata drift and a missing contract safeguard
+  ---
+  duration_ms: 1.8773
+  type: 'test'
+  ...
+# Subtest: rejects malformed CSV, header drift and row-width drift
+ok 48 - rejects malformed CSV, header drift and row-width drift
+  ---
+  duration_ms: 4.8448
+  type: 'test'
+  ...
+# Subtest: rejects premature population and a mismatched declared count
+ok 49 - rejects premature population and a mismatched declared count
+  ---
+  duration_ms: 5.0789
+  type: 'test'
+  ...
+# Subtest: requires a normalized DOI or a canonical HTTPS URL
+ok 50 - requires a normalized DOI or a canonical HTTPS URL
+  ---
+  duration_ms: 3.0388
+  type: 'test'
+  ...
+# Subtest: enforces stable identifiers, cutoff year and evidence class
+ok 51 - enforces stable identifiers, cutoff year and evidence class
+  ---
+  duration_ms: 2.9936
+  type: 'test'
+  ...
+# Subtest: enforces controlled discovery sources, claim IDs, SLR-RQs and locations
+ok 52 - enforces controlled discovery sources, claim IDs, SLR-RQs and locations
+  ---
+  duration_ms: 0.9636
+  type: 'test'
+  ...
+# Subtest: enforces reviewer separation, canonical timestamps and record hashes
+ok 53 - enforces reviewer separation, canonical timestamps and record hashes
+  ---
+  duration_ms: 1.2561
+  type: 'test'
+  ...
+# Subtest: rejects empty fields and unexplained NA tokens
+ok 54 - rejects empty fields and unexplained NA tokens
+  ---
+  duration_ms: 0.8071
+  type: 'test'
+  ...
+# Subtest: rejects duplicate publication identity and provenance
+ok 55 - rejects duplicate publication identity and provenance
+  ---
+  duration_ms: 0.7185
+  type: 'test'
+  ...
+# Subtest: requires protocol, decision-log and paper traceability
+ok 56 - requires protocol, decision-log and paper traceability
+  ---
+  duration_ms: 0.9801
+  type: 'test'
+  ...
+# Subtest: CLI reports valid and invalid states deterministically
+ok 57 - CLI reports valid and invalid states deterministically
+  ---
+  duration_ms: 20.0588
+  type: 'test'
+  ...
+# Subtest: accepts the governed review-candidate protocol
+ok 58 - accepts the governed review-candidate protocol
+  ---
+  duration_ms: 17.6459
+  type: 'test'
+  ...
+# Subtest: rejects premature search authorization
+ok 59 - rejects premature search authorization
+  ---
+  duration_ms: 6.7839
+  type: 'test'
+  ...
+# Subtest: rejects search execution or result inspection during SLR-101
+ok 60 - rejects search execution or result inspection during SLR-101
+  ---
+  duration_ms: 1.8938
+  type: 'test'
+  ...
+# Subtest: rejects removal of a required database or query family
+ok 61 - rejects removal of a required database or query family
+  ---
+  duration_ms: 1.8551
+  type: 'test'
+  ...
+# Subtest: rejects removal of a sentinel, eligibility criterion, or workflow stage
+ok 62 - rejects removal of a sentinel, eligibility criterion, or workflow stage
+  ---
+  duration_ms: 2.0133
+  type: 'test'
+  ...
+# Subtest: rejects removal of an execution artifact or research-integrity guard
+ok 63 - rejects removal of an execution artifact or research-integrity guard
+  ---
+  duration_ms: 1.9253
+  type: 'test'
+  ...
+# Subtest: rejects a decision-log state that disagrees with the candidate
+ok 64 - rejects a decision-log state that disagrees with the candidate
+  ---
+  duration_ms: 1.941
+  type: 'test'
+  ...
+# Subtest: rejects a textual freeze without independent review artifacts
+ok 65 - rejects a textual freeze without independent review artifacts
+  ---
+  duration_ms: 3.8088
+  type: 'test'
+  ...
+# Subtest: rejects review artifacts while metadata still declares a candidate
+ok 66 - rejects review artifacts while metadata still declares a candidate
+  ---
+  duration_ms: 6.6266
+  type: 'test'
+  ...
+# Subtest: validates sentinel calibration evidence before the candidate is reviewed
+ok 67 - validates sentinel calibration evidence before the candidate is reviewed
+  ---
+  duration_ms: 5.8858
+  type: 'test'
+  ...
+# Subtest: rejects semantically empty JSON even when its ledger digest matches
+ok 68 - rejects semantically empty JSON even when its ledger digest matches
+  ---
+  duration_ms: 3.3422
+  type: 'test'
+  ...
+# Subtest: accepts a fully evidenced synthetic frozen state
+ok 69 - accepts a fully evidenced synthetic frozen state
+  ---
+  duration_ms: 4.3549
+  type: 'test'
+  ...
+# Subtest: accepts signed-attestation references for a shared GitHub account
+ok 70 - accepts signed-attestation references for a shared GitHub account
+  ---
+  duration_ms: 3.662
+  type: 'test'
+  ...
+# Subtest: rejects an unknown review mode or malformed signed evidence reference
+ok 71 - rejects an unknown review mode or malformed signed evidence reference
+  ---
+  duration_ms: 15.4274
+  type: 'test'
+  ...
+# Subtest: rejects self-review and malformed sentinel evidence
+ok 72 - rejects self-review and malformed sentinel evidence
+  ---
+  duration_ms: 7.9352
+  type: 'test'
+  ...
+# Subtest: rejects a frozen protocol with an unchecked review item
+ok 73 - rejects a frozen protocol with an unchecked review item
+  ---
+  duration_ms: 6.5258
+  type: 'test'
+  ...
+# Subtest: rejects a sentinel identity mismatch or forged artifact digest
+ok 74 - rejects a sentinel identity mismatch or forged artifact digest
+  ---
+  duration_ms: 6.9728
+  type: 'test'
+  ...
+# Subtest: rejects duplicate or incomplete sentinel rows
+ok 75 - rejects duplicate or incomplete sentinel rows
+  ---
+  duration_ms: 4.5164
+  type: 'test'
+  ...
+# Subtest: rejects missing paper disclosures, method citations and protocol metadata
+ok 76 - rejects missing paper disclosures, method citations and protocol metadata
+  ---
+  duration_ms: 2.7651
+  type: 'test'
+  ...
+# Subtest: rejects a protocol and baseline that lose an RQ traceability link
+ok 77 - rejects a protocol and baseline that lose an RQ traceability link
+  ---
+  duration_ms: 2.0527
+  type: 'test'
+  ...
+# Subtest: rejects malformed review identity, timestamp and PR linkage
+ok 78 - rejects malformed review identity, timestamp and PR linkage
+  ---
+  duration_ms: 4.6651
+  type: 'test'
+  ...
+# Subtest: rejects frozen metadata while the paper retains candidate language
+ok 79 - rejects frozen metadata while the paper retains candidate language
+  ---
+  duration_ms: 2.8779
+  type: 'test'
+  ...
+# Subtest: rejects malformed sentinel CSV schema, row width and unknown sources
+ok 80 - rejects malformed sentinel CSV schema, row width and unknown sources
+  ---
+  duration_ms: 2.5706
+  type: 'test'
+  ...
+# Subtest: rejects malformed sentinel CSV quoting
+ok 81 - rejects malformed sentinel CSV quoting
+  ---
+  duration_ms: 2.969
+  type: 'test'
+  ...
+# Subtest: accepts documented not-indexed sentinels and rejects contradictory classifications
+ok 82 - accepts documented not-indexed sentinels and rejects contradictory classifications
+  ---
+  duration_ms: 6.7299
+  type: 'test'
+  ...
+# Subtest: rejects removal of D-008 or its pre-search integrity guard
+ok 83 - rejects removal of D-008 or its pre-search integrity guard
+  ---
+  duration_ms: 3.6629
+  type: 'test'
+  ...
+# Subtest: loads and hashes a real sentinel evidence artifact
+ok 84 - loads and hashes a real sentinel evidence artifact
+  ---
+  duration_ms: 34.0247
+  type: 'test'
+  ...
+# Subtest: runs the real candidate protocol through the CLI entry point
+ok 85 - runs the real candidate protocol through the CLI entry point
+  ---
+  duration_ms: 6.7508
+  type: 'test'
+  ...
+# Subtest: accepts the governed reference-quality policy and empty template
+ok 86 - accepts the governed reference-quality policy and empty template
+  ---
+  duration_ms: 22.3556
+  type: 'test'
+  ...
+# Subtest: rejects removal of the Q1-first rule
+ok 87 - rejects removal of the Q1-first rule
+  ---
+  duration_ms: 10.3824
+  type: 'test'
+  ...
+# Subtest: rejects a corrupted template header
+ok 88 - rejects a corrupted template header
+  ---
+  duration_ms: 4.3761
+  type: 'test'
+  ...
+# Subtest: rejects mock rows in the planning template
+ok 89 - rejects mock rows in the planning template
+  ---
+  duration_ms: 5.3803
+  type: 'test'
+  ...
+# Subtest: rejects removal of the systematic-review non-exclusion boundary
+ok 90 - rejects removal of the systematic-review non-exclusion boundary
+  ---
+  duration_ms: 4.0662
+  type: 'test'
+  ...
+# Subtest: rejects an unaudited bibliography entry
+ok 91 - rejects an unaudited bibliography entry
+  ---
+  duration_ms: 5.1595
+  type: 'test'
+  ...
+# Subtest: rejects restoration of the arXiv-only citation
+ok 92 - rejects restoration of the arXiv-only citation
+  ---
+  duration_ms: 6.6753
+  type: 'test'
+  ...
+# Subtest: rejects removal of the DataCite fallback finding
+ok 93 - rejects removal of the DataCite fallback finding
+  ---
+  duration_ms: 7.9303
+  type: 'test'
+  ...
+# Subtest: accepts the governed SLR-103 candidate and empty decision template
+ok 94 - accepts the governed SLR-103 candidate and empty decision template
+  ---
+  duration_ms: 7.0871
+  type: 'test'
+  ...
+# Subtest: rejects metadata drift and missing method safeguards
+ok 95 - rejects metadata drift and missing method safeguards
+  ---
+  duration_ms: 3.1115
+  type: 'test'
+  ...
+# Subtest: rejects missing inclusion and exclusion definitions
+ok 96 - rejects missing inclusion and exclusion definitions
+  ---
+  duration_ms: 7.5104
+  type: 'test'
+  ...
+# Subtest: rejects malformed criteria CSV and a malformed screening template
+ok 97 - rejects malformed criteria CSV and a malformed screening template
+  ---
+  duration_ms: 3.3672
+  type: 'test'
+  ...
+# Subtest: rejects missing, duplicate and unexpected criteria
+ok 98 - rejects missing, duplicate and unexpected criteria
+  ---
+  duration_ms: 1.815
+  type: 'test'
+  ...
+# Subtest: rejects schema drift, wrong mappings and empty rule content
+ok 99 - rejects schema drift, wrong mappings and empty rule content
+  ---
+  duration_ms: 1.9773
+  type: 'test'
+  ...
+# Subtest: rejects premature screening rows and screening header drift
+ok 100 - rejects premature screening rows and screening header drift
+  ---
+  duration_ms: 1.9744
+  type: 'test'
+  ...
+# Subtest: requires protocol, decision-log and paper traceability
+ok 101 - requires protocol, decision-log and paper traceability
+  ---
+  duration_ms: 0.9557
+  type: 'test'
+  ...
+# Subtest: CLI reports valid and invalid states deterministically
+ok 102 - CLI reports valid and invalid states deterministically
+  ---
+  duration_ms: 17.7091
+  type: 'test'
+  ...
+# Subtest: accepts the governed SLR-102 query specification and 24 blocked runs
+ok 103 - accepts the governed SLR-102 query specification and 24 blocked runs
+  ---
+  duration_ms: 13.0622
+  type: 'test'
+  ...
+# Subtest: rejects metadata drift, missing keyword groups and missing syntax evidence
+ok 104 - rejects metadata drift, missing keyword groups and missing syntax evidence
+  ---
+  duration_ms: 2.2705
+  type: 'test'
+  ...
+# Subtest: rejects a duplicate query heading and a missing database translation
+ok 105 - rejects a duplicate query heading and a missing database translation
+  ---
+  duration_ms: 2.0681
+  type: 'test'
+  ...
+# Subtest: rejects malformed CSV and an incomplete run matrix
+ok 106 - rejects malformed CSV and an incomplete run matrix
+  ---
+  duration_ms: 2.0923
+  type: 'test'
+  ...
+# Subtest: rejects premature execution evidence and stale blocked metadata
+ok 107 - rejects premature execution evidence and stale blocked metadata
+  ---
+  duration_ms: 2.4955
+  type: 'test'
+  ...
+# Subtest: rejects row width, unknown and duplicate run identifiers
+ok 108 - rejects row width, unknown and duplicate run identifiers
+  ---
+  duration_ms: 1.5837
+  type: 'test'
+  ...
+# Subtest: requires protocol linkage and non-empty field plans
+ok 109 - requires protocol linkage and non-empty field plans
+  ---
+  duration_ms: 1.6184
+  type: 'test'
+  ...
+# Subtest: CLI reports valid and invalid states deterministically
+ok 110 - CLI reports valid and invalid states deterministically
+  ---
+  duration_ms: 20.4255
+  type: 'test'
+  ...
+# Subtest: accepts an actual non-author approval and only mechanical post-review changes
+ok 111 - accepts an actual non-author approval and only mechanical post-review changes
+  ---
+  duration_ms: 7.2882
+  type: 'test'
+  ...
+# Subtest: accepts an unchanged approved head with no comparison file list
+ok 112 - accepts an unchanged approved head with no comparison file list
+  ---
+  duration_ms: 0.7376
+  type: 'test'
+  ...
+# Subtest: accepts an independent-reviewer signed attestation when all code uses L1nkinPark
+ok 113 - accepts an independent-reviewer signed attestation when all code uses L1nkinPark
+  ---
+  duration_ms: 7.2528
+  type: 'test'
+  ...
+# Subtest: signed review requires a new signature if key or sentinel evidence changes
+ok 114 - signed review requires a new signature if key or sentinel evidence changes
+  ---
+  duration_ms: 2.3086
+  type: 'test'
+  ...
+# Subtest: signed review binds its timestamp to the exact reviewed Git commit
+ok 115 - signed review binds its timestamp to the exact reviewed Git commit
+  ---
+  duration_ms: 3.8083
+  type: 'test'
+  ...
+# Subtest: rejects malformed or cross-PR review-record metadata before network access
+ok 116 - rejects malformed or cross-PR review-record metadata before network access
+  ---
+  duration_ms: 0.4358
+  type: 'test'
+  ...
+# Subtest: rejects missing or malformed PR and review URLs
+ok 117 - rejects missing or malformed PR and review URLs
+  ---
+  duration_ms: 0.2839
+  type: 'test'
+  ...
+# Subtest: rejects API identity, state, authorship and commit mismatches
+ok 118 - rejects API identity, state, authorship and commit mismatches
+  ---
+  duration_ms: 0.734
+  type: 'test'
+  ...
+# Subtest: rejects a non-ancestor review and any substantive change after approval
+ok 119 - rejects a non-ancestor review and any substantive change after approval
+  ---
+  duration_ms: 0.3517
+  type: 'test'
+  ...
+# Subtest: converts GitHub API failures into a deterministic validation issue
+ok 120 - converts GitHub API failures into a deterministic validation issue
+  ---
+  duration_ms: 0.5812
+  type: 'test'
+  ...
+# Subtest: GitHub adapter requires a token, sends governed headers and rejects HTTP errors
+ok 121 - GitHub adapter requires a token, sends governed headers and rejects HTTP errors
+  ---
+  duration_ms: 1.5749
+  type: 'test'
+  ...
+# Subtest: CLI skips a candidate without a review record
+ok 122 - CLI skips a candidate without a review record
+  ---
+  duration_ms: 1.0887
+  type: 'test'
+  ...
+# Subtest: CLI reports read failures and invalid live provenance
+ok 123 - CLI reports read failures and invalid live provenance
+  ---
+  duration_ms: 1.3116
+  type: 'test'
+  ...
+# Subtest: CLI reports a verified live approval
+ok 124 - CLI reports a verified live approval
+  ---
+  duration_ms: 0.849
+  type: 'test'
+  ...
+# Subtest: CLI verifies a signed review under the shared L1nkinPark account
+ok 125 - CLI verifies a signed review under the shared L1nkinPark account
+  ---
+  duration_ms: 3.492
+  type: 'test'
+  ...
+# Subtest: CLI rejects an unreadable signed-review artifact
+ok 126 - CLI rejects an unreadable signed-review artifact
+  ---
+  duration_ms: 3.3287
+  type: 'test'
+  ...
+# Subtest: CLI default filesystem adapter skips the real candidate repository
+ok 127 - CLI default filesystem adapter skips the real candidate repository
+  ---
+  duration_ms: 24.7587
+  type: 'test'
+  ...
+# Subtest: CLI default GitHub adapter verifies using its token without exposing it
+ok 128 - CLI default GitHub adapter verifies using its token without exposing it
+  ---
+  duration_ms: 2.6648
+  type: 'test'
+  ...
+# Subtest: accepts an evidence-rich retrieved sentinel artifact
+ok 129 - accepts an evidence-rich retrieved sentinel artifact
+  ---
+  duration_ms: 6.9841
+  type: 'test'
+  ...
+# Subtest: rejects missing, invalid and non-object JSON artifacts
+ok 130 - rejects missing, invalid and non-object JSON artifacts
+  ---
+  duration_ms: 1.661
+  type: 'test'
+  ...
+# Subtest: rejects schema drift and governed identity mutations
+ok 131 - rejects schema drift and governed identity mutations
+  ---
+  duration_ms: 0.8187
+  type: 'test'
+  ...
+# Subtest: requires unique governed source arrays matching the ledger
+ok 132 - requires unique governed source arrays matching the ledger
+  ---
+  duration_ms: 0.7648
+  type: 'test'
+  ...
+# Subtest: rejects missing and malformed query-run contracts
+ok 133 - rejects missing and malformed query-run contracts
+  ---
+  duration_ms: 0.8151
+  type: 'test'
+  ...
+# Subtest: rejects unfilled placeholders and cross-source or generic evidence URLs
+ok 134 - rejects unfilled placeholders and cross-source or generic evidence URLs
+  ---
+  duration_ms: 1.6221
+  type: 'test'
+  ...
+# Subtest: rejects a generic Semantic Scholar page as result evidence
+ok 135 - rejects a generic Semantic Scholar page as result evidence
+  ---
+  duration_ms: 0.7773
+  type: 'test'
+  ...
+# Subtest: rejects calibration timestamps materially ahead of the verification clock
+ok 136 - rejects calibration timestamps materially ahead of the verification clock
+  ---
+  duration_ms: 0.4024
+  type: 'test'
+  ...
+# Subtest: binds query executions, timestamps and found sources to the ledger
+ok 137 - binds query executions, timestamps and found sources to the ledger
+  ---
+  duration_ms: 0.4427
+  type: 'test'
+  ...
+# Subtest: accepts a documented not-indexed sentinel only after all four source checks
+ok 138 - accepts a documented not-indexed sentinel only after all four source checks
+  ---
+  duration_ms: 0.7681
+  type: 'test'
+  ...
+# Subtest: rejects a retrieved classification without indexed and retrieved sources
+ok 139 - rejects a retrieved classification without indexed and retrieved sources
+  ---
+  duration_ms: 0.3434
+  type: 'test'
+  ...
+# Subtest: accepts an exact Ed25519-signed independent-reviewer attestation
+ok 140 - accepts an exact Ed25519-signed independent-reviewer attestation
+  ---
+  duration_ms: 19.2633
+  type: 'test'
+  ...
+# Subtest: rejects missing artifacts, malformed references and forged hashes
+ok 141 - rejects missing artifacts, malformed references and forged hashes
+  ---
+  duration_ms: 1.7476
+  type: 'test'
+  ...
+# Subtest: rejects invalid JSON, non-object JSON and schema drift
+ok 142 - rejects invalid JSON, non-object JSON and schema drift
+  ---
+  duration_ms: 4.2027
+  type: 'test'
+  ...
+# Subtest: rejects malformed commit identity and impossible attestation dates
+ok 143 - rejects malformed commit identity and impossible attestation dates
+  ---
+  duration_ms: 1.1534
+  type: 'test'
+  ...
+# Subtest: rejects malformed base64, a non-Ed25519 key and a wrong signature
+ok 144 - rejects malformed base64, a non-Ed25519 key and a wrong signature
+  ---
+  duration_ms: 493.1492
+  type: 'test'
+  ...
+# Subtest: loads all three governed artifacts from a real disposable tree
+ok 145 - loads all three governed artifacts from a real disposable tree
+  ---
+  duration_ms: 24.1179
+  type: 'test'
+  ...
+1..145
+# tests 145
+# suites 0
+# pass 145
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 764.4817
+# start of coverage report
+# -------------------------------------------------------------------------------------------------------------------------------------
+# file                               | line % | branch % | funcs % | uncovered lines
+# -------------------------------------------------------------------------------------------------------------------------------------
+# research                           |        |          |         | 
+#  build-slr-sentinel-ledger.mjs     |  98.46 |    92.86 |  100.00 | 146-147 258-259
+#  create-slr-signed-review.mjs      |  98.03 |    94.03 |   92.86 | 33-34 209-210 215 354-355
+#  freeze-literature-protocol.mjs    |  93.44 |    82.00 |   90.91 | 36-38 143-145 203-209 240 297-301 319-320
+#  validate-claim-evidence.mjs       |  96.77 |    97.40 |   92.86 | 222 233-237 247-248
+#  validate-literature-matrix.mjs    |  98.69 |    89.36 |   95.45 | 225-226 347 380-381
+#  validate-literature-protocol.mjs  |  97.18 |    92.47 |   94.44 | 33-34 417-420 496-498 699-700 712-713 744-745 761 802-806 816-817
+#  validate-screening-criteria.mjs   |  98.15 |    95.56 |   90.00 | 154-155 235 269-270
+#  validate-search-queries.mjs       |  97.72 |    95.74 |   92.86 | 118-119 195 218-219
+#  verify-slr-review-provenance.mjs  |  99.16 |    89.19 |   90.00 | 295 358-359
+#  verify-slr-sentinel-evidence.mjs  |  99.34 |    95.50 |  100.00 | 109-110
+#  verify-slr-signed-attestation.mjs |  99.10 |    93.88 |  100.00 | 63-64
+# -------------------------------------------------------------------------------------------------------------------------------------
+# all files                          |  97.73 |    92.65 |   94.63 | 
+# -------------------------------------------------------------------------------------------------------------------------------------
+# end of coverage report
+(node:16116) ExperimentalWarning: glob is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

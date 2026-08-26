@@ -143,6 +143,11 @@ Nếu ai đó lỡ sửa source trên Overleaf, steward tải diff đó về m�
 và mở PR bình thường. Không import trực tiếp vào `main` và không ghi đè các file
 section đã thay đổi trên GitHub.
 
+GitHub Actions và local clean-worktree bundle theo
+`research/LOCAL-VERIFICATION.md` là hai execution provider hợp lệ cho
+deterministic gate. Local PASS không thay review, approval hoặc research
+evidence được yêu cầu riêng trong Definition of Done.
+
 ## Quy tắc research integrity
 
 - Mọi thành viên được phép nhờ AI hỗ trợ lên ý tưởng, viết code, soạn thảo,

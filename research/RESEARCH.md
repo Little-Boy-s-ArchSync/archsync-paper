@@ -172,7 +172,7 @@ context, but it must not introduce a competing definition. In particular:
 All members may use AI to help plan, draft, code, debug, translate, summarize,
 normalize metadata, propose literature-screening or extraction decisions, and
 perform quality checks. The governing rules are frozen in
-`research/AI-EVIDENCE-POLICY.md` version 1.1.0.
+`research/AI-EVIDENCE-POLICY.md` version 1.2.0.
 
 AI may perform technical execution through authorized browser, database, CLI,
 and repository tools. It may run real queries, retain official output, create
@@ -245,6 +245,18 @@ verifier.
 - Member 3: holdout construction, IaC/runtime experiment, statistics, and
   independent reproduction.
 
+Task exception: `SLR-REV-101` is assigned to Tran Minh Hoang as the Independent
+SLR Reviewer. Ha Hoang Bach approval is not required for this task. Hoang's
+signed review must identify him and affirm that he did not author the protocol
+under review.
+
+These assignments define accountability rather than repository access.
+`an1dee3301` is the Delegated Technical Operator for TV1, TV2, and TV3 and may
+execute their code, query, evidence-construction, validation, commit, push, PR,
+and automation workflows. Governed evidence continues to identify the human
+who actually verified the result and any separately required independent
+reviewer.
+
 ## Freeze and change control
 
 Baseline 1.0.3 and Glossary 1.0.3 are frozen on the default branch. Every
@@ -275,7 +287,7 @@ baseline.
 | Problem is explicit | Problem statement distinguishes static documentation, observed structure, and executable intent |
 | Scope IN/OUT is explicit | P0--P3 evidence is IN; P4--P7 and unsupported claims are OUT |
 | Required terminology is unambiguous | Eight required terms have one canonical definition in `GLOSSARY.md` 1.0.3 |
-| AI assistance is governed | Every member may delegate technical execution to AI; real sources, retained provenance, named-human verification, explicit authorization, and accountability remain mandatory under `AI-EVIDENCE-POLICY.md` 1.1.0 |
+| AI assistance is governed | Every member may delegate technical execution to AI, and `an1dee3301` may operate TV1/TV2/TV3 workflows; real sources, retained provenance, named-human verification, explicit authorization, and accountability remain mandatory under `AI-EVIDENCE-POLICY.md` 1.2.0 |
 | Roadmap alignment | P0 baseline and deterministic-before-expansion dependency are preserved |
 | RQ alignment | F-RQ1--F-RQ4 map to the current paper; V-RQ1--V-RQ4 remain distinct roadmap questions with explicit evidence status |
 | Paper alignment | Published RQ1--RQ4, TypeScript boundary, datasets, limitations, and future work match `main.tex` |
