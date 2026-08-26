@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, stat, writeFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -233,6 +233,15 @@ export async function main({
   repositoryDirectory = dirname(dirname(fileURLToPath(import.meta.url))),
   readText = (path) => readFile(path, "utf8"),
   writeText = (path, text) => writeFile(path, text, "utf8"),
+  pathExists = async (path) => {
+    try {
+      await stat(path);
+      return true;
+    } catch (pathError) {
+      if (pathError?.code === "ENOENT") return false;
+      throw pathError;
+    }
+  },
   loadEvidence = loadSentinelEvidence,
   log = console.log,
   error = console.error,
@@ -252,12 +261,19 @@ export async function main({
     return;
   }
 
+  const splitPaperPath = join(
+    repositoryDirectory,
+    "sections",
+    "related-work.tex",
+  );
   const paths = {
     protocol: join(repositoryDirectory, "research", "literature-protocol.md"),
     decisions: join(repositoryDirectory, "research", "decision-log.md"),
     baseline: join(repositoryDirectory, "research", "RESEARCH.md"),
     traceability: join(repositoryDirectory, "research", "RQ-TRACEABILITY.md"),
-    paper: join(repositoryDirectory, "main.tex"),
+    paper: (await pathExists(splitPaperPath))
+      ? splitPaperPath
+      : join(repositoryDirectory, "main.tex"),
     bibliography: join(repositoryDirectory, "references.bib"),
     reviewRecord: join(repositoryDirectory, "research", "slr-review-record.md"),
     sentinelRecall: join(

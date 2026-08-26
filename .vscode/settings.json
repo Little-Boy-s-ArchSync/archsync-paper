@@ -1,0 +1,56 @@
+{
+  "files.associations": {
+    "*.tex": "latex"
+  },
+  "latex-workshop.latex.rootFile.useSubFile": false,
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-pdf",
+      "command": "latexmk",
+      "args": [
+        "-pdf",
+        "-file-line-error",
+        "-halt-on-error",
+        "-interaction=nonstopmode",
+        "%DOC%"
+      ],
+      "env": {}
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk (project root)",
+      "tools": [
+        "latexmk-pdf"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.message.error.show": true,
+  "latex-workshop.message.warning.show": false,
+  "cSpell.enabledLanguageIds": [
+    "latex",
+    "markdown"
+  ],
+  "cSpell.language": "en,en-GB",
+  "cSpell.ignorePaths": [
+    "acmart.cls",
+    "ACM-Reference-Format.bst",
+    "research/**/*.csv",
+    "*.aux",
+    "*.bbl",
+    "*.blg"
+  ],
+  "cSpell.words": [
+    "ArchSync",
+    "AMQP",
+    "OpenAlex",
+    "Redis",
+    "TypeScript",
+    "Xplore",
+    "latexmk",
+    "reflexion"
+  ]
+}

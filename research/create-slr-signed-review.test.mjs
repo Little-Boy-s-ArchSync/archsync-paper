@@ -20,6 +20,7 @@ import {
   verifySignedReviewAttestation,
 } from "./verify-slr-signed-attestation.mjs";
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
 const reviewPr =
   "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6";
@@ -243,12 +244,15 @@ test("real candidate preflight validates governed sentinel files and hashes", as
       await readFile(join(sourceResearch, name)),
     );
   }
-  for (const name of ["main.tex", "references.bib"]) {
-    await writeFile(
-      join(repository, name),
-      await readFile(join(sourceRepository, name)),
-    );
-  }
+  await writeFile(
+    join(repository, "main.tex"),
+    await loadExpandedManuscript(sourceRepository),
+    "utf8",
+  );
+  await writeFile(
+    join(repository, "references.bib"),
+    await readFile(join(sourceRepository, "references.bib")),
+  );
 
   const fixture = createSentinelEvidenceFixture();
   for (const [relative, artifact] of fixture.sentinelEvidenceArtifacts) {

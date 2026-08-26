@@ -9,6 +9,8 @@ import { mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import {
   loadSentinelEvidence,
   validateLiteratureProtocol,
@@ -171,7 +173,7 @@ export async function validateCandidateReviewInputs(repositoryDirectory) {
     readFile(join(research, "decision-log.md"), "utf8"),
     readFile(join(research, "RESEARCH.md"), "utf8"),
     readFile(join(research, "RQ-TRACEABILITY.md"), "utf8"),
-    readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory),
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
     readFile(join(research, "literature-sentinel-recall.csv"), "utf8"),
   ]);

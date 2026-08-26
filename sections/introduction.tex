@@ -1,0 +1,22 @@
+% !TeX root = ../main.tex
+\section{Introduction}
+
+Software architecture captures the intended decomposition of a system, the responsibilities of its components, and the relationships that are permitted between them. As systems evolve, this intent can diverge from implementation; surveys of architecture erosion report both structural violations and broader effects on maintenance and evolution \cite{desilva2012erosion,li2022erosion}. A locally reasonable change can bypass a gateway, couple an interface directly to a database, or introduce infrastructure without an explicit architecture decision while compilation and functional tests continue to pass.
+
+The underlying problem is not the absence of documentation alone. It is the absence of a deterministic, evidence-backed connection between architecture intent and implementation. A diagram can communicate the desired system but is difficult to use as an automated quality gate. Conversely, a source-derived dependency graph can expose implementation relationships but does not by itself state which relationships are allowed, forbidden, required, or merely require review.
+
+We present ArchSync, an architecture-conformance workflow based on two graphs. The expected graph is derived from a versioned \texttt{architecture.yaml} document containing components, relationships, and deterministic rules. The observed graph is inferred from source code by stack-specific analyzers. ArchSync compares the graphs and produces one of three classifications: \emph{no-impact} when implementation conforms without topology changes, \emph{violation} when one or more rules are broken, and \emph{evolution} when a non-forbidden topology change requires human review. Findings retain both the model location that establishes the expectation and the source location supporting the observation.
+
+For pull requests, the workflow compares findings at the Git merge base with findings at the proposed head. Only findings introduced by the change determine its gate decision: violations block, non-forbidden topology changes request review, and changes without new drift pass. The observed graph therefore follows implementation changes, while the expected graph remains the approved design baseline. An approved evolution changes that baseline only through an explicit model change and architecture-owner approval.
+
+The prototype deliberately focuses on TypeScript and Node.js. It recognizes HTTP calls through \texttt{fetch}, PostgreSQL access through \texttt{pg}, Redis operations, and AMQP publishing and consumption. This is an empirical boundary rather than a claim that architecture drift is TypeScript-specific: the expected graph, rule engine, finding contract, and metrics are language-neutral, while each additional language requires a separately implemented and evaluated source-to-graph analyzer. The bounded TypeScript scope permits deterministic contracts and reproducible measurement without probabilistic inference. Large-language-model explanations and automatic repairs are excluded from the decision path.
+
+This paper makes the following contributions:
+\begin{itemize}
+  \item a machine-readable architecture contract with typed components and relationships plus deny, allow, require, and require-path rules;
+  \item a provenance-aware TypeScript source-to-graph pipeline with file, line, column, detector, snippet, and confidence evidence;
+  \item a three-way decision model separating violations from topology evolution;
+  \item a Git-diff gate with cached baseline graphs, component-incremental analysis, GitHub annotations, and explicit handling of introduced, pre-existing, and resolved findings;
+  \item a reproducible 20-patch end-to-end evaluation plus a 40-signal positive/hard-negative detector corpus; and
+  \item machine-readable evidence that binds models, source trees, patches, runtime packages, outcomes, and results through SHA-256 provenance.
+\end{itemize}

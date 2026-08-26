@@ -1,0 +1,22 @@
+{
+  "name": "ArchSync Paper (TeX Live 2024)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "james-yu.latex-workshop",
+        "streetsidesoftware.code-spell-checker",
+        "davidanson.vscode-markdownlint"
+      ],
+      "settings": {
+        "latex-workshop.view.pdf.viewer": "tab"
+      }
+    }
+  },
+  "postCreateCommand": "node scripts/run-devcontainer-smoke.mjs",
+  "remoteUser": "root",
+  "updateRemoteUserUID": false
+}

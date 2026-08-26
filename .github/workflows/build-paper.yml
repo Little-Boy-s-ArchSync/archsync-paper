@@ -11,17 +11,23 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22.16.0
+
+      - name: Verify devcontainer contract
+        run: node scripts/validate-devcontainer.mjs && node --test scripts/validate-devcontainer.test.mjs
+
+      - name: Verify paper section structure
+        run: node scripts/validate-paper-structure.mjs
 
       - name: Verify anonymous submission settings
         shell: bash
@@ -97,16 +103,70 @@ jobs:
           SLR_CURRENT_COMMIT: ${{ github.event.pull_request.head.sha }}
         run: node research/verify-slr-review-provenance.mjs
 
-      - name: Compile LaTeX
-        uses: xu-cheng/latex-action@v4
+      - name: Compile named and anonymous LaTeX variants
+        uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
-          root_file: main-anonymous.tex
+          root_file: |
+            main.tex
+            main-anonymous.tex
+          texlive_version: 2024
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
-      - name: Upload compiled PDF
-        uses: actions/upload-artifact@v7
+      - name: Verify PDF content and double-blind redaction
+        shell: bash
+        run: |
+          if ! command -v pdftotext >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends poppler-utils
+          fi
+          node scripts/verify-pdf-variants.mjs
+
+      - name: Upload compiled PDFs
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: archsync-paper-${{ github.sha }}
-          path: main-anonymous.pdf
+          path: |
+            main.pdf
+            main-anonymous.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+  devcontainer-smoke:
+    name: Devcontainer smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22.16.0
+
+      - name: Validate immutable container contract
+        run: node scripts/validate-devcontainer.mjs && node --test scripts/validate-devcontainer.test.mjs
+
+      - name: Install pinned devcontainer CLI
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Prepare fresh lifecycle challenge
+        run: node scripts/prepare-devcontainer-smoke.mjs
+
+      - name: Build, start, and initialize declared devcontainer
+        run: ./node_modules/.bin/devcontainer up --workspace-folder . --remove-existing-container --frozen-lockfile
+
+      - name: Verify post-create evidence inside the container
+        run: ./node_modules/.bin/devcontainer exec --workspace-folder . node scripts/verify-devcontainer-smoke.mjs
+
+      - name: Upload container-built PDFs and lifecycle evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: archsync-devcontainer-smoke-${{ github.sha }}
+          path: |
+            .devcontainer/smoke-evidence.json
+            main.pdf
+            main-anonymous.pdf
           if-no-files-found: error
           retention-days: 30

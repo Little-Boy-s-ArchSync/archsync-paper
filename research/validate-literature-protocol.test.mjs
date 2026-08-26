@@ -6,6 +6,8 @@ import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 import {
   loadSentinelEvidence,
   loadSentinelEvidenceHashes,
@@ -22,7 +24,7 @@ const [protocol, decisions, baseline, traceability, paper, bibliography] =
     readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
     readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
-    readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory),
     readFile(join(repositoryDirectory, "references.bib"), "utf8"),
   ]);
 

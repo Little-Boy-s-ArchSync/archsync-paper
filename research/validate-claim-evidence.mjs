@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+
 const REQUIRED_HEADERS = [
   "claim_id",
   "rq",
@@ -226,7 +228,7 @@ export async function main({
   const repositoryDirectory = dirname(researchDirectory);
   const [csvText, paperText] = await Promise.all([
     readFile(join(researchDirectory, "claim-evidence.csv"), "utf8"),
-    readFile(join(repositoryDirectory, "main.tex"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory),
   ]);
   const result = validateClaimEvidence(csvText, paperText);
   if (result.issues.length > 0) {
