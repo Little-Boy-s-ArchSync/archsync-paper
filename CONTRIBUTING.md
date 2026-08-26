@@ -9,14 +9,19 @@ song rồi ghi đè lại GitHub.
 1. Đồng bộ `main` và tạo branch có dạng `paper/<section>-<muc-tieu>`.
 2. Chỉ một người chỉnh trực tiếp cùng một vùng trong `main.tex` tại một thời
    điểm. Nếu cần làm song song, thống nhất phạm vi dòng hoặc section trước.
-3. Biên dịch bằng `latexmk` nếu máy có TeX. Khi không có TeX cục bộ, push branch
-   và dùng artifact của workflow `Build paper` làm bằng chứng compile.
+3. Chạy `node scripts/local-verify.mjs` từ tracked worktree sạch. GitHub Actions
+   được dùng thêm tại milestone hoặc khi cần remote evidence.
 4. Mở pull request, khai báo section đã sửa, claim bị ảnh hưởng và evidence liên
    quan. Không push trực tiếp lên `main`.
 5. Một thành viên không phải tác giả chính của thay đổi phải review nội dung,
    biểu đồ, citation và cách diễn giải kết quả. Hiếu thực hiện merge cuối.
 6. Sau merge, nếu cần đồng bộ Overleaf thì tải source/PDF từ commit đã merge;
    không import file phụ hoặc bản cũ ngược vào repository.
+
+GitHub Actions và local clean-worktree bundle theo
+`research/LOCAL-VERIFICATION.md` là hai execution provider hợp lệ cho
+deterministic gate. Local PASS không thay review, approval hoặc research
+evidence được yêu cầu riêng trong Definition of Done.
 
 ## Quy tắc research integrity
 
