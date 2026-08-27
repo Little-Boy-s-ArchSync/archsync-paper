@@ -121,6 +121,40 @@ function isOfficialEvidenceLocator(value, source) {
   );
 }
 
+function validateGovernedTranslation(run, prefix, issues) {
+  if (run.query_family === "Index-check" || typeof run.query !== "string") {
+    return;
+  }
+  if (run.source === "ACM Digital Library") {
+    if (/\b(?:AllField|Anywhere)\b/i.test(`${run.query} ${run.result_url}`)) {
+      issues.push(`${prefix}: governed ACM query must not use AllField or Anywhere`);
+    }
+    for (const field of ["Title", "Abstract", "Author Keyword"]) {
+      if (!run.query.includes(field)) {
+        issues.push(`${prefix}: governed ACM query must include ${field}`);
+      }
+    }
+  }
+  if (run.source === "OpenAlex") {
+    let locator;
+    try {
+      locator = new URL(run.result_url);
+    } catch {
+      return;
+    }
+    const exactQuery = locator.searchParams.get("search.exact");
+    if (!exactQuery || locator.searchParams.has("search")) {
+      issues.push(`${prefix}: governed OpenAlex query must use search.exact`);
+    }
+    if (locator.searchParams.has("api_key")) {
+      issues.push(`${prefix}: OpenAlex evidence URL must not persist api_key`);
+    }
+    if (/\*["']?~\d+/i.test(`${run.query} ${exactQuery ?? ""}`)) {
+      issues.push(`${prefix}: governed OpenAlex wildcard phrase must not use a ~N suffix`);
+    }
+  }
+}
+
 export function verifySlrSentinelEvidence({
   artifactBytes,
   ledgerRecord,
@@ -149,7 +183,7 @@ export function verifySlrSentinelEvidence({
   for (const [field, expected] of [
     ["schema_version", "1.1.0"],
     ["task", "SLR-101"],
-    ["protocol_version", "0.2.0"],
+    ["protocol_version", "0.2.1"],
     ["sentinel_id", ledgerRecord?.sentinel_id],
     ["doi", ledgerRecord?.doi],
     ["reviewer", SENTINEL_REVIEWER_ROLE],
@@ -254,6 +288,7 @@ export function verifySlrSentinelEvidence({
         `${runPrefix}.result_url must be an official HTTPS evidence locator for ${run.source ?? "the governed source"}`,
       );
     }
+    validateGovernedTranslation(run, runPrefix, issues);
     const identity = `${run.source}|${run.query_family}|${run.query}`;
     if (runIdentities.has(identity)) {
       issues.push(`${runPrefix} duplicates an earlier query execution`);

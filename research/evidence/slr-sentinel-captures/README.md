@@ -5,6 +5,11 @@ sentinel-only runs on 2026-08-25 UTC. The operator used the authorized browser
 session of the Independent SLR Reviewer. No official SLR-102 result set was
 executed or screened.
 
+D-019 accepted candidate protocol 0.2.1 on 2026-08-28. Every capture described
+here remains immutable protocol-0.2.0 diagnostic provenance. It is not
+freeze-acceptance evidence and must not be relabelled. The independent reviewer
+must rerun all six four-source bundles using the governed 0.2.1 translations.
+
 ## Access and credential boundary
 
 - IEEE Xplore and ACM Digital Library were queried through the authenticated

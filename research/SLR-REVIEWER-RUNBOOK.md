@@ -59,6 +59,12 @@ quyền truy cập, chấp nhận/sửa kết quả cuối và phê duyệt exac
 - Nếu Semantic Scholar trả HTTP 429 trong chế độ không xác thực, đó là lỗi
   preflight chứ không phải kết luận `not-indexed`. Cấu hình API key rồi chạy lại
   sentinel-only query; không ghi số đếm từ lần bị rate-limit.
+- Candidate protocol 0.2.1 được Hiếu chấp thuận theo D-019. Với OpenAlex, mọi
+  candidate query có wildcard phải dùng `search.exact`, giữ nguyên Boolean và
+  phrase, đồng thời không thêm `~1` hoặc `~N`. Với ACM, query governed là hợp
+  chính xác của Title, Abstract và Author Keyword; `Anywhere`, `AllField` hoặc
+  full-text chỉ là diagnostic. Sáu bundle 0.2.0 cũ không được đổi nhãn hoặc dùng
+  làm freeze evidence; phải chạy lại thật và tạo bundle 0.2.1 mới.
 
 ### AI được phép thực hiện
 

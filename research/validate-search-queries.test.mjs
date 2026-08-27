@@ -65,7 +65,7 @@ test("rejects malformed CSV and an incomplete run matrix", () => {
 
 test("rejects premature execution evidence and stale blocked metadata", () => {
   const premature = logTemplate
-    .replace("IEEE-A1,0.2.0,0.2.0,IEEE Xplore,A1,,,", "IEEE-A1,0.2.0,0.2.0,IEEE Xplore,A1,query,2026-08-18T00:00:00Z,")
+    .replace("IEEE-A1,0.2.1,0.2.1,IEEE Xplore,A1,,,", "IEEE-A1,0.2.1,0.2.1,IEEE Xplore,A1,query,2026-08-18T00:00:00Z,")
     .replace(",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0", ",7,export.csv,deadbeef,Hieu,executed,done");
   const result = validate({ logTemplate: premature });
   assertIssue(result, "IEEE-A1 status must be 'blocked-slr-101'");
@@ -87,11 +87,27 @@ test("rejects row width, unknown and duplicate run identifiers", () => {
 
 test("requires protocol linkage and non-empty field plans", () => {
   const result = validate({
-    protocol: protocol.replace("`literature-search-queries.md` version 0.2.0", "missing query link"),
+    protocol: protocol.replace("`literature-search-queries.md` version 0.2.1", "missing query link"),
     logTemplate: logTemplate.replace('"Document Title; Abstract; Author Keywords"', ""),
   });
   assertIssue(result, "missing SLR-102 query specification linkage");
   assertIssue(result, "IEEE-A1 fields is required");
+});
+
+test("requires the D-019 source translations and exact planned field scopes", () => {
+  const staleSpecification = specification
+    .replace("search.exact=<url-encoded-expanded-query>", "search=<url-encoded-expanded-query>")
+    .replace("Do not append `~1` or another", "Compatibility suffix may be appended")
+    .replace("Title(expanded query) OR Abstract(expanded", "AllField(expanded");
+  const staleLog = logTemplate.replace(
+    '"Title; Abstract; Author Keyword"',
+    '"Title; Abstract; Keywords"',
+  );
+  const result = validate({ specification: staleSpecification, logTemplate: staleLog });
+  assertIssue(result, "search.exact=<url-encoded-expanded-query>");
+  assertIssue(result, "Do not append `~1` or another");
+  assertIssue(result, "Title(expanded query) OR Abstract(expanded");
+  assertIssue(result, "ACM-A1 fields must be 'Title; Abstract; Author Keyword'");
 });
 
 test("CLI reports valid and invalid states deterministically", async () => {
@@ -99,7 +115,7 @@ test("CLI reports valid and invalid states deterministically", async () => {
   let exitCode;
   const valid = await main({ repositoryDirectory: repository, output: (line) => output.push(line) });
   assert.equal(valid.issues.length, 0);
-  assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.2\.0/);
+  assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.2\.1/);
 
   const invalidOutput = [];
   const invalid = await main({

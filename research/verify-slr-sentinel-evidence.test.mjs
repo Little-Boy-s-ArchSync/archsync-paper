@@ -18,7 +18,7 @@ function artifact(overrides = {}) {
   return {
     schema_version: "1.1.0",
     task: "SLR-101",
-    protocol_version: "0.2.0",
+    protocol_version: "0.2.1",
     sentinel_id: "S-001",
     doi: "10.1145/222124.222136",
     reviewer: "Independent SLR Reviewer",
@@ -32,20 +32,20 @@ function artifact(overrides = {}) {
       {
         source: "ACM Digital Library",
         query_family: "Search-A",
-        query: "architecture conformance AND drift",
+        query: "Title(architecture conformance*) OR Abstract(architecture conformance*) OR Author Keyword(architecture conformance*)",
         executed_at: "2026-08-16T08:00:00Z",
         result_count: 42,
         sentinel_found: true,
-        result_url: "https://dl.acm.org/action/doSearch?AllField=architecture",
+        result_url: "https://dl.acm.org/action/doSearch?Title=architecture&Abstract=architecture&AuthorKeyword=architecture",
       },
       {
         source: "OpenAlex",
         query_family: "Search-A",
-        query: "architecture conformance drift",
+        query: "architecture conformance* drift",
         executed_at: "2026-08-16T08:05:00Z",
         result_count: 37,
         sentinel_found: false,
-        result_url: "https://api.openalex.org/works?search=architecture",
+        result_url: "https://api.openalex.org/works?search.exact=architecture%20conformance*%20drift",
       },
     ],
     rationale:
@@ -74,10 +74,10 @@ function sourceEvidenceUrl(source, index) {
     return `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=sentinel-${index}`;
   }
   if (source === "ACM Digital Library") {
-    return `https://dl.acm.org/action/doSearch?AllField=sentinel-${index}`;
+    return `https://dl.acm.org/action/doSearch?Title=sentinel-${index}&Abstract=sentinel-${index}&AuthorKeyword=sentinel-${index}`;
   }
   if (source === "OpenAlex") {
-    return `https://api.openalex.org/works?search=sentinel-${index}`;
+    return `https://api.openalex.org/works?search.exact=sentinel-${index}`;
   }
   return `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=sentinel-${index}`;
 }
@@ -86,6 +86,33 @@ test("accepts an evidence-rich retrieved sentinel artifact", () => {
   const result = verify(artifact());
   assert.deepEqual(result.issues, []);
   assert.equal(result.artifact.sentinel_id, "S-001");
+});
+
+test("rejects stale ACM and OpenAlex query translations under protocol 0.2.1", () => {
+  const value = artifact();
+  value.runs[0] = {
+    ...value.runs[0],
+    query: "AllField(architecture conformance*)",
+    result_url: "https://dl.acm.org/action/doSearch?AllField=architecture",
+  };
+  value.runs[1] = {
+    ...value.runs[1],
+    query: '"architecture model*"~1 AND drift',
+    result_url:
+      "https://api.openalex.org/works?search=architecture%20model*&api_key=secret",
+  };
+  const result = verify(value);
+  for (const fragment of [
+    "governed ACM query must not use AllField",
+    "governed ACM query must include Title",
+    "governed ACM query must include Abstract",
+    "governed ACM query must include Author Keyword",
+    "governed OpenAlex query must use search.exact",
+    "must not persist api_key",
+    "wildcard phrase must not use a ~N suffix",
+  ]) {
+    assertIssue(result, fragment);
+  }
 });
 
 test("rejects missing, invalid and non-object JSON artifacts", () => {

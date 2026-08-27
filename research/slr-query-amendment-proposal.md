@@ -5,9 +5,10 @@
 | Proposal ID | SLR-QA-001 |
 | Proposed protocol version | 0.2.1 |
 | Proposed query specification version | 0.2.1 |
-| Status | Proposed - not approved |
+| Status | Accepted under D-019 |
 | Proposed decision | D-019 |
 | Prepared date | 2026-08-27 |
+| Accepted date | 2026-08-28 |
 | Protocol owner and decision owner | Hieu |
 | Required independent reviewer | Independent SLR Reviewer |
 | Search cutoff | 2026-08-16 inclusive (unchanged) |
@@ -21,14 +22,14 @@ OpenAlex and ACM Digital Library translations of the six governed logical
 queries executable and semantically auditable. It also confirms that the
 Semantic Scholar translation does not need a semantic change.
 
-This proposal does not amend the governed version-0.2.0 files by itself. It must
-not be treated as accepted, used to authorize the official SLR-102 search, or
-used to claim that the SLR-101 review or freeze gate has passed. No keyword,
-logical query, database, cutoff, eligibility criterion, screening rule, research
-question, or extraction field is changed here.
+This document records the proposal accepted by D-019. D-019 authorizes the
+coordinated candidate-version updates described below, but it does not authorize
+the official SLR-102 search or establish that the SLR-101 review or freeze gate
+has passed. No keyword, logical query, database, cutoff, eligibility criterion,
+screening rule, research question, or extraction field changes.
 
-If Hieu accepts this proposal, the candidate protocol and query specification
-advance from 0.2.0 to 0.2.1 under a new decision-log entry, proposed as D-019.
+Under D-019, the candidate protocol and query specification advance from 0.2.0
+to 0.2.1.
 The final reviewed and frozen target remains version 1.0.0 under D-008.
 
 ## 2. Reason for the amendment
@@ -173,9 +174,9 @@ This is a patch-level candidate amendment because it corrects and constrains
 source translations before any official result list has been executed or
 inspected. It does not change the review's scientific scope.
 
-## 6. Artifacts affected after approval
+## 6. Artifacts updated under D-019
 
-Acceptance of D-019 would require coordinated updates to:
+D-019 requires coordinated updates to:
 
 - `research/literature-protocol.md`: metadata; Sections 6, 7, 17, 18, 19, and 20.
 - `research/literature-search-queries.md`: metadata; governed-query version
@@ -205,16 +206,16 @@ Acceptance of D-019 would require coordinated updates to:
 - `research/literature-screening-criteria.md`: update only its protocol linkage
   to 0.2.1.
 - `research/literature-matrix.md`: update only its protocol linkage to 0.2.1.
-- `main.tex`: report the 0.2.1 candidate and disclose the corrected source
-  translations without claiming a completed review.
+- `main.tex`: remain unchanged because unfinished SLR workflow progress is a
+  governance artifact outside the manuscript, not a research result.
 
-The currently governed version-0.2.0 files must remain unchanged until Hieu
-accepts the decision. This proposal itself is not an authorization to make those
-updates.
+The governed candidate files advance only through the reviewed D-019
+implementation commit. The retained version-0.2.0 captures remain immutable
+historical diagnostics and must not be relabelled as 0.2.1 evidence.
 
 ## 7. Evidence invalidation and mandatory rerun
 
-After Hieu accepts D-019, all six current sentinel evidence bundles must be
+Under D-019, all six current sentinel evidence bundles must be
 regenerated as protocol-0.2.1 artifacts before independent review:
 
 1. Retain the existing protocol-0.2.0 JSON files and capture notes as historical
@@ -242,7 +243,7 @@ Any unavailable source or missing required team credential remains a failed
 access preflight. It must be documented and resolved; it cannot be waived by
 changing an artifact label or by reusing an unauthenticated diagnostic.
 
-## 8. Validator and test impact after approval
+## 8. Validator and test impact under D-019
 
 The amendment should be enforced with offline fixtures and no live search calls:
 
@@ -273,8 +274,8 @@ The amendment should be enforced with offline fixtures and no live search calls:
 
 ### Hieu, protocol owner
 
-Only Hieu may accept the proposed D-019 and authorize candidate version 0.2.1.
-That acceptance must explicitly confirm:
+Hiếu accepted D-019 on 2026-08-28 and authorized candidate version 0.2.1. The
+accepted decision confirms:
 
 - use of OpenAlex `search.exact` and its global unstemmed behavior for all six
   governed expressions;

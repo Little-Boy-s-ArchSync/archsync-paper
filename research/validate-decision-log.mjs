@@ -63,6 +63,7 @@ export function validateDecisionLog({ decisions, amendmentProposal }) {
     ["D-016", "Replace Inaccessible Subscription Indexes Before SLR Freeze"],
     ["D-017", "Authorize a Delegated Cross-Role GitHub Operator"],
     ["D-018", "Accept provider-neutral deterministic verification"],
+    ["D-019", "Accept SLR Query Translation Amendment 0.2.1"],
     ["D-020", "Adopt Manuscript and Evidence Quality Gates 1.0.0"],
   ]) {
     if (seen.get(id) !== title) {
@@ -94,14 +95,11 @@ export function validateDecisionLog({ decisions, amendmentProposal }) {
   }
   const proposalStatus = proposalStatusRows[0]?.value;
   const proposedDecision = proposedDecisionRows[0]?.value;
-  if (proposalStatus !== "Proposed - not approved") {
-    issues.push("slr-query-amendment-proposal.md: status must remain 'Proposed - not approved'");
+  if (proposalStatus !== "Accepted under D-019") {
+    issues.push("slr-query-amendment-proposal.md: status must be 'Accepted under D-019'");
   }
   if (proposedDecision !== "D-019") {
     issues.push("slr-query-amendment-proposal.md: Proposed decision must be 'D-019'");
-  }
-  if (seen.has("D-019")) {
-    issues.push("decision-log.md: D-019 must remain absent until the protocol owner accepts the amendment");
   }
 
   const proposalReferences = new Set(
@@ -136,7 +134,7 @@ export async function main({
     return result;
   }
   log(
-    `VALID RESEARCH DECISION LOG (${result.decisionCount} unique decision IDs; ${result.proposedDecision} reserved and unapproved)`,
+    `VALID RESEARCH DECISION LOG (${result.decisionCount} unique decision IDs; ${result.proposedDecision} accepted)`,
   );
   return result;
 }

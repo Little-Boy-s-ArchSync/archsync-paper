@@ -4,7 +4,7 @@
 | --- | --- |
 | Task | SLR-104 |
 | Matrix version | 0.2.0 |
-| Protocol version | 0.2.0 |
+| Protocol version | 0.2.1 |
 | Status | Schema complete - population blocked |
 | Prepared date | 2026-08-18 |
 | Search cutoff | 2026-08-16 inclusive |

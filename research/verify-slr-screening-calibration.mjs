@@ -79,7 +79,7 @@ export const REVIEWERS = Object.freeze({
 
 const SCHEMA_VERSION = "1.1.0";
 const TASK = "SLR-103";
-const PROTOCOL_VERSION = "0.2.0";
+const PROTOCOL_VERSION = "0.2.1";
 const CRITERIA_VERSION = "0.1.0";
 const CALIBRATION_ROUND = "title-abstract";
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;

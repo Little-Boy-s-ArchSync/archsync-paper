@@ -44,8 +44,8 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
   const issues = [];
   for (const [field, expected] of [
     ["Task", "SLR-102"],
-    ["Query specification version", "0.2.0"],
-    ["Protocol version", "0.2.0"],
+    ["Query specification version", "0.2.1"],
+    ["Protocol version", "0.2.1"],
     ["Status", "Designed - execution blocked"],
     ["Prepared date", "2026-08-18"],
     ["Search cutoff", "2026-08-16 inclusive"],
@@ -89,19 +89,23 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
   for (const marker of [
     "IEEE_Xplore_Searching_and_Saving_Searches.pdf",
     "new_acm-digital-library-user-guide.pdf",
-    "https://developers.openalex.org/guides/searching",
+    "https://help.openalex.org/api/searching/",
     "https://api.semanticscholar.org/api-docs/",
     "Never persist the unredacted authenticated URL",
     "continuation token. Preserve each raw JSON response",
     "24 database-query pairs",
     "blocked-slr-101",
+    "search.exact=<url-encoded-expanded-query>",
+    "Title(expanded query) OR Abstract(expanded",
+    "`Anywhere`, `AllField`, and full-text forms are diagnostics only",
+    "Do not append `~1` or another",
   ]) {
     if (!specification.includes(marker)) {
       issues.push(`literature-search-queries.md: missing governed marker '${marker}'`);
     }
   }
   if (
-    !protocol.includes("`literature-search-queries.md` version 0.2.0") ||
+    !protocol.includes("`literature-search-queries.md` version 0.2.1") ||
     !protocol.includes("all 24 database-query pairs")
   ) {
     issues.push("literature-protocol.md: missing SLR-102 query specification linkage");
@@ -147,8 +151,8 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
       return;
     }
     for (const [field, value] of [
-      ["query_spec_version", "0.2.0"],
-      ["protocol_version", "0.2.0"],
+      ["query_spec_version", "0.2.1"],
+      ["protocol_version", "0.2.1"],
       ["database", expected.database],
       ["query_id", expected.queryId],
       ["status", "blocked-slr-101"],
@@ -176,6 +180,17 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
       if (!record[field]?.trim()) {
         issues.push(`literature-search-log.template.csv: ${record.run_id} ${field} is required`);
       }
+    }
+    const expectedFields = {
+      "IEEE Xplore": "Document Title; Abstract; Author Keywords",
+      "ACM Digital Library": "Title; Abstract; Author Keyword",
+      OpenAlex: "Title; Abstract; Fulltext",
+      "Semantic Scholar": "Title; Abstract",
+    }[record.database];
+    if (record.fields !== expectedFields) {
+      issues.push(
+        `literature-search-log.template.csv: ${record.run_id} fields must be '${expectedFields}'`,
+      );
     }
   });
   for (const { runId } of expectedRuns) {
@@ -209,7 +224,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SEARCH QUERY SPEC 0.2.0 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
+    `VALID SLR SEARCH QUERY SPEC 0.2.1 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
   );
   return result;
 }

@@ -22,11 +22,13 @@ evidence_location identifies the API response used for the captured abstract
 and core metadata. Publication type and venue are normalized against DOI
 registration metadata.
 
-D-019 remains proposed and unapproved. These protocol-neutral candidate records
-do not select protocol version 0.2.0 or proposed version 0.2.1. Hiếu and Tran Minh Hoang must jointly accept at least eight exact records, confirm that the
-chosen set has the required calibration mix without recording expected
-decisions here, and verify the source metadata before any record is copied into
-the governed calibration root.
+D-019 is accepted for candidate protocol 0.2.1, while official search and
+screening remain blocked until freeze 1.0.0. These protocol-neutral candidate
+records are unchanged preparation material and are not promoted by that
+acceptance. Hiếu and Tran Minh Hoang must jointly accept at least eight exact
+records, confirm that the chosen set has the required calibration mix without
+recording expected decisions here, and verify the source metadata before any
+record is copied into the governed calibration root.
 
 After joint acceptance, only the accepted snapshot bytes may be copied into the
 official records directory. Both humans must then independently create their
