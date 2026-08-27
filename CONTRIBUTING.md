@@ -66,6 +66,8 @@ node scripts/validate-devcontainer.mjs
 node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
 node research/validate-baseline.mjs
+node research/validate-decision-log.mjs
+node research/validate-slr-calibration-candidates.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs

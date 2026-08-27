@@ -7,15 +7,18 @@ providers for deterministic checks. This policy prevents hosted-runner quota
 from changing task truth while preserving the evidence requirements of the
 research.
 
+Governed decision: D-018.
+
 Run the paper gate from the repository root:
 
 ```powershell
 node scripts/local-verify.mjs
 ```
 
-The gate validates author/anonymous source settings, the research baseline, RQ
-traceability, claim evidence, SLR contracts, reference-quality rules, test
-coverage, both LaTeX builds, PDF redaction and generated-source cleanliness.
+The gate validates author/anonymous source settings, the research baseline,
+decision-ID namespace, RQ traceability, claim evidence, SLR contracts,
+reference-quality rules, test coverage, the decision-free calibration candidate
+packet, both LaTeX builds, PDF redaction and generated-source cleanliness.
 
 The default bundle is ignored under `artifacts/local-verification/`. After the
 target commit has been reviewed, an owner can write a tracked milestone bundle:

@@ -1,6 +1,6 @@
 # Research Decision Log
 
-## D-016: Accept provider-neutral deterministic verification
+## D-018: Accept provider-neutral deterministic verification
 
 - Date: 2026-08-26
 - Status: Accepted

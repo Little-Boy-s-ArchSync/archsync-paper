@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-009",
+  "title": "Detecting deviations in the code using architecture view-based drift analysis",
+  "abstract": "One of the key requirements for the code is conformance with the architecture. Architectural drift implies the diverging of the implemented code from the architecture design of the system. Manually checking the consistency between the implemented code and architecture can be intractable and cumbersome for large-scale systems. This article proposes a holistic, automated architecture drift analysis approach that explicitly focuses on the adoption of architecture views. The approach builds on, complements, and enhances existing architecture conformance analysis methods that do not adopt a holistic approach or fail to address the architecture viewpoints. A model-driven development approach is adopted in which architecture views are represented as specifications of domain-specific languages. The code in its turn, is analyzed, and the architectural view specifications are reconstructed, which are then automatically checked with the corresponding architecture models. To illustrate the approach, we have applied a systematic case study research for an architecture drift analysis of the business-to-customer (B2C) system within a large-scale software company. The case study research showed that divergences and absences of architectural elements could be detected in a cost-effective manner with the proposed approach.",
+  "publication_type": "journal-article",
+  "publication_date": "2023-07-16",
+  "venue": "Computer Standards & Interfaces",
+  "persistent_locator": "https://doi.org/10.1016/j.csi.2023.103774",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1016%2Fj.csi.2023.103774",
+  "captured_at_utc": "2026-08-27T16:51:15Z"
+}
