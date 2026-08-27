@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-007",
+  "title": "Decomposition of Monolith Applications Into Microservices Architectures: A Systematic Review",
+  "abstract": "Microservices architecture has gained significant traction, in part owing to its potential to deliver scalable, robust, agile, and failure-resilient software products. Consequently, many companies that use large and complex software systems are actively looking for automated solutions to decompose their monolith applications into microservices. This paper rigorously examines 35 research papers selected from well-known databases using a Systematic Literature Review (SLR) protocol and snowballing method, extracting data to answer the research questions, and presents the following four contributions. First, the Monolith to Microservices Decomposition Framework (M2MDF) which identifies the major phases and key elements of decomposition. Second, a detailed analysis of existing decomposition approaches, tools and methods. Third, we identify the metrics and datasets used to evaluate and validate monolith to microservice decomposition processes. Fourth, we propose areas for future research. Overall, the findings suggest that monolith decomposition into microservices remains at an early stage and there is an absence of methods for combining static, dynamic, and evolutionary data. Insufficient tool support is also in evidence. Furthermore, standardised metrics, datasets, and baselines have yet to be established. These findings can assist practitioners seeking to understand the various dimensions of monolith decomposition and the community's current capabilities in that endeavour. The findings are also of value to researchers looking to identify areas to further extend research in the monolith decomposition space.",
+  "publication_type": "journal-article",
+  "publication_date": "2023-06-23",
+  "venue": "IEEE Transactions on Software Engineering",
+  "persistent_locator": "https://doi.org/10.1109/TSE.2023.3287297",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1109%2FTSE.2023.3287297",
+  "captured_at_utc": "2026-08-27T16:51:14Z"
+}

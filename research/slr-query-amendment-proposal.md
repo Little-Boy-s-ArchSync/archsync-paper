@@ -6,6 +6,7 @@
 | Proposed protocol version | 0.2.1 |
 | Proposed query specification version | 0.2.1 |
 | Status | Proposed - not approved |
+| Proposed decision | D-019 |
 | Prepared date | 2026-08-27 |
 | Protocol owner and decision owner | Hieu |
 | Required independent reviewer | Independent SLR Reviewer |
@@ -27,7 +28,7 @@ logical query, database, cutoff, eligibility criterion, screening rule, research
 question, or extraction field is changed here.
 
 If Hieu accepts this proposal, the candidate protocol and query specification
-advance from 0.2.0 to 0.2.1 under a new decision-log entry, proposed as D-017.
+advance from 0.2.0 to 0.2.1 under a new decision-log entry, proposed as D-019.
 The final reviewed and frozen target remains version 1.0.0 under D-008.
 
 ## 2. Reason for the amendment
@@ -174,14 +175,24 @@ inspected. It does not change the review's scientific scope.
 
 ## 6. Artifacts affected after approval
 
-Acceptance of D-017 would require coordinated updates to:
+Acceptance of D-019 would require coordinated updates to:
 
 - `research/literature-protocol.md`: metadata; Sections 6, 7, 17, 18, 19, and 20.
 - `research/literature-search-queries.md`: metadata; governed-query version
   reference; ACM, OpenAlex, and Semantic Scholar execution sections; syntax
   authorities; version history.
-- `research/decision-log.md`: add D-017 with owner approval, rationale, version
+- `research/decision-log.md`: add D-019 with owner approval, rationale, version
   impact, evidence invalidation, and no-official-search declaration.
+- `research/slr-query-amendment-proposal.md`: change the unique Status row
+  from `Proposed - not approved` to an accepted historical state that cites
+  D-019; do not erase the proposal or its before/after rationale.
+- `research/validate-decision-log.mjs` and its tests: replace the
+  pre-acceptance D-019 reservation/absence rule with a canonical unique accepted
+  D-019 rule and require the proposal's accepted historical status.
+- `research/evidence/slr-screening-calibration-candidates/README.md` and
+  `manifest.json`: replace only the now-stale unapproved-state statement,
+  retain the preparation-only/non-evidence boundary, and refresh the README
+  digest without changing record bytes or treating the pool as jointly selected.
 - `research/literature-search-log.template.csv`: set both version columns to
   0.2.1 across all 24 still-blocked rows and use
   `Title; Abstract; Author Keyword` for ACM.
@@ -189,7 +200,7 @@ Acceptance of D-017 would require coordinated updates to:
   value to 0.2.1 without changing schema version 1.1.0.
 - `research/SLR-REVIEWER-RUNBOOK.md`: identify candidate 0.2.1 and require the
   exact OpenAlex and ACM calibration forms above.
-- `research/evidence/slr-sentinel-captures/README.md`: record D-017 and label the
+- `research/evidence/slr-sentinel-captures/README.md`: record D-019 and label the
   current OpenAlex `~1` and ACM `AllField` runs diagnostic-only.
 - `research/literature-screening-criteria.md`: update only its protocol linkage
   to 0.2.1.
@@ -203,7 +214,7 @@ updates.
 
 ## 7. Evidence invalidation and mandatory rerun
 
-After Hieu accepts D-017, all six current sentinel evidence bundles must be
+After Hieu accepts D-019, all six current sentinel evidence bundles must be
 regenerated as protocol-0.2.1 artifacts before independent review:
 
 1. Retain the existing protocol-0.2.0 JSON files and capture notes as historical
@@ -241,23 +252,28 @@ The amendment should be enforced with offline fixtures and no live search calls:
   require the ACM field union, reject `AllField` as governed evidence, and keep
   all 24 execution rows blocked.
 - `research/validate-literature-protocol.mjs` and its tests must accept the
-  governed 0.2.1 candidate or reviewed 1.0.0 state, require D-017 and the updated
+  governed 0.2.1 candidate or reviewed 1.0.0 state, require D-019 and the updated
   query link, and continue to reject any implied official execution or result
   inspection.
 - `research/verify-slr-sentinel-evidence.mjs` and its tests must require
   protocol 0.2.1 for candidate evidence and enforce the corrected OpenAlex and
   ACM execution forms.
 - `research/freeze-literature-protocol.mjs` and its tests must freeze candidate
-  0.2.1 to 1.0.0 while preserving both D-016 and D-017 in history.
+  0.2.1 to 1.0.0 while preserving both D-016 and D-019 in history.
 - The screening-criteria, literature-matrix, and signed-review validators and
   tests must update only their expected candidate protocol linkage where
   applicable; their own schema versions remain unchanged.
+- `research/validate-slr-calibration-candidates.mjs` and its tests must
+  transition the required D-019 README marker from proposed to accepted while
+  preserving every decision-leakage, source, hash, and non-evidence safeguard.
+  The candidate packet remains ordinary preparation and cannot become the
+  governed pilot or commitment commit merely because D-019 is accepted.
 
 ## 9. Required decisions and review gates
 
 ### Hieu, protocol owner
 
-Only Hieu may accept the proposed D-017 and authorize candidate version 0.2.1.
+Only Hieu may accept the proposed D-019 and authorize candidate version 0.2.1.
 That acceptance must explicitly confirm:
 
 - use of OpenAlex `search.exact` and its global unstemmed behavior for all six

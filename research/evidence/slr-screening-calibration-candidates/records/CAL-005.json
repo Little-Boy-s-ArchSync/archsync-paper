@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-005",
+  "title": "Interrogation Testing of Program Analyzers for Soundness and Precision Issues",
+  "abstract": "Program analyzers are critical in safeguarding software reliability. However, due to their inherent complexity, they are likely to contain bugs themselves, and the question of how to detect them arises. Existing approaches, primarily based on specification-based, differential, or metamorphic testing, have been successful in finding analyzer bugs, but also come with certain limitations.",
+  "publication_type": "proceedings-article",
+  "publication_date": "2024-10-18",
+  "venue": "Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering",
+  "persistent_locator": "https://doi.org/10.1145/3691620.3695034",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1145%2F3691620.3695034",
+  "captured_at_utc": "2026-08-27T16:51:13Z"
+}

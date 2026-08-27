@@ -45,6 +45,12 @@ jobs:
       - name: Verify research baseline and glossary
         run: node research/validate-baseline.mjs
 
+      - name: Verify research decision namespace
+        run: node research/validate-decision-log.mjs
+
+      - name: Verify decision-free SLR calibration candidate packet
+        run: node research/validate-slr-calibration-candidates.mjs
+
       - name: Verify RQ traceability matrix
         run: node research/validate-rq-traceability.mjs
 
@@ -67,6 +73,8 @@ jobs:
             --test-coverage-include=research/statistical-analysis.mjs \
             --test-coverage-include=research/validate-evaluation-report-scaffold.mjs \
             --test-coverage-include=research/validate-research-quality-gates.mjs \
+            --test-coverage-include=research/validate-decision-log.mjs \
+            --test-coverage-include=research/validate-slr-calibration-candidates.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
             --test-coverage-functions=90 \
@@ -87,7 +95,9 @@ jobs:
             research/build-slr-screening-calibration.test.mjs \
             research/statistical-analysis.test.mjs \
             research/validate-evaluation-report-scaffold.test.mjs \
-            research/validate-research-quality-gates.test.mjs
+            research/validate-research-quality-gates.test.mjs \
+            research/validate-decision-log.test.mjs \
+            research/validate-slr-calibration-candidates.test.mjs
 
       - name: Verify governed SLR screening calibration when present
         shell: bash
