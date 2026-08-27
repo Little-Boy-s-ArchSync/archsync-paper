@@ -366,6 +366,37 @@
   metric, eligibility rule, empirical result, or canonical term changes.
 - Approver: Hieu, research lead and architecture owner.
 
+## D-019: Accept SLR Query Translation Amendment 0.2.1
+
+- Date: 2026-08-28
+- Status: Accepted for candidate protocol 0.2.1; official search remains blocked
+  until the independently reviewed protocol is frozen as version 1.0.0.
+- Tasks: SLR-101, SLR-102, SLR-103, SLR-REV-101
+- Decision: Accept SLR-QA-001. All six governed OpenAlex translations use the
+  unstemmed `search.exact` parameter, preserve the approved Boolean expressions,
+  and remove the diagnostic `~1` proximity suffixes. All six governed ACM
+  translations use the exact set union of Title, Abstract, and Author Keyword;
+  `Anywhere`, `AllField`, and full-text searches remain diagnostics only.
+- Evidence impact: The retained protocol-0.2.0 sentinel captures remain
+  historical diagnostic provenance and cannot support freeze acceptance. The
+  six four-source sentinel bundles, canonical ledger, and hashes must be
+  regenerated from real runs under candidate protocol 0.2.1 before independent
+  review.
+- Integrity boundary: At owner approval, no official Search-A/B/C result list
+  had been executed, inspected, or screened. Official search and candidate-result
+  screening remain prohibited until D-008 is accepted and the protocol is
+  frozen as version 1.0.0. Sentinel-only known-item calibration is permitted.
+- Version impact: The candidate SLR protocol and query specification advance
+  from 0.2.0 to 0.2.1. The screening criteria stay at 0.1.0, the literature
+  matrix stays at 0.2.0, and the sentinel evidence schema stays at 1.1.0; only
+  their candidate-protocol linkage advances to 0.2.1.
+- Manuscript boundary: D-020 continues to prohibit unfinished SLR workflow
+  progress from being presented as a research result. No manuscript result or
+  Related Work claim is created by this amendment.
+- Approval evidence: Hiếu explicitly authorized continuation and implementation
+  of D-019 in the project collaboration task on 2026-08-28.
+- Approver: Hiếu, protocol owner and research lead.
+
 ## D-020: Adopt Manuscript and Evidence Quality Gates 1.0.0
 
 - Date: 2026-08-27

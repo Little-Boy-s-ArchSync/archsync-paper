@@ -1,25 +1,25 @@
 run_id,query_spec_version,protocol_version,database,query_id,exact_query,executed_at_utc,fields,filters,result_count,export_path,export_sha256,operator,status,notes
-IEEE-A1,0.2.0,0.2.0,IEEE Xplore,A1,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-IEEE-A2,0.2.0,0.2.0,IEEE Xplore,A2,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-IEEE-A3,0.2.0,0.2.0,IEEE Xplore,A3,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-IEEE-B1,0.2.0,0.2.0,IEEE Xplore,B1,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-IEEE-C1,0.2.0,0.2.0,IEEE Xplore,C1,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-IEEE-C2,0.2.0,0.2.0,IEEE Xplore,C2,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-ACM-A1,0.2.0,0.2.0,ACM Digital Library,A1,,,"Title; Abstract; Keywords","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-ACM-A2,0.2.0,0.2.0,ACM Digital Library,A2,,,"Title; Abstract; Keywords","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-ACM-A3,0.2.0,0.2.0,ACM Digital Library,A3,,,"Title; Abstract; Keywords","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-ACM-B1,0.2.0,0.2.0,ACM Digital Library,B1,,,"Title; Abstract; Keywords","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-ACM-C1,0.2.0,0.2.0,ACM Digital Library,C1,,,"Title; Abstract; Keywords","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-ACM-C2,0.2.0,0.2.0,ACM Digital Library,C2,,,"Title; Abstract; Keywords","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-OPENALEX-A1,0.2.0,0.2.0,OpenAlex,A1,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-OPENALEX-A2,0.2.0,0.2.0,OpenAlex,A2,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-OPENALEX-A3,0.2.0,0.2.0,OpenAlex,A3,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-OPENALEX-B1,0.2.0,0.2.0,OpenAlex,B1,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-OPENALEX-C1,0.2.0,0.2.0,OpenAlex,C1,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-OPENALEX-C2,0.2.0,0.2.0,OpenAlex,C2,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-S2-A1,0.2.0,0.2.0,Semantic Scholar,A1,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-S2-A2,0.2.0,0.2.0,Semantic Scholar,A2,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-S2-A3,0.2.0,0.2.0,Semantic Scholar,A3,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-S2-B1,0.2.0,0.2.0,Semantic Scholar,B1,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-S2-C1,0.2.0,0.2.0,Semantic Scholar,C1,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
-S2-C2,0.2.0,0.2.0,Semantic Scholar,C2,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+IEEE-A1,0.2.1,0.2.1,IEEE Xplore,A1,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+IEEE-A2,0.2.1,0.2.1,IEEE Xplore,A2,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+IEEE-A3,0.2.1,0.2.1,IEEE Xplore,A3,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+IEEE-B1,0.2.1,0.2.1,IEEE Xplore,B1,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+IEEE-C1,0.2.1,0.2.1,IEEE Xplore,C1,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+IEEE-C2,0.2.1,0.2.1,IEEE Xplore,C2,,,"Document Title; Abstract; Author Keywords","Journals and conferences; through 2026-08-16; no language or access filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+ACM-A1,0.2.1,0.2.1,ACM Digital Library,A1,,,"Title; Abstract; Author Keyword","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+ACM-A2,0.2.1,0.2.1,ACM Digital Library,A2,,,"Title; Abstract; Author Keyword","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+ACM-A3,0.2.1,0.2.1,ACM Digital Library,A3,,,"Title; Abstract; Author Keyword","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+ACM-B1,0.2.1,0.2.1,ACM Digital Library,B1,,,"Title; Abstract; Author Keyword","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+ACM-C1,0.2.1,0.2.1,ACM Digital Library,C1,,,"Title; Abstract; Author Keyword","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+ACM-C2,0.2.1,0.2.1,ACM Digital Library,C2,,,"Title; Abstract; Author Keyword","Guide to Computing Literature; through 2026-08-16; no publisher, access, or language filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+OPENALEX-A1,0.2.1,0.2.1,OpenAlex,A1,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+OPENALEX-A2,0.2.1,0.2.1,OpenAlex,A2,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+OPENALEX-A3,0.2.1,0.2.1,OpenAlex,A3,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+OPENALEX-B1,0.2.1,0.2.1,OpenAlex,B1,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+OPENALEX-C1,0.2.1,0.2.1,OpenAlex,C1,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+OPENALEX-C2,0.2.1,0.2.1,OpenAlex,C2,,,"Title; Abstract; Fulltext","to_publication_date:2026-08-16; no language, OA, venue, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+S2-A1,0.2.1,0.2.1,Semantic Scholar,A1,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+S2-A2,0.2.1,0.2.1,Semantic Scholar,A2,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+S2-A3,0.2.1,0.2.1,Semantic Scholar,A3,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+S2-B1,0.2.1,0.2.1,Semantic Scholar,B1,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+S2-C1,0.2.1,0.2.1,Semantic Scholar,C1,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0
+S2-C2,0.2.1,0.2.1,Semantic Scholar,C2,,,"Title; Abstract","year=-2026; exact cutoff post-export; no language, OA, venue, field, or type filter",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0

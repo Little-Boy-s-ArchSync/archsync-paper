@@ -13,10 +13,10 @@ function testEvidenceLocator(source, sentinelId, sourceOrdinal) {
     return `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=${token}`;
   }
   if (source === "ACM Digital Library") {
-    return `https://dl.acm.org/action/doSearch?AllField=${token}`;
+    return `https://dl.acm.org/action/doSearch?Title=${token}&Abstract=${token}&AuthorKeyword=${token}`;
   }
   if (source === "OpenAlex") {
-    return `https://api.openalex.org/works?search=${token}`;
+    return `https://api.openalex.org/works?search.exact=${token}`;
   }
   return `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=${token}`;
 }
@@ -84,7 +84,7 @@ function createArtifact(record, ordinal) {
   return {
     schema_version: "1.1.0",
     task: "SLR-101",
-    protocol_version: "0.2.0",
+    protocol_version: "0.2.1",
     sentinel_id: record.sentinel_id,
     doi: record.doi,
     reviewer: "Independent SLR Reviewer",

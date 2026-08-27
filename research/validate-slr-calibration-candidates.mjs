@@ -38,7 +38,7 @@ const UTC_SECOND_PATTERN =
 const DATE_PATTERN = /^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$/;
 const REVIEW_CUTOFF = "2026-08-16";
 const CANONICAL_README_SHA256 =
-  "5b35dfd24809e5ccaea1a7250111cdf1127a6164df7e2fd493a12703def6fad5";
+  "884d5c1f4bc9a409b9ff1d70e4090c214c22ff88d981995dca6b1d028f90750b";
 const REQUIRED_README_STATEMENTS = Object.freeze([
   "Status: preparation only",
   "not governed SLR-103 calibration evidence",
@@ -46,7 +46,7 @@ const REQUIRED_README_STATEMENTS = Object.freeze([
   "Hiếu and Tran Minh Hoang must jointly accept",
   "AI-assisted metadata capture",
   "did not execute or inspect the official SLR result list",
-  "D-019 remains proposed and unapproved",
+  "D-019 is accepted for candidate protocol 0.2.1",
   "not a pilot set",
   "not an approval",
 ]);

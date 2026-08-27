@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-102 |
-| Query specification version | 0.2.0 |
-| Protocol version | 0.2.0 |
+| Query specification version | 0.2.1 |
+| Protocol version | 0.2.1 |
 | Status | Designed - execution blocked |
 | Prepared date | 2026-08-18 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -109,7 +109,7 @@ E = "source code" OR "dependency graph*" OR "version control"
 
 ## 4. Governed logical queries
 
-The identifiers remain stable within version 0.2.0. Search-A is the union of
+The identifiers remain stable within version 0.2.1. Search-A is the union of
 A1, A2, and A3; Search-B is B1; Search-C is the union of C1 and C2.
 
 ### A1: Search-A drift and erosion
@@ -181,23 +181,30 @@ each IEEE Xplore clause below its documented term limit.
 
 - Interface: Advanced Search.
 - Collection: The ACM Guide to Computing Literature, not only ACM full text.
-- Fields: Title, Abstract, and Keywords.
-- Form: add the expanded logical query as three field rows joined with OR. The
-  Boolean relationship inside each row is unchanged. Copy the exact string from
-  View Query Syntax into the execution log.
+- Fields: Title, Abstract, and Author Keyword.
+- Form: execute the exact set union `Title(expanded query) OR Abstract(expanded
+  query) OR Author Keyword(expanded query)`. The Boolean relationship inside
+  each copy is unchanged. Prefer one Advanced Search expression and retain the
+  exact View Query Syntax serialization. If the interface cannot serialize the
+  union without changing its meaning, execute the three field-scoped clauses as
+  documented subruns and union stable ACM record identifiers deterministically.
+  `Anywhere`, `AllField`, and full-text forms are diagnostics only and cannot
+  satisfy the governed query.
 - Filters: publication date no later than the fixed cutoff; no publisher,
   content-access, or language filter.
 
 ### OpenAlex
 
 - Interface: Works API advanced search at `https://api.openalex.org/works`.
-- Search surface: the governed `search` parameter over title, abstract, and
-  fulltext as documented by OpenAlex. This field-scope expansion is predeclared;
-  it does not change the Boolean concepts. OpenAlex keywords are retained as
-  metadata when available but are not claimed as a separate searched field.
-- Form: translate Boolean operators, quoted phrases, prefixes, and grouping to
-  OpenAlex advanced-search syntax without semantic expansion. Store the decoded
-  search expression and a canonical request URL with credentials removed.
+- Search surface: the governed, globally unstemmed `search.exact` parameter over
+  title, abstract, and full text as documented by OpenAlex. This field-scope
+  expansion is predeclared; it does not change the Boolean concepts. OpenAlex
+  keywords are retained as metadata when available but are not claimed as a
+  separate searched field.
+- Form: preserve uppercase Boolean operators, parentheses, quoted phrases, and
+  trailing wildcards without semantic expansion. Do not append `~1` or another
+  `~N` suffix to quoted wildcard phrases. Store the decoded expression and a
+  canonical request URL with credentials removed.
 - Filters: `to_publication_date:2026-08-16`; no language, open-access, venue, or
   work-type filter. Eligibility is applied after the immutable export.
 - Pagination: request 100 records per page and follow the returned cursor until
@@ -209,7 +216,12 @@ each IEEE Xplore clause below its documented term limit.
   inside the HTTP client. Never persist the unredacted authenticated URL. Strip
   `api_key` before writing the search log, evidence locator, diagnostic output,
   screenshot, issue, commit, or export manifest.
-- Request pattern before runtime credential injection: `https://api.openalex.org/works?search=<url-encoded-expanded-query>&filter=to_publication_date:2026-08-16&per_page=100&cursor=*`.
+- URL-length guard: calculate the fully encoded URL before execution. If it
+  exceeds approximately 4 KB, split only OR alternatives, duplicate every
+  unchanged conjunct and filter, execute every ordered subrequest, and union
+  unique OpenAlex work IDs. Preserve each decoded subquery, canonical URL,
+  response hash, and the union/deduplication manifest. Never truncate terms.
+- Request pattern before runtime credential injection: `https://api.openalex.org/works?search.exact=<url-encoded-expanded-query>&filter=to_publication_date:2026-08-16&per_page=100&cursor=*`.
 
 ### Semantic Scholar
 
@@ -254,7 +266,7 @@ authorized execution; it must never be used as a placeholder.
 - ACM Digital Library user guide:
   https://libraries.acm.org/binaries/content/assets/libraries/new_acm-digital-library-user-guide.pdf
 - OpenAlex search and authentication documentation:
-  https://developers.openalex.org/guides/searching and
+  https://help.openalex.org/api/searching/ and
   https://developers.openalex.org/api-reference/authentication
 - Semantic Scholar Academic Graph API documentation:
   https://api.semanticscholar.org/api-docs/
@@ -268,5 +280,6 @@ authorize screening.
 
 | Version | Date | Decision | Change |
 | --- | --- | --- | --- |
+| 0.2.1 | 2026-08-28 | D-019 | Use unstemmed OpenAlex `search.exact` without diagnostic proximity suffixes; constrain ACM to the Title/Abstract/Author Keyword union; keep official execution blocked |
 | 0.2.0 | 2026-08-20 | D-016 | Replace inaccessible Scopus and Web of Science forms with credential-safe, paginated OpenAlex and Semantic Scholar API execution contracts; no official search executed |
 | 0.1.0 | 2026-08-18 | D-009 | Define six keyword groups, six logical queries, four database translations, filters, and the blocked execution contract |

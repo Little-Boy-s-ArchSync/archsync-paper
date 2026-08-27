@@ -86,7 +86,7 @@ export function freezeLiteratureProtocol({
   let nextProtocol = protocol;
   nextProtocol = replaceExactly(
     nextProtocol,
-    "| Protocol version | 0.2.0 |",
+    "| Protocol version | 0.2.1 |",
     "| Protocol version | 1.0.0 |",
     "candidate protocol version",
     issues,
@@ -133,8 +133,8 @@ export function freezeLiteratureProtocol({
   );
   nextProtocol = replaceExactly(
     nextProtocol,
-    "| 0.2.0 | 2026-08-20 | D-016 accepted |",
-    `| 1.0.0 | ${acceptedDate} | D-008 accepted | Independent review and sentinel recall approved in ${reviewPr}; review commit ${reviewCommit}; governed evidence hashes verified |${eol}| 0.2.0 | 2026-08-20 | D-016 accepted |`,
+    "| 0.2.1 | 2026-08-28 | D-019 accepted |",
+    `| 1.0.0 | ${acceptedDate} | D-008 accepted | Independent review and sentinel recall approved in ${reviewPr}; review commit ${reviewCommit}; governed evidence hashes verified |${eol}| 0.2.1 | 2026-08-28 | D-019 accepted |`,
     "candidate version-history row",
     issues,
   );

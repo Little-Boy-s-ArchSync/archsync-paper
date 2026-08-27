@@ -4,7 +4,7 @@
 | --- | --- |
 | Task | SLR-103 |
 | Criteria version | 0.1.0 |
-| Protocol version | 0.2.0 |
+| Protocol version | 0.2.1 |
 | Status | Versioned candidate - final lock blocked |
 | Prepared date | 2026-08-18 |
 | Search cutoff | 2026-08-16 inclusive |

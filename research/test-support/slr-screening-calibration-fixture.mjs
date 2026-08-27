@@ -26,7 +26,7 @@ function decisionRow({
   const value = {
     record_id: record.record_id,
     round: "title-abstract",
-    protocol_version: "0.2.0",
+    protocol_version: "0.2.1",
     criteria_version: "0.1.0",
     reviewer_role: reviewerRole,
     reviewer_id: reviewerId,
@@ -87,7 +87,7 @@ export function createSlrScreeningCalibrationFixture({
   const pilotSet = {
     schema_version: "1.1.0",
     task: "SLR-103",
-    protocol_version: "0.2.0",
+    protocol_version: "0.2.1",
     criteria_version: "0.1.0",
     selected_at_utc: "2026-08-26T00:00:00Z",
     official_results_inspected: false,

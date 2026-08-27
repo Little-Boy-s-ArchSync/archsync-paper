@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-101 |
-| Protocol version | 0.2.0 |
+| Protocol version | 0.2.1 |
 | Status | Review candidate |
 | Prepared date | 2026-08-16 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -182,14 +182,20 @@ systematic search because that would silently bias the eligible study set.
 
 Every database is searched in title, abstract, and author-keyword fields where
 the source supports those fields. Syntax is adapted only for field names,
-wildcards, quoting, and proximity operators; concept terms and Boolean meaning
-must remain equivalent. OpenAlex is a predeclared field-scope exception because
-its current Works API `search` parameter covers title, abstract, and fulltext;
-the same governed terms are used and its source-specific yield is reported
-separately. The exact executed query, source, filters, timestamp, result count,
-export filename, and SHA-256 hash are recorded before the next source is queried.
+wildcards, quoting, and source operators; concept terms and Boolean meaning must
+remain equivalent. ACM uses the exact set union of Title, Abstract, and Author
+Keyword. `Anywhere`, `AllField`, and full-text ACM forms are diagnostics only.
+OpenAlex is a predeclared field-scope exception because its Works API search
+covers title, abstract, and full text. Every wildcard-bearing OpenAlex form uses
+the globally unstemmed `search.exact` parameter, preserves quoted wildcard
+phrases without a `~N` proximity suffix, and reports its source-specific yield
+separately. If the encoded OpenAlex URL exceeds the documented practical limit,
+only OR alternatives may be split; every unchanged conjunct and filter is
+duplicated and the stable work IDs are unioned deterministically. The exact
+executed query, source, filters, timestamp, result count, export filename, and
+SHA-256 hash are recorded before the next source is queried.
 
-`literature-search-queries.md` version 0.2.0 is the governed SLR-102
+`literature-search-queries.md` version 0.2.1 is the governed SLR-102
 translation of this section. It versions six keyword groups for drift and
 erosion, conformance and compliance, reconstruction and recovery, CI
 governance, AI coding agents, and evidence-grounded explanation and repair. It
@@ -625,7 +631,9 @@ The independent reviewer must confirm all items before D-008 is accepted:
 - [ ] Objective and SLR-RQ1--SLR-RQ6 align with the research baseline and RQ
   traceability matrix.
 - [ ] All four primary sources are accessible to the team.
-- [ ] Search-A/B/C are semantically equivalent in each database-specific form.
+- [ ] Search-A/B/C are semantically equivalent in each database-specific form;
+  every OpenAlex form uses `search.exact` without diagnostic `~N` suffixes, and
+  every ACM form uses the Title/Abstract/Author Keyword set union.
 - [ ] Every indexed sentinel is retrieved or has a documented indexing reason.
 - [ ] I1--I8 and E01--E10 are mutually understandable and usable without seeing
   another reviewer's decision, and both reviewers pass the SLR-103 pilot gate
@@ -766,5 +774,6 @@ coverage thresholds, and compiles the PDF before merge.
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 0.2.1 | 2026-08-28 | D-019 accepted | Correct wildcard-bearing OpenAlex forms to unstemmed `search.exact` without diagnostic proximity suffixes; constrain ACM to the Title, Abstract, and Author Keyword union; retain all 0.2.0 captures as diagnostics; no official result inspected |
 | 0.2.0 | 2026-08-20 | D-016 accepted | Replace inaccessible Scopus and Web of Science primary searches with reproducible OpenAlex and Semantic Scholar API searches; version the query, sentinel, matrix, validator, runbook, and paper contracts before any official result is inspected |
 | 0.1.0 | 2026-08-16 | D-008 proposed | Define objective, SLR-RQs, required databases, fixed cutoff, three query families, sentinel gate, eligibility, deduplication, dual screening, snowballing, quality, extraction, synthesis, artifacts, AI-use boundary, and post-result amendment prohibition |
