@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-101 |
-| Protocol version | 0.2.1 |
+| Protocol version | 0.2.2 |
 | Status | Review candidate |
 | Prepared date | 2026-08-16 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -184,18 +184,18 @@ Every database is searched in title, abstract, and author-keyword fields where
 the source supports those fields. Syntax is adapted only for field names,
 wildcards, quoting, and source operators; concept terms and Boolean meaning must
 remain equivalent. ACM uses the exact set union of Title, Abstract, and Author
-Keyword. `Anywhere`, `AllField`, and full-text ACM forms are diagnostics only.
-OpenAlex is a predeclared field-scope exception because its Works API search
-covers title, abstract, and full text. Every wildcard-bearing OpenAlex form uses
-the globally unstemmed `search.exact` parameter, preserves quoted wildcard
-phrases without a `~N` proximity suffix, and reports its source-specific yield
-separately. If the encoded OpenAlex URL exceeds the documented practical limit,
-only OR alternatives may be split; every unchanged conjunct and filter is
-duplicated and the stable work IDs are unioned deterministically. The exact
+Keyword. Its official `AllField=` URL parameter is allowed only as a transport
+carrier for that decoded field-scoped union; semantic `Anywhere`, `AllField`,
+unscoped, and full-text forms remain diagnostics. OpenAlex is a predeclared
+field-scope exception because exact `fulltext.search.exact` OQL leaves cover
+title, abstract, and full text. The complete Boolean is validated through
+`/query`, retained as canonical OQL/OQO, and executed as canonical OQO through
+POST. Stemmed `search`, monolithic `search.exact`, diagnostic `~N`, and
+deprecated classic-filter execution are prohibited. The exact
 executed query, source, filters, timestamp, result count, export filename, and
 SHA-256 hash are recorded before the next source is queried.
 
-`literature-search-queries.md` version 0.2.1 is the governed SLR-102
+`literature-search-queries.md` version 0.2.2 is the governed SLR-102
 translation of this section. It versions six keyword groups for drift and
 erosion, conformance and compliance, reconstruction and recovery, CI
 governance, AI coding agents, and evidence-grounded explanation and repair. It
@@ -279,7 +279,7 @@ candidate result list must not be screened or used to tune eligibility criteria.
 
 Each calibration row must reference one reviewer-created JSON artifact under
 `research/evidence/slr-sentinel/` and pin its exact SHA-256 digest. The artifact
-uses schema version 1.1.0 and records the fixed task/protocol identity, sentinel
+uses schema version 1.2.0 and records the fixed task/protocol identity, sentinel
 ID and DOI, Independent SLR Reviewer as reviewer, canonical UTC timestamps,
 classification, indexed/retrieved source sets, a factual rationale, and every
 executed sentinel-only query. Each run records one of the four governed sources,
@@ -291,8 +291,10 @@ contain a result path or query, and contain no template placeholder; a retrieved
 source must have a positive matching run. Calibration and recording timestamps
 must be canonical UTC values and cannot be materially ahead of the verification
 clock. Each indexed source must have at least one documented run, while a
-`not-indexed` conclusion requires negative checks in all four
-sources. Both `official_search_executed` and `candidate_results_screened` must
+`not-indexed` conclusion requires negative checks in all four sources. Identity
+checks establish only `indexed_sources`; only positive governed Search-A/B/C
+family runs establish `retrieved_sources`. Both `official_search_executed` and
+`candidate_results_screened` must
 remain `false`. CI parses and validates these semantics after verifying the
 digest, so empty, placeholder, contradictory, or hash-consistent fabricated
 JSON cannot authorize review or freeze. The file
@@ -305,7 +307,7 @@ Reviewers apply the criteria exactly as written. An uncertain title or abstract
 moves forward rather than being excluded speculatively. The operational
 SLR-103 codebook is versioned in `literature-screening-criteria.md`; its
 machine-readable mapping is `literature-screening-criteria.csv`, and its empty
-decision schema is `literature-screening.template.csv`. Version 0.1.0 is a
+decision schema is `literature-screening.template.csv`. Version 0.2.0 is a
 candidate and cannot be finally locked until this protocol is independently
 reviewed and frozen at 1.0.0.
 
@@ -426,10 +428,14 @@ must not see each other's decisions until both have completed the round.
 The same two reviewers independently apply I1--I8 and E01--E10 to every advanced
 record. Full-text inclusion assigns `primary-study` or `secondary-context`.
 Exclusion requires one primary E-code, all known secondary E-codes, a factual
-note, and a full-text or publisher evidence location. Disagreement is
-adjudicated by the Adjudicator and Reproducibility Reviewer after both original
-decisions and hashes are frozen; the final decision and rationale are appended
-without overwriting either original decision.
+note, and a full-text or publisher evidence location. After both original
+decisions and hashes are frozen and revealed, every disagreement requires a
+reconciliation row explicitly approved by both Hiếu and the Independent SLR
+Reviewer. Neither may decide unilaterally. If they cannot agree, the calibration
+or screening round fails and restarts under a new version. This is mandatory
+two-reviewer consensus: the calibration fails closed whenever consensus is not
+recorded. Original decisions
+are never overwritten.
 
 ### Stage 5: backward and forward snowballing
 
@@ -458,11 +464,11 @@ denominators into inferred precision, recall, effect, or productivity claims.
 | --- | --- | --- | --- |
 | Protocol author | Hiếu | Prepare candidate without inspecting search results | Complete |
 | Method and screening reviewer | Independent SLR Reviewer | Review protocol and independently screen all records | Pending |
-| Adjudicator and reproducibility reviewer | Adjudicator and Reproducibility Reviewer | Resolve screening conflicts and verify logs/hashes | Pending |
+| Consensus reconciliation | Hiếu and Independent SLR Reviewer | Jointly approve every disagreement after reveal; fail closed without consensus | Pending |
 
 Raw agreement and Cohen's kappa are reported separately for title/abstract and
 full-text rounds. Kappa is descriptive and cannot replace reconciliation.
-Reviewers must preserve original decisions before adjudication.
+Reviewers must preserve original decisions before reconciliation.
 
 ## 12. Quality assessment
 
@@ -596,7 +602,7 @@ The official review must create, version, and verify:
 | `literature-search-log.csv` | Source, query ID, exact query, fields, filters, timestamp, result count, export path, SHA-256, operator |
 | `literature-records.csv` | Stable record ID, normalized metadata, all database origins, DOI/title keys and duplicate state |
 | `literature-dedup-log.csv` | Duplicate record, retained record, rule, similarity if used, reviewer, timestamp and rationale |
-| `literature-screening.csv` | Both independent decisions per round, criteria version, decision hashes, evidence class, primary and secondary E-codes, evidence locations, notes, adjudication and final status |
+| `literature-screening.csv` | Both independent decisions per round, criteria version, decision hashes, evidence class, primary and secondary E-codes, evidence locations, notes, two-reviewer reconciliation and final status |
 | `literature-quality.csv` | QA1--QA6 scores from both reviewers, conflicts and resolution |
 | `literature-matrix.csv` | SLR-104 auditable publication summary, persistent locator, claim/RQ mapping, exact source location, two-person verification and record hash |
 | `literature-extraction.csv` | Section 13 fields with reviewer and verification state |
@@ -632,22 +638,23 @@ The independent reviewer must confirm all items before D-008 is accepted:
   traceability matrix.
 - [ ] All four primary sources are accessible to the team.
 - [ ] Search-A/B/C are semantically equivalent in each database-specific form;
-  every OpenAlex form uses `search.exact` without diagnostic `~N` suffixes, and
-  every ACM form uses the Title/Abstract/Author Keyword set union.
+  every OpenAlex form uses validated canonical OQO through POST, and every ACM
+  form decodes to the Title/Abstract/Author Keyword set union.
 - [ ] Every indexed sentinel is retrieved or has a documented indexing reason.
 - [ ] I1--I8 and E01--E10 are mutually understandable and usable without seeing
   another reviewer's decision, and both reviewers pass the SLR-103 pilot gate
   on at least eight predeclared records with the required decision and
   primary-reason agreement.
 - [ ] Deduplication preserves provenance and does not auto-merge fuzzy matches.
-- [ ] Both screening rounds are independent and disagreements are adjudicated.
+- [ ] Both screening rounds are independent and every disagreement has explicit
+  two-reviewer consensus or the round fails closed.
 - [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs, and the
   separate reference-quality policy records recency, foundational exceptions,
   Q1/Q2 status, ranking context, and authoritative evidence without excluding
   systematic-review records by age or quartile.
 - [ ] AI-executed work is disclosed; generated assertions are not treated as
   evidence, captured source output has provenance, and named humans remain
-  accountable for review, screening, extraction, and adjudication.
+  accountable for review, screening, extraction, and reconciliation.
 - [ ] No official result list was inspected while developing the protocol.
 
 Approval must be attributable to the non-author assigned to the Independent SLR
@@ -774,6 +781,7 @@ coverage thresholds, and compiles the PDF before merge.
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 0.2.2 | 2026-08-28 | D-021 accepted | Guard A2/A3 with L; use canonical OpenAlex OQO POST; constrain ACM transport to a decoded field union; require two-reviewer consensus; retain all earlier attempts as diagnostics |
 | 0.2.1 | 2026-08-28 | D-019 accepted | Correct wildcard-bearing OpenAlex forms to unstemmed `search.exact` without diagnostic proximity suffixes; constrain ACM to the Title, Abstract, and Author Keyword union; retain all 0.2.0 captures as diagnostics; no official result inspected |
 | 0.2.0 | 2026-08-20 | D-016 accepted | Replace inaccessible Scopus and Web of Science primary searches with reproducible OpenAlex and Semantic Scholar API searches; version the query, sentinel, matrix, validator, runbook, and paper contracts before any official result is inspected |
 | 0.1.0 | 2026-08-16 | D-008 proposed | Define objective, SLR-RQs, required databases, fixed cutoff, three query families, sentinel gate, eligibility, deduplication, dual screening, snowballing, quality, extraction, synthesis, artifacts, AI-use boundary, and post-result amendment prohibition |

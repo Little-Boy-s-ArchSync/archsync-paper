@@ -105,12 +105,12 @@ async function createRevealRepository(context) {
     ],
     [CALIBRATION_PATHS.hieuReveal, fixture.hieuRevealBytes],
     [CALIBRATION_PATHS.independentReveal, fixture.independentRevealBytes],
-    [CALIBRATION_PATHS.adjudication, fixture.adjudicationBytes],
+    [CALIBRATION_PATHS.reconciliation, fixture.reconciliationBytes],
   ]) {
     await writeArtifact(repository, path, bytes);
   }
   await git(["add", "research"]);
-  await git(["commit", "--quiet", "-m", "Reveal and adjudicate calibration"]);
+  await git(["commit", "--quiet", "-m", "Reveal and reconcile calibration"]);
   const { stdout: revealOutput } = await git(["rev-parse", "HEAD"]);
   return {
     repository,

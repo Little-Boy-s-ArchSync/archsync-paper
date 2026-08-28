@@ -76,8 +76,8 @@ export function validateScreeningCriteria({
   const issues = [];
   for (const [field, expected] of [
     ["Task", "SLR-103"],
-    ["Criteria version", "0.1.0"],
-    ["Protocol version", "0.2.1"],
+    ["Criteria version", "0.2.0"],
+    ["Protocol version", "0.2.2"],
     ["Status", "Versioned candidate - final lock blocked"],
     ["Prepared date", "2026-08-18"],
     ["Search cutoff", "2026-08-16 inclusive"],
@@ -97,7 +97,9 @@ export function validateScreeningCriteria({
     "contextual-only",
     "E10 > E09 > E08 > E07 > E06 > E05 > E03 > E01 > E02 > E04",
     "at least 80%",
-    "eight pilot records chosen",
+    "at least eight pilot records chosen",
+    "mandatory consensus",
+    "calibration fails closed",
     "factual evidence location",
     "official screening row may exist while SLR-101 remains unfrozen",
     "https://www.prisma-statement.org/prisma-2020",
@@ -211,6 +213,7 @@ export function validateScreeningCriteria({
   }
   for (const marker of [
     "## D-010: Version SLR Screening Criteria Codebook 0.1.0",
+    "## D-021: Accept SLR Query and Reconciliation Amendment 0.2.2",
     "Accepted for design; final lock blocked by SLR-101",
     "at least 80% decision agreement",
     "SLR-103 remains `Đang làm`",
@@ -255,7 +258,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SCREENING CRITERIA 0.1.0 (${result.criterionCount} atomic rules, 10 exclusion reasons; final lock blocked by SLR-101)`,
+    `VALID SLR SCREENING CRITERIA 0.2.0 (${result.criterionCount} atomic rules, 10 exclusion reasons; final lock blocked by SLR-101)`,
   );
   return result;
 }

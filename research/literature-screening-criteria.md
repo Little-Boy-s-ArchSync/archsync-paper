@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-103 |
-| Criteria version | 0.1.0 |
-| Protocol version | 0.2.1 |
+| Criteria version | 0.2.0 |
+| Protocol version | 0.2.2 |
 | Status | Versioned candidate - final lock blocked |
 | Prepared date | 2026-08-18 |
 | Search cutoff | 2026-08-16 inclusive |
@@ -172,14 +172,18 @@ The same reviewers independently apply all criteria to the complete text. An
 inclusion assigns `primary-study` or `secondary-context`. An exclusion requires
 one primary E-code, all known secondary E-codes, a short factual note, and a
 page, section, table, figure, publisher, or access-log location. `uncertain` is
-not a final full-text decision and must be resolved through adjudication.
+not a final full-text decision and must be resolved through two-reviewer
+consensus reconciliation.
 
-### 6.3 Adjudication
+### 6.3 Consensus reconciliation
 
 Original decisions and their hashes are frozen before decisions are revealed.
 Any decision disagreement, evidence-class disagreement, or primary-reason
-disagreement is adjudicated by the designated adjudicator. The final decision
-and rationale are appended without overwriting either reviewer record.
+disagreement requires a final row explicitly approved by both Hiếu and the
+Independent SLR Reviewer after reveal. Neither reviewer may decide alone. If
+they cannot agree, the calibration or screening round fails and restarts with a
+fresh pilot or record set under a new criteria version. The final decision and
+rationale are appended without overwriting either reviewer record.
 
 ## 7. Decision record contract
 
@@ -200,7 +204,7 @@ For title and abstract and full text separately, report:
 - raw decision agreement with numerator and denominator;
 - Cohen's kappa as a descriptive statistic;
 - primary-reason agreement among records both reviewers exclude;
-- number and proportion of disagreements requiring adjudication; and
+- number and proportion of disagreements requiring reconciliation; and
 - counts for each final exclusion reason.
 
 Kappa does not replace reconciliation. Every excluded full-text publication
@@ -209,8 +213,8 @@ member can explain the decision.
 
 ## 9. Independent calibration gate
 
-Before final lock, both reviewers independently apply version 0.1.0 to at least
-eight pilot records chosen before the official result list is inspected. The
+Before final lock, both reviewers independently apply version 0.2.0 to at least
+at least eight pilot records chosen before the official result list is inspected. The
 pilot includes clearly eligible, clearly ineligible, and ambiguous records. The
 pilot records may be fixed sentinel publications or separately sourced method
 fixtures; they are not counted as official search results.
@@ -218,7 +222,7 @@ fixtures; they are not counted as official search results.
 The gate requires all rows to pass the decision-record schema, at least 80%
 decision agreement, at least 80% primary-reason agreement where both reviewers
 exclude, and a documented resolution for every disagreement. If either
-threshold fails or a rule is ambiguous, the team revises this candidate,
+threshold fails, a rule is ambiguous, or both reviewers cannot reach mandatory consensus on every disagreement, the calibration fails closed. The team revises this candidate,
 increments its version, and repeats calibration on a fresh pilot set. Final
 version 1.0.0 is locked only with the SLR-101 freeze evidence.
 
@@ -227,16 +231,18 @@ random nonce of at least 32 bytes with the operating system's secure random
 generator and retain it outside the repository until reveal. At the common
 commitment commit, the governed calibration tree contains only the predeclared
 pilot set, its immutable record snapshots, and each reviewer's context-bound
-HMAC-SHA256 commitment; it contains no decision, nonce, reveal, adjudication,
+HMAC-SHA256 commitment; it contains no decision, nonce, reveal, reconciliation,
 or summary artifact. The commitment binds the pilot-set hash, reviewer role,
 canonical decision path, and exact private decision-file bytes. After both
 commitments are sealed in that strict ancestor commit, each reviewer adds a
 reveal manifest containing the nonce and exact decision-file digest. The
 verifier checks this bounded artifact chronology and byte integrity. It does not
 authenticate a typed reviewer identifier, prove that a nonce was random or
-withheld, or establish the truth of publication metadata. The named reviewers,
-adjudicator, and repository owner remain accountable for those facts through
-human review and the final signed approval.
+withheld, or establish the truth of publication metadata. The two named
+reviewers and repository owner remain accountable for those facts through human
+review and the final signed approval. Every disagreement record binds both
+reviewer identities and approval timestamps. Neither reviewer may unilaterally
+set the final decision.
 
 At this snapshot, no independent calibration file exists. Therefore this task
 is `Dang lam`, not `Da lam`, even though its candidate codebook, data contracts,
@@ -260,4 +266,5 @@ These sources define method safeguards. They are not ArchSync SLR results.
 
 | Version | Date | Decision | Change |
 | --- | --- | --- | --- |
+| 0.2.0 | 2026-08-28 | D-021 | Replace third-party adjudication with mandatory two-reviewer consensus; fail closed and repeat on a fresh pilot when consensus is unavailable |
 | 0.1.0 | 2026-08-18 | D-010 | Define atomic eligibility criteria, controlled exclusion reasons, precedence, dual-review records, adjudication, and calibration gate |

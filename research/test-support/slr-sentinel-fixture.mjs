@@ -16,7 +16,7 @@ function testEvidenceLocator(source, sentinelId, sourceOrdinal) {
     return `https://dl.acm.org/action/doSearch?Title=${token}&Abstract=${token}&AuthorKeyword=${token}`;
   }
   if (source === "OpenAlex") {
-    return `https://api.openalex.org/works?search.exact=${token}`;
+    return `https://api.openalex.org/?select=id&fixture=${token}`;
   }
   return `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=${token}`;
 }
@@ -65,8 +65,8 @@ function createArtifact(record, ordinal) {
     record.classification === "not-indexed"
       ? PRIMARY_SOURCES
       : record.indexed_sources;
-  const runs = runSources.map((source, sourceOrdinal) => {
-    const found = record.retrieved_sources.includes(source);
+  const indexRuns = runSources.map((source, sourceOrdinal) => {
+    const found = record.indexed_sources.includes(source);
     return {
       source,
       query_family: "Index-check",
@@ -79,12 +79,82 @@ function createArtifact(record, ordinal) {
         record.sentinel_id,
         sourceOrdinal,
       ),
+      request_method: "GET",
+      request_view_parameters: {},
+      request_payload_sha256: "",
+      response_sha256: createHash("sha256")
+        .update(`index-response:${record.sentinel_id}:${source}`)
+        .digest("hex"),
+      translation_provenance: null,
     };
   });
+  const familyRuns = record.retrieved_sources.map((source, sourceOrdinal) => {
+    let query = `TEST FIXTURE architecture conformance ${record.doi} source ${source}`;
+    let resultUrl = testEvidenceLocator(source, record.sentinel_id, sourceOrdinal + 10);
+    let requestMethod = "GET";
+    let requestViewParameters = {};
+    let requestPayloadSha256 = "";
+    let translationProvenance = null;
+    if (source === "ACM Digital Library") {
+      query = `Title(software architecture) OR Abstract(software architecture) OR Author Keyword(software architecture)`;
+      resultUrl = `https://dl.acm.org/action/doSearch?AllField=${encodeURIComponent(query)}`;
+    }
+    if (source === "OpenAlex") {
+      query = `fulltext.search.exact:"software architecture" AND fulltext.search.exact:"architecture drift"`;
+      const canonicalOqo = {
+        and: [
+          { field: "fulltext.search.exact", value: "software architecture" },
+          { field: "fulltext.search.exact", value: "architecture drift" },
+        ],
+      };
+      const canonicalOql = query;
+      const translationResponse = JSON.stringify({
+        valid: true,
+        canonical_oql: canonicalOql,
+        canonical_oqo: canonicalOqo,
+      });
+      requestMethod = "POST";
+      requestViewParameters = { per_page: 100, cursor: "*" };
+      requestPayloadSha256 = createHash("sha256")
+        .update(JSON.stringify({ oqo: canonicalOqo, ...requestViewParameters }))
+        .digest("hex");
+      translationProvenance = {
+        input_oql_sha256: createHash("sha256").update(query).digest("hex"),
+        canonical_oql: canonicalOql,
+        canonical_oql_sha256: createHash("sha256").update(canonicalOql).digest("hex"),
+        canonical_oqo: canonicalOqo,
+        canonical_oqo_sha256: createHash("sha256")
+          .update(JSON.stringify(canonicalOqo))
+          .digest("hex"),
+        validation_valid: true,
+        translation_response_sha256: createHash("sha256")
+          .update(translationResponse)
+          .digest("hex"),
+        oxurl: null,
+      };
+    }
+    return {
+      source,
+      query_family: "Search-A",
+      query,
+      executed_at: `2026-08-16T07:${String(ordinal * 3 + sourceOrdinal + 20).padStart(2, "0")}:00Z`,
+      result_count: 1,
+      sentinel_found: true,
+      result_url: resultUrl,
+      request_method: requestMethod,
+      request_view_parameters: requestViewParameters,
+      request_payload_sha256: requestPayloadSha256,
+      response_sha256: createHash("sha256")
+        .update(`family-response:${record.sentinel_id}:${source}`)
+        .digest("hex"),
+      translation_provenance: translationProvenance,
+    };
+  });
+  const runs = [...indexRuns, ...familyRuns];
   return {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-101",
-    protocol_version: "0.2.1",
+    protocol_version: "0.2.2",
     sentinel_id: record.sentinel_id,
     doi: record.doi,
     reviewer: "Independent SLR Reviewer",

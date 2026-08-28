@@ -427,3 +427,53 @@
   `PROJECT-EVIDENCE-AUDIT.md` 1.0.0, and
   `EXTERNAL-BASELINE-PROTOCOL.md` 0.1.0.
 - Approver: Hieu, research lead and architecture owner.
+
+## D-021: Accept SLR Query and Reconciliation Amendment 0.2.2
+
+- Date: 2026-08-28
+- Status: Accepted for candidate protocol 0.2.2; official search remains blocked
+  until the independently reviewed protocol is frozen as version 1.0.0.
+- Tasks: SLR-101, SLR-102, SLR-103, SLR-REV-101
+- Decision: Accept SLR-QA-002. Replace A2 and A3 with the source-neutral
+  domain guard `L = (software OR architectur*)`, so `A2 = L AND K2` and
+  `A3 = L AND K3`; A1, B1, C1, and C2 remain unchanged. No sentinel title,
+  DOI, author, venue, or other fixed-item term is added.
+- OpenAlex execution: Express every original atom as an exact
+  `fulltext.search.exact` OQL leaf, validate and canonicalize the complete
+  Boolean through `/query`, and execute the returned canonical OQO through
+  `POST /`. Persist the credential-free input OQL, canonical OQL/OQO,
+  validation result, request-view parameters, response, and hashes. `oxurl`
+  may be retained when emitted but is not required and is never the normative
+  execution form because the classic filter surface is deprecated.
+- ACM execution: Use the authenticated Advanced Search expression
+  `Title:(Q) OR Abstract:(Q) OR Keyword:(Q)` with identical complete Q in each
+  field. The official `AllField=` URL parameter is allowed only as a transport
+  carrier when its decoded value is exactly that field-scoped union. Semantic
+  AllField/Anywhere, an unscoped Q, and full-text search remain prohibited.
+- Evidence impact: Sentinel evidence schema advances to 1.2.0. Index-check
+  positives establish only `indexed_sources`; only positive Search-A/B/C
+  family runs establish `retrieved_sources` and `retrieved`. All protocol-0.2.0
+  captures and failed protocol-0.2.1 attempts remain diagnostic history and
+  cannot be promoted.
+- Screening calibration: Screening criteria advance to candidate 0.2.0.
+  Reviewers remain blind until both commitments are sealed. After reveal,
+  every disagreement requires an explicit final record approved by both Võ Đức
+  Hiếu and Trần Minh Hoàng. Neither reviewer may decide unilaterally. If the two
+  reviewers cannot agree, calibration fails and must restart with a fresh pilot
+  under a new criteria version; no third adjudicator is required.
+- Pilot approval: Võ Đức Hiếu confirmed that he inspected the exact CAL-001
+  through CAL-009 snapshots, had not viewed Trần Minh Hoàng's decisions or
+  reason codes, accepted all nine as the pilot set, and independently adopted
+  his own decisions in the project collaboration task on 2026-08-28.
+- Integrity boundary: No official Search-A/B/C result list has been executed,
+  inspected, or screened. Pre-acceptance sentinel diagnostics are not governed
+  acceptance evidence. Fresh four-source reruns occur only after this amendment
+  is implemented and pinned.
+- Version impact: Protocol and query specification advance to 0.2.2;
+  screening criteria and calibration schema advance to 0.2.0 and 1.2.0;
+  sentinel evidence schema advances to 1.2.0. The literature matrix remains
+  schema 0.2.0 with protocol linkage 0.2.2.
+- Approval evidence: Võ Đức Hiếu explicitly accepted D-021, candidate protocol
+  0.2.2, canonical OpenAlex OQO POST execution, and mandatory two-reviewer
+  consensus in the project collaboration task on 2026-08-28.
+- Approver: Võ Đức Hiếu, protocol owner and research lead.

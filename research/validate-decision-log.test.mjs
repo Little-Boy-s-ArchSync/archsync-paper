@@ -12,7 +12,7 @@ async function fixture() {
   const research = join(repositoryDirectory, "research");
   const [decisions, amendmentProposal] = await Promise.all([
     readFile(join(research, "decision-log.md"), "utf8"),
-    readFile(join(research, "slr-query-amendment-proposal.md"), "utf8"),
+    readFile(join(research, "slr-query-amendment-0.2.2.md"), "utf8"),
   ]);
   return { decisions, amendmentProposal };
 }
@@ -24,11 +24,11 @@ function hasIssue(result, fragment) {
   );
 }
 
-test("accepts unique decisions and the owner-approved D-019 amendment", async () => {
+test("accepts unique decisions and the owner-approved D-021 amendment", async () => {
   const result = validateDecisionLog(await fixture());
   assert.deepEqual(result.issues, []);
-  assert.equal(result.proposedDecision, "D-019");
-  assert.ok(result.decisionCount >= 19);
+  assert.equal(result.proposedDecision, "D-021");
+  assert.ok(result.decisionCount >= 21);
 });
 
 test("rejects duplicate and malformed accepted decision headings", async () => {
@@ -46,42 +46,42 @@ test("rejects duplicate and malformed accepted decision headings", async () => {
   hasIssue(result, "D-020 must be");
 });
 
-test("rejects an incorrect amendment ID or missing canonical D-019 decision", async () => {
+test("rejects an incorrect amendment ID or missing canonical D-021 decision", async () => {
   const input = await fixture();
-  input.amendmentProposal = input.amendmentProposal.replaceAll("D-019", "D-017");
+  input.amendmentProposal = input.amendmentProposal.replaceAll("D-021", "D-017");
   input.decisions = input.decisions.replace(
-    "## D-019: Accept SLR Query Translation Amendment 0.2.1",
-    "## D-021: Accept SLR Query Translation Amendment 0.2.1",
+    "## D-021: Accept SLR Query and Reconciliation Amendment 0.2.2",
+    "## D-022: Accept SLR Query and Reconciliation Amendment 0.2.2",
   );
   const result = validateDecisionLog(input);
-  hasIssue(result, "Proposed decision must be 'D-019'");
-  hasIssue(result, "D-019 must be");
+  hasIssue(result, "Decision must be 'D-021'");
+  hasIssue(result, "D-021 must be");
   hasIssue(result, "decision references must be exactly");
 });
 
 test("rejects a proposal that reverts to an unapproved state", async () => {
   const input = await fixture();
   input.amendmentProposal = input.amendmentProposal.replace(
-    "| Status | Accepted under D-019 |",
+    "| Status | Accepted under D-021 |",
     "| Status | Proposed - not approved |",
   );
-  hasIssue(validateDecisionLog(input), "status must be 'Accepted under D-019'");
+  hasIssue(validateDecisionLog(input), "status must be 'Accepted under D-021'");
 });
 
 test("rejects contradictory duplicate proposal metadata rows", async () => {
   const input = await fixture();
   input.amendmentProposal +=
-    "\n|Status|Proposed - not approved|\n|Proposed decision|D-019|\n";
+    "\n|Status|Proposed - not approved|\n|Decision|D-021|\n";
   const result = validateDecisionLog(input);
   hasIssue(result, "exactly one Status metadata row");
-  hasIssue(result, "exactly one Proposed decision metadata row");
+  hasIssue(result, "exactly one Decision metadata row");
 });
 
 test("rejects a noncanonical proposal metadata row", async () => {
   const input = await fixture();
   input.amendmentProposal = input.amendmentProposal.replace(
-    "| Status | Accepted under D-019 |",
-    "|Status|Accepted under D-019|",
+    "| Status | Accepted under D-021 |",
+    "|Status|Accepted under D-021|",
   );
   hasIssue(validateDecisionLog(input), "Status metadata row must use canonical");
 });

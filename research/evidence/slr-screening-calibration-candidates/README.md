@@ -8,7 +8,7 @@ research/evidence/slr-screening-calibration directory. It is not a pilot set,
 not a calibration commitment commit, not SLR evidence, and not an approval.
 The packet does not contain reviewer decisions, expected outcomes, strata,
 reason codes, evidence classes, governed reviewer identity fields, nonces,
-commitments, reveals, agreement results, adjudication, signatures, or review
+commitments, reveals, agreement results, reconciliation, signatures, or review
 records.
 
 The delegated technical operator, GitHub login an1dee3301, prepared this pool
@@ -22,13 +22,14 @@ evidence_location identifies the API response used for the captured abstract
 and core metadata. Publication type and venue are normalized against DOI
 registration metadata.
 
-D-019 is accepted for candidate protocol 0.2.1, while official search and
+D-021 is accepted for candidate protocol 0.2.2, while official search and
 screening remain blocked until freeze 1.0.0. These protocol-neutral candidate
 records are unchanged preparation material and are not promoted by that
 acceptance. Hiếu and Tran Minh Hoang must jointly accept at least eight exact
-records, confirm that the chosen set has the required calibration mix without
-recording expected decisions here, and verify the source metadata before any
-record is copied into the governed calibration root.
+records. Hiếu and Tran Minh Hoang have accepted the exact CAL-001 through
+CAL-009 snapshot set without publishing either reviewer's decisions here. The
+source metadata still must be verified before the accepted bytes are copied
+into the governed calibration root.
 
 After joint acceptance, only the accepted snapshot bytes may be copied into the
 official records directory. Both humans must then independently create their

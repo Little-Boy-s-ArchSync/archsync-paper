@@ -49,11 +49,11 @@ test("rejects metadata drift and missing method safeguards", () => {
   const result = validate({
     codebook: codebook
       .replace("| Task | SLR-103 |", "| Task | wrong |")
-      .replace("eight pilot records chosen", "missing pilot size")
+      .replace("at least eight pilot records chosen", "missing pilot size")
       .replace("handbook/current/chapter-04", "missing-cochrane-source"),
   });
   assertIssue(result, "Task must be 'SLR-103'");
-  assertIssue(result, "eight pilot records chosen");
+  assertIssue(result, "at least eight pilot records chosen");
   assertIssue(result, "handbook/current/chapter-04");
 });
 
@@ -137,7 +137,7 @@ test("CLI reports valid and invalid states deterministically", async () => {
     output: (line) => validOutput.push(line),
   });
   assert.deepEqual(valid.issues, []);
-  assert.match(validOutput[0], /^VALID SLR SCREENING CRITERIA 0\.1\.0/);
+  assert.match(validOutput[0], /^VALID SLR SCREENING CRITERIA 0\.2\.0/);
 
   let exitCode;
   const invalidOutput = [];

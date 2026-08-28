@@ -57,7 +57,7 @@ function assertIssue(result, fragment) {
 
 function frozenProtocol() {
   return protocol
-    .replace("| Protocol version | 0.2.1 |", "| Protocol version | 1.0.0 |")
+    .replace("| Protocol version | 0.2.2 |", "| Protocol version | 1.0.0 |")
     .replace("| Status | Review candidate |", "| Status | Frozen |")
     .replace(
       "| Search authorization | Blocked |",
@@ -76,8 +76,8 @@ function frozenProtocol() {
       "## 20. Protocol version history",
     )
     .replace(
-      "| 0.2.1 | 2026-08-28 | D-019 accepted |",
-      "| 1.0.0 | 2026-08-16 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5; review commit 0123456789abcdef0123456789abcdef01234567; governed evidence hashes verified |\n| 0.2.1 | 2026-08-28 | D-019 accepted |",
+      "| 0.2.2 | 2026-08-28 | D-021 accepted |",
+      "| 1.0.0 | 2026-08-16 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/5; review commit 0123456789abcdef0123456789abcdef01234567; governed evidence hashes verified |\n| 0.2.2 | 2026-08-28 | D-021 accepted |",
     )
     .replaceAll("- [ ]", "- [x]");
 }
@@ -141,7 +141,7 @@ const signedReviewRecord = reviewRecord
 test("accepts the governed review-candidate protocol", () => {
   const result = validate();
   assert.deepEqual(result.issues, []);
-  assert.equal(result.version, "0.2.1");
+  assert.equal(result.version, "0.2.2");
   assert.equal(result.searchAuthorization, "Blocked");
 });
 
@@ -152,7 +152,7 @@ test("rejects premature search authorization", () => {
       "| Search authorization | Authorized |",
     ),
   });
-  assertIssue(result, "governed 0.2.1 candidate state");
+  assertIssue(result, "governed 0.2.2 candidate state");
 });
 
 test("rejects search execution or result inspection during SLR-101", () => {
@@ -274,7 +274,7 @@ test("rejects semantically empty JSON even when its ledger digest matches", () =
     sentinelEvidenceHashes: hashes,
     sentinelEvidenceArtifacts: artifacts,
   });
-  assertIssue(result, "artifact fields do not match schema 1.1.0");
+  assertIssue(result, "artifact fields do not match schema 1.2.0");
   assert.ok(
     !result.issues.some((issue) => issue.includes("SHA-256 does not match")),
     "the negative case must isolate semantic validation after a valid digest",

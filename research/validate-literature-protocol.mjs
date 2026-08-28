@@ -90,7 +90,7 @@ export function validateLiteratureProtocol({
   let governedReviewPr = null;
 
   const candidateState =
-    version === "0.2.1" &&
+    version === "0.2.2" &&
     status === "Review candidate" &&
     searchAuthorization === "Blocked" &&
     decision === "D-008 pending independent review";
@@ -102,7 +102,7 @@ export function validateLiteratureProtocol({
 
   if (!candidateState && !frozenState) {
     issues.push(
-      "literature-protocol.md: metadata must be either the governed 0.2.1 candidate state or the reviewed 1.0.0 frozen state",
+      "literature-protocol.md: metadata must be either the governed 0.2.2 candidate state or the reviewed 1.0.0 frozen state",
     );
   }
   if (candidateState && reviewRecord) {
@@ -585,6 +585,8 @@ export function validateLiteratureProtocol({
     /AI may perform database operations\s+and create the files; it is not the accountable operator/,
     /AI must not fabricate or infer missing DOI\/URL/,
     /Human reviewers remain independent\s+and accountable/,
+    /mandatory\s+two-reviewer consensus/,
+    /calibration fails closed/,
     /The reviewer does not need to repeat mechanical queries or retype artifacts/,
     /AI may invoke the local signing command only after the\s+reviewer explicitly authorizes/,
     /No search count, included-study count, or synthesized result belongs in this\s+protocol/,
@@ -671,6 +673,7 @@ export function validateLiteratureProtocol({
     for (const marker of [
       "## D-016: Replace Inaccessible Subscription Indexes Before SLR Freeze",
       "## D-019: Accept SLR Query Translation Amendment 0.2.1",
+      "## D-021: Accept SLR Query and Reconciliation Amendment 0.2.2",
       "OpenAlex and Semantic Scholar",
       "No official search has run and no candidate result list",
       "official search remains blocked",
@@ -767,11 +770,11 @@ export async function main({
     sentinelRecall,
   );
   const retainedDiagnosticOnly =
-    /^\| Protocol version \| 0\.2\.1 \|$/m.test(protocol) &&
+    /^\| Protocol version \| 0\.2\.2 \|$/m.test(protocol) &&
     sentinelEvidence.artifacts.size > 0 &&
     [...sentinelEvidence.artifacts.values()].every((bytes) => {
       try {
-        return JSON.parse(bytes.toString("utf8")).protocol_version === "0.2.0";
+        return JSON.parse(bytes.toString("utf8")).protocol_version !== "0.2.2";
       } catch {
         return false;
       }
@@ -799,7 +802,7 @@ export async function main({
     return;
   }
   log(
-    `VALID LITERATURE PROTOCOL ${result.version} (${result.status.toLowerCase()}, 6 SLR-RQs, 4 databases, 3 query families, search ${result.searchAuthorization.toLowerCase()}${retainedDiagnosticOnly ? "; retained 0.2.0 sentinel diagnostics excluded from acceptance" : ""})`,
+    `VALID LITERATURE PROTOCOL ${result.version} (${result.status.toLowerCase()}, 6 SLR-RQs, 4 databases, 3 query families, search ${result.searchAuthorization.toLowerCase()}${retainedDiagnosticOnly ? "; retained pre-0.2.2 sentinel diagnostics excluded from acceptance" : ""})`,
   );
 }
 
