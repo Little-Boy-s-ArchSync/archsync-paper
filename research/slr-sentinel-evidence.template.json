@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "task": "SLR-101",
-  "protocol_version": "0.2.1",
+  "protocol_version": "0.2.2",
   "sentinel_id": "REPLACE-SENTINEL-ID",
   "doi": "REPLACE-DOI",
   "reviewer": "Independent SLR Reviewer",
@@ -23,7 +23,12 @@
       "executed_at": "REPLACE-WITH-UTC-TIMESTAMP",
       "result_count": 0,
       "sentinel_found": false,
-      "result_url": "https://REPLACE-WITH-EVIDENCE-LOCATOR"
+      "result_url": "https://REPLACE-WITH-EVIDENCE-LOCATOR",
+      "request_method": "GET",
+      "request_view_parameters": {},
+      "request_payload_sha256": "",
+      "response_sha256": "REPLACE-WITH-SHA256-OF-RETAINED-RESPONSE-BYTES",
+      "translation_provenance": null
     }
   ],
   "rationale": "REPLACE-WITH-A-FACTUAL-CLASSIFICATION-RATIONALE"

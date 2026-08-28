@@ -43,7 +43,7 @@ export const MATRIX_HEADERS = Object.freeze([
 const REQUIRED_METADATA = Object.freeze([
   ["Task", "SLR-104"],
   ["Matrix version", "0.2.0"],
-  ["Protocol version", "0.2.1"],
+  ["Protocol version", "0.2.2"],
   ["Prepared date", "2026-08-18"],
   ["Search cutoff", "2026-08-16 inclusive"],
   ["Owner", "Hieu"],

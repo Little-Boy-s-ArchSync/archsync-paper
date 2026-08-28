@@ -20,7 +20,7 @@ export const CALIBRATION_PATHS = Object.freeze({
   independentCommitment: `${CALIBRATION_ROOT}/independent-slr-reviewer-commitment.json`,
   hieuReveal: `${CALIBRATION_ROOT}/hieu-reveal.json`,
   independentReveal: `${CALIBRATION_ROOT}/independent-slr-reviewer-reveal.json`,
-  adjudication: `${CALIBRATION_ROOT}/adjudication.csv`,
+  reconciliation: `${CALIBRATION_ROOT}/reconciliation.csv`,
   summary: CALIBRATION_SUMMARY_PATH,
 });
 
@@ -42,7 +42,7 @@ export const DECISION_HEADERS = Object.freeze([
   "decision_sha256",
 ]);
 
-export const ADJUDICATION_HEADERS = Object.freeze([
+export const RECONCILIATION_HEADERS = Object.freeze([
   "record_id",
   "round",
   "hieu_decision_sha256",
@@ -54,10 +54,11 @@ export const ADJUDICATION_HEADERS = Object.freeze([
   "final_secondary_reason_codes",
   "resolution_rationale",
   "evidence_location",
-  "adjudicator_role",
-  "adjudicator_id",
-  "adjudicated_at_utc",
-  "adjudication_sha256",
+  "hieu_reviewer_id",
+  "hieu_approved_at_utc",
+  "independent_reviewer_id",
+  "independent_approved_at_utc",
+  "reconciliation_sha256",
 ]);
 
 export const REVIEWERS = Object.freeze({
@@ -77,10 +78,11 @@ export const REVIEWERS = Object.freeze({
   }),
 });
 
-const SCHEMA_VERSION = "1.1.0";
+const SCHEMA_VERSION = "1.2.0";
+const RECORD_SCHEMA_VERSION = "1.1.0";
 const TASK = "SLR-103";
-const PROTOCOL_VERSION = "0.2.1";
-const CRITERIA_VERSION = "0.1.0";
+const PROTOCOL_VERSION = "0.2.2";
+const CRITERIA_VERSION = "0.2.0";
 const CALIBRATION_ROUND = "title-abstract";
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
 const GIT_COMMIT_PATTERN = /^[0-9a-f]{40}$/;
@@ -185,8 +187,8 @@ const DISAGREEMENT_SUMMARY_FIELDS = Object.freeze([
   "proportion",
   "resolved",
   "unresolved",
-  "adjudication_path",
-  "adjudication_sha256",
+  "reconciliation_path",
+  "reconciliation_sha256",
 ]);
 
 function issueIf(issues, condition, message) {
@@ -401,11 +403,11 @@ export function decisionSha256(record) {
   return canonicalRowDigest(DECISION_HEADERS, record, "decision_sha256");
 }
 
-export function adjudicationSha256(record) {
+export function reconciliationSha256(record) {
   return canonicalRowDigest(
-    ADJUDICATION_HEADERS,
+    RECONCILIATION_HEADERS,
     record,
-    "adjudication_sha256",
+    "reconciliation_sha256",
   );
 }
 
@@ -640,8 +642,8 @@ function validatePilotSet(pilotSetBytes, recordArtifacts, now, issues) {
     );
     issueIf(
       issues,
-      artifact.schema_version !== SCHEMA_VERSION,
-      `${prefix} artifact schema_version must be '${SCHEMA_VERSION}'`,
+      artifact.schema_version !== RECORD_SCHEMA_VERSION,
+      `${prefix} artifact schema_version must be '${RECORD_SCHEMA_VERSION}'`,
     );
     issueIf(
       issues,
@@ -983,7 +985,7 @@ function disagreementFor(hieu, independent) {
   return types;
 }
 
-function validateAdjudication(
+function validateReconciliation(
   bytes,
   disagreements,
   hieu,
@@ -994,32 +996,31 @@ function validateAdjudication(
 ) {
   const rows = parseCanonicalCsv(
     bytes,
-    CALIBRATION_PATHS.adjudication,
-    ADJUDICATION_HEADERS,
+    CALIBRATION_PATHS.reconciliation,
+    RECONCILIATION_HEADERS,
     issues,
   );
   if (!rows) return null;
   const resolved = new Map();
   let previousId = "";
-  let adjudicatorId = null;
   const earliest = Math.max(
     Date.parse(reveals.hieu.value.revealed_at_utc),
     Date.parse(reveals.independent.value.revealed_at_utc),
   );
   rows.slice(1).forEach((row, index) => {
     const rowNumber = index + 2;
-    if (row.length !== ADJUDICATION_HEADERS.length) {
+    if (row.length !== RECONCILIATION_HEADERS.length) {
       issues.push(
-        `SLR-103 calibration: ${CALIBRATION_PATHS.adjudication} row ${rowNumber} has ${row.length} fields; expected ${ADJUDICATION_HEADERS.length}`,
+        `SLR-103 calibration: ${CALIBRATION_PATHS.reconciliation} row ${rowNumber} has ${row.length} fields; expected ${RECONCILIATION_HEADERS.length}`,
       );
       return;
     }
-    const record = rowObject(ADJUDICATION_HEADERS, row);
-    const prefix = `${CALIBRATION_PATHS.adjudication} ${record.record_id || `row ${rowNumber}`}`;
+    const record = rowObject(RECONCILIATION_HEADERS, row);
+    const prefix = `${CALIBRATION_PATHS.reconciliation} ${record.record_id || `row ${rowNumber}`}`;
     issueIf(
       issues,
       previousId !== "" && record.record_id <= previousId,
-      `${CALIBRATION_PATHS.adjudication} rows must be sorted by unique record_id`,
+      `${CALIBRATION_PATHS.reconciliation} rows must be sorted by unique record_id`,
     );
     previousId = record.record_id;
     issueIf(issues, resolved.has(record.record_id), `${prefix} is duplicated`);
@@ -1068,43 +1069,45 @@ function validateAdjudication(
     );
     issueIf(
       issues,
-      record.adjudicator_role !== "Adjudicator and Reproducibility Reviewer",
-      `${prefix} adjudicator_role is invalid`,
+      !isCanonicalIdentity(record.hieu_reviewer_id) ||
+        identityKey(record.hieu_reviewer_id) !== identityKey(hieu.reviewerId),
+      `${prefix} hieu_reviewer_id must identify the protocol author`,
     );
     issueIf(
       issues,
-      !isCanonicalIdentity(record.adjudicator_id) ||
-        identityKey(record.adjudicator_id) === identityKey(hieu.reviewerId) ||
-        identityKey(record.adjudicator_id) === identityKey(independent.reviewerId),
-      `${prefix} adjudicator_id must be a canonical third normalized identity`,
-    );
-    if (adjudicatorId === null) adjudicatorId = record.adjudicator_id;
-    issueIf(
-      issues,
-      adjudicatorId !== record.adjudicator_id,
-      `${CALIBRATION_PATHS.adjudication} must use one stable adjudicator_id`,
+      !isCanonicalIdentity(record.independent_reviewer_id) ||
+        identityKey(record.independent_reviewer_id) !==
+          identityKey(independent.reviewerId),
+      `${prefix} independent_reviewer_id must identify the independent reviewer`,
     );
     issueIf(
       issues,
-      !isCanonicalUtcSecond(record.adjudicated_at_utc),
-      `${prefix} adjudicated_at_utc must be a canonical UTC timestamp`,
+      identityKey(record.hieu_reviewer_id) ===
+        identityKey(record.independent_reviewer_id),
+      `${prefix} requires two distinct reviewer identities`,
     );
+    for (const field of ["hieu_approved_at_utc", "independent_approved_at_utc"]) {
+      issueIf(
+        issues,
+        !isCanonicalUtcSecond(record[field]),
+        `${prefix} ${field} must be a canonical UTC timestamp`,
+      );
+      issueIf(
+        issues,
+        isFutureTimestamp(record[field], now),
+        `${prefix} ${field} cannot be in the future`,
+      );
+      issueIf(
+        issues,
+        isCanonicalUtcSecond(record[field]) && Date.parse(record[field]) < earliest,
+        `${prefix} ${field} predates both decision reveals`,
+      );
+    }
     issueIf(
       issues,
-      isFutureTimestamp(record.adjudicated_at_utc, now),
-      `${prefix} adjudicated_at_utc cannot be in the future`,
-    );
-    issueIf(
-      issues,
-      isCanonicalUtcSecond(record.adjudicated_at_utc) &&
-        Date.parse(record.adjudicated_at_utc) < earliest,
-      `${prefix} adjudication predates both decision reveals`,
-    );
-    issueIf(
-      issues,
-      !SHA256_PATTERN.test(record.adjudication_sha256) ||
-        record.adjudication_sha256 !== adjudicationSha256(record),
-      `${prefix} adjudication_sha256 does not match canonical row content`,
+      !SHA256_PATTERN.test(record.reconciliation_sha256) ||
+        record.reconciliation_sha256 !== reconciliationSha256(record),
+      `${prefix} reconciliation_sha256 does not match canonical row content`,
     );
     resolved.set(record.record_id, record);
   });
@@ -1112,7 +1115,7 @@ function validateAdjudication(
     issueIf(
       issues,
       !resolved.has(recordId),
-      `${CALIBRATION_PATHS.adjudication} is missing resolution for ${recordId}`,
+      `${CALIBRATION_PATHS.reconciliation} is missing two-reviewer consensus for ${recordId}`,
     );
   }
   if (issues.length > 0) return null;
@@ -1257,7 +1260,7 @@ function evaluateSlrScreeningCalibrationUnchecked({
   independentCommitmentBytes,
   hieuRevealBytes,
   independentRevealBytes,
-  adjudicationBytes,
+  reconciliationBytes,
   commitmentCommit,
   commitmentBoundary,
   now = new Date(),
@@ -1392,8 +1395,8 @@ function evaluateSlrScreeningCalibrationUnchecked({
     if (types.length > 0) disagreements.set(recordId, types);
   }
 
-  const adjudication = validateAdjudication(
-    adjudicationBytes,
+  const reconciliation = validateReconciliation(
+    reconciliationBytes,
     disagreements,
     hieu,
     independent,
@@ -1401,7 +1404,7 @@ function evaluateSlrScreeningCalibrationUnchecked({
     now,
     issues,
   );
-  if (!adjudication || issues.length > 0) {
+  if (!reconciliation || issues.length > 0) {
     return { issues, summary: null, summaryText: null };
   }
 
@@ -1423,8 +1426,8 @@ function evaluateSlrScreeningCalibrationUnchecked({
   );
   issueIf(
     gateIssues,
-    adjudication.resolved.size !== disagreements.size,
-    `resolved ${adjudication.resolved.size}/${disagreements.size} disagreements`,
+    reconciliation.resolved.size !== disagreements.size,
+    `resolved ${reconciliation.resolved.size}/${disagreements.size} disagreements by mandatory two-reviewer consensus`,
   );
 
   const summary = {
@@ -1481,10 +1484,10 @@ function evaluateSlrScreeningCalibrationUnchecked({
       count: disagreements.size,
       total: pilot.records.size,
       proportion: fixedRate(disagreements.size, pilot.records.size),
-      resolved: adjudication.resolved.size,
-      unresolved: disagreements.size - adjudication.resolved.size,
-      adjudication_path: CALIBRATION_PATHS.adjudication,
-      adjudication_sha256: adjudication.digest,
+      resolved: reconciliation.resolved.size,
+      unresolved: disagreements.size - reconciliation.resolved.size,
+      reconciliation_path: CALIBRATION_PATHS.reconciliation,
+      reconciliation_sha256: reconciliation.digest,
     },
     gate: gateIssues.length === 0 ? "passed" : "failed",
   };
@@ -1966,7 +1969,7 @@ export async function loadSlrScreeningCalibration(
     CALIBRATION_PATHS.independentCommitment,
     CALIBRATION_PATHS.hieuReveal,
     CALIBRATION_PATHS.independentReveal,
-    CALIBRATION_PATHS.adjudication,
+    CALIBRATION_PATHS.reconciliation,
   ];
   const fixedBytes = new Map();
   for (const path of fixedPaths) {
@@ -2062,7 +2065,7 @@ export async function loadSlrScreeningCalibration(
       independentRevealBytes: currentArtifacts.get(
         CALIBRATION_PATHS.independentReveal,
       ),
-      adjudicationBytes: currentArtifacts.get(CALIBRATION_PATHS.adjudication),
+      reconciliationBytes: currentArtifacts.get(CALIBRATION_PATHS.reconciliation),
       summaryBytes: snapshotSummaryBytes,
       commitmentCommit,
       commitmentBoundary,

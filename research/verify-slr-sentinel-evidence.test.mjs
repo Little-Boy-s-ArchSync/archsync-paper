@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import test from "node:test";
 
 import {
@@ -15,10 +16,19 @@ const ledgerRecord = {
 };
 
 function artifact(overrides = {}) {
+  const acmQuery = "Title(architecture conformance*) OR Abstract(architecture conformance*) OR Author Keyword(architecture conformance*)";
+  const openAlexQuery = 'fulltext.search.exact:"software architecture" AND fulltext.search.exact:"architecture conformance"';
+  const canonicalOqo = {
+    and: [
+      { field: "fulltext.search.exact", value: "software architecture" },
+      { field: "fulltext.search.exact", value: "architecture conformance" },
+    ],
+  };
+  const digest = (value) => createHash("sha256").update(value).digest("hex");
   return {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-101",
-    protocol_version: "0.2.1",
+    protocol_version: "0.2.2",
     sentinel_id: "S-001",
     doi: "10.1145/222124.222136",
     reviewer: "Independent SLR Reviewer",
@@ -31,21 +41,72 @@ function artifact(overrides = {}) {
     runs: [
       {
         source: "ACM Digital Library",
+        query_family: "Index-check",
+        query: "DOI lookup 10.1145/222124.222136 in ACM Digital Library",
+        executed_at: "2026-08-16T07:55:00Z",
+        result_count: 1,
+        sentinel_found: true,
+        result_url: "https://dl.acm.org/action/doSearch?AllField=10.1145%2F222124.222136",
+        request_method: "GET",
+        request_view_parameters: {},
+        request_payload_sha256: "",
+        response_sha256: digest("acm-index-response"),
+        translation_provenance: null,
+      },
+      {
+        source: "OpenAlex",
+        query_family: "Index-check",
+        query: "DOI lookup 10.1145/222124.222136 in OpenAlex",
+        executed_at: "2026-08-16T07:56:00Z",
+        result_count: 1,
+        sentinel_found: true,
+        result_url: "https://api.openalex.org/works/https://doi.org/10.1145/222124.222136",
+        request_method: "GET",
+        request_view_parameters: {},
+        request_payload_sha256: "",
+        response_sha256: digest("openalex-index-response"),
+        translation_provenance: null,
+      },
+      {
+        source: "ACM Digital Library",
         query_family: "Search-A",
-        query: "Title(architecture conformance*) OR Abstract(architecture conformance*) OR Author Keyword(architecture conformance*)",
+        query: acmQuery,
         executed_at: "2026-08-16T08:00:00Z",
         result_count: 42,
         sentinel_found: true,
-        result_url: "https://dl.acm.org/action/doSearch?Title=architecture&Abstract=architecture&AuthorKeyword=architecture",
+        result_url: `https://dl.acm.org/action/doSearch?AllField=${encodeURIComponent(acmQuery)}`,
+        request_method: "GET",
+        request_view_parameters: {},
+        request_payload_sha256: "",
+        response_sha256: digest("acm-family-response"),
+        translation_provenance: null,
       },
       {
         source: "OpenAlex",
         query_family: "Search-A",
-        query: "architecture conformance* drift",
+        query: openAlexQuery,
         executed_at: "2026-08-16T08:05:00Z",
         result_count: 37,
         sentinel_found: false,
-        result_url: "https://api.openalex.org/works?search.exact=architecture%20conformance*%20drift",
+        result_url: "https://api.openalex.org/?select=id",
+        request_method: "POST",
+        request_view_parameters: { per_page: 100, cursor: "*" },
+        request_payload_sha256: digest(JSON.stringify({
+          oqo: canonicalOqo,
+          per_page: 100,
+          cursor: "*",
+        })),
+        response_sha256: digest("openalex-family-response"),
+        translation_provenance: {
+          input_oql_sha256: digest(openAlexQuery),
+          canonical_oql: openAlexQuery,
+          canonical_oql_sha256: digest(openAlexQuery),
+          canonical_oqo: canonicalOqo,
+          canonical_oqo_sha256: digest(JSON.stringify(canonicalOqo)),
+          validation_valid: true,
+          translation_response_sha256: digest(JSON.stringify({ valid: true, canonicalOqo })),
+          oxurl: null,
+        },
       },
     ],
     rationale:
@@ -77,7 +138,7 @@ function sourceEvidenceUrl(source, index) {
     return `https://dl.acm.org/action/doSearch?Title=sentinel-${index}&Abstract=sentinel-${index}&AuthorKeyword=sentinel-${index}`;
   }
   if (source === "OpenAlex") {
-    return `https://api.openalex.org/works?search.exact=sentinel-${index}`;
+    return `https://api.openalex.org/?select=id&sentinel=${index}`;
   }
   return `https://api.semanticscholar.org/graph/v1/paper/search/bulk?query=sentinel-${index}`;
 }
@@ -88,31 +149,44 @@ test("accepts an evidence-rich retrieved sentinel artifact", () => {
   assert.equal(result.artifact.sentinel_id, "S-001");
 });
 
-test("rejects stale ACM and OpenAlex query translations under protocol 0.2.1", () => {
+test("rejects stale ACM semantics and non-canonical OpenAlex execution under protocol 0.2.2", () => {
   const value = artifact();
-  value.runs[0] = {
-    ...value.runs[0],
+  value.runs[2] = {
+    ...value.runs[2],
     query: "AllField(architecture conformance*)",
     result_url: "https://dl.acm.org/action/doSearch?AllField=architecture",
   };
-  value.runs[1] = {
-    ...value.runs[1],
-    query: '"architecture model*"~1 AND drift',
+  value.runs[3] = {
+    ...value.runs[3],
+    query: 'fulltext.search.exact:"architecture model*"~1 AND drift',
     result_url:
       "https://api.openalex.org/works?search=architecture%20model*&api_key=secret",
+    request_method: "GET",
+    request_payload_sha256: "",
+    translation_provenance: null,
   };
   const result = verify(value);
   for (const fragment of [
-    "governed ACM query must not use AllField",
+    "governed ACM query semantics must not use AllField",
     "governed ACM query must include Title",
     "governed ACM query must include Abstract",
     "governed ACM query must include Author Keyword",
-    "governed OpenAlex query must use search.exact",
-    "must not persist api_key",
-    "wildcard phrase must not use a ~N suffix",
+    "must execute canonical OQO via POST",
+    "translation_provenance fields do not match schema 1.2.0",
   ]) {
     assertIssue(result, fragment);
   }
+});
+
+test("binds OpenAlex POST payload, view parameters and retained response hash", () => {
+  const value = artifact();
+  value.runs[3].request_payload_sha256 = "c".repeat(64);
+  value.runs[3].request_view_parameters = { api_key: "must-not-persist" };
+  value.runs[3].response_sha256 = "not-a-hash";
+  const result = verify(value);
+  assertIssue(result, "request_payload_sha256 must bind canonical OQO");
+  assertIssue(result, "request_view_parameters must be a credential-free object");
+  assertIssue(result, "response_sha256 must be lowercase SHA-256");
 });
 
 test("rejects missing, invalid and non-object JSON artifacts", () => {
@@ -254,6 +328,11 @@ test("rejects a generic Semantic Scholar page as result evidence", () => {
         result_count: 0,
         sentinel_found: false,
         result_url: "https://www.semanticscholar.org/",
+        request_method: "GET",
+        request_view_parameters: {},
+        request_payload_sha256: "",
+        response_sha256: "a".repeat(64),
+        translation_provenance: null,
       },
     ],
   });
@@ -300,7 +379,8 @@ test("binds query executions, timestamps and found sources to the ledger", () =>
   assertIssue(result, "duplicates an earlier query execution");
   assertIssue(result, "recorded_at cannot predate");
   assertIssue(result, "missing query execution for indexed source OpenAlex");
-  assertIssue(result, "sentinel_found=true must match retrieved_sources");
+  assertIssue(result, "positive Index-check runs must match indexed_sources");
+  assertIssue(result, "positive candidate-family runs must match retrieved_sources");
 });
 
 test("accepts a documented not-indexed sentinel only after all four source checks", () => {
@@ -319,6 +399,11 @@ test("accepts a documented not-indexed sentinel only after all four source check
     result_count: 0,
     sentinel_found: false,
     result_url: sourceEvidenceUrl(source, index),
+    request_method: "GET",
+    request_view_parameters: {},
+    request_payload_sha256: "",
+    response_sha256: "b".repeat(64),
+    translation_provenance: null,
   }));
   const valid = verify(
     artifact({

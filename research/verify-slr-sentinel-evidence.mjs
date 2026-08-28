@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 export const SENTINEL_DOIS = Object.freeze([
   "10.1145/222124.222136",
   "10.1109/WICSA.2007.1",
@@ -52,7 +54,27 @@ const RUN_FIELDS = Object.freeze([
   "result_count",
   "sentinel_found",
   "result_url",
+  "request_method",
+  "request_view_parameters",
+  "request_payload_sha256",
+  "response_sha256",
+  "translation_provenance",
 ]);
+const TRANSLATION_FIELDS = Object.freeze([
+  "input_oql_sha256",
+  "canonical_oql",
+  "canonical_oql_sha256",
+  "canonical_oqo",
+  "canonical_oqo_sha256",
+  "validation_valid",
+  "translation_response_sha256",
+  "oxurl",
+]);
+const SHA256_PATTERN = /^[0-9a-f]{64}$/;
+
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
+}
 
 function isPlainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -126,13 +148,24 @@ function validateGovernedTranslation(run, prefix, issues) {
     return;
   }
   if (run.source === "ACM Digital Library") {
-    if (/\b(?:AllField|Anywhere)\b/i.test(`${run.query} ${run.result_url}`)) {
-      issues.push(`${prefix}: governed ACM query must not use AllField or Anywhere`);
+    if (/\b(?:AllField|Anywhere)\s*[:(]/i.test(run.query)) {
+      issues.push(`${prefix}: governed ACM query semantics must not use AllField or Anywhere`);
     }
     for (const field of ["Title", "Abstract", "Author Keyword"]) {
       if (!run.query.includes(field)) {
         issues.push(`${prefix}: governed ACM query must include ${field}`);
       }
+    }
+    try {
+      const locator = new URL(run.result_url);
+      const transported = locator.searchParams.get("AllField");
+      if (transported !== null && transported.trim() !== run.query.trim()) {
+        issues.push(
+          `${prefix}: ACM AllField transport must decode to the exact governed Title/Abstract/Author Keyword union`,
+        );
+      }
+    } catch {
+      // The evidence-locator validator reports malformed URLs.
     }
   }
   if (run.source === "OpenAlex") {
@@ -142,14 +175,63 @@ function validateGovernedTranslation(run, prefix, issues) {
     } catch {
       return;
     }
-    const exactQuery = locator.searchParams.get("search.exact");
-    if (!exactQuery || locator.searchParams.has("search")) {
-      issues.push(`${prefix}: governed OpenAlex query must use search.exact`);
+    if (
+      locator.searchParams.has("api_key") ||
+      locator.searchParams.has("search") ||
+      locator.searchParams.has("search.exact")
+    ) {
+      issues.push(`${prefix}: OpenAlex evidence URL must not persist credentials or deprecated search parameters`);
     }
-    if (locator.searchParams.has("api_key")) {
-      issues.push(`${prefix}: OpenAlex evidence URL must not persist api_key`);
+    if (run.request_method !== "POST") {
+      issues.push(`${prefix}: governed OpenAlex query must execute canonical OQO via POST`);
     }
-    if (/\*["']?~\d+/i.test(`${run.query} ${exactQuery ?? ""}`)) {
+    if (!SHA256_PATTERN.test(run.request_payload_sha256)) {
+      issues.push(`${prefix}: OpenAlex request_payload_sha256 must be lowercase SHA-256`);
+    }
+    const provenance = run.translation_provenance;
+    if (!exactFields(provenance, TRANSLATION_FIELDS)) {
+      issues.push(`${prefix}: OpenAlex translation_provenance fields do not match schema 1.2.0`);
+      return;
+    }
+    if (provenance.input_oql_sha256 !== sha256(run.query)) {
+      issues.push(`${prefix}: input_oql_sha256 must bind the exact input OQL`);
+    }
+    if (
+      typeof provenance.canonical_oql !== "string" ||
+      !provenance.canonical_oql.includes("fulltext.search.exact") ||
+      provenance.canonical_oql_sha256 !== sha256(provenance.canonical_oql)
+    ) {
+      issues.push(`${prefix}: canonical_oql and its hash must retain fulltext.search.exact leaves`);
+    }
+    if (
+      !isPlainObject(provenance.canonical_oqo) ||
+      provenance.canonical_oqo_sha256 !== sha256(JSON.stringify(provenance.canonical_oqo))
+    ) {
+      issues.push(`${prefix}: canonical_oqo and canonical_oqo_sha256 must match`);
+    }
+    const expectedPayload = JSON.stringify({
+      oqo: provenance.canonical_oqo,
+      ...run.request_view_parameters,
+    });
+    if (run.request_payload_sha256 !== sha256(expectedPayload)) {
+      issues.push(`${prefix}: request_payload_sha256 must bind canonical OQO and credential-free view parameters`);
+    }
+    if (provenance.validation_valid !== true) {
+      issues.push(`${prefix}: OpenAlex translation must record validation_valid=true`);
+    }
+    if (!SHA256_PATTERN.test(provenance.translation_response_sha256)) {
+      issues.push(`${prefix}: translation_response_sha256 must be lowercase SHA-256`);
+    }
+    if (
+      provenance.oxurl !== null &&
+      (typeof provenance.oxurl !== "string" || /(?:api_key|mailto)=/i.test(provenance.oxurl))
+    ) {
+      issues.push(`${prefix}: oxurl must be null or a credential-free string`);
+    }
+    if (/(?:^|[\s(])(?:search|search\.exact)\s*[:=]/i.test(`${run.query} ${provenance.canonical_oql}`)) {
+      issues.push(`${prefix}: governed OpenAlex query must not use deprecated monolithic search fields`);
+    }
+    if (/\*["']?~\d+/i.test(`${run.query} ${provenance.canonical_oql}`)) {
       issues.push(`${prefix}: governed OpenAlex wildcard phrase must not use a ~N suffix`);
     }
   }
@@ -177,13 +259,13 @@ export function verifySlrSentinelEvidence({
     return { issues: [`${prefix}: artifact must be a JSON object`] };
   }
   if (!exactFields(artifact, ARTIFACT_FIELDS)) {
-    issues.push(`${prefix}: artifact fields do not match schema 1.1.0`);
+    issues.push(`${prefix}: artifact fields do not match schema 1.2.0`);
   }
 
   for (const [field, expected] of [
-    ["schema_version", "1.1.0"],
+    ["schema_version", "1.2.0"],
     ["task", "SLR-101"],
-    ["protocol_version", "0.2.1"],
+    ["protocol_version", "0.2.2"],
     ["sentinel_id", ledgerRecord?.sentinel_id],
     ["doi", ledgerRecord?.doi],
     ["reviewer", SENTINEL_REVIEWER_ROLE],
@@ -235,7 +317,8 @@ export function verifySlrSentinelEvidence({
 
   const runIdentities = new Set();
   const runSources = new Set();
-  const foundSources = new Set();
+  const indexedFoundSources = new Set();
+  const retrievedFoundSources = new Set();
   let latestExecution = Number.NEGATIVE_INFINITY;
   artifact.runs.forEach((run, index) => {
     const runPrefix = `${prefix}: runs[${index}]`;
@@ -244,7 +327,7 @@ export function verifySlrSentinelEvidence({
       return;
     }
     if (!exactFields(run, RUN_FIELDS)) {
-      issues.push(`${runPrefix} fields do not match schema 1.0.0`);
+      issues.push(`${runPrefix} fields do not match schema 1.2.0`);
     }
     if (!PRIMARY_SOURCES.includes(run.source)) {
       issues.push(`${runPrefix}.source is not a governed primary source`);
@@ -276,7 +359,11 @@ export function verifySlrSentinelEvidence({
     if (typeof run.sentinel_found !== "boolean") {
       issues.push(`${runPrefix}.sentinel_found must be boolean`);
     } else if (run.sentinel_found) {
-      if (run.source) foundSources.add(run.source);
+      if (run.source && run.query_family === "Index-check") {
+        indexedFoundSources.add(run.source);
+      } else if (run.source) {
+        retrievedFoundSources.add(run.source);
+      }
       if (Number.isSafeInteger(run.result_count) && run.result_count < 1) {
         issues.push(
           `${runPrefix}.result_count must be positive when sentinel_found is true`,
@@ -287,6 +374,28 @@ export function verifySlrSentinelEvidence({
       issues.push(
         `${runPrefix}.result_url must be an official HTTPS evidence locator for ${run.source ?? "the governed source"}`,
       );
+    }
+    if (
+      !isPlainObject(run.request_view_parameters) ||
+      /(?:api[_-]?key|authorization|mailto)/i.test(
+        JSON.stringify(run.request_view_parameters),
+      )
+    ) {
+      issues.push(`${runPrefix}.request_view_parameters must be a credential-free object`);
+    }
+    if (!SHA256_PATTERN.test(run.response_sha256)) {
+      issues.push(`${runPrefix}.response_sha256 must be lowercase SHA-256 of retained response bytes`);
+    }
+    if (run.source !== "OpenAlex" || run.query_family === "Index-check") {
+      if (run.request_method !== "GET") {
+        issues.push(`${runPrefix}.request_method must be GET outside governed OpenAlex family runs`);
+      }
+      if (run.request_payload_sha256 !== "") {
+        issues.push(`${runPrefix}.request_payload_sha256 must be empty for GET evidence`);
+      }
+      if (run.translation_provenance !== null) {
+        issues.push(`${runPrefix}.translation_provenance must be null outside governed OpenAlex family runs`);
+      }
     }
     validateGovernedTranslation(run, runPrefix, issues);
     const identity = `${run.source}|${run.query_family}|${run.query}`;
@@ -308,9 +417,14 @@ export function verifySlrSentinelEvidence({
       issues.push(`${prefix}: missing query execution for indexed source ${source}`);
     }
   }
-  if (!sameSet([...foundSources], expectedRetrieved)) {
+  if (!sameSet([...indexedFoundSources], expectedIndexed)) {
     issues.push(
-      `${prefix}: sources with sentinel_found=true must match retrieved_sources`,
+      `${prefix}: positive Index-check runs must match indexed_sources`,
+    );
+  }
+  if (!sameSet([...retrievedFoundSources], expectedRetrieved)) {
+    issues.push(
+      `${prefix}: positive candidate-family runs must match retrieved_sources`,
     );
   }
 
@@ -325,7 +439,8 @@ export function verifySlrSentinelEvidence({
       expectedIndexed.length !== 0 ||
       expectedRetrieved.length !== 0 ||
       PRIMARY_SOURCES.some((source) => !runSources.has(source)) ||
-      foundSources.size !== 0
+      indexedFoundSources.size !== 0 ||
+      retrievedFoundSources.size !== 0
     ) {
       issues.push(
         `${prefix}: not-indexed classification requires negative checks in all four sources`,

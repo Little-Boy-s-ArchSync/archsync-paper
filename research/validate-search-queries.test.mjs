@@ -34,12 +34,12 @@ test("rejects metadata drift, missing keyword groups and missing syntax evidence
       .replace("| Task | SLR-102 |", "| Task | wrong |")
       .replace("### K6: Evidence-grounded explanation and repair", "### removed")
       .replace("new_acm-digital-library-user-guide.pdf", "missing-acm-source")
-      .replace("Never persist the unredacted authenticated URL", "credential guard removed"),
+      .replace("Never persist the key", "credential guard removed"),
   });
   assertIssue(result, "Task must be 'SLR-102'");
   assertIssue(result, "K6: Evidence-grounded explanation and repair");
   assertIssue(result, "new_acm-digital-library-user-guide.pdf");
-  assertIssue(result, "Never persist the unredacted authenticated URL");
+  assertIssue(result, "Never persist the key");
 });
 
 test("rejects a duplicate query heading and a missing database translation", () => {
@@ -65,7 +65,7 @@ test("rejects malformed CSV and an incomplete run matrix", () => {
 
 test("rejects premature execution evidence and stale blocked metadata", () => {
   const premature = logTemplate
-    .replace("IEEE-A1,0.2.1,0.2.1,IEEE Xplore,A1,,,", "IEEE-A1,0.2.1,0.2.1,IEEE Xplore,A1,query,2026-08-18T00:00:00Z,")
+    .replace("IEEE-A1,0.2.2,0.2.2,IEEE Xplore,A1,,,", "IEEE-A1,0.2.2,0.2.2,IEEE Xplore,A1,query,2026-08-18T00:00:00Z,")
     .replace(",,,,,blocked-slr-101,Awaiting SLR-101 freeze 1.0.0", ",7,export.csv,deadbeef,Hieu,executed,done");
   const result = validate({ logTemplate: premature });
   assertIssue(result, "IEEE-A1 status must be 'blocked-slr-101'");
@@ -87,26 +87,28 @@ test("rejects row width, unknown and duplicate run identifiers", () => {
 
 test("requires protocol linkage and non-empty field plans", () => {
   const result = validate({
-    protocol: protocol.replace("`literature-search-queries.md` version 0.2.1", "missing query link"),
+    protocol: protocol.replace("`literature-search-queries.md` version 0.2.2", "missing query link"),
     logTemplate: logTemplate.replace('"Document Title; Abstract; Author Keywords"', ""),
   });
   assertIssue(result, "missing SLR-102 query specification linkage");
   assertIssue(result, "IEEE-A1 fields is required");
 });
 
-test("requires the D-019 source translations and exact planned field scopes", () => {
+test("requires the D-021 OQO translation, logical constraints and ACM transport rule", () => {
   const staleSpecification = specification
-    .replace("search.exact=<url-encoded-expanded-query>", "search=<url-encoded-expanded-query>")
-    .replace("Do not append `~1` or another", "Compatibility suffix may be appended")
-    .replace("Title(expanded query) OR Abstract(expanded", "AllField(expanded");
+    .replaceAll("canonical OQO", "legacy query object")
+    .replace("L = software OR architectur*", "L removed")
+    .replace("or a `~N` diagnostic suffix", "or a compatibility suffix")
+    .replace("Title:(expanded query) OR", "AllField:(expanded query) OR");
   const staleLog = logTemplate.replace(
     '"Title; Abstract; Author Keyword"',
     '"Title; Abstract; Keywords"',
   );
   const result = validate({ specification: staleSpecification, logTemplate: staleLog });
-  assertIssue(result, "search.exact=<url-encoded-expanded-query>");
-  assertIssue(result, "Do not append `~1` or another");
-  assertIssue(result, "Title(expanded query) OR Abstract(expanded");
+  assertIssue(result, "canonical OQO");
+  assertIssue(result, "L = software OR architectur*");
+  assertIssue(result, "or a `~N` diagnostic suffix");
+  assertIssue(result, "Title:(expanded query) OR");
   assertIssue(result, "ACM-A1 fields must be 'Title; Abstract; Author Keyword'");
 });
 
@@ -115,7 +117,7 @@ test("CLI reports valid and invalid states deterministically", async () => {
   let exitCode;
   const valid = await main({ repositoryDirectory: repository, output: (line) => output.push(line) });
   assert.equal(valid.issues.length, 0);
-  assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.2\.1/);
+  assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.2\.2/);
 
   const invalidOutput = [];
   const invalid = await main({

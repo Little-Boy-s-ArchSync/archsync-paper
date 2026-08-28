@@ -157,7 +157,7 @@ test("refuses digest-valid sentinel JSON that violates the semantic schema", () 
     result.issues.some(
       (issue) =>
         issue.includes("frozen state:") &&
-        issue.includes("artifact fields do not match schema 1.1.0"),
+        issue.includes("artifact fields do not match schema 1.2.0"),
     ),
   );
   assert.ok(

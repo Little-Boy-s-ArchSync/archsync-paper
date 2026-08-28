@@ -268,7 +268,7 @@ test("real candidate preflight also requires governed SLR-103 calibration", asyn
   assertIssue(result, "SLR-103 calibration");
   assertIssue(result, "literature-screening-calibration.json");
   assert.equal(result.screeningCalibration, null);
-  assert.equal(result.version, "0.2.1");
+  assert.equal(result.version, "0.2.2");
 });
 
 test("sign writes exactly three governed files and refuses replacement", async (context) => {

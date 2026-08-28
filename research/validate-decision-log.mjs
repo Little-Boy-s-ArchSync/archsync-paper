@@ -65,6 +65,7 @@ export function validateDecisionLog({ decisions, amendmentProposal }) {
     ["D-018", "Accept provider-neutral deterministic verification"],
     ["D-019", "Accept SLR Query Translation Amendment 0.2.1"],
     ["D-020", "Adopt Manuscript and Evidence Quality Gates 1.0.0"],
+    ["D-021", "Accept SLR Query and Reconciliation Amendment 0.2.2"],
   ]) {
     if (seen.get(id) !== title) {
       issues.push(`decision-log.md: ${id} must be '${title}'`);
@@ -72,43 +73,43 @@ export function validateDecisionLog({ decisions, amendmentProposal }) {
   }
 
   const proposalStatusRows = metadataRows(amendmentProposal, "Status");
-  const proposedDecisionRows = metadataRows(amendmentProposal, "Proposed decision");
+  const proposedDecisionRows = metadataRows(amendmentProposal, "Decision");
   if (proposalStatusRows.length !== 1) {
     issues.push(
-      "slr-query-amendment-proposal.md: must contain exactly one Status metadata row",
+      "slr-query-amendment-0.2.2.md: must contain exactly one Status metadata row",
     );
   }
   if (proposedDecisionRows.length !== 1) {
     issues.push(
-      "slr-query-amendment-proposal.md: must contain exactly one Proposed decision metadata row",
+      "slr-query-amendment-0.2.2.md: must contain exactly one Decision metadata row",
     );
   }
   for (const [field, rows] of [
     ["Status", proposalStatusRows],
-    ["Proposed decision", proposedDecisionRows],
+    ["Decision", proposedDecisionRows],
   ]) {
     if (rows.length === 1 && !rows[0].canonical) {
       issues.push(
-        `slr-query-amendment-proposal.md: ${field} metadata row must use canonical two-cell table syntax`,
+        `slr-query-amendment-0.2.2.md: ${field} metadata row must use canonical two-cell table syntax`,
       );
     }
   }
   const proposalStatus = proposalStatusRows[0]?.value;
   const proposedDecision = proposedDecisionRows[0]?.value;
-  if (proposalStatus !== "Accepted under D-019") {
-    issues.push("slr-query-amendment-proposal.md: status must be 'Accepted under D-019'");
+  if (proposalStatus !== "Accepted under D-021") {
+    issues.push("slr-query-amendment-0.2.2.md: status must be 'Accepted under D-021'");
   }
-  if (proposedDecision !== "D-019") {
-    issues.push("slr-query-amendment-proposal.md: Proposed decision must be 'D-019'");
+  if (proposedDecision !== "D-021") {
+    issues.push("slr-query-amendment-0.2.2.md: Decision must be 'D-021'");
   }
 
   const proposalReferences = new Set(
     amendmentProposal.match(DECISION_REFERENCE) ?? [],
   );
-  const expectedReferences = ["D-008", "D-016", "D-019"];
+  const expectedReferences = ["D-021"];
   if ([...proposalReferences].sort().join("|") !== expectedReferences.join("|")) {
     issues.push(
-      `slr-query-amendment-proposal.md: decision references must be exactly ${expectedReferences.join(", ")}`,
+      `slr-query-amendment-0.2.2.md: decision references must be exactly ${expectedReferences.join(", ")}`,
     );
   }
 
@@ -124,7 +125,7 @@ export async function main({
   const research = join(repositoryDirectory, "research");
   const [decisions, amendmentProposal] = await Promise.all([
     readFile(join(research, "decision-log.md"), "utf8"),
-    readFile(join(research, "slr-query-amendment-proposal.md"), "utf8"),
+    readFile(join(research, "slr-query-amendment-0.2.2.md"), "utf8"),
   ]);
   const result = validateDecisionLog({ decisions, amendmentProposal });
   if (result.issues.length > 0) {

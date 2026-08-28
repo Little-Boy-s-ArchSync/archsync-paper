@@ -1,6 +1,6 @@
 import {
-  ADJUDICATION_HEADERS,
-  adjudicationSha256,
+  RECONCILIATION_HEADERS,
+  reconciliationSha256,
   CALIBRATION_PATHS,
   CALIBRATION_ROOT,
   canonicalCsv,
@@ -26,8 +26,8 @@ function decisionRow({
   const value = {
     record_id: record.record_id,
     round: "title-abstract",
-    protocol_version: "0.2.1",
-    criteria_version: "0.1.0",
+    protocol_version: "0.2.2",
+    criteria_version: "0.2.0",
     reviewer_role: reviewerRole,
     reviewer_id: reviewerId,
     decision,
@@ -85,10 +85,10 @@ export function createSlrScreeningCalibrationFixture({
     });
   }
   const pilotSet = {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-103",
-    protocol_version: "0.2.1",
-    criteria_version: "0.1.0",
+    protocol_version: "0.2.2",
+    criteria_version: "0.2.0",
     selected_at_utc: "2026-08-26T00:00:00Z",
     official_results_inspected: false,
     required_rounds: ["title-abstract"],
@@ -162,7 +162,7 @@ export function createSlrScreeningCalibrationFixture({
     Array.from({ length: 32 }, (_, index) => index + 65),
   );
   const hieuCommitment = {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-103",
     pilot_set_sha256: sha256(pilotSetBytes),
     reviewer_role: REVIEWERS.hieu.role,
@@ -181,7 +181,7 @@ export function createSlrScreeningCalibrationFixture({
     sealed_at_utc: "2026-08-26T03:00:00Z",
   };
   const independentCommitment = {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-103",
     pilot_set_sha256: sha256(pilotSetBytes),
     reviewer_role: REVIEWERS.independent.role,
@@ -205,7 +205,7 @@ export function createSlrScreeningCalibrationFixture({
     "utf8",
   );
   const hieuReveal = {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-103",
     reviewer_role: REVIEWERS.hieu.role,
     reviewer_id: "Hiếu",
@@ -216,7 +216,7 @@ export function createSlrScreeningCalibrationFixture({
     revealed_at_utc: "2026-08-26T03:05:00Z",
   };
   const independentReveal = {
-    schema_version: "1.1.0",
+    schema_version: "1.2.0",
     task: "SLR-103",
     reviewer_role: REVIEWERS.independent.role,
     reviewer_id: "Hoang",
@@ -233,7 +233,7 @@ export function createSlrScreeningCalibrationFixture({
     "utf8",
   );
 
-  const adjudications = [];
+  const reconciliations = [];
   for (let index = 0; index < hieuRows.length; index += 1) {
     const hieu = hieuRows[index];
     const independent = independentRows[index];
@@ -251,7 +251,7 @@ export function createSlrScreeningCalibrationFixture({
     }
     if (types.length === 0) continue;
     const finalSource = hieu.decision === "uncertain" ? independent : hieu;
-    const adjudication = {
+    const reconciliation = {
       record_id: hieu.record_id,
       round: "title-abstract",
       hieu_decision_sha256: hieu.decision_sha256,
@@ -263,17 +263,18 @@ export function createSlrScreeningCalibrationFixture({
       final_secondary_reason_codes: finalSource.secondary_reason_codes,
       resolution_rationale: `Resolved ${hieu.record_id} from the retained snapshot.`,
       evidence_location: `https://api.crossref.org/works/10.9999%2Fcalibration.${index + 1}#method`,
-      adjudicator_role: "Adjudicator and Reproducibility Reviewer",
-      adjudicator_id: "Adjudicator-1",
-      adjudicated_at_utc: `2026-08-26T04:${String(index).padStart(2, "0")}:00Z`,
-      adjudication_sha256: "",
+      hieu_reviewer_id: "Hiếu",
+      hieu_approved_at_utc: `2026-08-26T04:${String(index).padStart(2, "0")}:00Z`,
+      independent_reviewer_id: "Hoang",
+      independent_approved_at_utc: `2026-08-26T04:${String(index + 10).padStart(2, "0")}:00Z`,
+      reconciliation_sha256: "",
     };
-    adjudication.adjudication_sha256 = adjudicationSha256(adjudication);
-    adjudications.push(adjudication);
+    reconciliation.reconciliation_sha256 = reconciliationSha256(reconciliation);
+    reconciliations.push(reconciliation);
   }
-  const adjudicationBytes = csvFromObjects(
-    ADJUDICATION_HEADERS,
-    adjudications,
+  const reconciliationBytes = csvFromObjects(
+    RECONCILIATION_HEADERS,
+    reconciliations,
   );
   const commitmentCommit = "a".repeat(40);
   const commitmentFiles = new Map([
@@ -303,7 +304,7 @@ export function createSlrScreeningCalibrationFixture({
     independentCommitmentBytes,
     hieuRevealBytes,
     independentRevealBytes,
-    adjudicationBytes,
+    reconciliationBytes,
     commitmentCommit,
     commitmentBoundary,
   };
@@ -318,6 +319,6 @@ export function createSlrScreeningCalibrationFixture({
     issues: result.issues,
     hieuRows,
     independentRows,
-    adjudications,
+    reconciliations,
   };
 }

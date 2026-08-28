@@ -16,8 +16,8 @@ import { promisify } from "node:util";
 
 import { parseCsv } from "./validate-claim-evidence.mjs";
 import {
-  ADJUDICATION_HEADERS,
-  adjudicationSha256,
+  RECONCILIATION_HEADERS,
+  reconciliationSha256,
   CALIBRATION_PATHS,
   CALIBRATION_ROOT,
   canonicalCsv,
@@ -51,7 +51,7 @@ function verifyFixture(fixture, overrides = {}) {
     independentCommitmentBytes: fixture.independentCommitmentBytes,
     hieuRevealBytes: fixture.hieuRevealBytes,
     independentRevealBytes: fixture.independentRevealBytes,
-    adjudicationBytes: fixture.adjudicationBytes,
+    reconciliationBytes: fixture.reconciliationBytes,
     summaryBytes: fixture.summaryBytes,
     commitmentBoundary: fixture.commitmentBoundary,
     now: new Date("2026-08-27T00:00:00Z"),
@@ -76,17 +76,17 @@ function mutateDecision(bytes, rowIndex, mutate, recomputeHash = false) {
   return Buffer.from(canonicalCsv(rows), "utf8");
 }
 
-function mutateAdjudication(bytes, rowIndex, mutate) {
+function mutateReconciliation(bytes, rowIndex, mutate) {
   const rows = parseCsv(bytes.toString("utf8"));
   const record = Object.fromEntries(
-    ADJUDICATION_HEADERS.map((header, index) => [
+    RECONCILIATION_HEADERS.map((header, index) => [
       header,
       rows[rowIndex + 1][index],
     ]),
   );
   mutate(record);
-  record.adjudication_sha256 = adjudicationSha256(record);
-  rows[rowIndex + 1] = ADJUDICATION_HEADERS.map(
+  record.reconciliation_sha256 = reconciliationSha256(record);
+  rows[rowIndex + 1] = RECONCILIATION_HEADERS.map(
     (header) => record[header],
   );
   return Buffer.from(canonicalCsv(rows), "utf8");
@@ -413,12 +413,12 @@ test("production loader requires regular HEAD/index-equal artifacts", async (con
     ],
     [CALIBRATION_PATHS.hieuReveal, fixture.hieuRevealBytes],
     [CALIBRATION_PATHS.independentReveal, fixture.independentRevealBytes],
-    [CALIBRATION_PATHS.adjudication, fixture.adjudicationBytes],
+    [CALIBRATION_PATHS.reconciliation, fixture.reconciliationBytes],
   ]) {
     await writeArtifact(repository, path, bytes);
   }
   await git(["add", "research"]);
-  await git(["commit", "-m", "Reveal and adjudicate calibration"]);
+  await git(["commit", "-m", "Reveal and reconcile calibration"]);
 
   const prospective = await verifyRepositorySlrScreeningCalibration(
     repository,
@@ -554,16 +554,16 @@ test("rejects normalized identity aliases for every calibration role", () => {
   assertIssue(reviewerResult, "canonical normalized identity");
   assertIssue(reviewerResult, "independent from Hiếu after normalization");
 
-  const aliasedAdjudicator = mutateAdjudication(
-    fixture.adjudicationBytes,
+  const aliasedConsensusReviewer = mutateReconciliation(
+    fixture.reconciliationBytes,
     0,
     (record) => {
-      record.adjudicator_id = "Hiếu  ";
+      record.independent_reviewer_id = "Hiếu  ";
     },
   );
   assertIssue(
-    verifyFixture(fixture, { adjudicationBytes: aliasedAdjudicator }),
-    "canonical third normalized identity",
+    verifyFixture(fixture, { reconciliationBytes: aliasedConsensusReviewer }),
+    "independent_reviewer_id must identify the independent reviewer",
   );
 });
 
@@ -589,36 +589,36 @@ test("enforces the 80 percent primary-reason threshold", () => {
   assertIssue(verifyFixture(fixture), "primary-reason agreement is 2/3");
 });
 
-test("requires one hash-bound adjudication for every disagreement", () => {
+test("requires one hash-bound two-reviewer reconciliation for every disagreement", () => {
   const fixture = createSlrScreeningCalibrationFixture();
   const headerOnly = Buffer.from(
-    `${fixture.adjudicationBytes.toString("utf8").split("\n")[0]}\n`,
+    `${fixture.reconciliationBytes.toString("utf8").split("\n")[0]}\n`,
     "utf8",
   );
   assertIssue(
-    verifyFixture(fixture, { adjudicationBytes: headerOnly }),
-    "missing resolution for CAL-007",
+    verifyFixture(fixture, { reconciliationBytes: headerOnly }),
+    "missing two-reviewer consensus for CAL-007",
   );
 
-  const forged = Buffer.from(fixture.adjudicationBytes);
+  const forged = Buffer.from(fixture.reconciliationBytes);
   const text = forged
     .toString("utf8")
-    .replace("Adjudicator-1", "Hiếu");
+    .replace(",Hoang,", ",Hiếu,");
   assertIssue(
-    verifyFixture(fixture, { adjudicationBytes: Buffer.from(text, "utf8") }),
-    "adjudicator_id must be a canonical third normalized identity",
+    verifyFixture(fixture, { reconciliationBytes: Buffer.from(text, "utf8") }),
+    "independent_reviewer_id must identify the independent reviewer",
   );
 
-  const premature = mutateAdjudication(
-    fixture.adjudicationBytes,
+  const premature = mutateReconciliation(
+    fixture.reconciliationBytes,
     0,
     (record) => {
-      record.adjudicated_at_utc = "2026-08-26T03:02:00Z";
+      record.hieu_approved_at_utc = "2026-08-26T03:02:00Z";
     },
   );
   assertIssue(
-    verifyFixture(fixture, { adjudicationBytes: premature }),
-    "adjudication predates both decision reveals",
+    verifyFixture(fixture, { reconciliationBytes: premature }),
+    "hieu_approved_at_utc predates both decision reveals",
   );
 });
 

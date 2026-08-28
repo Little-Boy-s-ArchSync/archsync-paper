@@ -44,8 +44,8 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
   const issues = [];
   for (const [field, expected] of [
     ["Task", "SLR-102"],
-    ["Query specification version", "0.2.1"],
-    ["Protocol version", "0.2.1"],
+    ["Query specification version", "0.2.2"],
+    ["Protocol version", "0.2.2"],
     ["Status", "Designed - execution blocked"],
     ["Prepared date", "2026-08-18"],
     ["Search cutoff", "2026-08-16 inclusive"],
@@ -91,21 +91,27 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
     "new_acm-digital-library-user-guide.pdf",
     "https://help.openalex.org/api/searching/",
     "https://api.semanticscholar.org/api-docs/",
-    "Never persist the unredacted authenticated URL",
+    "Never persist the key",
     "continuation token. Preserve each raw JSON response",
     "24 database-query pairs",
     "blocked-slr-101",
-    "search.exact=<url-encoded-expanded-query>",
-    "Title(expanded query) OR Abstract(expanded",
-    "`Anywhere`, `AllField`, and full-text forms are diagnostics only",
-    "Do not append `~1` or another",
+    "canonical OQO",
+    "OQO execution through `POST https://api.openalex.org/`",
+    "`/query`",
+    "L = software OR architectur*",
+    "### A2: Search-A conformance and compliance\n\n```text\n(L) AND (K2)",
+    "### A3: Search-A reconstruction and recovery\n\n```text\n(L) AND (K3)",
+    "Title:(expanded query) OR",
+    "official `AllField=` URL parameter is permitted only as a transport",
+    "Semantic `AllField`, `Anywhere`, an unscoped query, and full-text forms are",
+    "or a `~N` diagnostic suffix",
   ]) {
     if (!specification.includes(marker)) {
       issues.push(`literature-search-queries.md: missing governed marker '${marker}'`);
     }
   }
   if (
-    !protocol.includes("`literature-search-queries.md` version 0.2.1") ||
+    !protocol.includes("`literature-search-queries.md` version 0.2.2") ||
     !protocol.includes("all 24 database-query pairs")
   ) {
     issues.push("literature-protocol.md: missing SLR-102 query specification linkage");
@@ -151,8 +157,8 @@ export function validateSearchQueries({ specification, logTemplate, protocol }) 
       return;
     }
     for (const [field, value] of [
-      ["query_spec_version", "0.2.1"],
-      ["protocol_version", "0.2.1"],
+      ["query_spec_version", "0.2.2"],
+      ["protocol_version", "0.2.2"],
       ["database", expected.database],
       ["query_id", expected.queryId],
       ["status", "blocked-slr-101"],
@@ -224,7 +230,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SEARCH QUERY SPEC 0.2.1 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
+    `VALID SLR SEARCH QUERY SPEC 0.2.2 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
   );
   return result;
 }

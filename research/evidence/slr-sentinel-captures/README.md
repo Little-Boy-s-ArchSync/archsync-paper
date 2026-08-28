@@ -1,14 +1,23 @@
 # SLR-101 sentinel source-run notes
 
-These notes accompany the six schema-1.1.0 JSON artifacts generated from real
+These notes accompany the six historical schema-1.1.0 JSON artifacts generated from real
 sentinel-only runs on 2026-08-25 UTC. The operator used the authorized browser
 session of the Independent SLR Reviewer. No official SLR-102 result set was
 executed or screened.
 
-D-019 accepted candidate protocol 0.2.1 on 2026-08-28. Every capture described
+D-021 accepted candidate protocol 0.2.2 on 2026-08-28. Every capture described
 here remains immutable protocol-0.2.0 diagnostic provenance. It is not
 freeze-acceptance evidence and must not be relabelled. The independent reviewer
-must rerun all six four-source bundles using the governed 0.2.1 translations.
+must rerun all six four-source bundles using schema 1.2.0 and the governed
+0.2.2 translations. Any failed 0.2.1 attempt is diagnostic-only as well.
+
+For schema 1.2.0, every run records the request method, credential-free view
+parameters, retained-response SHA-256, and exact request-body SHA-256 when a
+body exists. Each governed OpenAlex family run also records the input OQL,
+canonical OQL, canonical OQO, translation-response hash, validation state, and
+optional credential-free `oxurl`. The POST body hash is computed over the
+canonical JSON object containing `oqo` followed by the retained view
+parameters.
 
 ## Access and credential boundary
 
@@ -33,7 +42,8 @@ must rerun all six four-source bundles using the governed 0.2.1 translations.
   require `search.exact=`. Diagnostic sentinel runs used `search.exact=`
   and `~1` adjacency for wildcard phrases, with the exact executed string
   retained in each JSON. This compatibility translation needs a formal
-  candidate amendment before approval.
+  candidate amendment before approval. D-021 supersedes that workaround with
+  validated canonical OQL/OQO provenance and POST execution.
 - ACM all-fields sentinel diagnostics are retained where run. They demonstrate
   known-item behavior but are broader than the protocol's planned
   Title/Abstract/Author-Keyword field union and therefore do not by themselves

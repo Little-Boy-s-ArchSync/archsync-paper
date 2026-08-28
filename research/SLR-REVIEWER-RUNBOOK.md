@@ -59,12 +59,14 @@ quyền truy cập, chấp nhận/sửa kết quả cuối và phê duyệt exac
 - Nếu Semantic Scholar trả HTTP 429 trong chế độ không xác thực, đó là lỗi
   preflight chứ không phải kết luận `not-indexed`. Cấu hình API key rồi chạy lại
   sentinel-only query; không ghi số đếm từ lần bị rate-limit.
-- Candidate protocol 0.2.1 được Hiếu chấp thuận theo D-019. Với OpenAlex, mọi
-  candidate query có wildcard phải dùng `search.exact`, giữ nguyên Boolean và
-  phrase, đồng thời không thêm `~1` hoặc `~N`. Với ACM, query governed là hợp
-  chính xác của Title, Abstract và Author Keyword; `Anywhere`, `AllField` hoặc
-  full-text chỉ là diagnostic. Sáu bundle 0.2.0 cũ không được đổi nhãn hoặc dùng
-  làm freeze evidence; phải chạy lại thật và tạo bundle 0.2.1 mới.
+- Candidate protocol 0.2.2 được Hiếu chấp thuận theo D-021. Với OpenAlex, AI
+  hoặc operator gửi OQL vào endpoint `/query`, lưu canonical OQL, canonical OQO
+  và hash của response dịch, sau đó chạy canonical OQO bằng POST tới API root.
+  Không dùng `search`, `search.exact` hoặc hậu tố diagnostic `~N`. Với ACM,
+  query governed là hợp chính xác của Title, Abstract và Author Keyword;
+  `AllField=` chỉ được dùng làm tham số vận chuyển nếu giá trị giải mã đúng bằng
+  hợp field-scoped đó. Sáu bundle 0.2.0 và mọi lần thử 0.2.1 không được đổi nhãn
+  hoặc dùng làm freeze evidence; phải chạy lại thật bằng schema 1.2.0.
 
 ### AI được phép thực hiện
 
@@ -118,7 +120,9 @@ xem official results.
 Với từng DOI, Independent SLR Reviewer hoặc AI được reviewer ủy quyền chạy truy
 vấn chỉ nhằm kiểm tra sentinel trong các nguồn có quyền truy cập. Mỗi run phải
 ghi nguyên văn query, source, query family, UTC timestamp, result count,
-`sentinel_found` và URL HTTPS trên domain chính thức của nguồn. Không ghi lại
+`sentinel_found`, request method, credential-free view parameters, SHA-256 của
+exact request body và retained response bytes, translation provenance cho
+OpenAlex, cùng URL HTTPS trên domain chính thức của nguồn. Không ghi lại
 kết quả từ trí nhớ, ảnh minh họa hoặc URL tìm kiếm chung không tái mở được.
 
 ## 3. Tạo sentinel artifacts
@@ -161,22 +165,23 @@ HMAC-SHA256 commitment theo schema của
 `verify-slr-screening-calibration.mjs`. Một commit chung phải chứa đúng pilot
 set, các record snapshot và hai commitment manifest trong calibration root;
 tree tại commit đó không được chứa decision file, nonce, reveal manifest,
-adjudication hoặc summary. Commit reveal phải là hậu duệ nghiêm ngặt của commit
+reconciliation hoặc summary. Commit reveal phải là hậu duệ nghiêm ngặt của commit
 chung. Cả hai commitment phải được seal trước khi một bên reveal; hai nonce phải
 khác nhau.
 
 Chỉ sau khi verifier mở được cả hai commitment từ exact decision bytes, hai bên
 mới đối chiếu và tính decision agreement cùng primary-reason agreement. Mỗi chỉ
-số phải đạt ít nhất 80% và mọi disagreement phải có resolution do adjudicator
-thứ ba ghi sau cả hai reveal. Nếu không đạt, dừng freeze, sửa candidate có
-version và lặp calibration bằng pilot set mới. Không dùng dữ liệu giả để điền
-gate này.
+số phải đạt ít nhất 80% và mọi disagreement phải có một reconciliation row do
+cả Hiếu và Hoàng chấp thuận sau cả hai reveal. Không có adjudicator thứ ba.
+Không bên nào được đơn phương chọn kết quả cuối. Nếu hai người không đồng thuận,
+calibration thất bại, dừng freeze, sửa candidate có version và lặp calibration
+bằng pilot set mới. Không dùng dữ liệu giả để điền gate này.
 
 Verifier chứng minh schema, hash/HMAC opening, exact tree tại commitment,
 strict ancestry, trạng thái HEAD/index/worktree và phép tính agreement. Nó không
 chứng minh danh tính thật của tên được nhập, nonce thật sự ngẫu nhiên/được giữ
 bí, metadata nguồn là đúng, hoặc hai người thực sự làm việc độc lập. Hiếu,
-Independent SLR Reviewer và adjudicator phải tự kiểm tra và chịu trách nhiệm
+Hiếu và Independent SLR Reviewer phải tự kiểm tra và chịu trách nhiệm
 cho các sự kiện đó; signed review cuối cùng không được thay bằng output của AI.
 
 Chạy validator của codebook trước và sau calibration:
@@ -201,7 +206,7 @@ git commit -m "Seal SLR-103 calibration commitments"
 $CALIBRATION_COMMIT = git rev-parse HEAD
 ```
 
-Commit 2 reveal exact decision bytes, nonce manifests và adjudication. Summary
+Commit 2 reveal exact decision bytes, nonce manifests và reconciliation. Summary
 chưa được phép tồn tại trong worktree, index hoặc HEAD ở bước này:
 
 ```powershell
@@ -209,8 +214,8 @@ git add research/evidence/slr-screening-calibration/hieu-decisions.csv
 git add research/evidence/slr-screening-calibration/independent-slr-reviewer-decisions.csv
 git add research/evidence/slr-screening-calibration/hieu-reveal.json
 git add research/evidence/slr-screening-calibration/independent-slr-reviewer-reveal.json
-git add research/evidence/slr-screening-calibration/adjudication.csv
-git commit -m "Reveal and adjudicate SLR-103 calibration"
+git add research/evidence/slr-screening-calibration/reconciliation.csv
+git commit -m "Reveal and reconcile SLR-103 calibration"
 node research/build-slr-screening-calibration.mjs --write $CALIBRATION_COMMIT
 git diff --cached --name-only
 git status --short -- research/literature-screening-calibration.json
