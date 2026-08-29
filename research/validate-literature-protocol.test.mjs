@@ -184,6 +184,27 @@ test("rejects removal of a required database or query family", () => {
   assertIssue(result, "missing query family Search-C");
 });
 
+test("rejects rollback or drift of the accepted D-021 Search-A mapping", () => {
+  const result = validate({
+    protocol: protocol
+      .replace("L = software OR architectur*", "L = architecture")
+      .replace("A1 = (P) AND (K1) AND (D)", "A1 = (L) AND (K1)")
+      .replace("A2 = (L) AND (K2)", "A2 = (P) AND (K2) AND (D)")
+      .replace("A3 = (L) AND (K3)", "A3 = (P) AND (K3) AND (D)")
+      .replace("Search-A = A1 OR A2 OR A3", "Search-A = A1")
+      .replace(
+        "A1 and B1 remain unchanged, as do\nC1 and C2.",
+        "A1 and B1 were revised, as were C1 and C2.",
+      ),
+  });
+  assertIssue(result, "must retain the D-021 domain guard L");
+  assertIssue(result, "must retain unchanged A1");
+  assertIssue(result, "must define A2 = (L) AND (K2)");
+  assertIssue(result, "must define A3 = (L) AND (K3)");
+  assertIssue(result, "must remain the union of A1, A2, and A3");
+  assertIssue(result, "must preserve unchanged A1, B1, C1, and C2");
+});
+
 test("rejects removal of a sentinel, eligibility criterion, or workflow stage", () => {
   const result = validate({
     protocol: protocol

@@ -10,11 +10,13 @@ const repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 async function fixture() {
   const research = join(repositoryDirectory, "research");
-  const [decisions, amendmentProposal] = await Promise.all([
-    readFile(join(research, "decision-log.md"), "utf8"),
-    readFile(join(research, "slr-query-amendment-0.2.2.md"), "utf8"),
-  ]);
-  return { decisions, amendmentProposal };
+  const [decisions, priorAmendmentProposal, amendmentProposal] =
+    await Promise.all([
+      readFile(join(research, "decision-log.md"), "utf8"),
+      readFile(join(research, "slr-query-amendment-proposal.md"), "utf8"),
+      readFile(join(research, "slr-query-amendment-0.2.2.md"), "utf8"),
+    ]);
+  return { decisions, priorAmendmentProposal, amendmentProposal };
 }
 
 function hasIssue(result, fragment) {
@@ -24,10 +26,11 @@ function hasIssue(result, fragment) {
   );
 }
 
-test("accepts unique decisions and the owner-approved D-021 amendment", async () => {
+test("accepts unique decisions and both immutable owner-approved amendments", async () => {
   const result = validateDecisionLog(await fixture());
   assert.deepEqual(result.issues, []);
   assert.equal(result.proposedDecision, "D-021");
+  assert.deepEqual(result.acceptedAmendments, ["SLR-QA-001", "SLR-QA-002"]);
   assert.ok(result.decisionCount >= 21);
 });
 
@@ -59,13 +62,73 @@ test("rejects an incorrect amendment ID or missing canonical D-021 decision", as
   hasIssue(result, "decision references must be exactly");
 });
 
+test("retains validation of the accepted D-019 and SLR-QA-001 history", async () => {
+  const input = await fixture();
+  input.priorAmendmentProposal = input.priorAmendmentProposal
+    .replace("| Proposal ID | SLR-QA-001 |", "| Proposal ID | SLR-QA-099 |")
+    .replace("| Status | Accepted under D-019 |", "| Status | Proposed |")
+    .replace("| Proposed decision | D-019 |", "| Proposed decision | D-017 |");
+  input.decisions = input.decisions.replace(
+    "## D-019: Accept SLR Query Translation Amendment 0.2.1",
+    "## D-019: Replaced historical amendment",
+  );
+  const result = validateDecisionLog(input);
+  hasIssue(
+    result,
+    "D-019 must be 'Accept SLR Query Translation Amendment 0.2.1'",
+  );
+  hasIssue(result, "Proposal ID must be 'SLR-QA-001'");
+  hasIssue(result, "Status must be 'Accepted under D-019'");
+  hasIssue(result, "Proposed decision must be 'D-019'");
+  hasIssue(
+    result,
+    "slr-query-amendment-proposal.md: decision references must be exactly",
+  );
+});
+
+test("rejects body tampering in either accepted amendment artifact", async () => {
+  const input = await fixture();
+  input.priorAmendmentProposal = input.priorAmendmentProposal.replace(
+    "The final reviewed and frozen target remains version 1.0.0 under D-008.",
+    "The final target may change without review.",
+  );
+  input.amendmentProposal = input.amendmentProposal.replace(
+    "This amendment corrects provider serialization defects",
+    "This amendment broadens the official search",
+  );
+  const result = validateDecisionLog(input);
+  hasIssue(result, "slr-query-amendment-proposal.md: accepted artifact SHA-256");
+  hasIssue(result, "slr-query-amendment-0.2.2.md: accepted artifact SHA-256");
+});
+
+test("requires immutable D-021 acceptance and implementation pins", async () => {
+  const input = await fixture();
+  input.decisions = input.decisions
+    .replaceAll(
+      "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5454598848",
+      "the project collaboration task",
+    )
+    .replace(
+      "62f9df67b26fdc01f349bb8e3a1e1dc8424bbbf8",
+      "unpinned-head",
+    )
+    .replace(
+      "480c9579da302301751f5c5ee9d335cce6b6703b",
+      "unpinned-merge",
+    );
+  const result = validateDecisionLog(input);
+  hasIssue(result, "D-021 Approval evidence must cite");
+  hasIssue(result, "must pin commit 62f9df67");
+  hasIssue(result, "must pin commit 480c957");
+});
+
 test("rejects a proposal that reverts to an unapproved state", async () => {
   const input = await fixture();
   input.amendmentProposal = input.amendmentProposal.replace(
     "| Status | Accepted under D-021 |",
     "| Status | Proposed - not approved |",
   );
-  hasIssue(validateDecisionLog(input), "status must be 'Accepted under D-021'");
+  hasIssue(validateDecisionLog(input), "Status must be 'Accepted under D-021'");
 });
 
 test("rejects contradictory duplicate proposal metadata rows", async () => {

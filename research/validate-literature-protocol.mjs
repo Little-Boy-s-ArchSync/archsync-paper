@@ -219,6 +219,35 @@ export function validateLiteratureProtocol({
     );
   }
 
+  for (const [pattern, message] of [
+    [
+      /^L = software OR architectur\*$/m,
+      "Search-A must retain the D-021 domain guard L",
+    ],
+    [
+      /^A1 = \(P\) AND \(K1\) AND \(D\)$/m,
+      "Search-A must retain unchanged A1 = (P) AND (K1) AND (D)",
+    ],
+    [
+      /^A2 = \(L\) AND \(K2\)$/m,
+      "Search-A must define A2 = (L) AND (K2)",
+    ],
+    [
+      /^A3 = \(L\) AND \(K3\)$/m,
+      "Search-A must define A3 = (L) AND (K3)",
+    ],
+    [
+      /^Search-A = A1 OR A2 OR A3$/m,
+      "Search-A must remain the union of A1, A2, and A3",
+    ],
+    [
+      /A1 and B1 remain unchanged, as do\s+C1 and C2\./,
+      "D-021 must preserve unchanged A1, B1, C1, and C2",
+    ],
+  ]) {
+    requireText("literature-protocol.md", protocol, pattern, message);
+  }
+
   for (const doi of SENTINEL_DOIS) {
     requireText(
       "literature-protocol.md",

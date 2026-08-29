@@ -207,16 +207,40 @@ remains unfrozen.
 
 ### Search-A: architecture drift, erosion, reconstruction, and conformance
 
+The source-neutral clauses used by the governed Search-A execution units are:
+
 ```text
-("software architecture" OR "software architectural" OR "architectural")
-AND
-(drift OR erosion OR decay OR divergence OR degradation OR violation*
- OR conformance OR compliance OR consistency OR reconstruction OR recovery
- OR "reflexion model*")
-AND
-(detect* OR analy* OR check* OR monitor* OR govern* OR rule* OR dependenc*
- OR reconstruct* OR recover*)
+P = "software architecture" OR "software architectural"
+    OR "architectural design" OR "architecture model*"
+
+D = detect* OR analy* OR check* OR monitor* OR govern*
+    OR reconstruct* OR recover*
+
+L = software OR architectur*
+
+K1 = "architecture drift" OR "architectural drift" OR "architecture erosion"
+     OR "architectural erosion" OR "architecture decay" OR "architectural decay"
+     OR "architecture divergence" OR "architectural degradation"
+
+K2 = "architecture conformance" OR "architectural conformance"
+     OR "architecture compliance" OR "architectural compliance"
+     OR "architecture violation*" OR "architectural violation*"
+     OR "dependency constraint*"
+
+K3 = "software architecture reconstruction" OR "architecture reconstruction"
+     OR "architectural reconstruction" OR "architecture recovery"
+     OR "architectural recovery" OR "reflexion model*"
+
+A1 = (P) AND (K1) AND (D)
+A2 = (L) AND (K2)
+A3 = (L) AND (K3)
+Search-A = A1 OR A2 OR A3
 ```
+
+Version 0.2.2 changes only A2 and A3 by replacing their former mandatory `P`
+and `D` clauses with the `L` domain guard. A1 and B1 remain unchanged, as do
+C1 and C2. The operator expands these symbols verbatim from
+`literature-search-queries.md`; no fixed sentinel identifier may be added.
 
 ### Search-B: multi-source architecture evidence and CI governance
 

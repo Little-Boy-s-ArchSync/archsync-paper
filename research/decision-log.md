@@ -464,7 +464,9 @@
 - Pilot approval: Võ Đức Hiếu confirmed that he inspected the exact CAL-001
   through CAL-009 snapshots, had not viewed Trần Minh Hoàng's decisions or
   reason codes, accepted all nine as the pilot set, and independently adopted
-  his own decisions in the project collaboration task on 2026-08-28.
+  his own decisions in the project collaboration task on 2026-08-28. His
+  immutable acceptance record is issue comment
+  `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5454598848`.
 - Integrity boundary: No official Search-A/B/C result list has been executed,
   inspected, or screened. Pre-acceptance sentinel diagnostics are not governed
   acceptance evidence. Fresh four-source reruns occur only after this amendment
@@ -475,5 +477,9 @@
   schema 0.2.0 with protocol linkage 0.2.2.
 - Approval evidence: Võ Đức Hiếu explicitly accepted D-021, candidate protocol
   0.2.2, canonical OpenAlex OQO POST execution, and mandatory two-reviewer
-  consensus in the project collaboration task on 2026-08-28.
+  consensus in issue comment
+  `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5454598848`.
+  The accepted implementation is pinned at commit
+  `62f9df67b26fdc01f349bb8e3a1e1dc8424bbbf8` and merged by PR #25 as
+  `480c9579da302301751f5c5ee9d335cce6b6703b`.
 - Approver: Võ Đức Hiếu, protocol owner and research lead.

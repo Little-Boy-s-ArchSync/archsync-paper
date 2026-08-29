@@ -213,8 +213,8 @@ member can explain the decision.
 
 ## 9. Independent calibration gate
 
-Before final lock, both reviewers independently apply version 0.2.0 to at least
-at least eight pilot records chosen before the official result list is inspected. The
+Before final lock, both reviewers independently apply version 0.2.0 to at least eight pilot records chosen
+before the official result list is inspected. The
 pilot includes clearly eligible, clearly ineligible, and ambiguous records. The
 pilot records may be fixed sentinel publications or separately sourced method
 fixtures; they are not counted as official search results.
