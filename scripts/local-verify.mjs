@@ -76,6 +76,7 @@ const coverageArguments = [
   "--test-coverage-include=research/validate-evaluation-report-scaffold.mjs",
   "--test-coverage-include=research/validate-research-quality-gates.mjs",
   "--test-coverage-include=research/validate-decision-log.mjs",
+  "--test-coverage-include=research/validate-pre-experiment-protocols.mjs",
   "--test-coverage-include=research/validate-slr-calibration-candidates.mjs",
   "--test-coverage-lines=95",
   "--test-coverage-branches=88",
@@ -99,6 +100,7 @@ const coverageArguments = [
   "research/validate-evaluation-report-scaffold.test.mjs",
   "research/validate-research-quality-gates.test.mjs",
   "research/validate-decision-log.test.mjs",
+  "research/validate-pre-experiment-protocols.test.mjs",
   "research/validate-slr-calibration-candidates.test.mjs",
 ];
 
@@ -122,6 +124,7 @@ const commands = [
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
   { id: "calibration-candidates", command: process.execPath, args: ["research/validate-slr-calibration-candidates.mjs"] },
   { id: "rq-traceability", command: process.execPath, args: ["research/validate-rq-traceability.mjs"] },
+  { id: "pre-experiment-proposals", command: process.execPath, args: ["research/validate-pre-experiment-protocols.mjs"] },
   { id: "research-contract-tests", command: process.execPath, args: coverageArguments },
   { id: "claim-evidence", command: process.execPath, args: ["research/validate-claim-evidence.mjs"] },
   { id: "literature-protocol", command: process.execPath, args: ["research/validate-literature-protocol.mjs"] },

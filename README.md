@@ -60,6 +60,12 @@ kiểm tra ownership.
 │   ├── claim-evidence.csv
 │   ├── statistical-analysis-plan.md # STAT-101 draft; chưa freeze hoặc có result
 │   ├── statistical-analysis.mjs
+│   ├── experiment-protocol.md       # EXP-101 proposal; official run bị khóa
+│   ├── dataset-governance.md        # EXP-102 D1/D2/P3/D3 firewall proposal
+│   ├── ethics-privacy.md             # ETH-101 default-deny proposal
+│   ├── data-management-plan.md      # DATA-101 provenance proposal
+│   ├── measurement-study-protocol.md # EXP-103 A/B/C/D proposal
+│   ├── pre-experiment-proposal-manifest.json # Exact proposal hashes; không phải freeze
 │   ├── holdout-report.template.md    # EVAL-111 scaffold; không có result
 │   ├── paper-results-manifest.schema.json
 │   ├── paper-results-manifest.template.json # ANALYSIS-101 handoff; không phải evidence
@@ -146,6 +152,14 @@ Các artifact SLR chính gồm:
 - `research/PROJECT-EVIDENCE-AUDIT.md` — audit mock data và research claims toàn dự án;
 - `research/rq-traceability.csv` — RQ mapping máy đọc được;
 - `research/risk-register.csv` — risk và stop/go gate.
+- `research/experiment-protocol.md`, `dataset-governance.md`,
+  `ethics-privacy.md`, `data-management-plan.md` và
+  `measurement-study-protocol.md` — packet proposal EXP-101/102,
+  ETH-101, DATA-101 và EXP-103; chưa approval, freeze, pilot hoặc result;
+- `research/pre-experiment-proposal-manifest.json` — khóa checksum chính xác
+  của năm proposal, đồng thời bind riêng RQ-101 (`claim-evidence.csv` và
+  validator) với RQ-102 (traceability artifacts và validator); manifest này
+  không phải freeze manifest hay authorization.
 
 Chạy research validators bằng:
 
@@ -154,6 +168,7 @@ node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
 node research/validate-slr-calibration-candidates.mjs
 node research/validate-rq-traceability.mjs
+node research/validate-pre-experiment-protocols.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
@@ -164,6 +179,13 @@ node research/verify-evaluation-report-scaffold.mjs
 node research/validate-research-quality-gates.mjs
 node --test research/*.test.mjs
 ```
+
+`validate-pre-experiment-protocols.mjs` chỉ xác minh packet đề xuất và phải in
+`0 approvals; official runs blocked`. Chế độ `--official-run` là negative guard
+vĩnh viễn cho proposal packet và luôn phải thoát với mã 2; nó không trở thành
+readiness checker khi có thêm approval hoặc freeze artifact. Mọi freeze/run sau
+này cần một validator riêng được human-review, kiểm tra freeze manifest,
+approval, consent/provider/data authorization và mọi hash cần thiết.
 
 `holdout-report.template.md` và `paper-results-manifest.template.json` chỉ khóa
 cấu trúc bàn giao cho EVAL-111/ANALYSIS-101. Chúng giữ mọi trường dữ liệu và

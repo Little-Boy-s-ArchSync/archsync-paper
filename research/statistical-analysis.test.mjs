@@ -16,7 +16,16 @@ test("statistical plan is complete but remains visibly unfrozen", async () => {
   assert.deepEqual(validateStatisticalAnalysisPlan(text), []);
   assert.deepEqual(validateStatisticalAnalysisPlan(""), ["plan text is required"]);
   const issues = validateStatisticalAnalysisPlan("draft");
-  assert.equal(issues.length, 11);
+  assert.equal(issues.length, 13);
+});
+
+test("statistical plan keeps the V-RQ4 joint criterion and atomic co-freeze unresolved", async () => {
+  const text = await readFile(new URL("statistical-analysis-plan.md", import.meta.url), "utf8");
+  for (const mutation of [
+    text.replace("joint decision criterion", "completion-time criterion"),
+    text.replace("non-inferiority endpoint and margin", "productivity summary"),
+    text.replace("remains pending human approval", "is approved"),
+  ]) assert.notDeepEqual(validateStatisticalAnalysisPlan(mutation), []);
 });
 
 test("Wilson intervals retain exact numerators and denominators", () => {

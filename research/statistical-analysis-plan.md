@@ -30,6 +30,15 @@ The final protocol must mark one primary outcome and comparison per vision RQ be
 | V-RQ3 | Difference in unsupported-claim proportion, grounded minus LLM-only | Root-cause correctness, citation coverage, apply/test/conformance rates, verified repair success, regression and time to fix |
 | V-RQ4 | Ratio and absolute difference in feature completion time, D versus the comparator selected by EXP-103 | Merge delay, false-block burden, approval load, decision time, tokens, compute and gate cost |
 
+Before freeze, V-RQ4 must replace the completion-time-only candidate with one
+joint decision criterion: a predeclared architecture-drift benefit endpoint and
+threshold plus a productivity non-inferiority endpoint and margin against the
+same comparator. The endpoint, threshold, comparator, productivity estimand,
+direction, non-inferiority margin, confidence level/interval rule, missingness
+treatment and joint pass/fail logic are unresolved pending human approval. No
+numeric margin is selected by this draft, and neither half of the joint rule may
+be waived after outcomes are inspected.
+
 Every table reports numerator, denominator, analyzed `n`, assigned `n`, failures, inconclusive rows and exclusions. A repair succeeds only when its patch applies, declared tests pass and conformance recheck resolves the target without a new BLOCK. Unrun and inconclusive repairs are never successes.
 
 ## Analysis populations, failure and missingness
@@ -54,7 +63,7 @@ Each vision RQ has at most one frozen primary comparison. Primary RQs are interp
 
 ## Randomization, balance and covariates
 
-EXP-103 must select participant/agent eligibility, sample size rationale, treatment allocation, counterbalancing, task order and stopping rule. The assignment seed/list is generated once and hash-bound before the first main run. Planned balance variables may include actor, task, baseline proficiency/difficulty and repository; no outcome-dependent reassignment is allowed. Provider, model/version, prompt, context budget, environment and tool versions are treatment configuration, not adjustable covariates.
+EXP-103 must select participant/agent eligibility, sample size rationale, treatment allocation, counterbalancing, task order and stopping rule. The assignment seed/list is generated once and hash-bound before the first main run. Planned balance variables may include actor, task, baseline proficiency/difficulty and repository; no outcome-dependent reassignment is allowed. Provider, model/version, prompt, context budget, environment and tool versions are treatment configuration, not adjustable covariates. An atomic STAT-101/EXP-103 co-freeze is the candidate coordination mechanism and remains pending human approval; this draft does not adopt it.
 
 ## Reporting and reproducibility
 

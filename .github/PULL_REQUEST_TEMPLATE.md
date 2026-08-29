@@ -26,5 +26,9 @@
 - [ ] A terminology or scope change bumps the baseline/glossary version and has
   an accepted `research/decision-log.md` entry in this pull request.
 - [ ] `node research/validate-baseline.mjs` passes.
+- [ ] `node research/validate-pre-experiment-protocols.mjs` passes and any
+  pre-experiment packet remains explicitly proposed/unfrozen. Its
+  `--official-run` mode is permanently non-authorizing; any future freeze uses
+  a separate human-reviewed validator.
 - [ ] No author identity, private URL, secret or PII is present.
 - [ ] A reviewer other than the primary author checked the change.
