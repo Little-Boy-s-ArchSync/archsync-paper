@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-018",
+  "title": "Introducing an Architectural Conformance Process in Continuous Integration",
+  "abstract": "As software evolves, developers usually introduce deviations from the planned architecture, due to unawareness, conflicting requirements, technical difficulties, deadlines, etc. This occurs in systems with an explicit division of responsibility between groups of classes, such as modules and layers. Although there are architectural conformance tools to identify architectural violations, these tools are underused and detected violations are rarely corrected. To address these shortcomings, this article introduces an architectural conformance process into continuous integration. Thus, the conformance process is triggered by every code integration and, when no violations are detected, the code is integrated into the repository. The implemented tool, called ArchCI, supports the proposed solution using DCL (Dependency Constraint Language) as underlying conformance technique and Jenkins as the Continuous Integration server. We also evaluated the applicability of our proposed solution in a real-world Java project where we incrementally introduced 44 constraints through six releases. As the result, our process was able to detect 42 violations, which have always been fixed before the ensuing release.",
+  "publication_type": "journal-article",
+  "publication_date": "2020-04-07",
+  "venue": "JUCS - Journal of Universal Computer Science 23((8)) 769-805",
+  "persistent_locator": "https://doi.org/10.3217/jucs-023-08-0769",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.3217%2Fjucs-023-08-0769",
+  "captured_at_utc": "2026-08-29T06:30:37Z"
+}

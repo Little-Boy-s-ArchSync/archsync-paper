@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-016",
+  "title": "Infrastructure as Code and Software Architecture Conformance Checking",
+  "abstract": "This article asks the question whether it is possible to take advantage of infrastructure as code to improve the structure and behavior of the software through realizing the deployment concerns of a system's software architecture.",
+  "publication_type": "journal-article",
+  "publication_date": "2022-12-20",
+  "venue": "IEEE Software",
+  "persistent_locator": "https://doi.org/10.1109/MS.2022.3213880",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1109%2FMS.2022.3213880",
+  "captured_at_utc": "2026-08-29T06:30:36Z"
+}

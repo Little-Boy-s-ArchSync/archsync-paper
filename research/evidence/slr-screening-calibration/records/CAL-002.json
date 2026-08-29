@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-002",
+  "title": "Understanding software architecture erosion: A systematic mapping study",
+  "abstract": "Abstract Architecture erosion (AEr) can adversely affect software development and has received significant attention in the last decade. However, there is an absence of a comprehensive understanding of the state of research about the reasons and consequences of AEr, and the countermeasures to address AEr. This work aims at systematically investigating, identifying, and analyzing the reasons, consequences, and ways of detecting and handling AEr. With 73 studies included, the main results are as follows: (1) AEr manifests not only through architectural violations and structural issues but also causing problems in software quality and during software evolution; (2) non‐technical reasons that cause AEr should receive the same attention as technical reasons, and practitioners should raise awareness of the grave consequences of AEr, thereby taking actions to tackle AEr‐related issues; (3) a spectrum of approaches, tools, and measures has been proposed and employed to detect and tackle AEr; and (4) three categories of difficulties and five categories of lessons learned on tackling AEr were identified. The results can provide researchers a comprehensive understanding of AEr and help practitioners handle AEr and improve the sustainability of their architecture. More empirical studies are required to investigate the practices of detecting and addressing AEr in industrial settings.",
+  "publication_type": "journal-article",
+  "publication_date": "2022-02-09",
+  "venue": "Journal of Software: Evolution and Process",
+  "persistent_locator": "https://doi.org/10.1002/smr.2423",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1002%2Fsmr.2423",
+  "captured_at_utc": "2026-08-27T16:51:12Z"
+}

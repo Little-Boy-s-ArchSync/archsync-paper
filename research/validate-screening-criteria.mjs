@@ -71,20 +71,21 @@ export function validateScreeningCriteria({
   screeningTemplate,
   protocol,
   decisions,
+  reviewerRunbook,
   paper,
 }) {
   const issues = [];
   for (const [field, expected] of [
     ["Task", "SLR-103"],
-    ["Criteria version", "0.2.0"],
+    ["Criteria version", "0.2.1"],
     ["Protocol version", "0.2.2"],
     ["Status", "Versioned candidate - final lock blocked"],
-    ["Prepared date", "2026-08-18"],
+    ["Prepared date", "2026-08-29"],
     ["Search cutoff", "2026-08-16 inclusive"],
     ["Depends on", "SLR-101 freeze 1.0.0"],
     ["Official screening", "Not started"],
     ["Search results inspected", "No"],
-    ["Independent calibration", "Pending"],
+    ["Independent calibration", "Round 1 failed; Round 2 pending"],
   ]) {
     if (metadataValue(codebook, field) !== expected) {
       issues.push(`literature-screening-criteria.md: ${field} must be '${expected}'`);
@@ -100,6 +101,8 @@ export function validateScreeningCriteria({
     "at least eight pilot records chosen",
     "mandatory consensus",
     "calibration fails closed",
+    "affirmatively established",
+    "do not by themselves force `uncertain`",
     "factual evidence location",
     "official screening row may exist while SLR-101 remains unfrozen",
     "https://www.prisma-statement.org/prisma-2020",
@@ -214,11 +217,30 @@ export function validateScreeningCriteria({
   for (const marker of [
     "## D-010: Version SLR Screening Criteria Codebook 0.1.0",
     "## D-021: Accept SLR Query and Reconciliation Amendment 0.2.2",
+    "## D-022: Accept SLR Screening Criteria Clarification 0.2.1",
     "Accepted for design; final lock blocked by SLR-101",
     "at least 80% decision agreement",
     "SLR-103 remains `Đang làm`",
   ]) {
     requireMarker(issues, "decision-log.md", decisions, marker);
+  }
+  for (const marker of [
+    "### 4.1 Trạng thái bắt buộc sau D-022",
+    "578573855ef24ace1397ede97230360fe74633c7",
+    "8/9 decision",
+    "1/3 primary-reason",
+    "Round 1 là evidence thất bại bất biến",
+    "CAL-010 đến CAL-018",
+    "9639d49ef127a84ec87b293cfc458a0b6b37698bef0ba14637b16a2588f3dd4e",
+    "`preparation-only`",
+    "exact nine-record packet CAL-010 đến CAL-018",
+    "operator không được tự chọn subset",
+    "Không được sửa, đổi nhãn, squash, rebase, tái sử dụng hoặc ghi đè",
+    "không tạo commit một phía",
+    "Không publish one-sided reveal",
+    "Seal SLR-103 Round 2 calibration commitments",
+  ]) {
+    requireMarker(issues, "SLR-REVIEWER-RUNBOOK.md", reviewerRunbook, marker);
   }
   return { issues, criterionCount: criteriaRows ? criteriaRows.length - 1 : 0 };
 }
@@ -232,23 +254,32 @@ export async function main({
   },
 } = {}) {
   const researchDirectory = join(repositoryDirectory, "research");
-  const [codebook, criteriaTable, screeningTemplate, protocol, decisions, paper] =
-    await Promise.all([
-      read(join(researchDirectory, "literature-screening-criteria.md"), "utf8"),
-      read(join(researchDirectory, "literature-screening-criteria.csv"), "utf8"),
-      read(join(researchDirectory, "literature-screening.template.csv"), "utf8"),
-      read(join(researchDirectory, "literature-protocol.md"), "utf8"),
-      read(join(researchDirectory, "decision-log.md"), "utf8"),
-      loadExpandedManuscript(repositoryDirectory, {
-        readText: (path) => read(path, "utf8"),
-      }),
-    ]);
+  const [
+    codebook,
+    criteriaTable,
+    screeningTemplate,
+    protocol,
+    decisions,
+    reviewerRunbook,
+    paper,
+  ] = await Promise.all([
+    read(join(researchDirectory, "literature-screening-criteria.md"), "utf8"),
+    read(join(researchDirectory, "literature-screening-criteria.csv"), "utf8"),
+    read(join(researchDirectory, "literature-screening.template.csv"), "utf8"),
+    read(join(researchDirectory, "literature-protocol.md"), "utf8"),
+    read(join(researchDirectory, "decision-log.md"), "utf8"),
+    read(join(researchDirectory, "SLR-REVIEWER-RUNBOOK.md"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory, {
+      readText: (path) => read(path, "utf8"),
+    }),
+  ]);
   const result = validateScreeningCriteria({
     codebook,
     criteriaTable,
     screeningTemplate,
     protocol,
     decisions,
+    reviewerRunbook,
     paper,
   });
   if (result.issues.length > 0) {
@@ -258,7 +289,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SCREENING CRITERIA 0.2.0 (${result.criterionCount} atomic rules, 10 exclusion reasons; final lock blocked by SLR-101)`,
+    `VALID SLR SCREENING CRITERIA 0.2.1 (${result.criterionCount} atomic rules, 10 exclusion reasons; final lock blocked by SLR-101)`,
   );
   return result;
 }

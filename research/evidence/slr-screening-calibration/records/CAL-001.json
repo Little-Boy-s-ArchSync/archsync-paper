@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-001",
+  "title": "A dependency constraint language to manage object‐oriented software architectures",
+  "abstract": "Abstract This paper presents a domain‐specific dependency constraint language that allows software architects to restrict the spectrum of structural dependencies, which can be established in object‐oriented systems. The ultimate goal is to provide architects with means to define acceptable and unacceptable dependencies according to the planned architecture of their systems. Once defined, such restrictions are statically enforced by a tool, thus avoiding silent erosions in the architecture. The paper also presents results from applying the proposed approach to different versions of a real‐world human resource management system. Copyright © 2009 John Wiley & Sons, Ltd.",
+  "publication_type": "journal-article",
+  "publication_date": "2009-06-08",
+  "venue": "Software: Practice and Experience",
+  "persistent_locator": "https://doi.org/10.1002/spe.931",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1002%2Fspe.931",
+  "captured_at_utc": "2026-08-27T16:51:11Z"
+}

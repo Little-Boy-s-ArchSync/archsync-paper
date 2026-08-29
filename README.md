@@ -153,6 +153,7 @@ Chạy research validators bằng:
 node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
 node research/validate-slr-calibration-candidates.mjs
+node research/validate-slr-calibration-round-2-candidates.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs

@@ -100,6 +100,7 @@ const coverageArguments = [
   "research/validate-research-quality-gates.test.mjs",
   "research/validate-decision-log.test.mjs",
   "research/validate-slr-calibration-candidates.test.mjs",
+  "research/validate-slr-calibration-round-2-candidates.test.mjs",
 ];
 
 const hostTexAvailable =
@@ -121,6 +122,7 @@ const commands = [
   { id: "research-baseline", command: process.execPath, args: ["research/validate-baseline.mjs"] },
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
   { id: "calibration-candidates", command: process.execPath, args: ["research/validate-slr-calibration-candidates.mjs"] },
+  { id: "calibration-round-2-candidates", command: process.execPath, args: ["research/validate-slr-calibration-round-2-candidates.mjs"] },
   { id: "rq-traceability", command: process.execPath, args: ["research/validate-rq-traceability.mjs"] },
   { id: "research-contract-tests", command: process.execPath, args: coverageArguments },
   { id: "claim-evidence", command: process.execPath, args: ["research/validate-claim-evidence.mjs"] },
