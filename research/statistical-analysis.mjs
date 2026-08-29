@@ -145,6 +145,8 @@ export function validateStatisticalAnalysisPlan(text) {
     [/^## Freeze and change control$/m, "Freeze section is required"],
     [/failed and inconclusive runs remain in their original assigned condition/iu, "Failures must remain in assigned conditions"],
     [/No result, threshold, sample size, or primary comparison is frozen by this draft/iu, "Draft must not claim a result or freeze"],
+    [/V-RQ4 must replace the completion-time-only candidate with one\s+joint decision criterion[\s\S]*architecture-drift benefit[\s\S]*productivity non-inferiority[\s\S]*margin[\s\S]*unresolved pending human approval/iu, "V-RQ4 joint benefit/non-inferiority criterion and margin must remain unresolved"],
+    [/atomic STAT-101\/EXP-103 co-freeze is the candidate coordination mechanism and remains pending human approval/iu, "Atomic STAT-101/EXP-103 co-freeze must remain a human-pending candidate"],
   ]) {
     if (!pattern.test(text)) issues.push(message);
   }

@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
 import {
+  GOVERNED_TASK_ID,
   main as runClaimEvidenceValidator,
   parseCsv,
   validateClaimEvidence,
@@ -20,6 +21,7 @@ const [csvText, paperText] = await Promise.all([
 ]);
 
 test("accepts the governed paper claim ledger", () => {
+  assert.equal(GOVERNED_TASK_ID, "RQ-101");
   const result = validateClaimEvidence(csvText, paperText);
   assert.deepEqual(result.issues, []);
   assert.equal(result.verified, 9);
@@ -198,4 +200,5 @@ test("runs the real claim-evidence files through the CLI entry point", async () 
   assert.ok(
     output.some((message) => message.includes("9 verified-controlled, 4 planned")),
   );
+  assert.ok(output.some((message) => message.includes("RQ-101")));
 });
