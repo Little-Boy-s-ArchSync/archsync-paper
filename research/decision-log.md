@@ -466,7 +466,7 @@
   reason codes, accepted all nine as the pilot set, and independently adopted
   his own decisions in the project collaboration task on 2026-08-28. His
   immutable acceptance record is issue comment
-  `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5454598848`.
+  `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460448821`.
 - Integrity boundary: No official Search-A/B/C result list has been executed,
   inspected, or screened. Pre-acceptance sentinel diagnostics are not governed
   acceptance evidence. Fresh four-source reruns occur only after this amendment
