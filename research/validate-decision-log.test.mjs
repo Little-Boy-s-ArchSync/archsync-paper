@@ -28,7 +28,7 @@ test("accepts unique decisions and the owner-approved D-021 amendment", async ()
   const result = validateDecisionLog(await fixture());
   assert.deepEqual(result.issues, []);
   assert.equal(result.proposedDecision, "D-021");
-  assert.ok(result.decisionCount >= 21);
+  assert.ok(result.decisionCount >= 22);
 });
 
 test("rejects duplicate and malformed accepted decision headings", async () => {
@@ -57,6 +57,44 @@ test("rejects an incorrect amendment ID or missing canonical D-021 decision", as
   hasIssue(result, "Decision must be 'D-021'");
   hasIssue(result, "D-021 must be");
   hasIssue(result, "decision references must be exactly");
+});
+
+test("rejects removal or renaming of the D-023 operational correction", async () => {
+  const input = await fixture();
+  input.decisions = input.decisions.replace(
+    "## D-023: Record Enforced Merge Protection and Unresolved Public Visibility",
+    "## D-023: Approve Public Submission",
+  );
+  hasIssue(validateDecisionLog(input), "D-023 must be");
+  hasIssue(validateDecisionLog(input), "D-023 status must remain");
+});
+
+test("rejects D-023 status or approval inflation", async () => {
+  const input = await fixture();
+  input.decisions = input.decisions
+    .replace(
+      "- Status: Operational correction recorded; venue and visibility authorization\n  pending",
+      "- Status: Accepted for public submission",
+    )
+    .replace(
+      "- Approval: Pending for the venue, visibility, prior-exposure, submission, and\n  artifact-release decisions.",
+      "- Approval: Approved",
+    );
+  const result = validateDecisionLog(input);
+  hasIssue(result, "D-023 status must remain");
+  hasIssue(result, "D-023 venue, visibility, exposure, submission, and release approvals must remain pending");
+});
+
+test("rejects removal of D-023's historical and fail-closed boundaries", async () => {
+  const input = await fixture();
+  input.decisions = input.decisions
+    .replace("- Supersession: Preserve D-003 as the historical", "- Supersession: Delete D-003 as the historical")
+    .replace("- Decision boundary: This entry does not select a venue", "- Decision boundary: This entry selects a venue")
+    .replace("Its current revision has no `READY` path", "Its current revision has a `READY` path");
+  const result = validateDecisionLog(input);
+  hasIssue(result, "D-023 must preserve D-003 as historical");
+  hasIssue(result, "D-023 must not select a venue or visibility outcome");
+  hasIssue(result, "D-023 must retain the fail-closed readiness boundary");
 });
 
 test("rejects a proposal that reverts to an unapproved state", async () => {

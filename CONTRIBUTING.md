@@ -10,7 +10,8 @@ GitHub.
 Các file có vai trò cố định:
 
 - `main.tex` chứa preamble, metadata tác giả, CCS metadata và thứ tự `\input`;
-- `main-anonymous.tex` chỉ là wrapper double-blind;
+- `main-anonymous.tex` chỉ là wrapper kỹ thuật cho ứng viên double-blind, không
+  phải quyền submission;
 - `sections/*.tex` chứa nội dung manuscript;
 - `references.bib` là bibliography dùng chung;
 - `research/` chứa protocol, evidence contract, ledger và decision log.
@@ -67,6 +68,7 @@ node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
 node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
+node research/validate-submission-readiness.mjs
 node research/validate-slr-calibration-candidates.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-claim-evidence.mjs
@@ -193,7 +195,20 @@ thái `Review candidate`. Independent SLR Reviewer làm theo
 phê duyệt exact commit, attestation, UTC time và exact signing action. Không đọc,
 hiển thị, sao chép hoặc commit private key.
 
-`main.tex` là bản làm việc có tên; `main-anonymous.tex` là wrapper double-blind.
-Không để PDF ẩn danh hiển thị tên, email, affiliation, URL nhận diện hoặc
-acknowledgement. Repository phải giữ private đến khi chính sách venue cho phép
-công khai. Chỉ nộp artifact `main-anonymous.pdf` đã được kiểm tra từ commit merge.
+`main.tex` là bản làm việc có tên; `main-anonymous.tex` là wrapper kỹ thuật cho
+ứng viên double-blind. Không để PDF ẩn danh hiển thị tên, email, affiliation,
+URL nhận diện hoặc acknowledgement.
+
+Chính sách vẫn yêu cầu repository giữ private đến khi venue và người có thẩm
+quyền cho phép công khai. Audit ngày 2026-08-29 ghi nhận cả bảy repository đang
+public và lịch sử paper public chứa source có tên; `archsync#45` giữ blocker và
+snapshot evidence. Không được diễn giải public state hiện tại là authorization,
+và đổi visibility hoặc redact PDF sau này không tự xóa prior exposure.
+
+Làm theo `research/SUBMISSION-READINESS.md`. Revision hiện tại của validator chỉ
+xác nhận template giữ `NOT_READY`; nó không có nhánh success cho submission hoặc
+release, kể cả khi operator điền JSON giống approval thật. Không tạo hoặc gọi
+bất kỳ artifact nào là official anonymous submission cho đến khi một contract
+revision đã review xác minh nguồn human authorization và bind toàn bộ quyết định
+venue, visibility, prior exposure, PDF inspection, author/acknowledgement
+redaction, artifact/license, public release và exact candidate hashes.

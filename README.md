@@ -3,19 +3,24 @@
 Nguồn LaTeX của bài nghiên cứu **ArchSync: Evidence-Backed Detection of
 Architecture Drift in TypeScript Systems**.
 
-Repository này phải được giữ **private** trong thời gian phản biện ẩn danh. Nhánh
-`main` trên GitHub là source of truth. Overleaf chỉ là mirror để đọc, comment và
-kiểm tra theo milestone; quy trình đồng bộ nằm trong `CONTRIBUTING.md`.
+Chính sách của dự án yêu cầu repository được giữ **private** trong thời gian
+phản biện ẩn danh, nhưng audit GitHub ngày 2026-08-29 ghi nhận cả bảy repository
+ArchSync đang public và lịch sử paper public chứa source có tên tác giả. Đây là
+P0 blocker được giữ tại `archsync#45`, không phải quyết định cho phép công khai
+hoặc bằng chứng ẩn danh. Venue, visibility, submission và artifact release vẫn
+chờ quyết định của người có thẩm quyền. Nhánh `main` trên GitHub là source of
+truth; Overleaf chỉ là mirror để đọc, comment và kiểm tra theo milestone.
 
 ## Hai biến thể paper
 
 - `main.tex` là root có metadata tác giả để nhóm kiểm tra nội bộ.
-- `main-anonymous.tex` là wrapper double-blind được dùng cho submission và luôn
-  input cùng manuscript.
+- `main-anonymous.tex` là wrapper kỹ thuật để build ứng viên double-blind và
+  luôn input cùng manuscript; tự nó không cấp quyền submission.
 
 CI biên dịch cả hai file. Artifact `main-anonymous.pdf` phải không chứa tên,
 email, affiliation hoặc contribution block; `main.pdf` phải giữ đủ metadata để
-kiểm tra ownership.
+kiểm tra ownership. Gate redaction chỉ kiểm tra artifact kỹ thuật và không xác
+nhận repository anonymity hoặc submission readiness.
 
 ## Cấu trúc repository
 
@@ -63,6 +68,8 @@ kiểm tra ownership.
 │   ├── holdout-report.template.md    # EVAL-111 scaffold; không có result
 │   ├── paper-results-manifest.schema.json
 │   ├── paper-results-manifest.template.json # ANALYSIS-101 handoff; không phải evidence
+│   ├── SUBMISSION-READINESS.md        # PAPER-103/ART-101 fail-closed boundary
+│   ├── submission-readiness.template.json # Public-state NOT_READY proposal
 │   ├── decision-log.md
 │   └── risk-register.csv
 ├── scripts/
@@ -144,6 +151,7 @@ Các artifact SLR chính gồm:
 - `research/RESEARCH-QUALITY-GATES.md` — claim, baseline, abstract và artifact gates;
 - `research/EXTERNAL-BASELINE-PROTOCOL.md` — protocol so sánh external tool công bằng;
 - `research/PROJECT-EVIDENCE-AUDIT.md` — audit mock data và research claims toàn dự án;
+- `research/SUBMISSION-READINESS.md` — ranh giới PAPER-103/ART-101 luôn fail-closed;
 - `research/rq-traceability.csv` — RQ mapping máy đọc được;
 - `research/risk-register.csv` — risk và stop/go gate.
 
@@ -152,6 +160,7 @@ Chạy research validators bằng:
 ```bash
 node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
+node research/validate-submission-readiness.mjs
 node research/validate-slr-calibration-candidates.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-claim-evidence.mjs
@@ -169,6 +178,13 @@ node --test research/*.test.mjs
 cấu trúc bàn giao cho EVAL-111/ANALYSIS-101. Chúng giữ mọi trường dữ liệu và
 result rỗng, không thay thế D3 freeze, independent annotation, statistical-plan
 freeze, analysis run hoặc human review.
+
+`submission-readiness.template.json` chỉ ghi trạng thái public đã quan sát và
+các blocker còn thiếu. Validator của revision hiện tại luôn trả `NOT_READY`, kể
+cả với JSON giả được điền đủ tên, URL, hash và approval-looking fields, vì chưa
+có nguồn xác minh thẩm quyền và chưa có reviewed contract revision cho phép
+readiness. Không dùng file hoặc CI PASS này để đóng PAPER-103/ART-101, nộp bài
+hoặc release artifact.
 
 AI có thể vận hành browser/CLI đã được cấp quyền, tạo artifact, ledger, hash,
 validator và PR. AI-generated assertion không phải evidence; source output, run,
@@ -206,5 +222,8 @@ tại `research/SLR-REVIEWER-RUNBOOK.md`.
 6. Hiếu final-review và merge;
 7. chỉ designated sync steward đưa commit đã merge sang Overleaf.
 
-GitHub Actions upload cả hai PDF cho mọi push và pull request. Chỉ dùng
-`main-anonymous.pdf` cho double-blind submission.
+GitHub Actions upload cả hai PDF cho mọi push và pull request để kiểm tra kỹ
+thuật. Không artifact nào là official double-blind submission cho đến khi exact
+venue policy, visibility, prior exposure, redaction, license, release decision,
+human authorization và candidate hashes vượt qua một readiness contract revision
+đã được review.
