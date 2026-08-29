@@ -71,6 +71,7 @@ export function validateScreeningCriteria({
   screeningTemplate,
   protocol,
   decisions,
+  reviewerRunbook,
   paper,
 }) {
   const issues = [];
@@ -223,6 +224,24 @@ export function validateScreeningCriteria({
   ]) {
     requireMarker(issues, "decision-log.md", decisions, marker);
   }
+  for (const marker of [
+    "### 4.1 Trạng thái bắt buộc sau D-022",
+    "578573855ef24ace1397ede97230360fe74633c7",
+    "8/9 decision",
+    "1/3 primary-reason",
+    "Round 1 là evidence thất bại bất biến",
+    "CAL-010 đến CAL-018",
+    "9639d49ef127a84ec87b293cfc458a0b6b37698bef0ba14637b16a2588f3dd4e",
+    "`preparation-only`",
+    "exact nine-record packet CAL-010 đến CAL-018",
+    "operator không được tự chọn subset",
+    "Không được sửa, đổi nhãn, squash, rebase, tái sử dụng hoặc ghi đè",
+    "không tạo commit một phía",
+    "Không publish one-sided reveal",
+    "Seal SLR-103 Round 2 calibration commitments",
+  ]) {
+    requireMarker(issues, "SLR-REVIEWER-RUNBOOK.md", reviewerRunbook, marker);
+  }
   return { issues, criterionCount: criteriaRows ? criteriaRows.length - 1 : 0 };
 }
 
@@ -235,23 +254,32 @@ export async function main({
   },
 } = {}) {
   const researchDirectory = join(repositoryDirectory, "research");
-  const [codebook, criteriaTable, screeningTemplate, protocol, decisions, paper] =
-    await Promise.all([
-      read(join(researchDirectory, "literature-screening-criteria.md"), "utf8"),
-      read(join(researchDirectory, "literature-screening-criteria.csv"), "utf8"),
-      read(join(researchDirectory, "literature-screening.template.csv"), "utf8"),
-      read(join(researchDirectory, "literature-protocol.md"), "utf8"),
-      read(join(researchDirectory, "decision-log.md"), "utf8"),
-      loadExpandedManuscript(repositoryDirectory, {
-        readText: (path) => read(path, "utf8"),
-      }),
-    ]);
+  const [
+    codebook,
+    criteriaTable,
+    screeningTemplate,
+    protocol,
+    decisions,
+    reviewerRunbook,
+    paper,
+  ] = await Promise.all([
+    read(join(researchDirectory, "literature-screening-criteria.md"), "utf8"),
+    read(join(researchDirectory, "literature-screening-criteria.csv"), "utf8"),
+    read(join(researchDirectory, "literature-screening.template.csv"), "utf8"),
+    read(join(researchDirectory, "literature-protocol.md"), "utf8"),
+    read(join(researchDirectory, "decision-log.md"), "utf8"),
+    read(join(researchDirectory, "SLR-REVIEWER-RUNBOOK.md"), "utf8"),
+    loadExpandedManuscript(repositoryDirectory, {
+      readText: (path) => read(path, "utf8"),
+    }),
+  ]);
   const result = validateScreeningCriteria({
     codebook,
     criteriaTable,
     screeningTemplate,
     protocol,
     decisions,
+    reviewerRunbook,
     paper,
   });
   if (result.issues.length > 0) {

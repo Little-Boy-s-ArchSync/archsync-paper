@@ -13,15 +13,23 @@ import {
 
 const repository = join(dirname(fileURLToPath(import.meta.url)), "..");
 const research = join(repository, "research");
-const [codebook, criteriaTable, screeningTemplate, protocol, decisions, paper] =
-  await Promise.all([
-    readFile(join(research, "literature-screening-criteria.md"), "utf8"),
-    readFile(join(research, "literature-screening-criteria.csv"), "utf8"),
-    readFile(join(research, "literature-screening.template.csv"), "utf8"),
-    readFile(join(research, "literature-protocol.md"), "utf8"),
-    readFile(join(research, "decision-log.md"), "utf8"),
-    loadExpandedManuscript(repository),
-  ]);
+const [
+  codebook,
+  criteriaTable,
+  screeningTemplate,
+  protocol,
+  decisions,
+  reviewerRunbook,
+  paper,
+] = await Promise.all([
+  readFile(join(research, "literature-screening-criteria.md"), "utf8"),
+  readFile(join(research, "literature-screening-criteria.csv"), "utf8"),
+  readFile(join(research, "literature-screening.template.csv"), "utf8"),
+  readFile(join(research, "literature-protocol.md"), "utf8"),
+  readFile(join(research, "decision-log.md"), "utf8"),
+  readFile(join(research, "SLR-REVIEWER-RUNBOOK.md"), "utf8"),
+  loadExpandedManuscript(repository),
+]);
 
 function validate(overrides = {}) {
   return validateScreeningCriteria({
@@ -30,6 +38,7 @@ function validate(overrides = {}) {
     screeningTemplate,
     protocol,
     decisions,
+    reviewerRunbook,
     paper,
     ...overrides,
   });
@@ -128,6 +137,25 @@ test("requires protocol and decision-log traceability without publishing task st
   });
   assertIssue(result, "literature-protocol.md: missing governed marker 'I1--I8 and E01--E10'");
   assertIssue(result, "decision-log.md: missing governed marker '## D-010");
+});
+
+test("requires the D-022 failed-round and fresh Round 2 runbook boundary", () => {
+  const result = validate({
+    reviewerRunbook: reviewerRunbook
+      .replace("Round 1 là evidence thất bại bất biến", "Round 1 status removed")
+      .replaceAll("CAL-010 đến CAL-018", "fresh records removed")
+      .replace(
+        "Không được sửa, đổi nhãn, squash, rebase, tái sử dụng hoặc ghi đè",
+        "Round 1 overwrite allowed",
+      )
+      .replace("không tạo commit một phía", "one-sided commitment allowed")
+      .replace("Không publish one-sided reveal", "one-sided reveal allowed"),
+  });
+  assertIssue(result, "Round 1 là evidence thất bại bất biến");
+  assertIssue(result, "CAL-010 đến CAL-018");
+  assertIssue(result, "Không được sửa, đổi nhãn, squash, rebase, tái sử dụng hoặc ghi đè");
+  assertIssue(result, "không tạo commit một phía");
+  assertIssue(result, "Không publish one-sided reveal");
 });
 
 test("CLI reports valid and invalid states deterministically", async () => {

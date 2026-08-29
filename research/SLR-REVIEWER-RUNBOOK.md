@@ -148,31 +148,73 @@ SHA-256 thật. Không chỉnh tay ledger sau khi tạo.
 
 ## 4. Calibration tiêu chí screening SLR-103
 
-Trước khi xem official search result, Hiếu và Independent SLR Reviewer chọn
-trước ít nhất tám pilot record gồm trường hợp rõ ràng được nhận, rõ ràng bị loại
-và trường hợp mơ hồ. Pilot có thể dùng các sentinel cố định hoặc method fixture
-được chọn độc lập với result list; không tính pilot là kết quả SLR.
+### 4.1 Trạng thái bắt buộc sau D-022
+
+D-022 đã được Võ Đức Hiếu và Trần Minh Hoàng chấp thuận, nên Round 2 dùng
+criteria 0.2.1 với protocol 0.2.2 và calibration schema 1.2.0. Round 1 được seal
+tại commit `578573855ef24ace1397ede97230360fe74633c7`; kết quả gốc là 8/9 decision
+agreement và 1/3 primary-reason agreement. Vì chỉ số thứ hai không đạt 80%,
+Round 1 là evidence thất bại bất biến. Không được tạo passing summary, signed
+approval hoặc freeze evidence từ Round 1.
+
+Không được sửa, đổi nhãn, squash, rebase, tái sử dụng hoặc ghi đè pilot,
+record snapshot, decision, nonce, commitment, reveal, timestamp hay hash của
+Round 1. Các byte Round 1 phải được giữ nguyên trong Git ancestry. Round 2 chỉ
+được thay active calibration root bằng một commit hậu duệ mới; thao tác đó
+không được sửa lịch sử hoặc trình bày artifact Round 1 như evidence Round 2.
+
+Fresh Round 2 candidate packet nằm tại
+`research/evidence/slr-screening-calibration-round-2-candidates/`, gồm đúng
+CAL-010 đến CAL-018 và manifest SHA-256
+`9639d49ef127a84ec87b293cfc458a0b6b37698bef0ba14637b16a2588f3dd4e` tại
+commit `a241eae2fc227254cdaeb1f9052b390c37ab2f07`. Packet có trạng thái
+`preparation-only`: nó chưa phải pilot, commitment boundary, approval hoặc
+calibration evidence. Hiếu và Hoàng phải độc lập kiểm tra exact bytes rồi mỗi
+người chấp thuận rõ exact nine-record packet CAL-010 đến CAL-018 làm proposed
+governed pilot trước khi một trong hai người tạo decision, nonce hoặc
+commitment. Schema cho phép ít nhất tám record, nhưng
+operator không được tự chọn subset: nếu một record không được chấp thuận, dừng
+và ghi lại một exact common selection được cả hai reviewer chấp thuận rõ. Không
+copy packet vào governed calibration root và không ghi `pilot-set.json` trước
+hai acceptance record đó.
+
+### 4.2 Round 2: chọn pilot và tạo commitment mù
+
+Trước khi xem official search result, Hiếu và Independent SLR Reviewer chấp
+thuận exact proposed pilot CAL-010 đến CAL-018, gồm trường hợp rõ ràng được
+nhận, rõ ràng bị loại và trường hợp mơ hồ. Chỉ một exact subset ít nhất tám
+record được cả hai người chấp thuận rõ mới có thể thay proposed nine-record
+pilot. Pilot được chọn độc lập với official result list và không được tính là
+kết quả SLR. CAL-001 đến CAL-009, pilot hash Round 1 và mọi
+decision/nonce/commitment Round 1 không được tái sử dụng.
 
 Mỗi reviewer tạo bản riêng từ `literature-screening.template.csv`, dùng cùng
-criteria version, protocol version, record SHA-256 và round. Exclusion phải ghi
+criteria 0.2.1, protocol 0.2.2, exact Round 2 record SHA-256 và round. Mỗi
+`decided_at_utc` phải bằng hoặc sau joint `selected_at_utc`. Exclusion phải ghi
 primary E-code, factual note và evidence location theo
 `literature-screening-criteria.md`. Hai bên giữ private decision file ngoài
 repository và không xem quyết định của nhau trước khi hoàn tất bước commitment.
 
-Mỗi reviewer tự tạo một nonce ngẫu nhiên mật mã ít nhất 32 byte bằng bộ sinh
-ngẫu nhiên an toàn của hệ điều hành, giữ nonce ngoài repository, rồi tạo
-HMAC-SHA256 commitment theo schema của
-`verify-slr-screening-calibration.mjs`. Một commit chung phải chứa đúng pilot
-set, các record snapshot và hai commitment manifest trong calibration root;
+Sau khi pilot đã được cả hai người chấp thuận, mỗi reviewer tự tạo một fresh
+decision file, fresh nonce ngẫu nhiên mật mã ít nhất 32 byte bằng bộ sinh ngẫu
+nhiên an toàn của hệ điều hành, rồi tạo fresh HMAC-SHA256 commitment theo schema
+của `verify-slr-screening-calibration.mjs`. Một commit chung phải chứa đúng pilot
+set Round 2, các byte-identical record snapshot đã được chấp thuận và hai fresh
+commitment manifest trong calibration root;
 tree tại commit đó không được chứa decision file, nonce, reveal manifest,
 reconciliation hoặc summary. Commit reveal phải là hậu duệ nghiêm ngặt của commit
 chung. Cả hai commitment phải được seal trước khi một bên reveal; hai nonce phải
-khác nhau.
+khác nhau. Trước Commit 1, decision CSV và nonce tiếp tục ở ngoài repository;
+hai bên chỉ chuyển canonical commitment manifest qua kênh riêng để operator
+assemble cả hai manifest trong cùng một commit, không tạo commit một phía.
 
-Chỉ sau khi verifier mở được cả hai commitment từ exact decision bytes, hai bên
-mới đối chiếu và tính decision agreement cùng primary-reason agreement. Mỗi chỉ
-số phải đạt ít nhất 80% và mọi disagreement phải có một reconciliation row do
-cả Hiếu và Hoàng chấp thuận sau cả hai reveal. Không có adjudicator thứ ba.
+Chỉ sau khi Commit 1 tồn tại và verifier mở được cả hai commitment từ hai cặp
+private decision CSV + reveal manifest, hai bên mới đối chiếu và tính decision
+agreement cùng primary-reason agreement. Commit 2 phải đưa cả hai decision CSV,
+cả hai reveal manifest và reconciliation vào cùng một commit.
+Không publish one-sided reveal. Mỗi chỉ số phải đạt ít nhất 80% và mọi
+disagreement phải có một reconciliation row do cả Hiếu và Hoàng chấp thuận sau
+cả hai reveal. Không có adjudicator thứ ba.
 Không bên nào được đơn phương chọn kết quả cuối. Nếu hai người không đồng thuận,
 calibration thất bại, dừng freeze, sửa candidate có version và lặp calibration
 bằng pilot set mới. Không dùng dữ liệu giả để điền gate này.
@@ -180,8 +222,8 @@ bằng pilot set mới. Không dùng dữ liệu giả để điền gate này.
 Verifier chứng minh schema, hash/HMAC opening, exact tree tại commitment,
 strict ancestry, trạng thái HEAD/index/worktree và phép tính agreement. Nó không
 chứng minh danh tính thật của tên được nhập, nonce thật sự ngẫu nhiên/được giữ
-bí, metadata nguồn là đúng, hoặc hai người thực sự làm việc độc lập. Hiếu,
-Hiếu và Independent SLR Reviewer phải tự kiểm tra và chịu trách nhiệm
+bí, metadata nguồn là đúng, hoặc hai người thực sự làm việc độc lập. Hiếu và
+Independent SLR Reviewer phải tự kiểm tra và chịu trách nhiệm
 cho các sự kiện đó; signed review cuối cùng không được thay bằng output của AI.
 
 Chạy validator của codebook trước và sau calibration:
@@ -191,23 +233,25 @@ node research/validate-screening-criteria.mjs
 node --test research/verify-slr-screening-calibration.test.mjs
 ```
 
-Calibration sử dụng đúng ba commit tuần tự. Không dùng `git add research`,
+Round 2 sử dụng đúng ba commit tuần tự. Không dùng `git add research`,
 không đặt nonce chưa reveal trong repository và không tạo review evidence trước
 khi summary đã được build và kiểm tra.
 
-Commit 1 chỉ seal pilot, record snapshot và hai commitment:
+Commit 1 Round 2 chỉ seal fresh pilot, byte-identical record snapshot và hai
+fresh commitment. Việc stage cả thư mục `records` phải đồng thời loại CAL-001
+đến CAL-009 khỏi active tree; Git ancestry vẫn giữ nguyên toàn bộ Round 1:
 
 ```powershell
 git add research/evidence/slr-screening-calibration/pilot-set.json
 git add research/evidence/slr-screening-calibration/records
 git add research/evidence/slr-screening-calibration/hieu-commitment.json
 git add research/evidence/slr-screening-calibration/independent-slr-reviewer-commitment.json
-git commit -m "Seal SLR-103 calibration commitments"
+git commit -m "Seal SLR-103 Round 2 calibration commitments"
 $CALIBRATION_COMMIT = git rev-parse HEAD
 ```
 
-Commit 2 reveal exact decision bytes, nonce manifests và reconciliation. Summary
-chưa được phép tồn tại trong worktree, index hoặc HEAD ở bước này:
+Commit 2 Round 2 reveal exact decision bytes, nonce manifests và reconciliation.
+Summary chưa được phép tồn tại trong worktree, index hoặc HEAD ở bước này:
 
 ```powershell
 git add research/evidence/slr-screening-calibration/hieu-decisions.csv
@@ -215,7 +259,7 @@ git add research/evidence/slr-screening-calibration/independent-slr-reviewer-dec
 git add research/evidence/slr-screening-calibration/hieu-reveal.json
 git add research/evidence/slr-screening-calibration/independent-slr-reviewer-reveal.json
 git add research/evidence/slr-screening-calibration/reconciliation.csv
-git commit -m "Reveal and reconcile SLR-103 calibration"
+git commit -m "Reveal and reconcile SLR-103 Round 2 calibration"
 node research/build-slr-screening-calibration.mjs --write $CALIBRATION_COMMIT
 git diff --cached --name-only
 git status --short -- research/literature-screening-calibration.json
@@ -228,7 +272,7 @@ summary do verifier sinh ra, sau đó chạy default verifier bằng `--check`:
 
 ```powershell
 git add research/literature-screening-calibration.json
-git commit -m "Add generated SLR-103 calibration summary"
+git commit -m "Add generated SLR-103 Round 2 calibration summary"
 node research/build-slr-screening-calibration.mjs --check
 node research/validate-screening-criteria.mjs
 node --test research/verify-slr-screening-calibration.test.mjs research/build-slr-screening-calibration.test.mjs
