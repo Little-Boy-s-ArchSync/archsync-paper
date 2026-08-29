@@ -64,6 +64,7 @@ export function createSlrScreeningCalibrationFixture({
   for (let index = 1; index <= 8; index += 1) {
     const recordId = `CAL-${String(index).padStart(3, "0")}`;
     const path = `${CALIBRATION_ROOT}/records/${recordId}.json`;
+    const pilotPath = `records/${recordId}.json`;
     const artifact = {
       schema_version: "1.1.0",
       record_id: recordId,
@@ -80,7 +81,7 @@ export function createSlrScreeningCalibrationFixture({
     recordArtifacts.set(path, bytes);
     pilotRecords.push({
       record_id: recordId,
-      record_path: path,
+      record_path: pilotPath,
       record_sha256: sha256(bytes),
     });
   }
