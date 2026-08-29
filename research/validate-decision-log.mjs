@@ -5,6 +5,19 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const DECISION_HEADING = /^## (D-\d{3}): ([^\r\n]+)$/gm;
 const DECISION_LIKE_HEADING = /^## D-[^\r\n]+$/gm;
 const DECISION_REFERENCE = /\bD-\d{3}\b/g;
+const D023_HEADING =
+  "## D-023: Record Enforced Merge Protection and Unresolved Public Visibility";
+const D023_PENDING_STATUS =
+  "- Status: Operational correction recorded; venue and visibility authorization\n  pending";
+const D023_PENDING_APPROVAL =
+  "- Approval: Pending for the venue, visibility, prior-exposure, submission, and\n  artifact-release decisions.";
+
+function decisionSection(text, heading) {
+  const start = text.indexOf(heading);
+  if (start === -1) return "";
+  const next = text.indexOf("\n## D-", start + heading.length);
+  return text.slice(start, next === -1 ? undefined : next);
+}
 
 function metadataRows(text, field) {
   const target = field.normalize("NFKC").trim().toLowerCase();
@@ -66,9 +79,23 @@ export function validateDecisionLog({ decisions, amendmentProposal }) {
     ["D-019", "Accept SLR Query Translation Amendment 0.2.1"],
     ["D-020", "Adopt Manuscript and Evidence Quality Gates 1.0.0"],
     ["D-021", "Accept SLR Query and Reconciliation Amendment 0.2.2"],
+    ["D-023", "Record Enforced Merge Protection and Unresolved Public Visibility"],
   ]) {
     if (seen.get(id) !== title) {
       issues.push(`decision-log.md: ${id} must be '${title}'`);
+    }
+  }
+
+  const d023 = decisionSection(decisions, D023_HEADING);
+  for (const [fragment, requirement] of [
+    [D023_PENDING_STATUS, "status must remain an operational correction with authorization pending"],
+    [D023_PENDING_APPROVAL, "venue, visibility, exposure, submission, and release approvals must remain pending"],
+    ["- Supersession: Preserve D-003 as the historical", "must preserve D-003 as historical"],
+    ["- Decision boundary: This entry does not select a venue", "must not select a venue or visibility outcome"],
+    ["Its current revision has no `READY` path", "must retain the fail-closed readiness boundary"],
+  ]) {
+    if (!d023.includes(fragment)) {
+      issues.push(`decision-log.md: D-023 ${requirement}`);
     }
   }
 
