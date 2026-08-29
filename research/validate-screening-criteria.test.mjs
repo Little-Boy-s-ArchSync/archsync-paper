@@ -137,7 +137,7 @@ test("CLI reports valid and invalid states deterministically", async () => {
     output: (line) => validOutput.push(line),
   });
   assert.deepEqual(valid.issues, []);
-  assert.match(validOutput[0], /^VALID SLR SCREENING CRITERIA 0\.2\.0/);
+  assert.match(validOutput[0], /^VALID SLR SCREENING CRITERIA 0\.2\.1/);
 
   let exitCode;
   const invalidOutput = [];

@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-014",
+  "title": "A Comparison of Static Architecture Compliance Checking Approaches",
+  "abstract": "The software architecture is one of the most important artifacts created in the lifecycle of a software system. It enables, facilitates, hampers, or interferes directly the achievement of business goals, functional and quality requirements. One instrument to determine how adequate the architecture is for its intended usage is architecture compliance checking. This paper compares three static architecture compliance checking approaches (reflexion models, relation conformance rules, and component access rules) by assessing their applicability in 13 distinct dimensions. The results give guidance on when to use which approach.",
+  "publication_type": "proceedings-article",
+  "publication_date": "2007-01-01",
+  "venue": "2007 Working IEEE/IFIP Conference on Software Architecture (WICSA'07)",
+  "persistent_locator": "https://doi.org/10.1109/WICSA.2007.1",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1109%2FWICSA.2007.1",
+  "captured_at_utc": "2026-08-29T06:30:35Z"
+}

@@ -10,13 +10,14 @@ const repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 async function fixture() {
   const research = join(repositoryDirectory, "research");
-  const [decisions, priorAmendmentProposal, amendmentProposal] =
+  const [decisions, priorAmendmentProposal, amendmentProposal, criteriaAmendment] =
     await Promise.all([
       readFile(join(research, "decision-log.md"), "utf8"),
       readFile(join(research, "slr-query-amendment-proposal.md"), "utf8"),
       readFile(join(research, "slr-query-amendment-0.2.2.md"), "utf8"),
+      readFile(join(research, "slr-screening-criteria-amendment-0.2.1.md"), "utf8"),
     ]);
-  return { decisions, priorAmendmentProposal, amendmentProposal };
+  return { decisions, priorAmendmentProposal, amendmentProposal, criteriaAmendment };
 }
 
 function hasIssue(result, fragment) {
@@ -26,12 +27,12 @@ function hasIssue(result, fragment) {
   );
 }
 
-test("accepts unique decisions and both immutable owner-approved amendments", async () => {
+test("accepts unique decisions and all immutable reviewer-approved amendments", async () => {
   const result = validateDecisionLog(await fixture());
   assert.deepEqual(result.issues, []);
-  assert.equal(result.proposedDecision, "D-021");
-  assert.deepEqual(result.acceptedAmendments, ["SLR-QA-001", "SLR-QA-002"]);
-  assert.ok(result.decisionCount >= 21);
+  assert.equal(result.proposedDecision, "D-022");
+  assert.deepEqual(result.acceptedAmendments, ["SLR-QA-001", "SLR-QA-002", "SLR-QA-003"]);
+  assert.ok(result.decisionCount >= 22);
 });
 
 test("rejects duplicate and malformed accepted decision headings", async () => {
@@ -86,7 +87,7 @@ test("retains validation of the accepted D-019 and SLR-QA-001 history", async ()
   );
 });
 
-test("rejects body tampering in either accepted amendment artifact", async () => {
+test("rejects body tampering in any accepted amendment artifact", async () => {
   const input = await fixture();
   input.priorAmendmentProposal = input.priorAmendmentProposal.replace(
     "The final reviewed and frozen target remains version 1.0.0 under D-008.",
@@ -96,9 +97,42 @@ test("rejects body tampering in either accepted amendment artifact", async () =>
     "This amendment corrects provider serialization defects",
     "This amendment broadens the official search",
   );
+  input.criteriaAmendment = input.criteriaAmendment.replace(
+    "Round 1 is immutable failed calibration evidence.",
+    "Round 1 may be rewritten after reveal.",
+  );
   const result = validateDecisionLog(input);
   hasIssue(result, "slr-query-amendment-proposal.md: accepted artifact SHA-256");
   hasIssue(result, "slr-query-amendment-0.2.2.md: accepted artifact SHA-256");
+  hasIssue(
+    result,
+    "slr-screening-criteria-amendment-0.2.1.md: accepted artifact SHA-256",
+  );
+});
+
+test("requires both D-022 approvals and exact implementation pins", async () => {
+  const input = await fixture();
+  input.decisions = input.decisions
+    .replace(
+      "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460724543",
+      "missing-hieu-approval",
+    )
+    .replace(
+      "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460760993",
+      "missing-hoang-approval",
+    )
+    .replace(
+      "d719d8cac851e47432e98eb766328fbd9f714863",
+      "unpinned-proposal",
+    )
+    .replace(
+      "2af3c8d721ad29b9f91d852ecc131ca9eaa23ceb",
+      "unpinned-path-fix",
+    );
+  const result = validateDecisionLog(input);
+  hasIssue(result, "D-022 must cite approval");
+  hasIssue(result, "D-022 must pin commit d719d8c");
+  hasIssue(result, "D-022 must pin commit 2af3c8d");
 });
 
 test("requires immutable D-021 acceptance and implementation pins", async () => {

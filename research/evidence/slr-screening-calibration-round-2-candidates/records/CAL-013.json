@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-013",
+  "title": "Software reflexion models",
+  "abstract": "article Software reflexion models: bridging the gap between source and high-level models Share on Authors: Gail C. Murphy Dept. of Computer Science & Engineering, University of Washington, Box 352350, Seattle WA Dept. of Computer Science & Engineering, University of Washington, Box 352350, Seattle WAView Profile , David Notkin Dept. of Computer Science & Engineering, University of Washington, Box 352350, Seattle WA Dept. of Computer Science & Engineering, University of Washington, Box 352350, Seattle WAView Profile , Kevin Sullivan Dept. of Computer Science, University of Virginia, Charlottesville VA Dept. of Computer Science, University of Virginia, Charlottesville VAView Profile Authors Info & Claims ACM SIGSOFT Software Engineering NotesVolume 20Issue 4Oct. 1995 pp 18–28https://doi.org/10.1145/222132.222136Published:01 October 1995 305citation2,070DownloadsMetricsTotal Citations305Total Downloads2,070Last 12 Months74Last 6 weeks13 Get Citation AlertsNew Citation Alert added!This alert has been successfully added and will be sent to:You will be notified whenever a record that you have chosen has been cited.To manage your alert preferences, click on the button below.Manage my AlertsNew Citation Alert!Please log in to your account Save to BinderSave to BinderCreate a New BinderNameCancelCreateExport CitationPublisher SiteGet Access",
+  "publication_type": "proceedings-article",
+  "publication_date": "1995-10-01",
+  "venue": "Proceedings of the 3rd ACM SIGSOFT symposium on Foundations of software engineering",
+  "persistent_locator": "https://doi.org/10.1145/222124.222136",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1145%2F222124.222136",
+  "captured_at_utc": "2026-08-29T06:30:34Z"
+}

@@ -11,6 +11,8 @@ const ACCEPTED_ARTIFACT_SHA256 = Object.freeze({
     "f29fd1b3d5ac8748c1d4fce685675cf934190e517b4b7dda0358314fc0c239a4",
   "slr-query-amendment-0.2.2.md":
     "dd35cf76f91f79e3eb68068bab9c7b8b2db9f71cb5facbfea37741e191f7ea1b",
+  "slr-screening-criteria-amendment-0.2.1.md":
+    "c9350f285289f3a558a87f74415d584dc94ce631276fcd984dffb33ea5bb802e",
 });
 const D021_APPROVAL_URL =
   "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5454598848";
@@ -18,6 +20,14 @@ const D021_IMPLEMENTATION_COMMIT =
   "62f9df67b26fdc01f349bb8e3a1e1dc8424bbbf8";
 const D021_MERGE_COMMIT =
   "480c9579da302301751f5c5ee9d335cce6b6703b";
+const D022_HIEU_APPROVAL_URL =
+  "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460724543";
+const D022_HOANG_APPROVAL_URL =
+  "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460760993";
+const D022_PROPOSAL_COMMIT =
+  "d719d8cac851e47432e98eb766328fbd9f714863";
+const D022_PATH_FIX_COMMIT =
+  "2af3c8d721ad29b9f91d852ecc131ca9eaa23ceb";
 
 function metadataRows(text, field) {
   const target = field.normalize("NFKC").trim().toLowerCase();
@@ -106,6 +116,7 @@ export function validateDecisionLog({
   decisions,
   priorAmendmentProposal,
   amendmentProposal,
+  criteriaAmendment,
 }) {
   const issues = [];
   const headings = decisionHeadings(decisions);
@@ -136,6 +147,7 @@ export function validateDecisionLog({
     ["D-019", "Accept SLR Query Translation Amendment 0.2.1"],
     ["D-020", "Adopt Manuscript and Evidence Quality Gates 1.0.0"],
     ["D-021", "Accept SLR Query and Reconciliation Amendment 0.2.2"],
+    ["D-022", "Accept SLR Screening Criteria Clarification 0.2.1"],
   ]) {
     if (seen.get(id) !== title) {
       issues.push(`decision-log.md: ${id} must be '${title}'`);
@@ -171,6 +183,19 @@ export function validateDecisionLog({
     ],
     expectedReferences: ["D-021"],
   });
+  validateAcceptedAmendment({
+    issues,
+    filename: "slr-screening-criteria-amendment-0.2.1.md",
+    text: criteriaAmendment,
+    fields: [
+      ["Proposal", "SLR-QA-003"],
+      ["Status", "Proposed - not accepted"],
+      ["Protocol version", "0.2.2 unchanged"],
+      ["Proposed criteria", "0.2.1"],
+      ["Calibration schema", "1.2.0 unchanged"],
+    ],
+    expectedReferences: [],
+  });
 
   const d021Block = decisionBlock(decisions, headings, "D-021");
   const approvalStart = d021Block.indexOf("- Approval evidence:");
@@ -198,11 +223,23 @@ export function validateDecisionLog({
     }
   }
 
+  const d022Block = decisionBlock(decisions, headings, "D-022");
+  for (const approvalUrl of [D022_HIEU_APPROVAL_URL, D022_HOANG_APPROVAL_URL]) {
+    if (!d022Block.includes(approvalUrl)) {
+      issues.push(`decision-log.md: D-022 must cite approval ${approvalUrl}`);
+    }
+  }
+  for (const commit of [D022_PROPOSAL_COMMIT, D022_PATH_FIX_COMMIT]) {
+    if (!d022Block.includes(commit)) {
+      issues.push(`decision-log.md: D-022 must pin commit ${commit}`);
+    }
+  }
+
   return {
     issues,
     decisionCount: headings.length,
-    proposedDecision: "D-021",
-    acceptedAmendments: ["SLR-QA-001", "SLR-QA-002"],
+    proposedDecision: "D-022",
+    acceptedAmendments: ["SLR-QA-001", "SLR-QA-002", "SLR-QA-003"],
   };
 }
 
@@ -213,16 +250,18 @@ export async function main({
   setExitCode = (code) => { process.exitCode = code; },
 } = {}) {
   const research = join(repositoryDirectory, "research");
-  const [decisions, priorAmendmentProposal, amendmentProposal] =
+  const [decisions, priorAmendmentProposal, amendmentProposal, criteriaAmendment] =
     await Promise.all([
       readFile(join(research, "decision-log.md"), "utf8"),
       readFile(join(research, "slr-query-amendment-proposal.md"), "utf8"),
       readFile(join(research, "slr-query-amendment-0.2.2.md"), "utf8"),
+      readFile(join(research, "slr-screening-criteria-amendment-0.2.1.md"), "utf8"),
     ]);
   const result = validateDecisionLog({
     decisions,
     priorAmendmentProposal,
     amendmentProposal,
+    criteriaAmendment,
   });
   if (result.issues.length > 0) {
     error("INVALID RESEARCH DECISION LOG");

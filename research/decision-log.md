@@ -483,3 +483,50 @@
   `62f9df67b26fdc01f349bb8e3a1e1dc8424bbbf8` and merged by PR #25 as
   `480c9579da302301751f5c5ee9d335cce6b6703b`.
 - Approver: Võ Đức Hiếu, protocol owner and research lead.
+
+## D-022: Accept SLR Screening Criteria Clarification 0.2.1
+
+- Date: 2026-08-29
+- Status: Accepted for candidate criteria 0.2.1; official search and screening
+  remain blocked until SLR-101 is independently reviewed and frozen as 1.0.0.
+- Tasks: SLR-103, SLR-REV-101
+- Trigger: Both private Round 1 reviewer packages opened the commitments sealed
+  at `578573855ef24ace1397ede97230360fe74633c7`. Independent comparison produced
+  8/9 decision agreement and 1/3 primary-reason agreement, with three records
+  requiring consensus. The decision threshold passed but the primary-reason
+  threshold failed.
+- Failed-round boundary: Round 1 remains immutable failed calibration evidence.
+  Neither original reviewer row may be changed, and reconciliation cannot turn
+  the failed agreement measure into a pass. No passing summary, signed approval,
+  or freeze evidence may be created from Round 1.
+- Decision: Accept SLR-QA-003 exactly as proposed at
+  `d719d8cac851e47432e98eb766328fbd9f714863`. Advance screening criteria from
+  0.2.0 to 0.2.1 while protocol 0.2.2 and calibration schema 1.2.0 remain
+  unchanged.
+- E05 clarification: An exclusion reason requires affirmative evidence at title
+  and abstract. Explicit preprint, thesis, standard, report, or other
+  non-peer-reviewed metadata permits E05. Missing or ambiguous peer-review
+  metadata advances as `uncertain` unless another failure is independently
+  established. Existing reason precedence remains mandatory.
+- E01/E02 clarification: E01 is reserved for an explicit non-software use of
+  architecture. E02 covers software or software-engineering work that studies
+  none of the governed architecture topics. The absence of an architecture term
+  alone does not permit E01, and E04 remains a full-text rule.
+- Include/uncertain clarification: At title and abstract, pending full-text-only
+  access, integrity, or minimum-evidence checks do not by themselves force
+  `uncertain`. Use `include` when applicable metadata clearly supports relevance
+  and study type without an applicable failure; use `uncertain` for genuine
+  ambiguity in an applicable title/abstract criterion.
+- Round 2: CAL-001 through CAL-009 must not be reused. Both reviewers must
+  jointly accept at least eight fresh immutable snapshots, then create fresh
+  independent decisions, nonces, and commitments under criteria 0.2.1. The same
+  80% thresholds and bilateral-consensus requirement remain in force.
+- Verifier repair: Commit `2af3c8d721ad29b9f91d852ecc131ca9eaa23ceb`
+  resolves canonical pilot-relative record paths under the calibration root.
+  This implementation repair does not alter Round 1 evidence or hashes.
+- Approval evidence: Võ Đức Hiếu accepted the complete proposal in
+  `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460724543`.
+  Trần Minh Hoàng independently accepted the same proposal in
+  `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460760993`.
+- Approvers: Võ Đức Hiếu, protocol owner and research lead; Trần Minh Hoàng,
+  Independent SLR Reviewer.

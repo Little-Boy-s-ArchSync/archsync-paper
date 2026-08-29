@@ -331,9 +331,17 @@ Reviewers apply the criteria exactly as written. An uncertain title or abstract
 moves forward rather than being excluded speculatively. The operational
 SLR-103 codebook is versioned in `literature-screening-criteria.md`; its
 machine-readable mapping is `literature-screening-criteria.csv`, and its empty
-decision schema is `literature-screening.template.csv`. Version 0.2.0 is a
+decision schema is `literature-screening.template.csv`. Version 0.2.1 is a
 candidate and cannot be finally locked until this protocol is independently
 reviewed and frozen at 1.0.0.
+
+Version 0.2.1 preserves the exclusion precedence but requires affirmative
+evidence before assigning an E-code at title and abstract. Explicit
+non-peer-reviewed status permits E05 and takes precedence over E01/E02; E01 is
+reserved for an explicit non-software use of architecture, while E02 covers
+software or software-engineering work with no governed architecture topic.
+Pending full-text-only checks do not by themselves force `uncertain` when the
+applicable title/abstract evidence clearly supports `include`.
 
 ### 8.1 Inclusion criteria
 

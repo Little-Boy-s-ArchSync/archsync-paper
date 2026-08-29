@@ -37,9 +37,9 @@ const UTC_SECOND_PATTERN =
   /^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$/;
 const DATE_PATTERN = /^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$/;
 const REVIEW_CUTOFF = "2026-08-16";
-const CANONICAL_README_SHA256 =
+export const CANONICAL_README_SHA256 =
   "b3ea950ae777ccac79506cf4106b8ba87d7ce6066a1731aaaaf5d3368af56351";
-const REQUIRED_README_STATEMENTS = Object.freeze([
+export const REQUIRED_README_STATEMENTS = Object.freeze([
   "Status: preparation only",
   "not governed SLR-103 calibration evidence",
   "does not contain reviewer decisions",
@@ -191,6 +191,8 @@ export function validateCandidatePacket({
   manifestBytes,
   artifacts,
   now = new Date(),
+  canonicalReadmeSha256 = CANONICAL_README_SHA256,
+  requiredReadmeStatements = REQUIRED_README_STATEMENTS,
 }) {
   const issues = [];
   const readmeBytes = rawBytes(readme);
@@ -202,7 +204,7 @@ export function validateCandidatePacket({
     issues.push("candidate README bytes are not valid UTF-8: " + error.message);
   }
 
-  for (const statement of REQUIRED_README_STATEMENTS) {
+  for (const statement of requiredReadmeStatements) {
     issueIf(
       issues,
       !readmeText.includes(statement),
@@ -216,7 +218,7 @@ export function validateCandidatePacket({
   );
   issueIf(
     issues,
-    readmeDigest !== CANONICAL_README_SHA256,
+    readmeDigest !== canonicalReadmeSha256,
     "candidate README must match the canonical preparation-only template",
   );
 
@@ -499,8 +501,11 @@ export function validateCandidatePacket({
   return { issues, candidateCount: filenames.length };
 }
 
-async function loadPacket(repositoryDirectory) {
-  const root = join(repositoryDirectory, CANDIDATE_ROOT);
+export async function loadCandidatePacket(
+  repositoryDirectory,
+  candidateRoot = CANDIDATE_ROOT,
+) {
+  const root = join(repositoryDirectory, ...candidateRoot.split("/"));
   const recordsDirectory = join(root, "records");
   const rootStatus = await lstat(root);
   if (!rootStatus.isDirectory() || rootStatus.isSymbolicLink()) {
@@ -569,7 +574,7 @@ export async function main({
 } = {}) {
   let packet;
   try {
-    packet = await loadPacket(repositoryDirectory);
+    packet = await loadCandidatePacket(repositoryDirectory);
   } catch (loadError) {
     error("INVALID SLR CALIBRATION CANDIDATE PACKET");
     error("- cannot load candidate packet: " + loadError.message);

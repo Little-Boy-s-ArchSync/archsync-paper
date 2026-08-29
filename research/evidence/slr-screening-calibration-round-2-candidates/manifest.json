@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "status": "preparation-only",
+  "readme_sha256": "0dddc463615465e220ba8e3e3de70d2e7020f69022b09c422e1a5d3137d02202",
+  "official_results_inspected": false,
+  "record_count": 9,
+  "records": [
+    {
+      "record_id": "CAL-010",
+      "record_path": "records/CAL-010.json",
+      "record_sha256": "c81f8b5d28025789753889145b080034de9d2ed4107cb86f1e24e50050e4e9f4"
+    },
+    {
+      "record_id": "CAL-011",
+      "record_path": "records/CAL-011.json",
+      "record_sha256": "92ea2616caf8e48a0ddd24574233634cb4b9212e2c8ed7638e4e134903bbfc58"
+    },
+    {
+      "record_id": "CAL-012",
+      "record_path": "records/CAL-012.json",
+      "record_sha256": "408c98dedfba690f86219e12cf9a0eee056540961369c6dd2a1b8c45e09fe969"
+    },
+    {
+      "record_id": "CAL-013",
+      "record_path": "records/CAL-013.json",
+      "record_sha256": "0e44f42c3e51ba8e04e1f713cf383bb3f2940437a2a9889313b97875066d9654"
+    },
+    {
+      "record_id": "CAL-014",
+      "record_path": "records/CAL-014.json",
+      "record_sha256": "ccc86b6da31591f1cd0213fbb2a4b01bf1b4d540eb2a8cbe5083da1245f22eb1"
+    },
+    {
+      "record_id": "CAL-015",
+      "record_path": "records/CAL-015.json",
+      "record_sha256": "befb7231d97883e3a9f1dca4a3a224fa0a83d17ce32391e6ed8fc09baffabc25"
+    },
+    {
+      "record_id": "CAL-016",
+      "record_path": "records/CAL-016.json",
+      "record_sha256": "08f3e13d923f84f6acebfedc722f971c009d0fe2b8e520ebacb12efa179526ab"
+    },
+    {
+      "record_id": "CAL-017",
+      "record_path": "records/CAL-017.json",
+      "record_sha256": "eaf52f872c3ee3311abfde7cf930baf1ef661eae50e81d217a0f7a96a84dbb74"
+    },
+    {
+      "record_id": "CAL-018",
+      "record_path": "records/CAL-018.json",
+      "record_sha256": "99ca4cc9f0f13521923d8dfb604902c34ab8b2b2cc0fcf039294df6f138051ca"
+    }
+  ]
+}

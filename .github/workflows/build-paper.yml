@@ -51,6 +51,9 @@ jobs:
       - name: Verify decision-free SLR calibration candidate packet
         run: node research/validate-slr-calibration-candidates.mjs
 
+      - name: Verify fresh Round 2 SLR calibration candidate packet
+        run: node research/validate-slr-calibration-round-2-candidates.mjs
+
       - name: Verify RQ traceability matrix
         run: node research/validate-rq-traceability.mjs
 
@@ -97,7 +100,8 @@ jobs:
             research/validate-evaluation-report-scaffold.test.mjs \
             research/validate-research-quality-gates.test.mjs \
             research/validate-decision-log.test.mjs \
-            research/validate-slr-calibration-candidates.test.mjs
+            research/validate-slr-calibration-candidates.test.mjs \
+            research/validate-slr-calibration-round-2-candidates.test.mjs
 
       - name: Verify governed SLR screening calibration when present
         shell: bash
