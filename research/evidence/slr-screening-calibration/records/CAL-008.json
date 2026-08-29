@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-008",
+  "title": "We're Drifting Apart: Architectural Drift from the Developers' Perspective",
+  "abstract": "Despite the recognized importance of software architecture, it is common that the implementation diverges from the intended architecture over time. This phenomenon is referred to as architectural drift. In the past decades, mainly technical solutions and tools have been developed to detect and address architectural inconsistencies and drift. There is still a lack of evidence from the perspective of developers and a lack of best practices to manage drift. This mixed-methods study relies on interviews with 11 developers and a survey answered by 63 developers from different companies and domains. We analyzed the data by dividing developers into senior and junior to see the different perspectives based on work experience. We found that juniors tend to rely more on documentation, while seniors have a more experience-related approach. We identified practices that developers use to mitigate drift, including defining clear responsibilities, setting best practices, and maintaining reliable documentation. Finally, we designed and evaluated guidelines to help developers to face architectural drift.",
+  "publication_type": "proceedings-article",
+  "publication_date": "2024-06-04",
+  "venue": "2024 IEEE 21st International Conference on Software Architecture (ICSA)",
+  "persistent_locator": "https://doi.org/10.1109/ICSA59870.2024.00018",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1109%2FICSA59870.2024.00018",
+  "captured_at_utc": "2026-08-27T16:51:15Z"
+}

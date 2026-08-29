@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.2.0",
+  "task": "SLR-103",
+  "pilot_set_sha256": "eb193ca7a80ccea7cc7488d218e184d8ca211f2b4d5ae7475c9901c7bb182df7",
+  "reviewer_role": "Independent SLR Reviewer",
+  "reviewer_id": "Tran Minh Hoang",
+  "decision_path": "research/evidence/slr-screening-calibration/independent-slr-reviewer-decisions.csv",
+  "decision_commitment_sha256": "8d5916484dc36efd97f1cd425830c9a18ddb2ae80cd1c7abf0468917fd266942",
+  "row_count": 9,
+  "sealed_at_utc": "2026-08-29T01:34:37Z"
+}
