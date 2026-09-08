@@ -54,6 +54,9 @@ jobs:
       - name: Verify RQ traceability matrix
         run: node research/validate-rq-traceability.mjs
 
+      - name: Verify proposed pre-experiment packet remains fail-closed
+        run: node research/validate-pre-experiment-protocols.mjs
+
       - name: Test research contracts with coverage gates
         run: |
           node --experimental-test-coverage \
@@ -74,6 +77,7 @@ jobs:
             --test-coverage-include=research/validate-evaluation-report-scaffold.mjs \
             --test-coverage-include=research/validate-research-quality-gates.mjs \
             --test-coverage-include=research/validate-decision-log.mjs \
+            --test-coverage-include=research/validate-pre-experiment-protocols.mjs \
             --test-coverage-include=research/validate-slr-calibration-candidates.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
@@ -97,6 +101,7 @@ jobs:
             research/validate-evaluation-report-scaffold.test.mjs \
             research/validate-research-quality-gates.test.mjs \
             research/validate-decision-log.test.mjs \
+            research/validate-pre-experiment-protocols.test.mjs \
             research/validate-slr-calibration-candidates.test.mjs
 
       - name: Verify governed SLR screening calibration when present

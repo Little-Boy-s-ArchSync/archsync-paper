@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.1.0",
+  "status": "proposed-not-authorized",
+  "official_runs_authorized": false,
+  "documents": [
+    {
+      "task_id": "EXP-101",
+      "path": "research/experiment-protocol.md",
+      "version": "0.1.0-proposed",
+      "status": "proposed",
+      "sha256": "290f15d200ed2a19f692dcba50c6dc425fb7d4b26d7a1f2a6da9cdba2fa6135c"
+    },
+    {
+      "task_id": "EXP-102",
+      "path": "research/dataset-governance.md",
+      "version": "0.1.0-proposed",
+      "status": "proposed",
+      "sha256": "57b6b532d45a9d9a14475ca855927148c214c47143294175f85e9800225f7cdb"
+    },
+    {
+      "task_id": "ETH-101",
+      "path": "research/ethics-privacy.md",
+      "version": "0.1.0-proposed",
+      "status": "proposed",
+      "sha256": "02978e7eda3452300b3d4fd29e6bc54f8a65312419424033cfa639635508a19a"
+    },
+    {
+      "task_id": "DATA-101",
+      "path": "research/data-management-plan.md",
+      "version": "0.1.0-proposed",
+      "status": "proposed",
+      "sha256": "38eb8c378f7bf9c504e9f60a7b1ce78956393eabaed9c8841db756c262c103b8"
+    },
+    {
+      "task_id": "EXP-103",
+      "path": "research/measurement-study-protocol.md",
+      "version": "0.1.0-proposed",
+      "status": "proposed",
+      "sha256": "bc0d3de81b9374b4b0efb139e512fa90fb3aed6db754d61654f4abf7cf9c9196"
+    }
+  ],
+  "governed_inputs": [
+    {
+      "task_id": "RQ-101",
+      "status": "completed-governed-input",
+      "artifacts": [
+        {
+          "path": "research/claim-evidence.csv",
+          "sha256": "8525bdb858373c78e49f094899c9497ee2cce74f7c3762cd1dbe38c4e62721ad"
+        },
+        {
+          "path": "research/validate-claim-evidence.mjs",
+          "sha256": "03496eb627c4eec1f6eab49a3d53cdc6d97ceccffa6f79a53f46824a082dc1e0"
+        }
+      ]
+    },
+    {
+      "task_id": "RQ-102",
+      "status": "completed-governed-input",
+      "artifacts": [
+        {
+          "path": "research/RQ-TRACEABILITY.md",
+          "sha256": "31c9766754bdbef4cb70f69fbd527e4b4c3936a2f7cb6239cd18f5eae62021e8"
+        },
+        {
+          "path": "research/rq-traceability.csv",
+          "sha256": "294979c7c615f6d567a3c439f34ee300a036b0966e871950012cb2cb5380632b"
+        },
+        {
+          "path": "research/validate-rq-traceability.mjs",
+          "sha256": "18d003902282661489098239b8cc09aac3057df091c1badb192db69375b26274"
+        }
+      ]
+    }
+  ],
+  "approvals": [],
+  "freeze_manifest": null,
+  "results": [],
+  "unresolved_human_gates": [
+    "STAT-101/EXP-103 atomic co-freeze decision",
+    "protocol and governance approvals",
+    "ethics/institutional determination and participant consent",
+    "provider and data-flow authorization",
+    "retention and publication decisions",
+    "task, sample-size, assignment, tool, and environment freeze",
+    "V-RQ4 joint drift-benefit and productivity non-inferiority criterion and margin"
+  ]
+}

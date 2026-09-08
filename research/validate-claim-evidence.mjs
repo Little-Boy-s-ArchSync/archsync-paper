@@ -4,6 +4,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
+export const GOVERNED_TASK_ID = "RQ-101";
+
 const REQUIRED_HEADERS = [
   "claim_id",
   "rq",
@@ -243,7 +245,7 @@ export async function main({
     return;
   }
   log(
-    `VALID CLAIM EVIDENCE (${result.verified} verified-controlled, ${result.planned} planned, all four feasibility RQs covered)`,
+    `VALID CLAIM EVIDENCE ${GOVERNED_TASK_ID} (${result.verified} verified-controlled, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 

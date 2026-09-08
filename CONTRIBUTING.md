@@ -69,6 +69,7 @@ node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
 node research/validate-slr-calibration-candidates.mjs
 node research/validate-rq-traceability.mjs
+node research/validate-pre-experiment-protocols.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
@@ -78,6 +79,15 @@ node research/validate-reference-quality-policy.mjs
 node research/verify-evaluation-report-scaffold.mjs
 node --test research/*.test.mjs
 ```
+
+Packet EXP-101/EXP-102/ETH-101/DATA-101/EXP-103 hiện chỉ là proposal có checksum.
+Validator phải báo `0 approvals; official runs blocked`. Lệnh
+`node research/validate-pre-experiment-protocols.mjs --official-run` là guard
+proposal-only vĩnh viễn và luôn phải trả mã 2. Nó không được dùng làm readiness
+checker sau khi có freeze artifact. Freeze/run tương lai cần validator riêng đã
+được human-review để kiểm tra freeze manifest, protocol approvals,
+ethics/consent/provider/data gates và mọi hash. Không dùng proposal hash, CI
+PASS hoặc thao tác của delegated operator như bằng chứng approval/freeze.
 
 Biên dịch cả hai biến thể, không chỉ file đang mở trong editor:
 
@@ -176,6 +186,11 @@ evidence được yêu cầu riêng trong Definition of Done.
   shared CI runner làm ngưỡng hiệu năng.
 - Phase 4--6 là planned work cho đến khi evidence gate tương ứng hoàn tất. Không
   viết kết quả dự kiến như kết quả đã quan sát.
+- Không dùng `validate-pre-experiment-protocols.mjs --official-run` để cho phép
+  D3, provider/agent pilot hoặc human A--B--C--D pilot: lệnh đó luôn block theo
+  thiết kế. Một future freeze validator riêng mới có thể kiểm tra readiness.
+  D1/D2/P3 vẫn chỉ là development/regression; proposal packet không tạo
+  holdout, participant, consent, provider hoặc result evidence.
 - Paper mới đề xuất cho Background, Related Work hoặc Discussion phải tuân thủ
   `research/REFERENCE-QUALITY-POLICY.md`: ưu tiên journal Q1, xem Q1/Q2 là nhóm
   xếp hạng cao, ưu tiên công bố trong 2022--2026 và chỉ dùng paper cũ hơn khi có
