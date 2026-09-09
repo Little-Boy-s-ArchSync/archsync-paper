@@ -46,7 +46,7 @@
       "artifacts": [
         {
           "path": "research/claim-evidence.csv",
-          "sha256": "8525bdb858373c78e49f094899c9497ee2cce74f7c3762cd1dbe38c4e62721ad"
+          "sha256": "aed32e6d2b47f28075eb71848f1ce5459b0ad64168ed392bdf6b6deba5d39a59"
         },
         {
           "path": "research/validate-claim-evidence.mjs",
