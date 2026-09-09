@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -12,9 +13,11 @@ import {
 } from "./validate-slr-calibration-candidates.mjs";
 import {
   main,
+  ROUND_2_AMENDMENT_ROOT,
   ROUND_2_README_SHA256,
   ROUND_2_REQUIRED_README_STATEMENTS,
   validateRound2Freshness,
+  validateRound2AmendmentIdentity,
 } from "./validate-slr-calibration-round-2-candidates.mjs";
 
 const repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -25,6 +28,46 @@ async function packets() {
     loadCandidatePacket(repositoryDirectory, CANDIDATE_ROOT),
   ]);
 }
+
+async function amendmentArtifacts() {
+  const amendmentRoot = join(repositoryDirectory, ROUND_2_AMENDMENT_ROOT);
+  const [manifestBytes, provenanceBytes, archiveInventoryBytes] = await Promise.all([
+    readFile(join(repositoryDirectory, ROUND_2_CANDIDATE_ROOT, "manifest.json")),
+    readFile(join(amendmentRoot, "AMENDMENT-PROVENANCE.json")),
+    readFile(join(amendmentRoot, "RETAINED-ARCHIVE-SHA256SUMS")),
+  ]);
+  return { manifestBytes, provenanceBytes, archiveInventoryBytes };
+}
+
+test("binds the unaccepted candidate to exact delivered provenance and retained archive identities", async () => {
+  assert.deepEqual(validateRound2AmendmentIdentity(await amendmentArtifacts()), []);
+});
+
+test("rejects parse-equivalent provenance reserialization", async () => {
+  const artifacts = await amendmentArtifacts();
+  artifacts.provenanceBytes = Buffer.from(JSON.stringify(JSON.parse(artifacts.provenanceBytes)));
+  assert.ok(validateRound2AmendmentIdentity(artifacts).some((issue) => issue.includes("provenanceBytes")));
+});
+
+test("rejects provenance duplicate keys even when JSON.parse produces the same value", async () => {
+  const artifacts = await amendmentArtifacts();
+  const original = JSON.parse(artifacts.provenanceBytes);
+  artifacts.provenanceBytes = Buffer.from(artifacts.provenanceBytes.toString().replace(
+    "{\n", '{\n  "official_results_inspected": false,\n',
+  ));
+  assert.deepEqual(JSON.parse(artifacts.provenanceBytes), original);
+  assert.ok(validateRound2AmendmentIdentity(artifacts).some((issue) => issue.includes("provenanceBytes")));
+});
+
+test("rejects missing or changed mandatory amendment companions and candidate bytes", async () => {
+  const artifacts = await amendmentArtifacts();
+  for (const name of Object.keys(artifacts)) {
+    for (const replacement of [undefined, Buffer.concat([artifacts[name], Buffer.from("\n")])]) {
+      assert.ok(validateRound2AmendmentIdentity({ ...artifacts, [name]: replacement })
+        .some((issue) => issue.includes(name)));
+    }
+  }
+});
 
 test("accepts the source-backed fresh Round 2 preparation packet", async () => {
   const [round2, round1] = await packets();

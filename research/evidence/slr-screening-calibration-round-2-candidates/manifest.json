@@ -23,7 +23,7 @@
     {
       "record_id": "CAL-013",
       "record_path": "records/CAL-013.json",
-      "record_sha256": "0e44f42c3e51ba8e04e1f713cf383bb3f2940437a2a9889313b97875066d9654"
+      "record_sha256": "0a74c49d14f14dcb44c9ee032ae337a84204a723ce08ffd88d45721d19065f28"
     },
     {
       "record_id": "CAL-014",
@@ -48,7 +48,7 @@
     {
       "record_id": "CAL-018",
       "record_path": "records/CAL-018.json",
-      "record_sha256": "99ca4cc9f0f13521923d8dfb604902c34ab8b2b2cc0fcf039294df6f138051ca"
+      "record_sha256": "b40bd585dfaae17afd1f17268c4bd13638ab47913bf831f7badbe1c1bdb39bed"
     }
   ]
 }

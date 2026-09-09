@@ -165,9 +165,28 @@ không được sửa lịch sử hoặc trình bày artifact Round 1 như evide
 
 Fresh Round 2 candidate packet nằm tại
 `research/evidence/slr-screening-calibration-round-2-candidates/`, gồm đúng
-CAL-010 đến CAL-018 và manifest SHA-256
+CAL-010 đến CAL-018. Manifest gốc có SHA-256
 `9639d49ef127a84ec87b293cfc458a0b6b37698bef0ba14637b16a2588f3dd4e` tại
-commit `a241eae2fc227254cdaeb1f9052b390c37ab2f07`. Packet có trạng thái
+commit `a241eae2fc227254cdaeb1f9052b390c37ab2f07`.
+
+Đề xuất sửa metadata ngày 2026-09-08 chỉ thay abstract của CAL-013 và ngày
+xuất bản của CAL-018. Exact manifest hiện được đề xuất có SHA-256
+`0dc44715da2113112eb51e7262073a7fefe5237f0e66f775705b5ba96d6943ae` và phải
+được đọc cùng [amendment bundle](evidence/slr-screening-calibration-round-2-amendments/2026-09-08/README.md)
+và [companion provenance](evidence/slr-screening-calibration-round-2-amendments/2026-09-08/AMENDMENT-PROVENANCE.json)
+có SHA-256 `45ca6f35cd86406c7624423b6983fa1775c7bae46bea7747178bb2a8e9123861`.
+README canonical, `evidence_location` và `captured_at_utc` của record vẫn mô tả
+capture API gốc; nguồn và thời điểm truy xuất thật cho hai trường sửa nằm trong
+companion provenance. Bản gốc và toàn bộ source capture được giữ nguyên trong
+local preparation archive; full publisher page và PDF không được đưa vào repo.
+Amendment bundle ghi exact archive identity và cách kiểm tra riêng local sources.
+Không đọc hoặc chuyển tiếp packet đã sửa tách khỏi provenance.
+
+Đây là đề xuất chưa được hai reviewer chấp thuận; việc đưa vào draft PR không
+ghi nhận acceptance. Mỗi reviewer phải kiểm tra và chấp thuận mới cùng exact
+manifest, companion provenance và common selection; acceptance của digest cũ
+không chuyển sang digest mới. Mọi thay đổi byte tiếp theo cần review mới.
+Packet có trạng thái
 `preparation-only`: nó chưa phải pilot, commitment boundary, approval hoặc
 calibration evidence. Hiếu và Hoàng phải độc lập kiểm tra exact bytes rồi mỗi
 người chấp thuận rõ exact nine-record packet CAL-010 đến CAL-018 làm proposed
