@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -66,6 +67,41 @@ test("rejects missing or changed mandatory amendment companions and candidate by
       assert.ok(validateRound2AmendmentIdentity({ ...artifacts, [name]: replacement })
         .some((issue) => issue.includes(name)));
     }
+  }
+});
+
+test("CLI entry point fails closed when mandatory provenance is missing or has a duplicate key", async (t) => {
+  const disposable = await mkdtemp(join(tmpdir(), "slr-round2-amendment-"));
+  t.after(() => rm(disposable, { recursive: true, force: true }));
+  // Copy public preparation metadata only; never load governed reviewer files.
+  for (const relative of [CANDIDATE_ROOT, ROUND_2_CANDIDATE_ROOT, ROUND_2_AMENDMENT_ROOT]) {
+    const destination = join(disposable, relative);
+    await mkdir(dirname(destination), { recursive: true });
+    await cp(join(repositoryDirectory, relative), destination, { recursive: true });
+  }
+  const provenancePath = join(disposable, ROUND_2_AMENDMENT_ROOT, "AMENDMENT-PROVENANCE.json");
+  const original = await readFile(provenancePath, "utf8");
+  await rm(provenancePath);
+  for (const scenario of ["missing", "duplicate-key"]) {
+    if (scenario === "duplicate-key") {
+      const changed = original.replace("{\n", '{\n  "official_results_inspected": false,\n');
+      assert.deepEqual(JSON.parse(changed), JSON.parse(original));
+      await writeFile(provenancePath, changed);
+    }
+    const output = [];
+    const errors = [];
+    let exitCode = null;
+    const result = await main({
+      repositoryDirectory: disposable,
+      log: (message) => output.push(message),
+      error: (message) => errors.push(message),
+      setExitCode: (code) => { exitCode = code; },
+    });
+    assert.equal(exitCode, 1, scenario);
+    assert.deepEqual(output, [], scenario);
+    assert.ok(errors.includes("INVALID SLR CALIBRATION ROUND 2 CANDIDATE PACKET"), scenario);
+    assert.ok(result.issues.some((issue) => issue.includes(scenario === "missing"
+      ? "cannot load mandatory Round 2 amendment companions" : "provenanceBytes")), scenario);
   }
 });
 
