@@ -382,7 +382,19 @@ export async function main({
       "research",
       "submission-readiness.template.json",
     );
-    const value = JSON.parse(await readFile(path, "utf8"));
+    const bytes = await readFile(path);
+    // Compare the retained artifact before parsing can discard duplicate keys.
+    // Preserve its declared key order, two-space indentation and final LF.
+    const expectedBytes = Buffer.from(
+      `${JSON.stringify(SUBMISSION_READINESS_TEMPLATE, null, 2)}\n`,
+      "utf8",
+    );
+    if (!bytes.equals(expectedBytes)) {
+      throw new Error(
+        "submission-readiness template bytes must remain the exact public, unapproved NOT_READY proposal (UTF-8, declared key order, two-space indentation, LF line endings and one final newline)",
+      );
+    }
+    const value = JSON.parse(bytes.toString("utf8"));
     const evaluation = assertSubmissionReadinessTemplate(value);
     log(
       `VALID PREPARATORY SUBMISSION-READINESS TEMPLATE (${evaluation.status}; ${evaluation.blockers.length} blockers; readiness authority not implemented)`,

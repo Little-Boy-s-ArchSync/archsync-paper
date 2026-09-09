@@ -33,7 +33,15 @@ node research/validate-submission-readiness.mjs
 ```
 
 A successful command means only that the committed proposal remains exactly
-`NOT_READY`. The current `0.1.0-proposal` evaluator has no `READY` branch. It
+`NOT_READY`. Before parsing JSON, the file validator compares the raw bytes with
+`JSON.stringify(SUBMISSION_READINESS_TEMPLATE, null, 2) + "\n"`: UTF-8 without a
+BOM, the template constant's declared key order, two-space indentation, LF line
+endings, and one final newline. Duplicate keys at any depth, escaped spellings,
+reordered keys, or different whitespace are rejected even if they parse to the
+same object. The object-level validation and evaluation helpers do not certify
+raw file bytes; use the file validator for the committed artifact.
+
+The current `0.1.0-proposal` evaluator has no `READY` branch. It
 always returns these permanent blockers:
 
 - `AUTHORITATIVE_HUMAN_VERIFICATION_SOURCE_NOT_IMPLEMENTED`; and

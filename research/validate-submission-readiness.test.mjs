@@ -300,3 +300,59 @@ test("the CLI rejects a mutated template and sets a failure exit code", async ()
     await rm(directory, { recursive: true, force: true });
   }
 });
+
+test("the CLI rejects raw noncanonical files even when they parse to the template", async (t) => {
+  const raw = await readFile(
+    join(repositoryDirectory, "research", "submission-readiness.template.json"),
+    "utf8",
+  );
+  const expected = JSON.parse(raw);
+  const fixtures = [
+    ["earlier READY status", raw.replace('  "status":', '  "status": "READY",\n  "status":')],
+    ["earlier approval", raw.replace('  "approvals":', '  "approvals": [{"actor":"Example Human"}],\n  "approvals":')],
+    ["nested private visibility", raw.replace('    "visibility":', '    "visibility": "private",\n    "visibility":')],
+    ["candidate hash", raw.replace('    "source_commit":', `    "source_commit": "${SOURCE_COMMIT}",\n    "source_commit":`)],
+    ["evidence inside an array", raw.replace('      "evidence":', '      "evidence": {"decision":"approved"},\n      "evidence":')],
+    ["escaped duplicate key", raw.replace('  "status":', '  "\\u0073tatus": "READY",\n  "status":')],
+    ["identical duplicate key", raw.replace('  "status":', '  "status": "NOT_READY",\n  "status":')],
+    ["reordered keys", canonicalJson(expected)],
+    ["compact whitespace", JSON.stringify(expected)],
+    ["escaped value", raw.replace('"NOT_READY"', '"NOT_\\u0052EADY"')],
+    ["CRLF line endings", raw.replaceAll("\n", "\r\n")],
+    ["missing final newline", raw.slice(0, -1)],
+    ["extra trailing whitespace", `${raw} \n`],
+  ];
+
+  for (const [name, contents] of fixtures) {
+    await t.test(name, async () => {
+      // Keep this precondition: these are raw-artifact regressions, not semantic mutations.
+      assert.notEqual(contents, raw);
+      assert.deepEqual(JSON.parse(contents), expected);
+      const directory = await mkdtemp(join(tmpdir(), "archsync-readiness-raw-"));
+      try {
+        await mkdir(join(directory, "research"));
+        await writeFile(
+          join(directory, "research", "submission-readiness.template.json"),
+          contents,
+          "utf8",
+        );
+        const output = [];
+        const errors = [];
+        let exitCode = null;
+        const evaluation = await main({
+          repositoryDirectory: directory,
+          log: (message) => output.push(message),
+          error: (message) => errors.push(message),
+          setExitCode: (code) => { exitCode = code; },
+        });
+        assert.equal(evaluation, null);
+        assert.equal(exitCode, 1);
+        assert.deepEqual(output, []);
+        assert.equal(errors[0], "INVALID SUBMISSION-READINESS TEMPLATE");
+        assert.match(errors[1], /exact public, unapproved NOT_READY proposal/u);
+      } finally {
+        await rm(directory, { recursive: true, force: true });
+      }
+    });
+  }
+});
