@@ -21,20 +21,25 @@ Không đưa nội dung section trở lại `main.tex`. Dùng `\input`, không d
 
 ## Bản đồ file và phạm vi chỉnh sửa
 
-| Nội dung | File chính | Người review nội dung |
-| --- | --- | --- |
-| Abstract | `sections/abstract.tex` | Reviewer của các claim bị ảnh hưởng |
-| Introduction | `sections/introduction.tex` | Hiếu |
-| Background / Related Work | `sections/related-work.tex` | Hiếu |
-| Problem, RQ và Proposed Approach | `sections/approach.tex` | Hiếu |
-| System Architecture | `sections/architecture.tex` | Hiếu + reviewer implementation |
-| Implementation / reproducibility | `sections/implementation.tex` | Thành viên 1 |
-| Evaluation methodology | `sections/evaluation.tex` | Thành viên 3 |
-| Results | `sections/results.tex` | Thành viên 3 + evidence reviewer |
-| Discussion | `sections/discussion.tex` | Hiếu |
-| Threats to Validity | `sections/threats-to-validity.tex` | Thành viên 3 |
-| Conclusion | `sections/conclusion.tex` | Hiếu |
-| Named contribution block | `sections/author-information.tex` | Hiếu |
+| Nội dung | File chính | Tác giả/owner chính | Reviewer bắt buộc, khác owner chính |
+| --- | --- | --- | --- |
+| Abstract | `sections/abstract.tex` | Hiếu | Hoàng |
+| Introduction | `sections/introduction.tex` | Hiếu | Kiệt |
+| Background / Related Work | `sections/related-work.tex` | Hiếu | Hoàng |
+| Problem, RQ và Proposed Approach | `sections/approach.tex` | Hiếu | Bách |
+| System Architecture | `sections/architecture.tex` | Hiếu | Kiệt |
+| Implementation / reproducibility | `sections/implementation.tex` | Kiệt | Hiếu |
+| Evaluation methodology | `sections/evaluation.tex` | Hoàng | Bách |
+| Results | `sections/results.tex` | Hoàng | Hiếu |
+| Discussion | `sections/discussion.tex` | Hiếu | Hoàng |
+| Threats to Validity | `sections/threats-to-validity.tex` | Hoàng | Bách |
+| Conclusion | `sections/conclusion.tex` | Hiếu | Kiệt |
+| Named contribution block | `sections/author-information.tex` | Hiếu | Kiệt |
+
+Ma trận trên là assignment cho `PAPER-102`, không phải bằng chứng một review đã
+xảy ra. Reviewer phải kiểm tra exact PR head và để lại review được giữ lại trên
+GitHub. Nếu reviewer là tác giả chính của thay đổi thực tế trong một PR cụ thể,
+Hiếu phải gán một reviewer khác trong bốn thành viên trước khi merge.
 
 `main.tex`, `references.bib`, `sections/abstract.tex` và mọi file trong
 `research/` là file dùng chung có nguy cơ conflict cao. Mỗi thời điểm chỉ một PR
