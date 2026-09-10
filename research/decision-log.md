@@ -477,3 +477,37 @@
   0.2.2, canonical OpenAlex OQO POST execution, and mandatory two-reviewer
   consensus in the project collaboration task on 2026-08-28.
 - Approver: Võ Đức Hiếu, protocol owner and research lead.
+
+## D-023: Record Enforced Merge Protection and Unresolved Public Visibility
+
+- Date: 2026-08-30
+- Status: Operational correction recorded; venue and visibility authorization
+  pending
+- Tasks: PAPER-103, ART-101
+- Observed state: At `2026-08-29T19:21:39Z`, GitHub's repository API reported
+  all seven ArchSync repositories as public. The paper repository retains a
+  `PublicEvent` at `2026-08-13T14:36:43Z`, and its public history contains named
+  manuscript source. `archsync#45` records this P0 conflict and the SHA-256 of
+  the exact API snapshot. Prior public access cannot be retracted or treated as
+  proof that anonymity was preserved.
+- Protection state: Every ArchSync `main` branch now enforces pull requests,
+  strict required status checks, one approving review, approval of the latest
+  push, stale-review dismissal, conversation resolution, administrator
+  enforcement, and force-push/deletion denial. Governed paths in the root,
+  benchmark, and paper repositories additionally use `CODEOWNERS`.
+- Supersession: Preserve D-003 as the historical 2026-08-15 operating decision,
+  but do not reuse its assumptions that the repositories are private or that
+  branch protection cannot be enforced. The dated API evidence above supersedes
+  those factual assumptions. D-003's human-review and final-merge requirements
+  remain governance requirements and are not satisfied by protection alone.
+- Decision boundary: This entry does not select a venue, authorize the current
+  public visibility, claim double-blind anonymity, approve a submission, or
+  authorize an artifact/license/public release. Those decisions and an explicit
+  acknowledgement of prior public exposure remain human gates.
+- Readiness boundary: The PAPER-103/ART-101 submission-readiness contract is a
+  fail-closed proposal only. Its current revision has no `READY` path and cannot
+  authenticate human authority; a later reviewed contract revision and real,
+  exact-candidate evidence are required before submission or release.
+- Owner: Hiếu.
+- Approval: Pending for the venue, visibility, prior-exposure, submission, and
+  artifact-release decisions.
