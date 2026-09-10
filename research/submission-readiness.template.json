@@ -1,0 +1,71 @@
+{
+  "schema_version": "0.1.0-proposal",
+  "contract_revision": "PAPER-103-ART-101-r1-preparatory",
+  "task_ids": [
+    "PAPER-103",
+    "ART-101"
+  ],
+  "status": "NOT_READY",
+  "readiness_authority": "NOT_IMPLEMENTED_REQUIRES_REVIEWED_CONTRACT_REVISION",
+  "repository_state": {
+    "repository": "Little-Boy-s-ArchSync/archsync-paper",
+    "checked_at_utc": "2026-08-29T19:21:39Z",
+    "visibility": "public",
+    "private": false,
+    "all_archsync_repositories_public": true,
+    "prior_public_exposure": true,
+    "public_event_at_utc": "2026-08-13T14:36:43Z",
+    "evidence_issue_url": "https://github.com/Little-Boy-s-ArchSync/archsync/issues/45",
+    "snapshot_sha256": "94d835826130a36a35674ac1173eedf5b29ad3322f376474aea60afb221865c2"
+  },
+  "candidate": {
+    "source_commit": null,
+    "anonymous_pdf_sha256": null,
+    "submission_package_sha256": null,
+    "artifact_manifest_sha256": null
+  },
+  "requirements": [
+    {
+      "id": "venue-policy-authorization",
+      "evidence": null
+    },
+    {
+      "id": "repository-visibility-decision",
+      "evidence": null
+    },
+    {
+      "id": "prior-public-exposure-acknowledgement",
+      "evidence": null
+    },
+    {
+      "id": "anonymous-pdf-inspection",
+      "evidence": null
+    },
+    {
+      "id": "identity-acknowledgement-redaction",
+      "evidence": null
+    },
+    {
+      "id": "artifact-license-decision",
+      "evidence": null
+    },
+    {
+      "id": "public-release-authorization",
+      "evidence": null
+    }
+  ],
+  "declared_blockers": [
+    "AUTHORITATIVE_HUMAN_VERIFICATION_SOURCE_NOT_IMPLEMENTED",
+    "REVIEWED_READINESS_CONTRACT_REVISION_REQUIRED",
+    "CURRENT_REPOSITORY_PUBLIC",
+    "CANDIDATE_HASHES_MISSING",
+    "VENUE_POLICY_AUTHORIZATION_MISSING",
+    "VISIBILITY_DECISION_MISSING",
+    "PRIOR_PUBLIC_EXPOSURE_ACKNOWLEDGEMENT_MISSING",
+    "ANONYMOUS_PDF_INSPECTION_MISSING",
+    "IDENTITY_ACKNOWLEDGEMENT_REDACTION_VERIFICATION_MISSING",
+    "ARTIFACT_LICENSE_DECISION_MISSING",
+    "PUBLIC_RELEASE_AUTHORIZATION_MISSING"
+  ],
+  "approvals": []
+}
