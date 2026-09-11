@@ -82,7 +82,7 @@ assert.doesNotMatch(
 );
 assert.equal(
   anonymous,
-  "% Double-blind submission wrapper. The named working draft remains main.tex.\n" +
+  "% Double-blind submission wrapper. The named working manuscript remains main.tex.\n" +
     "\\def\\archsyncanonymousmode{1}\n" +
     "\\def\\archsyncanonymousauthor{Anonymous Author(s)}\n" +
     "\\input{main.tex}\n",
