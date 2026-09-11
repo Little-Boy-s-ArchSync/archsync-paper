@@ -34,11 +34,10 @@ jobs:
       - name: Verify anonymous submission settings
         shell: bash
         run: |
-          grep -F '\documentclass[sigconf,nonacm]{acmart}' main.tex
-          grep -F '\PassOptionsToClass{anonymous}{acmart}' main-anonymous.tex
+          grep -F '\documentclass[conference]{IEEEtran}' main.tex
+          grep -F '\bibliographystyle{IEEEtran}' main.tex
           grep -F '\input{main.tex}' main-anonymous.tex
-          test "$(grep -c '^\\author{' main.tex)" -eq 4
-          test "$(grep -c '^\\email{' main.tex)" -eq 4
+          test "$(grep -c 'Email: .*@littleboys.biz; ORCID:' main.tex)" -eq 4
           if grep -F 'Anonymous Author' main.tex; then exit 1; fi
           if grep -F 'Anonymous Institution' main.tex; then exit 1; fi
 

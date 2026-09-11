@@ -28,7 +28,7 @@ const normalizedNamed = named.toLowerCase();
 const normalizedAnonymous = anonymous.toLowerCase();
 
 const sharedAnchors = [
-  "ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems",
+  "ArchSync: A Controlled Feasibility Study of Evidence-Backed Architecture Drift Detection in TypeScript Systems",
   "Software teams can keep builds green while implementation relationships drift away from an approved architecture",
   "Introduction",
   "Background and Related Work",
