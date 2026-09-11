@@ -47,6 +47,8 @@ This question evaluates exact classification agreement with a manually curated g
 
 This question evaluates whether a finding identifies the expected changed file and exact source line. Column, detector, excerpt, and model path are retained as additional diagnostic evidence.
 
+Across RQ1--RQ3, the term \emph{accuracy} means agreement with the declared oracles in the controlled D1 and D2 datasets. It is not an estimate of performance on unseen TypeScript repositories.
+
 \textbf{RQ4: Are ArchSync full-repository and Git-diff outputs deterministic and reproducible, and what analysis scope and latency are observed for the cached incremental gate?}
 
 This question compares normalized observed graphs, findings, and pull-request decisions across repeated executions and clean installations. For Git-diff checks it additionally records cache behavior, files parsed relative to the head repository, and cold/warm latency on the measured environment.

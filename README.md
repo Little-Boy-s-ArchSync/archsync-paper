@@ -1,7 +1,8 @@
 # ArchSync Research Paper
 
-Nguồn LaTeX của bài nghiên cứu **ArchSync: Evidence-Backed Detection of
-Architecture Drift in TypeScript Systems**.
+Nguồn LaTeX IEEE conference của bài nghiên cứu **ArchSync: A Controlled
+Feasibility Study of Evidence-Backed Architecture Drift Detection in TypeScript
+Systems**.
 
 Chính sách của dự án yêu cầu repository được giữ **private** trong thời gian
 phản biện ẩn danh, nhưng audit GitHub ngày 2026-08-29 ghi nhận cả bảy repository
@@ -26,11 +27,9 @@ nhận repository anonymity hoặc submission readiness.
 
 ```text
 .
-├── main.tex                     # Preamble, author/CCS metadata, ordered inputs
+├── main.tex                     # IEEEtran preamble, author metadata, ordered inputs
 ├── main-anonymous.tex           # Minimal anonymous wrapper
 ├── references.bib               # Tài liệu tham khảo
-├── acmart.cls                   # ACM document class từ Overleaf
-├── ACM-Reference-Format.bst     # ACM bibliography style
 ├── sections/
 │   ├── abstract.tex
 │   ├── introduction.tex
@@ -89,6 +88,10 @@ nhận repository anonymity hoặc submission readiness.
 `main.tex` dùng `\input`, không dùng `\include`, nên việc chia file không tạo
 page break. Mỗi file trong `sections/` có magic root comment trỏ về `main.tex` để
 LaTeX Workshop build đúng document khi đang sửa một section.
+
+Manuscript dùng `\documentclass[conference]{IEEEtran}` và bibliography style
+`IEEEtran`. Template conference chung này phải được thay bằng template riêng
+của venue nếu hội nghị được chọn cung cấp biến thể hoặc giới hạn trang khác.
 
 ## Bắt đầu nhanh trong VS Code hoặc Codespaces
 

@@ -6,11 +6,11 @@ const [main, anonymous] = await Promise.all([
 ]);
 
 const checks = [
-  [main.includes("\\documentclass[sigconf,nonacm]{acmart}"), "main.tex ACM class"],
-  [anonymous.includes("\\PassOptionsToClass{anonymous}{acmart}"), "anonymous option"],
+  [main.includes("\\documentclass[conference]{IEEEtran}"), "main.tex IEEE conference class"],
+  [main.includes("\\bibliographystyle{IEEEtran}"), "IEEE bibliography style"],
   [anonymous.includes("\\input{main.tex}"), "anonymous wrapper input"],
-  [(main.match(/^\\author\{/gm) ?? []).length === 4, "four author records"],
-  [(main.match(/^\\email\{/gm) ?? []).length === 4, "four email records"],
+  [["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet"].every((value) => main.includes(value)), "four named authors"],
+  [["voduchieu@littleboys.biz", "an1dee@littleboys.biz", "bachcp6@littleboys.biz", "levankiet1212.2004@littleboys.biz"].every((value) => main.includes(value)), "four email records"],
   [!main.includes("Anonymous Author"), "named source has no anonymous placeholder"],
   [!main.includes("Anonymous Institution"), "named source has no anonymous institution"],
 ];

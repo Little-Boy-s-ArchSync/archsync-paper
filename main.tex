@@ -1,15 +1,23 @@
 % !TeX program = pdflatex
-\documentclass[sigconf,nonacm]{acmart}
+\documentclass[conference]{IEEEtran}
 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
 \usepackage{tikz}
+\usepackage{xpatch}
 \usetikzlibrary{arrows.meta,positioning,fit}
 
-\setcopyright{none}
-\settopmatter{printacmref=false,authorsperrow=2}
-\renewcommand\footnotetextcopyrightpermission[1]{}
 \renewcommand{\textbullet}{\textnormal{-}}
 \renewcommand{\labelitemi}{\textnormal{-}}
+\renewcommand{\labelitemii}{\textnormal{-}}
 \emergencystretch=2em
+\interdisplaylinepenalty=2500
+\newcommand{\Description}[1]{}
+\xpatchcmd{\abstract}{---}{-}{}{}
+\xpatchcmd{\IEEEkeywords}{---}{-}{}{}
 
 \newif\ifarchsyncanonymous
 \ifdefined\archsyncanonymousmode
@@ -34,72 +42,36 @@
 
 \begin{document}
 
-\title{ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems}
+\title{ArchSync: A Controlled Feasibility Study of Evidence-Backed Architecture Drift Detection in TypeScript Systems}
 
-\author{Vo Duc Hieu}
-\orcid{0009-0007-5389-5177}
-\authornote{Corresponding author.}
-\affiliation{%
-  \department{Software Engineering}
-  \institution{FPT University}
-  \city{Ho Chi Minh City}
-  \country{Vietnam}
-}
-\email{voduchieu@littleboys.biz}
+\ifarchsyncanonymous
+  \author{\IEEEauthorblockN{\archsyncanonymousauthor}}
+\else
+  \author{%
+    \IEEEauthorblockN{Vo Duc Hieu\IEEEauthorrefmark{1},
+      Tran Minh Hoang\IEEEauthorrefmark{2},
+      Ha Hoang Bach\IEEEauthorrefmark{3}, and
+      Le Van Kiet\IEEEauthorrefmark{4}}
+    \IEEEauthorblockA{\IEEEauthorrefmark{1}Software Engineering, FPT University, Ho Chi Minh City, Vietnam\\
+      Email: voduchieu@littleboys.biz; ORCID: 0009-0007-5389-5177}
+    \IEEEauthorblockA{\IEEEauthorrefmark{2}Computer Science and Engineering, VNUK Institute for Research and Executive Education,\\
+      The University of Danang, Da Nang, Vietnam\\
+      Email: an1dee@littleboys.biz; ORCID: 0009-0000-0302-1841}
+    \IEEEauthorblockA{\IEEEauthorrefmark{3}Information Assurance, FPT University, Ho Chi Minh City, Vietnam\\
+      Email: bachcp6@littleboys.biz; ORCID: 0009-0000-5118-0660}
+    \IEEEauthorblockA{\IEEEauthorrefmark{4}Software Engineering, VNUK Institute for Research and Executive Education,\\
+      The University of Danang, Da Nang, Vietnam\\
+      Email: levankiet1212.2004@littleboys.biz; ORCID: 0009-0007-8434-882X}
+  }
+\fi
 
-\author{Tran Minh Hoang}
-\orcid{0009-0000-0302-1841}
-\affiliation{%
-  \department{Computer Science and Engineering}
-  \institution{VNUK Institute for Research and Executive Education, The University of Danang}
-  \city{Da Nang}
-  \country{Vietnam}
-}
-\email{an1dee@littleboys.biz}
-
-\author{Ha Hoang Bach}
-\orcid{0009-0000-5118-0660}
-\affiliation{%
-  \department{Information Assurance}
-  \institution{FPT University}
-  \city{Ho Chi Minh City}
-  \country{Vietnam}
-}
-\email{bachcp6@littleboys.biz}
-
-\author{Le Van Kiet}
-\orcid{0009-0007-8434-882X}
-\affiliation{%
-  \department{Software Engineering}
-  \institution{VNUK Institute for Research and Executive Education, The University of Danang}
-  \city{Da Nang}
-  \country{Vietnam}
-}
-\email{levankiet1212.2004@littleboys.biz}
+\maketitle
 
 \input{sections/abstract}
 
-\begin{CCSXML}
-<ccs2012>
- <concept>
-  <concept_id>10011007.10010940.10010941.10010942</concept_id>
-  <concept_desc>Software and its engineering~Software architectures</concept_desc>
-  <concept_significance>500</concept_significance>
- </concept>
- <concept>
-  <concept_id>10011007.10011074.10011099</concept_id>
-  <concept_desc>Software and its engineering~Software verification and validation</concept_desc>
-  <concept_significance>300</concept_significance>
- </concept>
-</ccs2012>
-\end{CCSXML}
-
-\ccsdesc[500]{Software and its engineering~Software architectures}
-\ccsdesc[300]{Software and its engineering~Software verification and validation}
-
-\keywords{software architecture, architecture conformance, architecture drift, static analysis, architecture as code, software evolution}
-
-\maketitle
+\begin{IEEEkeywords}
+software architecture, architecture conformance, architecture drift, static analysis, architecture as code
+\end{IEEEkeywords}
 
 \input{sections/introduction}
 \input{sections/related-work}
@@ -113,7 +85,7 @@
 \input{sections/conclusion}
 \input{sections/author-information}
 
-\bibliographystyle{ACM-Reference-Format}
+\bibliographystyle{IEEEtran}
 \bibliography{references}
 
 \end{document}
