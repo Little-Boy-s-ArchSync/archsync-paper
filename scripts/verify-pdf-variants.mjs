@@ -27,8 +27,28 @@ const anonymous = pdfText(anonymousPdf);
 const normalizedNamed = named.toLowerCase();
 const normalizedAnonymous = anonymous.toLowerCase();
 
+function pdfAnchorPattern(anchor) {
+  const words = anchor
+    .toLowerCase()
+    .trim()
+    .split(/\s+/u)
+    .map((word) =>
+      [...word]
+        .map((character) => character.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"))
+        .join("\\s*"),
+    );
+  return new RegExp(words.join("\\s+"), "u");
+}
+
+function containsPdfAnchor(text, anchor) {
+  // IEEEtran renders section headings in spaced small caps. pdftotext may
+  // therefore extract "Introduction" as "I NTRODUCTION". Match the same
+  // lexical anchor while allowing extractor-inserted whitespace within words.
+  return pdfAnchorPattern(anchor).test(text);
+}
+
 const sharedAnchors = [
-  "ArchSync: Evidence-Backed Detection of Architecture Drift in TypeScript Systems",
+  "ArchSync: A Controlled Feasibility Study of Evidence-Backed Architecture Drift Detection in TypeScript Systems",
   "Software teams can keep builds green while implementation relationships drift away from an approved architecture",
   "Introduction",
   "Background and Related Work",
@@ -46,11 +66,11 @@ const sharedAnchors = [
 ];
 for (const anchor of sharedAnchors) {
   assert.ok(
-    normalizedNamed.includes(anchor.toLowerCase()),
+    containsPdfAnchor(normalizedNamed, anchor),
     `named PDF is missing '${anchor}'`,
   );
   assert.ok(
-    normalizedAnonymous.includes(anchor.toLowerCase()),
+    containsPdfAnchor(normalizedAnonymous, anchor),
     `anonymous PDF is missing '${anchor}'`,
   );
 }
