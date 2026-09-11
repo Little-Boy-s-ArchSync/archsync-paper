@@ -35,17 +35,19 @@ The research problem is to determine whether a source analyzer can reconstruct e
 
 \section{Research Questions}
 
-\textbf{RQ1: To what extent do ArchSync's reconstructed components and relationships agree with the declared oracle on the controlled TypeScript benchmark?}
+\textbf{RQ1: How accurately can ArchSync reconstruct software architecture components and relationships from TypeScript source code?}
 
 This question measures precision, recall, and F1 score for complete observed graphs and for nodes and edges changed by a patch. At the detector-signal level it additionally measures true negatives and specificity on annotated hard negatives.
 
-\textbf{RQ2: To what extent do ArchSync's no-impact, violation, and evolution classifications agree with the declared controlled-case labels?}
+\textbf{RQ2: How accurately can ArchSync distinguish no-impact changes, architecture-rule violations, and architecture evolution?}
 
 This question evaluates exact classification agreement with a manually curated ground truth and, for violations, agreement on the expected rule identifiers.
 
-\textbf{RQ3: To what extent do ArchSync's source locations agree with the declared file and line evidence for controlled findings?}
+\textbf{RQ3: How accurately can ArchSync localize architectural findings in source code?}
 
 This question evaluates whether a finding identifies the expected changed file and exact source line. Column, detector, excerpt, and model path are retained as additional diagnostic evidence.
+
+Across RQ1--RQ3, the term \emph{accuracy} means agreement with the declared oracles in the controlled D1 and D2 datasets. It is not an estimate of performance on unseen TypeScript repositories.
 
 \textbf{RQ4: Are ArchSync full-repository and Git-diff outputs deterministic and reproducible, and what analysis scope and latency are observed for the cached incremental gate?}
 
