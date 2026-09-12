@@ -12,13 +12,13 @@ import {
   main as runFreezeTool,
 } from "./freeze-literature-protocol.mjs";
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
+import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
-const [protocol, decisions, baseline, traceability, paper, bibliography] =
+const { protocol, decisions } = await loadSlrCandidateFixture();
+const [baseline, traceability, paper, bibliography] =
   await Promise.all([
-    readFile(join(researchDirectory, "literature-protocol.md"), "utf8"),
-    readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
     readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
     loadExpandedManuscript(repositoryDirectory),
