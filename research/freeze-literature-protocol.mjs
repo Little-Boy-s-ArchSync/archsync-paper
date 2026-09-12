@@ -1,4 +1,4 @@
-import { readFile, stat, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -7,6 +7,7 @@ import {
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
 import { REVIEWER_ROLE } from "./verify-slr-signed-attestation.mjs";
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -210,15 +211,6 @@ export async function main({
   repositoryDirectory = dirname(dirname(fileURLToPath(import.meta.url))),
   readText = (path) => readFile(path, "utf8"),
   writeText = (path, text) => writeFile(path, text, "utf8"),
-  pathExists = async (path) => {
-    try {
-      await stat(path);
-      return true;
-    } catch (pathError) {
-      if (pathError?.code === "ENOENT") return false;
-      throw pathError;
-    }
-  },
   loadEvidence = loadSentinelEvidence,
   log = console.log,
   error = console.error,
@@ -238,19 +230,12 @@ export async function main({
     return;
   }
 
-  const splitPaperPath = join(
-    repositoryDirectory,
-    "sections",
-    "related-work.tex",
-  );
   const paths = {
     protocol: join(repositoryDirectory, "research", "literature-protocol.md"),
     decisions: join(repositoryDirectory, "research", "decision-log.md"),
     baseline: join(repositoryDirectory, "research", "RESEARCH.md"),
     traceability: join(repositoryDirectory, "research", "RQ-TRACEABILITY.md"),
-    paper: (await pathExists(splitPaperPath))
-      ? splitPaperPath
-      : join(repositoryDirectory, "main.tex"),
+    paper: join(repositoryDirectory, "main.tex"),
     bibliography: join(repositoryDirectory, "references.bib"),
     reviewRecord: join(repositoryDirectory, "research", "slr-review-record.md"),
     sentinelRecall: join(
@@ -266,7 +251,9 @@ export async function main({
       await Promise.all(
         Object.entries(paths).map(async ([name, path]) => [
           name,
-          await readText(path),
+          name === "paper"
+            ? await loadExpandedManuscript(repositoryDirectory, { readText })
+            : await readText(path),
         ]),
       ),
     );

@@ -27,7 +27,7 @@ function decisionRow({
     record_id: record.record_id,
     round: "title-abstract",
     protocol_version: "0.2.2",
-    criteria_version: "0.2.0",
+    criteria_version: "0.2.1",
     reviewer_role: reviewerRole,
     reviewer_id: reviewerId,
     decision,
@@ -64,6 +64,7 @@ export function createSlrScreeningCalibrationFixture({
   for (let index = 1; index <= 8; index += 1) {
     const recordId = `CAL-${String(index).padStart(3, "0")}`;
     const path = `${CALIBRATION_ROOT}/records/${recordId}.json`;
+    const pilotPath = `records/${recordId}.json`;
     const artifact = {
       schema_version: "1.1.0",
       record_id: recordId,
@@ -80,7 +81,7 @@ export function createSlrScreeningCalibrationFixture({
     recordArtifacts.set(path, bytes);
     pilotRecords.push({
       record_id: recordId,
-      record_path: path,
+      record_path: pilotPath,
       record_sha256: sha256(bytes),
     });
   }
@@ -88,7 +89,7 @@ export function createSlrScreeningCalibrationFixture({
     schema_version: "1.2.0",
     task: "SLR-103",
     protocol_version: "0.2.2",
-    criteria_version: "0.2.0",
+    criteria_version: "0.2.1",
     selected_at_utc: "2026-08-26T00:00:00Z",
     official_results_inspected: false,
     required_rounds: ["title-abstract"],

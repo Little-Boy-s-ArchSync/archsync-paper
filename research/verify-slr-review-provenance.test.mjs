@@ -5,6 +5,10 @@ import {
   sign,
 } from "node:crypto";
 import test from "node:test";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { tmpdir } from "node:os";
+import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mjs";
 
 import {
   githubRequestJson,
@@ -533,22 +537,51 @@ test("CLI rejects an unreadable signed-review artifact", async () => {
   assert.ok(state.errors[0].includes(SIGNED_REVIEW_PATHS.signature));
 });
 
-test("CLI default filesystem adapter skips the real candidate repository", async () => {
+test("CLI default filesystem adapter reads isolated candidate and synthetic signed-review states", async (context) => {
+  const repository = await mkdtemp(join(tmpdir(), "archsync-test-only-review-provenance-"));
+  context.after(() => rm(repository, { recursive: true, force: true }));
+  await mkdir(join(repository, "research"));
+  const candidate = await loadSlrCandidateFixture();
+  await writeFile(join(repository, "research", "literature-protocol.md"), candidate.protocol, "utf8");
   const output = [];
   const errors = [];
   let exitCode = null;
-  await runReviewProvenanceVerifier({
+  let requests = 0;
+  const options = {
+    repositoryDirectory: repository,
+    environment: { SLR_CURRENT_PR: "7", SLR_CURRENT_COMMIT: currentCommit },
+    requestJson: async (path) => { requests += 1; return githubFixture()(path); },
     log: (message) => output.push(message),
     error: (message) => errors.push(message),
     setExitCode: (code) => {
       exitCode = code;
     },
-  });
+  };
+  await runReviewProvenanceVerifier(options);
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
   assert.deepEqual(output, [
     "SKIP SLR REVIEW PROVENANCE (protocol is not frozen)",
   ]);
+  assert.equal(requests, 0);
+
+  const signed = signedFixture();
+  await writeFile(join(repository, "research", "slr-review-record.md"), signed.reviewRecord, "utf8");
+  for (const [name, bytes] of Object.entries({
+    [SIGNED_REVIEW_PATHS.attestation]: signed.signedReviewArtifacts.attestationBytes,
+    [SIGNED_REVIEW_PATHS.signature]: signed.signedReviewArtifacts.signatureBytes,
+    [SIGNED_REVIEW_PATHS.publicKey]: signed.signedReviewArtifacts.publicKeyBytes,
+  })) {
+    const path = join(repository, name);
+    await mkdir(dirname(path), { recursive: true });
+    await writeFile(path, bytes);
+  }
+  output.length = 0;
+  await runReviewProvenanceVerifier(options);
+  assert.equal(exitCode, null);
+  assert.deepEqual(errors, []);
+  assert.equal(requests, 3);
+  assert.deepEqual(output, ["VALID SLR REVIEW PROVENANCE (PR #7, signed attestation, reviewer Tran Minh Hoang (signed via an1dee3301), commit 1111111)"]);
 });
 
 test("CLI default GitHub adapter verifies using its token without exposing it", async (context) => {
