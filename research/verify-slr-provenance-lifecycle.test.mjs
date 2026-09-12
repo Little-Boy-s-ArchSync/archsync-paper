@@ -41,7 +41,7 @@ async function fixture(t) {
   for (const [path, bytes] of source.sentinelEvidenceArtifacts) await write(path, bytes);
   await write("research/phase-gate-register.csv", "gate_id,phase,decision,decision_date,owner,evidence,open_blocker,next_action\nPG-OLD,P0,HOLD,2026-09-11,Hiếu,pending,review,wait\n");
   await write("research/MEETING-CADENCE.md", "# Historical weekly decision\n2026-09-11: HOLD; freeze pending.\n");
-  for (const path of ["research/EXTERNAL-BASELINE-PROTOCOL.md", "research/statistical-analysis-plan.md"]) await write(path, await readFile(join(root, path)));
+  for (const path of ["research/EXTERNAL-BASELINE-PROTOCOL.md", "research/statistical-analysis-plan.md", "research/validate-research-quality-gates.mjs"]) await write(path, await readFile(join(root, path)));
   const keys = generateKeyPairSync("ed25519");
   const publicKeyBytes = Buffer.from(keys.publicKey.export({ format: "pem", type: "spki" }));
   await write(SIGNED_REVIEW_PATHS.publicKey, publicKeyBytes);
@@ -93,10 +93,12 @@ const invalid = (result, pattern) => { assert.ok(result.issues.length > 0); asse
 
 test("real Git merge history permits PR32-style proposed owner metadata and preserves the signed source", async (t) => {
   const f = await fixture(t);
-  let text = await readFile(join(f.directory, "research/EXTERNAL-BASELINE-PROTOCOL.md"), "utf8");
-  await f.change("research/EXTERNAL-BASELINE-PROTOCOL.md", text.replace("| Protocol version | 0.1.0 |", "| Protocol version | 0.1.1 |").replace("| Owner | Tran Minh Hoang |", "| Owner | Le Van Kiet |"));
-  text = await readFile(join(f.directory, "research/statistical-analysis-plan.md"), "utf8");
-  await f.change("research/statistical-analysis-plan.md", text.replace("| Version | 0.1.0-draft |", "| Version | 0.1.1-draft |").replace("| Owner | Thành viên 3 |", "| Owner | Vo Duc Hieu |"));
+  // Exact public PR32 delta from 159ea31 to 287ca6b, applied to synthetic history.
+  const patchPath = join(root, "research/test-support/pr32-owner-metadata.patch");
+  assert.equal(digest(await readFile(patchPath)), "54fdaca35b2b76bb5d7b82f31f00237c8b95ec53ae20d900b949fe1d00ea1e25");
+  f.run("apply", patchPath);
+  const current = f.commit("Apply exact published PR32 owner metadata patch");
+  f.currentPull.head.sha = current; f.currentPull.merge_commit_sha = current; f.environment.SLR_CURRENT_COMMIT = current;
   const result = await f.verify(); assert.deepEqual(result.issues, []); assert.equal(result.mode, "historical"); assert.equal(result.reviewed, f.reviewed);
   assert.equal(await readFile(join(f.directory, recordPath), "utf8"), f.record);
 });
@@ -285,4 +287,102 @@ test("workflow invokes the lifecycle gate with actual PR-head and main event bin
   assert.match(workflow, /SLR_CURRENT_PR: \$\{\{ github.event.pull_request.number \}\}/);
   assert.match(workflow, /run: node research\/verify-slr-provenance-lifecycle.mjs/);
   assert.match(workflow, /--test-coverage-include=research\/verify-slr-provenance-lifecycle.mjs/);
+});
+
+test("a phase correction introduced only in a merge cannot bypass accountable review", async (t) => {
+  const f = await fixture(t);
+  f.run("checkout", "--detach", f.merged);
+  f.run("merge", "--no-ff", "--no-commit", "follow-up");
+  const path = "research/MEETING-CADENCE.md";
+  const original = await readFile(join(f.directory, path), "utf8");
+  await f.write(path, original + `\n2026-09-13: correction to pending-freeze statement; HOLD retained. https://github.com/${repo}/pull/26\n`);
+  f.currentPull.merge_commit_sha = f.commit("Unreviewed correction injected only during merge");
+  invalid(await f.verify(), /requires Hiếu's exact-head approval/);
+});
+
+test("squashed owner-approved phase correction passes on main but altered merge bytes fail", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  const original = await readFile(join(f.directory, path), "utf8");
+  const addition = `\n2026-09-13: correction to pending-freeze statement; HOLD retained. https://github.com/${repo}/pull/26\n`;
+  await f.change(path, original + addition);
+  f.run("checkout", "--detach", f.merged);
+  f.run("merge", "--squash", "follow-up");
+  const squashed = f.commit("Owner-reviewed phase correction squashed on main");
+  f.currentPull.merged = true; f.currentPull.state = "closed"; f.currentPull.merge_commit_sha = squashed; f.currentPull.base.sha = squashed;
+  const requestJson = (path) => path.includes("/commits/") && path.includes("/pulls?") ? [{ number: 32 }] : f.requestJson(path);
+  const environment = { GITHUB_EVENT_NAME: "push", GITHUB_REF: "refs/heads/main", SLR_CURRENT_COMMIT: squashed };
+  assert.deepEqual((await f.verify({ requestJson, environment })).issues, []);
+  await f.write(path, original + addition + "Owner supposedly declared GO.\n");
+  const altered = f.commit("Unreviewed merge resolution");
+  f.currentPull.merge_commit_sha = altered; f.currentPull.base.sha = altered; environment.SLR_CURRENT_COMMIT = altered;
+  invalid(await f.verify({ requestJson, environment }), /requires Hiếu's exact-head approval/);
+});
+
+test("squashed original freeze still binds the original signed source", async (t) => {
+  const f = await fixture(t);
+  f.run("checkout", "--detach", f.reviewed);
+  f.run("merge", "--squash", "freeze");
+  const squash = f.commit("Synthetic original freeze accepted by squash");
+  f.originalPull.merge_commit_sha = squash;
+  f.currentPull.base.sha = squash; f.currentPull.head.sha = squash; f.currentPull.merge_commit_sha = squash; f.environment.SLR_CURRENT_COMMIT = squash;
+  assert.deepEqual((await f.verify()).issues, []);
+});
+
+test("missing historical objects fetch only the trusted full SHA from the fixed repository", async () => {
+  const commit = "a".repeat(40); const calls = []; let present = false;
+  const git = gitEvidence("/synthetic", { fetchMissing: true, execGit: async (command, args) => {
+    assert.equal(command, "git"); assert.equal(args[0], "--no-replace-objects"); calls.push(args);
+    if (args[1] === "cat-file" && !present) throw new Error("missing object");
+    if (args[1] === "fetch") present = true;
+    return { stdout: Buffer.from("") };
+  } });
+  await git.tree(commit); await git.tree(commit);
+  assert.deepEqual(calls.filter((args) => args[1] === "fetch"), [["--no-replace-objects", "fetch", "--no-tags", "--no-write-fetch-head", "--no-recurse-submodules", `https://github.com/${repo}.git`, commit]]);
+  await assert.rejects(git.tree("refs/heads/untrusted"), /invalid Git object identity/);
+});
+
+test("tab-containing shadow filenames cannot mask changed frozen methods", async (t) => {
+  const f = await fixture(t);
+  await f.write("research/literature-protocol.md\tshadow", f.frozen.protocol);
+  await f.change("research/literature-protocol.md", f.frozen.protocol + "\nUnauthorized method change.\n");
+  invalid(await f.verify(), /frozen method\/evidence changed/);
+  const tree = await gitEvidence(f.directory).tree(f.environment.SLR_CURRENT_COMMIT);
+  assert.ok(tree.has("research/literature-protocol.md\tshadow"));
+  assert.notEqual(tree.get("research/literature-protocol.md"), tree.get("research/literature-protocol.md\tshadow"));
+});
+
+test("deleting the record on main cannot masquerade as a pre-freeze candidate", async (t) => {
+  const f = await fixture(t); f.run("rm", recordPath); const current = f.commit("Delete inherited record on main");
+  f.currentPull.base.sha = current;
+  invalid(await f.verify({ environment: { GITHUB_EVENT_NAME: "push", GITHUB_REF: "refs/heads/main", SLR_CURRENT_COMMIT: current } }), /record was removed/);
+});
+
+test("owner-approved ordinary phase merge returns only commit identities and passes main", async (t) => {
+  const f = await fixture(t); const path = "research/MEETING-CADENCE.md";
+  const before = await readFile(join(f.directory, path), "utf8");
+  await f.change(path, before + `\n2026-09-13 correction to pending freeze; HOLD retained. https://github.com/${repo}/pull/26\n`);
+  f.run("checkout", "--detach", f.merged); f.run("merge", "--no-ff", "follow-up", "-m", "Owner-approved ordinary merge");
+  const current = f.run("rev-parse", "HEAD");
+  f.currentPull.merged = true; f.currentPull.state = "closed"; f.currentPull.merge_commit_sha = current; f.currentPull.base.sha = current;
+  const commits = await gitEvidence(f.directory).phaseCommits(f.merged, current);
+  assert.ok(commits.length >= 2); assert.ok(commits.every((commit) => /^[0-9a-f]{40}$/.test(commit)));
+  const requestJson = (path) => path.includes("/commits/") && path.includes("/pulls?") ? [{ number: 32 }] : f.requestJson(path);
+  assert.deepEqual((await f.verify({ requestJson, environment: { GITHUB_EVENT_NAME: "push", GITHUB_REF: "refs/heads/main", SLR_CURRENT_COMMIT: current } })).issues, []);
+});
+
+test("initial merge is the accepted baseline, not a new phase correction on the later PR", async (t) => {
+  const f = await fixture(t);
+  // Reconstruct a pre-review main with older phase text, then merge the reviewed
+  // freeze as a second parent. This models PR26's pre-freeze phase maintenance.
+  f.run("checkout", "--detach", f.reviewed);
+  await f.write("research/MEETING-CADENCE.md", "# Older main phase state\nHOLD\n");
+  const olderMain = f.commit("Older main phase snapshot");
+  const tree = f.run("rev-parse", `${f.freeze}^{tree}`);
+  const merged = f.run("commit-tree", tree, "-p", olderMain, "-p", f.freeze, "-m", "Accepted original merge includes reviewed phase baseline");
+  f.run("checkout", "--detach", merged);
+  await f.write("README.md", "Later admin only\n"); const current = f.commit("Ordinary later PR");
+  f.originalPull.merge_commit_sha = merged; f.currentPull.base.sha = merged; f.currentPull.head.sha = current; f.currentPull.merge_commit_sha = current; f.environment.SLR_CURRENT_COMMIT = current;
+  const requestJson = (path) => path.includes("/pulls/32/reviews?") ? [f.approval(current, "ordinary-independent-reviewer")] : f.requestJson(path);
+  assert.deepEqual((await f.verify({ requestJson })).issues, []);
 });

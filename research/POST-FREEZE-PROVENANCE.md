@@ -13,11 +13,14 @@ retain their original identities. In particular, the published PR26 freeze
 `verify-slr-provenance-lifecycle.mjs` runs for pull requests to main, pushes to
 main, and manual runs on main. It uses the event's head SHA, checks GitHub's
 current PR/head/base identity, and checks the actual checkout, including GitHub's
-temporary PR merge. Missing objects or unavailable API evidence fail closed.
+temporary PR merge. If a squash merge left an accepted source outside a fresh
+clone, Git fetches only its full SHA from the fixed official repository, without
+writing refs or FETCH_HEAD. Unavailable objects or API evidence fail closed.
 Branch pushes are covered by their PR gate; they do not establish acceptance.
 
 A candidate can skip only when neither its event tree nor trusted base nor
-checkout contains a frozen review record. Deleting an inherited record fails.
+checkout contains a frozen review record, and the trusted base history has never
+introduced one. Deleting an inherited record fails, including on main.
 The initial freeze PR still calls the original live verifier unchanged: its
 open PR, exact head, reviewed ancestor, review/signature, timestamp and original
 five-file transition restrictions remain in force. No allowlist was expanded.
@@ -64,7 +67,8 @@ are immutable. Corrections append a date and a GitHub evidence link. Every
 commit introducing a correction also needs Hiếu's exact-head approval
 (`L1nkinPark`, the existing CODEOWNERS identity), verified through the current PR
 or a merged associated PR. Main runs recheck the associated approval for inherited
-corrections. A correction is not a GO decision inferred by this tool; only the
+corrections, including squash/rebase histories. Merge-only corrections are
+checked too; an accepted merge must preserve the owner-approved phase bytes. A correction is not a GO decision inferred by this tool; only the
 accountable owner's actual reviewed decision can change the later state.
 No existing phase record is changed by this implementation.
 

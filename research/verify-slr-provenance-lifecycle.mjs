@@ -21,32 +21,54 @@ const field = (record, name) => record.match(new RegExp(`^\\| ${name} \\| ([^|]+
 const requireThat = (condition, message) => { if (!condition) throw new Error(message); };
 
 // Git objects, not an editable manifest, bind every protected byte and file mode.
-export function gitEvidence(directory) {
-  const run = async (args) => (await exec("git", ["--no-replace-objects", ...args], {
+export function gitEvidence(directory, { fetchMissing = false, execGit = exec } = {}) {
+  const run = async (args) => (await execGit("git", ["--no-replace-objects", ...args], {
     cwd: directory, encoding: "buffer", maxBuffer: 64 * 1024 * 1024,
   })).stdout;
+  const available = new Set();
+  const ensure = async (commit) => {
+    requireThat(sha(commit), "invalid Git object identity");
+    if (available.has(commit)) return;
+    try { await run(["cat-file", "-e", `${commit}^{commit}`]); }
+    catch (error) {
+      if (!fetchMissing) throw error;
+      // A squash merge can leave the accepted head outside a fresh main clone.
+      // Fetch only an identity already supplied by the event or trusted API.
+      await run(["fetch", "--no-tags", "--no-write-fetch-head", "--no-recurse-submodules",
+        `https://github.com/${REPOSITORY}.git`, commit]);
+      await run(["cat-file", "-e", `${commit}^{commit}`]);
+    }
+    available.add(commit);
+  };
   return {
     head: async () => (await run(["rev-parse", "HEAD"])).toString().trim(),
     tree: async (commit) => {
-      requireThat(sha(commit), "invalid Git object identity");
+      await ensure(commit);
       const result = new Map();
       for (const line of (await run(["ls-tree", "-rz", commit])).toString().split("\0").filter(Boolean)) {
-        const [metadata, path] = line.split("\t");
+        const separator = line.indexOf("\t");
+        const metadata = line.slice(0, separator);
+        const path = line.slice(separator + 1);
         result.set(path, metadata);
       }
       return result;
     },
     read: async (commit, path) => {
       requireThat(sha(commit) && !path.includes(":"), "invalid Git file identity");
+      await ensure(commit);
       return run(["show", `${commit}:${path}`]);
     },
     ancestor: async (ancestor, descendant) => {
       requireThat(sha(ancestor) && sha(descendant), "invalid Git ancestry identity");
+      await ensure(ancestor); await ensure(descendant);
       try { await run(["merge-base", "--is-ancestor", ancestor, descendant]); return true; }
       catch (error) { if (error.code === 1) return false; throw error; }
     },
+    hasFreezeHistory: async (commit) => (await run([
+      "log", "--format=%H", "--full-history", "--diff-filter=A", "--no-renames", commit, "--", RECORD,
+    ])).length > 0,
     phaseCommits: async (freeze, current) => (await run([
-      "rev-list", "--no-merges", `${freeze}..${current}`, "--", ...PHASE_PATHS,
+      "log", "--format=%H", "--full-history", "--diff-merges=first-parent", "--no-patch", `${freeze}..${current}`, "--", ...PHASE_PATHS,
     ])).toString().trim().split("\n").filter(Boolean),
   };
 }
@@ -127,6 +149,7 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
   const target = await git.tree(current);
   for (const path of PHASE_PATHS) {
     if (original.get(path) === target.get(path)) continue;
+    requireThat(target.get(path)?.startsWith("100644 blob "), `phase correction must remain a regular document: ${path}`);
     const before = (await git.read(freeze, path)).toString();
     const after = (await git.read(current, path)).toString();
     requireThat(after.startsWith(before), `historical phase decisions must remain byte-identical: ${path}`);
@@ -142,7 +165,17 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
     for (const candidate of candidates) {
       const pull = await requestJson(`${API}/pulls/${candidate.number}`);
       if (pull.base?.repo?.full_name !== REPOSITORY || pull.base.ref !== "main" ||
-          (!pull.merged && pull.number !== currentPull?.number) || !await git.ancestor(commit, pull.head.sha)) continue;
+          (!pull.merged && pull.number !== currentPull?.number)) continue;
+      let coversCommit = await git.ancestor(commit, pull.head.sha);
+      if (!coversCommit && pull.merged && sha(pull.merge_commit_sha) &&
+          await git.ancestor(commit, pull.merge_commit_sha) && await git.ancestor(pull.merge_commit_sha, current)) {
+        const acceptedTree = await git.tree(pull.merge_commit_sha);
+        const approvedTree = await git.tree(pull.head.sha);
+        // The rewritten commit of a squash/rebase (or normal merge) must retain
+        // the owner's approved phase bytes, including file modes.
+        coversCommit = PHASE_PATHS.every((path) => acceptedTree.get(path) === approvedTree.get(path));
+      }
+      if (!coversCommit) continue;
       try { await approved(requestJson, pull, "L1nkinPark"); accepted = true; break; } catch { /* Try another associated PR. */ }
     }
     requireThat(accepted, `phase correction ${commit} requires Hiếu's exact-head approval; no GO is inferred`);
@@ -176,7 +209,7 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
     const baseTree = await git.tree(base);
     const checkoutTree = await git.tree(checkedOut);
     if (!tree.has(RECORD)) {
-      requireThat(!baseTree.has(RECORD) && !checkoutTree.has(RECORD), "inherited frozen review record was removed");
+      requireThat(!baseTree.has(RECORD) && !checkoutTree.has(RECORD) && !await git.hasFreezeHistory(base), "inherited frozen review record was removed");
       return { issues: [], mode: "candidate" };
     }
     const record = (await git.read(current, RECORD)).toString();
@@ -215,8 +248,11 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
       const changed = differences(frozenTree, await git.tree(target)).filter(protectedPath);
       requireThat(changed.length === 0, `frozen method/evidence changed (${changed.join(", ")}); Section 17 requires an approved timestamped amendment or separately versioned review; historical approval does not cover it`);
     }
+    const acceptedTree = await git.tree(merged);
+    requireThat(PHASE_PATHS.every((path) => frozenTree.get(path) === acceptedTree.get(path)),
+      "initial accepted merge changed the reviewed phase documents");
     if (currentPull) await approved(requestJson, currentPull, undefined, true);
-    await verifyPhaseHistory({ git, freeze, current: checkedOut, currentPull, requestJson });
+    await verifyPhaseHistory({ git, freeze: merged, current: checkedOut, currentPull, requestJson });
     return { issues: [], mode: "historical", freeze, reviewed, pullRequest: Number(number) };
   } catch (error) { return { issues: [`review lifecycle: ${error.message}`] }; }
 }
@@ -225,7 +261,7 @@ export async function main({ environment = process.env, repositoryDirectory = di
   requestJson = (path) => githubRequestJson(path, { token: environment.GITHUB_TOKEN }),
   log = console.log, error = console.error, setExitCode = (code) => { process.exitCode = code; },
 } = {}) {
-  const result = await verifySlrProvenanceLifecycle({ environment, requestJson, git: gitEvidence(repositoryDirectory) });
+  const result = await verifySlrProvenanceLifecycle({ environment, requestJson, git: gitEvidence(repositoryDirectory, { fetchMissing: true }) });
   if (result.issues.length) {
     error(`INVALID SLR REVIEW LIFECYCLE\n${result.issues.map((issue) => `- ${issue}`).join("\n")}`);
     setExitCode(1);
