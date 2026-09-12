@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-017",
+  "title": "How Developers Discuss Architecture Smells? An Exploratory Study on Stack Overflow",
+  "abstract": "Architecture Smells (ASs) are design decisions that can have significant negative effects on a system's quality attributes such as reusability and testability. ASs are focused on higher level of software systems than code smells, which are implementation-level constructs. ASs can have much wider impact on a system than code smells. However, ASs usually receive less attention than code smells in both research and practice. We have conducted an exploratory study of developers' conception of ASs by analyzing related discussions in Stack Overflow. We used 14 ASs related terms to search the relevant posts in Stack Overflow and extracted 207 posts. We used Grounded Theory method for analyzing the extracted posts about developers' description of ASs, causes of ASs, approaches and tools for detecting and refactoring ASs, quality attributes affected by ASs, and difficulties in detecting and refactoring ASs. Our findings show that: (1) developers often describe ASs with some general terms; (2) ASs are mainly caused by violating architecture patterns, design principles, or misusing architecture antipatterns; (3) there is a lack of dedicated tools for detecting and refactoring ASs; (4) developers mainly concern about the maintainability and performance of systems affected by ASs; and (5) the inability to quantify the cost and benefit as well as the lack of approaches and tools makes detecting and refactoring ASs difficult.",
+  "publication_type": "proceedings-article",
+  "publication_date": "2019-03-01",
+  "venue": "2019 IEEE International Conference on Software Architecture (ICSA)",
+  "persistent_locator": "https://doi.org/10.1109/ICSA.2019.00018",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1109%2FICSA.2019.00018",
+  "captured_at_utc": "2026-08-29T06:30:36Z"
+}

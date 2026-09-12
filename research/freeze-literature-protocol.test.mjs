@@ -12,13 +12,13 @@ import {
   main as runFreezeTool,
 } from "./freeze-literature-protocol.mjs";
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
+import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
-const [protocol, decisions, baseline, traceability, paper, bibliography] =
+const { protocol, decisions } = await loadSlrCandidateFixture();
+const [baseline, traceability, paper, bibliography] =
   await Promise.all([
-    readFile(join(researchDirectory, "literature-protocol.md"), "utf8"),
-    readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
     readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
     loadExpandedManuscript(repositoryDirectory),
@@ -182,6 +182,7 @@ function inMemoryCli(overrides = {}) {
   const errors = [];
   let exitCode = null;
   return {
+    files,
     writes,
     output,
     errors,
@@ -223,6 +224,25 @@ test("CLI check mode validates without writing", async () => {
   assert.deepEqual(cli.output, ["READY TO FREEZE SLR PROTOCOL 1.0.0"]);
 });
 
+test("CLI expands split inputs through the injected reader and blocks missing sections", async () => {
+  const cli = inMemoryCli({ args: ["--check"] });
+  cli.files.set("main.tex", "\\input{sections/related-work}\n\\input{sections/threats}\n");
+  cli.files.set("related-work.tex", paper);
+  await runFreezeTool(cli.options);
+  assert.equal(cli.exitCode(), 1);
+  assert.deepEqual(cli.errors, ["FREEZE BLOCKED: cannot read threats.tex"]);
+  assert.equal(cli.writes.size, 0);
+
+  const complete = inMemoryCli({ args: ["--check"] });
+  complete.files.set("main.tex", "\\input{sections/related-work}\n");
+  complete.files.set("related-work.tex", paper);
+  await runFreezeTool(complete.options);
+  assert.equal(complete.exitCode(), null);
+  assert.deepEqual(complete.errors, []);
+  assert.equal(complete.writes.size, 0);
+  assert.deepEqual(complete.output, ["READY TO FREEZE SLR PROTOCOL 1.0.0"]);
+});
+
 test("CLI write mode updates exactly the two governed documents", async () => {
   const cli = inMemoryCli({ args: ["--write"] });
   await runFreezeTool(cli.options);
@@ -253,13 +273,17 @@ test("CLI rejects invalid usage and missing evidence files", async () => {
   assert.ok(missing.errors[0].startsWith("FREEZE BLOCKED: cannot read"));
 });
 
-test("CLI default filesystem adapters verify hashes and write a disposable freeze tree", async (context) => {
+test("CLI validates disclosures across a split manuscript and writes only a disposable freeze state", async (context) => {
   const repository = await mkdtemp(join(tmpdir(), "archsync-slr-freeze-"));
   context.after(() => rm(repository, { recursive: true, force: true }));
   const research = join(repository, "research");
   const evidence = join(research, "evidence", "slr-sentinel");
   await mkdir(evidence, { recursive: true });
   await mkdir(join(repository, "sections"), { recursive: true });
+  const positioningDisclosure = "The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias";
+  assert.equal(paper.split(positioningDisclosure).length, 2);
+  const relatedWork = paper.replace(positioningDisclosure, "");
+  const mainPaper = "\\input{sections/related-work}\n\\input{sections/threats}\n";
 
   for (const [path, content] of sentinelEvidenceArtifacts) {
     await writeFile(join(repository, ...path.split("/")), content);
@@ -272,14 +296,15 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
     writeFile(join(research, "RQ-TRACEABILITY.md"), traceability, "utf8"),
     writeFile(
       join(repository, "main.tex"),
-      "\\input{sections/related-work}\n",
+      mainPaper,
       "utf8",
     ),
     writeFile(
       join(repository, "sections", "related-work.tex"),
-      paper,
+      relatedWork,
       "utf8",
     ),
+    writeFile(join(repository, "sections", "threats.tex"), "", "utf8"),
     writeFile(join(repository, "references.bib"), bibliography, "utf8"),
     writeFile(join(research, "slr-review-record.md"), reviewRecord, "utf8"),
     writeFile(
@@ -292,14 +317,24 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
   const output = [];
   const errors = [];
   let exitCode = null;
-  await runFreezeTool({
-    args: ["--write"],
+  const options = {
     repositoryDirectory: repository,
     log: (message) => output.push(message),
     error: (message) => errors.push(message),
-    setExitCode: (code) => {
-      exitCode = code;
-    },
+    setExitCode: (code) => { exitCode = code; },
+  };
+  await runFreezeTool({ ...options, args: ["--write"] });
+  assert.equal(exitCode, 1);
+  assert.ok(errors.some((message) => message.includes("must disclose literature-positioning validity risk")));
+  assert.equal(await readFile(join(research, "literature-protocol.md"), "utf8"), protocol);
+  assert.equal(await readFile(join(research, "decision-log.md"), "utf8"), decisions);
+
+  await writeFile(join(repository, "sections", "threats.tex"), positioningDisclosure, "utf8");
+  exitCode = null;
+  errors.length = 0;
+  await runFreezeTool({
+    ...options,
+    args: ["--write"],
   });
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
@@ -314,10 +349,11 @@ test("CLI default filesystem adapters verify hashes and write a disposable freez
   );
   assert.equal(
     await readFile(join(repository, "sections", "related-work.tex"), "utf8"),
-    paper,
+    relatedWork,
   );
   assert.equal(
     await readFile(join(repository, "main.tex"), "utf8"),
-    "\\input{sections/related-work}\n",
+    mainPaper,
   );
+  assert.equal(await readFile(join(repository, "sections", "threats.tex"), "utf8"), positioningDisclosure);
 });

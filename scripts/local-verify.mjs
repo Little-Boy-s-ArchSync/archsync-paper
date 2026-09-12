@@ -63,6 +63,7 @@ const coverageArguments = [
   "--test-coverage-include=research/validate-literature-protocol.mjs",
   "--test-coverage-include=research/freeze-literature-protocol.mjs",
   "--test-coverage-include=research/verify-slr-review-provenance.mjs",
+  "--test-coverage-include=research/verify-slr-provenance-lifecycle.mjs",
   "--test-coverage-include=research/verify-slr-signed-attestation.mjs",
   "--test-coverage-include=research/create-slr-signed-review.mjs",
   "--test-coverage-include=research/verify-slr-sentinel-evidence.mjs",
@@ -87,6 +88,7 @@ const coverageArguments = [
   "research/validate-literature-protocol.test.mjs",
   "research/freeze-literature-protocol.test.mjs",
   "research/verify-slr-review-provenance.test.mjs",
+  "research/verify-slr-provenance-lifecycle.test.mjs",
   "research/verify-slr-signed-attestation.test.mjs",
   "research/create-slr-signed-review.test.mjs",
   "research/verify-slr-sentinel-evidence.test.mjs",
@@ -104,6 +106,7 @@ const coverageArguments = [
   "research/validate-submission-readiness.test.mjs",
   "research/validate-pre-experiment-protocols.test.mjs",
   "research/validate-slr-calibration-candidates.test.mjs",
+  "research/validate-slr-calibration-round-2-candidates.test.mjs",
 ];
 
 const hostTexAvailable =
@@ -126,6 +129,7 @@ const commands = [
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
   { id: "submission-readiness", command: process.execPath, args: ["research/validate-submission-readiness.mjs"] },
   { id: "calibration-candidates", command: process.execPath, args: ["research/validate-slr-calibration-candidates.mjs"] },
+  { id: "calibration-round-2-candidates", command: process.execPath, args: ["research/validate-slr-calibration-round-2-candidates.mjs"] },
   { id: "rq-traceability", command: process.execPath, args: ["research/validate-rq-traceability.mjs"] },
   { id: "pre-experiment-proposals", command: process.execPath, args: ["research/validate-pre-experiment-protocols.mjs"] },
   { id: "research-contract-tests", command: process.execPath, args: coverageArguments },

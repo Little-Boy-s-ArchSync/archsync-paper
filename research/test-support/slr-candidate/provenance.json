@@ -1,0 +1,16 @@
+{
+  "kind": "test-only-canonical-candidate-snapshot",
+  "source_commit": "7cdfc6ddfd56904122d0eca8648e164468e97c71",
+  "files": [
+    {
+      "file": "literature-protocol.md",
+      "source_path": "research/literature-protocol.md",
+      "sha256": "ef9c04db51feccad3f1eb2aaedc3e117d958d78d1da8c40cb3ff7b9a07e86fdd"
+    },
+    {
+      "file": "decision-log.md",
+      "source_path": "research/decision-log.md",
+      "sha256": "885bff6c5e465c8f6cc5d7ee2253f07f82c8a68da7e53150e3a77ff3d931896f"
+    }
+  ]
+}

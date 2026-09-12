@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.2.0",
+  "task": "SLR-103",
+  "protocol_version": "0.2.2",
+  "criteria_version": "0.2.1",
+  "commitment_commit": "73cf1512aac6a405ec1da28a545d3bf880e00ad3",
+  "pilot_set_sha256": "f4465cf0ee505b55c00b5bef3e312d61aa270c75c8b6459f29fa2177a27fcd0d",
+  "record_count": 9,
+  "reviewers": [
+    {
+      "reviewer_role": "Protocol author",
+      "reviewer_id": "Hiếu",
+      "decision_path": "research/evidence/slr-screening-calibration/hieu-decisions.csv",
+      "decision_file_sha256": "e0cb18d2b0541e3559ad852226f38701fd44d7936561127a083edcc9c02243dc",
+      "decision_commitment_sha256": "99974d6113501f504631210fecb9e10340e78640024b880ef2b6129355eeb7bc",
+      "commitment_path": "research/evidence/slr-screening-calibration/hieu-commitment.json",
+      "commitment_sha256": "d433ddb8a65a5b26d38d7400029cb4d97b220a9ccbcba0d21972b8076232a998",
+      "reveal_path": "research/evidence/slr-screening-calibration/hieu-reveal.json",
+      "reveal_sha256": "40c12f308d1470a0af6eee9ab07cf71310142a0208860f5692da898b23d38e29"
+    },
+    {
+      "reviewer_role": "Independent SLR Reviewer",
+      "reviewer_id": "Tran Minh Hoang",
+      "decision_path": "research/evidence/slr-screening-calibration/independent-slr-reviewer-decisions.csv",
+      "decision_file_sha256": "9616277d35f315979b402c81aaae4316578d799abbec988efc62408c25ee3ca1",
+      "decision_commitment_sha256": "4918e8929b1ae8e3bcfaaf2e263cd24e8ec23d28f9af1a90c4f0e4a2da1026dd",
+      "commitment_path": "research/evidence/slr-screening-calibration/independent-slr-reviewer-commitment.json",
+      "commitment_sha256": "d7d61fe5a413932b91ac1786b431f5272fd9dc09d06abdcb12c375c0c92c1c4c",
+      "reveal_path": "research/evidence/slr-screening-calibration/independent-slr-reviewer-reveal.json",
+      "reveal_sha256": "49c1c5f32dd81d32f38f32b446cee0e330ea7ce33e7b0aeaa57bc576d26b4919"
+    }
+  ],
+  "decision_agreement": {
+    "matches": 8,
+    "total": 9,
+    "rate": "0.888889",
+    "cohens_kappa": "0.785714"
+  },
+  "primary_reason_agreement": {
+    "matches": 3,
+    "total": 3,
+    "rate": "1.000000"
+  },
+  "disagreements": {
+    "count": 1,
+    "total": 9,
+    "proportion": "0.111111",
+    "resolved": 1,
+    "unresolved": 0,
+    "reconciliation_path": "research/evidence/slr-screening-calibration/reconciliation.csv",
+    "reconciliation_sha256": "a58775b26208df846d8aa11308687759d80c0bb2bd3bffc6232340501b085a47"
+  },
+  "gate": "passed"
+}
