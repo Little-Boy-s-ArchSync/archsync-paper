@@ -166,7 +166,7 @@ export function validateResearchQualityGates(input) {
     "add `EVAL-BASELINE-001`",
   ]) requireMarker(issues, "PROJECT-EVIDENCE-AUDIT.md", audit, marker);
   for (const marker of [
-    "| Protocol version | 0.1.0 |",
+    "| Protocol version | 0.1.1 |",
     "| Status | Proposed - not executed |",
     "The current paper has no external baseline result",
     "dependency-cruiser",
