@@ -3,11 +3,13 @@
 | Field | Value |
 | --- | --- |
 | Task | STAT-101 |
-| Version | 0.1.0-draft |
+| Version | 0.1.1-draft |
 | Status | PROPOSED — not preregistered or frozen |
 | Blocking dependencies | EXP-101; RQ-102; EXP-103 |
-| Owner | Thành viên 3 |
+| Owner | Vo Duc Hieu |
 | Scope | D3 holdout, Phase 4 AI evaluation, Phase 5–6 ablations, and Phase 7 A–B–C–D study |
+
+Revision 0.1.1-draft (2026-09-12) synchronizes the operational task owner with the current main plan. Statistical methods, candidate endpoints and required approvals retain their existing proposed status. Benchmark measurement preparation remains linked to the historical Paper commit `a6f4be43171240dfa30e5d5a484b074a0a236830`, STAT-101 SHA-256 `5d5b99204f7ebcfaf1573bb8eeecbbf08b28fdec8ee1be9ed15639899e202421`. A future linkage update requires a separately reviewed versioned change after EXP/STAT alignment.
 
 No result, threshold, sample size, or primary comparison is frozen by this draft. The Lead must reconcile it with the approved experiment protocol, task allocation, ethics/data decisions and power-or-precision rationale before the first pilot used to modify a final protocol. Existing D1/D2/P3 values are descriptive feasibility/regression results and will not be retrofitted with population inference.
 
