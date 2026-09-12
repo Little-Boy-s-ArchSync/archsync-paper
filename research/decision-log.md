@@ -112,10 +112,10 @@
   current RQ wording, metrics, datasets, or empirical claims.
 - Approver: Hiếu, research lead and architecture owner.
 
-## D-008: Propose Systematic Literature Review Protocol 0.1.0 for Independent Review
+## D-008: Freeze Systematic Literature Review Protocol 1.0.0 after Independent Review
 
 - Date: 2026-08-16
-- Status: Proposed
+- Status: Accepted
 - Task: SLR-101
 - Proposal: Review `research/literature-protocol.md` before any official search
   is executed. The candidate predeclares SLR-RQ1--SLR-RQ6, four required
@@ -126,11 +126,11 @@
   candidate. No result list may be screened or used to tune eligibility. After
   search results are viewed, criteria and query concepts cannot be silently
   changed.
-- Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author.
-  Version 1.0.0 may be frozen only after either an approved pull-request review
-  from a distinct account or an Ed25519-signed Independent SLR Reviewer attestation when the
-  team uses delegated `an1dee3301` for all pushes. The same freeze change sets this
-  decision to `Accepted` and records review evidence.
+- Independent review: Independent SLR Reviewer approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26
+  at commit `1d84bc58614eeec0d9cc469276d3f362d697deec` on 2026-09-12T16:29:12Z.
+- Freeze evidence: `slr-review-record.md` and
+  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified
+  by CI before search authorization.
 - Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
   Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
 - Owner: Hiếu.
