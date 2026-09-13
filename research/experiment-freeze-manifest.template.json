@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": null,
+  "task_ids": [
+    "EXP-101",
+    "EXP-102",
+    "ETH-101",
+    "DATA-101",
+    "STAT-101",
+    "EXP-103"
+  ],
+  "module_scope": [
+    "d3-holdout",
+    "phase4-ai",
+    "phase5-6-ablation",
+    "phase7-measurement"
+  ],
+  "status": "not-frozen",
+  "source_commit": null,
+  "frozen_at_utc": null,
+  "official_runs_authorized": false,
+  "documents": [
+    {
+      "task_id": "EXP-101",
+      "path": "research/experiment-protocol.md",
+      "version": null,
+      "status": "unapproved",
+      "sha256": null
+    },
+    {
+      "task_id": "EXP-102",
+      "path": "research/dataset-governance.md",
+      "version": null,
+      "status": "unapproved",
+      "sha256": null
+    },
+    {
+      "task_id": "ETH-101",
+      "path": "research/ethics-privacy.md",
+      "version": null,
+      "status": "unapproved",
+      "sha256": null
+    },
+    {
+      "task_id": "DATA-101",
+      "path": "research/data-management-plan.md",
+      "version": null,
+      "status": "unapproved",
+      "sha256": null
+    },
+    {
+      "task_id": "STAT-101",
+      "path": "research/statistical-analysis-plan.md",
+      "version": null,
+      "status": "unapproved",
+      "sha256": null
+    },
+    {
+      "task_id": "EXP-103",
+      "path": "research/measurement-study-protocol.md",
+      "version": null,
+      "status": "unapproved",
+      "sha256": null
+    }
+  ],
+  "governed_inputs": [
+    {
+      "task_id": "RQ-101",
+      "path": "research/claim-evidence.csv",
+      "sha256": null
+    },
+    {
+      "task_id": "RQ-101",
+      "path": "research/validate-claim-evidence.mjs",
+      "sha256": null
+    },
+    {
+      "task_id": "RQ-102",
+      "path": "research/RQ-TRACEABILITY.md",
+      "sha256": null
+    },
+    {
+      "task_id": "RQ-102",
+      "path": "research/rq-traceability.csv",
+      "sha256": null
+    },
+    {
+      "task_id": "RQ-102",
+      "path": "research/validate-rq-traceability.mjs",
+      "sha256": null
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "atomic-stat-exp-cofreeze",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    },
+    {
+      "decision_id": "v-rq4-joint-rule",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    },
+    {
+      "decision_id": "sample-assignment-stop-rules",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    },
+    {
+      "decision_id": "d3-selection-annotation-freeze",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    },
+    {
+      "decision_id": "ethics-institutional-provider",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    },
+    {
+      "decision_id": "data-custody-retention-publication",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    },
+    {
+      "decision_id": "tool-environment-assignment-lock",
+      "status": "unresolved",
+      "record_path": null,
+      "record_sha256": null,
+      "authorization_url": null
+    }
+  ],
+  "dataset": {
+    "d3_manifest_path": null,
+    "d3_manifest_sha256": null,
+    "license_register_path": null,
+    "license_register_sha256": null,
+    "truth_manifest_path": null,
+    "truth_manifest_sha256": null,
+    "frozen_before_any_output": false,
+    "truth_sealed_before_any_output": false
+  },
+  "tools": [],
+  "environment": {
+    "manifest_path": null,
+    "manifest_sha256": null,
+    "node_version": null,
+    "package_manager_version": null,
+    "container_image_digest": null
+  },
+  "assignment": {
+    "manifest_path": null,
+    "manifest_sha256": null,
+    "algorithm": null,
+    "seed_commitment_sha256": null,
+    "generated_before_any_outcome": false
+  },
+  "ethics": {
+    "determination_path": null,
+    "determination_sha256": null,
+    "consent_required": null,
+    "consent_materials_path": null,
+    "consent_materials_sha256": null,
+    "provider_authorization_path": null,
+    "provider_authorization_sha256": null,
+    "redaction_preflight_path": null,
+    "redaction_preflight_sha256": null
+  },
+  "data_management": {
+    "custodian": null,
+    "storage_location": null,
+    "storage_region": null,
+    "encryption_control": null,
+    "key_owner": null,
+    "retention_schedule": null,
+    "deletion_procedure": null,
+    "access_register_path": null,
+    "access_register_sha256": null,
+    "backup_restore_receipt_path": null,
+    "backup_restore_receipt_sha256": null,
+    "publication_register_path": null,
+    "publication_register_sha256": null
+  },
+  "preflight": {
+    "status": "not-run",
+    "receipt_path": null,
+    "receipt_sha256": null,
+    "completed_at_utc": null,
+    "blockers": []
+  },
+  "approvals": [],
+  "results": []
+}

@@ -6,9 +6,9 @@
     {
       "task_id": "EXP-101",
       "path": "research/experiment-protocol.md",
-      "version": "0.1.0-proposed",
+      "version": "0.1.1-proposed",
       "status": "proposed",
-      "sha256": "290f15d200ed2a19f692dcba50c6dc425fb7d4b26d7a1f2a6da9cdba2fa6135c"
+      "sha256": "8c4a1498afb559c193c291c7a20079753bc4d0213588a32f895c7141d14d103b"
     },
     {
       "task_id": "EXP-102",

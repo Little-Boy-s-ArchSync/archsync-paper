@@ -62,6 +62,9 @@ jobs:
       - name: Verify proposed pre-experiment packet remains fail-closed
         run: node research/validate-pre-experiment-protocols.mjs
 
+      - name: Verify experiment freeze template remains fail-closed
+        run: node research/verify-experiment-readiness.mjs --template
+
       - name: Test research contracts with coverage gates
         run: |
           node --experimental-test-coverage \
@@ -86,6 +89,7 @@ jobs:
             --test-coverage-include=research/validate-decision-log.mjs \
             --test-coverage-include=research/validate-submission-readiness.mjs \
             --test-coverage-include=research/validate-pre-experiment-protocols.mjs \
+            --test-coverage-include=research/verify-experiment-readiness.mjs \
             --test-coverage-include=research/validate-slr-calibration-candidates.mjs \
             --test-coverage-lines=95 \
             --test-coverage-branches=88 \
@@ -113,6 +117,7 @@ jobs:
             research/validate-decision-log.test.mjs \
             research/validate-submission-readiness.test.mjs \
             research/validate-pre-experiment-protocols.test.mjs \
+            research/verify-experiment-readiness.test.mjs \
             research/validate-slr-calibration-candidates.test.mjs \
             research/validate-slr-calibration-round-2-candidates.test.mjs
 
