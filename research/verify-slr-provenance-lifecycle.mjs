@@ -16,6 +16,7 @@ const RECORD = "research/slr-review-record.md";
 const PHASE_PATHS = ["research/phase-gate-register.csv", "research/MEETING-CADENCE.md"];
 const LOCK_PATH_SET = new Set(LOCK_PATHS);
 const ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
+const PHASE_OWNER_LOGIN = "L1nkinPark";
 const TRANSITION = new Set([RECORD, SIGNED_REVIEW_PATHS.attestation, SIGNED_REVIEW_PATHS.signature,
   "research/literature-protocol.md", "research/decision-log.md"]);
 const sha = (value) => /^[0-9a-f]{40}$/.test(value ?? "");
@@ -132,8 +133,9 @@ async function approved(requestJson, pull, login, independent = false) {
   requireThat(![...latest.values()].some((review) => review.state === "CHANGES_REQUESTED"),
     "unresolved changes-requested review");
   requireThat([...latest.values()].some((review) => review.state === "APPROVED" &&
-    review.commit_id === pull.head.sha && ASSOCIATIONS.has(review.author_association) &&
-    (!login || review.user?.login === login) &&
+    review.commit_id === pull.head.sha &&
+    (login ? review.user?.login === login :
+      ASSOCIATIONS.has(review.author_association) || review.user?.login === PHASE_OWNER_LOGIN) &&
     (!independent || (pull.user?.login && review.user?.login !== pull.user.login))), "accepted exact-head GitHub approval is required");
 }
 
@@ -201,7 +203,7 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
         coversCommit = PHASE_PATHS.every((path) => acceptedTree.get(path) === approvedTree.get(path));
       }
       if (!coversCommit) continue;
-      try { await approved(requestJson, pull, "L1nkinPark"); accepted = true; break; } catch { /* Try another associated PR. */ }
+      try { await approved(requestJson, pull, PHASE_OWNER_LOGIN); accepted = true; break; } catch { /* Try another associated PR. */ }
     }
     requireThat(accepted, `phase correction ${commit} requires Hiếu's exact-head approval; no GO is inferred`);
   }
@@ -275,6 +277,10 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
     const acceptedTree = await git.tree(merged);
     requireThat(PHASE_PATHS.every((path) => frozenTree.get(path) === acceptedTree.get(path)),
       "initial accepted merge changed the reviewed phase documents");
+    // GitHub's workflow token can omit a private organization membership from
+    // author_association. approved() still accepts that missing metadata only
+    // for the phase owner's exact GitHub identity; ordinary reviewers continue
+    // to require an eligible repository association.
     if (currentPull) await approved(requestJson, currentPull, undefined, true);
     await verifyPhaseHistory({ git, freeze: merged, current: checkedOut, currentPull, requestJson });
     return { issues: [], mode: "historical", freeze, reviewed, pullRequest: Number(number) };

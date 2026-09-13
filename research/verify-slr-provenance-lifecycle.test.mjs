@@ -246,6 +246,17 @@ test("phase corrections retain historical HOLD and need Hiếu's actual exact-he
   invalid(await f.verify(), /historical phase decisions/);
 });
 
+test("named phase-owner approval remains valid when workflow membership metadata is unavailable", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  const original = await readFile(join(f.directory, path), "utf8");
+  await f.change(path, original + "\n2026-09-13 correction to freeze status; P0 remains HOLD. https://github.com/" + repo + "/pull/32\n");
+  const requestJson = (requestPath) => requestPath.includes("/pulls/32/reviews?")
+    ? [{ ...f.approval(f.currentPull.head.sha, "L1nkinPark"), author_association: "NONE" }]
+    : f.requestJson(requestPath);
+  assert.deepEqual((await f.verify({ requestJson })).issues, []);
+});
+
 test("main retains accountable review for inherited phase corrections", async (t) => {
   const f = await fixture(t);
   const path = "research/phase-gate-register.csv";
