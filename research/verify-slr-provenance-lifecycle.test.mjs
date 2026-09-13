@@ -11,6 +11,7 @@ import { loadExpandedManuscript } from "./load-manuscript.mjs";
 import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mjs";
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 import { REVIEW_CHECKLIST, REVIEWER_NAME, REVIEWER_ORCID, REVIEWER_OPERATOR_LOGIN, SIGNED_REVIEW_PATHS } from "./verify-slr-signed-attestation.mjs";
+import { LOCK_PATHS } from "./validate-slr-103-codebook-lock.mjs";
 import { gitEvidence, main, verifySlrProvenanceLifecycle } from "./verify-slr-provenance-lifecycle.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -41,6 +42,11 @@ async function fixture(t) {
   await write("research/literature-protocol.md", source.protocol);
   await write("research/decision-log.md", source.decisions);
   await write("research/literature-sentinel-recall.csv", source.sentinelRecall);
+  for (const path of [
+    "research/literature-screening-criteria.md",
+    "research/literature-screening-criteria.csv",
+    "research/literature-screening-calibration.json",
+  ]) await write(path, await readFile(join(root, path)));
   for (const [path, bytes] of source.sentinelEvidenceArtifacts) await write(path, bytes);
   await write("research/phase-gate-register.csv", "gate_id,phase,decision,decision_date,owner,evidence,open_blocker,next_action\nPG-OLD,P0,HOLD,2026-09-11,Hiếu,pending,review,wait\n");
   await write("research/MEETING-CADENCE.md", "# Historical weekly decision\n2026-09-11: HOLD; freeze pending.\n");
@@ -130,6 +136,24 @@ test("actual main push, dispatch and GitHub PR test-merge checkout contexts", as
   await f.write("research/literature-protocol.md", f.frozen.protocol + "\nDisguised merge method change\n");
   f.currentPull.merge_commit_sha = f.commit("Alter test merge");
   invalid(await f.verify(), /frozen method\/evidence changed/);
+});
+
+test("a separately reviewed exact SLR-103 codebook lock may be appended without changing frozen rules", async (t) => {
+  const f = await fixture(t);
+  for (const path of LOCK_PATHS) await f.write(path, await readFile(join(root, path)));
+  const current = f.commit("Append exact reviewed SLR-103 codebook release lock");
+  f.currentPull.head.sha = current;
+  f.currentPull.merge_commit_sha = current;
+  f.environment.SLR_CURRENT_COMMIT = current;
+  const accepted = await f.verify();
+  assert.deepEqual(accepted.issues, []);
+
+  await f.write(LOCK_PATHS[0], Buffer.concat([await readFile(join(f.directory, LOCK_PATHS[0])), Buffer.from("\nChanged after review.\n")]));
+  const tampered = f.commit("Tamper with the release-lock explanation");
+  f.currentPull.head.sha = tampered;
+  f.currentPull.merge_commit_sha = tampered;
+  f.environment.SLR_CURRENT_COMMIT = tampered;
+  invalid(await f.verify(), /invalid SLR-103 codebook lock/);
 });
 
 test("candidate contexts skip only while both trusted base and event have no freeze", async (t) => {

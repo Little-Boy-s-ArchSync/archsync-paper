@@ -230,7 +230,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SEARCH QUERY SPEC 0.2.2 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution blocked by SLR-101)`,
+    `VALID SLR SEARCH QUERY SPEC 0.2.2 (${QUERY_IDS.length} logical queries, ${DATABASES.length} databases, ${result.runCount} planned runs; execution state is retained separately)`,
   );
   return result;
 }
