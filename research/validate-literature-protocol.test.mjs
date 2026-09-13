@@ -445,7 +445,7 @@ test("rejects missing paper boundary disclosures and protocol metadata", () => {
         "There is no literature-selection risk",
       )
       .replace(
-        "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+        "versioned protocol, search templates, and review evidence remain research-governance artifacts outside the manuscript",
         "protocol progress is published in Related Work",
       ),
   });
@@ -499,6 +499,15 @@ test("accepts frozen metadata while the paper remains protocol-status neutral", 
     sentinelRecall,
     sentinelEvidenceHashes,
   });
+  assert.deepEqual(result.issues, []);
+});
+
+test("retains compatibility with the historical pre-freeze paper disclosure", () => {
+  const historicalPaper = paper.replace(
+    "versioned protocol, search templates, and review evidence remain research-governance artifacts outside the manuscript",
+    "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+  );
+  const result = validate({ paper: historicalPaper });
   assert.deepEqual(result.issues, []);
 });
 

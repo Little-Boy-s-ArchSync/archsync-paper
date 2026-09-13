@@ -28,6 +28,7 @@ async function fixture() {
     ["conclusion", join(sections, "conclusion.tex")],
     ["claimEvidence", join(research, "claim-evidence.csv")],
     ["bibliography", join(repositoryDirectory, "references.bib")],
+    ["codeowners", join(repositoryDirectory, ".github", "CODEOWNERS")],
   ];
   const values = await Promise.all(entries.map(([, path]) => readFile(path, "utf8")));
   return Object.fromEntries(entries.map(([name], index) => [name, values[index]]));
@@ -86,6 +87,16 @@ test("rejects a changed governed bibliography", async () => {
   const input = await fixture();
   input.bibliography = input.bibliography.replace("anthony2024drifting", "pinto2017archci");
   hasIssue(validateResearchQualityGates(input), "ten-entry audit");
+});
+
+test("rejects incomplete GOV-104 code ownership or a missing evidence boundary", async () => {
+  const input = await fixture();
+  input.codeowners = input.codeowners
+    .replace("* @L1nkinPark @an1dee3301 @teikv", "* @L1nkinPark @an1dee3301")
+    .replace("CODEOWNERS approval is not independent-review or research evidence", "CODEOWNERS review applies");
+  const result = validateResearchQualityGates(input);
+  hasIssue(result, "'*' must name all three GOV-104 core owners");
+  hasIssue(result, "CODEOWNERS approval is not independent-review or research evidence");
 });
 
 test("runs the real quality gate through its CLI entry point", async () => {

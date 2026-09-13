@@ -3,11 +3,13 @@
 | Field | Value |
 | --- | --- |
 | Task | EVAL-BASELINE-001 |
-| Protocol version | 0.1.0 |
+| Protocol version | 0.1.1 |
 | Status | Proposed - not executed |
-| Owner | Tran Minh Hoang |
+| Owner | Le Van Kiet |
 | Approval required | Hieu before any comparator output is inspected |
 | Dependency | EVAL-101 through EVAL-107 frozen D3 holdout |
+
+Revision 0.1.1 (2026-09-12) synchronizes the operational task owner with the current main plan. Comparator selection, D3 freeze and Hiếu's required approval retain their existing gates. The protocol remains proposed and unexecuted.
 
 ## Goal and non-result boundary
 
