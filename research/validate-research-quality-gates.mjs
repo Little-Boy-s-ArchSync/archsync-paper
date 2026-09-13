@@ -49,6 +49,7 @@ export function validateResearchQualityGates(input) {
     conclusion,
     claimEvidence,
     bibliography,
+    codeowners,
   } = input;
 
   for (const [field, expected] of [
@@ -166,7 +167,7 @@ export function validateResearchQualityGates(input) {
     "add `EVAL-BASELINE-001`",
   ]) requireMarker(issues, "PROJECT-EVIDENCE-AUDIT.md", audit, marker);
   for (const marker of [
-    "| Protocol version | 0.1.0 |",
+    "| Protocol version | 0.1.1 |",
     "| Status | Proposed - not executed |",
     "The current paper has no external baseline result",
     "dependency-cruiser",
@@ -189,6 +190,20 @@ export function validateResearchQualityGates(input) {
   if (keys.join("|") !== expectedKeys.join("|")) {
     issues.push("references.bib: retained citation set or order does not match the governed ten-entry audit");
   }
+
+  const requiredOwners = ["@L1nkinPark", "@an1dee3301", "@teikv"];
+  for (const pattern of ["*", "/main.tex", "/research/"]) {
+    const line = codeowners
+      .split(/\r?\n/)
+      .find((candidate) => candidate.trim().startsWith(`${pattern} `));
+    if (!line || requiredOwners.some((owner) => !line.split(/\s+/).includes(owner))) {
+      issues.push(`.github/CODEOWNERS: '${pattern}' must name all three GOV-104 core owners`);
+    }
+  }
+  for (const marker of [
+    "task-specific research, security, and release gates still apply",
+    "CODEOWNERS approval is not independent-review or research evidence",
+  ]) requireMarker(issues, ".github/CODEOWNERS", codeowners, marker);
 
   return { issues, abstractWords: words.length, controlledClaims: controlledStatuses };
 }
@@ -218,6 +233,7 @@ export async function main({
     ["conclusion", join(sections, "conclusion.tex")],
     ["claimEvidence", join(research, "claim-evidence.csv")],
     ["bibliography", join(repositoryDirectory, "references.bib")],
+    ["codeowners", join(repositoryDirectory, ".github", "CODEOWNERS")],
   ];
   const values = await Promise.all(names.map(([, path]) => readFile(path, "utf8")));
   const input = Object.fromEntries(names.map(([name], index) => [name, values[index]]));
