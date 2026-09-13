@@ -105,6 +105,16 @@ test("real Git merge history permits PR32-style proposed owner metadata and pres
   // Exact public PR32 delta from 159ea31 to 287ca6b, applied to synthetic history.
   const patchPath = join(root, "research/test-support/pr32-owner-metadata.patch");
   assert.equal(digest(await readFile(patchPath)), "54fdaca35b2b76bb5d7b82f31f00237c8b95ec53ae20d900b949fe1d00ea1e25");
+  try {
+    f.run("apply", "--check", patchPath);
+  } catch {
+    // Once PR32 itself is the checkout (and after it reaches main), the fixture
+    // source already contains this exact delta. Reconstruct and commit its
+    // pre-PR32 state before replaying the immutable public patch below.
+    f.run("apply", "--reverse", "--check", patchPath);
+    f.run("apply", "--reverse", patchPath);
+    f.commit("Reconstruct pre-PR32 owner metadata");
+  }
   f.run("apply", patchPath);
   const current = f.commit("Apply exact published PR32 owner metadata patch");
   f.currentPull.head.sha = current; f.currentPull.merge_commit_sha = current; f.environment.SLR_CURRENT_COMMIT = current;
