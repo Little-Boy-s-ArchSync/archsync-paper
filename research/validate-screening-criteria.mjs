@@ -289,7 +289,7 @@ export async function main({
     return result;
   }
   output(
-    `VALID SLR SCREENING CRITERIA 0.2.1 (${result.criterionCount} atomic rules, 10 exclusion reasons; final lock blocked by SLR-101)`,
+    `VALID SLR SCREENING CRITERIA 0.2.1 (${result.criterionCount} atomic rules, 10 exclusion reasons; historical semantic source, release lock verified separately)`,
   );
   return result;
 }

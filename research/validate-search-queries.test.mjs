@@ -118,6 +118,8 @@ test("CLI reports valid and invalid states deterministically", async () => {
   const valid = await main({ repositoryDirectory: repository, output: (line) => output.push(line) });
   assert.equal(valid.issues.length, 0);
   assert.match(output[0], /^VALID SLR SEARCH QUERY SPEC 0\.2\.2/);
+  assert.match(output[0], /execution state is retained separately/);
+  assert.doesNotMatch(output[0], /blocked by SLR-101/);
 
   const invalidOutput = [];
   const invalid = await main({

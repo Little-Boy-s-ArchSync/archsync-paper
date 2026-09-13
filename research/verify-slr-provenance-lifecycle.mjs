@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 import { freezeLiteratureProtocol } from "./freeze-literature-protocol.mjs";
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
+import { LOCK_PATHS, LOCK_ROOT, validateSlr103CodebookLock } from "./validate-slr-103-codebook-lock.mjs";
 import { githubRequestJson, verifySlrReviewProvenance } from "./verify-slr-review-provenance.mjs";
 import { SIGNED_REVIEW_PATHS, verifySignedReviewAttestation } from "./verify-slr-signed-attestation.mjs";
 
@@ -13,6 +14,7 @@ const REPOSITORY = "Little-Boy-s-ArchSync/archsync-paper";
 const API = `/repos/${REPOSITORY}`;
 const RECORD = "research/slr-review-record.md";
 const PHASE_PATHS = ["research/phase-gate-register.csv", "research/MEETING-CADENCE.md"];
+const LOCK_PATH_SET = new Set(LOCK_PATHS);
 const ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
 const TRANSITION = new Set([RECORD, SIGNED_REVIEW_PATHS.attestation, SIGNED_REVIEW_PATHS.signature,
   "research/literature-protocol.md", "research/decision-log.md"]);
@@ -74,9 +76,32 @@ export function gitEvidence(directory, { fetchMissing = false, execGit = exec } 
 }
 
 function protectedPath(path) {
-  return /^research\/(?:literature-|slr-)/.test(path) && !path.endsWith(".mjs") ||
+  return LOCK_PATH_SET.has(path) ||
+    /^research\/(?:literature-|slr-)/.test(path) && !path.endsWith(".mjs") ||
     /^research\/evidence\/slr/.test(path) ||
     ["research/decision-log.md", "research/RESEARCH.md", "research/RQ-TRACEABILITY.md", "research/GLOSSARY.md"].includes(path);
+}
+
+async function verifyHistoricalProtectedState(git, frozenTree, target) {
+  const targetTree = await git.tree(target);
+  const changed = differences(frozenTree, targetTree).filter(protectedPath);
+  if (changed.length === 0) return;
+  requireThat(changed.length === LOCK_PATHS.length && changed.every((path) => LOCK_PATH_SET.has(path)),
+    `frozen method/evidence changed (${changed.join(", ")}); only the separately reviewed SLR-103 codebook lock is allowed`);
+  for (const path of LOCK_PATHS) {
+    requireThat(targetTree.get(path)?.startsWith("100644 blob "), `invalid SLR-103 release-lock file mode: ${path}`);
+  }
+  const read = (path) => git.read(target, path);
+  const result = validateSlr103CodebookLock({
+    lockBytes: await read(`${LOCK_ROOT}/lock.json`),
+    readmeBytes: await read(`${LOCK_ROOT}/README.md`),
+    sumsBytes: await read(`${LOCK_ROOT}/SHA256SUMS`),
+    codebookBytes: await read("research/literature-screening-criteria.md"),
+    criteriaBytes: await read("research/literature-screening-criteria.csv"),
+    calibrationBytes: await read("research/literature-screening-calibration.json"),
+    protocolBytes: await read("research/literature-protocol.md"),
+  });
+  requireThat(result.issues.length === 0, `invalid SLR-103 codebook lock: ${result.issues.join("; ")}`);
 }
 
 function differences(before, after) {
@@ -245,8 +270,7 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
     await verifyMechanicalFreeze(git, reviewed, freeze, originalRecord);
     const frozenTree = await git.tree(freeze);
     for (const target of [merged, base, current, checkedOut]) {
-      const changed = differences(frozenTree, await git.tree(target)).filter(protectedPath);
-      requireThat(changed.length === 0, `frozen method/evidence changed (${changed.join(", ")}); Section 17 requires an approved timestamped amendment or separately versioned review; historical approval does not cover it`);
+      await verifyHistoricalProtectedState(git, frozenTree, target);
     }
     const acceptedTree = await git.tree(merged);
     requireThat(PHASE_PATHS.every((path) => frozenTree.get(path) === acceptedTree.get(path)),

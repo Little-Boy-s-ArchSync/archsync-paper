@@ -76,6 +76,7 @@ jobs:
             --test-coverage-include=research/build-slr-sentinel-ledger.mjs \
             --test-coverage-include=research/validate-search-queries.mjs \
             --test-coverage-include=research/validate-screening-criteria.mjs \
+            --test-coverage-include=research/validate-slr-103-codebook-lock.mjs \
             --test-coverage-include=research/validate-literature-matrix.mjs \
             --test-coverage-include=research/verify-slr-screening-calibration.mjs \
             --test-coverage-include=research/build-slr-screening-calibration.mjs \
@@ -101,6 +102,7 @@ jobs:
             research/build-slr-sentinel-ledger.test.mjs \
             research/validate-search-queries.test.mjs \
             research/validate-screening-criteria.test.mjs \
+            research/validate-slr-103-codebook-lock.test.mjs \
             research/validate-literature-matrix.test.mjs \
             research/validate-reference-quality-policy.test.mjs \
             research/verify-slr-screening-calibration.test.mjs \
@@ -139,6 +141,9 @@ jobs:
 
       - name: Verify versioned literature screening criteria
         run: node research/validate-screening-criteria.mjs
+
+      - name: Verify SLR-103 codebook release lock
+        run: node research/validate-slr-103-codebook-lock.mjs
 
       - name: Verify versioned literature matrix contract
         run: node research/validate-literature-matrix.mjs
