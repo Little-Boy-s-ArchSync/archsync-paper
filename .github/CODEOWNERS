@@ -1,6 +1,8 @@
-# Hiếu performs the final research-scope and double-blind review.
-* @L1nkinPark
+# GOV-104 core ownership. GitHub requires approval from one eligible listed
+# code owner; task-specific research, security, and release gates still apply.
+* @L1nkinPark @an1dee3301 @teikv
 
-# Changes to claims, protocol and evidence require explicit research review.
-/main.tex @L1nkinPark
-/research/ @L1nkinPark
+# Keep manuscript claims, protocol, and evidence under the same core review
+# boundary. CODEOWNERS approval is not independent-review or research evidence.
+/main.tex @L1nkinPark @an1dee3301 @teikv
+/research/ @L1nkinPark @an1dee3301 @teikv
