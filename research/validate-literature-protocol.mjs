@@ -142,7 +142,7 @@ export function validateLiteratureProtocol({
   requireText(
     "main.tex",
     paper,
-    /versioned protocol, search templates, and review evidence remain research-governance artifacts outside the manuscript/,
+    /(?:versioned review protocol, search templates, and pending calibration evidence|versioned protocol, search templates, and review evidence) remain research-governance artifacts outside the manuscript/,
     "must keep unfinished SLR progress outside the Related Work section",
   );
 

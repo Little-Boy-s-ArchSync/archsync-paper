@@ -502,6 +502,15 @@ test("accepts frozen metadata while the paper remains protocol-status neutral", 
   assert.deepEqual(result.issues, []);
 });
 
+test("retains compatibility with the historical pre-freeze paper disclosure", () => {
+  const historicalPaper = paper.replace(
+    "versioned protocol, search templates, and review evidence remain research-governance artifacts outside the manuscript",
+    "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+  );
+  const result = validate({ paper: historicalPaper });
+  assert.deepEqual(result.issues, []);
+});
+
 test("rejects malformed sentinel CSV schema, row width and unknown sources", () => {
   const malformed = sentinelRecall
     .replace("sentinel_id,doi", "id,doi")
