@@ -1,0 +1,1783 @@
+{
+  "schema_version": 1,
+  "job_id": "OPENALEX-C1",
+  "captured_at_utc": "2026-09-13T12:06:36Z",
+  "publication_content_inspected": false,
+  "files": [
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000001-10f8b620c6ef4d4681368f9cfb05a717/accepted.json",
+      "bytes": 118,
+      "sha256": "130bb7b61aebc80864b0badcb266b1314561b57fa45208b9354fbc234440826c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000001-10f8b620c6ef4d4681368f9cfb05a717/raw-response.json",
+      "bytes": 11637,
+      "sha256": "8dc32df2f3a9b754f52a7c972441799158b9e7b22b9f815968c2bb25838e3eca"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000001-10f8b620c6ef4d4681368f9cfb05a717/request.json",
+      "bytes": 888,
+      "sha256": "49329069d734a31605eaace2deaad6e359142f8f0eeed545d78c6e430e6e2e7f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000001-10f8b620c6ef4d4681368f9cfb05a717/response.json",
+      "bytes": 380,
+      "sha256": "974a96d680e748890cf736694d1c758a70b9e6289f2ab117453cbab917767a75"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000002-2542b327dee94510a6cfced0778b11b8/accepted.json",
+      "bytes": 225,
+      "sha256": "e3e6609bc7253e315d1fd133674493abb585c26c2061f5c62c26b3bff4fbf6d6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000002-2542b327dee94510a6cfced0778b11b8/raw-response.json",
+      "bytes": 2740077,
+      "sha256": "018ebede36278bee66ade436ab33bd835a90e18ea856096b170e924f642f52a3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000002-2542b327dee94510a6cfced0778b11b8/request.json",
+      "bytes": 3681,
+      "sha256": "1a52ed1e665ab74f769b9e28aa2fcbf43162a4a422b1bbf4c2613e12b66e837f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000002-2542b327dee94510a6cfced0778b11b8/response.json",
+      "bytes": 382,
+      "sha256": "f311d0d7453f7100cf6ec94506c04cc1e2265d00487361bfed46bb158b9b7c17"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000003-48c664c00107478198fd37a9a0ce9616/accepted.json",
+      "bytes": 225,
+      "sha256": "e4fa26e15c101ade987b7a0cb5f2911dd7118990977395206700366eb414e39e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000003-48c664c00107478198fd37a9a0ce9616/raw-response.json",
+      "bytes": 2407886,
+      "sha256": "8e604a58ba0808eb5dc16514c3ff3f5f67fe442c8dad2cc68e0544318e1b1218"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000003-48c664c00107478198fd37a9a0ce9616/request.json",
+      "bytes": 3748,
+      "sha256": "6b594c9de24466e7eed51a5f912ad1094413a78c24592a4e2fb0f569a466fe6e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000003-48c664c00107478198fd37a9a0ce9616/response.json",
+      "bytes": 382,
+      "sha256": "39ac135c3f741a0ca8f145e343e1739e51cda982bae731cef7419e828845d83f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000004-1c31f2e83dc2433fb315b7d4301729d8/accepted.json",
+      "bytes": 225,
+      "sha256": "0c65b9c19b349763341633a5ee6598b82462e2038e126603f38af1a00ef60bfb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000004-1c31f2e83dc2433fb315b7d4301729d8/raw-response.json",
+      "bytes": 2339570,
+      "sha256": "c4a90e7b6c7db4529ddbad5a44e4b7a87d941f36f7e7d09586ff8b99aceaeee7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000004-1c31f2e83dc2433fb315b7d4301729d8/request.json",
+      "bytes": 3748,
+      "sha256": "787deba266755ed279fdccd4f668635c3a144b1ef7799a0aba2d1430a99e1ec4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000004-1c31f2e83dc2433fb315b7d4301729d8/response.json",
+      "bytes": 382,
+      "sha256": "eb1825e3c3510be1ccb5f949876d1853cec481102f09b41cab4cbef93c5aab43"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000005-e583e7c908bc437cb6e9cd88a00dd3b3/accepted.json",
+      "bytes": 221,
+      "sha256": "25a3220dc8ee11c143278a6c713a3c2ddb7ff199977c4ae54da5472e55fffb66"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000005-e583e7c908bc437cb6e9cd88a00dd3b3/raw-response.json",
+      "bytes": 2456031,
+      "sha256": "a5e4d1f90d13b19e2e2c12df9c59601fc3be97c475589f35a189eb1edd1616b5"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000005-e583e7c908bc437cb6e9cd88a00dd3b3/request.json",
+      "bytes": 3748,
+      "sha256": "e03e385823addbaeda0f5a2bd6e01afddd10791a172e8ad0ce575fe9126843eb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000005-e583e7c908bc437cb6e9cd88a00dd3b3/response.json",
+      "bytes": 382,
+      "sha256": "6bda499d267aae2a5aa217c9a2af6697bc4bed9843aacb0f0e53bdeb90fcf04c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000006-7589434339a44db5ae8ea23be4a6cd77/accepted.json",
+      "bytes": 221,
+      "sha256": "398e7906c3bcaa0f341568f08229b8a91964f645fd88d436be2f252c69f838f6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000006-7589434339a44db5ae8ea23be4a6cd77/raw-response.json",
+      "bytes": 2130633,
+      "sha256": "fe73cb83f7e33ced35a483a6838057ba65d63ccf3cb415855f78aa03fa7d46f9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000006-7589434339a44db5ae8ea23be4a6cd77/request.json",
+      "bytes": 3744,
+      "sha256": "7c658aab5982ac62b922bd2fb7c16bcf3c37fd993bb0e3ca17b468b8bde4e7dc"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000006-7589434339a44db5ae8ea23be4a6cd77/response.json",
+      "bytes": 382,
+      "sha256": "946b4a6197a9bc876f0e4c9df8858e9cb37b8d6116f8fd7285f83fc94e687c18"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000007-792d06cc93c841f0b6dbc2151951f0a2/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000007-792d06cc93c841f0b6dbc2151951f0a2/request.json",
+      "bytes": 3744,
+      "sha256": "3660468af66679840a6a5552e706970a49b9c5e9e8833eacdd264cd09e769384"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000007-792d06cc93c841f0b6dbc2151951f0a2/response.json",
+      "bytes": 378,
+      "sha256": "2d75f7a7db66a266847f287dedd8608a6e4d9aafed160dff3032f5a81e4e44fb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000008-d435f5111d9c41cd8e53f3eb37ec3719/accepted.json",
+      "bytes": 221,
+      "sha256": "fb6fea2567d997da797ccc03e354ad8308961b32aeaecfc1d274869ae1e6e7b9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000008-d435f5111d9c41cd8e53f3eb37ec3719/raw-response.json",
+      "bytes": 2071294,
+      "sha256": "0084480aa2dff60bc02d4a4c94dc66c48abdbd1cd7afe227c8ee3af21022ec81"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000008-d435f5111d9c41cd8e53f3eb37ec3719/request.json",
+      "bytes": 3744,
+      "sha256": "e04964f92b272683df6b4964d7b443ca39aebca89fa3c4f00cdae75c07a1019e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000008-d435f5111d9c41cd8e53f3eb37ec3719/response.json",
+      "bytes": 382,
+      "sha256": "2066ce1c01f0fdd25a2b96ead64bcd9c2a76333e7103783a2a238d0be69a2149"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000009-1c025d7b1c934b82bb601899b07e68fc/accepted.json",
+      "bytes": 221,
+      "sha256": "9d4a72d4eb62ec763d992fc686c9bdcd17a1d3d254265eab646ac48dda163d00"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000009-1c025d7b1c934b82bb601899b07e68fc/raw-response.json",
+      "bytes": 2028718,
+      "sha256": "1429999ab5a9b30e477a15e04d2f41eadf642303c8914d7a8a99c2ad579fd8d6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000009-1c025d7b1c934b82bb601899b07e68fc/request.json",
+      "bytes": 3744,
+      "sha256": "9726fc28584499dd0e339eb270aa5756f64355d1f1cf06c2f1177eea8da4d669"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000009-1c025d7b1c934b82bb601899b07e68fc/response.json",
+      "bytes": 382,
+      "sha256": "69a0cf808f073f89fcdc8508d792395436bb8f42d8679fd9c18cea343f6a0d51"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000010-52ec1e75feaf4e0c969e434f9214388b/accepted.json",
+      "bytes": 221,
+      "sha256": "16fc7d0873539f6fb8b275a79fb98dc8daf8d484d37a6f964c213ca3ba83771b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000010-52ec1e75feaf4e0c969e434f9214388b/raw-response.json",
+      "bytes": 2194271,
+      "sha256": "0681a409ebb19dd038026a07c34d526579470c7f8551b5bfc7c71c24e057dd96"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000010-52ec1e75feaf4e0c969e434f9214388b/request.json",
+      "bytes": 3744,
+      "sha256": "45c382f5f4a0575b48b40e648fd5ac0e3f50a89181d0c6dbbab0d05a3255a7f3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000010-52ec1e75feaf4e0c969e434f9214388b/response.json",
+      "bytes": 382,
+      "sha256": "0f0aefdac68b04570dfc6122a638e06da031a375f33028e65c103adea7b836dd"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000011-38e747d21aca47c7af4146b6c9ff452e/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000011-38e747d21aca47c7af4146b6c9ff452e/request.json",
+      "bytes": 3744,
+      "sha256": "e784ea2d90939777b0f0ce1038229cff1428c0e840141e40cd92b7775540802b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000011-38e747d21aca47c7af4146b6c9ff452e/response.json",
+      "bytes": 378,
+      "sha256": "f78e3a3c7a4e11d12cf61dd3662a78edeac95117b918d52fa9bc7be84657f4ef"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000012-50d532e6dd834020bb7e7ab76b25e442/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000012-50d532e6dd834020bb7e7ab76b25e442/request.json",
+      "bytes": 3744,
+      "sha256": "d86757c9bf68b4193e9767ff07edea6c4f30d4728bf662f435b7723eec26f20d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000012-50d532e6dd834020bb7e7ab76b25e442/response.json",
+      "bytes": 378,
+      "sha256": "2282245a7c324d64ba1c0eb094205b605f2639c6ea800c00a94553f1719b9a3e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000013-6d57121f2d5a49a289d436231069f404/accepted.json",
+      "bytes": 221,
+      "sha256": "d8955c15182681498d90fa7bf8a5a1745ce4aea25733ce94f56dfaf9fbf1766c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000013-6d57121f2d5a49a289d436231069f404/raw-response.json",
+      "bytes": 2058383,
+      "sha256": "4547421256b2eb1272091383f70830ecb4c556fd2153628d2d980a621b02af14"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000013-6d57121f2d5a49a289d436231069f404/request.json",
+      "bytes": 3744,
+      "sha256": "d61e1c27aac049d011188d5314c0d6360e6d5959d96ad9da35813c7f0bea169c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000013-6d57121f2d5a49a289d436231069f404/response.json",
+      "bytes": 382,
+      "sha256": "4b6e7fe4c4fe020973f3d21b132b37fa61be24c351518f8a58413c6879c3e8a3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000014-d68ecabcec4c432d8d10219462433744/accepted.json",
+      "bytes": 221,
+      "sha256": "885cf768c5722321a67fc99fb344ae7adfd3b25cacb67d3fcb907f8869eb65dc"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000014-d68ecabcec4c432d8d10219462433744/raw-response.json",
+      "bytes": 1919513,
+      "sha256": "758a15b844a2b2316f309edd6e2ebe00f9c4322755f2bc5842fd1a2bead6bc12"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000014-d68ecabcec4c432d8d10219462433744/request.json",
+      "bytes": 3744,
+      "sha256": "f2ed0467a0360ec15f7e1a27ded01564493dd36fb61b6b8965ef06d6933e57f9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000014-d68ecabcec4c432d8d10219462433744/response.json",
+      "bytes": 382,
+      "sha256": "a0555c0d811beb00c0e1f0cadc6b65a6074ac65ae549c13bb0cce23d403bc3bb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000015-4fe7e46c4ba4455f916734497805953a/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000015-4fe7e46c4ba4455f916734497805953a/request.json",
+      "bytes": 3744,
+      "sha256": "a92f7e1229d329c7e030fac3ceaea77855758f7e455a99c6263538b5678cb64d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000015-4fe7e46c4ba4455f916734497805953a/response.json",
+      "bytes": 378,
+      "sha256": "5102b7b376452c51e3f180fef108c1229f6c20fe7bdbd5a53037e98a16e31dac"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000016-514b0dd455a042f8afc67326042c1a3d/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000016-514b0dd455a042f8afc67326042c1a3d/request.json",
+      "bytes": 3744,
+      "sha256": "1a0a9362fa2fc381cc20fc6180279e0895348fe1b771a23abcde89dc13c594aa"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000016-514b0dd455a042f8afc67326042c1a3d/response.json",
+      "bytes": 378,
+      "sha256": "0869e946b5a7c097e6419a0216386b0286c395dfbcf0cf6d1712075aa58fa66a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000017-a1a6e6cfc60145c2b80d4fac4cf8aaca/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000017-a1a6e6cfc60145c2b80d4fac4cf8aaca/request.json",
+      "bytes": 3744,
+      "sha256": "e8f3556a46414fb0b959cfb756705b999f2ef0e96d2141541a7d299bb6062018"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000017-a1a6e6cfc60145c2b80d4fac4cf8aaca/response.json",
+      "bytes": 378,
+      "sha256": "9b1b65cb72e0b8b37cce599017f03adcecf9c36061bce520ff817e79809ab54d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000018-ceee13253d784c5bbd4e0290df995696/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000018-ceee13253d784c5bbd4e0290df995696/request.json",
+      "bytes": 3744,
+      "sha256": "eb754ad3487bb6188540e49b0154e4613961f63c5765cc98f0dc90e28d32b6a2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000018-ceee13253d784c5bbd4e0290df995696/response.json",
+      "bytes": 378,
+      "sha256": "df73493b608e22735d65f46c5bd9092dde36ce8a11791d9ea5493739cde7abba"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000019-75cb5ba1145a4972bfd99460061b805e/accepted.json",
+      "bytes": 221,
+      "sha256": "092e454a2a4c2e289030a0e5830ed84dbe4ac6ba055af136ed66a039e8de10c5"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000019-75cb5ba1145a4972bfd99460061b805e/raw-response.json",
+      "bytes": 2096749,
+      "sha256": "b5fdb7994dcea4b380ba724107b9da73b2bcef7258ef5ea8ee4ca4174763be56"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000019-75cb5ba1145a4972bfd99460061b805e/request.json",
+      "bytes": 3744,
+      "sha256": "9980b795f128f6552e32c87ca79536ac0d179876f87cd5f7ddd5df748d22d806"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000019-75cb5ba1145a4972bfd99460061b805e/response.json",
+      "bytes": 382,
+      "sha256": "325c7ea6f599230d395dfe028284b9722e1a02edbad745f9a63d6f083db9987c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000020-e3e1a036a0534107b63c489d632b16bb/accepted.json",
+      "bytes": 221,
+      "sha256": "22fd3713a864c387ab0bdc2587653bb672e9758df62f549b87fd2b7b311ebe03"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000020-e3e1a036a0534107b63c489d632b16bb/raw-response.json",
+      "bytes": 1974766,
+      "sha256": "32e2d21ab2ea4c2f2b33c0045b0af8aba8c7bcb4e4586106bba311652f2b554d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000020-e3e1a036a0534107b63c489d632b16bb/request.json",
+      "bytes": 3744,
+      "sha256": "a6762b6db2693bf6d58f5fd4eadb5096f2305f1e5b5d884c5f9b604633adf90b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000020-e3e1a036a0534107b63c489d632b16bb/response.json",
+      "bytes": 382,
+      "sha256": "1e845b6117a804cb9a99d62d424a4c8a5e16b28c366ef492e85c91e9fdb5825a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000021-a921b7b2ad0f4b8b9ff75a9032b8e5ff/accepted.json",
+      "bytes": 221,
+      "sha256": "966f7823f08b3785221c23e185a108a094728f5bf4cc3e845f5659a268a64716"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000021-a921b7b2ad0f4b8b9ff75a9032b8e5ff/raw-response.json",
+      "bytes": 2045499,
+      "sha256": "6658d9d70f97190b54694cf40310bf2e200bd8e8a6d88449224d996360c8e220"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000021-a921b7b2ad0f4b8b9ff75a9032b8e5ff/request.json",
+      "bytes": 3744,
+      "sha256": "550841847aa89853e5b67e441734686479dfb017fc6b2efe7c0748038ef570ec"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000021-a921b7b2ad0f4b8b9ff75a9032b8e5ff/response.json",
+      "bytes": 382,
+      "sha256": "d911c61d35ac046258cbabb8f2467ea84286f3f68c75859c9db6ccc7eece10b3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000022-7eae3f5f934240f7b86dc1750dea9bd4/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000022-7eae3f5f934240f7b86dc1750dea9bd4/request.json",
+      "bytes": 3744,
+      "sha256": "d3155bd40351ad1ae29d467ae75c1ea2be48891b4a7453de6b57f4b5c723647f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000022-7eae3f5f934240f7b86dc1750dea9bd4/response.json",
+      "bytes": 378,
+      "sha256": "0d7a6c7a7c189fa0a928dd0a13a5982e6e11110c782a3429040cc50e706f93e9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000023-a05b194d53254cde8db1145b599b7697/accepted.json",
+      "bytes": 221,
+      "sha256": "56f950dbdce6b035518e40e91dfdb9d3e5b76c5603664b01619584130760a265"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000023-a05b194d53254cde8db1145b599b7697/raw-response.json",
+      "bytes": 1983776,
+      "sha256": "81d5e795ebb5951afee483bea0a490e3f381a91b7e04ae49027446012a14c22e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000023-a05b194d53254cde8db1145b599b7697/request.json",
+      "bytes": 3744,
+      "sha256": "4d42283360e234143b34b612d117f66153c77cd94db0e7c2e8a7bd274705e39f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000023-a05b194d53254cde8db1145b599b7697/response.json",
+      "bytes": 382,
+      "sha256": "9fdeabb7c2c16d7de49ccb2937565c0c29e64e14606d01296c51c88d48c874a0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000024-65e1b3d322a94d36bb2fff3c45e9cb40/accepted.json",
+      "bytes": 221,
+      "sha256": "773cfaabb59b8fd077ed167b740acb23f0c5aeabe119ddaf21cdae63984b8fab"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000024-65e1b3d322a94d36bb2fff3c45e9cb40/raw-response.json",
+      "bytes": 1574836,
+      "sha256": "0ea789070fd6c7de93243ac9314dede5e58e793db5b87a1ed268710ae72fe411"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000024-65e1b3d322a94d36bb2fff3c45e9cb40/request.json",
+      "bytes": 3744,
+      "sha256": "3b10be081f40e67e8af47bcfc3ad584e48af435d080c9ab6bb63803de566e7e4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000024-65e1b3d322a94d36bb2fff3c45e9cb40/response.json",
+      "bytes": 382,
+      "sha256": "2bbc29c0113f058958246edd98b7d55b7a30e5814951814f817cd226b939c869"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000025-9844036f9a5f45f1a54f3f25f996b6cb/accepted.json",
+      "bytes": 221,
+      "sha256": "21bda46cb27048daaa921f6150201c652e9f631fd415a10c1a0d3009b849a36a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000025-9844036f9a5f45f1a54f3f25f996b6cb/raw-response.json",
+      "bytes": 1840548,
+      "sha256": "4d70f32289989229b321090413a4dfee1aec3d0c4d987b0c92d0deea527d2e57"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000025-9844036f9a5f45f1a54f3f25f996b6cb/request.json",
+      "bytes": 3744,
+      "sha256": "71148d240d3774b51adb4a1124aef28b7326aaca1fe7e075f7f244864ddedd3e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000025-9844036f9a5f45f1a54f3f25f996b6cb/response.json",
+      "bytes": 382,
+      "sha256": "e45c40b9d87382eded9dc2751ed02deab0b0584794292a4ccf39f59a12ef75e2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000026-915378d0b9154f049d210185022123ac/accepted.json",
+      "bytes": 221,
+      "sha256": "f8ebead332fba401ce782b8fce8cb3856806212c3389686b6f41599ea4cbee27"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000026-915378d0b9154f049d210185022123ac/raw-response.json",
+      "bytes": 1949280,
+      "sha256": "8b1ca0aab78237d83945893abd5a3c95a090a014b484a668f871d020dee5b6e8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000026-915378d0b9154f049d210185022123ac/request.json",
+      "bytes": 3744,
+      "sha256": "e6cc1e4e9d8352bc7918b11fc1c660f1ca16d9eeceebd1fc6802334750bb6633"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000026-915378d0b9154f049d210185022123ac/response.json",
+      "bytes": 382,
+      "sha256": "ec459304561d74fa84de993dbb415b574dc993adda02127a01b0e18b8994e626"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000027-007688bfceff4a3894fa046e6ae16840/accepted.json",
+      "bytes": 221,
+      "sha256": "3f08fd27b56d9723d06426bad51d5073fc4607b001d8112cd7bafcf85e5481e1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000027-007688bfceff4a3894fa046e6ae16840/raw-response.json",
+      "bytes": 1884426,
+      "sha256": "75e6e6de2fd360230e6e214998220bfa7e5aa52e2f8bbcf67b5706c79bb2e869"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000027-007688bfceff4a3894fa046e6ae16840/request.json",
+      "bytes": 3744,
+      "sha256": "f941426842d90e9b2ba250f860f1ab9a1d5425d2c25a5088b0d528df889688d7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000027-007688bfceff4a3894fa046e6ae16840/response.json",
+      "bytes": 382,
+      "sha256": "0b6c5a2b87c1959627e7f9941dda7a451cfbe131c61fa98b1195d2ad938faeb4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000028-92683c26430142368f76f973cc318426/accepted.json",
+      "bytes": 221,
+      "sha256": "ce9c41accceec896bd7d9defb8409c18ef46937c789e2dc6a607fce2777fc8e3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000028-92683c26430142368f76f973cc318426/raw-response.json",
+      "bytes": 1849857,
+      "sha256": "b5b7c11c63334c89713a462e7a6a31ccb14bad371d856524d07bb2457d1cdbcf"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000028-92683c26430142368f76f973cc318426/request.json",
+      "bytes": 3744,
+      "sha256": "850eb24109212bac32623fb897150cc2350f2ad4a926ae9552bfdad6c972c1d9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000028-92683c26430142368f76f973cc318426/response.json",
+      "bytes": 382,
+      "sha256": "5b3186b264b2d73767eb9de3ec9c93b833ad6b9bdd2b4b1e9d74db9b18741157"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000029-b8886b0b13824c7bae20e62e2f35b772/accepted.json",
+      "bytes": 221,
+      "sha256": "64b1a54706036392cfec4e1a6687e39546c57defcc955d5cd67cc8101f5b9b87"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000029-b8886b0b13824c7bae20e62e2f35b772/raw-response.json",
+      "bytes": 2284710,
+      "sha256": "20bb31fbd0072010253b714d26adb4135bd67f62c620154c15d2f43b0c1f18bf"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000029-b8886b0b13824c7bae20e62e2f35b772/request.json",
+      "bytes": 3744,
+      "sha256": "c88f3f1a3817b0e90c2e846249790db3b682a9c7bcf6681dc4c783edaeb51fc4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000029-b8886b0b13824c7bae20e62e2f35b772/response.json",
+      "bytes": 382,
+      "sha256": "c56d17486f51c4e14e8ba4f5ab60ad55d5070963b2d3b056930112f2ff909076"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000030-8e2c290eef344874a7bca9b237c9f125/accepted.json",
+      "bytes": 217,
+      "sha256": "625ed165d59834998225d4a358ef0bf357ce8281fa179cc86d22c44b9a95bf29"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000030-8e2c290eef344874a7bca9b237c9f125/raw-response.json",
+      "bytes": 1642931,
+      "sha256": "b49e91bd32be4477b721fc6de7710202a703cb9eb49c925125d6ae2c68422e16"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000030-8e2c290eef344874a7bca9b237c9f125/request.json",
+      "bytes": 3744,
+      "sha256": "6bf072289e1b73f142b0c4e560a94db1f05ea46262c7551f851a504e704b9218"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000030-8e2c290eef344874a7bca9b237c9f125/response.json",
+      "bytes": 382,
+      "sha256": "1226fabfec4c989bfaf033d34077280df5fd89472425d38250d4c71b49c7c5d2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000031-933360152dbb41cc987d562291ee164f/accepted.json",
+      "bytes": 221,
+      "sha256": "8708529b5ac87898ad2e34fb792e3256455781b18d2eafc4d642fc5918f63da2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000031-933360152dbb41cc987d562291ee164f/raw-response.json",
+      "bytes": 1631520,
+      "sha256": "0c32cc2d64d6f2086655841cc04cc85c739c6f2bc0f241c86565a946c1c71519"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000031-933360152dbb41cc987d562291ee164f/request.json",
+      "bytes": 3740,
+      "sha256": "fa137a0779976463ac6fde0df677a2b1893ca3eb94b8911c76eb3bf4f20dc0f2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000031-933360152dbb41cc987d562291ee164f/response.json",
+      "bytes": 382,
+      "sha256": "f4984359e4b63720ec901e4f88dae0fc9f73fb30250779ef4599d16fe0fbb62b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000032-be947b69253343e297e1b2b4a66746ad/failure.json",
+      "bytes": 68,
+      "sha256": "db57585047bf3d3710c129e133df96f6ae887bedbb0977185b0ee87f50b6ebbf"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000032-be947b69253343e297e1b2b4a66746ad/request.json",
+      "bytes": 3744,
+      "sha256": "b7990a72c44028d5646cd2170d7da36a7353bfe6de695f332915ae338d8030a2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000033-da52572cca134bde9f64cccac6d5e507/accepted.json",
+      "bytes": 233,
+      "sha256": "5b0a2d64262e967755eb3dbde09f03d1962a1c0c6352e44a856738e35ea99adc"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000033-da52572cca134bde9f64cccac6d5e507/raw-response.json",
+      "bytes": 1813637,
+      "sha256": "0426d5d1285e9b3ee7818a236eeb906b8a2bbd20109ea78d8bc8936e28cabb39"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000033-da52572cca134bde9f64cccac6d5e507/request.json",
+      "bytes": 3744,
+      "sha256": "7b1d6a75085db72f8812baa57a67e90dc2591118352e38573308ba27e793eb13"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000033-da52572cca134bde9f64cccac6d5e507/response.json",
+      "bytes": 382,
+      "sha256": "854fdf42c0f521e67df49897bab5e0911fd882c55d201380592042c1d92dc32f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000034-7873a7143b734e02a2fefeb93e0ada9e/accepted.json",
+      "bytes": 229,
+      "sha256": "4b9ee2314267d0f3a1f0e0db1edf8c51e506b91259a74a387e85cf4eef86e938"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000034-7873a7143b734e02a2fefeb93e0ada9e/raw-response.json",
+      "bytes": 1697281,
+      "sha256": "1ebac36725a4175fbd09f8cf56bec2e7de14fbdc251807764dc6b9b0790cfcb9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000034-7873a7143b734e02a2fefeb93e0ada9e/request.json",
+      "bytes": 3756,
+      "sha256": "5e4036f70dfc1304b18050c3e4da876b8eefd3ed04c5d2f8e7d9a0f616bc2b9c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000034-7873a7143b734e02a2fefeb93e0ada9e/response.json",
+      "bytes": 382,
+      "sha256": "59e4041df6483a7cf8f3680783658701279464f074d641f63040dc9cadba61cc"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000035-a450600d563b453da11777d2123b59af/accepted.json",
+      "bytes": 229,
+      "sha256": "6f49e3008a85383eca2a670e506449766b4d8c655703773a9928f55520fe836e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000035-a450600d563b453da11777d2123b59af/raw-response.json",
+      "bytes": 1643008,
+      "sha256": "fd35a078004611036048966a4dab098b0ca8711439700b1c1d98d07bf90f3a24"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000035-a450600d563b453da11777d2123b59af/request.json",
+      "bytes": 3752,
+      "sha256": "b359efd56f751502ac9e1b8827c8e974cd9347be7bf3b33863e3a1590cac082a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000035-a450600d563b453da11777d2123b59af/response.json",
+      "bytes": 382,
+      "sha256": "09b6db7152dbcb41320bb96a9eadf8a0acf12814cbc8bc8e1cbf7ed4d65de661"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000036-a29bbab124de44ff86e3d50fb4727536/accepted.json",
+      "bytes": 229,
+      "sha256": "34df071d2438dfe09461582208f6b486e4b6c1219a1f98321e8dce4e2f0ee4d6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000036-a29bbab124de44ff86e3d50fb4727536/raw-response.json",
+      "bytes": 1621005,
+      "sha256": "40c22350bb26e74125a36220068ac84ac4df52e4ab409f7a78f45696f46b346b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000036-a29bbab124de44ff86e3d50fb4727536/request.json",
+      "bytes": 3752,
+      "sha256": "31cc1aea7ceaf58e46889db12f08f33b4c73befa1e6e58feda6146a0f2084980"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000036-a29bbab124de44ff86e3d50fb4727536/response.json",
+      "bytes": 382,
+      "sha256": "d1ab9499593b9c20df4b28ea6bf34865aac4985e559386a01d88156a1f4550e9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000037-884c1921401848aeb54c9d2557c38146/accepted.json",
+      "bytes": 229,
+      "sha256": "b6daa3e2d5a4ec9bc83ffcaef0c1f93f9d9498f83fd8168d10c174750a98d018"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000037-884c1921401848aeb54c9d2557c38146/raw-response.json",
+      "bytes": 1575001,
+      "sha256": "ef973b170a2e4790e5fd8571b5c66b3bf8216b08e12a6ae365f61f6c943bc832"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000037-884c1921401848aeb54c9d2557c38146/request.json",
+      "bytes": 3752,
+      "sha256": "5c9163ad9095ab6c6a6f67fc70c77f5e35a9e873cef1ae449bdb6c57d718e256"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000037-884c1921401848aeb54c9d2557c38146/response.json",
+      "bytes": 382,
+      "sha256": "37b1d41099f83c280c92544e5cf60a296090c3c0f0e304543c05eaf1e69273f4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000038-8638d031c2484c1993eefa967453a269/accepted.json",
+      "bytes": 229,
+      "sha256": "c6e7b0e9b7cd5b1e71dd8e32c0c5a198cf61f58f3103fa936338f91d62fef309"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000038-8638d031c2484c1993eefa967453a269/raw-response.json",
+      "bytes": 1540925,
+      "sha256": "88dc47312b8c9760c2af27b133e15ce076c7a4bf5e44cc29b9945580d2b4d08f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000038-8638d031c2484c1993eefa967453a269/request.json",
+      "bytes": 3752,
+      "sha256": "48b7c7f1f81481eebcd0dea630eb725b8c7a3e8e90aae213938f0c5e43439ca8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000038-8638d031c2484c1993eefa967453a269/response.json",
+      "bytes": 382,
+      "sha256": "098924d2593fe767e3571f9ba7639b2898f426e7f15af0a35ede45ae1a7312ab"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000039-1fa8d2272a344bfaba720c559ac23d5a/accepted.json",
+      "bytes": 229,
+      "sha256": "24aa36ecc34898b8e90334145c846b7559024f8f605ae662300f0ad86a9a98fa"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000039-1fa8d2272a344bfaba720c559ac23d5a/raw-response.json",
+      "bytes": 1425029,
+      "sha256": "04db883b94aede74d2e606c5a73268044fbf7d402cdab7333564ac19eef7e65a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000039-1fa8d2272a344bfaba720c559ac23d5a/request.json",
+      "bytes": 3752,
+      "sha256": "d75a359536b0decff9e18e36503c8ac4a192c0494dd27a341e9cf70f39e1873a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000039-1fa8d2272a344bfaba720c559ac23d5a/response.json",
+      "bytes": 382,
+      "sha256": "2ebd5d284679c04b24f311da869279ff588e42b3c1e864ef02d214c8e3459b15"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000040-b933153be1284cf3a86d0a173c2109b7/accepted.json",
+      "bytes": 229,
+      "sha256": "f9202a44ee9e4b288ea878043021d1b3a082a746d751ae23fdc307dcb03b86b6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000040-b933153be1284cf3a86d0a173c2109b7/raw-response.json",
+      "bytes": 1670208,
+      "sha256": "4f23d81cfa6cd244a736d71a38c12033942fe4d1a8195bbf72f95ff5ec7a11e9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000040-b933153be1284cf3a86d0a173c2109b7/request.json",
+      "bytes": 3752,
+      "sha256": "9246cceabe1e8c2830d94729d999ec9eb37c86714a7f332b7aab0f11960796ef"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000040-b933153be1284cf3a86d0a173c2109b7/response.json",
+      "bytes": 382,
+      "sha256": "97681ff61c497edb10d0729a47f2a9325987e2f728cdc776dfb56c3fa4dd0973"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000041-9b2e1b3491f445d8a685db734a28d379/accepted.json",
+      "bytes": 229,
+      "sha256": "4a6fefa53ca47529b02affec1807075bd1cade9d27945159fa82cde9847a1912"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000041-9b2e1b3491f445d8a685db734a28d379/raw-response.json",
+      "bytes": 1470687,
+      "sha256": "a39ee10c69767099060918c51c21e517c4e492009a7e103f471976cb1a4ad0eb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000041-9b2e1b3491f445d8a685db734a28d379/request.json",
+      "bytes": 3752,
+      "sha256": "00c70fe3d60fcd13b16f747137090f3cf86daf6da558f2c4d217d89011e8a74f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000041-9b2e1b3491f445d8a685db734a28d379/response.json",
+      "bytes": 382,
+      "sha256": "37a305d9be37126ae4edc0ed393f3351e1db151864be0c168c7432f4237457f8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000042-c07ec556648743dbb6951e500e16957b/accepted.json",
+      "bytes": 229,
+      "sha256": "ed65f5ec683a8cc6cfbe08a63058c07b291534a635155b857b41267b0a355565"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000042-c07ec556648743dbb6951e500e16957b/raw-response.json",
+      "bytes": 1651286,
+      "sha256": "199c6ad47eb9f242d1ff7735c6740360fb048c0999c72cf98c11ff609e19a1ab"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000042-c07ec556648743dbb6951e500e16957b/request.json",
+      "bytes": 3752,
+      "sha256": "d42e5567c723589e1f1cea2b55d7a5b58fe96f4a035bc31f144038c472464aaf"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000042-c07ec556648743dbb6951e500e16957b/response.json",
+      "bytes": 382,
+      "sha256": "a5aed479ce259dbc703372027ed10c8273022c7e32c45a8f39e016ecea2bf101"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000043-0d92736839a142bdbd532a7b4adacf18/accepted.json",
+      "bytes": 229,
+      "sha256": "30434b51139eaf15afc23cb2e39b307c7021bd548331814aef50c6508b9e7e5d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000043-0d92736839a142bdbd532a7b4adacf18/raw-response.json",
+      "bytes": 1335519,
+      "sha256": "aa1c7f4a41bf7e4822fc55e998c72fbfa485820dd4b9bc75d022a1e8e412267e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000043-0d92736839a142bdbd532a7b4adacf18/request.json",
+      "bytes": 3752,
+      "sha256": "924babaab8dc4643bbff4b3ccb4efb4fa07027a6e9917676b2540a4a0ee16651"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000043-0d92736839a142bdbd532a7b4adacf18/response.json",
+      "bytes": 382,
+      "sha256": "110eeeee793ca5af8f4161f079f05ffc8171624248ed483686826d2568c1ec4a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000044-c1819b3a2bcb4fd88b93a88ab5d6be83/accepted.json",
+      "bytes": 229,
+      "sha256": "3fb7d060faa3a75a98d21282dea9b97999ec340d3584a5ff69dd381591762d83"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000044-c1819b3a2bcb4fd88b93a88ab5d6be83/raw-response.json",
+      "bytes": 1581785,
+      "sha256": "da22346611dbe2584cba042ae561ce8e0be87f61507be90b663528deb8c4e29f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000044-c1819b3a2bcb4fd88b93a88ab5d6be83/request.json",
+      "bytes": 3752,
+      "sha256": "d775dc966d09f948c5cb8dd301ad0d2e75a65ef059e2a27528f10905cdbffa31"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000044-c1819b3a2bcb4fd88b93a88ab5d6be83/response.json",
+      "bytes": 382,
+      "sha256": "57f55f3667a0fe9793a0504988e918e8593ec29ea94521e22babe59de5d330b6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000045-b801d716ac2440448d07e6a619df01a9/accepted.json",
+      "bytes": 229,
+      "sha256": "e249d6e953c048eecfe524273a2280dafbdfc29c9072e60452007b83e03dc81c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000045-b801d716ac2440448d07e6a619df01a9/raw-response.json",
+      "bytes": 1421441,
+      "sha256": "4607d2439264bbe71db1e96152965a0bf0ed9b0a27ebd2f291fe1aba7f8cb8eb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000045-b801d716ac2440448d07e6a619df01a9/request.json",
+      "bytes": 3752,
+      "sha256": "931a46841b5cb3f9d43acc8765e6084a52a46b3c944ca6918a3077c34f4c47e2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000045-b801d716ac2440448d07e6a619df01a9/response.json",
+      "bytes": 382,
+      "sha256": "923ecaa914465310b7d623479f17492f29c9161ebda460e1df00ae2a50f1aa6d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000046-267263932ed743668eff80ea141c0432/accepted.json",
+      "bytes": 229,
+      "sha256": "0ea27036b5d720992e80a87943ff8052763828f8d24d67798c0b131e18ea510d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000046-267263932ed743668eff80ea141c0432/raw-response.json",
+      "bytes": 1323012,
+      "sha256": "1038f13acbb0ea1f0f3d2c89954ee2894bb3955fee90e6508429aa79802663a7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000046-267263932ed743668eff80ea141c0432/request.json",
+      "bytes": 3752,
+      "sha256": "448c474bfb8f3f87e0879a5410dfbd61acaeddf5539e19220309e10bb666bf97"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000046-267263932ed743668eff80ea141c0432/response.json",
+      "bytes": 382,
+      "sha256": "ee942c9d3b476fb1f106cf04d94b5208daeb2660c7a768f7732592263c62fa2a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000047-0189caabc6ba431ea124d6f088e94eb3/accepted.json",
+      "bytes": 229,
+      "sha256": "f5b0933456376d3775505085da7e13654d20d47279132e93e701e4b935b1d4a4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000047-0189caabc6ba431ea124d6f088e94eb3/raw-response.json",
+      "bytes": 1279351,
+      "sha256": "15ccb087625f30c088571f144d89884a659a772a48d9cc883083960f7b9e47a0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000047-0189caabc6ba431ea124d6f088e94eb3/request.json",
+      "bytes": 3752,
+      "sha256": "6accf28b26e5f58397517910f378bb7fd0c641b866103fa355a3be2c8af525d4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000047-0189caabc6ba431ea124d6f088e94eb3/response.json",
+      "bytes": 382,
+      "sha256": "83ed5c939d99d5c61573dcde3be664d140ce1bd1b1b5196b4fc1910cf4c7759e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000048-daabac6124a94158b134cd83d2eaa272/accepted.json",
+      "bytes": 229,
+      "sha256": "52557b842036fa0a4fa51f85a17cc8a5eb0dc35c0800c41f11bb2e61146f9334"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000048-daabac6124a94158b134cd83d2eaa272/raw-response.json",
+      "bytes": 1302096,
+      "sha256": "0216279c128a04b1c0b6c609a5b99777b934eda430c72c297de84f6cedc13fc9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000048-daabac6124a94158b134cd83d2eaa272/request.json",
+      "bytes": 3752,
+      "sha256": "584dd36f6cd2ccf4ab19096a3f77fe3edab092803ca4e590ebdf2d1846be0036"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000048-daabac6124a94158b134cd83d2eaa272/response.json",
+      "bytes": 382,
+      "sha256": "c1c173f03820477a85ff028b08d18c9f54e13af3c4daeed4a12ca64fbcd1227b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000049-57c6204527424c39adc717002d31b08f/accepted.json",
+      "bytes": 229,
+      "sha256": "c4176c08b3dc185e76015c2fdb030ae335c491cbb3631e36523e60c39d78f799"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000049-57c6204527424c39adc717002d31b08f/raw-response.json",
+      "bytes": 1353439,
+      "sha256": "429614ee8b615b5c04ddc49d481b55ef112248dd8fe59c394e95b000d8023637"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000049-57c6204527424c39adc717002d31b08f/request.json",
+      "bytes": 3752,
+      "sha256": "ad64810299d13cc3a2a56630f575b2634285ed17c12faa6cc1cfc1dfb18c768f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000049-57c6204527424c39adc717002d31b08f/response.json",
+      "bytes": 382,
+      "sha256": "8e83e675a4950434a074a6d50bcf10556d4d818e06938c9e22c4bc76a1b25f10"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000050-d682e492b4dd4ebfb777d142706ef513/accepted.json",
+      "bytes": 229,
+      "sha256": "4f9c0bce72805197656199d2180e5109328d1bd4f4dae87b15daa76bc85cabf0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000050-d682e492b4dd4ebfb777d142706ef513/raw-response.json",
+      "bytes": 1478978,
+      "sha256": "fef63c74d2f81885f16777ac8a8199a460ae7dac8957e2ef9ed909c739c170a9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000050-d682e492b4dd4ebfb777d142706ef513/request.json",
+      "bytes": 3752,
+      "sha256": "b534f461e2dc67db0a71a93bc0ed0b6e84ef1273a886019390aa6538310003dd"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000050-d682e492b4dd4ebfb777d142706ef513/response.json",
+      "bytes": 382,
+      "sha256": "d4f074bbe21a0ff862748dadc2c3ce678b4499691a496c0ade03d514fd6c4858"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000051-2f0bded4fa32448d8954749696d69dd3/accepted.json",
+      "bytes": 229,
+      "sha256": "619e152e42f57345d68fd19eba3c76c4c0dea15e7ab416a5e9e97f360fefe961"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000051-2f0bded4fa32448d8954749696d69dd3/raw-response.json",
+      "bytes": 1687462,
+      "sha256": "df7952621b3cd399230c769b32e02e7123ac44081786b60458b3c556d5079a11"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000051-2f0bded4fa32448d8954749696d69dd3/request.json",
+      "bytes": 3752,
+      "sha256": "035c6718b99405acf0eb1520c292afec7e40ee2b943c442ce67c27d73404afd0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000051-2f0bded4fa32448d8954749696d69dd3/response.json",
+      "bytes": 382,
+      "sha256": "ab6e82c5e6cb7f3d84d45987241b43fed5e105d61ba6bce5fb1f8c6e84b77508"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000052-841db8a9db234df1a042dcef6c60290c/accepted.json",
+      "bytes": 229,
+      "sha256": "519f1e0bf0df9b2a9d93bad5daa205c12c9255e0d444ba1e9986686551f61bb0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000052-841db8a9db234df1a042dcef6c60290c/raw-response.json",
+      "bytes": 1668750,
+      "sha256": "a9ce769c4e974e93772bf37c1588b35ec1d17c62bad3bf1bfa0cb69f4ac58b5a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000052-841db8a9db234df1a042dcef6c60290c/request.json",
+      "bytes": 3752,
+      "sha256": "efb0b2e4299132fa4f649e055a4c8696880f682e0d79b51f6a8c0b7965edc2d9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000052-841db8a9db234df1a042dcef6c60290c/response.json",
+      "bytes": 382,
+      "sha256": "6111c962bd09c603dcbb6fb42af7db6150b24cf90b7cd4a533cf1fcb7e16c23b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000053-026f6c3094b34337b070218752a7cbe4/accepted.json",
+      "bytes": 229,
+      "sha256": "2c22d196e172a5dc0a97679b27094aaade32aa723d54a6aced1dd7f1a2bb824c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000053-026f6c3094b34337b070218752a7cbe4/raw-response.json",
+      "bytes": 1673053,
+      "sha256": "f5580a9b34d33736746b299442814697d51d4df72fb5f10d82bc9592bd8e22ca"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000053-026f6c3094b34337b070218752a7cbe4/request.json",
+      "bytes": 3752,
+      "sha256": "37579d8902972c4e309fdfd257d88b9125543a0e0d156172e003b9a03db919e6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000053-026f6c3094b34337b070218752a7cbe4/response.json",
+      "bytes": 382,
+      "sha256": "82c32dd1706756d689ea7e219d18ce5d1c568fbe48e194db1d83b9e5a4b4e66f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000054-d254b87a508e4b648b91a6cb6d955e26/accepted.json",
+      "bytes": 229,
+      "sha256": "11b1b5a125ff0391aeb1a69fd571ba695b874605a0eb43960b081ee72ea803f9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000054-d254b87a508e4b648b91a6cb6d955e26/raw-response.json",
+      "bytes": 1561391,
+      "sha256": "f18ceba19903975a8c5b40a00440cc2650320e00c90c244eb1114ed79114635c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000054-d254b87a508e4b648b91a6cb6d955e26/request.json",
+      "bytes": 3752,
+      "sha256": "7afb45f55c484588ec2e8695a28f5948bd532da5b0f52af976ce36f48e07779b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000054-d254b87a508e4b648b91a6cb6d955e26/response.json",
+      "bytes": 382,
+      "sha256": "23970584d1d9bf23dd90d354e06f715f277a92b1a7d4c2bdade74d7a57256cc3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000055-372f33c8aab44247a9539ffe2e3ee074/accepted.json",
+      "bytes": 229,
+      "sha256": "02dae2c38c9b0c21e4490f9c42bf806261bb11a105f61debf0463e9a2759c1dc"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000055-372f33c8aab44247a9539ffe2e3ee074/raw-response.json",
+      "bytes": 1557206,
+      "sha256": "fb57569fac30f8cf7e2ae0271bbff4fb2823315e206789fb56038346d9fa4bcb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000055-372f33c8aab44247a9539ffe2e3ee074/request.json",
+      "bytes": 3752,
+      "sha256": "65662069949658c145eb77e642b8996e0dbc16b496a34b12ab469d54a0a155a2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000055-372f33c8aab44247a9539ffe2e3ee074/response.json",
+      "bytes": 382,
+      "sha256": "d6eb4aeb6f3af459b525bfea9ba40bdd1b4f5f3d076b1096530f4a9384fbb828"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000056-b3c7c96081f945599030ac135948f1b4/accepted.json",
+      "bytes": 229,
+      "sha256": "3bb7ac5fd44b4830cb42a8aa2638fa883db8ca4985ae448026da117e96775394"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000056-b3c7c96081f945599030ac135948f1b4/raw-response.json",
+      "bytes": 1736417,
+      "sha256": "fbc1cc6168656ed03f349ee081d2263ec1cc44b2350d1119f497a32755bb3605"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000056-b3c7c96081f945599030ac135948f1b4/request.json",
+      "bytes": 3752,
+      "sha256": "5f234e03de224132102226c7fa7bcb92cd11c4b63b36e851655b9c808bdaab8d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000056-b3c7c96081f945599030ac135948f1b4/response.json",
+      "bytes": 382,
+      "sha256": "28d6e748d2e367261a18034d42b7cfb2293ae280fa16c14575e201f25aca4118"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000057-3648f593b1d2420d9826e3f0013c776d/accepted.json",
+      "bytes": 229,
+      "sha256": "8be025fcd233bb16b219a1e936edf4f9f3fb1b23841b7620bb3cc7cd03c830b9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000057-3648f593b1d2420d9826e3f0013c776d/raw-response.json",
+      "bytes": 1703338,
+      "sha256": "cca5a09ecba73b05d0292ab3e24edeb476c5f4bace585ded7a2bf8d59a793e08"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000057-3648f593b1d2420d9826e3f0013c776d/request.json",
+      "bytes": 3752,
+      "sha256": "d98b812ad08ac2c1822870596d7e7365e260aa951518c87d02530e3a18b94a19"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000057-3648f593b1d2420d9826e3f0013c776d/response.json",
+      "bytes": 382,
+      "sha256": "469704f9e1e5e33192cd9c3b88e89f9a255e075fd2e01dd6867dac81cd8c6ae5"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000058-82ff28234f52433daec2309a2652cfff/accepted.json",
+      "bytes": 229,
+      "sha256": "95b2a59e0879f940efcb884150b7bd15346a7e2ad1c39f7816162bf93a9e65c0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000058-82ff28234f52433daec2309a2652cfff/raw-response.json",
+      "bytes": 1587137,
+      "sha256": "2822fb8db31956e6afb337320029d0487d7f9b954e30df4bf205adb08e189a67"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000058-82ff28234f52433daec2309a2652cfff/request.json",
+      "bytes": 3752,
+      "sha256": "bb1d41ed8536337803513e870503792fd3195744299fb55b12178ac2ab323302"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000058-82ff28234f52433daec2309a2652cfff/response.json",
+      "bytes": 382,
+      "sha256": "ab2dfc3dfaebfce50ccf4c5c232ed83c000ae34de7cf7651b0f95d8aa42deb3e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000059-11189ac55d8840189d32d1841b4864ad/accepted.json",
+      "bytes": 229,
+      "sha256": "092d7a4c01d25584e9a5ddf65271f7418e85fc0eb9505c7668f816837bb049d4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000059-11189ac55d8840189d32d1841b4864ad/raw-response.json",
+      "bytes": 1733795,
+      "sha256": "a961d8cb5ef9c58c86fd4a7e42b82751c7c3b7f42c9e96965644eade4fcfd6db"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000059-11189ac55d8840189d32d1841b4864ad/request.json",
+      "bytes": 3752,
+      "sha256": "454cafa3d6d97434b1a3b9c782f183f726ed8dae650b1eaa8a991d752fd2de42"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000059-11189ac55d8840189d32d1841b4864ad/response.json",
+      "bytes": 382,
+      "sha256": "90303ea51792e5ac8c4d9aa67b5c3c6722877d85a0b25a07f1fede467821d9f2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000060-2e66afe85b4045d0a4a8f8bc19106727/accepted.json",
+      "bytes": 229,
+      "sha256": "2c00916b4b1927a94e30353d9cb268f3408d09348adcaff072f1034b70cf182b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000060-2e66afe85b4045d0a4a8f8bc19106727/raw-response.json",
+      "bytes": 1678884,
+      "sha256": "2db3b3c9a59c3350ab0aff0c423f0eefabf8a8c2f10bb986550d3d66c26a585c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000060-2e66afe85b4045d0a4a8f8bc19106727/request.json",
+      "bytes": 3752,
+      "sha256": "a2f33e0a106e2095c3ce20bfbde23e8d2d031b833f0a5758eeb60d71f21f2481"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000060-2e66afe85b4045d0a4a8f8bc19106727/response.json",
+      "bytes": 382,
+      "sha256": "7009334c79d071c22b3c8ef8fb4108e90aab2055e640671dcc500c1ef4857962"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000061-e8708fc73532482c96c34fc51ddc369d/accepted.json",
+      "bytes": 229,
+      "sha256": "331de04961668c6f550a276c6d1928cc93f0a1357044e7f2a95b8bfd02910a13"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000061-e8708fc73532482c96c34fc51ddc369d/raw-response.json",
+      "bytes": 1671580,
+      "sha256": "c398198d1da8a578342048775b49f7cd14e7c26976aa6b4e669077230bff5b93"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000061-e8708fc73532482c96c34fc51ddc369d/request.json",
+      "bytes": 3752,
+      "sha256": "1342dbb827528abeb3b8a7085154fa747f1d520853099636d5555806563b96b7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000061-e8708fc73532482c96c34fc51ddc369d/response.json",
+      "bytes": 382,
+      "sha256": "19bff1581a5d7070d2655fcd9cfcae0001f4b416779ab7be2e0451b7a67a1335"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000062-3287fe12c61f484b98a5c6accda1e765/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000062-3287fe12c61f484b98a5c6accda1e765/request.json",
+      "bytes": 3752,
+      "sha256": "dd87c754b76681ca506edeee2bba8454de912118459f9215753af33f919a6298"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000062-3287fe12c61f484b98a5c6accda1e765/response.json",
+      "bytes": 378,
+      "sha256": "0e8859734ede4bc206908ad73be003fbabbb3583c801c26e39a3b943fa0c640b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000063-0a5320e2c1d24c24a4bc2798ca3dd06e/accepted.json",
+      "bytes": 229,
+      "sha256": "1a16c88dac01ce2560091f3717a1735067af3b2b2be0962a3e378ba6984b4f1a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000063-0a5320e2c1d24c24a4bc2798ca3dd06e/raw-response.json",
+      "bytes": 1693150,
+      "sha256": "351f31a8352f86a46946c095614e2cbcb18cef0b4d77b5ab180bc771fc1d716f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000063-0a5320e2c1d24c24a4bc2798ca3dd06e/request.json",
+      "bytes": 3752,
+      "sha256": "f0bb8f8880d4c73b3c52a84f5a5ec3ea0dc96163594059f40a66618fd0161924"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000063-0a5320e2c1d24c24a4bc2798ca3dd06e/response.json",
+      "bytes": 382,
+      "sha256": "354a0d1972fb3cca2aea8988b960e31dd35e8f2017b6ac605249dfc3b5c50101"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000064-cdc97a7f596a49889bc9d28eabcf731e/accepted.json",
+      "bytes": 229,
+      "sha256": "7e366cef371a5291085de96dba8fdc9aa69f9dd867f20172e84db78002b029e6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000064-cdc97a7f596a49889bc9d28eabcf731e/raw-response.json",
+      "bytes": 1707983,
+      "sha256": "7f9dad4cc5cd5f3a3573420c63c042260823c03ba96c2fe544124aaa4f010bde"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000064-cdc97a7f596a49889bc9d28eabcf731e/request.json",
+      "bytes": 3752,
+      "sha256": "a7e7596d287557966ea7e31eba631cf328f2522a3dc152274c6d328094b9a8d6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000064-cdc97a7f596a49889bc9d28eabcf731e/response.json",
+      "bytes": 382,
+      "sha256": "f8ec2e4003fd2724874a3fa8fe80218eaaa71de78b1b11de92f29903bf139201"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000065-a1625fe0fd2b4854b18f2ffa6b1ac5bb/accepted.json",
+      "bytes": 229,
+      "sha256": "cd9c3b752f7890e53e3d9b3c74b4f1c03498c70d7c358485f719c88a02bf8d96"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000065-a1625fe0fd2b4854b18f2ffa6b1ac5bb/raw-response.json",
+      "bytes": 1661389,
+      "sha256": "ce9fd4ca9a546286d2de51b32f58dd6627abb5129064c92afc289922ac0a5366"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000065-a1625fe0fd2b4854b18f2ffa6b1ac5bb/request.json",
+      "bytes": 3752,
+      "sha256": "7e7664bbe3b69ecd258aeb306e6d245373128e3c3287d5021a0e65e50195957d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000065-a1625fe0fd2b4854b18f2ffa6b1ac5bb/response.json",
+      "bytes": 382,
+      "sha256": "9ebda36e17300ee8a1f0f1ab7c148f2381d7ac4ce7ffd76425e7c84a096cfea9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000066-fd1d25e895b1459f9c5386b9c426f293/accepted.json",
+      "bytes": 229,
+      "sha256": "a2250f4a6e6dfce29e26640ded6b52b8ba2f11da3987f4743d8f194680f914cb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000066-fd1d25e895b1459f9c5386b9c426f293/raw-response.json",
+      "bytes": 1649469,
+      "sha256": "6f8205879b6a0f82d5c6886759a3212e9e813f24b3c0bb0bc3145df82077b404"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000066-fd1d25e895b1459f9c5386b9c426f293/request.json",
+      "bytes": 3752,
+      "sha256": "aaac5b1d1545d1c7a1e7b56645f8227f81ca3681616ee8d0debad6ecc9186f6d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000066-fd1d25e895b1459f9c5386b9c426f293/response.json",
+      "bytes": 382,
+      "sha256": "54ae7351fe8bb11f3fc3d1c10af7ce58c88a87606c4aa085bdeca04f533520d7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000067-a4285091e5f24af480dd88d2ca33d0ac/accepted.json",
+      "bytes": 229,
+      "sha256": "81042e3d826e6fc29fec84b1e54903e7aab7b2dcfb6d4af1cce94ceef098bc8d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000067-a4285091e5f24af480dd88d2ca33d0ac/raw-response.json",
+      "bytes": 1745330,
+      "sha256": "0704cf1b69016d2f046c9afe7a1efdaf1ed36395cefc94f3ad99fae3a290722f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000067-a4285091e5f24af480dd88d2ca33d0ac/request.json",
+      "bytes": 3752,
+      "sha256": "99e2f68f553c7bb3fa1723e37937c63c747b06fd6a438780d3df3d0e4cc4191c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000067-a4285091e5f24af480dd88d2ca33d0ac/response.json",
+      "bytes": 382,
+      "sha256": "fb143161461d7557789a4c543625ae56f09305d3fd81add9277979e0e618b385"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000068-14f4a877a0b14d789ce546213091b45f/accepted.json",
+      "bytes": 229,
+      "sha256": "250e80c9c10713005c3b3e3d61f791cde344ec575853005ad394980f4676ea6a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000068-14f4a877a0b14d789ce546213091b45f/raw-response.json",
+      "bytes": 1681758,
+      "sha256": "d47b29649c8d6dc676fb2289af9c68dc03353a152115a67b68c115426066cef9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000068-14f4a877a0b14d789ce546213091b45f/request.json",
+      "bytes": 3752,
+      "sha256": "6a73642ddbeb7e3ba7c9dbef9dea0364d60094f58cb35bc4a140560064c6a2c2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000068-14f4a877a0b14d789ce546213091b45f/response.json",
+      "bytes": 382,
+      "sha256": "497c2ad062d44a236fdf5af3533b09503ecd093c718e71009b5852b7d75c36d6"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000069-844d630f5038406087fe374525461bac/accepted.json",
+      "bytes": 229,
+      "sha256": "f2514a1c6484493c65e076f511df32162d6f39dd39d1f1279cf8f0663f46c6ec"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000069-844d630f5038406087fe374525461bac/raw-response.json",
+      "bytes": 1765847,
+      "sha256": "abf817e7d5e221b4c1e9a7810e69000d35fe8f5530fae299f3af625bb289cd3a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000069-844d630f5038406087fe374525461bac/request.json",
+      "bytes": 3752,
+      "sha256": "0eb1d01aeeb5b5de4a57e78e0403c13e42b985c7f5c6c818644429c2f6431803"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000069-844d630f5038406087fe374525461bac/response.json",
+      "bytes": 382,
+      "sha256": "95c7a5fb9bb2c37242e25ac86024a49b6d16c181062c94c4a4514bbb6095f75e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000070-af4e6e8dc19a4c268471e7823eb512b0/accepted.json",
+      "bytes": 229,
+      "sha256": "b2e74e7575d41b4d30c66ce48d1e75da3456b2b746c5b15b5d272fea3d4474ac"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000070-af4e6e8dc19a4c268471e7823eb512b0/raw-response.json",
+      "bytes": 1682748,
+      "sha256": "b1d4bf47517a2c3ab0d755bc4ed3bcf80162d2a306864b2a07e947a8e4855994"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000070-af4e6e8dc19a4c268471e7823eb512b0/request.json",
+      "bytes": 3752,
+      "sha256": "f6f8336c58e6aebf83e35f7576eaa8dc473179e20c3849ab82edd6904fa8f5bb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000070-af4e6e8dc19a4c268471e7823eb512b0/response.json",
+      "bytes": 382,
+      "sha256": "d338c2ba00989b18702196d8bd544b2920ffd03bfcb1c53a4b5ee7bad0f61efb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000071-fd22b534a546468ea0a5a326ee7e3f1f/accepted.json",
+      "bytes": 229,
+      "sha256": "35493506511e6db4a03983512f3313e75f70816fe009913e889d3ef834949391"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000071-fd22b534a546468ea0a5a326ee7e3f1f/raw-response.json",
+      "bytes": 1776797,
+      "sha256": "da22abe0211e7cd28abebbc4f6b3e3e8d74277587e4c489b182ff9999f063708"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000071-fd22b534a546468ea0a5a326ee7e3f1f/request.json",
+      "bytes": 3752,
+      "sha256": "cdc72efd5887c14e07a380f79af7d6287bd9e11e0fccb4117be98418bef1a6e0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000071-fd22b534a546468ea0a5a326ee7e3f1f/response.json",
+      "bytes": 382,
+      "sha256": "566cdcf74b7676ff1bb9326ab69013cb644f02a8ba384e543ed4b60ba05590a8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000072-9d85714711844836ac4887ca663c622e/accepted.json",
+      "bytes": 229,
+      "sha256": "97b1652d7117ea158567041d3a57d61e9e38fcd6be0c0413999e7a0c8f8b9cb2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000072-9d85714711844836ac4887ca663c622e/raw-response.json",
+      "bytes": 1745836,
+      "sha256": "f4e7c125c865f4eab4aee43456f706ce2ddebb449224beee7ca2d91117eacd57"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000072-9d85714711844836ac4887ca663c622e/request.json",
+      "bytes": 3752,
+      "sha256": "3e740fcfdfe46054da6422b5583877ab1e29f55bba888274992e5c13a5efbe40"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000072-9d85714711844836ac4887ca663c622e/response.json",
+      "bytes": 382,
+      "sha256": "3dcc6b2eea3fbe89bd11c2ab7225f49879b9875c73625e72206a220c1fb8ea1e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000073-83b724d5854348b49f0e36f14c047199/accepted.json",
+      "bytes": 229,
+      "sha256": "9ca6256d73dfb11d73f3c569774ff3dfddc45a2fa30fc2f361971b0fb9ed7bb3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000073-83b724d5854348b49f0e36f14c047199/raw-response.json",
+      "bytes": 1753071,
+      "sha256": "cde1fba911e9f069d18ae879c8edf6af99e5ff088fc10b04d2070ddb7b540e54"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000073-83b724d5854348b49f0e36f14c047199/request.json",
+      "bytes": 3752,
+      "sha256": "279f07caa5916b073a149fb3efee294c62179f650d0a8e2f45e00a73ab5e6044"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000073-83b724d5854348b49f0e36f14c047199/response.json",
+      "bytes": 382,
+      "sha256": "abc8bd5e8bc67d06cfda784ca558da08f88616909550076b257d1a857847bc95"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000074-1ad89cb278374fea95cfad16bdc989c0/accepted.json",
+      "bytes": 229,
+      "sha256": "d95029505e34deb305f8331f9c664f4e270130438f6f8f1e7ba05ffe1234f9c2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000074-1ad89cb278374fea95cfad16bdc989c0/raw-response.json",
+      "bytes": 1745321,
+      "sha256": "10b62df7851fe1bfc6d0f9559562b071f65b89686eac4c8cbde41ea38ffd42a9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000074-1ad89cb278374fea95cfad16bdc989c0/request.json",
+      "bytes": 3752,
+      "sha256": "23faf9d0640d624c9af647e133227aa16973e3e2f4913127a0eb737df1e246c8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000074-1ad89cb278374fea95cfad16bdc989c0/response.json",
+      "bytes": 382,
+      "sha256": "07bc26033fbbd8208f0d5cfd5eb23cd3b04dec7a6d139992c4544b6ab122de7e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000075-1150afca8e5f4e279aefaa9c67269768/accepted.json",
+      "bytes": 229,
+      "sha256": "f68b17b364e7983b13d9705574d1f414bee22da8c0a441e7403c83b7d0f2b62d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000075-1150afca8e5f4e279aefaa9c67269768/raw-response.json",
+      "bytes": 1748906,
+      "sha256": "e8917e8b377c637209c42d157f4202da14c724b2df01cc7da1987436831418a7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000075-1150afca8e5f4e279aefaa9c67269768/request.json",
+      "bytes": 3752,
+      "sha256": "42422750e23f9a9a6fec7477ce4791d39a3988caab049748922a7c670f2eaa89"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000075-1150afca8e5f4e279aefaa9c67269768/response.json",
+      "bytes": 382,
+      "sha256": "2a9a5983775f3f8fa7963517a3251666a75dc4f3861fdb98938a2270a4fcbb01"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000076-6472306652df4d85b685a565d599e2e1/accepted.json",
+      "bytes": 229,
+      "sha256": "f7e3aad81653f4f39aacc0bed0a749ea10648a14bf945dff45f45a95b83efe9e"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000076-6472306652df4d85b685a565d599e2e1/raw-response.json",
+      "bytes": 1748670,
+      "sha256": "d95a4e812933907227dcc60fb159384fcbd121da49e08341df8ef8d501861cc1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000076-6472306652df4d85b685a565d599e2e1/request.json",
+      "bytes": 3752,
+      "sha256": "7a8c7b6668f8fb2036407f480a9336c0d439a274de69eaad1d201f3cae52a8f0"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000076-6472306652df4d85b685a565d599e2e1/response.json",
+      "bytes": 382,
+      "sha256": "f0136c6f77209c7aeca7ef185a94d14bb40266326a75b6cf54a4f9c06834be85"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000077-399238a5db504bd28393ef68e40722c0/accepted.json",
+      "bytes": 229,
+      "sha256": "a412cdeec64067a7c205fbbfb6818100d65658b03478bde84b2d77f673e64cc8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000077-399238a5db504bd28393ef68e40722c0/raw-response.json",
+      "bytes": 1801509,
+      "sha256": "80ebc690bf64f21cf884c38c610a683ef6ebd37ac28ee8c4a11729e1d3891d93"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000077-399238a5db504bd28393ef68e40722c0/request.json",
+      "bytes": 3752,
+      "sha256": "189c110260aa042984f1014f88cb2885900cd3b8896df2830bf841aae8f056d2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000077-399238a5db504bd28393ef68e40722c0/response.json",
+      "bytes": 382,
+      "sha256": "380987271ab6c3a4ad2512d810a2ec57a104b31e14f78b3acc400e6baef0ca6a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000078-3d6abc3dece44a1a8674a122f276ab51/accepted.json",
+      "bytes": 229,
+      "sha256": "f3d68c75bc8d7220a2a41e7f89cf6bde2b161b3f50af3ed85c51d9f58beb5dc9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000078-3d6abc3dece44a1a8674a122f276ab51/raw-response.json",
+      "bytes": 1800188,
+      "sha256": "67e209fc61aaf2e8811f806f5ab7c6f4b26284f29d91d3d105896957f8114f21"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000078-3d6abc3dece44a1a8674a122f276ab51/request.json",
+      "bytes": 3752,
+      "sha256": "3287a8259753a0ab9fc5ed89bea8f63caa05a9107dc9f16ccada005a94ad707d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000078-3d6abc3dece44a1a8674a122f276ab51/response.json",
+      "bytes": 382,
+      "sha256": "955b770f0a9b07d7f5e78e6b7d2a6ad918b5e39206ebce4becf37b07b836c56d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000079-1a11bab100f44f9f891e12655070a9f6/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000079-1a11bab100f44f9f891e12655070a9f6/request.json",
+      "bytes": 3752,
+      "sha256": "00b5664a8ac491f2ea913b5af6ec41ecdc606b97f119c8d64d831447f40e87c5"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000079-1a11bab100f44f9f891e12655070a9f6/response.json",
+      "bytes": 378,
+      "sha256": "c749ba6b3c2b7ded2b49cfe6643d355f7f096d6e17a2f8ec84f9f8d50a01bc86"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000080-afc9d1b117f044a0ad6eecfa3909c1ab/accepted.json",
+      "bytes": 229,
+      "sha256": "b4273e5dafb17604726edbc6ec6c74866d14017c42d6e95db8069ea48549c7d8"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000080-afc9d1b117f044a0ad6eecfa3909c1ab/raw-response.json",
+      "bytes": 1670989,
+      "sha256": "184ad08f86b137d0d7a2527f0b238c25f54adb968844117779070740271a3d1d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000080-afc9d1b117f044a0ad6eecfa3909c1ab/request.json",
+      "bytes": 3752,
+      "sha256": "25628931bdd3e770a34886f5469a41778c96f3433f53178d3197d36195f0f534"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000080-afc9d1b117f044a0ad6eecfa3909c1ab/response.json",
+      "bytes": 382,
+      "sha256": "4f883476b7c73b30fae66aa0ef7dd872e02b90a9727926f0dc4187dbd8caaa7a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000081-64ac2472427d48909841693b3c96d4bd/accepted.json",
+      "bytes": 229,
+      "sha256": "20c6641cafd64944b8a3ad03da23ac2519669542534527fbe15e6878ca46f40f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000081-64ac2472427d48909841693b3c96d4bd/raw-response.json",
+      "bytes": 1619141,
+      "sha256": "1440f040c97fe7b69fb240ceb8d59be26d08a0afa1383c8012918e55affe00c2"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000081-64ac2472427d48909841693b3c96d4bd/request.json",
+      "bytes": 3752,
+      "sha256": "15eaa928cb3cae3a01295413da8f43a4a174b6780877fc8a6b45829f0159bf70"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000081-64ac2472427d48909841693b3c96d4bd/response.json",
+      "bytes": 382,
+      "sha256": "e8388494d3cfc9b384e708e70bd37e890a0f79899c1207268be3b6cb411f9daa"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000082-9f1f7ad3adbe4f92a0b449384aef077e/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000082-9f1f7ad3adbe4f92a0b449384aef077e/request.json",
+      "bytes": 3752,
+      "sha256": "848cbc3d1a383c215d56b97469324b44758bb8972dd2fc082ae38471f816791f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000082-9f1f7ad3adbe4f92a0b449384aef077e/response.json",
+      "bytes": 378,
+      "sha256": "d9bf2d471d2836d04947433583688ecd91c69b438c674c5e2732dbdb4c2bf3b7"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000083-4406f4862c494a4e91608f4f80700aa7/accepted.json",
+      "bytes": 229,
+      "sha256": "e3506099173562df6a88b4b088973f49b55135ba1ca109c777ea3af638de7502"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000083-4406f4862c494a4e91608f4f80700aa7/raw-response.json",
+      "bytes": 1844340,
+      "sha256": "a7778ddab66ae23db7cbded5e8b56d0cc29a787da5c2b5e42ae1659a879711af"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000083-4406f4862c494a4e91608f4f80700aa7/request.json",
+      "bytes": 3752,
+      "sha256": "2ffb8e9ef7d396a2309cd6c7467458c6c39cb0cb74db8d4a2ca4ee2ac5aca4f1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000083-4406f4862c494a4e91608f4f80700aa7/response.json",
+      "bytes": 382,
+      "sha256": "47e139fc41a8f23d04e23560ea1d28edc7f581247e5456cd48318fb88c3f58e3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000084-d3ffaffacc8a4a3d81d49e461464ec79/accepted.json",
+      "bytes": 229,
+      "sha256": "7d81eb84fd53bf9e092964aad54d4abd2ee8f86cf5eabd97eab8365206f78cde"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000084-d3ffaffacc8a4a3d81d49e461464ec79/raw-response.json",
+      "bytes": 1791851,
+      "sha256": "cc15065672537c3618a660d38e1a5a2339f7fb3f93f9ac68f3f7c3156f9a3144"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000084-d3ffaffacc8a4a3d81d49e461464ec79/request.json",
+      "bytes": 3752,
+      "sha256": "7361a8cc6e8d5994e3cfb04737551a7b0fc40ad514ce81afae3e40ca7ff5f219"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000084-d3ffaffacc8a4a3d81d49e461464ec79/response.json",
+      "bytes": 382,
+      "sha256": "9d9c8ec08726293c7e1fef37766fd052913b754d83eb6a11d7bc761ff4b42825"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000085-468d2c73a33f4e6e8624c7a98fc620d4/accepted.json",
+      "bytes": 229,
+      "sha256": "89fe8fc7792c4753cd8c411dcd23863614cf0407439d2fab9b87bac98bbd7d34"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000085-468d2c73a33f4e6e8624c7a98fc620d4/raw-response.json",
+      "bytes": 1718282,
+      "sha256": "484035462cccc7153c5bcdc0048fe62c3abe82d9998e5d7d5d35e7dd09215efb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000085-468d2c73a33f4e6e8624c7a98fc620d4/request.json",
+      "bytes": 3752,
+      "sha256": "600f84271337115822733a3d1faa578c55a1469d64ce9d2ed0624d749277ce03"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000085-468d2c73a33f4e6e8624c7a98fc620d4/response.json",
+      "bytes": 382,
+      "sha256": "a2c1bc5ed1c75661d6912850a514b7f419ecc7ec3203241280fd75d5e16a0581"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000086-4ccb0a2c4b0d4efd8cb554bfe8076752/accepted.json",
+      "bytes": 229,
+      "sha256": "5b654d16d76c1abb0564cc119ed9c2c763c029635e58a5fd6a6511ac41b7b0e4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000086-4ccb0a2c4b0d4efd8cb554bfe8076752/raw-response.json",
+      "bytes": 1673071,
+      "sha256": "525f6c146f88d7f4d7497e096f4ed6ad33eda4185e4093524cd299279493ea99"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000086-4ccb0a2c4b0d4efd8cb554bfe8076752/request.json",
+      "bytes": 3752,
+      "sha256": "be68cc47ef21e680972a66debb9b785b0b48554bcdc733071aa0b792d00a61c9"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000086-4ccb0a2c4b0d4efd8cb554bfe8076752/response.json",
+      "bytes": 382,
+      "sha256": "df8b1b807b95bbb8db0e841116c2bb259b4417001e13c286d45a47533e65dbcd"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000087-0ecec2bd0ebb414794550fe501352094/accepted.json",
+      "bytes": 229,
+      "sha256": "edb014ea4cdae951b1015f00a8dbeb616d26c3c46f1681b54a5fc1fc19f1727c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000087-0ecec2bd0ebb414794550fe501352094/raw-response.json",
+      "bytes": 1800806,
+      "sha256": "df87280c70590c6a18d159a7313a12561b2d859572d964a1788d88764130fa3a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000087-0ecec2bd0ebb414794550fe501352094/request.json",
+      "bytes": 3752,
+      "sha256": "8d8495c3266b8a7b7c7092982f651cf7956e23772bc6bb9c9622f0854b36b00b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000087-0ecec2bd0ebb414794550fe501352094/response.json",
+      "bytes": 382,
+      "sha256": "cf5726150c113cf56f98dcd5f8e8fa659b27a28b60fc4e471b674ee3d79fe911"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000088-00e8e4821bc4415686033cce46fdebcd/accepted.json",
+      "bytes": 229,
+      "sha256": "91ee9c5292b90be583dadf522482e64c1d30bd21e9ed640bd50daaa641ce0adf"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000088-00e8e4821bc4415686033cce46fdebcd/raw-response.json",
+      "bytes": 1655788,
+      "sha256": "d4dc243baeece4d3fb251256cac327cb9237c9d20988ce056a93748a65ab598b"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000088-00e8e4821bc4415686033cce46fdebcd/request.json",
+      "bytes": 3752,
+      "sha256": "3ab7e9bd06e5dac2a718c392973fdd860b2854fe6bb9c76a6af6a5233812900c"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000088-00e8e4821bc4415686033cce46fdebcd/response.json",
+      "bytes": 382,
+      "sha256": "54756f56fb301911cfdc026de616984ae27c860e9c3fa0d4c90622bae93a7227"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000089-7366d3f7804f4b6f941d5bac2055c282/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000089-7366d3f7804f4b6f941d5bac2055c282/request.json",
+      "bytes": 3752,
+      "sha256": "b42ebc2b104a46f91c6bec826cd477a273d58af43e32955a43737a2cd8b5f3b1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000089-7366d3f7804f4b6f941d5bac2055c282/response.json",
+      "bytes": 378,
+      "sha256": "585a60986d473f6d78f36e5ede866b83bd95d9960f6834452fe88175d8cedeb3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000090-1873471f7e3c4bde8ab357c4f162a0e4/accepted.json",
+      "bytes": 229,
+      "sha256": "03d8ea25f9fc764a73200167733e4b4b81d2296727eaaa9d6dc3a9d754ed8bd3"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000090-1873471f7e3c4bde8ab357c4f162a0e4/raw-response.json",
+      "bytes": 1763290,
+      "sha256": "1ff9ee6f28d483df0f5c5bb299a9a4eaf173d908c3d2c933732d5d7086ecf6e4"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000090-1873471f7e3c4bde8ab357c4f162a0e4/request.json",
+      "bytes": 3752,
+      "sha256": "77df6606d355f8308c797040f0054567514782aae263e841fc6a56845829d451"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000090-1873471f7e3c4bde8ab357c4f162a0e4/response.json",
+      "bytes": 382,
+      "sha256": "6bac84c37ff3e030a5970a0a5c3274cf97b750bac4436fa8d42ca2b61ba79a2f"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000091-1d03f05ca84449d5b33bc7d01a5a4aa4/failure.json",
+      "bytes": 68,
+      "sha256": "39b26bdabedb289203b4f1244b90fb3c422615f03a685e6c44c6b58c46ded698"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000091-1d03f05ca84449d5b33bc7d01a5a4aa4/request.json",
+      "bytes": 3752,
+      "sha256": "8d21e395c42b2f88ebedee5114771e835418b8e1821e6fbe9aa9b2eaba928e6a"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000092-113ea4dd765b49159517cb049319045c/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000092-113ea4dd765b49159517cb049319045c/request.json",
+      "bytes": 3752,
+      "sha256": "1cba83d55817a3b993b2caf305f461dab9b7f3eb3965069c44076f5f006d3edb"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000092-113ea4dd765b49159517cb049319045c/response.json",
+      "bytes": 378,
+      "sha256": "fa6662db35f82dd58c9c36eafd86c7ee4d8e1b76e0e8bfc97a9dba13dee2dbea"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000093-af14aebfd76d4fa4bba2068b9468c3f2/raw-response.json",
+      "bytes": 146,
+      "sha256": "19beae90342a7d93c6986a72cb84db9ba406bbcc86f1b6498b86f0feb6a930a1"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000093-af14aebfd76d4fa4bba2068b9468c3f2/request.json",
+      "bytes": 3752,
+      "sha256": "2e43339854848a871d15e3b8083b9ccd25c577675ab0fdf391c0188446a93b0d"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/attempts/00000093-af14aebfd76d4fa4bba2068b9468c3f2/response.json",
+      "bytes": 378,
+      "sha256": "0dad4726e5c58065ecc9a59a722e2b0c2514f9d20937db451cc2343e04183385"
+    },
+    {
+      "path": "official-campaign/exports/OPENALEX-C1/job-contract.json",
+      "bytes": 3562,
+      "sha256": "928a15b2c4c7da09f94ff18a9b04259fde25ff7c0582ca556db41af3b33d4dff"
+    }
+  ]
+}
