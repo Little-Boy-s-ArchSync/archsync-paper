@@ -145,10 +145,10 @@ function validateRow(issues, record, rowNumber, now) {
   if (record.matrix_version !== "0.2.0") {
     issues.push(`literature-matrix.csv: ${record.record_id} matrix_version must be '0.2.0'`);
   }
-  if (!/^LIT-\d{4}$/.test(record.record_id)) {
+  if (!/^LIT-\d{4,}$/.test(record.record_id)) {
     issues.push(`literature-matrix.csv: row ${rowNumber} has invalid record_id '${record.record_id}'`);
   }
-  if (!/^STUDY-\d{4}$/.test(record.study_id)) {
+  if (!/^STUDY-\d{4,}$/.test(record.study_id)) {
     issues.push(`literature-matrix.csv: ${record.record_id} has invalid study_id '${record.study_id}'`);
   }
 
