@@ -1,0 +1,36 @@
+{
+  "checked_at_utc": "2026-09-13T08:11:00Z",
+  "base_commit": "e34054760273a104f0db99c86a4ddd222e509254",
+  "existing_tracked_files_checked": 235,
+  "existing_tracked_files_changed": [],
+  "proposal_body_sha256_verified": true,
+  "approval_github_created_at_verified": true,
+  "ledger_template_record_count": 0,
+  "checks": [
+    {
+      "name": "node research/validate-literature-protocol.mjs",
+      "status": "PASS",
+      "result": "VALID LITERATURE PROTOCOL 1.0.0; frozen and search authorized"
+    },
+    {
+      "name": "node research/validate-search-queries.mjs",
+      "status": "PASS",
+      "note": "Existing untouched planning template retains candidate blocked-SLR-101 labels; no actual jobs written into that template."
+    },
+    {
+      "name": "node --test research/*.test.mjs",
+      "status": "PASS",
+      "tests": 283,
+      "failed": 0
+    },
+    {
+      "name": "git diff --check",
+      "status": "PASS"
+    },
+    {
+      "name": "node research/verify-slr-review-provenance.mjs",
+      "status": "UNAVAILABLE_LOCAL_PR_CONTEXT",
+      "note": "Current-main verifier requires PR number/head and retains PR #26 identity binding. New PR integration awaits existing historical-provenance correction in PR #33; no frozen review files altered."
+    }
+  ]
+}
