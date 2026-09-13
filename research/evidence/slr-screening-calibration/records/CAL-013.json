@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-013",
+  "title": "Software reflexion models",
+  "abstract": "Software engineers often use high-level models (for instance, box and arrow sketches) to reason and communicate about an existing software system. One problem with high-level models is that they are almost always inaccurate with respect to the system's source code. We have developed an approach that helps an engineer use a high-level model of the structure of an existing software system as a lens through which to see a model of that system's source code. In particular, an engineer defines a high-level model and specifies how the model maps to the source. A tool then computes a software reflexion model that shows where the engineer's high-level model agrees with and where it differs from a model of the source. The paper provides a formal characterization of reflexion models, discusses practical aspects of the approach, and relates experiences of applying the approach and tools to a number of different systems. The illustrative example used in the paper describes the application of reflexion models to NetBSD, an implementation of Unix comprised of 250,000 lines of C code. In only a few hours, an engineer computed several reflexion models that provided him with a useful, global overview of the structure of the NetBSD virtual memory subsystem. The approach has also been applied to aid in the understanding and experimental reengineering of the Microsoft Excel spreadsheet product.",
+  "publication_type": "proceedings-article",
+  "publication_date": "1995-10-01",
+  "venue": "Proceedings of the 3rd ACM SIGSOFT symposium on Foundations of software engineering",
+  "persistent_locator": "https://doi.org/10.1145/222124.222136",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1145%2F222124.222136",
+  "captured_at_utc": "2026-08-29T06:30:34Z"
+}

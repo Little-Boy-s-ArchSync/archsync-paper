@@ -104,6 +104,7 @@ const coverageArguments = [
   "research/validate-submission-readiness.test.mjs",
   "research/validate-pre-experiment-protocols.test.mjs",
   "research/validate-slr-calibration-candidates.test.mjs",
+  "research/validate-slr-calibration-round-2-candidates.test.mjs",
 ];
 
 const hostTexAvailable =
@@ -126,6 +127,7 @@ const commands = [
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
   { id: "submission-readiness", command: process.execPath, args: ["research/validate-submission-readiness.mjs"] },
   { id: "calibration-candidates", command: process.execPath, args: ["research/validate-slr-calibration-candidates.mjs"] },
+  { id: "calibration-round-2-candidates", command: process.execPath, args: ["research/validate-slr-calibration-round-2-candidates.mjs"] },
   { id: "rq-traceability", command: process.execPath, args: ["research/validate-rq-traceability.mjs"] },
   { id: "pre-experiment-proposals", command: process.execPath, args: ["research/validate-pre-experiment-protocols.mjs"] },
   { id: "research-contract-tests", command: process.execPath, args: coverageArguments },

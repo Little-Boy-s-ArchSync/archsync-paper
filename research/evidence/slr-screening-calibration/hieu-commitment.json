@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.2.0",
+  "task": "SLR-103",
+  "pilot_set_sha256": "f4465cf0ee505b55c00b5bef3e312d61aa270c75c8b6459f29fa2177a27fcd0d",
+  "reviewer_role": "Protocol author",
+  "reviewer_id": "Hiếu",
+  "decision_path": "research/evidence/slr-screening-calibration/hieu-decisions.csv",
+  "decision_commitment_sha256": "99974d6113501f504631210fecb9e10340e78640024b880ef2b6129355eeb7bc",
+  "row_count": 9,
+  "sealed_at_utc": "2026-09-12T09:48:32Z"
+}

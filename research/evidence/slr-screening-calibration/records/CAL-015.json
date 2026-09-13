@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-015",
+  "title": "Software Architecture Degradation in Open Source Software: A Systematic Literature Review",
+  "abstract": "Software architecture (SA) has a prominent role in all stages of system development. Given the persistent evolution of software systems over time, SA tends to be eroded or degraded. Such phenomenon is called architectural degradation. In light of this phenomenon, the current study focuses on problems of architectural erosion in the open-source software (OSS). There has been a significant research activity on the OSS over the last decade. Nonetheless, the architectural degradation problems in the OSS are still scattered and disorganized. In addition, there has been no systematic attempt made on existing studies to provide evidence, insight and better understanding for researchers and practitioners. The main objective of the present study is to provide a profound understanding and to review the existing studies on the architectural erosion of the OSS. In this study, we conduct a systematic literature review (SLR) to gather, organize, classify, and analyze the architectural degradation of previous papers published until the year 2020. The data for this study were collected from eight major online databases (ACM, Springer, ScienceDirect, Taylor, IEEE Explorer, Scopus, Web of Science, and Wiley). A total of 74 primary studies were identified as the final samples of this research. The results indicated that rapid software evolution, frequent changes, and the lack of developers' awareness are the most common causes occurred in architecture degradation. Meanwhile, the prominent key indicators of architectural erosion symptoms are code smells and architectural smells. Additionally, the results indicated the most commonly used of the proposed solution for addressing architectural erosion is the metrics-based strategy. Acknowledging the limitations of the current study, more studies are needed that focus on determining other causes that are still ambiguous and improving the other solutions to provide better results in the precision and effectiveness of addressing architectural erosion.",
+  "publication_type": "journal-article",
+  "publication_date": "2020-01-01",
+  "venue": "IEEE Access",
+  "persistent_locator": "https://doi.org/10.1109/ACCESS.2020.3024671",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1109%2FACCESS.2020.3024671",
+  "captured_at_utc": "2026-08-29T06:30:35Z"
+}

@@ -3,16 +3,16 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-103 |
-| Criteria version | 0.2.0 |
+| Criteria version | 0.2.1 |
 | Protocol version | 0.2.2 |
 | Status | Versioned candidate - final lock blocked |
-| Prepared date | 2026-08-18 |
+| Prepared date | 2026-08-29 |
 | Search cutoff | 2026-08-16 inclusive |
 | Owner | Hieu |
 | Depends on | SLR-101 freeze 1.0.0 |
 | Official screening | Not started |
 | Search results inspected | No |
-| Independent calibration | Pending |
+| Independent calibration | Round 1 failed; Round 2 pending |
 
 This codebook operationalizes Section 8 of `literature-protocol.md`. It is the
 governed SLR-103 candidate, but it is not yet the final locked criteria set.
@@ -92,12 +92,15 @@ and the governed synthesis process.
 Every exclusion has exactly one primary reason code. Other failed rules may be
 recorded as secondary reason codes, but they do not replace the primary code.
 
-- E01 - Wrong architecture domain: hardware, network, neural-network, data,
-  enterprise, civil, or product-internal architecture without a software
-  architecture relation, boundary, constraint, or evolution question.
-- E02 - Out-of-scope topic: software architecture is mentioned, but none of the
-  governed drift, conformance, reconstruction, governance, evidence,
-  explanation, or repair topics is studied.
+- E01 - Wrong architecture domain: the record explicitly uses architecture in
+  a hardware, network, neural-network, data, enterprise, civil, or another
+  non-software sense without a governed software-architecture relation,
+  boundary, constraint, or evolution question. A record does not receive E01
+  merely because its title and abstract omit an architecture term.
+- E02 - Out-of-scope topic: the record concerns software or software
+  engineering, but none of the governed drift, conformance, reconstruction,
+  governance, evidence, explanation, or repair topics is studied. This includes
+  generic software-engineering methods with no software-architecture outcome.
 - E03 - Ineligible study or record type: tutorial, poster or extended abstract,
   keynote summary, editorial, slide deck, panel summary, vendor page, opinion,
   or another record without a reviewable method.
@@ -105,9 +108,12 @@ recorded as secondary reason codes, but they do not replace the primary code.
   architecture representation or constraint, observed evidence source,
   analysis technique, governance mechanism, or evaluation method relevant to
   an SLR-RQ.
-- E05 - Not peer reviewed: peer review is absent or cannot be verified. Relevant
-  theses, standards, reports, and preprints are labeled `contextual-only` before
-  exclusion from the systematic evidence set.
+- E05 - Not peer reviewed: metadata affirmatively identifies a preprint,
+  thesis, standard, report, or another non-peer-reviewed publication. Relevant
+  records are labeled `contextual-only` before exclusion from the systematic
+  evidence set. Missing or ambiguous peer-review metadata is not affirmative
+  E05 evidence at title and abstract; use `uncertain` unless another applicable
+  failure is independently established.
 - E06 - Outside date window: the governed publication date is after 2026-08-16.
 - E07 - No English full text: no complete verified English version exists.
 - E08 - Full text unavailable: no legal full text is obtained after two
@@ -136,6 +142,13 @@ known secondary reason. A title and abstract reviewer must not infer E04, E05,
 E07, E08, or E10 from missing metadata; these codes require affirmative
 evidence or full-text checks.
 
+At title and abstract, an exclusion code is available only when its failure is
+affirmatively established by the governed snapshot. When multiple failures are
+affirmatively visible, the precedence ordering remains mandatory. For example,
+an explicit preprint that also uses neural-network architecture receives E05 as
+the primary reason and E01 as a secondary reason because E05 has higher
+precedence.
+
 ## 5. Operational decision rules
 
 The following boundary cases are governed rather than decided ad hoc:
@@ -143,7 +156,7 @@ The following boundary cases are governed rather than decided ad hoc:
 | Case | Decision rule |
 | --- | --- |
 | Neural-network, hardware, network, enterprise, or data architecture only | Exclude E01 |
-| Generic static analysis or refactoring with no architecture-level relation, constraint, boundary, or outcome | Exclude E02 or E04 using the first failed governed rule |
+| Generic software-engineering analysis or testing with no governed architecture topic | Exclude E02 at title/abstract; E04 remains a full-text evidence rule |
 | Full peer-reviewed workshop paper with an explicit method and architecture evidence | Eligible if all remaining criteria pass |
 | Poster, two-page extended abstract, keynote, editorial, or slide deck | Exclude E03 |
 | Relevant systematic review or mapping study with an explicit method | Include as `secondary-context` |
@@ -153,7 +166,8 @@ The following boundary cases are governed rather than decided ad hoc:
 | AI code generation with no architecture representation, constraint, or outcome | Exclude E02 or E04 |
 | Relevant pre-1990 study | Eligible because no lower year limit applies |
 | Publication dated after 2026-08-16 | Exclude E06 even if the database indexed it before screening |
-| Peer review, language, access, or evidence is unclear at title and abstract | Mark `uncertain` and advance |
+| Applicable title/abstract relevance, study type, publication status, date, or language metadata is genuinely ambiguous | Mark `uncertain` and advance |
+| Full-text-only access, integrity, or minimum-evidence checks have not yet been performed | Do not force `uncertain`; decide from the applicable title/abstract evidence |
 
 ## 6. Screening rounds
 
@@ -161,10 +175,16 @@ The following boundary cases are governed rather than decided ad hoc:
 
 Two reviewers work independently from the same deduplicated record snapshot and
 criteria version. They cannot inspect the other reviewer's decisions. Each
-assigns `include`, `exclude`, or `uncertain`. An exclusion requires one primary
-E-code, a factual note, and a metadata evidence location such as title,
-abstract, publication type, venue, or publication date. A record advances when
-either reviewer chooses `include` or `uncertain`.
+assigns `include`, `exclude`, or `uncertain`. `Include` means that available
+metadata affirmatively supports software-architecture relevance, a governed
+review topic, and an eligible study type without exposing an applicable
+failure. `Uncertain` is reserved for genuine ambiguity in an applicable
+title/abstract criterion. Pending full-text-only access, integrity, or minimum
+evidence checks do not by themselves force `uncertain`. An exclusion requires
+one primary E-code selected by precedence, a factual note, and a metadata
+evidence location such as title, abstract, publication type, venue, or
+publication date. A record advances when either reviewer chooses `include` or
+`uncertain`.
 
 ### 6.2 Full text
 
@@ -213,8 +233,8 @@ member can explain the decision.
 
 ## 9. Independent calibration gate
 
-Before final lock, both reviewers independently apply version 0.2.0 to at least
-at least eight pilot records chosen before the official result list is inspected. The
+Before final lock, both reviewers independently apply version 0.2.1 to at least eight pilot records chosen
+before the official result list is inspected. The
 pilot includes clearly eligible, clearly ineligible, and ambiguous records. The
 pilot records may be fixed sentinel publications or separately sourced method
 fixtures; they are not counted as official search results.
@@ -266,5 +286,6 @@ These sources define method safeguards. They are not ArchSync SLR results.
 
 | Version | Date | Decision | Change |
 | --- | --- | --- | --- |
+| 0.2.1 | 2026-08-29 | D-022 | Preserve failed Round 1; clarify affirmative E05 evidence, the E01/E02 boundary, and title/abstract include versus uncertain; require a fresh Round 2 pilot |
 | 0.2.0 | 2026-08-28 | D-021 | Replace third-party adjudication with mandatory two-reviewer consensus; fail closed and repeat on a fresh pilot when consensus is unavailable |
 | 0.1.0 | 2026-08-18 | D-010 | Define atomic eligibility criteria, controlled exclusion reasons, precedence, dual-review records, adjudication, and calibration gate |

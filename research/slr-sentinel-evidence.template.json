@@ -19,14 +19,21 @@
     {
       "source": "REPLACE-WITH-GOVERNED-SOURCE",
       "query_family": "Index-check",
+      "query_id": "INDEX",
+      "field_scope": "Identity",
       "query": "REPLACE-WITH-THE-EXACT-EXECUTED-QUERY",
       "executed_at": "REPLACE-WITH-UTC-TIMESTAMP",
+      "outcome": "success",
+      "http_status": 200,
+      "response_content_type": "application/json",
+      "security_verification": false,
       "result_count": 0,
       "sentinel_found": false,
       "result_url": "https://REPLACE-WITH-EVIDENCE-LOCATOR",
       "request_method": "GET",
       "request_view_parameters": {},
       "request_payload_sha256": "",
+      "response_body_base64": "REPLACE-WITH-BASE64-OF-RETAINED-RESPONSE-BYTES",
       "response_sha256": "REPLACE-WITH-SHA256-OF-RETAINED-RESPONSE-BYTES",
       "translation_provenance": null
     }

@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.1.0",
+  "record_id": "CAL-012",
+  "title": "Guidelines for snowballing in systematic literature studies and a replication in software engineering",
+  "abstract": "Background: Systematic literature studies have become common in software engineering, and hence it is important to understand how to conduct them efficiently and reliably.",
+  "publication_type": "proceedings-article",
+  "publication_date": "2014-05-13",
+  "venue": "Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering",
+  "persistent_locator": "https://doi.org/10.1145/2601248.2601268",
+  "evidence_location": "https://api.openalex.org/works/https://doi.org/10.1145%2F2601248.2601268",
+  "captured_at_utc": "2026-08-29T06:30:34Z"
+}

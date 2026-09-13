@@ -118,6 +118,22 @@ test("accepts a canonical blind calibration and reports governed metrics", () =>
   assert.equal(result.summary.disagreements.unresolved, 0);
 });
 
+test("resolves pilot record paths relative to the calibration root", () => {
+  const fixture = createSlrScreeningCalibrationFixture();
+  const pilot = JSON.parse(fixture.pilotSetBytes.toString("utf8"));
+  assert.equal(pilot.records[0].record_path, "records/CAL-001.json");
+  assert.deepEqual(verifyFixture(fixture).issues, []);
+
+  const repositoryPrefixed = mutateJson(fixture.pilotSetBytes, (value) => {
+    value.records[0].record_path =
+      `${CALIBRATION_ROOT}/records/CAL-001.json`;
+  });
+  assertIssue(
+    verifyFixture(fixture, { pilotSetBytes: repositoryPrefixed }),
+    "record_path must be records/CAL-001.json",
+  );
+});
+
 test("requires at least eight immutable jointly selected records without leaked strata", () => {
   const fixture = createSlrScreeningCalibrationFixture();
   const tooSmall = mutateJson(fixture.pilotSetBytes, (pilot) => {

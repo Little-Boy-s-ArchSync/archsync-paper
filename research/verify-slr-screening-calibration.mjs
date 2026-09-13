@@ -82,7 +82,7 @@ const SCHEMA_VERSION = "1.2.0";
 const RECORD_SCHEMA_VERSION = "1.1.0";
 const TASK = "SLR-103";
 const PROTOCOL_VERSION = "0.2.2";
-const CRITERIA_VERSION = "0.2.0";
+const CRITERIA_VERSION = "0.2.1";
 const CALIBRATION_ROUND = "title-abstract";
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
 const GIT_COMMIT_PATTERN = /^[0-9a-f]{40}$/;
@@ -603,7 +603,8 @@ function validatePilotSet(pilotSetBytes, recordArtifacts, now, issues) {
       "pilot-set records must be sorted by unique record_id",
     );
     previousId = entry.record_id;
-    const expectedPath = `${CALIBRATION_ROOT}/records/${entry.record_id}.json`;
+    const expectedPath = `records/${entry.record_id}.json`;
+    const repositoryPath = `${CALIBRATION_ROOT}/${expectedPath}`;
     issueIf(
       issues,
       entry.record_path !== expectedPath,
@@ -627,7 +628,7 @@ function validatePilotSet(pilotSetBytes, recordArtifacts, now, issues) {
     );
     digests.add(entry.record_sha256);
 
-    const bytes = recordArtifacts.get(entry.record_path);
+    const bytes = recordArtifacts.get(repositoryPath);
     const artifact = parseCanonicalJson(
       bytes,
       entry.record_path,
@@ -691,7 +692,11 @@ function validatePilotSet(pilotSetBytes, recordArtifacts, now, issues) {
         Date.parse(artifact.captured_at_utc) > Date.parse(pilot.selected_at_utc),
       `${prefix} was captured after pilot selection`,
     );
-    records.set(entry.record_id, { ...entry, artifact });
+    records.set(entry.record_id, {
+      ...entry,
+      repository_record_path: repositoryPath,
+      artifact,
+    });
   }
   const locatorKeys = new Set();
   const publicationKeys = new Set();
@@ -1361,8 +1366,8 @@ function evaluateSlrScreeningCalibrationUnchecked({
   const prerevealFiles = new Map([
     [CALIBRATION_PATHS.pilotSet, pilotSetBytes],
     ...[...pilot.records.values()].map((record) => [
-      record.record_path,
-      recordArtifacts.get(record.record_path),
+      record.repository_record_path,
+      recordArtifacts.get(record.repository_record_path),
     ]),
     [CALIBRATION_PATHS.hieuCommitment, hieuCommitmentBytes],
     [CALIBRATION_PATHS.independentCommitment, independentCommitmentBytes],
@@ -1554,10 +1559,9 @@ function safePilotRecordPaths(pilotSetBytes) {
         (entry) =>
           isObject(entry) &&
           RECORD_ID_PATTERN.test(entry.record_id ?? "") &&
-          entry.record_path ===
-            `${CALIBRATION_ROOT}/records/${entry.record_id}.json`,
+          entry.record_path === `records/${entry.record_id}.json`,
       )
-      .map((entry) => entry.record_path);
+      .map((entry) => `${CALIBRATION_ROOT}/${entry.record_path}`);
   } catch {
     return [];
   }
