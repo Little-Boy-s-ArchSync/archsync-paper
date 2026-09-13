@@ -28,6 +28,9 @@ async function fixture(t) {
   const commit = (message) => { run("add", "."); run("commit", "-m", message); return run("rev-parse", "HEAD"); };
   run("init", "-b", "main"); run("config", "user.name", "Synthetic test"); run("config", "user.email", "synthetic@example.invalid");
   run("config", "commit.gpgsign", "false");
+  // Keep synthetic Git-object bytes platform-neutral. A developer's global
+  // core.autocrlf setting must not rewrite signed fixture bytes on checkout.
+  run("config", "core.autocrlf", "false");
   const candidate = await loadSlrCandidateFixture();
   const source = { ...candidate, ...createSentinelEvidenceFixture() };
   for (const [key, path] of Object.entries({ baseline: "research/RESEARCH.md", traceability: "research/RQ-TRACEABILITY.md", bibliography: "references.bib" })) {
@@ -342,15 +345,34 @@ test("missing historical objects fetch only the trusted full SHA from the fixed 
   await assert.rejects(git.tree("refs/heads/untrusted"), /invalid Git object identity/);
 });
 
-test("tab-containing shadow filenames cannot mask changed frozen methods", async (t) => {
-  const f = await fixture(t);
-  await f.write("research/literature-protocol.md\tshadow", f.frozen.protocol);
-  await f.change("research/literature-protocol.md", f.frozen.protocol + "\nUnauthorized method change.\n");
-  invalid(await f.verify(), /frozen method\/evidence changed/);
-  const tree = await gitEvidence(f.directory).tree(f.environment.SLR_CURRENT_COMMIT);
-  assert.ok(tree.has("research/literature-protocol.md\tshadow"));
-  assert.notEqual(tree.get("research/literature-protocol.md"), tree.get("research/literature-protocol.md\tshadow"));
+test("Git tree parsing preserves a tab inside a NUL-delimited filename", async () => {
+  const commit = "b".repeat(40);
+  const blob = "c".repeat(40);
+  const shadowPath = "research/literature-protocol.md\tshadow";
+  const git = gitEvidence("/synthetic", { execGit: async (_command, args) => {
+    if (args[1] === "cat-file") return { stdout: Buffer.alloc(0) };
+    assert.equal(args[1], "ls-tree");
+    return { stdout: Buffer.from(`100644 blob ${blob}\t${shadowPath}\0`) };
+  } });
+  const tree = await git.tree(commit);
+  assert.equal(tree.get(shadowPath), `100644 blob ${blob}`);
 });
+
+test("tab-containing shadow filenames cannot mask changed frozen methods",
+  { skip: process.platform === "win32" ?
+    "Windows filesystems cannot materialize control-character filenames; parser coverage runs above" : false },
+  async (t) => {
+    const f = await fixture(t);
+    await f.change("research/literature-protocol.md", f.frozen.protocol + "\nUnauthorized method change.\n");
+    const shadowPath = "research/literature-protocol.md\tshadow";
+    await f.write(shadowPath, f.frozen.protocol);
+    const current = f.commit("Synthetic tab-containing shadow path");
+    f.currentPull.head.sha = current; f.currentPull.merge_commit_sha = current; f.environment.SLR_CURRENT_COMMIT = current;
+    invalid(await f.verify(), /frozen method\/evidence changed/);
+    const tree = await gitEvidence(f.directory).tree(f.environment.SLR_CURRENT_COMMIT);
+    assert.ok(tree.has(shadowPath));
+    assert.notEqual(tree.get("research/literature-protocol.md"), tree.get(shadowPath));
+  });
 
 test("deleting the record on main cannot masquerade as a pre-freeze candidate", async (t) => {
   const f = await fixture(t); f.run("rm", recordPath); const current = f.commit("Delete inherited record on main");
