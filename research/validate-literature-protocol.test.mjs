@@ -445,7 +445,7 @@ test("rejects missing paper boundary disclosures and protocol metadata", () => {
         "There is no literature-selection risk",
       )
       .replace(
-        "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+        "versioned protocol, search templates, and review evidence remain research-governance artifacts outside the manuscript",
         "protocol progress is published in Related Work",
       ),
   });
