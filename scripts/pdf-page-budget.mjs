@@ -9,7 +9,7 @@ export function splitExtractedPdfPages(rawText) {
   }
 
   const pages = rawText.replaceAll("\r\n", "\n").split("\f");
-  if (pages.at(-1)?.trim() === "") {
+  while (pages.at(-1)?.trim() === "") {
     pages.pop();
   }
   if (pages.length === 0 || pages.every((page) => page.trim() === "")) {

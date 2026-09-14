@@ -23,6 +23,13 @@ test("accepts ten manuscript pages followed by one reference page", () => {
   });
 });
 
+test("ignores repeated trailing form-feed delimiters", () => {
+  const raw = `${page("Body")}${page("REFERENCES\n[1] Source")}\f\f`;
+  const result = assertPdfPageBudget(raw);
+  assert.equal(result.totalPageCount, 2);
+  assert.equal(result.referencePageCount, 1);
+});
+
 test("accepts references starting after manuscript text on page ten", () => {
   const raw = `${Array.from({ length: 9 }, (_, index) => page(`Body ${index + 1}`)).join("")}${page("Final body\nR E F E R E N C E S\n[1] Source")}${page("[2] Source")}`;
   const result = assertPdfPageBudget(raw);
