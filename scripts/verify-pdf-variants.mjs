@@ -4,6 +4,8 @@ import { readFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { assertPdfPageBudget } from "./pdf-page-budget.mjs";
+
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const namedPdf = join(root, "main.pdf");
 const anonymousPdf = join(root, "main-anonymous.pdf");
@@ -13,19 +15,20 @@ for (const path of [namedPdf, anonymousPdf]) {
   assert.ok(metadata.size > 50_000, `${path} is unexpectedly small`);
 }
 
-function pdfText(path) {
+function extractedPdfText(path) {
   return execFileSync("pdftotext", [path, "-"], {
     encoding: "utf8",
     maxBuffer: 20 * 1024 * 1024,
-  })
-    .replace(/\s+/g, " ")
-    .trim();
+  });
 }
 
-const named = pdfText(namedPdf);
-const anonymous = pdfText(anonymousPdf);
+const namedRaw = extractedPdfText(namedPdf);
+const anonymousRaw = extractedPdfText(anonymousPdf);
+const named = namedRaw.replace(/\s+/g, " ").trim();
+const anonymous = anonymousRaw.replace(/\s+/g, " ").trim();
 const normalizedNamed = named.toLowerCase();
 const normalizedAnonymous = anonymous.toLowerCase();
+const pageBudget = assertPdfPageBudget(anonymousRaw);
 
 function pdfAnchorPattern(anchor) {
   const words = anchor
@@ -120,5 +123,5 @@ for (const logName of ["main.log", "main-anonymous.log"]) {
 }
 
 console.log(
-  `VALID PDF VARIANTS (named ${named.length} text chars; anonymous ${anonymous.length}; identities redacted)`,
+  `VALID PDF VARIANTS (named ${named.length} text chars; anonymous ${anonymous.length}; identities redacted; anonymous main ${pageBudget.mainPageCount}/${pageBudget.mainPageLimit} pages; references ${pageBudget.referencePageCount}/${pageBudget.referencePageLimit} pages)`,
 );

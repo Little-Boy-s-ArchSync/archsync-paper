@@ -79,6 +79,8 @@ nhận repository anonymity hoặc submission readiness.
 │   └── risk-register.csv
 ├── scripts/
 │   ├── validate-paper-structure.mjs
+│   ├── pdf-page-budget.mjs      # Candidate 10+2 page-budget contract
+│   ├── pdf-page-budget.test.mjs
 │   └── verify-pdf-variants.mjs
 ├── .vscode/                     # LaTeX Workshop và spell-check settings
 ├── .devcontainer/               # TeX Live 2024 + Node 22 + Poppler
@@ -128,6 +130,7 @@ hoặc MiKTeX có `latexmk`, mở một file `sections/*.tex`, sau đó dùng re
 node scripts/validate-devcontainer.mjs
 node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
+node --test scripts/pdf-page-budget.test.mjs
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex
 node scripts/verify-pdf-variants.mjs
