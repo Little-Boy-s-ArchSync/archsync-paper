@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "campaign_id": "slr-20260913",
+  "status": "MECHANICAL_FREEZE_RECORDED_PENDING_REPOSITORY_ACCEPTANCE",
+  "receipt": {
+    "path": "all-24-raw-export-freeze.json",
+    "sha256": "cb2663208ddce0ee938469584dd1b59772fa9d0475e93589867f9278828bda25",
+    "bytes": 3894031
+  },
+  "frozen_at_utc": "2026-09-14T03:08:22Z",
+  "input_files": 8051,
+  "input_bytes": 777323200,
+  "raw_evidence_transfer_status": "LOCAL_RETAINED_NOT_INCLUDED_IN_THIS_CHECKPOINT",
+  "human_verification": "NOT_ASSERTED",
+  "final_human_screening_decisions": 0,
+  "jobs": [
+    {
+      "job_id": "ACM-A1",
+      "kind": "native-browser",
+      "native_hit_count_sum": 31,
+      "exported_entry_count": 31,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/0"
+    },
+    {
+      "job_id": "ACM-A2",
+      "kind": "native-browser",
+      "native_hit_count_sum": 112,
+      "exported_entry_count": 112,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/1"
+    },
+    {
+      "job_id": "ACM-A3",
+      "kind": "native-browser",
+      "native_hit_count_sum": 356,
+      "exported_entry_count": 362,
+      "companion_entry_count": 6,
+      "receipt_pointer": "/browser_checks/2"
+    },
+    {
+      "job_id": "ACM-B1",
+      "kind": "native-browser",
+      "native_hit_count_sum": 0,
+      "exported_entry_count": 0,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/3"
+    },
+    {
+      "job_id": "ACM-C1",
+      "kind": "native-browser",
+      "native_hit_count_sum": 52,
+      "exported_entry_count": 52,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/4"
+    },
+    {
+      "job_id": "ACM-C2",
+      "kind": "native-browser",
+      "native_hit_count_sum": 153,
+      "exported_entry_count": 157,
+      "companion_entry_count": 4,
+      "receipt_pointer": "/browser_checks/5"
+    },
+    {
+      "job_id": "IEEE-A1",
+      "kind": "native-browser",
+      "native_hit_count_sum": 33,
+      "exported_entry_count": 33,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/6"
+    },
+    {
+      "job_id": "IEEE-A2",
+      "kind": "native-browser",
+      "native_hit_count_sum": 211,
+      "exported_entry_count": 211,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/7"
+    },
+    {
+      "job_id": "IEEE-A3",
+      "kind": "native-browser",
+      "native_hit_count_sum": 412,
+      "exported_entry_count": 412,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/8"
+    },
+    {
+      "job_id": "IEEE-B1",
+      "kind": "native-browser",
+      "native_hit_count_sum": 0,
+      "exported_entry_count": 0,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/9"
+    },
+    {
+      "job_id": "IEEE-C1",
+      "kind": "native-browser",
+      "native_hit_count_sum": 16,
+      "exported_entry_count": 16,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/10"
+    },
+    {
+      "job_id": "IEEE-C2",
+      "kind": "native-browser",
+      "native_hit_count_sum": 8,
+      "exported_entry_count": 8,
+      "companion_entry_count": 0,
+      "receipt_pointer": "/browser_checks/11"
+    },
+    {
+      "job_id": "OPENALEX-A1",
+      "source": "OpenAlex",
+      "kind": "API",
+      "declared_result_count": 729,
+      "manifest_sha256": "76c4730b8744e771160c3b95031f8b5f340011f1181821d9b3ffb29f907f42ec",
+      "receipt_pointer": "/api_checks/0/checks/0"
+    },
+    {
+      "job_id": "OPENALEX-A2",
+      "source": "OpenAlex",
+      "kind": "API",
+      "declared_result_count": 3500,
+      "manifest_sha256": "4c35cc9a6b343c5099c74a41d54f053269550f0c02168f9906d23844988ffba0",
+      "receipt_pointer": "/api_checks/0/checks/1"
+    },
+    {
+      "job_id": "OPENALEX-A3",
+      "source": "OpenAlex",
+      "kind": "API",
+      "declared_result_count": 3607,
+      "manifest_sha256": "c5b0e6c8de9c571cd1ad494be1f7ebc142c0c9cda428a177453f73920448df6e",
+      "receipt_pointer": "/api_checks/0/checks/2"
+    },
+    {
+      "job_id": "OPENALEX-B1",
+      "source": "OpenAlex",
+      "kind": "API",
+      "declared_result_count": 121,
+      "manifest_sha256": "0df19b3cdec4a5b12ab24691006ead41066b79d49d36af97c749394474319e72",
+      "receipt_pointer": "/api_checks/0/checks/3"
+    },
+    {
+      "job_id": "OPENALEX-C1",
+      "source": "OpenAlex",
+      "kind": "API",
+      "declared_result_count": 7792,
+      "manifest_sha256": "67aa90793e3770ec0333d6608213f433cf90e87b73e9242773239025791684fc",
+      "receipt_pointer": "/api_checks/0/checks/4"
+    },
+    {
+      "job_id": "OPENALEX-C2",
+      "source": "OpenAlex",
+      "kind": "API",
+      "declared_result_count": 23061,
+      "manifest_sha256": "5922848c78bd8a43ff7e3486e2f2ba9eacab4fcf7eb38073ea89b57f7411da0f",
+      "receipt_pointer": "/api_checks/0/checks/5"
+    },
+    {
+      "job_id": "S2-A1",
+      "source": "Semantic Scholar",
+      "kind": "API",
+      "declared_result_count": 133,
+      "manifest_sha256": "a2aeecb5b22dd5387b061fe912216489b96591f1a280e87853385edf6f788a36",
+      "receipt_pointer": "/api_checks/1/checks/0"
+    },
+    {
+      "job_id": "S2-A2",
+      "source": "Semantic Scholar",
+      "kind": "API",
+      "declared_result_count": 544,
+      "manifest_sha256": "7751464aba8e3445bbc79d28292a5bfc1c8e4905b1927876708de68c7aa56d5f",
+      "receipt_pointer": "/api_checks/1/checks/1"
+    },
+    {
+      "job_id": "S2-A3",
+      "source": "Semantic Scholar",
+      "kind": "API",
+      "declared_result_count": 1052,
+      "manifest_sha256": "8547fb0d6980cb1cd3c4d54c98ab29da64996a41429c28d4cd13d903e89c4ad8",
+      "receipt_pointer": "/api_checks/1/checks/2"
+    },
+    {
+      "job_id": "S2-B1",
+      "source": "Semantic Scholar",
+      "kind": "API",
+      "declared_result_count": 3,
+      "manifest_sha256": "5aa1ac1be8b66102efbdc9ef2220968289a603e41d950994aefc7c9b8c2855b3",
+      "receipt_pointer": "/api_checks/1/checks/3"
+    },
+    {
+      "job_id": "S2-C1",
+      "source": "Semantic Scholar",
+      "kind": "API",
+      "declared_result_count": 99,
+      "manifest_sha256": "d64cdaf6d99797b1c22826e7b3e5ef04d40aa428538b944e03b7ee270ef5acfa",
+      "receipt_pointer": "/api_checks/1/checks/4"
+    },
+    {
+      "job_id": "S2-C2",
+      "source": "Semantic Scholar",
+      "kind": "API",
+      "declared_result_count": 64,
+      "manifest_sha256": "ef7ffd239cadfabe606fb279bdf4f66d349aeca5424501278a829b6ccd53396d",
+      "receipt_pointer": "/api_checks/1/checks/5"
+    }
+  ]
+}

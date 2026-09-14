@@ -10,7 +10,8 @@ GitHub.
 Các file có vai trò cố định:
 
 - `main.tex` chứa preamble, metadata tác giả, CCS metadata và thứ tự `\input`;
-- `main-anonymous.tex` chỉ là wrapper double-blind;
+- `main-anonymous.tex` chỉ là wrapper kỹ thuật cho ứng viên double-blind, không
+  phải quyền submission;
 - `sections/*.tex` chứa nội dung manuscript;
 - `references.bib` là bibliography dùng chung;
 - `research/` chứa protocol, evidence contract, ledger và decision log.
@@ -20,20 +21,25 @@ Không đưa nội dung section trở lại `main.tex`. Dùng `\input`, không d
 
 ## Bản đồ file và phạm vi chỉnh sửa
 
-| Nội dung | File chính | Người review nội dung |
-| --- | --- | --- |
-| Abstract | `sections/abstract.tex` | Reviewer của các claim bị ảnh hưởng |
-| Introduction | `sections/introduction.tex` | Hiếu |
-| Background / Related Work | `sections/related-work.tex` | Hiếu |
-| Problem, RQ và Proposed Approach | `sections/approach.tex` | Hiếu |
-| System Architecture | `sections/architecture.tex` | Hiếu + reviewer implementation |
-| Implementation / reproducibility | `sections/implementation.tex` | Thành viên 1 |
-| Evaluation methodology | `sections/evaluation.tex` | Thành viên 3 |
-| Results | `sections/results.tex` | Thành viên 3 + evidence reviewer |
-| Discussion | `sections/discussion.tex` | Hiếu |
-| Threats to Validity | `sections/threats-to-validity.tex` | Thành viên 3 |
-| Conclusion | `sections/conclusion.tex` | Hiếu |
-| Named contribution block | `sections/author-information.tex` | Hiếu |
+| Nội dung | File chính | Tác giả/owner chính | Reviewer bắt buộc, khác owner chính |
+| --- | --- | --- | --- |
+| Abstract | `sections/abstract.tex` | Hiếu | Hoàng |
+| Introduction | `sections/introduction.tex` | Hiếu | Kiệt |
+| Background / Related Work | `sections/related-work.tex` | Hiếu | Hoàng |
+| Problem, RQ và Proposed Approach | `sections/approach.tex` | Hiếu | Bách |
+| System Architecture | `sections/architecture.tex` | Hiếu | Kiệt |
+| Implementation / reproducibility | `sections/implementation.tex` | Kiệt | Hiếu |
+| Evaluation methodology | `sections/evaluation.tex` | Hoàng | Bách |
+| Results | `sections/results.tex` | Hoàng | Hiếu |
+| Discussion | `sections/discussion.tex` | Hiếu | Hoàng |
+| Threats to Validity | `sections/threats-to-validity.tex` | Hoàng | Bách |
+| Conclusion | `sections/conclusion.tex` | Hiếu | Kiệt |
+| Named contribution block | `sections/author-information.tex` | Hiếu | Kiệt |
+
+Ma trận trên là assignment cho `PAPER-102`, không phải bằng chứng một review đã
+xảy ra. Reviewer phải kiểm tra exact PR head và để lại review được giữ lại trên
+GitHub. Nếu reviewer là tác giả chính của thay đổi thực tế trong một PR cụ thể,
+Hiếu phải gán một reviewer khác trong bốn thành viên trước khi merge.
 
 `main.tex`, `references.bib`, `sections/abstract.tex` và mọi file trong
 `research/` là file dùng chung có nguy cơ conflict cao. Mỗi thời điểm chỉ một PR
@@ -67,8 +73,10 @@ node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
 node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
+node research/validate-submission-readiness.mjs
 node research/validate-slr-calibration-candidates.mjs
 node research/validate-rq-traceability.mjs
+node research/validate-pre-experiment-protocols.mjs
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
@@ -78,6 +86,15 @@ node research/validate-reference-quality-policy.mjs
 node research/verify-evaluation-report-scaffold.mjs
 node --test research/*.test.mjs
 ```
+
+Packet EXP-101/EXP-102/ETH-101/DATA-101/EXP-103 hiện chỉ là proposal có checksum.
+Validator phải báo `0 approvals; official runs blocked`. Lệnh
+`node research/validate-pre-experiment-protocols.mjs --official-run` là guard
+proposal-only vĩnh viễn và luôn phải trả mã 2. Nó không được dùng làm readiness
+checker sau khi có freeze artifact. Freeze/run tương lai cần validator riêng đã
+được human-review để kiểm tra freeze manifest, protocol approvals,
+ethics/consent/provider/data gates và mọi hash. Không dùng proposal hash, CI
+PASS hoặc thao tác của delegated operator như bằng chứng approval/freeze.
 
 Biên dịch cả hai biến thể, không chỉ file đang mở trong editor:
 
@@ -176,6 +193,11 @@ evidence được yêu cầu riêng trong Definition of Done.
   shared CI runner làm ngưỡng hiệu năng.
 - Phase 4--6 là planned work cho đến khi evidence gate tương ứng hoàn tất. Không
   viết kết quả dự kiến như kết quả đã quan sát.
+- Không dùng `validate-pre-experiment-protocols.mjs --official-run` để cho phép
+  D3, provider/agent pilot hoặc human A--B--C--D pilot: lệnh đó luôn block theo
+  thiết kế. Một future freeze validator riêng mới có thể kiểm tra readiness.
+  D1/D2/P3 vẫn chỉ là development/regression; proposal packet không tạo
+  holdout, participant, consent, provider hoặc result evidence.
 - Paper mới đề xuất cho Background, Related Work hoặc Discussion phải tuân thủ
   `research/REFERENCE-QUALITY-POLICY.md`: ưu tiên journal Q1, xem Q1/Q2 là nhóm
   xếp hạng cao, ưu tiên công bố trong 2022--2026 và chỉ dùng paper cũ hơn khi có
@@ -193,7 +215,20 @@ thái `Review candidate`. Independent SLR Reviewer làm theo
 phê duyệt exact commit, attestation, UTC time và exact signing action. Không đọc,
 hiển thị, sao chép hoặc commit private key.
 
-`main.tex` là bản làm việc có tên; `main-anonymous.tex` là wrapper double-blind.
-Không để PDF ẩn danh hiển thị tên, email, affiliation, URL nhận diện hoặc
-acknowledgement. Repository phải giữ private đến khi chính sách venue cho phép
-công khai. Chỉ nộp artifact `main-anonymous.pdf` đã được kiểm tra từ commit merge.
+`main.tex` là bản làm việc có tên; `main-anonymous.tex` là wrapper kỹ thuật cho
+ứng viên double-blind. Không để PDF ẩn danh hiển thị tên, email, affiliation,
+URL nhận diện hoặc acknowledgement.
+
+Chính sách vẫn yêu cầu repository giữ private đến khi venue và người có thẩm
+quyền cho phép công khai. Audit ngày 2026-08-29 ghi nhận cả bảy repository đang
+public và lịch sử paper public chứa source có tên; `archsync#45` giữ blocker và
+snapshot evidence. Không được diễn giải public state hiện tại là authorization,
+và đổi visibility hoặc redact PDF sau này không tự xóa prior exposure.
+
+Làm theo `research/SUBMISSION-READINESS.md`. Revision hiện tại của validator chỉ
+xác nhận template giữ `NOT_READY`; nó không có nhánh success cho submission hoặc
+release, kể cả khi operator điền JSON giống approval thật. Không tạo hoặc gọi
+bất kỳ artifact nào là official anonymous submission cho đến khi một contract
+revision đã review xác minh nguồn human authorization và bind toàn bộ quyết định
+venue, visibility, prior exposure, PDF inspection, author/acknowledgement
+redaction, artifact/license, public release và exact candidate hashes.

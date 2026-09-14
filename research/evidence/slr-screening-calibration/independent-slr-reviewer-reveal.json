@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.2.0",
+  "task": "SLR-103",
+  "reviewer_role": "Independent SLR Reviewer",
+  "reviewer_id": "Tran Minh Hoang",
+  "decision_path": "research/evidence/slr-screening-calibration/independent-slr-reviewer-decisions.csv",
+  "decision_file_sha256": "9616277d35f315979b402c81aaae4316578d799abbec988efc62408c25ee3ca1",
+  "nonce_base64": "hirm1RMerDcgLUYcnXQHqMFE9QK/ytOmav54VYsGvvA=",
+  "decision_commitment_sha256": "4918e8929b1ae8e3bcfaaf2e263cd24e8ec23d28f9af1a90c4f0e4a2da1026dd",
+  "revealed_at_utc": "2026-09-12T12:03:14Z"
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T13:02:46Z",
+  "issue": "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/39",
+  "campaign_id": "slr-20260913",
+  "campaign_started_at_utc": "2026-09-13T08:18:29Z",
+  "campaign_deadline_utc": "2026-09-20T08:18:29Z",
+  "publication_cutoff_inclusive": "2026-08-16",
+  "completed_query_jobs": 11,
+  "expected_query_jobs": 24,
+  "remaining_query_jobs": 13,
+  "completed_api_jobs_by_source": {
+    "OpenAlex": 5,
+    "Semantic Scholar": 6
+  },
+  "remaining_jobs": [
+    "OPENALEX-C1",
+    "IEEE-A1",
+    "IEEE-A2",
+    "IEEE-A3",
+    "IEEE-B1",
+    "IEEE-C1",
+    "IEEE-C2",
+    "ACM-A1",
+    "ACM-A2",
+    "ACM-A3",
+    "ACM-B1",
+    "ACM-C1",
+    "ACM-C2"
+  ],
+  "ieee_browser_status": "Partial per-field evidence; no complete logical query job included in this checkpoint.",
+  "all_24_exports_frozen": false,
+  "slr_102_complete": false,
+  "individual_record_inspection_authorized": false,
+  "verification_scope": "Independent mechanical metadata/hash receipts; no personal research-review attestation or cross-job deduplicated study count. Receipt timestamps are retained separately from this checkpoint recording time.",
+  "source_verification_receipts": [
+    {
+      "source": "OpenAlex",
+      "retained_path": "preparation/2026-09-13/source-access-handoff/official-campaign/verification/openalex-2026-09-13T110557Z-e7fd1a7502204d57b3cba0eede643cb4.json",
+      "sha256": "e13e2f2cd62134419c79dbbbe51d05e4b27ac278ee8c773a63c1735fd4b5f999",
+      "verified_at_utc": "2026-09-13T11:05:57Z",
+      "jobs_verified": 5,
+      "status": "PARTIAL_COMPLETED_JOB_VERIFICATION"
+    },
+    {
+      "source": "Semantic Scholar",
+      "retained_path": "preparation/2026-09-13/source-access-handoff/official-campaign/verification/s2-2026-09-13T121432Z-ed376965b2784df0abdfab82f618991b.json",
+      "sha256": "c58c56f283aef97560b43354e822d5438688a0e79c78ec80b6cbbfd92034ddde",
+      "verified_at_utc": "2026-09-13T12:14:32Z",
+      "jobs_verified": 6,
+      "status": "SOURCE_CONTRIBUTION_VERIFIED"
+    }
+  ],
+  "verified_completed_jobs": [
+    {
+      "job_id": "OPENALEX-A1",
+      "manifest_sha256": "76c4730b8744e771160c3b95031f8b5f340011f1181821d9b3ffb29f907f42ec",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "OPENALEX-A2",
+      "manifest_sha256": "4c35cc9a6b343c5099c74a41d54f053269550f0c02168f9906d23844988ffba0",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "OPENALEX-A3",
+      "manifest_sha256": "c5b0e6c8de9c571cd1ad494be1f7ebc142c0c9cda428a177453f73920448df6e",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "OPENALEX-B1",
+      "manifest_sha256": "0df19b3cdec4a5b12ab24691006ead41066b79d49d36af97c749394474319e72",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "OPENALEX-C2",
+      "manifest_sha256": "5922848c78bd8a43ff7e3486e2f2ba9eacab4fcf7eb38073ea89b57f7411da0f",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "S2-A1",
+      "manifest_sha256": "a2aeecb5b22dd5387b061fe912216489b96591f1a280e87853385edf6f788a36",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "S2-A2",
+      "manifest_sha256": "7751464aba8e3445bbc79d28292a5bfc1c8e4905b1927876708de68c7aa56d5f",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "S2-A3",
+      "manifest_sha256": "8547fb0d6980cb1cd3c4d54c98ab29da64996a41429c28d4cd13d903e89c4ad8",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "S2-B1",
+      "manifest_sha256": "5aa1ac1be8b66102efbdc9ef2220968289a603e41d950994aefc7c9b8c2855b3",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "S2-C1",
+      "manifest_sha256": "d64cdaf6d99797b1c22826e7b3e5ef04d40aa428538b944e03b7ee270ef5acfa",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    },
+    {
+      "job_id": "S2-C2",
+      "manifest_sha256": "ef7ffd239cadfabe606fb279bdf4f66d349aeca5424501278a829b6ccd53396d",
+      "status": "VERIFIED_METADATA_AND_HASHES"
+    }
+  ],
+  "official_screening_or_extraction_started": false
+}

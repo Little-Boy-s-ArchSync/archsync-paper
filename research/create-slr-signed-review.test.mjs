@@ -21,6 +21,7 @@ import {
 } from "./verify-slr-signed-attestation.mjs";
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
+import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mjs";
 
 const reviewPr =
   "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/6";
@@ -226,16 +227,17 @@ test("sign blocks before key access when candidate evidence is invalid", async (
   assert.match(blocked.errors[1], /sentinel hash mismatch/);
 });
 
-test("real candidate preflight also requires governed SLR-103 calibration", async (context) => {
+test("canonical candidate preflight also requires governed SLR-103 calibration", async (context) => {
   const repository = await mkdtemp(join(tmpdir(), "archsync-review-preflight-"));
   context.after(() => rm(repository, { recursive: true, force: true }));
   const research = join(repository, "research");
   const evidence = join(research, "evidence", "slr-sentinel");
   await mkdir(evidence, { recursive: true });
 
+  const candidate = await loadSlrCandidateFixture();
+  await writeFile(join(research, "literature-protocol.md"), candidate.protocol, "utf8");
+  await writeFile(join(research, "decision-log.md"), candidate.decisions, "utf8");
   for (const name of [
-    "literature-protocol.md",
-    "decision-log.md",
     "RESEARCH.md",
     "RQ-TRACEABILITY.md",
   ]) {

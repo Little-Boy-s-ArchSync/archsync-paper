@@ -3,9 +3,13 @@
 Nguồn LaTeX của bài nghiên cứu **ArchSync: Evidence-Backed Detection of
 Architecture Drift in TypeScript Systems**.
 
-Repository này phải được giữ **private** trong thời gian phản biện ẩn danh. Nhánh
-`main` trên GitHub là source of truth. Overleaf chỉ là mirror để đọc, comment và
-kiểm tra theo milestone; quy trình đồng bộ nằm trong `CONTRIBUTING.md`.
+Chính sách của dự án yêu cầu repository được giữ **private** trong thời gian
+phản biện ẩn danh, nhưng audit GitHub ngày 2026-08-29 ghi nhận cả bảy repository
+ArchSync đang public và lịch sử paper public chứa source có tên tác giả. Đây là
+P0 blocker được giữ tại `archsync#45`, không phải quyết định cho phép công khai
+hoặc bằng chứng ẩn danh. Venue, visibility, submission và artifact release vẫn
+chờ quyết định của người có thẩm quyền. Nhánh `main` trên GitHub là source of
+truth; Overleaf chỉ là mirror để đọc, comment và kiểm tra theo milestone.
 
 ## 8-page and 12-page complete papers
 
@@ -40,22 +44,21 @@ No publisher PDFs are redistributed here.
 ## Hai biến thể paper
 
 - `main.tex` là root có metadata tác giả để nhóm kiểm tra nội bộ.
-- `main-anonymous.tex` là wrapper double-blind được dùng cho submission và luôn
-  input cùng manuscript.
+- `main-anonymous.tex` là wrapper kỹ thuật để build ứng viên double-blind và
+  luôn input cùng manuscript; tự nó không cấp quyền submission.
 
 CI biên dịch cả hai file. Artifact `main-anonymous.pdf` phải không chứa tên,
 email, affiliation hoặc contribution block; `main.pdf` phải giữ đủ metadata để
-kiểm tra ownership.
+kiểm tra ownership. Gate redaction chỉ kiểm tra artifact kỹ thuật và không xác
+nhận repository anonymity hoặc submission readiness.
 
 ## Cấu trúc repository
 
 ```text
 .
-├── main.tex                     # Preamble, author/CCS metadata, ordered inputs
+├── main.tex                     # ACM working preamble, author metadata, ordered inputs
 ├── main-anonymous.tex           # Minimal anonymous wrapper
 ├── references.bib               # Tài liệu tham khảo
-├── acmart.cls                   # ACM document class từ Overleaf
-├── ACM-Reference-Format.bst     # ACM bibliography style
 ├── sections/
 │   ├── abstract.tex
 │   ├── introduction.tex
@@ -90,13 +93,26 @@ kiểm tra ownership.
 │   ├── claim-evidence.csv
 │   ├── statistical-analysis-plan.md # STAT-101 draft; chưa freeze hoặc có result
 │   ├── statistical-analysis.mjs
+│   ├── experiment-protocol.md       # EXP-101 proposal; official run bị khóa
+│   ├── dataset-governance.md        # EXP-102 D1/D2/P3/D3 firewall proposal
+│   ├── ethics-privacy.md             # ETH-101 default-deny proposal
+│   ├── data-management-plan.md      # DATA-101 provenance proposal
+│   ├── measurement-study-protocol.md # EXP-103 A/B/C/D proposal
+│   ├── pre-experiment-proposal-manifest.json # Exact proposal hashes; không phải freeze
+│   ├── experiment-freeze-manifest.template.json # Unresolved, không cấp quyền chạy
+│   ├── verify-experiment-readiness.mjs # Cổng hash/chữ ký cho freeze thật tương lai
+│   ├── EXPERIMENT-FREEZE-RUNBOOK.md # Trình tự tạo bundle EXP-101 thật
 │   ├── holdout-report.template.md    # EVAL-111 scaffold; không có result
 │   ├── paper-results-manifest.schema.json
 │   ├── paper-results-manifest.template.json # ANALYSIS-101 handoff; không phải evidence
+│   ├── SUBMISSION-READINESS.md        # PAPER-103/ART-101 fail-closed boundary
+│   ├── submission-readiness.template.json # Public-state NOT_READY proposal
 │   ├── decision-log.md
 │   └── risk-register.csv
 ├── scripts/
 │   ├── validate-paper-structure.mjs
+│   ├── pdf-page-budget.mjs      # Candidate 10+2 page-budget contract
+│   ├── pdf-page-budget.test.mjs
 │   └── verify-pdf-variants.mjs
 ├── .vscode/                     # LaTeX Workshop và spell-check settings
 ├── .devcontainer/               # TeX Live 2024 + Node 22 + Poppler
@@ -106,6 +122,11 @@ kiểm tra ownership.
 `main.tex` dùng `\input`, không dùng `\include`, nên việc chia file không tạo
 page break. Mỗi file trong `sections/` có magic root comment trỏ về `main.tex` để
 LaTeX Workshop build đúng document khi đang sửa một section.
+
+This branch retains `\documentclass[sigconf,nonacm]{acmart}` for the verified
+8- and 12-page working variants. Upstream IEEE submission checklists remain
+venue-specific planning records; a venue decision and corresponding reformatting
+are still required before submission.
 
 ## Bắt đầu nhanh trong VS Code hoặc Codespaces
 
@@ -142,6 +163,7 @@ hoặc MiKTeX có `latexmk`, mở một file `sections/*.tex`, sau đó dùng re
 node scripts/validate-devcontainer.mjs
 node --test scripts/validate-devcontainer.test.mjs
 node scripts/validate-paper-structure.mjs
+node --test scripts/pdf-page-budget.test.mjs
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main.tex
 latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode main-anonymous.tex
 node scripts/verify-pdf-variants.mjs
@@ -174,17 +196,31 @@ Các artifact SLR chính gồm:
 - `research/RESEARCH-QUALITY-GATES.md` — claim, baseline, abstract và artifact gates;
 - `research/EXTERNAL-BASELINE-PROTOCOL.md` — protocol so sánh external tool công bằng;
 - `research/PROJECT-EVIDENCE-AUDIT.md` — audit mock data và research claims toàn dự án;
+- `research/SUBMISSION-READINESS.md` — ranh giới PAPER-103/ART-101 luôn fail-closed;
 - `research/rq-traceability.csv` — RQ mapping máy đọc được;
 - `research/risk-register.csv` — risk và stop/go gate.
+- `research/experiment-protocol.md`, `dataset-governance.md`,
+  `ethics-privacy.md`, `data-management-plan.md` và
+  `measurement-study-protocol.md` — packet proposal EXP-101/102,
+  ETH-101, DATA-101 và EXP-103; chưa approval, freeze, pilot hoặc result;
+- `research/pre-experiment-proposal-manifest.json` — khóa checksum chính xác
+  của năm proposal, đồng thời bind riêng RQ-101 (`claim-evidence.csv` và
+  validator) với RQ-102 (traceability artifacts và validator); manifest này
+  không phải freeze manifest hay authorization.
+- `research/EXPERIMENT-FREEZE-RUNBOOK.md` — hướng dẫn điền evidence thật, ký
+  payload và vượt cổng EXP-101 theo đúng thứ tự.
 
 Chạy research validators bằng:
 
 ```bash
 node research/validate-baseline.mjs
 node research/validate-decision-log.mjs
+node research/validate-submission-readiness.mjs
 node research/validate-slr-calibration-candidates.mjs
 node research/validate-slr-calibration-round-2-candidates.mjs
 node research/validate-rq-traceability.mjs
+node research/validate-pre-experiment-protocols.mjs
+node research/verify-experiment-readiness.mjs --template
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
@@ -196,10 +232,27 @@ node research/validate-research-quality-gates.mjs
 node --test research/*.test.mjs
 ```
 
+`validate-pre-experiment-protocols.mjs` chỉ xác minh packet đề xuất và phải in
+`0 approvals; official runs blocked`. Chế độ `--official-run` là negative guard
+vĩnh viễn cho proposal packet và luôn phải thoát với mã 2; nó không trở thành
+readiness checker khi có thêm approval hoặc freeze artifact. Mọi freeze/run sau
+này dùng `verify-experiment-readiness.mjs --check` với
+`experiment-freeze-manifest.json`. Cổng này kiểm tra exact commit, mọi artifact
+hash, D3/tool/environment/assignment lock, ethics/data/preflight records và hai
+chữ ký Ed25519 của hai người khác nhau. File template luôn thiếu dữ liệu thật,
+giữ `official_runs_authorized=false` và không thể vượt cổng readiness.
+
 `holdout-report.template.md` và `paper-results-manifest.template.json` chỉ khóa
 cấu trúc bàn giao cho EVAL-111/ANALYSIS-101. Chúng giữ mọi trường dữ liệu và
 result rỗng, không thay thế D3 freeze, independent annotation, statistical-plan
 freeze, analysis run hoặc human review.
+
+`submission-readiness.template.json` chỉ ghi trạng thái public đã quan sát và
+các blocker còn thiếu. Validator của revision hiện tại luôn trả `NOT_READY`, kể
+cả với JSON giả được điền đủ tên, URL, hash và approval-looking fields, vì chưa
+có nguồn xác minh thẩm quyền và chưa có reviewed contract revision cho phép
+readiness. Không dùng file hoặc CI PASS này để đóng PAPER-103/ART-101, nộp bài
+hoặc release artifact.
 
 AI có thể vận hành browser/CLI đã được cấp quyền, tạo artifact, ledger, hash,
 validator và PR. AI-generated assertion không phải evidence; source output, run,
@@ -237,5 +290,8 @@ tại `research/SLR-REVIEWER-RUNBOOK.md`.
 6. Hiếu final-review và merge;
 7. chỉ designated sync steward đưa commit đã merge sang Overleaf.
 
-GitHub Actions upload cả hai PDF cho mọi push và pull request. Chỉ dùng
-`main-anonymous.pdf` cho double-blind submission.
+GitHub Actions upload cả hai PDF cho mọi push và pull request để kiểm tra kỹ
+thuật. Không artifact nào là official double-blind submission cho đến khi exact
+venue policy, visibility, prior exposure, redaction, license, release decision,
+human authorization và candidate hashes vượt qua một readiness contract revision
+đã được review.

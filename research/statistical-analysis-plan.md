@@ -3,11 +3,13 @@
 | Field | Value |
 | --- | --- |
 | Task | STAT-101 |
-| Version | 0.1.0-draft |
+| Version | 0.1.1-draft |
 | Status | PROPOSED — not preregistered or frozen |
 | Blocking dependencies | EXP-101; RQ-102; EXP-103 |
-| Owner | Thành viên 3 |
+| Owner | Vo Duc Hieu |
 | Scope | D3 holdout, Phase 4 AI evaluation, Phase 5–6 ablations, and Phase 7 A–B–C–D study |
+
+Revision 0.1.1-draft (2026-09-12) synchronizes the operational task owner with the current main plan. Statistical methods, candidate endpoints and required approvals retain their existing proposed status. Benchmark measurement preparation remains linked to the historical Paper commit `a6f4be43171240dfa30e5d5a484b074a0a236830`, STAT-101 SHA-256 `5d5b99204f7ebcfaf1573bb8eeecbbf08b28fdec8ee1be9ed15639899e202421`. A future linkage update requires a separately reviewed versioned change after EXP/STAT alignment.
 
 No result, threshold, sample size, or primary comparison is frozen by this draft. The Lead must reconcile it with the approved experiment protocol, task allocation, ethics/data decisions and power-or-precision rationale before the first pilot used to modify a final protocol. Existing D1/D2/P3 values are descriptive feasibility/regression results and will not be retrofitted with population inference.
 
@@ -29,6 +31,15 @@ The final protocol must mark one primary outcome and comparison per vision RQ be
 | V-RQ2 | Paired change in edge F1, all-source minus code-only, on identical frozen truth items | Node F1, FP/FN, conflict/Unknown rate, evidence accuracy and each source-removal delta |
 | V-RQ3 | Difference in unsupported-claim proportion, grounded minus LLM-only | Root-cause correctness, citation coverage, apply/test/conformance rates, verified repair success, regression and time to fix |
 | V-RQ4 | Ratio and absolute difference in feature completion time, D versus the comparator selected by EXP-103 | Merge delay, false-block burden, approval load, decision time, tokens, compute and gate cost |
+
+Before freeze, V-RQ4 must replace the completion-time-only candidate with one
+joint decision criterion: a predeclared architecture-drift benefit endpoint and
+threshold plus a productivity non-inferiority endpoint and margin against the
+same comparator. The endpoint, threshold, comparator, productivity estimand,
+direction, non-inferiority margin, confidence level/interval rule, missingness
+treatment and joint pass/fail logic are unresolved pending human approval. No
+numeric margin is selected by this draft, and neither half of the joint rule may
+be waived after outcomes are inspected.
 
 Every table reports numerator, denominator, analyzed `n`, assigned `n`, failures, inconclusive rows and exclusions. A repair succeeds only when its patch applies, declared tests pass and conformance recheck resolves the target without a new BLOCK. Unrun and inconclusive repairs are never successes.
 
@@ -54,7 +65,7 @@ Each vision RQ has at most one frozen primary comparison. Primary RQs are interp
 
 ## Randomization, balance and covariates
 
-EXP-103 must select participant/agent eligibility, sample size rationale, treatment allocation, counterbalancing, task order and stopping rule. The assignment seed/list is generated once and hash-bound before the first main run. Planned balance variables may include actor, task, baseline proficiency/difficulty and repository; no outcome-dependent reassignment is allowed. Provider, model/version, prompt, context budget, environment and tool versions are treatment configuration, not adjustable covariates.
+EXP-103 must select participant/agent eligibility, sample size rationale, treatment allocation, counterbalancing, task order and stopping rule. The assignment seed/list is generated once and hash-bound before the first main run. Planned balance variables may include actor, task, baseline proficiency/difficulty and repository; no outcome-dependent reassignment is allowed. Provider, model/version, prompt, context budget, environment and tool versions are treatment configuration, not adjustable covariates. An atomic STAT-101/EXP-103 co-freeze is the candidate coordination mechanism and remains pending human approval; this draft does not adopt it.
 
 ## Reporting and reproducibility
 

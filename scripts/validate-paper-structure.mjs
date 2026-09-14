@@ -63,9 +63,25 @@ assert.deepEqual(
   "main.tex must input every governed manuscript file exactly once and in order",
 );
 
-assert.match(main, /\\documentclass\[sigconf,nonacm\]\{acmart\}/);
-assert.equal((main.match(/^\\author\{/gm) ?? []).length, 4);
-assert.equal((main.match(/^\\email\{/gm) ?? []).length, 4);
+const ieee = main.includes("\\documentclass[conference]{IEEEtran}");
+const acm = main.includes("\\documentclass[sigconf,nonacm]{acmart}");
+assert.ok(ieee || acm, "supported IEEE conference or ACM working-draft class required");
+if (ieee) {
+  assert.equal((main.match(/\\IEEEauthorrefmark\{[1-4]\}/g) ?? []).length, 8);
+} else {
+  assert.equal((main.match(/\\author\{/g) ?? []).length, 4);
+  assert.equal((main.match(/\\email\{/g) ?? []).length, 4);
+}
+for (const identity of [
+  "Vo Duc Hieu",
+  "Tran Minh Hoang",
+  "Ha Hoang Bach",
+  "Le Van Kiet",
+  "voduchieu@littleboys.biz",
+  "an1dee@littleboys.biz",
+  "bachcp6@littleboys.biz",
+  "levankiet1212.2004@littleboys.biz",
+]) assert.ok(main.includes(identity), `main.tex is missing '${identity}'`);
 assert.doesNotMatch(
   main,
   /\\(?:section\*?|subsection|subsubsection)\{|\\begin\{abstract\}/,
@@ -73,7 +89,11 @@ assert.doesNotMatch(
 );
 assert.equal(
   anonymous,
-  "% Double-blind submission wrapper. The named working draft remains main.tex.\n" +
+  ieee ? "% Double-blind submission wrapper. The named working manuscript remains main.tex.\n" +
+    "\\def\\archsyncanonymousmode{1}\n" +
+    "\\def\\archsyncanonymousauthor{Anonymous Author(s)}\n" +
+    "\\input{main.tex}\n" :
+    "% Double-blind submission wrapper. The named working draft remains main.tex.\n" +
     "\\PassOptionsToClass{anonymous}{acmart}\n" +
     "\\def\\archsyncanonymousmode{1}\n" +
     "\\input{main.tex}\n",

@@ -5,12 +5,15 @@ const [main, anonymous] = await Promise.all([
   readFile(new URL("../main-anonymous.tex", import.meta.url), "utf8"),
 ]);
 
+const ieee = main.includes("\\documentclass[conference]{IEEEtran}");
+const acm = main.includes("\\documentclass[sigconf,nonacm]{acmart}");
+
 const checks = [
-  [main.includes("\\documentclass[sigconf,nonacm]{acmart}"), "main.tex ACM class"],
-  [anonymous.includes("\\PassOptionsToClass{anonymous}{acmart}"), "anonymous option"],
+  [ieee || acm, "supported IEEE conference or ACM working-draft class"],
+  [main.includes(ieee ? "\\bibliographystyle{IEEEtran}" : "\\bibliographystyle{ACM-Reference-Format}"), "bibliography style matches document class"],
   [anonymous.includes("\\input{main.tex}"), "anonymous wrapper input"],
-  [(main.match(/^\\author\{/gm) ?? []).length === 4, "four author records"],
-  [(main.match(/^\\email\{/gm) ?? []).length === 4, "four email records"],
+  [["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet"].every((value) => main.includes(value)), "four named authors"],
+  [["voduchieu@littleboys.biz", "an1dee@littleboys.biz", "bachcp6@littleboys.biz", "levankiet1212.2004@littleboys.biz"].every((value) => main.includes(value)), "four email records"],
   [!main.includes("Anonymous Author"), "named source has no anonymous placeholder"],
   [!main.includes("Anonymous Institution"), "named source has no anonymous institution"],
 ];

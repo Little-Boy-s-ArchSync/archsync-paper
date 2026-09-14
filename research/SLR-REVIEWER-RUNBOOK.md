@@ -165,9 +165,33 @@ không được sửa lịch sử hoặc trình bày artifact Round 1 như evide
 
 Fresh Round 2 candidate packet nằm tại
 `research/evidence/slr-screening-calibration-round-2-candidates/`, gồm đúng
-CAL-010 đến CAL-018 và manifest SHA-256
+CAL-010 đến CAL-018. Manifest gốc có SHA-256
 `9639d49ef127a84ec87b293cfc458a0b6b37698bef0ba14637b16a2588f3dd4e` tại
-commit `a241eae2fc227254cdaeb1f9052b390c37ab2f07`. Packet có trạng thái
+commit `a241eae2fc227254cdaeb1f9052b390c37ab2f07`.
+
+Đề xuất sửa metadata ngày 2026-09-08 chỉ thay abstract của CAL-013 và ngày
+xuất bản của CAL-018. Exact manifest hiện được đề xuất có SHA-256
+`0dc44715da2113112eb51e7262073a7fefe5237f0e66f775705b5ba96d6943ae` và phải
+được đọc cùng [amendment bundle](evidence/slr-screening-calibration-round-2-amendments/2026-09-08/README.md)
+và [companion provenance](evidence/slr-screening-calibration-round-2-amendments/2026-09-08/AMENDMENT-PROVENANCE.json)
+có SHA-256 `45ca6f35cd86406c7624423b6983fa1775c7bae46bea7747178bb2a8e9123861`.
+README canonical, `evidence_location` và `captured_at_utc` của record vẫn mô tả
+capture API gốc; nguồn và thời điểm truy xuất thật cho hai trường sửa nằm trong
+companion provenance. Bản gốc và toàn bộ source capture được giữ nguyên trong
+local preparation archive; full publisher page và PDF không được đưa vào repo.
+Amendment bundle ghi exact archive identity và cách kiểm tra riêng local sources.
+Không đọc hoặc chuyển tiếp packet đã sửa tách khỏi provenance.
+
+Trạng thái `preparation-only` trong packet mô tả lần bàn giao ban đầu; việc
+đưa vào PR không tự ghi nhận acceptance. Acceptance cho đúng hai digest trên
+đã được đăng riêng bởi [Hiếu](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26#issuecomment-5638131719)
+và [Hoàng](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26#issuecomment-5642649764).
+Giữ nguyên các byte packet đã được chấp thuận, kể cả mô tả lịch sử; không sửa
+packet chỉ để đổi nhãn trạng thái. Khi byte thay đổi, mỗi reviewer phải kiểm tra
+và chấp thuận mới cùng exact
+manifest, companion provenance và common selection; acceptance của digest cũ
+không chuyển sang digest mới. Mọi thay đổi byte tiếp theo cần review mới.
+Packet có trạng thái
 `preparation-only`: nó chưa phải pilot, commitment boundary, approval hoặc
 calibration evidence. Hiếu và Hoàng phải độc lập kiểm tra exact bytes rồi mỗi
 người chấp thuận rõ exact nine-record packet CAL-010 đến CAL-018 làm proposed
@@ -333,12 +357,17 @@ phép AI chạy lệnh sau trong máy của reviewer bằng private key cục b�
 node research/create-slr-signed-review.mjs sign "D:\private\archsync-independent-slr-reviewer.pem" "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/PR_NUMBER" "REVIEW_COMMIT_40_HEX" "YYYY-MM-DDTHH:MM:SSZ"
 ```
 
-Công cụ phải tạo đúng ba artifact review và `research/slr-review-record.md`:
+Công cụ `sign` tạo đúng ba file mới, dùng public key đã được tạo và commit
+trước khi reviewer kiểm tra exact commit:
 
 - `research/evidence/slr-review/independent-slr-reviewer-attestation.json`;
 - `research/evidence/slr-review/independent-slr-reviewer-attestation.sig`;
-- `research/evidence/slr-review/independent-slr-reviewer-public-key.pem`; và
 - `research/slr-review-record.md`.
+
+Public key hiện có tại
+`research/evidence/slr-review/independent-slr-reviewer-public-key.pem` được
+đối chiếu với private key và tham chiếu bằng SHA-256; lệnh `sign` không tạo lại
+hoặc ghi đè public key.
 
 Không tạo hoặc chỉnh các file này bằng tay. AI không được đọc hay xuất private
 key. Không ký lại một commit đã thay đổi sau review.
@@ -399,7 +428,7 @@ node --test research/*.test.mjs
 ```
 
 GitHub Actions trên pull request sau đó kiểm tra live provenance giữa current
-head, reviewed ancestor, các file review được phép thêm và đúng ba output freeze.
+head, reviewed ancestor, các file review được phép thêm và đúng hai output freeze.
 Hai lệnh `validate-literature-protocol.mjs` và
 `freeze-literature-protocol.mjs --check` tải và kiểm tra toàn bộ sentinel JSON,
 ledger, review record, attestation, public key, detached signature và quan hệ
@@ -420,7 +449,7 @@ node research/freeze-literature-protocol.mjs --write
 node research/validate-literature-protocol.mjs
 ```
 
-Freeze chỉ được thay đổi `literature-protocol.md`, `decision-log.md` và
-`decision-log.md` theo automation. Freeze SLR không tự sửa paper hoặc Overleaf;
+Freeze chỉ được thay đổi `literature-protocol.md` và `decision-log.md`
+theo automation. Freeze SLR không tự sửa paper hoặc Overleaf;
 Related Work chỉ được cập nhật sau khi official search, screening và synthesis
 có evidence thật. Sau merge và CI pass, Hiếu mới chuyển SLR-101 sang `Đã làm`.

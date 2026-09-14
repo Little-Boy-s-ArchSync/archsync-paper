@@ -32,9 +32,19 @@ The invalid first attempt is preserved and explicitly excluded from reported res
 - Canonical named and anonymous roots rebuilt successfully; PDF variant and
   identifying-marker redaction checks pass.
 - Paper structure, source, reference-quality and RQ traceability checks pass.
-- All 241 research tests pass, including inventory integrity and claim-scope checks.
+- Before upstream integration, all 241 research tests passed, including inventory
+  integrity and claim-scope checks. The remote synchronization also runs the
+  complete repository pre-push gate against the integrated branch.
 - Exact PDF and source hashes are in `supplementary/length-variant-validation.json`;
   rendered review findings are in `supplementary/VISUAL-QA.md`.
+
+## Remote integration
+
+The latest `origin/main` governance records are retained in this branch. Its older
+IEEE manuscript presentation is superseded here by the verified ACM length
+variants. Source and PDF checks retain format-specific IEEE limits conditionally;
+redaction and source identity checks still apply to both formats. Historical
+SLR receipts remain audit evidence and do not reactivate the discarded queues.
 
 ## Limits
 

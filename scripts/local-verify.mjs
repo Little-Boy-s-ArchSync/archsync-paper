@@ -63,12 +63,14 @@ const coverageArguments = [
   "--test-coverage-include=research/validate-literature-protocol.mjs",
   "--test-coverage-include=research/freeze-literature-protocol.mjs",
   "--test-coverage-include=research/verify-slr-review-provenance.mjs",
+  "--test-coverage-include=research/verify-slr-provenance-lifecycle.mjs",
   "--test-coverage-include=research/verify-slr-signed-attestation.mjs",
   "--test-coverage-include=research/create-slr-signed-review.mjs",
   "--test-coverage-include=research/verify-slr-sentinel-evidence.mjs",
   "--test-coverage-include=research/build-slr-sentinel-ledger.mjs",
   "--test-coverage-include=research/validate-search-queries.mjs",
   "--test-coverage-include=research/validate-screening-criteria.mjs",
+  "--test-coverage-include=research/validate-slr-103-codebook-lock.mjs",
   "--test-coverage-include=research/validate-literature-matrix.mjs",
   "--test-coverage-include=research/verify-slr-screening-calibration.mjs",
   "--test-coverage-include=research/build-slr-screening-calibration.mjs",
@@ -76,6 +78,9 @@ const coverageArguments = [
   "--test-coverage-include=research/validate-evaluation-report-scaffold.mjs",
   "--test-coverage-include=research/validate-research-quality-gates.mjs",
   "--test-coverage-include=research/validate-decision-log.mjs",
+  "--test-coverage-include=research/validate-submission-readiness.mjs",
+  "--test-coverage-include=research/validate-pre-experiment-protocols.mjs",
+  "--test-coverage-include=research/verify-experiment-readiness.mjs",
   "--test-coverage-include=research/validate-slr-calibration-candidates.mjs",
   "--test-coverage-lines=95",
   "--test-coverage-branches=88",
@@ -85,12 +90,14 @@ const coverageArguments = [
   "research/validate-literature-protocol.test.mjs",
   "research/freeze-literature-protocol.test.mjs",
   "research/verify-slr-review-provenance.test.mjs",
+  "research/verify-slr-provenance-lifecycle.test.mjs",
   "research/verify-slr-signed-attestation.test.mjs",
   "research/create-slr-signed-review.test.mjs",
   "research/verify-slr-sentinel-evidence.test.mjs",
   "research/build-slr-sentinel-ledger.test.mjs",
   "research/validate-search-queries.test.mjs",
   "research/validate-screening-criteria.test.mjs",
+  "research/validate-slr-103-codebook-lock.test.mjs",
   "research/validate-literature-matrix.test.mjs",
   "research/validate-reference-quality-policy.test.mjs",
   "research/verify-slr-screening-calibration.test.mjs",
@@ -99,6 +106,9 @@ const coverageArguments = [
   "research/validate-evaluation-report-scaffold.test.mjs",
   "research/validate-research-quality-gates.test.mjs",
   "research/validate-decision-log.test.mjs",
+  "research/validate-submission-readiness.test.mjs",
+  "research/validate-pre-experiment-protocols.test.mjs",
+  "research/verify-experiment-readiness.test.mjs",
   "research/validate-slr-calibration-candidates.test.mjs",
   "research/validate-slr-calibration-round-2-candidates.test.mjs",
 ];
@@ -119,16 +129,21 @@ const dockerPrefix = [
 
 const commands = [
   { id: "source-metadata", command: process.execPath, args: ["scripts/verify-paper-source.mjs"] },
+  { id: "pdf-page-budget-tests", command: process.execPath, args: ["--test", "scripts/pdf-page-budget.test.mjs"] },
   { id: "research-baseline", command: process.execPath, args: ["research/validate-baseline.mjs"] },
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
+  { id: "submission-readiness", command: process.execPath, args: ["research/validate-submission-readiness.mjs"] },
   { id: "calibration-candidates", command: process.execPath, args: ["research/validate-slr-calibration-candidates.mjs"] },
   { id: "calibration-round-2-candidates", command: process.execPath, args: ["research/validate-slr-calibration-round-2-candidates.mjs"] },
   { id: "rq-traceability", command: process.execPath, args: ["research/validate-rq-traceability.mjs"] },
+  { id: "pre-experiment-proposals", command: process.execPath, args: ["research/validate-pre-experiment-protocols.mjs"] },
+  { id: "experiment-freeze-template", command: process.execPath, args: ["research/verify-experiment-readiness.mjs", "--template"] },
   { id: "research-contract-tests", command: process.execPath, args: coverageArguments },
   { id: "claim-evidence", command: process.execPath, args: ["research/validate-claim-evidence.mjs"] },
   { id: "literature-protocol", command: process.execPath, args: ["research/validate-literature-protocol.mjs"] },
   { id: "search-queries", command: process.execPath, args: ["research/validate-search-queries.mjs"] },
   { id: "screening-criteria", command: process.execPath, args: ["research/validate-screening-criteria.mjs"] },
+  { id: "slr-103-codebook-lock", command: process.execPath, args: ["research/validate-slr-103-codebook-lock.mjs"] },
   { id: "literature-matrix", command: process.execPath, args: ["research/validate-literature-matrix.mjs"] },
   { id: "reference-quality", command: process.execPath, args: ["research/validate-reference-quality-policy.mjs"] },
   { id: "evaluation-scaffold", command: process.execPath, args: ["research/verify-evaluation-report-scaffold.mjs"] },
@@ -182,6 +197,13 @@ for (const [id, file] of [
 }
 
 commands.push(
+  hostTexAvailable
+    ? { id: "pdf-variants", command: process.execPath, args: ["scripts/verify-pdf-variants.mjs"] }
+    : {
+        id: "pdf-variants",
+        command: "docker",
+        args: [...dockerPrefix, "node", "scripts/verify-pdf-variants.mjs"],
+      },
   hostTexAvailable
     ? { id: "anonymous-redaction", command: process.execPath, args: ["scripts/verify-pdf-redaction.mjs"] }
     : {

@@ -3,16 +3,16 @@
 | Field | Value |
 | --- | --- |
 | Task | SLR-101 |
-| Protocol version | 0.2.2 |
-| Status | Review candidate |
+| Protocol version | 1.0.0 |
+| Status | Frozen |
 | Prepared date | 2026-08-16 |
 | Search cutoff | 2026-08-16 inclusive |
 | Owner | Hiếu |
 | Required independent reviewer | Independent SLR Reviewer |
-| Search authorization | Blocked |
+| Search authorization | Authorized |
 | Official search execution | Not started |
 | Search results inspected | No |
-| Freeze decision | D-008 pending independent review |
+| Freeze decision | D-008 accepted; review evidence: https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26 |
 
 This protocol defines the review before any official database query is executed
 or result list is inspected. It follows the software-engineering review process
@@ -20,11 +20,10 @@ of Kitchenham and Charters, uses Wohlin's backward and forward snowballing
 procedure, and will report study flow and amendments using PRISMA 2020 and the
 software-engineering-specific SEGRESS guidance.
 
-The protocol is deliberately a review candidate. Search is authorized only
-after a non-author reviewer approves the complete protocol in a pull request,
-the version becomes 1.0.0, the status becomes `Frozen`, and D-008 becomes
-`Accepted`. Until then, only method review and sentinel-query calibration are
-allowed; no candidate-paper list may be screened or used to change criteria.
+This protocol is frozen at version 1.0.0 after independent method review and
+sentinel-query calibration. Official search is authorized under D-008, but has
+not started and no result list has been inspected. All later amendments follow
+Section 17 and may not silently change the frozen criteria.
 
 ## 1. Review objective and contribution boundary
 
@@ -666,28 +665,28 @@ protocol. Those values are written only by the later verified execution.
 
 The independent reviewer must confirm all items before D-008 is accepted:
 
-- [ ] Objective and SLR-RQ1--SLR-RQ6 align with the research baseline and RQ
+- [x] Objective and SLR-RQ1--SLR-RQ6 align with the research baseline and RQ
   traceability matrix.
-- [ ] All four primary sources are accessible to the team.
-- [ ] Search-A/B/C are semantically equivalent in each database-specific form;
+- [x] All four primary sources are accessible to the team.
+- [x] Search-A/B/C are semantically equivalent in each database-specific form;
   every OpenAlex form uses validated canonical OQO through POST, and every ACM
   form decodes to the Title/Abstract/Author Keyword set union.
-- [ ] Every indexed sentinel is retrieved or has a documented indexing reason.
-- [ ] I1--I8 and E01--E10 are mutually understandable and usable without seeing
+- [x] Every indexed sentinel is retrieved or has a documented indexing reason.
+- [x] I1--I8 and E01--E10 are mutually understandable and usable without seeing
   another reviewer's decision, and both reviewers pass the SLR-103 pilot gate
   on at least eight predeclared records with the required decision and
   primary-reason agreement.
-- [ ] Deduplication preserves provenance and does not auto-merge fuzzy matches.
-- [ ] Both screening rounds are independent and every disagreement has explicit
+- [x] Deduplication preserves provenance and does not auto-merge fuzzy matches.
+- [x] Both screening rounds are independent and every disagreement has explicit
   two-reviewer consensus or the round fails closed.
-- [ ] QA1--QA6 and extraction fields can answer their linked SLR-RQs, and the
+- [x] QA1--QA6 and extraction fields can answer their linked SLR-RQs, and the
   separate reference-quality policy records recency, foundational exceptions,
   Q1/Q2 status, ranking context, and authoritative evidence without excluding
   systematic-review records by age or quartile.
-- [ ] AI-executed work is disclosed; generated assertions are not treated as
+- [x] AI-executed work is disclosed; generated assertions are not treated as
   evidence, captured source output has provenance, and named humans remain
   accountable for review, screening, extraction, and reconciliation.
-- [ ] No official result list was inspected while developing the protocol.
+- [x] No official result list was inspected while developing the protocol.
 
 Approval must be attributable to the non-author assigned to the Independent SLR
 Reviewer role. When contributors use distinct GitHub accounts, an approved
@@ -809,10 +808,11 @@ coverage thresholds, and compiles the PDF before merge.
   search, Boolean syntax, filtering, and token pagination:
   https://api.semanticscholar.org/api-docs/
 
-## 20. Candidate version history
+## 20. Protocol version history
 
 | Version | Date | Decision | Summary |
 | --- | --- | --- | --- |
+| 1.0.0 | 2026-09-12 | D-008 accepted | Independent review and sentinel recall approved in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26; review commit 1d84bc58614eeec0d9cc469276d3f362d697deec; governed evidence hashes verified |
 | 0.2.2 | 2026-08-28 | D-021 accepted | Guard A2/A3 with L; use canonical OpenAlex OQO POST; constrain ACM transport to a decoded field union; require two-reviewer consensus; retain all earlier attempts as diagnostics |
 | 0.2.1 | 2026-08-28 | D-019 accepted | Correct wildcard-bearing OpenAlex forms to unstemmed `search.exact` without diagnostic proximity suffixes; constrain ACM to the Title, Abstract, and Author Keyword union; retain all 0.2.0 captures as diagnostics; no official result inspected |
 | 0.2.0 | 2026-08-20 | D-016 accepted | Replace inaccessible Scopus and Web of Science primary searches with reproducible OpenAlex and Semantic Scholar API searches; version the query, sentinel, matrix, validator, runbook, and paper contracts before any official result is inspected |

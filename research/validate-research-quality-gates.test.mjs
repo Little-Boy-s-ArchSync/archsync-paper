@@ -28,6 +28,7 @@ async function fixture() {
     ["conclusion", join(sections, "conclusion.tex")],
     ["claimEvidence", join(research, "claim-evidence.csv")],
     ["bibliography", join(repositoryDirectory, "references.bib")],
+    ["codeowners", join(repositoryDirectory, ".github", "CODEOWNERS")],
   ];
   const values = await Promise.all(entries.map(([, path]) => readFile(path, "utf8")));
   return Object.fromEntries(entries.map(([name], index) => [name, values[index]]));
@@ -40,7 +41,7 @@ function hasIssue(result, fragment) {
 test("accepts the remediated manuscript and audit bundle", async () => {
   const result = validateResearchQualityGates(await fixture());
   assert.deepEqual(result.issues, []);
-  assert.equal(result.controlledClaims, 9);
+  assert.equal(result.controlledClaims, 13);
   assert.ok(result.abstractWords >= 120 && result.abstractWords <= 220);
 });
 
@@ -88,6 +89,16 @@ test("rejects a changed governed bibliography", async () => {
   hasIssue(validateResearchQualityGates(input), "25-entry narrative scope");
 });
 
+test("rejects incomplete GOV-104 code ownership or a missing evidence boundary", async () => {
+  const input = await fixture();
+  input.codeowners = input.codeowners
+    .replace("* @L1nkinPark @an1dee3301 @teikv", "* @L1nkinPark @an1dee3301")
+    .replace("CODEOWNERS approval is not independent-review or research evidence", "CODEOWNERS review applies");
+  const result = validateResearchQualityGates(input);
+  hasIssue(result, "'*' must name all three GOV-104 core owners");
+  hasIssue(result, "CODEOWNERS approval is not independent-review or research evidence");
+});
+
 test("runs the real quality gate through its CLI entry point", async () => {
   const output = [];
   const errors = [];
@@ -121,3 +132,9 @@ test("runs the real quality gate through its CLI entry point", async () => {
   assert.equal(exitCode, 1);
   hasIssue(result, "raw output hash mismatch");
  });
+
+test("rejects dropping the proposed D3 semantic intersection gate", async () => {
+  const input = await fixture();
+  input.baselineProtocol = input.baselineProtocol.replaceAll("non-empty semantic intersection", "common subset");
+  hasIssue(validateResearchQualityGates(input), "non-empty semantic intersection");
+});

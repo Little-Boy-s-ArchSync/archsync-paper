@@ -14,6 +14,16 @@ import {
 export const ROUND_2_README_SHA256 =
   "0dddc463615465e220ba8e3e3de70d2e7020f69022b09c422e1a5d3137d02202";
 
+export const ROUND_2_AMENDMENT_ROOT =
+  "research/evidence/slr-screening-calibration-round-2-amendments/2026-09-08";
+
+// These are unaccepted proposal identities, never human acceptance evidence.
+const AMENDMENT_IDENTITIES = Object.freeze({
+  manifestBytes: "0dc44715da2113112eb51e7262073a7fefe5237f0e66f775705b5ba96d6943ae",
+  provenanceBytes: "45ca6f35cd86406c7624423b6983fa1775c7bae46bea7747178bb2a8e9123861",
+  archiveInventoryBytes: "1bc24cbac21ac479b8773e5dfaf697d8854bcebb0c0c77b2f550a2e2c041fdf9",
+});
+
 export const ROUND_2_REQUIRED_README_STATEMENTS = Object.freeze([
   "Status: preparation only",
   "fresh, immutable publication metadata snapshots",
@@ -36,6 +46,17 @@ const EXPECTED_ROUND_2_IDS = Object.freeze(
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
+}
+
+export function validateRound2AmendmentIdentity(artifacts) {
+  const issues = [];
+  for (const [name, expected] of Object.entries(AMENDMENT_IDENTITIES)) {
+    const bytes = artifacts[name];
+    if (!Buffer.isBuffer(bytes) || sha256(bytes) !== expected) {
+      issues.push(`Round 2 unaccepted amendment ${name} must match exact proposal bytes`);
+    }
+  }
+  return issues;
 }
 
 function parseRecord(bytes, label, issues) {
@@ -116,7 +137,20 @@ export async function main({
     ...ROUND_2_CANDIDATE_ROOT.split("/"),
     "manifest.json",
   );
-  const manifestDigest = sha256(await readFile(manifestPath));
+  const manifestBytes = await readFile(manifestPath);
+  const manifestDigest = sha256(manifestBytes);
+  try {
+    const amendmentRoot = join(repositoryDirectory, ...ROUND_2_AMENDMENT_ROOT.split("/"));
+    const [provenanceBytes, archiveInventoryBytes] = await Promise.all([
+      readFile(join(amendmentRoot, "AMENDMENT-PROVENANCE.json")),
+      readFile(join(amendmentRoot, "RETAINED-ARCHIVE-SHA256SUMS")),
+    ]);
+    result.issues.push(...validateRound2AmendmentIdentity({
+      manifestBytes, provenanceBytes, archiveInventoryBytes,
+    }));
+  } catch (loadError) {
+    result.issues.push("cannot load mandatory Round 2 amendment companions: " + loadError.message);
+  }
   if (result.issues.length > 0) {
     error("INVALID SLR CALIBRATION ROUND 2 CANDIDATE PACKET");
     result.issues.forEach((issue) => error("- " + issue));
@@ -128,7 +162,7 @@ export async function main({
       result.candidateCount +
       " fresh DOI snapshots; manifest " +
       manifestDigest +
-      "; preparation only)",
+      "; preparation only; amendment companions verified by exact bytes; raw sources retained locally)",
   );
   return { ...result, manifestDigest };
 }

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "immutable-release-lock",
+  "task": "SLR-103",
+  "lock_id": "SLR-103-CODEBOOK-1.0.0",
+  "released_criteria_version": "1.0.0",
+  "semantic_source_version": "0.2.1",
+  "protocol_version": "1.0.0",
+  "accepted_main_commit": "e34054760273a104f0db99c86a4ddd222e509254",
+  "freeze_pull_request": "https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26",
+  "prepared_at_utc": "2026-09-13T08:40:42Z",
+  "activation": "first protected-main merge containing these exact bytes after eligible exact-head non-author approval",
+  "codebook_path": "research/literature-screening-criteria.md",
+  "codebook_sha256": "3d61b41a0f7eb53f425d4e7ae0408b4469fff7dcf89b1648d45ecd860ae4b173",
+  "atomic_criteria_path": "research/literature-screening-criteria.csv",
+  "atomic_criteria_sha256": "bdfa06fe4d9bcc36d5dbd80f447feafeadfb8aa166532405755fa2bdd953adea",
+  "calibration_path": "research/literature-screening-calibration.json",
+  "calibration_sha256": "ee7c3c573803a9b6f361b46f530d6ab8223d7503dcfc5051ae00c17e00479586",
+  "calibration_commit_sequence": [
+    "73cf1512aac6a405ec1da28a545d3bf880e00ad3",
+    "2891df29403f5bba1fb648badbf83fe6984c827e",
+    "11b6fa12c0f76849b3020dacb33f554cfdf23aa7"
+  ],
+  "decision_agreement": {
+    "matches": 8,
+    "total": 9,
+    "rate": "0.888889"
+  },
+  "primary_reason_agreement": {
+    "matches": 3,
+    "total": 3,
+    "rate": "1.000000"
+  },
+  "unresolved_disagreements": 0,
+  "rule_bytes_changed": false,
+  "official_search_checkpoint": {
+    "campaign_id": "slr-20260913",
+    "started_at_utc": "2026-09-13T08:18:29Z",
+    "checked_at_utc": "2026-09-13T08:24:33Z",
+    "completed_exports": 2,
+    "planned_exports": 24,
+    "evidence_url": "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5652199822"
+  },
+  "official_results_inspected": false,
+  "official_screening_started": false,
+  "disposition_url": "https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24"
+}

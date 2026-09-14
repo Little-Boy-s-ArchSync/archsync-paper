@@ -29,8 +29,6 @@ const contractFiles = [
   "main.tex",
   "main-anonymous.tex",
   "references.bib",
-  "acmart.cls",
-  "ACM-Reference-Format.bst",
   "sections/abstract.tex",
   "sections/introduction.tex",
   "sections/related-work.tex",

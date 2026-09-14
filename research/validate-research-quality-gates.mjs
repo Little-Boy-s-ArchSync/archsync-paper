@@ -52,6 +52,7 @@ export function validateResearchQualityGates(input) {
     conclusion,
     claimEvidence,
     bibliography,
+    codeowners,
   } = input;
 
   for (const [field, expected] of [
@@ -151,6 +152,8 @@ export function validateResearchQualityGates(input) {
       if (prose.replace(/\s+/g, " ").includes(stale)) issues.push(`${file}: obsolete non-execution claim '${stale}'`);
     }
   }
+  requireMarker(issues, "results.tex", results, "they do not estimate performance on unseen projects");
+  requireMarker(issues, "results.tex", results, "not independent samples");
   if (discussion.includes("perfect scores")) {
     issues.push("discussion.tex: must not call controlled results perfect scores");
   }
@@ -162,12 +165,13 @@ export function validateResearchQualityGates(input) {
   for (const marker of [
     "executed external-tool inventory has no shared labeled units",
     "no independent real-world holdout exists",
+    "They do not establish general accuracy, comparative advantage, or governance effectiveness",
     "Only after those gates produce auditable evidence",
   ]) requireMarker(issues, "conclusion.tex", conclusion, marker);
 
   const controlledStatuses = claimEvidence.match(/,verified-controlled,/g)?.length ?? 0;
-  if (controlledStatuses !== 9) {
-    issues.push(`claim-evidence.csv: expected 9 verified-controlled claims; found ${controlledStatuses}`);
+  if (controlledStatuses !== 13) {
+    issues.push(`claim-evidence.csv: expected 13 verified-controlled claims; found ${controlledStatuses}`);
   }
   if (claimEvidence.includes(",verified,")) {
     issues.push("claim-evidence.csv: unqualified verified status is prohibited");
@@ -180,11 +184,13 @@ export function validateResearchQualityGates(input) {
     "add `EVAL-BASELINE-001`",
   ]) requireMarker(issues, "PROJECT-EVIDENCE-AUDIT.md", audit, marker);
   for (const marker of [
-    "| Protocol version | 0.1.0 |",
+    "| Protocol version | 0.2.0 |",
     "| Status | Proposed - not executed |",
     "The current paper has no external baseline result",
     "dependency-cruiser",
     "unsupported, ambiguous, failed, and inconclusive cases",
+    "non-empty semantic intersection",
+    "repository-level, macro, and micro results",
   ]) requireMarker(issues, "EXTERNAL-BASELINE-PROTOCOL.md", baselineProtocol, marker);
 
   const expectedKeys = NARRATIVE_CITATION_KEYS;
@@ -192,6 +198,20 @@ export function validateResearchQualityGates(input) {
   if (keys.join("|") !== expectedKeys.join("|")) {
     issues.push("references.bib: retained citation set or order does not match the governed 25-entry narrative scope");
   }
+
+  const requiredOwners = ["@L1nkinPark", "@an1dee3301", "@teikv"];
+  for (const pattern of ["*", "/main.tex", "/research/"]) {
+    const line = codeowners
+      .split(/\r?\n/)
+      .find((candidate) => candidate.trim().startsWith(`${pattern} `));
+    if (!line || requiredOwners.some((owner) => !line.split(/\s+/).includes(owner))) {
+      issues.push(`.github/CODEOWNERS: '${pattern}' must name all three GOV-104 core owners`);
+    }
+  }
+  for (const marker of [
+    "task-specific research, security, and release gates still apply",
+    "CODEOWNERS approval is not independent-review or research evidence",
+  ]) requireMarker(issues, ".github/CODEOWNERS", codeowners, marker);
 
   return { issues, abstractWords: words.length, controlledClaims: controlledStatuses };
 }
@@ -233,6 +253,7 @@ export async function main({
     ["conclusion", join(sections, "conclusion.tex")],
     ["claimEvidence", join(research, "claim-evidence.csv")],
     ["bibliography", join(repositoryDirectory, "references.bib")],
+    ["codeowners", join(repositoryDirectory, ".github", "CODEOWNERS")],
   ];
   const values = await Promise.all(names.map(([, path]) => readFile(path, "utf8")));
   const input = Object.fromEntries(names.map(([name], index) => [name, values[index]]));

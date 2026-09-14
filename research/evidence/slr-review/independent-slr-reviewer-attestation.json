@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1.0",
+  "task": "SLR-101",
+  "reviewer": "Independent SLR Reviewer",
+  "reviewer_name": "Tran Minh Hoang",
+  "reviewer_orcid": "0009-0000-0302-1841",
+  "operator_login": "an1dee3301",
+  "protocol_author": false,
+  "review_decision": "Approved",
+  "review_commit": "1d84bc58614eeec0d9cc469276d3f362d697deec",
+  "review_timestamp": "2026-09-12T16:29:12Z",
+  "search_results_inspected": false,
+  "sentinel_recall": "Passed",
+  "checklist": [
+    "objective-rq-alignment",
+    "required-databases-accessible",
+    "queries-reproducible",
+    "sentinel-recall-passed",
+    "eligibility-operational",
+    "deduplication-auditable",
+    "screening-independent-and-blinded",
+    "quality-extraction-rq-alignment",
+    "ai-is-not-review-authority",
+    "official-results-not-inspected"
+  ]
+}

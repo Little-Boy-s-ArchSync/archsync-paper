@@ -185,6 +185,41 @@ test("enforces stable identifiers, cutoff year and evidence class", () => {
   assertIssue(result, "evidence_class must be primary-study or secondary-context");
 });
 
+test("supports scalable record and study identifiers above the 4-digit historical limit", () => {
+  const result = validate({
+    contract: activeContract(1),
+    matrix: populatedMatrix(
+      sampleRow({
+        record_id: "LIT-30001",
+        study_id: "STUDY-30001",
+      }),
+    ),
+  });
+  assert.deepEqual(result.issues, []);
+  assert.equal(result.recordCount, 1);
+  assert.equal(result.blocked, false);
+});
+
+test("rejects too-short or malformed identifier suffixes", () => {
+  const result = validate({
+    contract: activeContract(1),
+    matrix: populatedMatrix(
+      sampleRow({
+        record_id: "LIT-1",
+        study_id: "STUDY-12",
+      }),
+      sampleRow({
+        record_id: "LIT-ABCD",
+        study_id: "STUDY-XYZ",
+      }),
+    ),
+  });
+  assertIssue(result, "has invalid record_id 'LIT-1'");
+  assertIssue(result, "has invalid study_id 'STUDY-12'");
+  assertIssue(result, "invalid record_id 'LIT-ABCD'");
+  assertIssue(result, "invalid study_id 'STUDY-XYZ'");
+});
+
 test("enforces controlled discovery sources, claim IDs, SLR-RQs and locations", () => {
   const result = validate({
     contract: activeContract(),

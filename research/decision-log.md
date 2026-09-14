@@ -112,10 +112,10 @@
   current RQ wording, metrics, datasets, or empirical claims.
 - Approver: Hiếu, research lead and architecture owner.
 
-## D-008: Propose Systematic Literature Review Protocol 0.1.0 for Independent Review
+## D-008: Freeze Systematic Literature Review Protocol 1.0.0 after Independent Review
 
 - Date: 2026-08-16
-- Status: Proposed
+- Status: Accepted
 - Task: SLR-101
 - Proposal: Review `research/literature-protocol.md` before any official search
   is executed. The candidate predeclares SLR-RQ1--SLR-RQ6, four required
@@ -126,11 +126,11 @@
   candidate. No result list may be screened or used to tune eligibility. After
   search results are viewed, criteria and query concepts cannot be silently
   changed.
-- Required review: Independent SLR Reviewer reviews method and sentinel recall as a non-author.
-  Version 1.0.0 may be frozen only after either an approved pull-request review
-  from a distinct account or an Ed25519-signed Independent SLR Reviewer attestation when the
-  team uses delegated `an1dee3301` for all pushes. The same freeze change sets this
-  decision to `Accepted` and records review evidence.
+- Independent review: Independent SLR Reviewer approved the method and sentinel recall as a non-author in https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26
+  at commit `1d84bc58614eeec0d9cc469276d3f362d697deec` on 2026-09-12T16:29:12Z.
+- Freeze evidence: `slr-review-record.md` and
+  `literature-sentinel-recall.csv`; referenced JSON SHA-256 values are verified
+  by CI before search authorization.
 - Baseline impact: None. This proposal does not change F-RQ/V-RQ meaning,
   Phase 1--3 evidence, terminology, scope, metric, dataset, or paper result.
 - Owner: Hiếu.
@@ -530,6 +530,40 @@
   `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460760993`.
 - Approvers: Võ Đức Hiếu, protocol owner and research lead; Trần Minh Hoàng,
   Independent SLR Reviewer.
+
+## D-023: Record Enforced Merge Protection and Unresolved Public Visibility
+
+- Date: 2026-08-30
+- Status: Operational correction recorded; venue and visibility authorization
+  pending
+- Tasks: PAPER-103, ART-101
+- Observed state: At `2026-08-29T19:21:39Z`, GitHub's repository API reported
+  all seven ArchSync repositories as public. The paper repository retains a
+  `PublicEvent` at `2026-08-13T14:36:43Z`, and its public history contains named
+  manuscript source. `archsync#45` records this P0 conflict and the SHA-256 of
+  the exact API snapshot. Prior public access cannot be retracted or treated as
+  proof that anonymity was preserved.
+- Protection state: Every ArchSync `main` branch now enforces pull requests,
+  strict required status checks, one approving review, approval of the latest
+  push, stale-review dismissal, conversation resolution, administrator
+  enforcement, and force-push/deletion denial. Governed paths in the root,
+  benchmark, and paper repositories additionally use `CODEOWNERS`.
+- Supersession: Preserve D-003 as the historical 2026-08-15 operating decision,
+  but do not reuse its assumptions that the repositories are private or that
+  branch protection cannot be enforced. The dated API evidence above supersedes
+  those factual assumptions. D-003's human-review and final-merge requirements
+  remain governance requirements and are not satisfied by protection alone.
+- Decision boundary: This entry does not select a venue, authorize the current
+  public visibility, claim double-blind anonymity, approve a submission, or
+  authorize an artifact/license/public release. Those decisions and an explicit
+  acknowledgement of prior public exposure remain human gates.
+- Readiness boundary: The PAPER-103/ART-101 submission-readiness contract is a
+  fail-closed proposal only. Its current revision has no `READY` path and cannot
+  authenticate human authority; a later reviewed contract revision and real,
+  exact-candidate evidence are required before submission or release.
+- Owner: Hiếu.
+- Approval: Pending for the venue, visibility, prior-exposure, submission, and
+  artifact-release decisions.
 
 ## Narrative positioning amendment (andy-temp-branch)
 

@@ -15,13 +15,13 @@ import {
   validateLiteratureProtocol,
 } from "./validate-literature-protocol.mjs";
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
+import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mjs";
 
 const researchDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = dirname(researchDirectory);
-const [protocol, decisions, baseline, traceability, paper, bibliography] =
+const { protocol, decisions } = await loadSlrCandidateFixture();
+const [baseline, traceability, paper, bibliography] =
   await Promise.all([
-    readFile(join(researchDirectory, "literature-protocol.md"), "utf8"),
-    readFile(join(researchDirectory, "decision-log.md"), "utf8"),
     readFile(join(researchDirectory, "RESEARCH.md"), "utf8"),
     readFile(join(researchDirectory, "RQ-TRACEABILITY.md"), "utf8"),
     loadExpandedManuscript(repositoryDirectory),
@@ -502,6 +502,15 @@ test("accepts frozen metadata while the paper remains protocol-status neutral", 
   assert.deepEqual(result.issues, []);
 });
 
+test("retains compatibility with the historical pre-freeze paper disclosure", () => {
+  const historicalPaper = paper.replace(
+    "versioned protocol, search templates, and review evidence remain research-governance artifacts outside the manuscript",
+    "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+  );
+  const result = validate({ paper: historicalPaper });
+  assert.deepEqual(result.issues, []);
+});
+
 test("rejects malformed sentinel CSV schema, row width and unknown sources", () => {
   const malformed = sentinelRecall
     .replace("sentinel_id,doi", "id,doi")
@@ -634,7 +643,10 @@ test("loads and hashes a real sentinel evidence artifact", async (context) => {
   );
 });
 
-test("runs the real candidate protocol through the CLI entry point", async () => {
+test("runs the actual supported repository lifecycle state through the CLI entry point", async () => {
+  const liveProtocol = await readFile(join(researchDirectory, "literature-protocol.md"), "utf8");
+  const liveVersion = liveProtocol.match(/^\| Protocol version \| ([^|]+) \|$/m)?.[1];
+  assert.ok(["0.2.2", "1.0.0"].includes(liveVersion), "The live CLI must validate an explicitly supported lifecycle state");
   const output = [];
   const errors = [];
   let exitCode = null;
@@ -647,5 +659,10 @@ test("runs the real candidate protocol through the CLI entry point", async () =>
   });
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
-  assert.ok(output.some((message) => message.includes("search blocked")));
+  assert.equal(output.length, 1);
+  if (liveVersion === "0.2.2") {
+    assert.match(output[0], /^VALID LITERATURE PROTOCOL 0\.2\.2 \(review candidate, 6 SLR-RQs, 4 databases, 3 query families, search blocked/);
+  } else {
+    assert.equal(output[0], "VALID LITERATURE PROTOCOL 1.0.0 (frozen, 6 SLR-RQs, 4 databases, 3 query families, search authorized)");
+  }
 });

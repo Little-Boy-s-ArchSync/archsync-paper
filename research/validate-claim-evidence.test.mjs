@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
 import {
+  EVIDENCE_COMMIT,
+  GOVERNED_TASK_ID,
   main as runClaimEvidenceValidator,
   parseCsv,
   validateClaimEvidence,
@@ -20,9 +22,10 @@ const [csvText, paperText] = await Promise.all([
 ]);
 
 test("accepts the governed paper claim ledger", () => {
+  assert.equal(GOVERNED_TASK_ID, "RQ-101");
   const result = validateClaimEvidence(csvText, paperText);
   assert.deepEqual(result.issues, []);
-  assert.equal(result.verified, 9);
+  assert.equal(result.verified, 13);
   assert.equal(result.descriptive, 1);
   assert.equal(result.planned, 4);
 });
@@ -70,11 +73,28 @@ test("rejects a planned claim promoted before its evidence gate", () => {
 });
 
 test("rejects a paper whose reported metric no longer matches the ledger", () => {
-  const mutatedPaper = paperText.replaceAll("518.51", "999.99");
+  const mutatedPaper = paperText
+    .replaceAll("518.51", "999.99")
+    .replaceAll("18 & 4 & 2 & 16", "18 & 3 & 2 & 17");
   const result = validateClaimEvidence(csvText, mutatedPaper);
   assert.ok(
     result.issues.some(
       (issue) => issue.includes("518.51") && issue.includes("C-009"),
+    ),
+  );
+  assert.ok(
+    result.issues.some(
+      (issue) => issue.includes("18 & 4 & 2 & 16") && issue.includes("C-010"),
+    ),
+  );
+});
+
+test("rejects a verified claim without the exact benchmark commit pin", () => {
+  const mutated = csvText.replace(EVIDENCE_COMMIT, "short-commit");
+  const result = validateClaimEvidence(mutated, paperText);
+  assert.ok(
+    result.issues.some(
+      (issue) => issue.includes("C-001") && issue.includes(EVIDENCE_COMMIT),
     ),
   );
 });
@@ -134,7 +154,7 @@ test("rejects every governed field mutation on a verified claim", () => {
   const mutated = csvText
     .replace("C-001,F-RQ1,P2", "C-001,Future,P2")
     .replace(
-      ',verified-controlled,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify",Hiếu',
+      `,verified-controlled,"archsync-benchmark/evidence/phase-2-results.json","pnpm verify; archsync-benchmark commit ${EVIDENCE_COMMIT}",Hiếu`,
       ',planned,"Not available","manual inspection",Hiếu',
     );
   const result = validateClaimEvidence(mutated, paperText);
@@ -197,8 +217,9 @@ test("runs the real claim-evidence files through the CLI entry point", async () 
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
   assert.ok(
-    output.some((message) => message.includes("9 verified-controlled, 1 verified-descriptive, 4 planned")),
+    output.some((message) => message.includes("13 verified-controlled, 1 verified-descriptive, 4 planned")),
   );
+  assert.ok(output.some((message) => message.includes("RQ-101")));
 });
 
  test("rejects promotion or loss of the external inventory evidence boundary", () => {

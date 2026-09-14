@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "proposal_id": "SLR-OPS-20260913-SOURCE-ORDER",
+  "status": "APPROVED",
+  "reviewer": "Tran Minh Hoang",
+  "github_login": "an1dee3301",
+  "approval_reference": "codex://threads/01a0917a-5ca4-7fa1-a758-44f34b72e486",
+  "approval_question_item_id": "[\"request_user_input_async\",\"call_9t8d6EQPb2jGPqdQx7w8k1IN\",0]",
+  "approval_question": "Hoàng, do you approve the source-order amendment in the opened REVIEW.md: run Semantic Scholar → IEEE → ACM while OpenAlex C1 waits, then resume C1 unchanged, retaining all exports and the original deadline without rerunning completed queries? Frozen protocol §17 requires your actual reviewer approval before this operational change.",
+  "approval_response": "Proceed",
+  "approval_effective_at_utc": "2026-09-13T12:06:36Z",
+  "approval_time_semantics": "Conservative local retention timestamp after the actual user reply; not an inferred earlier message timestamp.",
+  "amendment_appended_at_utc": "2026-09-13T12:06:36Z",
+  "proposal": {
+    "path": "official-campaign/source-order-amendment-proposal/REVIEW.md",
+    "sha256": "c24e34c26fd1e6573c621a00e3426c0e04da11912ac238bbef4553667c45a0b9"
+  },
+  "proposal_evidence": {
+    "path": "official-campaign/source-order-amendment-proposal/evidence.json",
+    "sha256": "3f98fb6c444d23ad873176eafb2f87771d1c86b8c316734a863e6c9f3adb3dea"
+  },
+  "campaign_id": "slr-20260913",
+  "campaign_started_at_utc": "2026-09-13T08:18:29Z",
+  "deadline_utc": "2026-09-20T08:18:29Z",
+  "cutoff": "2026-08-16",
+  "remaining_source_order": [
+    "Semantic Scholar",
+    "IEEE Xplore",
+    "ACM Digital Library"
+  ],
+  "openalex_c1_resume": "Unchanged at a source boundary; original canonical OQO, cursor, page size 100, terms, filters, ordering and endpoint.",
+  "rerun_required": false,
+  "rerun_decision": "No completed database query rerun solely for scheduling correction. Stop for separate decision if original window expires or substantive discrepancy appears.",
+  "affected_execution_units": [
+    "OPENALEX-C1",
+    "six Semantic Scholar jobs",
+    "six IEEE jobs",
+    "six ACM jobs"
+  ],
+  "retained_completed_exports": {
+    "OPENALEX-A1": {
+      "result_count": 729,
+      "manifest_path": "preparation/2026-09-13/source-access-handoff/official-campaign/exports/OPENALEX-A1/export-manifest.json",
+      "manifest_sha256": "76c4730b8744e771160c3b95031f8b5f340011f1181821d9b3ffb29f907f42ec"
+    },
+    "OPENALEX-A2": {
+      "result_count": 3500,
+      "manifest_path": "preparation/2026-09-13/source-access-handoff/official-campaign/exports/OPENALEX-A2/export-manifest.json",
+      "manifest_sha256": "4c35cc9a6b343c5099c74a41d54f053269550f0c02168f9906d23844988ffba0"
+    },
+    "OPENALEX-A3": {
+      "result_count": 3607,
+      "manifest_path": "preparation/2026-09-13/source-access-handoff/official-campaign/exports/OPENALEX-A3/export-manifest.json",
+      "manifest_sha256": "c5b0e6c8de9c571cd1ad494be1f7ebc142c0c9cda428a177453f73920448df6e"
+    },
+    "OPENALEX-B1": {
+      "result_count": 121,
+      "manifest_path": "preparation/2026-09-13/source-access-handoff/official-campaign/exports/OPENALEX-B1/export-manifest.json",
+      "manifest_sha256": "0df19b3cdec4a5b12ab24691006ead41066b79d49d36af97c749394474319e72"
+    },
+    "OPENALEX-C2": {
+      "result_count": 23061,
+      "manifest_path": "preparation/2026-09-13/source-access-handoff/official-campaign/exports/OPENALEX-C2/export-manifest.json",
+      "manifest_sha256": "5922848c78bd8a43ff7e3486e2f2ba9eacab4fcf7eb38073ea89b57f7411da0f"
+    }
+  },
+  "c1_prefix_inventory": {
+    "path": "official-campaign/source-order-amendment/c1-prefix-inventory.json",
+    "sha256": "a00766593b0a5f32ce56a086ad39268c8d8ec648441501c0d465af50e75188d2"
+  },
+  "all_24_complete_raw_exports_required_before_individual_inspection": true
+}

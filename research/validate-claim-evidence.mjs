@@ -4,6 +4,10 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
+export const GOVERNED_TASK_ID = "RQ-101";
+export const EVIDENCE_COMMIT =
+  "24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb";
+
 const REQUIRED_HEADERS = [
   "claim_id",
   "rq",
@@ -17,7 +21,7 @@ const REQUIRED_HEADERS = [
 ];
 
 const EXPECTED_CURRENT_IDS = Array.from(
-  { length: 9 },
+  { length: 13 },
   (_, index) => `C-${String(index + 1).padStart(3, "0")}`,
 );
 const EXPECTED_PLANNED_IDS = Array.from(
@@ -33,11 +37,15 @@ const PAPER_MARKERS = new Map([
   ["C-002", ["ArchSync matched all 20 D1 labels"]],
   ["C-003", ["all seven violations"]],
   ["C-004", ["All 11 finding-bearing D1 cases"]],
-  ["C-005", ["Overall & 18 & 4 & 2 & 16 & 20 & 0 & 0 & 20"]],
+  ["C-005", ["20 & 0 & 0 & 20", "v0.2 matched all 20 positives and rejected all 20 annotated negatives"]],
   ["C-006", ["Incremental/full-scan agreement & 20/20"]],
   ["C-007", ["Cache hit on repeated check & 20/20"]],
   ["C-008", ["parsed 57 of 189 TypeScript file instances"]],
-  ["C-009", ["518.51", "242.62"]],
+  ["C-009", ["518.51", "531.05", "242.62", "249.30", "53.2\\%"]],
+  ["C-010", ["Overall & 18 & 4 & 2 & 16", "v0.1 achieved precision 0.818, recall 0.900, F1 0.857, and specificity 0.800"]],
+  ["C-011", ["giving 42 current-version executions with no replay mismatch"]],
+  ["C-012", ["Both D2 analyzer versions were also deterministic across their duplicate runs"]],
+  ["C-013", ["Both D2 analyzer versions were also deterministic across their duplicate runs"]],
 ]);
 
 export function parseCsv(text) {
@@ -153,7 +161,7 @@ export function validateClaimEvidence(csvText, paperText) {
           `claim-evidence.csv: ${record.claim_id} must use verified-controlled status`,
         );
       }
-      if (!record.claim.startsWith("Within ") && record.claim_id !== "C-009") {
+      if (!record.claim.startsWith("Within ")) {
         issues.push(
           `claim-evidence.csv: ${record.claim_id} must state its controlled evidence boundary in the claim`,
         );
@@ -170,6 +178,11 @@ export function validateClaimEvidence(csvText, paperText) {
       if (!record.verification.includes("pnpm verify")) {
         issues.push(
           `claim-evidence.csv: ${record.claim_id} must name the executable pnpm verify gate`,
+        );
+      }
+      if (!record.verification.includes(EVIDENCE_COMMIT)) {
+        issues.push(
+          `claim-evidence.csv: ${record.claim_id} must pin benchmark commit ${EVIDENCE_COMMIT}`,
         );
       }
       for (const marker of PAPER_MARKERS.get(record.claim_id) ?? []) {
@@ -260,7 +273,7 @@ export async function main({
     return;
   }
   log(
-    `VALID CLAIM EVIDENCE (${result.verified} verified-controlled, ${result.descriptive} verified-descriptive, ${result.planned} planned, all four feasibility RQs covered)`,
+    `VALID CLAIM EVIDENCE ${GOVERNED_TASK_ID} (${result.verified} verified-controlled, ${result.descriptive} verified-descriptive, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 
