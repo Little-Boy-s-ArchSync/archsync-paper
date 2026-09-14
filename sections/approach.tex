@@ -11,7 +11,7 @@ Given a source-code repository $S$, a stack-specific analyzer $A$ constructs an 
 \begin{equation}
   G_O = A(S) = (C_O, E_O, P),
 \end{equation}
-where $C_O$ and $E_O$ are observed components and relationships, and $P$ maps each observation to source evidence. Source evidence contains a repository-relative file path, line, column, detector identifier, excerpt, and confidence value.
+where $C_O$ and $E_O$ are observed components and relationships, and $P$ maps each observation to source evidence. Source evidence contains a repository-relative file path, line, column, detector identifier, excerpt, and a fixed detector confidence annotation; the latter is not a calibrated correctness probability.
 
 ArchSync supports four deterministic rule semantics. A \emph{deny} rule rejects every matching relationship. An \emph{allow} rule constrains the outgoing relationships of selected sources to an allowed target set. A \emph{require} rule states that every matching source must have a direct edge to a matching target. A \emph{require-path} rule states that every matching source must reach a matching target through a non-empty directed path. Rules may optionally constrain the relationship type and may use wildcard component selectors.
 
@@ -37,7 +37,7 @@ The research problem is to determine whether a source analyzer can reconstruct e
 
 \textbf{RQ1: How accurately can ArchSync reconstruct software architecture components and relationships from TypeScript source code?}
 
-This question measures precision, recall, and F1 score for complete observed graphs and for nodes and edges changed by a patch. At the detector-signal level it additionally measures true negatives and specificity on annotated hard negatives.
+For the 20-patch development benchmark (D1), this question reports matched, extra, and missed graph elements and patch deltas. For the separate 40-signal corpus (D2), it reports descriptive precision, recall, F1, true negatives, and specificity against the annotated detector signals; these are controlled-corpus results, not population estimates.
 
 \textbf{RQ2: How accurately can ArchSync distinguish no-impact changes, architecture-rule violations, and architecture evolution?}
 
@@ -63,11 +63,11 @@ The validated model is converted into an expected graph with stable node identif
 
 A Guardian analyzer traverses TypeScript files under component roots and parses them through the TypeScript Compiler API. Rather than matching arbitrary text, detectors inspect syntax-tree nodes, imports, call expressions, variable initialization, environment-variable references, and URL literals. Stack-specific detectors translate these signals into typed architectural relationships.
 
-The detector set recognizes HTTP requests, PostgreSQL clients and queries, Redis clients and operations, and AMQP publishing and consumption. Version 0.2 tracks local bindings introduced by named, aliased, and namespace imports from \texttt{pg}, \texttt{redis}, and \texttt{amqplib}. PostgreSQL and Redis edges are emitted only for operations on clients derived from those bindings; AMQP edges require a channel derived from a tracked connection. This package provenance prevents unrelated objects named \texttt{query}, \texttt{get}, \texttt{publish}, or \texttt{consume} from becoming edges merely because an infrastructure package appears in the same file. Endpoint resolution uses explicit literals and deterministic environment-variable fallbacks when available. Every detected relationship carries one or more source locations. Detected components and relationships are sorted and deduplicated before serialization.
+The detector set recognizes HTTP requests, PostgreSQL clients and queries, Redis clients and operations, and AMQP publishing and consumption. Version 0.2 tracks local bindings introduced by named, aliased, and namespace imports from \texttt{pg}, \texttt{redis}, and \texttt{amqplib}. PostgreSQL and Redis edges require an operation on an identifier associated with a recognized client initializer; AMQP edges require a channel associated with a tracked connection. These associations use per-file identifier names rather than complete compiler symbol or alias resolution. This package provenance filters same-named methods on unrelated objects when their receivers lack a tracked association; it does not establish soundness under arbitrary shadowing or reassignment. Endpoint resolution uses explicit literals and deterministic environment-variable fallbacks when available. Every detected relationship carries one or more source locations. Detected components and relationships are sorted and deduplicated before serialization.
 
 \subsection{Conformance and Decision Semantics}
 
-The conformance engine first computes node and edge differences between the expected and observed graphs. It then evaluates the observed graph against the architecture rules. A rule violation takes precedence over ordinary topology evolution. This precedence prevents a forbidden new edge from being reported only as an architectural change.
+The conformance engine first computes node and edge differences between the expected and observed graphs. It then evaluates the observed graph against the architecture rules. A rule violation takes precedence over ordinary topology evolution. This is a fixed conservative policy: one rule violation determines the top-level classification even when the change also contains acceptable evolution. Both types of findings remain available for inspection. Rule severity is reported but does not alter this precedence or the blocking threshold. This avoids reducing a forbidden edge to a reviewable addition, while potentially delaying otherwise acceptable changes bundled with it; alternative severity- or context-dependent policies are not evaluated.
 
 The repository-facing decision is derived from the classification:
 \begin{itemize}
@@ -75,15 +75,15 @@ The repository-facing decision is derived from the classification:
   \item \textbf{BLOCK} for deterministic rule violations; and
   \item \textbf{REVIEW} for non-forbidden architecture evolution.
 \end{itemize}
-The REVIEW outcome is important because a new component or relationship is not necessarily incorrect. ArchSync reports the change without automatically modifying the approved architecture contract.
+The REVIEW outcome separates a request for a design decision from a detected rule breach. In the evaluated command, PASS, BLOCK, and REVIEW return exit codes 0, 1, and 3, respectively. A repository must configure its merge controls to treat the nonzero REVIEW result as requiring resolution; an annotation alone does not enforce approval. ArchSync reports the change without automatically modifying the approved architecture contract.
 
 \subsection{Diff-Scoped Living Architecture Loop}
 
 The Phase 3 gate resolves the merge base, enumerates modified, added, deleted, renamed, and untracked files, and maps changed TypeScript paths to source components. A cold check reconstructs the base Observed Graph from the committed source tree. The graph is cached inside Git metadata under a key derived from the base commit, architecture-contract hash, and analyzer version. A warm check validates and reuses that cache.
 
-For the proposed head, Guardian parses all TypeScript files in affected source components, rather than only changed lines, so relationships assembled across multiple files remain visible. Evidence and relationships owned by those components replace their baseline counterparts; unaffected components remain from the cached graph. Base and head are then evaluated with the same Core semantics, and stable finding identities determine introduced, pre-existing, and resolved findings. GitHub workflow commands annotate source locations, a Markdown artifact summarizes the graph delta, and exit codes implement the merge gate.
+For the proposed head, Guardian parses all TypeScript files in affected source components, rather than only changed lines, so independently detectable relationships elsewhere in those components are retained. This wider scan scope does not provide inter-file client or data-flow resolution. Evidence and relationships owned by those components replace their baseline counterparts; unaffected components remain from the cached graph. Base and head are then evaluated with the same Core semantics, and stable finding identities determine introduced, pre-existing, and resolved findings. GitHub workflow commands annotate source locations, a Markdown artifact summarizes the graph delta, and exit codes implement the merge gate.
 
-This mechanism makes the observed architecture dynamic but not self-authorizing. The expected model remains versioned in Git and is never rewritten by the analyzer. A REVIEW outcome can become an accepted evolution only through an explicit model change protected by architecture-owner approval; a hard-rule violation cannot be legitimized merely by changing implementation.
+This mechanism updates observations without authorizing design changes. The expected model remains versioned in Git and is never rewritten by the analyzer. The proposed governance workflow accepts evolution through an explicit model change reviewed by architecture owners. The evaluated gate does not authenticate that approval or persist accepted/rejected review decisions. If a reviewer rejects an evolution and the code and contract remain unchanged, rerunning the gate returns REVIEW again, not BLOCK. The team must reject the merge through repository controls, revise or remove the implementation change, and rerun the check. Recording the rationale and introducing a reviewed rule when the rejection expresses a lasting constraint are proposed governance actions, not automatic rejection handling implemented by this experiment.
 
 \subsection{Evidence-Rich Findings}
 

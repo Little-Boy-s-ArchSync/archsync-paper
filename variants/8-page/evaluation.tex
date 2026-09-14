@@ -1,0 +1,27 @@
+\section{Controlled Verification Methodology}
+\textbf{D1 development benchmark.} An Order Platform baseline has five components and five directed relationships. Twenty isolated patches comprise nine no-impact changes, seven violations, and four evolutions. Cases include service bypass, required-edge removal, allow and require-path rules, PostgreSQL aliases, Redis and AMQP additions, a new service, and non-architectural lookalikes. Each declares changed files, graph delta, classification, rule identifiers, and source evidence. Topology intent originated before analyzer integration, but patches and exact evidence lines were refined alongside it. D1 is a co-developed regression oracle, not a blinded holdout.
+
+\textbf{D2 detector corpus.} Five detector groups (HTTP, PostgreSQL, Redis, AMQP publish, and AMQP consume) each contain four positive and four hard-negative source lines: 40 annotated signals in total. Positives exercise aliases, namespaces, environment fallbacks, and supported operations. Negatives include unused imports, custom functions, method-name collisions, comments, and string literals. An annotation binds detector, file, line, expected edge, and source substring. D2 was authored from known v 0.1 weaknesses and guided v 0.2, so the paired result measures targeted regression behavior.
+
+\textbf{Execution and P3 replay.} D1 validates model, manifest, hashes, and patch applicability, then executes an unchanged baseline twice and each individually patched copy twice: 42 analyzer runs. D2 executes each of two pinned analyzer versions twice. P3 creates a fresh Git baseline for every D1 patch, applies it, and runs one cold and one warm diff check. A separate full-head scan provides an equivalence oracle. The same 20 patches are reused, not counted as a third independent dataset. Normalized duplicate outputs exclude timing and cache state. The functional workflow was reproduced on clean Linux and Windows CI runners; latency comes only from the recorded Windows environment.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/Fig-2.pdf}
+\caption{Controlled verification: full-graph D1 changes, D2 source signals, and incremental P3 replay. All routes use co-developed data.}
+\Description{D1 validates isolated patches; D2 checks annotated signals; P3 checks cold and warm Git-diff results against a full scan.}
+\label{fig:evaluation-protocol}
+\end{figure*}
+
+\textbf{Measures.} D1 reports matched, extra, and missed graph items, separating changed items from repeated baseline structure. Empty changed sets contribute no positive item. Classification uses all 20 cases; rule agreement uses seven violations; evidence agreement uses 11 finding-bearing cases and requires at least one matching file and line. D2 counts annotated detector signals, not unique edges, with
+\[
+P=\frac{TP}{TP+FP},\quad R=\frac{TP}{TP+FN},
+\]
+\[
+F_1=\frac{2PR}{P+R},\quad Sp=\frac{TN}{TN+FP}.
+\]
+Specificity covers only declared hard negatives. P3 checks decision, changed-file and architecture-delta equality, full-scan equivalence, replay, and expected cache miss/hit. Parsed scope is the ratio of affected-component TypeScript file instances to full-head instances. Latency medians and percentiles are descriptive; no population, significance, or comparative-performance inference is made.
+
+\textbf{Engineering gates.} The existing protocol required D1 precision/recall at least 0.85, exact decisions/rules/evidence, and deterministic replay; D2 required all annotated positives and negatives correct; P3 required exact replay/full-scan agreement and cache behavior. These are development acceptance rules, not statistical standards. The paper reports counts even where its underlying engineering gate computes rates.
+
+\textbf{External-tool feasibility run.} A separate frozen D1 inventory executes dependency-cruiser~18.3.0 alongside Guardian~0.3.3 and Core~0.1.1 on the baseline and 20 patches. Its macOS/Node~26 runtime and packages differ from the historical detector and Windows timing experiments. The comparator inventories TypeScript pre-compilation imports; subject package dependencies remain uninstalled, preserving unresolved references. No service rule is translated into a non-equivalent import rule. Inputs and configuration were frozen before execution. A patch-isolation error invalidated the first run; a corrected fresh-Git-root procedure, exact changed-file checks, and source hashes were frozen before the valid rerun. Invalid outputs remain audit-only. This is a capability check on co-developed data, not the proposed independent D3 study.

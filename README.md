@@ -7,6 +7,36 @@ Repository này phải được giữ **private** trong thời gian phản biệ
 `main` trên GitHub là source of truth. Overleaf chỉ là mirror để đọc, comment và
 kiểm tra theo milestone; quy trình đồng bộ nằm trong `CONTRIBUTING.md`.
 
+## 8-page and 12-page complete papers
+
+The branch includes **archsync-8page.tex / archsync-8page.pdf** and
+**archsync-12page.tex / archsync-12page.pdf**. Each TeX file contains the complete
+manuscript text, with 25references and the two vector figures. Reference pages
+count toward the 8/12 PDF-page totals. Both use the existing ACM sigconf/nonacm
+working format; a venue has not been selected. See
+`supplementary/conference-format-handoff.md` before adapting for submission.
+
+Edit the detailed manuscript in `sections/` and short replacements in
+`variants/8-page/`; regenerate complete files with:
+
+```sh
+node scripts/build-length-variants.mjs
+node scripts/validate-length-variants.mjs
+```
+
+Building uses Tectonic; validation requires Poppler `pdfinfo` on PATH (or the
+`PDFINFO` environment variable). The complete TeX files can also be compiled
+individually with the included class, bibliography and figure assets. Avoid
+editing generated copies without applying the same change to their source
+sections. `supplementary/length-variant-validation.json` binds checked sources
+and PDFs by hash. `supplementary/VISUAL-QA.md` records rendered inspection.
+
+The executed external inventory is under
+`research/experiments/d1-dependency-cruiser-20260915/`. It reports 42 successful
+executions but zero shared labeled comparison units; it is not independent
+accuracy evidence. The 25 citations do not expand the 23 chosen-review records.
+No publisher PDFs are redistributed here.
+
 ## Hai biến thể paper
 
 - `main.tex` là root có metadata tác giả để nhóm kiểm tra nội bộ.
@@ -31,9 +61,9 @@ kiểm tra ownership.
 │   ├── introduction.tex
 │   ├── related-work.tex
 │   ├── approach.tex             # Problem, RQ và Proposed Approach
-│   ├── architecture.tex         # System diagram (TikZ)
+│   ├── architecture.tex         # System diagram (vector PDF)
 │   ├── implementation.tex
-│   ├── evaluation.tex           # Evaluation diagram (TikZ)
+│   ├── evaluation.tex           # Evaluation diagram (vector PDF)
 │   ├── results.tex
 │   ├── discussion.tex
 │   ├── threats-to-validity.tex

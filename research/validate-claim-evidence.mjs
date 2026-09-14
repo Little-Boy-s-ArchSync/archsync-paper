@@ -28,7 +28,7 @@ const EXPECTED_PLANNED_IDS = Array.from(
 const PAPER_MARKERS = new Map([
   [
     "C-001",
-    ["Full-graph nodes & 105 & 0 & 0 & 1.000", "20 patched repositories"],
+    ["Full-graph nodes & 105 & 0 & 0", "20 patched repositories"],
   ],
   ["C-002", ["ArchSync matched all 20 D1 labels"]],
   ["C-003", ["all seven violations"]],
@@ -123,7 +123,7 @@ export function validateClaimEvidence(csvText, paperText) {
   if (new Set(ids).size !== ids.length)
     issues.push("claim-evidence.csv: claim_id values must be unique");
 
-  const expectedIds = [...EXPECTED_CURRENT_IDS, ...EXPECTED_PLANNED_IDS];
+  const expectedIds = [...EXPECTED_CURRENT_IDS, ...EXPECTED_PLANNED_IDS, "E-001"];
   for (const id of expectedIds) {
     if (!ids.includes(id)) issues.push(`claim-evidence.csv: missing ${id}`);
   }
@@ -179,6 +179,22 @@ export function validateClaimEvidence(csvText, paperText) {
           );
         }
       }
+    } else if (record.claim_id === "E-001") {
+      const expected = {
+        rq: "Feasibility",
+        phase: "External",
+        status: "verified-descriptive",
+        claim: "Pinned dependency-cruiser and Guardian completed a D1 inventory with no shared labeled accuracy units",
+        denominator_or_scope: "Baseline plus20 patched repositories;42 tool executions;54 import instances versus108 service instances across patches",
+        evidence_artifact: "research/experiments/d1-dependency-cruiser-20260915/results/summary.json",
+        verification: "node verify-results.mjs results",
+      };
+      for (const [field, value] of Object.entries(expected)) {
+        if (record[field] !== value) issues.push(`claim-evidence.csv: E-001 ${field} must retain the executed descriptive inventory boundary`);
+      }
+      for (const marker of ["shared labeled subset therefore contains zero items", "comparative precision, recall, F1, and agreement undefined", "108 service relationships cannot be scored as 108 dependency-cruiser misses"]) {
+        if (!paperText.replace(/\s+/g, " ").includes(marker)) issues.push(`main.tex: missing E-001 comparison boundary '${marker}'`);
+      }
     } else if (record.claim_id?.startsWith("P-")) {
       if (record.rq !== "Future") {
         issues.push(
@@ -217,6 +233,7 @@ export function validateClaimEvidence(csvText, paperText) {
 
   return {
     issues,
+    descriptive: records.filter(record => record.status === "verified-descriptive").length,
     verified: verifiedRecords.length,
     planned: plannedRecords.length,
   };
@@ -243,7 +260,7 @@ export async function main({
     return;
   }
   log(
-    `VALID CLAIM EVIDENCE (${result.verified} verified-controlled, ${result.planned} planned, all four feasibility RQs covered)`,
+    `VALID CLAIM EVIDENCE (${result.verified} verified-controlled, ${result.descriptive} verified-descriptive, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 

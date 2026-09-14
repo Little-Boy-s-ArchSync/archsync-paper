@@ -1,3 +1,4 @@
+import { NARRATIVE_CITATION_KEYS } from "./narrative-citation-contract.mjs";
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -194,14 +195,14 @@ export function validateReferenceQualityPolicy({
   }
 
   const bibliographyKeys = [
-    ...bibliography.matchAll(/^@\w+\{([^,]+),/gm),
+    ...bibliography.matchAll(/^\s*@\w+\{([^,]+),/gm),
   ].map((match) => match[1]);
-  if (bibliographyKeys.length !== AUDITED_CITATION_KEYS.length) {
+  if (bibliographyKeys.length !== NARRATIVE_CITATION_KEYS.length) {
     issues.push(
-      `references.bib: expected ${AUDITED_CITATION_KEYS.length} audited entries; found ${bibliographyKeys.length}`,
+      `references.bib: expected ${NARRATIVE_CITATION_KEYS.length} scoped narrative entries; found ${bibliographyKeys.length}`,
     );
   }
-  for (const key of AUDITED_CITATION_KEYS) {
+  for (const key of NARRATIVE_CITATION_KEYS) {
     if (!bibliographyKeys.includes(key)) {
       issues.push(`references.bib: missing audited citation '${key}'`);
     }

@@ -437,15 +437,15 @@ test("rejects missing paper boundary disclosures and protocol metadata", () => {
       ),
     paper: paper
       .replace(
-        "The synthesis above is a scoped narrative review, not the result of a completed systematic literature review",
+        "This section is a scoped narrative synthesis selected to establish context for ArchSync's design, not a systematic literature review",
         "The literature is complete",
       )
       .replace(
-        "The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias",
+        "Related Work is a purposively scoped narrative synthesis, with source-selection and interpretation bias",
         "There is no literature-selection risk",
       )
       .replace(
-        "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript",
+        "These are limitations of the chosen narrative method, not temporary gaps awaiting completion of another review",
         "protocol progress is published in Related Work",
       ),
   });

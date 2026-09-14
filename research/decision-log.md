@@ -534,3 +534,7 @@
 ## Narrative positioning amendment (andy-temp-branch)
 
 - Date: 2026-09-14; Status: Proposed branch amendment, pending normal review; Decision: frame Related Work as a purposive narrative synthesis with 2022–2025 emphasis and four foundational references; rationale: contextual design positioning rather than exhaustive secondary research; impact/migration: align Related Work and literature-validity limits, preserve empirical RQs and prior research records; requested by: Hoàng; reviewer: pending. This branch entry does not assert acceptance of a change to the frozen main baseline.
+
+## D-025: Prepare two length variants with bounded evaluation claims
+
+- Date: 2026-09-15; Status: Local branch revision requested by Hoàng; Decision: retain the scoped narrative synthesis, provide complete 8-page and 12-page ACM working drafts pending venue selection, report D1 as counts with inline development-set caveats, move build provenance to supplementary material, and execute a separately scoped external-tool feasibility run without promoting it to an independent holdout or unsupported accuracy comparison. Historical review queues remain audit-only.

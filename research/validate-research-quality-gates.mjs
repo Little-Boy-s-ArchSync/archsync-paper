@@ -1,3 +1,6 @@
+import { NARRATIVE_CITATION_KEYS } from "./narrative-citation-contract.mjs";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -16,7 +19,7 @@ function requireMarker(issues, file, text, marker) {
 }
 
 function bibliographyKeys(text) {
-  return [...text.matchAll(/^@\w+\{([^,]+),/gm)].map((match) => match[1]);
+  return [...text.matchAll(/^\s*@\w+\{([^,]+),/gm)].map((match) => match[1]);
 }
 
 function proseWords(text) {
@@ -41,7 +44,7 @@ export function validateResearchQualityGates(input) {
     abstract,
     relatedWork,
     architecture,
-    implementation,
+    implementationAudit,
     evaluation,
     results,
     discussion,
@@ -91,8 +94,9 @@ export function validateResearchQualityGates(input) {
   }
   for (const marker of [
     "two co-developed development datasets",
-    "does not compare ArchSync against an external tool",
-    "does not include an independently curated real-world holdout",
+    "empty shared labeled subset",
+    "no comparative accuracy estimate",
+    "lacks an independently curated real-world holdout",
     "not comparative advantage or general accuracy",
   ]) requireMarker(issues, "abstract.tex", abstract, marker);
 
@@ -100,8 +104,8 @@ export function validateResearchQualityGates(input) {
     issues.push("related-work.tex: unfinished SLR protocol must not be a Related Work subsection");
   }
   for (const marker of [
-    "scoped narrative review",
-    "research-governance artifacts outside the manuscript",
+    "scoped narrative synthesis",
+    "Selection was purposive rather than exhaustive",
     "uzun2024drift",
     "anthony2024drifting",
   ]) requireMarker(issues, "related-work.tex", relatedWork, marker);
@@ -126,17 +130,27 @@ export function validateResearchQualityGates(input) {
     "2affbbb0da859a32b9b9079b4bf718fc7b14993b",
     "8779bf7965b3bd15f25834f17ca5321c85ae3f43",
     "24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb",
-  ]) requireMarker(issues, "implementation.tex", implementation, commit);
+  ]) requireMarker(issues, "supplementary/implementation-audit.md", implementationAudit, commit);
 
   for (const marker of [
-    "The current study reports no external baseline result",
-    "within-ArchSync regression comparison",
+    "not an unbiased estimate of improvement on unseen programs",
+    "separately scoped external-tool capability inventory on D1",
     "dependency-cruiser",
-    "frozen D3 repositories",
-    "No comparative advantage will be claimed",
+    "Unsupported HTTP, database, cache, or messaging relationships are not comparator false negatives",
+    "neither completes the independent D3 protocol nor supplies independently authored ground truth",
   ]) requireMarker(issues, "evaluation.tex", evaluation, marker);
   requireMarker(issues, "results.tex", results, "\\section{Controlled Verification Results}");
-  requireMarker(issues, "results.tex", results, "co-developed development benchmark");
+  requireMarker(issues, "results.tex", results, "co-developed cases test contract agreement");
+  for (const marker of [
+    "shared labeled subset therefore contains zero items",
+    "comparative precision, recall, F1, and agreement undefined",
+    "108 service relationships cannot be scored as 108 dependency-cruiser misses",
+  ]) requireMarker(issues, "results.tex", results, marker);
+  for (const [file, prose] of [["abstract.tex", abstract], ["evaluation.tex", evaluation], ["conclusion.tex", conclusion]]) {
+    for (const stale of ["no external tool baseline was run", "does not compare ArchSync against an external tool", "The current study reports no external baseline result"]) {
+      if (prose.replace(/\s+/g, " ").includes(stale)) issues.push(`${file}: obsolete non-execution claim '${stale}'`);
+    }
+  }
   if (discussion.includes("perfect scores")) {
     issues.push("discussion.tex: must not call controlled results perfect scores");
   }
@@ -146,7 +160,7 @@ export function validateResearchQualityGates(input) {
     if (conclusion.includes(forbidden)) issues.push(`conclusion.tex: result-dump marker '${forbidden}' is prohibited`);
   }
   for (const marker of [
-    "no external tool baseline was run",
+    "executed external-tool inventory has no shared labeled units",
     "no independent real-world holdout exists",
     "Only after those gates produce auditable evidence",
   ]) requireMarker(issues, "conclusion.tex", conclusion, marker);
@@ -173,28 +187,29 @@ export function validateResearchQualityGates(input) {
     "unsupported, ambiguous, failed, and inconclusive cases",
   ]) requireMarker(issues, "EXTERNAL-BASELINE-PROTOCOL.md", baselineProtocol, marker);
 
-  const expectedKeys = [
-    "murphy1995reflexion",
-    "knodel2007comparison",
-    "terra2009dcl",
-    "ducasse2009reconstruction",
-    "li2022erosion",
-    "konersmann2022replicability",
-    "abgaz2023decomposition",
-    "kaindlstorfer2024interrogation",
-    "uzun2024drift",
-    "anthony2024drifting",
-  ];
+  const expectedKeys = NARRATIVE_CITATION_KEYS;
   const keys = bibliographyKeys(bibliography);
   if (keys.join("|") !== expectedKeys.join("|")) {
-    issues.push("references.bib: retained citation set or order does not match the governed ten-entry audit");
+    issues.push("references.bib: retained citation set or order does not match the governed 25-entry narrative scope");
   }
 
   return { issues, abstractWords: words.length, controlledClaims: controlledStatuses };
 }
 
+export async function verifyExternalInventory(repositoryDirectory) {
+  const script = join(repositoryDirectory, "research/experiments/d1-dependency-cruiser-20260915/verify-results.mjs");
+  const { stdout } = await promisify(execFile)(process.execPath, [script], { timeout: 60000 });
+  const summary = JSON.parse(stdout);
+  if (summary.verified_variants !== 21 || summary.successful_tool_executions !== 42 ||
+      summary.shared_labeled_units !== 0 || summary.comparative_metrics !== "not estimable") {
+    throw new Error("external inventory execution counts or comparison boundary disagree");
+  }
+  return summary;
+}
+
 export async function main({
   repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), ".."),
+  verifyInventory = verifyExternalInventory,
   log = console.log,
   error = console.error,
   setExitCode = (code) => { process.exitCode = code; },
@@ -210,7 +225,7 @@ export async function main({
     ["abstract", join(sections, "abstract.tex")],
     ["relatedWork", join(sections, "related-work.tex")],
     ["architecture", join(sections, "architecture.tex")],
-    ["implementation", join(sections, "implementation.tex")],
+    ["implementationAudit", join(repositoryDirectory, "supplementary/implementation-audit.md")],
     ["evaluation", join(sections, "evaluation.tex")],
     ["results", join(sections, "results.tex")],
     ["discussion", join(sections, "discussion.tex")],
@@ -222,6 +237,11 @@ export async function main({
   const values = await Promise.all(names.map(([, path]) => readFile(path, "utf8")));
   const input = Object.fromEntries(names.map(([name], index) => [name, values[index]]));
   const result = validateResearchQualityGates(input);
+  try {
+    result.externalInventory = await verifyInventory(repositoryDirectory);
+  } catch (failure) {
+    result.issues.push(`external inventory: evidence verification failed: ${failure.message}`);
+  }
   if (result.issues.length > 0) {
     error("INVALID RESEARCH QUALITY GATES");
     result.issues.forEach((issue) => error(`- ${issue}`));

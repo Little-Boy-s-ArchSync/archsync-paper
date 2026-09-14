@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "format": "ACM sigconf nonacm; working drafts, venue not selected",
+  "variants": [
+    {
+      "file": "archsync-8page",
+      "pages": 8,
+      "citations": 25,
+      "labels": 6,
+      "pdf_sha256": "9c09c6f50d4d7ea41f37ebb45e509c74218d5003fa4b3b4d8d6536a60a48a57c",
+      "source_sha256": "b26359347920ca2c0b1ad16ebf74a84be077c08add58da33d21c81c0d3ab3f2b"
+    },
+    {
+      "file": "archsync-12page",
+      "pages": 12,
+      "citations": 25,
+      "labels": 6,
+      "pdf_sha256": "1919f06e1f235153db5befdb0e42e2230b21e8109f91911d1c7fdfcfda654a06",
+      "source_sha256": "201413080522a0f490b95935b257bb8e8d9ce902b7a159500abd87f9144a6637"
+    }
+  ]
+}

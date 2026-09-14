@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+import {dirname,join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+const root=dirname(dirname(fileURLToPath(import.meta.url)));
+const pdfinfo=process.env.PDFINFO??'pdfinfo';
+const report=[];
+for(const pages of [8,12]){
+ const name=`archsync-${pages}page`;
+ const tex=await readFile(join(root,name+'.tex'),'utf8');
+ assert.match(tex,/\\documentclass\[sigconf,nonacm\]\{acmart\}/);
+ assert.doesNotMatch(tex,/\\input\{/,'Complete version must contain all manuscript text');
+ const cites=new Set([...tex.matchAll(/\\cite\{([^}]+)\}/g)].flatMap(m=>m[1].split(',')));
+ assert.equal(cites.size,25);
+ const labels=[...tex.matchAll(/\\label\{([^}]+)\}/g)].map(m=>m[1]);
+ assert.equal(new Set(labels).size,labels.length);
+ for(const m of tex.matchAll(/\\(?:ref|eqref)\{([^}]+)\}/g))assert.ok(labels.includes(m[1]),m[1]);
+ assert.match(tex,/narrative synthesis/);assert.match(tex,/shared labeled subset/);
+ assert.doesNotMatch(tex,/571189|53\.8\\%|does not compare ArchSync against an external tool/);
+ const log=await readFile(join(root,'output',name+'.log'),'utf8');
+ assert.doesNotMatch(log,/There were undefined|Citation .* undefined|Reference .* undefined/);
+ assert.doesNotMatch(log,/Overfull \\hbox/,'Text exceeds a column');
+ const info=spawnSync(pdfinfo,[join(root,name+'.pdf')],{encoding:'utf8'});
+ assert.equal(info.status,0,info.stderr||'Install Poppler or set PDFINFO');
+ const actual=Number(info.stdout.match(/Pages:\s+(\d+)/)?.[1]);assert.equal(actual,pages,`${name} page count`);
+ const bytes=await readFile(join(root,name+'.pdf'));
+ report.push({file:name,pages:actual,citations:cites.size,labels:labels.length,pdf_sha256:createHash('sha256').update(bytes).digest('hex'),source_sha256:createHash('sha256').update(tex).digest('hex')});
+}
+await writeFile(join(root,'supplementary/length-variant-validation.json'),JSON.stringify({status:'PASS',format:'ACM sigconf nonacm; working drafts, venue not selected',variants:report},null,2)+'\n');
+console.log('VALID LENGTH VARIANTS:8 and12pages;25citations each; complete sources; resolved references; no column overflow');

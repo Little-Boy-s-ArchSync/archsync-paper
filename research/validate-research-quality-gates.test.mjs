@@ -20,7 +20,7 @@ async function fixture() {
     ["abstract", join(sections, "abstract.tex")],
     ["relatedWork", join(sections, "related-work.tex")],
     ["architecture", join(sections, "architecture.tex")],
-    ["implementation", join(sections, "implementation.tex")],
+    ["implementationAudit", join(repositoryDirectory, "supplementary/implementation-audit.md")],
     ["evaluation", join(sections, "evaluation.tex")],
     ["results", join(sections, "results.tex")],
     ["discussion", join(sections, "discussion.tex")],
@@ -61,7 +61,7 @@ test("rejects unfinished SLR status inside Related Work", async () => {
 test("rejects missing repository and immutable commit links", async () => {
   const input = await fixture();
   input.architecture = input.architecture.replace("https://github.com/Little-Boy-s-ArchSync/archsync-core", "blinded");
-  input.implementation = input.implementation.replace("2affbbb0da859a32b9b9079b4bf718fc7b14993b", "short");
+  input.implementationAudit = input.implementationAudit.replaceAll("2affbbb0da859a32b9b9079b4bf718fc7b14993b", "short");
   const result = validateResearchQualityGates(input);
   hasIssue(result, "archsync-core");
   hasIssue(result, "2affbbb0");
@@ -69,8 +69,8 @@ test("rejects missing repository and immutable commit links", async () => {
 
 test("rejects presenting the internal revision as an external baseline", async () => {
   const input = await fixture();
-  input.evaluation = input.evaluation.replace("within-ArchSync regression comparison", "external baseline comparison");
-  hasIssue(validateResearchQualityGates(input), "within-ArchSync regression comparison");
+  input.evaluation = input.evaluation.replace("not an unbiased estimate of improvement on unseen programs", "an unbiased estimate of improvement on unseen programs");
+  hasIssue(validateResearchQualityGates(input), "not an unbiased estimate");
 });
 
 test("rejects an unqualified claim status and a result-dump conclusion", async () => {
@@ -85,7 +85,7 @@ test("rejects an unqualified claim status and a result-dump conclusion", async (
 test("rejects a changed governed bibliography", async () => {
   const input = await fixture();
   input.bibliography = input.bibliography.replace("anthony2024drifting", "pinto2017archci");
-  hasIssue(validateResearchQualityGates(input), "ten-entry audit");
+  hasIssue(validateResearchQualityGates(input), "25-entry narrative scope");
 });
 
 test("runs the real quality gate through its CLI entry point", async () => {
@@ -102,3 +102,22 @@ test("runs the real quality gate through its CLI entry point", async () => {
   assert.deepEqual(errors, []);
   assert.ok(output.some((message) => message.includes("VALID RESEARCH QUALITY GATES 1.0.0")));
 });
+
+ test("rejects deleting the empty common subset and undefined metric boundaries", async () => {
+  const input = await fixture();
+  input.results = input.results.replace("shared labeled subset therefore contains zero items", "shared subset has many items").replace("comparative precision, recall, F1, and agreement undefined", "comparative precision, recall, F1, and agreement excellent");
+  const result = validateResearchQualityGates(input);
+  hasIssue(result, "zero items");
+  hasIssue(result, "agreement undefined");
+ });
+ test("rejects a contradictory non-execution claim", async () => {
+  const input = await fixture();
+  input.conclusion += " no external tool baseline was run";
+  hasIssue(validateResearchQualityGates(input), "obsolete non-execution claim");
+ });
+ test("fails the gate if raw external inventory verification fails", async () => {
+  let exitCode;
+  const result = await main({repositoryDirectory, verifyInventory: async () => {throw new Error("raw output hash mismatch");}, log: () => {}, error: () => {}, setExitCode: code => {exitCode = code;}});
+  assert.equal(exitCode, 1);
+  hasIssue(result, "raw output hash mismatch");
+ });

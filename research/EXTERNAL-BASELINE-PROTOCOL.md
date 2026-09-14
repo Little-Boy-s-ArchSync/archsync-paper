@@ -9,6 +9,14 @@
 | Approval required | Hieu before any comparator output is inspected |
 | Dependency | EVAL-101 through EVAL-107 frozen D3 holdout |
 
+## Current cross-reference (2026-09-15)
+
+The separately authorized [D1 exploratory inventory](experiments/d1-dependency-cruiser-20260915/README.md)
+executed both tools on author-developed data and found an empty shared labeled
+subset. Comparative accuracy metrics remain undefined. That run does not execute
+this frozen D3 protocol or satisfy its independent-data and approval gates. The
+non-result statements below describe this D3 protocol's frozen scope.
+
 ## Goal and non-result boundary
 
 This protocol defines the minimum fair comparison between ArchSync and an

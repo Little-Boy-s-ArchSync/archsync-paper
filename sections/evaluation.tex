@@ -17,55 +17,15 @@ Figure~\ref{fig:evaluation-protocol} summarizes the executable verification prot
 
 \subsection{External-Comparison Boundary}
 
-The current study reports no external baseline result. The frozen v0.1 to v0.2 run is a within-ArchSync regression comparison on a corpus designed after observing v0.1 errors; it is not a comparison with another tool. We selected \href{https://github.com/sverweij/dependency-cruiser}{dependency-cruiser} as the first external comparator candidate because it supports configurable JavaScript and TypeScript module-dependency rules. A governed protocol requires a pinned version, unchanged configuration, frozen D3 repositories, raw tool-native output, and scoring only on the module-dependency subset both systems can represent. ArchSync-only HTTP, database, cache, and message-broker relationships cannot be counted as baseline failures. No comparative advantage will be claimed until that protocol and the independent D3 holdout have been executed.
+We executed a separately scoped external-tool capability inventory on D1, after freezing its inputs and configuration. The comparator is dependency-cruiser~18.3.0, a JavaScript/TypeScript module-dependency analyzer. It was run alongside pinned Guardian~0.3.3/Core~0.1.1 packages on the unchanged baseline and each of the 20 isolated patches, producing 42 tool executions. These packages and the macOS/Node~26 environment belong to this new inventory, not the historical D2 v0.1--v0.2 experiment or the recorded Windows latency run.
+
+The configuration enables TypeScript pre-compilation imports. Subject package dependencies are not installed, so unresolved package references remain visible in native output. No forbidden-import rule was fabricated from D1's service-relation rules: module imports and service calls have different meanings. Before tool execution, each patched copy is created in a fresh Git root, checked against the declared changed-file set, and bound by source hashes. A first run was invalidated because Git silently skipped patches inside the enclosing manuscript repository; its outputs are retained but excluded. The isolation correction and configuration were frozen before the valid rerun. Raw output, errors, package locks, input/output hashes, and a verifier accompany the paper.
+
+The common-subset criterion is semantic equivalence of a labeled relationship observable by both tools. Unsupported HTTP, database, cache, or messaging relationships are not comparator false negatives. This inventory is an exploratory capability check on author-developed D1; it neither completes the independent D3 protocol nor supplies independently authored ground truth.
 
 \begin{figure*}[t]
   \centering
-  \begin{tikzpicture}[
-    every node/.style={font=\sffamily\scriptsize},
-    stage/.style={rounded corners=3pt, align=center, inner xsep=1.8mm, inner ysep=1.7mm, minimum height=17mm},
-    data/.style={stage, draw=gray!70, fill=gray!7, text width=27mm},
-    gate/.style={stage, draw=blue!65!black, fill=blue!9, text width=25mm},
-    run/.style={stage, draw=violet!65!black, fill=violet!8, text width=27mm},
-    verify/.style={stage, draw=orange!75!black, fill=orange!13, text width=28mm},
-    output/.style={stage, draw=green!55!black, fill=green!11, text width=31mm},
-    row label/.style={font=\sffamily\scriptsize\bfseries, text=gray!70!black, anchor=east},
-    flow/.style={-{Latex[length=2.0mm]}, semithick, draw=gray!80}
-  ]
-    \node[row label] at (-1.72,2.40) {D1};
-    \node[data] (d1) at (0,2.40) {\textbf{END-TO-END}\\9-file baseline\\20 isolated patches\\expected graph + outcome};
-    \node[gate] (d1gate) at (3.35,2.40) {\textbf{INTEGRITY}\\schema + semantics\\patch applicability\\model/tree/patch hashes};
-    \node[run] (d1run) at (6.75,2.40) {\textbf{FULL SCANS}\\baseline twice\\each patched copy twice\\42 analyzer runs};
-    \node[verify] (d1verify) at (10.15,2.40) {\textbf{ORACLES}\\nodes + edges + class\\rules + file + exact line\\byte-identical replay};
-    \node[output] (d1out) at (13.85,2.40) {\textbf{D1 EVIDENCE}\\TP/FP/FN + P/R/F1\\20 class; 7 rule sets\\11 exact locations};
-
-    \node[row label] at (-1.72,0) {D2};
-    \node[data] (d2) at (0,0) {\textbf{DETECTOR CORPUS}\\5 detector groups\\20 positive signals\\20 hard negatives};
-    \node[gate] (d2gate) at (3.35,0) {\textbf{ANNOTATIONS}\\detector + edge\\file + exact line\\manifest/tree hashes};
-    \node[run] (d2run) at (6.75,0) {\textbf{PAIRED RUN}\\frozen v0.1 twice\\v0.2 twice\\4 analyzer runs};
-    \node[verify] (d2verify) at (10.15,0) {\textbf{SIGNAL ORACLE}\\TP + FP + FN + TN\\P/R/F1 + specificity\\byte-identical replay};
-    \node[output] (d2out) at (13.85,0) {\textbf{D2 EVIDENCE}\\v0.1: 18/4/2/16\\v0.2: 20/0/0/20\\artifact provenance};
-
-    \node[row label] at (-1.72,-2.40) {P3};
-    \node[data] (p3) at (0,-2.40) {\textbf{GIT-DIFF GATE}\\same 20 patches\\committed base + head diff\\expected merge decision};
-    \node[gate] (p3gate) at (3.35,-2.40) {\textbf{CHANGE SCOPE}\\changed files + hunks\\affected components\\base/model/package hashes};
-    \node[run] (p3run) at (6.75,-2.40) {\textbf{CHECKS + ORACLE}\\40 cold/warm checks\\20 full head scans\\80 analyzer calls};
-    \node[verify] (p3verify) at (10.15,-2.40) {\textbf{PR ORACLES}\\decision + changed files\\delta + full-scan match\\rules + exact evidence};
-    \node[output] (p3out) at (13.85,-2.40) {\textbf{P3 EVIDENCE}\\20 decisions + deltas\\20 full-scan matches\\57/189 files parsed};
-
-    \draw[flow] (d1.east) -- (d1gate.west);
-    \draw[flow] (d1gate.east) -- (d1run.west);
-    \draw[flow] (d1run.east) -- (d1verify.west);
-    \draw[flow] (d1verify.east) -- (d1out.west);
-    \draw[flow] (d2.east) -- (d2gate.west);
-    \draw[flow] (d2gate.east) -- (d2run.west);
-    \draw[flow] (d2run.east) -- (d2verify.west);
-    \draw[flow] (d2verify.east) -- (d2out.west);
-    \draw[flow] (p3.east) -- (p3gate.west);
-    \draw[flow] (p3gate.east) -- (p3run.west);
-    \draw[flow] (p3run.east) -- (p3verify.west);
-    \draw[flow] (p3verify.east) -- (p3out.west);
-  \end{tikzpicture}
+  \includegraphics[width=\textwidth]{figures/Fig-2.pdf}
   \caption{Controlled verification protocol. D1 measures full-repository reconstruction and classification, D2 isolates detector signals, and P3 replays D1 as cold and warm Git-diff pull-request checks. All three routes use co-developed development data.}
   \Description{The first route validates 20 isolated executable patches and compares graphs, classifications, rules, evidence, and replay. The second validates 40 detector signals with two analyzer versions. The third commits the same baseline, applies each patch as a Git diff, performs cold and warm checks plus a full head scan, and measures decisions, changed files, architecture deltas, incremental equivalence, cache behavior, scope, evidence, and latency.}
   \label{fig:evaluation-protocol}
@@ -91,7 +51,7 @@ Repeated results are compared as normalized JSON. The benchmark workflow install
 
 \subsection{Metrics}
 
-For D1 node and edge detection, true positives, false positives, and false negatives are aggregated across cases. D2 adds true negatives for explicitly annotated hard-negative signals. Precision, recall, F1, and specificity are
+D1 reports counts of matched, extra, and missed graph items, with changed items separated from repeated baseline structure. For D2 only, TP and FN count annotated positive detector signals, and TN and FP count explicitly annotated hard negatives. Its descriptive precision, recall, F1, and specificity are
 \begin{align}
   \operatorname{Precision} &= \frac{TP}{TP+FP},\\
   \operatorname{Recall} &= \frac{TP}{TP+FN},\\
@@ -99,7 +59,7 @@ For D1 node and edge detection, true positives, false positives, and false negat
   {\operatorname{Precision}+\operatorname{Recall}},\\
   \operatorname{Specificity} &= \frac{TN}{TN+FP}.
 \end{align}
-We report both complete-graph and patch-changed node and edge metrics. When both expected and predicted changed sets are empty, the case is an exact match but contributes no positive item to the aggregate TP/FP/FN counts. D2's TP, FP, FN, and TN units are annotated detector signals rather than distinct graph edges; several positive source locations may support the same edge.
+We report both complete-graph and patch-changed node and edge counts. When both expected and predicted changed sets are empty, the case is an exact match but contributes no positive item to the aggregate TP/FP/FN counts. D2's TP, FP, FN, and TN units are annotated detector signals rather than distinct graph edges; several positive source locations may support the same edge.
 
 Classification agreement is measured across all 20 cases. Rule-set agreement is measured on the seven violation cases. File and exact-line agreement are measured on the 11 finding-bearing cases; exact-line agreement means that at least one evidence item for the matched finding has the expected file and line. Determinism requires byte-identical normalized output across duplicate executions.
 

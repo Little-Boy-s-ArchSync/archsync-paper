@@ -2,18 +2,18 @@
 \section{Controlled Verification Results}
 
 \begin{table*}[t]
-  \caption{D1 aggregate node and edge detection on 20 isolated executable patches in the co-developed development benchmark.}
+  \caption{D1 counts on 20 co-developed patches. The five changed nodes and 12 changed edges are regression items, not independent samples of general accuracy; full-graph counts repeat baseline structure.}
   \label{tab:detection-results}
   \centering
   \small
-  \begin{tabular}{lrrrrrr}
+  \begin{tabular}{lrrr}
     \hline
-    Measure & TP & FP & FN & Precision & Recall & F1 \\
+    Measure & Matched & Extra & Missed \\
     \hline
-    Full-graph nodes & 105 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-    Full-graph edges & 108 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-    Changed nodes & 5 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-    Changed edges & 12 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+    Full-graph nodes & 105 & 0 & 0 \\
+    Full-graph edges & 108 & 0 & 0 \\
+    Changed nodes & 5 & 0 & 0 \\
+    Changed edges & 12 & 0 & 0 \\
     \hline
   \end{tabular}
 \end{table*}
@@ -83,9 +83,9 @@
 \end{table*}
 
 \textbf{RQ1: graph reconstruction and detector signals.}
-The unchanged repository was reconstructed as five components and five relationships with a no-impact classification. Table~\ref{tab:detection-results} reports no false positive or false negative in D1. Full-graph totals aggregate 105 expected nodes and 108 expected edges across 20 patched repositories. Changed-graph denominators are smaller but doubled relative to the initial benchmark: five node changes and 12 edge changes.
+The unchanged repository was reconstructed as five components and five relationships with a no-impact classification. Table~\ref{tab:detection-results} reports no false positive or false negative in D1. Full-graph totals aggregate 105 expected nodes and 108 expected edges across 20 patched repositories. Only five node changes and 12 edge changes contribute positive changed-graph items. These finite, co-developed cases test contract agreement; they do not estimate performance on unseen projects.
 
-Table~\ref{tab:pattern-results} gives the signal-level regression result. On D2, v0.1 achieved precision 0.818182, recall 0.900000, F1 0.857143, and specificity 0.800000. Its four false positives were a PostgreSQL-shaped local query, two AMQP-publish lookalikes, and an AMQP-consume lookalike; its two false negatives were Redis \texttt{hSet} and \texttt{lPush}. On the same annotated signals, v0.2 achieved 1.000000 for all four metrics. Package-provenance tracking removed the four method-name false positives, while the expanded Redis operation set recovered the two missed positives. Because D2 was constructed from known v0.1 weaknesses, this is targeted regression evidence and not an estimate over arbitrary TypeScript syntax or an external baseline comparison.
+Table~\ref{tab:pattern-results} gives the signal-level regression result. On D2, v0.1 achieved precision 0.818, recall 0.900, F1 0.857, and specificity 0.800. Its four false positives were a PostgreSQL-shaped local query, two AMQP-publish lookalikes, and an AMQP-consume lookalike; its two false negatives were Redis \texttt{hSet} and \texttt{lPush}. On the same annotated signals, v0.2 matched all 20 positives and rejected all 20 annotated negatives (precision, recall, F1, and specificity each 1.000 on this corpus). Package-provenance tracking removed the four method-name false positives, while the expanded Redis operation set recovered the two missed positives. Because D2 was constructed from known v0.1 weaknesses, this is targeted regression evidence and not an estimate over arbitrary TypeScript syntax or an external baseline comparison.
 
 \textbf{RQ2: change classification.}
 ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evolution cases. It also matched the complete expected rule-identifier set for all seven violations. The added allow and require-path cases exercise rule semantics beyond direct deny and require checks. Redis, AMQP, Fraud Service, and payment-cache additions were classified as evolution rather than violation, preserving a human-review path.
@@ -96,4 +96,9 @@ All 11 finding-bearing D1 cases contained the expected file and at least one evi
 \textbf{RQ4: determinism and reproducibility.}
 The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 produced identical normalized cold and warm results for 20/20 cases, matched all 20 declared architecture deltas, matched a separate full head scan in all 20 cases, and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm median latency was 242.62 ms compared with 518.51 ms cold, a descriptive 53.2\% reduction; warm p95 was 249.30 ms compared with 531.05 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
 
-The D1 artifact records model SHA-256 \texttt{4987b08851c2}, baseline-tree SHA-256 \texttt{4f4d40456824}, patch-set SHA-256 \texttt{4d2fbe2d0dcb}, and result SHA-256 \texttt{11c4e34e1305}. Runtime-package SHA-256 values are \texttt{015c9bbb0cf4} for Core and \texttt{d7b1a431c2a5} for Guardian v0.3. P3 records normalized-result SHA-256 \texttt{9dfede4e4274}. D2 separately records manifest SHA-256 \texttt{cf87bd2d9f6e}, source-tree SHA-256 \texttt{8437870e87a0}, and v0.2 result SHA-256 \texttt{d9f41f722925}; its v0.1 result hash is \texttt{01e56ed04d63}.
+\textbf{External-tool capability inventory.}
+All 42 executions completed and all 20 patched copies matched their declared changed-file sets. Across the 20 patches (189 source-file instances), dependency-cruiser reported 54 import-dependency instances: 50 unresolved package references and four resolved local imports. Guardian reported 108 service-relationship instances. The unchanged baseline produced two imports and five service relationships. Counts include repeated structure across snapshots; they are not unique edges or interchangeable units.
+
+D1 contains no labeled module-import relationship that both tools expose as an architecture edge. The shared labeled subset therefore contains zero items, making comparative precision, recall, F1, and agreement undefined. This result establishes a concrete obstacle to the proposed comparator choice, not comparative success or failure. In particular, the 108 service relationships cannot be scored as 108 dependency-cruiser misses. An external tool was executed, but the central independent-accuracy limitation remains.
+
+Input and output digests, runtime versions, and replay commands are retained in the supplementary artifact audit. They establish which experiment was executed, not independent validity of its labels.

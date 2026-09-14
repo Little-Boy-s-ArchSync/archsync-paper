@@ -23,6 +23,7 @@ test("accepts the governed paper claim ledger", () => {
   const result = validateClaimEvidence(csvText, paperText);
   assert.deepEqual(result.issues, []);
   assert.equal(result.verified, 9);
+  assert.equal(result.descriptive, 1);
   assert.equal(result.planned, 4);
 });
 
@@ -196,6 +197,23 @@ test("runs the real claim-evidence files through the CLI entry point", async () 
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
   assert.ok(
-    output.some((message) => message.includes("9 verified-controlled, 4 planned")),
+    output.some((message) => message.includes("9 verified-controlled, 1 verified-descriptive, 4 planned")),
   );
 });
+
+ test("rejects promotion or loss of the external inventory evidence boundary", () => {
+  for (const [before, after] of [
+    ["verified-descriptive", "verified-controlled"],
+    ["no shared labeled accuracy units", "perfect comparative accuracy"],
+    ["42 tool executions", "40 tool executions"],
+    ["node verify-results.mjs results", "manual review"],
+    ["research/experiments/d1-dependency-cruiser-20260915/results/summary.json", "Not available"],
+  ]) {
+    const result = validateClaimEvidence(csvText.replace(before, after), paperText);
+    assert.ok(result.issues.some(issue => issue.includes("E-001")), before);
+  }
+ });
+ test("rejects E-001 with comparative metrics claimed on the empty subset", () => {
+  const result = validateClaimEvidence(csvText, paperText.replace("comparative precision, recall, F1, and agreement undefined", "comparative precision, recall, F1, and agreement perfect"));
+  assert.ok(result.issues.some(issue => issue.includes("E-001 comparison boundary")));
+ });
