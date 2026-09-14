@@ -50,7 +50,25 @@ async function fixture(t) {
   for (const [path, bytes] of source.sentinelEvidenceArtifacts) await write(path, bytes);
   await write("research/phase-gate-register.csv", "gate_id,phase,decision,decision_date,owner,evidence,open_blocker,next_action\nPG-OLD,P0,HOLD,2026-09-11,Hiếu,pending,review,wait\n");
   await write("research/MEETING-CADENCE.md", "# Historical weekly decision\n2026-09-11: HOLD; freeze pending.\n");
-  for (const path of ["research/EXTERNAL-BASELINE-PROTOCOL.md", "research/statistical-analysis-plan.md", "research/validate-research-quality-gates.mjs"]) await write(path, await readFile(join(root, path)));
+  for (const path of ["research/EXTERNAL-BASELINE-PROTOCOL.md", "research/statistical-analysis-plan.md", "research/validate-research-quality-gates.mjs"]) {
+    let bytes = await readFile(join(root, path), "utf8");
+    // PR32 is immutable historical evidence. Later versioned amendments may
+    // legitimately change the same metadata markers, so reconstruct only the
+    // exact post-PR32 hunk bytes in this synthetic repository before replaying
+    // the retained public patch. The patch and its pinned digest stay unchanged.
+    if (path === "research/EXTERNAL-BASELINE-PROTOCOL.md") {
+      bytes = bytes
+        .replace("| Protocol version | 0.2.0 |", "| Protocol version | 0.1.1 |")
+        .replace(
+          /^Revision 0\.2\.0 \([^\n]+$/m,
+          "Revision 0.1.1 (2026-09-12) synchronizes the operational task owner with the current main plan. Comparator selection, D3 freeze and Hiếu's required approval retain their existing gates. The protocol remains proposed and unexecuted.",
+        );
+    }
+    if (path === "research/validate-research-quality-gates.mjs") {
+      bytes = bytes.replace('"| Protocol version | 0.2.0 |"', '"| Protocol version | 0.1.1 |"');
+    }
+    await write(path, bytes);
+  }
   const keys = generateKeyPairSync("ed25519");
   const publicKeyBytes = Buffer.from(keys.publicKey.export({ format: "pem", type: "spki" }));
   await write(SIGNED_REVIEW_PATHS.publicKey, publicKeyBytes);
