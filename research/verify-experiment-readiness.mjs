@@ -356,8 +356,41 @@ export async function verifyExperimentReadiness(value, {
   return { ready: issues.length === 0, status: issues.length === 0 ? "READY" : "BLOCKED", payload_sha256: freezePayloadSha256(value), issues };
 }
 
+function parseJsonWithoutDuplicateKeys(text) {
+  // Track object keys before whole-document parsing can discard earlier values.
+  // Strings are scanned as units; JSON.parse still validates all JSON syntax.
+  const containers = [];
+  for (let offset = 0; offset < text.length; offset += 1) {
+    const token = text[offset];
+    const container = containers.at(-1);
+    if (token === '"') {
+      const start = offset;
+      for (offset += 1; offset < text.length; offset += 1) {
+        if (text[offset] === "\\") offset += 1;
+        else if (text[offset] === '"') break;
+      }
+      if (offset >= text.length) throw new SyntaxError("Unterminated JSON string");
+      if (container?.expectKey) {
+        const key = JSON.parse(text.slice(start, offset + 1));
+        if (container.keys.has(key)) throw new SyntaxError(`duplicate JSON key ${JSON.stringify(key)} at offset ${start}`);
+        container.keys.add(key);
+        container.expectKey = false;
+      }
+    } else if (token === "{") {
+      containers.push({ keys: new Set(), expectKey: true });
+    } else if (token === "[") {
+      containers.push(null);
+    } else if (token === "}" || token === "]") {
+      containers.pop();
+    } else if (token === "," && container) {
+      container.expectKey = true;
+    }
+  }
+  return JSON.parse(text);
+}
+
 export async function assertTemplate(root) {
-  const actual = JSON.parse(await readFile(join(root, "research", TEMPLATE_FILE), "utf8"));
+  const actual = parseJsonWithoutDuplicateKeys(await readFile(join(root, "research", TEMPLATE_FILE), "utf8"));
   if (actual.status !== "not-frozen" || actual.official_runs_authorized !== false || actual.approvals.length !== 0 || actual.results.length !== 0) {
     throw new Error("experiment freeze template must remain unapproved, not frozen and result-free");
   }

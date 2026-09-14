@@ -176,6 +176,17 @@ async function withFixture(callback) {
   }
 }
 
+async function checkTemplateText(text) {
+  const root = await mkdtemp(join(tmpdir(), "archsync-experiment-template-"));
+  try {
+    await mkdir(join(root, "research"));
+    await writeFile(join(root, "research", "experiment-freeze-manifest.template.json"), text, "utf8");
+    return await assertTemplate(root);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+}
+
 test("repository template is valid and permanently fail closed", async () => {
   const value = await assertTemplate(repositoryRoot);
   assert.equal(value.official_runs_authorized, false);
@@ -402,6 +413,56 @@ test("template assertion rejects a template that appears authorized", async () =
     await assert.rejects(() => assertTemplate(root), /must remain unapproved/u);
   } finally {
     await rm(root, { recursive: true, force: true });
+  }
+});
+
+for (const [key, hiddenValue, retainedValue] of [
+  ["status", '"frozen-authorized"', '"not-frozen"'],
+  ["official_runs_authorized", "true", "false"],
+  ["approvals", '[{"decision":"approve"}]', "[]"],
+  ["results", '[{"claimed":"result"}]', "[]"],
+]) {
+  test(`template rejects a hidden ${key} value followed by its safe duplicate`, async () => {
+    const original = await readFile(templatePath, "utf8");
+    const member = `"${key}": ${retainedValue}`;
+    const raw = original.replace(member, `"${key}": ${hiddenValue},\n  ${member}`);
+    assert.notEqual(raw, original);
+    assert.deepEqual(JSON.parse(raw), JSON.parse(original), "ordinary parsing hides the earlier value");
+    await assert.rejects(() => checkTemplateText(raw), /duplicate JSON key/u);
+  });
+}
+
+for (const [name, member, replacement] of [
+  ["nested object", '"status": "not-run"', '"status": "ready", "status": "not-run"'],
+  ["object within an array", '"status": "unapproved"', '"status": "approved-frozen", "status": "unapproved"'],
+  ["escaped first key", '"status": "not-frozen"', String.raw`"sta\u0074us": "frozen-authorized", "status": "not-frozen"`],
+  ["escaped second key", '"status": "not-frozen"', String.raw`"status": "frozen-authorized", "\u0073tatus": "not-frozen"`],
+  ["nested escaped key", '"status": "not-run"', String.raw`"status": "ready", "sta\u0074us": "not-run"`],
+]) {
+  test(`template rejects duplicate keys in a ${name}`, async () => {
+    const original = await readFile(templatePath, "utf8");
+    const raw = original.replace(member, replacement);
+    assert.notEqual(raw, original);
+    assert.deepEqual(JSON.parse(raw), JSON.parse(original), "decoded duplicate keys hide the earlier value");
+    await assert.rejects(() => checkTemplateText(raw), /duplicate JSON key "status"/u);
+  });
+}
+
+test("template permits repeated names in separate objects and JSON punctuation inside strings", async () => {
+  const value = JSON.parse(await readFile(templatePath, "utf8"));
+  value.data_management.deletion_procedure = String.raw`Keep }, [ : , "status": "frozen-authorized" and \\ paths literal.`;
+  const raw = JSON.stringify(value);
+  assert.deepEqual(await checkTemplateText(raw), value);
+});
+
+test("template still rejects invalid JSON syntax", async () => {
+  const original = await readFile(templatePath, "utf8");
+  for (const raw of [
+    original.replace(/\}\s*$/u, ",}"),
+    original.replace('"not-frozen"', String.raw`"not\qfrozen"`),
+    `${original}\n{"another":"document"}`,
+  ]) {
+    await assert.rejects(() => checkTemplateText(raw), SyntaxError);
   }
 });
 
