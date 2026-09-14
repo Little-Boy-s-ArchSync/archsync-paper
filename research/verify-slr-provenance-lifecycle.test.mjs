@@ -148,6 +148,28 @@ test("actual main push, dispatch and GitHub PR test-merge checkout contexts", as
   invalid(await f.verify(), /frozen method\/evidence changed/);
 });
 
+test("approved phase correction survives an exact GitHub PR test merge", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  const original = await readFile(join(f.directory, path), "utf8");
+  const addition = `\n2026-09-13: correction to pending-freeze statement; HOLD retained. https://github.com/${repo}/pull/26\n`;
+  await f.write(path, original + addition);
+  const phaseHead = f.commit("Phase correction on current PR");
+  f.currentPull.base.sha = f.merged;
+  f.currentPull.head.sha = phaseHead;
+  f.environment.SLR_CURRENT_COMMIT = phaseHead;
+  f.run("checkout", "--detach", f.merged);
+  f.run("merge", "--no-ff", "follow-up", "-m", "Synthetic GitHub test merge with phase correction");
+  const testMerge = f.run("rev-parse", "HEAD");
+  f.currentPull.merge_commit_sha = testMerge;
+  assert.deepEqual((await f.verify()).issues, []);
+
+  await f.write(path, original + addition + "Unreviewed merge resolution.\n");
+  const altered = f.commit("Unreviewed test-merge phase resolution");
+  f.currentPull.merge_commit_sha = altered;
+  invalid(await f.verify(), /requires Hiếu's exact-head approval/);
+});
+
 test("a separately reviewed exact SLR-103 codebook lock may be appended without changing frozen rules", async (t) => {
   const f = await fixture(t);
   for (const path of LOCK_PATHS) await f.write(path, await readFile(join(root, path)));

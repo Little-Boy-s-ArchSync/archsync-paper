@@ -114,6 +114,15 @@ async function artifactsAt(git, commit) {
     [`${key}Bytes`, await git.read(commit, path)])));
 }
 
+async function coversCurrentPullTestMerge(git, commit, current, currentPull) {
+  if (!currentPull || commit !== current || commit !== currentPull.merge_commit_sha ||
+      !sha(currentPull.head?.sha) || !sha(currentPull.merge_commit_sha)) return false;
+  if (!await git.ancestor(currentPull.head.sha, current)) return false;
+  const approvedTree = await git.tree(currentPull.head.sha);
+  const testMergeTree = await git.tree(commit);
+  return PHASE_PATHS.every((path) => approvedTree.get(path) === testMergeTree.get(path));
+}
+
 async function allPages(requestJson, path) {
   const rows = [];
   for (let page = 1; ; page += 1) {
@@ -194,6 +203,8 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
       if (pull.base?.repo?.full_name !== REPOSITORY || pull.base.ref !== "main" ||
           (!pull.merged && pull.number !== currentPull?.number)) continue;
       let coversCommit = await git.ancestor(commit, pull.head.sha);
+      if (!coversCommit && pull.number === currentPull?.number &&
+          await coversCurrentPullTestMerge(git, commit, current, currentPull)) coversCommit = true;
       if (!coversCommit && pull.merged && sha(pull.merge_commit_sha) &&
           await git.ancestor(commit, pull.merge_commit_sha) && await git.ancestor(pull.merge_commit_sha, current)) {
         const acceptedTree = await git.tree(pull.merge_commit_sha);
