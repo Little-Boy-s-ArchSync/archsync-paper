@@ -1,0 +1,11 @@
+{
+  "status": "INDEPENDENT_RECORD_INTEGRITY_PASS",
+  "records": 35540,
+  "origin_occurrences": 42099,
+  "duplicate_occurrences": 6559,
+  "records_with_abstract": 33039,
+  "unique_nonmissing_dois": 25116,
+  "every_record_hash_verified": true,
+  "human_verification": "NOT_ASSERTED",
+  "screening_performed": false
+}

@@ -148,6 +148,61 @@ test("actual main push, dispatch and GitHub PR test-merge checkout contexts", as
   invalid(await f.verify(), /frozen method\/evidence changed/);
 });
 
+test("regenerated GitHub test merge accepts only the same full tree and exact current parents", async (t) => {
+  const f = await fixture(t);
+  const tree = f.run("rev-parse", `${f.current}^{tree}`);
+  const merge = (parents, message, contentTree = tree) => f.run("commit-tree", contentTree,
+    ...parents.flatMap((parent) => ["-p", parent]), "-m", message);
+  const parents = [f.merged, f.current];
+  const eventMerge = merge(parents, "Original event merge");
+  const latestMerge = merge(parents, "Regenerated API merge");
+  assert.notEqual(eventMerge, latestMerge);
+  f.currentPull.merge_commit_sha = latestMerge;
+  f.run("checkout", "--detach", eventMerge);
+  assert.deepEqual((await f.verify()).issues, []);
+
+  for (const badParents of [[f.reviewed, f.current], [f.merged, f.freeze],
+    [f.current, f.merged], [f.current], [f.merged, f.current, f.reviewed]]) {
+    f.run("checkout", "--detach", merge(badParents, "Wrong checkout parents"));
+    invalid(await f.verify(), /checkout is neither/);
+  }
+  f.run("checkout", "--detach", eventMerge);
+  f.currentPull.merge_commit_sha = merge([f.reviewed, f.current], "Wrong API merge parents");
+  invalid(await f.verify(), /checkout is neither/);
+  f.currentPull.merge_commit_sha = latestMerge;
+  await f.write("README.md", "Changed unprotected bytes still invalidate merge equivalence\n");
+  f.run("add", "README.md");
+  const changedTree = f.run("write-tree");
+  f.run("checkout", "--detach", "--force", merge(parents, "Wrong checkout tree", changedTree));
+  invalid(await f.verify(), /checkout is neither/);
+  f.run("checkout", "--detach", eventMerge);
+  f.currentPull.merge_commit_sha = merge(parents, "Wrong API merge tree", changedTree);
+  invalid(await f.verify(), /checkout is neither/);
+  f.currentPull.merge_commit_sha = latestMerge;
+  f.environment.SLR_CURRENT_COMMIT = f.freeze;
+  invalid(await f.verify(), /current event does not identify/);
+});
+
+test("regenerated merge preserves exact-head approval and phase-owner review gates", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  await f.write(path, await readFile(join(f.directory, path), "utf8") +
+    `\n2026-09-13: correction; HOLD retained. https://github.com/${repo}/pull/26\n`);
+  const head = f.commit("Owner-reviewed phase correction");
+  f.currentPull.head.sha = head; f.environment.SLR_CURRENT_COMMIT = head;
+  const tree = f.run("rev-parse", `${head}^{tree}`);
+  const merge = (message) => f.run("commit-tree", tree, "-p", f.merged, "-p", head, "-m", message);
+  const eventMerge = merge("Original phase event merge");
+  f.currentPull.merge_commit_sha = merge("Regenerated phase API merge");
+  f.run("checkout", "--detach", eventMerge);
+  assert.deepEqual((await f.verify()).issues, []);
+  const requestJson = async (path) => path.includes("/pulls/32/reviews?") ? [] : f.requestJson(path);
+  invalid(await f.verify({ requestJson }), /accepted exact-head GitHub approval/);
+  const ordinaryReview = async (path) => path.includes("/pulls/32/reviews?") ?
+    [f.approval(head)] : f.requestJson(path);
+  invalid(await f.verify({ requestJson: ordinaryReview }), /requires Hiếu's exact-head approval/);
+});
+
 test("approved phase correction survives an exact GitHub PR test merge", async (t) => {
   const f = await fixture(t);
   const path = "research/MEETING-CADENCE.md";

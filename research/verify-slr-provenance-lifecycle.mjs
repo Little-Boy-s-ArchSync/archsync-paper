@@ -45,6 +45,12 @@ export function gitEvidence(directory, { fetchMissing = false, execGit = exec } 
   };
   return {
     head: async () => (await run(["rev-parse", "HEAD"])).toString().trim(),
+    identity: async (commit) => {
+      await ensure(commit);
+      const headers = (await run(["cat-file", "commit", commit])).toString().split("\n\n", 1)[0].split("\n");
+      return { tree: headers.find((line) => line.startsWith("tree "))?.slice(5),
+        parents: headers.filter((line) => line.startsWith("parent ")).map((line) => line.slice(7)) };
+    },
     tree: async (commit) => {
       await ensure(commit);
       const result = new Map();
@@ -114,9 +120,22 @@ async function artifactsAt(git, commit) {
     [`${key}Bytes`, await git.read(commit, path)])));
 }
 
+async function isCurrentPullTestMerge(git, commit, pull) {
+  if (!sha(commit) || !sha(pull?.merge_commit_sha)) return false;
+  if (commit === pull.merge_commit_sha) return true;
+  if (!sha(pull.base?.sha) || !sha(pull.head?.sha)) return false;
+  // GitHub may regenerate a test merge while a rerun retains its event checkout.
+  // Only identical complete trees with the exact ordered current base/head
+  // parents qualify; neither stale parents nor merge-resolution changes do.
+  const [checkout, latest] = await Promise.all([git.identity(commit), git.identity(pull.merge_commit_sha)]);
+  const exactParents = ({ parents }) => parents.length === 2 &&
+    parents[0] === pull.base.sha && parents[1] === pull.head.sha;
+  return exactParents(checkout) && exactParents(latest) && sha(checkout.tree) && checkout.tree === latest.tree;
+}
+
 async function coversCurrentPullTestMerge(git, commit, current, currentPull) {
-  if (!currentPull || commit !== current || commit !== currentPull.merge_commit_sha ||
-      !sha(currentPull.head?.sha) || !sha(currentPull.merge_commit_sha)) return false;
+  if (!currentPull || commit !== current || !sha(currentPull.head?.sha) ||
+      !await isCurrentPullTestMerge(git, commit, currentPull)) return false;
   if (!await git.ancestor(currentPull.head.sha, current)) return false;
   const approvedTree = await git.tree(currentPull.head.sha);
   const testMergeTree = await git.tree(commit);
@@ -235,7 +254,7 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
         currentPull.state === "open" && currentPull.base?.repo?.full_name === REPOSITORY && currentPull.base.ref === "main",
       "current event does not identify an open PR to repository main");
       base = currentPull.base.sha;
-      requireThat(checkedOut === current || checkedOut === currentPull.merge_commit_sha,
+      requireThat(checkedOut === current || await isCurrentPullTestMerge(git, checkedOut, currentPull),
         "checkout is neither the PR head nor its GitHub test merge");
     } else {
       requireThat(["push", "workflow_dispatch"].includes(event) && environment.GITHUB_REF === "refs/heads/main",
