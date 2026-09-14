@@ -24,8 +24,8 @@ the accepted study set exists.
 | Input | Exact object |
 | --- | --- |
 | Protected paper base | `e2e837118e0414ed09603dc0ac48bdad1fdf35d5` |
-| Unmerged paper candidate | PR #42 at `35f5e3a7951e57eb5c88724610f37c96f247182d` |
-| Successful candidate CI | push run `34781803050` |
+| Unmerged paper candidate | PR #42 at `5756c62a6b87409910a2f26d5cb8d7fcefdb07f2` |
+| Successful candidate CI | push run `34794325217` |
 | Original benchmark evidence | `archsync-benchmark` commit `24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb` |
 | Phase 2 evidence | `evidence/phase-2-results.json`, SHA-256 `359d1317d80cd162cccad9e0811af1aaa2ab3e299e14771e292da3f0159c5503` |
 | Phase 3 evidence | `evidence/phase-3-results.json`, SHA-256 `c334f67dd5ec005f500bdb4973d8d14be5fae1564d6e080f984a3b7d90b0a754` |
@@ -107,8 +107,8 @@ one exact uploaded PDF rather than cite only the source commit.
 
 | Build | Named PDF SHA-256 | Anonymous PDF SHA-256 |
 | --- | --- | --- |
-| Hosted build artifact `10324844377` | `fd1718236d0046a0a6873c180c08f769ab9d8dfb5d9cd8036897198c2a100d31` | `7fb3170a140417c65d7de24c2b2cc8f99568f1d21c1cd4872d6c1c3580145b93` |
-| Hosted devcontainer artifact `10325268621` | `7734cd2c2701ee1822b56e3b99b7f556872f8ae20a6ff46f1eaa205d084d3e83` | `cf2bb83685a92b96e7726404a1588a6f082fbf274e8faf45946a8a7237f3b0d5` |
+| Hosted build artifact `10328957587` | `93da08cb1efa70f3a98c1b231a5773ebc29667a25b4d20b26ba1e5450d4811f8` | `4adca5397a50f54c21d0e37b33c191444d2455359670d3ecd73de2f874fc7836` |
+| Hosted devcontainer artifact `10328947683` | `39f3d8b94995a2be0be291ca081ea9f92f874b9c6a723ee2eaaa263b43557a70` | `12ef5dc6df089478fbcfab625531e8f9045e717ba87cc12cdece71212b50711a` |
 
 The anonymous hosted PDF metadata has blank author, title, subject, and keyword
 fields. Automated redaction passed. This is technical evidence for the
@@ -131,4 +131,3 @@ SLR-107's final Related Work rewrite, venue selection, author consent, license
 choice, artifact release, and final anonymity approval are separate closure
 gates. They must not be used to describe the historical 53.2% correction as
 unfinished.
-

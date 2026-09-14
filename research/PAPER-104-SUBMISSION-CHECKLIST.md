@@ -36,7 +36,7 @@ Official source checked on 2026-09-14:
 | Abstract deadline | 2026-10-30 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Paper deadline | 2026-11-04 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Page limit | At most 10 pages of main text plus at most 2 pages of references. | VERIFIED FOR CANDIDATE |
-| Current page usage | Unmerged PR #42 at `35f5e3a7951e57eb5c88724610f37c96f247182d` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured candidate fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | UNMERGED FIX VERIFIED |
+| Current page usage | Unmerged PR #42 at `5756c62a6b87409910a2f26d5cb8d7fcefdb07f2` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured candidate fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | UNMERGED FIX VERIFIED |
 | Review model | Technical research papers use double-anonymous review. | VERIFIED FOR CANDIDATE |
 | Anonymous artifact draft | The official call expects an anonymized artifact draft or an explanation for its absence. | PENDING |
 | IEEE template | Repository uses generic `IEEEtran` conference format. The exact venue template/version has not been verified and adopted. | PENDING |
@@ -56,10 +56,10 @@ PR #42 is not merged and SLR-107 will later change the paper.
 | Item | Value |
 | --- | --- |
 | Protected base | `e2e837118e0414ed09603dc0ac48bdad1fdf35d5` |
-| PR #42 source | `35f5e3a7951e57eb5c88724610f37c96f247182d`, OPEN and unmerged |
-| Successful hosted run | `34781803050` |
-| Hosted build PDFs | named SHA-256 `fd1718236d0046a0a6873c180c08f769ab9d8dfb5d9cd8036897198c2a100d31`; anonymous SHA-256 `7fb3170a140417c65d7de24c2b2cc8f99568f1d21c1cd4872d6c1c3580145b93` |
-| Hosted devcontainer PDFs | named SHA-256 `7734cd2c2701ee1822b56e3b99b7f556872f8ae20a6ff46f1eaa205d084d3e83`; anonymous SHA-256 `cf2bb83685a92b96e7726404a1588a6f082fbf274e8faf45946a8a7237f3b0d5` |
+| PR #42 source | `5756c62a6b87409910a2f26d5cb8d7fcefdb07f2`, OPEN and unmerged |
+| Successful hosted run | `34794325217` |
+| Hosted build PDFs | named SHA-256 `93da08cb1efa70f3a98c1b231a5773ebc29667a25b4d20b26ba1e5450d4811f8`; anonymous SHA-256 `4adca5397a50f54c21d0e37b33c191444d2455359670d3ecd73de2f874fc7836` |
+| Hosted devcontainer PDFs | named SHA-256 `39f3d8b94995a2be0be291ca081ea9f92f874b9c6a723ee2eaaa263b43557a70`; anonymous SHA-256 `12ef5dc6df089478fbcfab625531e8f9045e717ba87cc12cdece71212b50711a` |
 | Cross-build comparison | Anonymous extracted text is identical; both builds use 10 main-text pages and 1 reference page. Raw PDF hashes differ because creation timestamps differ. |
 | Anonymous metadata and marker scan | Author, title, subject and keywords are blank; hosted PDF redaction check passed. |
 
