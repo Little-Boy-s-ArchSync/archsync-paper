@@ -31,6 +31,9 @@ jobs:
       - name: Verify paper section structure
         run: node scripts/validate-paper-structure.mjs
 
+      - name: Test PDF page-budget verifier
+        run: node --test scripts/pdf-page-budget.test.mjs
+
       - name: Verify anonymous submission settings
         shell: bash
         run: |
