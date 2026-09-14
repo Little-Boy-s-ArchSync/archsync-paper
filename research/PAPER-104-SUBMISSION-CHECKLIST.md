@@ -36,7 +36,7 @@ Official source checked on 2026-09-14:
 | Abstract deadline | 2026-10-30 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Paper deadline | 2026-11-04 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Page limit | At most 10 pages of main text plus at most 2 pages of references. | VERIFIED FOR CANDIDATE |
-| Current page usage | Unmerged PR #42 at `5756c62a6b87409910a2f26d5cb8d7fcefdb07f2` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured candidate fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | UNMERGED FIX VERIFIED |
+| Current page usage | Protected `main` at `c759911ba0892c81dcaecf23593cbad188f771fd` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured build fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | PROTECTED MAIN VERIFIED |
 | Review model | Technical research papers use double-anonymous review. | VERIFIED FOR CANDIDATE |
 | Anonymous artifact draft | The official call expects an anonymized artifact draft or an explanation for its absence. | PENDING |
 | IEEE template | Repository uses generic `IEEEtran` conference format. The exact venue template/version has not been verified and adopted. | PENDING |
@@ -49,18 +49,17 @@ Official source checked on 2026-09-14:
 
 ## Current technical snapshot
 
-This snapshot records the actual unmerged PR #42 candidate downloaded from its
-successful hosted push run. It is not the final submission candidate because
-PR #42 is not merged and SLR-107 will later change the paper.
+This snapshot records the protected-main artifacts produced after PR #42
+merged. It is not the final submission candidate because SLR-107 will later
+change the paper and the human submission gates below remain open.
 
 | Item | Value |
 | --- | --- |
-| Protected base | `e2e837118e0414ed09603dc0ac48bdad1fdf35d5` |
-| PR #42 source | `5756c62a6b87409910a2f26d5cb8d7fcefdb07f2`, OPEN and unmerged |
-| Successful hosted run | `34794325217` |
-| Hosted build PDFs | named SHA-256 `93da08cb1efa70f3a98c1b231a5773ebc29667a25b4d20b26ba1e5450d4811f8`; anonymous SHA-256 `4adca5397a50f54c21d0e37b33c191444d2455359670d3ecd73de2f874fc7836` |
-| Hosted devcontainer PDFs | named SHA-256 `39f3d8b94995a2be0be291ca081ea9f92f874b9c6a723ee2eaaa263b43557a70`; anonymous SHA-256 `12ef5dc6df089478fbcfab625531e8f9045e717ba87cc12cdece71212b50711a` |
-| Cross-build comparison | Anonymous extracted text is identical; both builds use 10 main-text pages and 1 reference page. Raw PDF hashes differ because creation timestamps differ. |
+| Protected main source | `c759911ba0892c81dcaecf23593cbad188f771fd`, the PR #42 merge commit; merged source head `5077dcafc74570f3f7fe487c6a2453f9fb3ce4f7` |
+| Successful post-merge hosted run | `34823532830`, a `push` run on `main`; both `build` and `Devcontainer smoke` passed |
+| Hosted build artifact | ID `10338774951`; archive digest `sha256:6e446d9e11eec493277641703dc025b60bae3c76a49dea6a6f6e2c4a09ef1d62`; named PDF SHA-256 `ad3a7d2a1f8289c8e6d31c6e207c411bab5ade1a40ed578515ce1f06f3656205`; anonymous PDF SHA-256 `7c0304b4ae8aea55ac6e0c895be8066956f4182c8b34c7ff7ab5a9a4ae876378` |
+| Hosted devcontainer artifact | ID `10338648783`; archive digest `sha256:442530eed81a84ca405ea696d52eae1eb6fb5ce1b0b75bb2c31652737693f585`; named PDF SHA-256 `2f6e70e7e6309f6e01cceb5858900f5a0a13261a4ce928852943ef7e98628b65`; anonymous PDF SHA-256 `00c1b250deb554c851b3e6157d85e18069d9267799831eb97a2116ad1a34ff54` |
+| Cross-build comparison | Independent extraction produced identical named text SHA-256 `e31227318b81d1df802556ff563542d5d94f87dd084af12efc4bd589235b26fb` and identical anonymous text SHA-256 `1d3a82286f3159e8ee1255bf48be175ce3262cd565281cf50dd576338565c0c3`; both anonymous builds use 10 main-text pages and 1 reference page. Raw PDF hashes differ because creation timestamps differ. |
 | Anonymous metadata and marker scan | Author, title, subject and keywords are blank; hosted PDF redaction check passed. |
 
 The marker scan is a technical check only. It does not establish repository
