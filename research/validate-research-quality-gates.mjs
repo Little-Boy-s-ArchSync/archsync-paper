@@ -156,8 +156,8 @@ export function validateResearchQualityGates(input) {
   ]) requireMarker(issues, "conclusion.tex", conclusion, marker);
 
   const controlledStatuses = claimEvidence.match(/,verified-controlled,/g)?.length ?? 0;
-  if (controlledStatuses !== 9) {
-    issues.push(`claim-evidence.csv: expected 9 verified-controlled claims; found ${controlledStatuses}`);
+  if (controlledStatuses !== 13) {
+    issues.push(`claim-evidence.csv: expected 13 verified-controlled claims; found ${controlledStatuses}`);
   }
   if (claimEvidence.includes(",verified,")) {
     issues.push("claim-evidence.csv: unqualified verified status is prohibited");

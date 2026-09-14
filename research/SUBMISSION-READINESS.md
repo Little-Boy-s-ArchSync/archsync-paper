@@ -2,6 +2,11 @@
 
 Status: **proposal only — NOT_READY — no submission or release authority**.
 
+The versioned PAPER-104 venue, authorship, disclosure, and final-package checks
+are maintained in
+[`PAPER-104-SUBMISSION-CHECKLIST.md`](PAPER-104-SUBMISSION-CHECKLIST.md). That
+checklist is also fail-closed and does not grant submission authority.
+
 ## Observed repository state
 
 The GitHub repository API reported all seven ArchSync repositories as public at

@@ -41,7 +41,7 @@ function hasIssue(result, fragment) {
 test("accepts the remediated manuscript and audit bundle", async () => {
   const result = validateResearchQualityGates(await fixture());
   assert.deepEqual(result.issues, []);
-  assert.equal(result.controlledClaims, 9);
+  assert.equal(result.controlledClaims, 13);
   assert.ok(result.abstractWords >= 120 && result.abstractWords <= 220);
 });
 
