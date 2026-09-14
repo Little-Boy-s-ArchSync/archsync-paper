@@ -1,6 +1,6 @@
 # PAPER-104 Submission and Authorship Checklist
 
-Version: 0.1.0
+Version: 0.2.0
 
 Prepared: 2026-09-14
 
@@ -18,6 +18,9 @@ people.
 ICSA 2027 is evaluated below as a candidate venue only. The final venue and the
 exact candidate commit must be selected and accepted before closure.
 
+The current manuscript-to-evidence reconciliation is recorded in
+[`PAPER-101-MANUSCRIPT-EVIDENCE-AUDIT.md`](PAPER-101-MANUSCRIPT-EVIDENCE-AUDIT.md).
+
 ## Candidate venue evidence
 
 Official source checked on 2026-09-14:
@@ -33,7 +36,7 @@ Official source checked on 2026-09-14:
 | Abstract deadline | 2026-10-30 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Paper deadline | 2026-11-04 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Page limit | At most 10 pages of main text plus at most 2 pages of references. | VERIFIED FOR CANDIDATE |
-| Current page usage | `main.pdf` has 11 pages. Conclusion and author information continue on page 11, and References begins on page 11. The main text therefore exceeds the 10-page limit. | BLOCKED |
+| Current page usage | Unmerged PR #42 at `35f5e3a7951e57eb5c88724610f37c96f247182d` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured candidate fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | UNMERGED FIX VERIFIED |
 | Review model | Technical research papers use double-anonymous review. | VERIFIED FOR CANDIDATE |
 | Anonymous artifact draft | The official call expects an anonymized artifact draft or an explanation for its absence. | PENDING |
 | IEEE template | Repository uses generic `IEEEtran` conference format. The exact venue template/version has not been verified and adopted. | PENDING |
@@ -41,24 +44,24 @@ Official source checked on 2026-09-14:
 | Registration and presentation | An accepted paper requires registration and in-person presentation. | PENDING COMMITMENT |
 | Concurrent submission | IEEE policy requires original work and prohibits an undisclosed concurrent active submission. | PENDING AUTHOR CONFIRMATION |
 | Prior related work | Similar or prior publications must be disclosed and differentiated as required by IEEE policy. | PENDING AUTHOR CONFIRMATION |
-| AI-generated content | Project use exceeds grammar-only editing. IEEE policy therefore requires an acknowledgement disclosure naming the system and describing affected sections and level of use. | BLOCKED UNTIL WORDING IS APPROVED |
-| Human-subject research | If the planned developer study is included, ETH-101 must document oversight and consent, or a justified non-applicability determination. | BLOCKED BY ETH-101 |
+| AI-generated content | The final source must be audited. If it contains AI-generated content, IEEE policy requires an acknowledgement naming the system and identifying the affected sections and level of use; editing and grammar-only use is generally outside the policy's main intent, although disclosure is recommended. | PENDING FINAL SOURCE AUDIT AND AUTHOR APPROVAL |
+| Human-subject research | The current controlled-feasibility manuscript reports no developer study or other human-participant result. ETH-101 becomes a submission blocker only if that scope changes; the final authors must confirm the submitted scope and any required non-applicability statement. | PENDING SCOPE CONFIRMATION |
 
 ## Current technical snapshot
 
-This snapshot documents the last verified build before this checklist branch.
-It is not the final submission candidate because later paper changes will
-change the hashes.
+This snapshot records the actual unmerged PR #42 candidate downloaded from its
+successful hosted push run. It is not the final submission candidate because
+PR #42 is not merged and SLR-107 will later change the paper.
 
 | Item | Value |
 | --- | --- |
-| Source commit | `e2e837118e0414ed09603dc0ac48bdad1fdf35d5` |
-| Named PDF | 11 pages, SHA-256 `6157bf245b0f10b2553ad1caa2177787e42f1fef18781854adfad4eefb4264ef` |
-| Anonymous PDF | 11 pages, SHA-256 `71dffd148696aa11c02f4c95833f06ee1739f0105d571830799ff6ca6f556494` |
-| Local verification summary | SHA-256 `eeaca7ad8941351d603f04a6a61dce83e86ee00614a2aed9022381ac7ee6232e6` |
-| Tests | 318 passed, 0 failed, 1 explicit Windows-only skip |
-| Coverage | 96.37% lines, 90.27% branches, 95.25% functions |
-| Anonymous marker scan | Passed for 7 configured identity markers |
+| Protected base | `e2e837118e0414ed09603dc0ac48bdad1fdf35d5` |
+| PR #42 source | `35f5e3a7951e57eb5c88724610f37c96f247182d`, OPEN and unmerged |
+| Successful hosted run | `34781803050` |
+| Hosted build PDFs | named SHA-256 `fd1718236d0046a0a6873c180c08f769ab9d8dfb5d9cd8036897198c2a100d31`; anonymous SHA-256 `7fb3170a140417c65d7de24c2b2cc8f99568f1d21c1cd4872d6c1c3580145b93` |
+| Hosted devcontainer PDFs | named SHA-256 `7734cd2c2701ee1822b56e3b99b7f556872f8ae20a6ff46f1eaa205d084d3e83`; anonymous SHA-256 `cf2bb83685a92b96e7726404a1588a6f082fbf274e8faf45946a8a7237f3b0d5` |
+| Cross-build comparison | Anonymous extracted text is identical; both builds use 10 main-text pages and 1 reference page. Raw PDF hashes differ because creation timestamps differ. |
+| Anonymous metadata and marker scan | Author, title, subject and keywords are blank; hosted PDF redaction check passed. |
 
 The marker scan is a technical check only. It does not establish repository
 anonymity, venue compliance, or human approval of the exact PDF.
@@ -132,10 +135,12 @@ exact text and the authorization source is retained.
 
 ### AI-use disclosure
 
-ArchSync used AI assistance beyond spelling and grammar. Before submission, the
-authors must approve a factually exact acknowledgement that identifies each AI
-system used and describes the sections or artifacts affected and the level of
-use. The disclosure must not claim that AI independently supplied evidence,
+Before submission, the authors must audit the final source and approve a
+factually exact acknowledgement for any AI-generated content. The record must
+identify each applicable AI system and describe the affected sections or
+elements and the level of use. Editing and grammar enhancement is generally
+outside the main disclosure requirement, although IEEE recommends disclosure.
+The final wording must not claim that AI independently supplied evidence,
 performed human review, accessed databases without receipts, or accepted
 accountability for the work.
 
@@ -144,14 +149,14 @@ yet accepted by all authors.
 
 ### Ethics and privacy
 
-The current controlled synthetic benchmark does not by itself create a
-human-subject claim. Any developer study, interview, survey, usage telemetry, or
-personal data added later must remain outside reportable results until ETH-101
-records the applicable oversight, consent, minimization, retention, and
-withdrawal decisions.
+The current controlled synthetic benchmark reports no human-participant result.
+Any developer study, interview, survey, usage telemetry, or personal data added
+later must remain outside reportable results until ETH-101 records the
+applicable oversight, consent, minimization, retention, and withdrawal
+decisions.
 
-Status: BLOCKED for any human-study claim; otherwise requires an explicit
-non-applicability statement for the submitted scope.
+Status: NOT APPLICABLE TO THE CURRENT REPORTED RESULTS; final authors must
+confirm the submitted scope. Any added human-study claim remains blocked.
 
 ### Public exposure and anonymity
 

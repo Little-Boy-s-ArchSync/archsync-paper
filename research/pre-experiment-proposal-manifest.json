@@ -46,11 +46,11 @@
       "artifacts": [
         {
           "path": "research/claim-evidence.csv",
-          "sha256": "aed32e6d2b47f28075eb71848f1ce5459b0ad64168ed392bdf6b6deba5d39a59"
+          "sha256": "5a6a0bb7d3f0055b7e668b7a8a1c25b35d6c249255d306ba8aa33cebea3dd49b"
         },
         {
           "path": "research/validate-claim-evidence.mjs",
-          "sha256": "03496eb627c4eec1f6eab49a3d53cdc6d97ceccffa6f79a53f46824a082dc1e0"
+          "sha256": "90f5fc77d237c88f7c608d8a76edddf9b7313358009a7998a5789168a5a5ec6d"
         }
       ]
     },
@@ -64,7 +64,7 @@
         },
         {
           "path": "research/rq-traceability.csv",
-          "sha256": "294979c7c615f6d567a3c439f34ee300a036b0966e871950012cb2cb5380632b"
+          "sha256": "e3c48085272e3b332cbf2152da48616e05365cc864992cfafb182767e465c22d"
         },
         {
           "path": "research/validate-rq-traceability.mjs",
