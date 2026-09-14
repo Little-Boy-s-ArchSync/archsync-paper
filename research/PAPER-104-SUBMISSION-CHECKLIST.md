@@ -36,7 +36,7 @@ Official source checked on 2026-09-14:
 | Abstract deadline | 2026-10-30 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Paper deadline | 2026-11-04 AoE on the official ICSA page. | VERIFIED FOR CANDIDATE |
 | Page limit | At most 10 pages of main text plus at most 2 pages of references. | VERIFIED FOR CANDIDATE |
-| Current page usage | Protected `main` at `c759911ba0892c81dcaecf23593cbad188f771fd` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured build fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | PROTECTED MAIN VERIFIED |
+| Current page usage | Protected `main` at `3b98673d5d6b5c1e91faf3b063db4bcf5799035f` has an 11-page anonymous PDF whose main text and conclusion end on page 10 and whose References begin on page 11. This measured build fits 10 main pages plus 1 reference page. The named review PDF also carries the non-anonymous author-information block and is not the double-anonymous upload. | PROTECTED MAIN VERIFIED |
 | Review model | Technical research papers use double-anonymous review. | VERIFIED FOR CANDIDATE |
 | Anonymous artifact draft | The official call expects an anonymized artifact draft or an explanation for its absence. | PENDING |
 | IEEE template | Repository uses generic `IEEEtran` conference format. The exact venue template/version has not been verified and adopted. | PENDING |
@@ -49,16 +49,17 @@ Official source checked on 2026-09-14:
 
 ## Current technical snapshot
 
-This snapshot records the protected-main artifacts produced after PR #42
-merged. It is not the final submission candidate because SLR-107 will later
+This snapshot records the protected-main artifacts produced after PR #43
+merged. The manuscript and bibliography bytes are unchanged from the PR #42
+merge. It is not the final submission candidate because SLR-107 will later
 change the paper and the human submission gates below remain open.
 
 | Item | Value |
 | --- | --- |
-| Protected main source | `c759911ba0892c81dcaecf23593cbad188f771fd`, the PR #42 merge commit; merged source head `5077dcafc74570f3f7fe487c6a2453f9fb3ce4f7` |
-| Successful post-merge hosted run | `34823532830`, a `push` run on `main`; both `build` and `Devcontainer smoke` passed |
-| Hosted build artifact | ID `10338774951`; archive digest `sha256:6e446d9e11eec493277641703dc025b60bae3c76a49dea6a6f6e2c4a09ef1d62`; named PDF SHA-256 `ad3a7d2a1f8289c8e6d31c6e207c411bab5ade1a40ed578515ce1f06f3656205`; anonymous PDF SHA-256 `7c0304b4ae8aea55ac6e0c895be8066956f4182c8b34c7ff7ab5a9a4ae876378` |
-| Hosted devcontainer artifact | ID `10338648783`; archive digest `sha256:442530eed81a84ca405ea696d52eae1eb6fb5ce1b0b75bb2c31652737693f585`; named PDF SHA-256 `2f6e70e7e6309f6e01cceb5858900f5a0a13261a4ce928852943ef7e98628b65`; anonymous PDF SHA-256 `00c1b250deb554c851b3e6157d85e18069d9267799831eb97a2116ad1a34ff54` |
+| Protected main source | `3b98673d5d6b5c1e91faf3b063db4bcf5799035f`, the PR #43 merge commit; merged source head `a6a26892eab3c69d88c8968e31b7725e897ae10c`; all `*.tex` files and `references.bib` are unchanged from PR #42 merge `c759911ba0892c81dcaecf23593cbad188f771fd` |
+| Successful post-merge hosted run | `34826773730`, a `push` run on `main`; both `build` and `Devcontainer smoke` passed |
+| Hosted build artifact | ID `10340721633`; archive digest `sha256:d04b215f4b86581a406b7c954c58265395b89f0efa3c0ab29a8c64eeb07758fc`; named PDF SHA-256 `4181e21a7905c144b3dc33c4a3f2334eda6ab0a706e4f084acbf3b7a70eba2b7`; anonymous PDF SHA-256 `67052e059536198bcab2ca04c42f591a5a423598b74e98cf2204398a1bf86dba` |
+| Hosted devcontainer artifact | ID `10340259454`; archive digest `sha256:41275839ca74f12a139c150e739d972a2cdddf42fc1e9e03f6b7e4dcc8f2adbd`; named PDF SHA-256 `50b6dedd618aa69a5d5be4840c933123c003e9e452552dce30b7af32c9f5d22f`; anonymous PDF SHA-256 `c3886b2b6ad790e01ff8ac32ce6f2d99b047e952d776e0bdf1aab7527716d1ee` |
 | Cross-build comparison | Independent extraction produced identical named text SHA-256 `e31227318b81d1df802556ff563542d5d94f87dd084af12efc4bd589235b26fb` and identical anonymous text SHA-256 `1d3a82286f3159e8ee1255bf48be175ce3262cd565281cf50dd576338565c0c3`; both anonymous builds use 10 main-text pages and 1 reference page. Raw PDF hashes differ because creation timestamps differ. |
 | Anonymous metadata and marker scan | Author, title, subject and keywords are blank; hosted PDF redaction check passed. |
 
