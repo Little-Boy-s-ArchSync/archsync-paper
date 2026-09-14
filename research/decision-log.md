@@ -530,3 +530,7 @@
   `https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/24#issuecomment-5460760993`.
 - Approvers: Võ Đức Hiếu, protocol owner and research lead; Trần Minh Hoàng,
   Independent SLR Reviewer.
+
+## Narrative positioning amendment (andy-temp-branch)
+
+- Date: 2026-09-14; Status: Proposed branch amendment, pending normal review; Decision: frame Related Work as a purposive narrative synthesis with 2022–2025 emphasis and four foundational references; rationale: contextual design positioning rather than exhaustive secondary research; impact/migration: align Related Work and literature-validity limits, preserve empirical RQs and prior research records; requested by: Hoàng; reviewer: pending. This branch entry does not assert acceptance of a change to the frozen main baseline.

@@ -1,0 +1,563 @@
+{
+  "citation_key": "dependencies2024",
+  "record_id": "LIT-6524",
+  "requested_endpoint": "https://api.crossref.org/works/10.1145/3605098.3635917",
+  "response_endpoint": "https://api.crossref.org/works/10.1145/3605098.3635917",
+  "retrieved_at_utc": "2026-09-14T12:29:37.283806+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "58abc2df00b63e108116707b867cbf2f4a3885227fcba1a294447a5452c2e3c3",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            9,
+            12
+          ]
+        ],
+        "date-time": "2026-09-12T02:00:26Z",
+        "timestamp": 1789178426171,
+        "version": "build-2803163510"
+      },
+      "publisher-location": "New York, NY, USA",
+      "reference-count": 55,
+      "publisher": "ACM",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                4,
+                8
+              ]
+            ],
+            "date-time": "2024-04-08T00:00:00Z",
+            "timestamp": 1712534400000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "https://creativecommons.org/licenses/by-nc/4.0/"
+        }
+      ],
+      "funder": [
+        {
+          "name": "Scientific and Technological Research Council of Türkiye",
+          "award": [
+            "120E488"
+          ],
+          "award-info": [
+            {
+              "award-number": [
+                "120E488"
+              ]
+            }
+          ]
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "dl.acm.org"
+        ],
+        "crossmark-restriction": true
+      },
+      "short-container-title": [],
+      "published-print": {
+        "date-parts": [
+          [
+            2024,
+            4,
+            8
+          ]
+        ]
+      },
+      "DOI": "10.1145/3605098.3635917",
+      "type": "proceedings-article",
+      "created": {
+        "date-parts": [
+          [
+            2024,
+            5,
+            21
+          ]
+        ],
+        "date-time": "2024-05-21T17:59:16Z",
+        "timestamp": 1716314356000
+      },
+      "page": "1185-1192",
+      "update-policy": "https://doi.org/10.1145/crossmark-policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 6,
+      "title": [
+        "Software Architecture Recovery from Multiple Dependency Models"
+      ],
+      "prefix": "10.1145",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0009-0007-9720-792X",
+          "authenticated-orcid": false,
+          "given": "Metin",
+          "family": "Altınışık",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Turkcell Technology, İstanbul, Turkey"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2968-4763",
+          "authenticated-orcid": false,
+          "given": "Hasan",
+          "family": "Sözer",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Ozyegin University, İstanbul, Turkey"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3048-6403",
+          "authenticated-orcid": false,
+          "given": "Gonca",
+          "family": "Gürsun",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Bosch Center of Artificial Intelligence, Renningen, Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "320",
+      "published-online": {
+        "date-parts": [
+          [
+            2024,
+            5,
+            21
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "e_1_3_2_1_1_1",
+          "volume-title": "Proceedings of the 16th Working Conference on Reverse Engineering. 103--112",
+          "author": "Abdeen H.",
+          "unstructured": "H. Abdeen, S. Ducasse, H. Sahraoui, and I. Alloui. 2009. Automatic Package Coupling and Cycle Minimization. In Proceedings of the 16th Working Conference on Reverse Engineering. 103--112."
+        },
+        {
+          "key": "e_1_3_2_1_2_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/1411509.1411513"
+        },
+        {
+          "key": "e_1_3_2_1_3_1",
+          "volume-title": "Proceedings of the 5th Conference on Knowledge Based Engineering and Innovation. 565--570",
+          "author": "Akbari M.",
+          "unstructured": "M. Akbari and H. Izadkhah. 2019. Hybrid of Genetic Algorithm and Krill Herd for Software Clustering Problem. In Proceedings of the 5th Conference on Knowledge Based Engineering and Innovation. 565--570."
+        },
+        {
+          "key": "e_1_3_2_1_4_1",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Q. Alsarhan B.S. Ahmed M. Bures and K.Z. Zamli. 2020. Software Module Clustering: An In-Depth Literature Analysis. IEEE Transactions on Software Engineering (2020) 1--1. 10.1109/TSE.2020.3042553",
+          "DOI": "10.1109/TSE.2020.3042553"
+        },
+        {
+          "key": "e_1_3_2_1_5_1",
+          "volume-title": "Proceedings of the 31st ACM Symposium on Applied Computing. 1440--1445",
+          "author": "Altinisik M.",
+          "unstructured": "M. Altinisik and H. Sozer. 2016. Automated Procedure Clustering for Reverse Engineering PL/SQL Programs. In Proceedings of the 31st ACM Symposium on Applied Computing. 1440--1445."
+        },
+        {
+          "key": "e_1_3_2_1_6_1",
+          "volume-title": "Proceedings of the 9th International Conference on Extending DataBase Technology. 531--532",
+          "author": "Andritsos P.",
+          "unstructured": "P. Andritsos, P. Tsaparas, R.J. Miller, and K.C. Sevcik. 2004. LIMBO: Scalable Clustering of Categorical Data. In Proceedings of the 9th International Conference on Extending DataBase Technology. 531--532."
+        },
+        {
+          "key": "e_1_3_2_1_7_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10664-012-9226-8"
+        },
+        {
+          "key": "e_1_3_2_1_8_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2018.2797899"
+        },
+        {
+          "key": "e_1_3_2_1_9_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/smr.577"
+        },
+        {
+          "key": "e_1_3_2_1_10_1",
+          "volume-title": "Proceedings of the 19th Working Conference on Reverse Engineering. 479--488",
+          "author": "Chaparro O.",
+          "unstructured": "O. Chaparro, J. Aponte, F. Ortega, and A. Marcus. 2012. Towards the Automatic Extraction of Structural Business Rules from Legacy Databases. In Proceedings of the 19th Working Conference on Reverse Engineering. 479--488."
+        },
+        {
+          "key": "e_1_3_2_1_11_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ACCESS.2019.2920427"
+        },
+        {
+          "key": "e_1_3_2_1_12_1",
+          "unstructured": "D. Garlan et al. 2010. Documenting Software Architectures: Views and Beyond (2nd ed.). Addison-Wesley."
+        },
+        {
+          "key": "e_1_3_2_1_13_1",
+          "volume-title": "Proceedings of the 16th Working Conference on Reverse Engineering. 135--144",
+          "author": "D'Ambros M.",
+          "unstructured": "M. D'Ambros, M. Lanza, and R. Robbes. 2009. On the relationship between change coupling and software defects. In Proceedings of the 16th Working Conference on Reverse Engineering. 135--144."
+        },
+        {
+          "key": "e_1_3_2_1_14_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2011.07.036"
+        },
+        {
+          "key": "e_1_3_2_1_15_1",
+          "volume-title": "Proceedings of the 9th International Workshop Software Technology and Engineering Practice. 73--81",
+          "author": "Doval D.",
+          "unstructured": "D. Doval, A. Mancoridis, and B.S. Mitchell. 1999. Automatic Clustering of Software Systems Using a Genetic Algorithm. In Proceedings of the 9th International Workshop Software Technology and Engineering Practice. 73--81."
+        },
+        {
+          "key": "e_1_3_2_1_16_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2009.19"
+        },
+        {
+          "key": "e_1_3_2_1_17_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/32.895984"
+        },
+        {
+          "key": "e_1_3_2_1_18_1",
+          "volume-title": "Proceedings of the 37th ACM Symposium on Applied Computing. 1417--1424",
+          "author": "Elyasi M.",
+          "unstructured": "M. Elyasi, M.E. Simitcioglu, A. Saydemir, A. Ekici, and H. Sozer. 2022. HYGAR: A Hybrid Genetic Algorithm for Software Architecture Recovery. In Proceedings of the 37th ACM Symposium on Applied Computing. 1417--1424."
+        },
+        {
+          "key": "e_1_3_2_1_19_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10515-023-00384-y"
+        },
+        {
+          "key": "e_1_3_2_1_20_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "S.D. Eppinger and T.R. Browning. 2012. Design Structure Matrix Methods and Applications. MIT Press Cambridge MA USA.",
+          "DOI": "10.7551/mitpress/8896.001.0001"
+        },
+        {
+          "key": "e_1_3_2_1_21_1",
+          "volume-title": "Proceedings of the 10th European Conference on Software Architecture. 326--333",
+          "author": "Ersoy E.",
+          "unstructured": "E. Ersoy, K. Kaya, M. Altinisik, and H. Sözer. 2016. Using Hypergraph Clustering for Software Architecture Reconstruction of Data-Tier Software. In Proceedings of the 10th European Conference on Software Architecture. 326--333."
+        },
+        {
+          "key": "e_1_3_2_1_22_1",
+          "volume-title": "Proceedings of the 19th IEEE International Conference on Software Architecture. 80--89",
+          "author": "Ersoy E.",
+          "unstructured": "E. Ersoy and H. Sözer. 2022. Effort Estimation for Architectural Refactoring of Data Tier Software. In Proceedings of the 19th IEEE International Conference on Software Architecture. 80--89."
+        },
+        {
+          "key": "e_1_3_2_1_23_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/24039.24041"
+        },
+        {
+          "key": "e_1_3_2_1_24_1",
+          "volume-title": "Proceedings of the International Conference on Software Maintenance. 190--198",
+          "author": "Gall H.",
+          "unstructured": "H. Gall, K. Hajek, and M. Jazayeri. 1998. Detection of logical coupling based on product release history. In Proceedings of the International Conference on Software Maintenance. 190--198."
+        },
+        {
+          "key": "e_1_3_2_1_25_1",
+          "volume-title": "Application Development with Oracle Database 11g Release 2. https://www.oracle.com/cn/a/tech/docs/technical-resources/app-dev-wp-11gr2-oct-2010.pdf. Accessed",
+          "author": "Gambino D.",
+          "year": "2023",
+          "unstructured": "D. Gambino. 2010. Application Development with Oracle Database 11g Release 2. https://www.oracle.com/cn/a/tech/docs/technical-resources/app-dev-wp-11gr2-oct-2010.pdf. Accessed in August 2023."
+        },
+        {
+          "key": "e_1_3_2_1_26_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "A. Gionis H. Mannila and P. Tsaparas. 2007. Clustering aggregation. ACM Transactions on Knowledge Discovery from Data (TKDD) 1 1 (2007) 4.",
+          "DOI": "10.1145/1217299.1217303"
+        },
+        {
+          "key": "e_1_3_2_1_27_1",
+          "volume-title": "Proceedings of the 1st Working Conference on Software Architecture. 15--34",
+          "author": "Guo G.Y.",
+          "unstructured": "G.Y. Guo, J.M. Atlee, and R. Kazman. 1999. A Software Architecture Reconstruction Method. In Proceedings of the 1st Working Conference on Software Architecture. 15--34."
+        },
+        {
+          "key": "e_1_3_2_1_28_1",
+          "volume-title": "Proceedings of the IEEE International Conference on Software Maintenance and Evolution. 553--556",
+          "author": "Habringer M.",
+          "unstructured": "M. Habringer, M. Moser, and J. Pichler. 2014. Reverse Engineering PL/SQL Legacy Code: An Experience Report. In Proceedings of the IEEE International Conference on Software Maintenance and Evolution. 553--556."
+        },
+        {
+          "key": "e_1_3_2_1_29_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2010.26"
+        },
+        {
+          "key": "e_1_3_2_1_30_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s00500-018-3666-z"
+        },
+        {
+          "key": "e_1_3_2_1_31_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.scico.2016.10.003"
+        },
+        {
+          "key": "e_1_3_2_1_32_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/smr.270"
+        },
+        {
+          "key": "e_1_3_2_1_33_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2017.2671865"
+        },
+        {
+          "key": "e_1_3_2_1_34_1",
+          "volume-title": "Proceedings of the 8th Euromicro Working Conference on Software Maintenance and Reengineering. 15--24",
+          "author": "Maqbool O.",
+          "unstructured": "O. Maqbool and H.A. Babri. 2004. The Weighted Combined Algorithm: A Linkage Algorithm for Software Clustering. In Proceedings of the 8th Euromicro Working Conference on Software Maintenance and Reengineering. 15--24."
+        },
+        {
+          "key": "e_1_3_2_1_35_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2007.70732"
+        },
+        {
+          "key": "e_1_3_2_1_36_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2006.31"
+        },
+        {
+          "key": "e_1_3_2_1_37_1",
+          "first-page": "1",
+          "article-title": "On the Evaluation of the Bunch Search-Based Software Modularization Algorithm",
+          "volume": "12",
+          "author": "Mitchell B.S.",
+          "year": "2008",
+          "unstructured": "B.S. Mitchell and S. Mancoridis. 2008. On the Evaluation of the Bunch Search-Based Software Modularization Algorithm. Soft Computing 12, 1 (2008), 1--1.",
+          "journal-title": "Soft Computing"
+        },
+        {
+          "key": "e_1_3_2_1_38_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/32.917525"
+        },
+        {
+          "key": "e_1_3_2_1_39_1",
+          "volume-title": "A Survey of Reverse Engineering and Program Comprehension. CoRR abs/cs/0503068",
+          "author": "Nelson M.L.",
+          "year": "2005",
+          "unstructured": "M.L. Nelson. 2005. A Survey of Reverse Engineering and Program Comprehension. CoRR abs/cs/0503068 (2005)."
+        },
+        {
+          "key": "e_1_3_2_1_40_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "P. Clements et al. 2002. Documenting Software Architectures. Addison-Wesley.",
+          "DOI": "10.1109/ICSE.2003.1201264"
+        },
+        {
+          "key": "e_1_3_2_1_41_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/361598.361623"
+        },
+        {
+          "key": "e_1_3_2_1_42_1",
+          "volume-title": "Proceedings of the 13th European Conference on Software Maintenance and Reengineering. 27--36",
+          "author": "Patel C.",
+          "unstructured": "C. Patel, A. Hamou-Lhadj, and J. Rilling. 2009. Software Clustering Using Dynamic Analysis and Static Dependencies. In Proceedings of the 13th European Conference on Software Maintenance and Reengineering. 27--36."
+        },
+        {
+          "key": "e_1_3_2_1_43_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2010.26"
+        },
+        {
+          "key": "e_1_3_2_1_44_1",
+          "volume-title": "Proceedings of the 12th Working Conference on Reverse Engineering. 57--66",
+          "author": "Qingshan L.",
+          "unstructured": "L. Qingshan, C. Hua, C. Ping, and Z. Yun. 2005. Architecture Recovery and Abstraction from the Perspective of Processes. In Proceedings of the 12th Working Conference on Reverse Engineering. 57--66."
+        },
+        {
+          "key": "e_1_3_2_1_45_1",
+          "volume-title": "Proceedings of the 20th Conference on Object-Oriented Programming, Systems, Languages and Applications. 167--176",
+          "author": "Sangal N.",
+          "unstructured": "N. Sangal, E. Jordan, V. Sinha, and D. Jackson. 2005. Using Dependency Models to Manage Complex Software Architecture. In Proceedings of the 20th Conference on Object-Oriented Programming, Systems, Languages and Applications. 167--176."
+        },
+        {
+          "key": "e_1_3_2_1_46_1",
+          "volume-title": "Proceedings of the 3rd European Conference on Software Architecture. 265--268",
+          "author": "Sangwan R.S.",
+          "unstructured": "R.S. Sangwan and C.J. Neill. 2009. Characterizing Essential and Incidental Complexity in Software Architectures. In Proceedings of the 3rd European Conference on Software Architecture. 265--268."
+        },
+        {
+          "key": "e_1_3_2_1_47_1",
+          "volume-title": "Proceedings of the 15th Turkish National Software Engineering Symposium. 1--6.",
+          "author": "Saydemir A.",
+          "unstructured": "A. Saydemir, M.E. Simitcioglu, and H. Sozer. 2021. On the Use of Evolutionary Coupling for Software Architecture Recovery. In Proceedings of the 15th Turkish National Software Engineering Symposium. 1--6."
+        },
+        {
+          "key": "e_1_3_2_1_48_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-030-29983-5_5"
+        },
+        {
+          "key": "e_1_3_2_1_49_1",
+          "volume-title": "Proceedings of the 8th European Software Engineering Conference. 99--108",
+          "author": "Sullivan K.",
+          "unstructured": "K. Sullivan, Y. Cai, B. Hallen, and W. Griswold. 2001. The Structure and Value of Modularity in Software Design. In Proceedings of the 8th European Software Engineering Conference. 99--108."
+        },
+        {
+          "key": "e_1_3_2_1_50_1",
+          "volume-title": "Proceedings of the 16th Australian Software Engineering Conference. 270--280",
+          "author": "Sun C.",
+          "unstructured": "C. Sun, J. Zhou, J. Cao, M. Jin, C. Liu, and Y. Shen. 2005. ReArchJBs: A Tool for Automated Software Architecture Recovery of JavaBeans-Based Applications. In Proceedings of the 16th Australian Software Engineering Conference. 270--280."
+        },
+        {
+          "key": "e_1_3_2_1_51_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2020.3022212"
+        },
+        {
+          "key": "e_1_3_2_1_52_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1142/S0218001411008683"
+        },
+        {
+          "key": "e_1_3_2_1_53_1",
+          "volume-title": "Proceedings of the 12th IEEE International Workshop on Program Comprehension. 194--203",
+          "author": "Wen Z.",
+          "unstructured": "Z. Wen and V. Tzerpos. 2004. An effectiveness measure for software clustering algorithms. In Proceedings of the 12th IEEE International Workshop on Program Comprehension. 194--203."
+        },
+        {
+          "key": "e_1_3_2_1_54_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "C. Wohlin P. Runeson M. Host M.C. Ohlsson B. Regnell and A. Wesslen. 2012. Experimentation in Software Engineering. Springer-Verlag Berlin Heidelberg.",
+          "DOI": "10.1007/978-3-642-29044-2"
+        },
+        {
+          "key": "e_1_3_2_1_55_1",
+          "volume-title": "Proceedings of the 7th IEEE International Conference on Software Engineering and Service Science. 304--307",
+          "author": "Zhong L.",
+          "unstructured": "L. Zhong, L. Xue, N. Zhang, J. Xia, and J. Chen. 2016. A tool to support software clustering using the software evolution information. In Proceedings of the 7th IEEE International Conference on Software Engineering and Service Science. 304--307."
+        }
+      ],
+      "event": {
+        "name": "SAC '24: 39th ACM/SIGAPP Symposium on Applied Computing",
+        "location": "Avila Spain",
+        "acronym": "SAC '24",
+        "sponsor": [
+          "SIGAPP ACM Special Interest Group on Applied Computing"
+        ]
+      },
+      "container-title": [
+        "Proceedings of the 39th ACM/SIGAPP Symposium on Applied Computing"
+      ],
+      "original-title": [],
+      "link": [
+        {
+          "URL": "https://dl.acm.org/doi/10.1145/3605098.3635917",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://dl.acm.org/doi/pdf/10.1145/3605098.3635917",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2025,
+            6,
+            17
+          ]
+        ],
+        "date-time": "2025-06-17T16:36:14Z",
+        "timestamp": 1750178174000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://dl.acm.org/doi/10.1145/3605098.3635917"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            4,
+            8
+          ]
+        ]
+      },
+      "references-count": 55,
+      "alternative-id": [
+        "10.1145/3605098.3635917",
+        "10.1145/3605098"
+      ],
+      "URL": "https://doi.org/10.1145/3605098.3635917",
+      "relation": {},
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2024,
+            4,
+            8
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "2024-05-21",
+          "order": 2,
+          "name": "published",
+          "label": "Published",
+          "group": {
+            "name": "publication_history",
+            "label": "Publication History"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,899 @@
+{
+  "citation_key": "li2023warnings",
+  "record_id": "LIT-2481",
+  "requested_endpoint": "https://api.crossref.org/works/10.1016/j.infsof.2023.107319",
+  "response_endpoint": "https://api.crossref.org/works/10.1016/j.infsof.2023.107319",
+  "retrieved_at_utc": "2026-09-14T12:29:34.743485+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "8676cc06a246ac6188ef5bbc9c8862ff4a015fe8912e81564c14c67c14741920",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            7,
+            25
+          ]
+        ],
+        "date-time": "2026-07-25T16:12:46Z",
+        "timestamp": 1784995966412,
+        "version": "3.55.0"
+      },
+      "reference-count": 61,
+      "publisher": "Elsevier BV",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/legal/tdmrep-license"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-017"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-037"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-012"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-029"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2023-12-01T00:00:00Z",
+            "timestamp": 1701388800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-004"
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "elsevier.com",
+          "sciencedirect.com"
+        ],
+        "crossmark-restriction": true
+      },
+      "short-container-title": [
+        "Information and Software Technology"
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2023,
+            12
+          ]
+        ]
+      },
+      "DOI": "10.1016/j.infsof.2023.107319",
+      "type": "journal-article",
+      "created": {
+        "date-parts": [
+          [
+            2023,
+            8,
+            8
+          ]
+        ],
+        "date-time": "2023-08-08T22:17:30Z",
+        "timestamp": 1691533050000
+      },
+      "page": "107319",
+      "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 5,
+      "special_numbering": "C",
+      "title": [
+        "Warnings: Violation symptoms indicating architecture erosion"
+      ],
+      "prefix": "10.1016",
+      "volume": "164",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-8536-4935",
+          "authenticated-orcid": false,
+          "given": "Ruiyin",
+          "family": "Li",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2056-5346",
+          "authenticated-orcid": false,
+          "given": "Peng",
+          "family": "Liang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-7101-0754",
+          "authenticated-orcid": false,
+          "given": "Paris",
+          "family": "Avgeriou",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "78",
+      "reference": [
+        {
+          "issue": "3",
+          "key": "10.1016/j.infsof.2023.107319_b1",
+          "doi-asserted-by": "crossref",
+          "DOI": "10.1002/smr.2423",
+          "article-title": "Understanding software architecture erosion: A systematic mapping study",
+          "volume": "34",
+          "author": "Li",
+          "year": "2022",
+          "journal-title": "J. Softw. Evol. Process."
+        },
+        {
+          "issue": "4",
+          "key": "10.1016/j.infsof.2023.107319_b2",
+          "doi-asserted-by": "crossref",
+          "first-page": "40",
+          "DOI": "10.1145/141874.141884",
+          "article-title": "Foundations for the study of software architecture",
+          "volume": "17",
+          "author": "Perry",
+          "year": "1992",
+          "journal-title": "ACM SIGSOFT Softw. Eng. Notes"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b3",
+          "series-title": "Proceedings of the 29th IEEE/ACM International Conference on Program Comprehension (ICPC)",
+          "first-page": "311",
+          "article-title": "Understanding architecture erosion: The practitioners’ perceptive",
+          "author": "Li",
+          "year": "2021"
+        },
+        {
+          "issue": "8",
+          "key": "10.1016/j.infsof.2023.107319_b4",
+          "doi-asserted-by": "crossref",
+          "first-page": "1822",
+          "DOI": "10.1002/spe.3004",
+          "article-title": "Architecture violations detection and visualization in the continuous integration pipeline",
+          "volume": "51",
+          "author": "Mendoza",
+          "year": "2021",
+          "journal-title": "Softw. - Pract. Exp."
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.infsof.2023.107319_b5",
+          "doi-asserted-by": "crossref",
+          "first-page": "132",
+          "DOI": "10.1016/j.jss.2011.07.036",
+          "article-title": "Controlling software architecture erosion: A survey",
+          "volume": "85",
+          "author": "De Silva",
+          "year": "2012",
+          "journal-title": "J. Syst. Softw."
+        },
+        {
+          "issue": "3",
+          "key": "10.1016/j.infsof.2023.107319_b6",
+          "doi-asserted-by": "crossref",
+          "first-page": "1",
+          "DOI": "10.5381/jot.2016.15.3.a1",
+          "article-title": "Architecture conformance checking in dynamically typed languages",
+          "volume": "15",
+          "author": "Miranda",
+          "year": "2016",
+          "journal-title": "J. Object Technol."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b7",
+          "series-title": "Proceedings of the 11th Working IEEE/IFIP Conference on Software Architecture (WICSA) Companion",
+          "first-page": "1",
+          "article-title": "A metamodel for the support of semantically rich modular architectures in the context of static architecture compliance checking",
+          "author": "Pruijt",
+          "year": "2014"
+        },
+        {
+          "issue": "12",
+          "key": "10.1016/j.infsof.2023.107319_b8",
+          "doi-asserted-by": "crossref",
+          "first-page": "1073",
+          "DOI": "10.1002/spe.931",
+          "article-title": "A dependency constraint language to manage object-oriented software architectures",
+          "volume": "39",
+          "author": "Terra",
+          "year": "2009",
+          "journal-title": "Softw. - Pract. Exp."
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.infsof.2023.107319_b9",
+          "doi-asserted-by": "crossref",
+          "first-page": "1",
+          "DOI": "10.1186/s13173-017-0061-z",
+          "article-title": "DCL 2.0: modular and reusable specification of architectural constraints",
+          "volume": "23",
+          "author": "Rocha",
+          "year": "2017",
+          "journal-title": "J. Braz. Comput. Soc."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b10",
+          "series-title": "Proceedings of the 12th Working IEEE/IFIP Conference on Software Architecture (WICSA)",
+          "first-page": "41",
+          "article-title": "A unified approach to architecture conformance checking",
+          "author": "Caracciolo",
+          "year": "2015"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b11",
+          "series-title": "Proceedings of the 11th European Conference on Software Architecture (ECSA)",
+          "first-page": "67",
+          "article-title": "Preventing erosion in exception handling design using static-architecture conformance checking",
+          "author": "Juarez Filho",
+          "year": "2017"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b12",
+          "series-title": "Proceedings of the 19th IEEE International Conference on Software Architecture (ICSA)",
+          "first-page": "24",
+          "article-title": "Symptoms of architecture erosion in code reviews: A study of two OpenStack projects",
+          "author": "Li",
+          "year": "2022"
+        },
+        {
+          "issue": "5",
+          "key": "10.1016/j.infsof.2023.107319_b13",
+          "doi-asserted-by": "crossref",
+          "first-page": "1041",
+          "DOI": "10.1109/TSE.2019.2912113",
+          "article-title": "The impact of code review on architectural changes",
+          "volume": "47",
+          "author": "Paixao",
+          "year": "2021",
+          "journal-title": "IEEE Trans. Softw. Eng."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b14",
+          "series-title": "Proceedings of the 35th International Conference on Software Engineering (ICSE)",
+          "first-page": "712",
+          "article-title": "Expectations, outcomes, and challenges of modern code review",
+          "author": "Bacchelli",
+          "year": "2013"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b15",
+          "series-title": "Proceedings of the 29th IEEE/ACM International Conference on Program Comprehension (ICPC)",
+          "first-page": "219",
+          "article-title": "Multi-programming-language commits in OSS: An empirical study on apache projects",
+          "author": "Li",
+          "year": "2021"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b16",
+          "doi-asserted-by": "crossref",
+          "first-page": "174",
+          "DOI": "10.1016/j.jss.2017.12.026",
+          "article-title": "Software sustainability: Research and practice from a software architecture viewpoint",
+          "volume": "138",
+          "author": "Venters",
+          "year": "2018",
+          "journal-title": "J. Syst. Softw."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b17",
+          "series-title": "Proceedings of the 16th European Conference on Software Maintenance and Reengineering (CSMR)",
+          "first-page": "267",
+          "article-title": "Advise: Architectural decay in software evolution",
+          "author": "Hassaine",
+          "year": "2012"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b18",
+          "series-title": "Proceedings of the 15th IEEE International Conference on Software Architecture (ICSA)",
+          "first-page": "176",
+          "article-title": "An empirical study of architectural decay in open-source software",
+          "author": "Le",
+          "year": "2018"
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.infsof.2023.107319_b19",
+          "doi-asserted-by": "crossref",
+          "first-page": "241",
+          "DOI": "10.1007/s11219-018-9404-z",
+          "article-title": "Exploring the suitability of source code metrics for indicating architectural inconsistencies",
+          "volume": "27",
+          "author": "Lenhard",
+          "year": "2019",
+          "journal-title": "Softw. Qual. J."
+        },
+        {
+          "issue": "10",
+          "key": "10.1016/j.infsof.2023.107319_b20",
+          "doi-asserted-by": "crossref",
+          "first-page": "643",
+          "DOI": "10.1016/j.infsof.2004.11.005",
+          "article-title": "Combating architectural degeneration: A survey",
+          "volume": "47",
+          "author": "Hochstein",
+          "year": "2005",
+          "journal-title": "Inf. Softw. Technol."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b21",
+          "series-title": "Proceedings of the 11th Working IEEE/IFIP Conference on Software Architecture (WICSA) Companion",
+          "first-page": "1",
+          "article-title": "Towards flexible automated software architecture erosion diagnosis and treatment",
+          "author": "Mair",
+          "year": "2014"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b22",
+          "series-title": "Proceedings of the 13th Working IEEE/IFIP Conference on Software Architecture (WICSA)",
+          "first-page": "178",
+          "article-title": "Relating architectural decay and sustainability of software systems",
+          "author": "Le",
+          "year": "2016"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b23",
+          "series-title": "Proceedings of the 6th Working IEEE/IFIP Conference on Software Architecture (WICSA)",
+          "first-page": "44",
+          "article-title": "Architecture assessment model for system evolution",
+          "author": "Bhattacharya",
+          "year": "2007"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b24",
+          "first-page": "528",
+          "article-title": "The goal question metric approach",
+          "volume": "1",
+          "author": "Basili",
+          "year": "1994",
+          "journal-title": "Encycl. Softw. Eng."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b25",
+          "series-title": "Proceedings of the 22nd European Conference on Pattern Languages of Programs (EuroPLoP)",
+          "first-page": "1",
+          "article-title": "Linguistic patterns and linguistic styles for requirements specification (i) an application case with the rigorous RSL/Business-level language",
+          "author": "Da Silva",
+          "year": "2017"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b26",
+          "doi-asserted-by": "crossref",
+          "DOI": "10.1016/j.infsof.2022.106855",
+          "article-title": "An empirical study on self-admitted technical debt in modern code review",
+          "volume": "146",
+          "author": "Kashiwa",
+          "year": "2022",
+          "journal-title": "Inf. Softw. Technol."
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.infsof.2023.107319_b27",
+          "doi-asserted-by": "crossref",
+          "first-page": "768",
+          "DOI": "10.1007/s10664-016-9452-6",
+          "article-title": "Review participation in modern code review: An empirical study of the android, Qt, and OpenStack projects",
+          "volume": "22",
+          "author": "Thongtanunam",
+          "year": "2017",
+          "journal-title": "Empir. Softw. Eng."
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.infsof.2023.107319_b28",
+          "doi-asserted-by": "crossref",
+          "first-page": "69",
+          "DOI": "10.1109/TSE.2020.2977907",
+          "article-title": "Code reviews with divergent review scores: An empirical study of the OpenStack and Qt communities",
+          "volume": "48",
+          "author": "Hirao",
+          "year": "2022",
+          "journal-title": "IEEE Trans. Softw. Eng."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b29",
+          "series-title": "Replication Package for the Paper: Warnings: Violation Symptoms Indicating Architecture Erosion",
+          "author": "Li",
+          "year": "2022"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b30",
+          "series-title": "Proceedings of the 15th International Conference on Mining Software Repositories (MSR)",
+          "first-page": "38",
+          "article-title": "Word embeddings for the software engineering domain",
+          "author": "Efstathiou",
+          "year": "2018"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b31",
+          "series-title": "Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (FSE)",
+          "first-page": "257",
+          "article-title": "Identifying the characteristics of vulnerable code changes: An empirical study",
+          "author": "Bosu",
+          "year": "2014"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b32",
+          "series-title": "Proceedings of the 29th IEEE/ACM International Conference on Program Comprehension (ICPC)",
+          "first-page": "323",
+          "article-title": "Understanding code smell detection via code review: A study of the OpenStack community",
+          "author": "Han",
+          "year": "2021"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b33",
+          "first-page": "421",
+          "article-title": "Natural language processing with Python: Analyzing text with the natural language toolkit",
+          "volume": "44",
+          "author": "Bird",
+          "year": "2010",
+          "journal-title": "Lang. Resour. Eval."
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.infsof.2023.107319_b34",
+          "doi-asserted-by": "crossref",
+          "first-page": "37",
+          "DOI": "10.1177/001316446002000104",
+          "article-title": "A coefficient of agreement for nominal scales",
+          "volume": "20",
+          "author": "Cohen",
+          "year": "1960",
+          "journal-title": "Educ. Psychol. Meas."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b35",
+          "series-title": "Constructing Grounded Theory",
+          "author": "Charmaz",
+          "year": "2014"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b36",
+          "series-title": "Proceedings of the 38th International Conference on Software Engineering (ICSE)",
+          "first-page": "120",
+          "article-title": "Grounded theory in software engineering research: A critical review and guidelines",
+          "author": "Stol",
+          "year": "2016"
+        },
+        {
+          "issue": "11",
+          "key": "10.1016/j.infsof.2023.107319_b37",
+          "doi-asserted-by": "crossref",
+          "first-page": "960",
+          "DOI": "10.1109/32.730545",
+          "article-title": "Inconsistency management for multiple-view software development environments",
+          "volume": "24",
+          "author": "Grundy",
+          "year": "1998",
+          "journal-title": "IEEE Trans. Softw. Eng."
+        },
+        {
+          "issue": "6",
+          "key": "10.1016/j.infsof.2023.107319_b38",
+          "doi-asserted-by": "crossref",
+          "first-page": "17",
+          "DOI": "10.1109/52.469757",
+          "article-title": "Architectural mismatch: Why reuse is so hard",
+          "volume": "12",
+          "author": "Garlan",
+          "year": "1995",
+          "journal-title": "IEEE Softw."
+        },
+        {
+          "issue": "4",
+          "key": "10.1016/j.infsof.2023.107319_b39",
+          "doi-asserted-by": "crossref",
+          "first-page": "66",
+          "DOI": "10.1109/MS.2009.86",
+          "article-title": "Architectural mismatch: Why reuse is still so hard",
+          "volume": "26",
+          "author": "Garlan",
+          "year": "2009",
+          "journal-title": "IEEE Softw."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b40",
+          "series-title": "Agile Principles, Patterns, and Practices in C#",
+          "author": "Martin",
+          "year": "2006"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b41",
+          "series-title": "Agile Software Development: Principles, Patterns, and Practices",
+          "author": "Martin",
+          "year": "2003"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b42",
+          "series-title": "Proceedings of the 16th European Conference on Software Maintenance and Reengineering (CSMR)",
+          "first-page": "277",
+          "article-title": "On the relevance of code anomalies for identifying architecture degradation symptoms",
+          "author": "Macia",
+          "year": "2012"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b43",
+          "series-title": "Software Architecture in Practice",
+          "author": "Bass",
+          "year": "2021"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b44",
+          "series-title": "Software Architecture in Practice",
+          "author": "Bass",
+          "year": "2012"
+        },
+        {
+          "issue": "3",
+          "key": "10.1016/j.infsof.2023.107319_b45",
+          "doi-asserted-by": "crossref",
+          "first-page": "315",
+          "DOI": "10.1002/spe.2228",
+          "article-title": "A recommendation system for repairing violations detected by static architecture conformance checking",
+          "volume": "45",
+          "author": "Terra",
+          "year": "2015",
+          "journal-title": "Softw. - Pract. Exp."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b46",
+          "series-title": "Proceedings of the 38th IEEE/ACM International Conference on Software Engineering (ICSE) Companion",
+          "first-page": "641",
+          "article-title": "DECA: development emails content analyzer",
+          "author": "Di Sorbo",
+          "year": "2016"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b47",
+          "series-title": "Proceedings of the 24th ACM SIGSOFT International Symposium on Foundations of Software Engineering (FSE)",
+          "first-page": "499",
+          "article-title": "What would users change in my app? Summarizing app reviews for recommending software changes",
+          "author": "Di Sorbo",
+          "year": "2016"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b48",
+          "series-title": "Proceedings of the 39th IEEE/ACM International Conference on Software Engineering (ICSE) Companion",
+          "first-page": "55",
+          "article-title": "SURF: Summarizer of user reviews feedback",
+          "author": "Di Sorbo",
+          "year": "2017"
+        },
+        {
+          "issue": "10",
+          "key": "10.1016/j.infsof.2023.107319_b49",
+          "doi-asserted-by": "crossref",
+          "first-page": "1098",
+          "DOI": "10.1109/TSE.2018.2876340",
+          "article-title": "Automating intention mining",
+          "volume": "46",
+          "author": "Huang",
+          "year": "2018",
+          "journal-title": "IEEE Trans. Softw. Eng."
+        },
+        {
+          "issue": "2",
+          "key": "10.1016/j.infsof.2023.107319_b50",
+          "doi-asserted-by": "crossref",
+          "first-page": "28",
+          "DOI": "10.1109/MS.2009.42",
+          "article-title": "Modularization of a large-scale business application: A case study",
+          "volume": "26",
+          "author": "Sarkar",
+          "year": "2009",
+          "journal-title": "IEEE Softw."
+        },
+        {
+          "issue": "1",
+          "key": "10.1016/j.infsof.2023.107319_b51",
+          "doi-asserted-by": "crossref",
+          "first-page": "56",
+          "DOI": "10.1109/TSE.2016.2576451",
+          "article-title": "Process aspects and social dynamics of contemporary code review: Insights from open source development and industrial practice at microsoft",
+          "volume": "43",
+          "author": "Bosu",
+          "year": "2016",
+          "journal-title": "IEEE Trans. Softw. Eng."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b52",
+          "series-title": "Proceedings of the 3rd ACM SIGSOFT Symposium on Foundations of Software Engineering (FSE)",
+          "first-page": "18",
+          "article-title": "Software reflexion models: Bridging the gap between source and high-level models",
+          "author": "Murphy",
+          "year": "1995"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b53",
+          "series-title": "Proceedings of the 13th Working IEEE/IFIP Conference on Software Architecture (WICSA)",
+          "first-page": "241",
+          "article-title": "Architecture-violation management for internal software ecosystems",
+          "author": "Schultis",
+          "year": "2016"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b54",
+          "series-title": "Experimentation in Software Engineering",
+          "author": "Wohlin",
+          "year": "2012"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b55",
+          "series-title": "Proceedings of the 19th Working Conference on Reverse Engineering (WCRE)",
+          "first-page": "257",
+          "article-title": "On the evolutionary nature of architectural violations",
+          "author": "Brunet",
+          "year": "2012"
+        },
+        {
+          "issue": "3",
+          "key": "10.1016/j.infsof.2023.107319_b56",
+          "doi-asserted-by": "crossref",
+          "first-page": "854",
+          "DOI": "10.1007/s10664-014-9348-2",
+          "article-title": "Mining architectural violations from version history",
+          "volume": "21",
+          "author": "Maffort",
+          "year": "2016",
+          "journal-title": "Empir. Softw. Eng."
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b57",
+          "series-title": "Proceedings of the 11th European Conference on Software Architecture (ECSA) Companion",
+          "first-page": "166",
+          "article-title": "Architecture conformance checking with description logics",
+          "author": "Schröder",
+          "year": "2017"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b58",
+          "series-title": "Proceedings of the 11th Joint Meeting on Foundations of Software Engineering (FSE)",
+          "first-page": "914",
+          "article-title": "Automated identification of security issues from commit messages and bug reports",
+          "author": "Zhou",
+          "year": "2017"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b59",
+          "series-title": "Proceedings of the 36th IEEE International Conference on Software Maintenance and Evolution (ICSME)",
+          "first-page": "511",
+          "article-title": "How does modern code review impact software design degradation? An in-depth empirical study",
+          "author": "Uchôa",
+          "year": "2020"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b60",
+          "series-title": "Proceedings of the 17th International Conference on Mining Software Repositories (MSR)",
+          "first-page": "125",
+          "article-title": "Behind the intents: An in-depth empirical study on software refactoring in modern code review",
+          "author": "Paixão",
+          "year": "2020"
+        },
+        {
+          "key": "10.1016/j.infsof.2023.107319_b61",
+          "series-title": "Proceedings of the 11th Working Conference on Mining Software Repositories (MSR)",
+          "first-page": "340",
+          "article-title": "Do developers discuss design?",
+          "author": "Brunet",
+          "year": "2014"
+        }
+      ],
+      "container-title": [
+        "Information and Software Technology"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S095058492300174X?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S095058492300174X?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2025,
+            10,
+            16
+          ]
+        ],
+        "date-time": "2025-10-16T03:40:30Z",
+        "timestamp": 1760586030000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://linkinghub.elsevier.com/retrieve/pii/S095058492300174X"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2023,
+            12
+          ]
+        ]
+      },
+      "references-count": 61,
+      "alternative-id": [
+        "S095058492300174X"
+      ],
+      "URL": "https://doi.org/10.1016/j.infsof.2023.107319",
+      "relation": {},
+      "ISSN": [
+        "0950-5849"
+      ],
+      "issn-type": [
+        {
+          "value": "0950-5849",
+          "type": "print"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2023,
+            12
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "Elsevier",
+          "name": "publisher",
+          "label": "This article is maintained by"
+        },
+        {
+          "value": "Warnings: Violation symptoms indicating architecture erosion",
+          "name": "articletitle",
+          "label": "Article Title"
+        },
+        {
+          "value": "Information and Software Technology",
+          "name": "journaltitle",
+          "label": "Journal Title"
+        },
+        {
+          "value": "https://doi.org/10.1016/j.infsof.2023.107319",
+          "name": "articlelink",
+          "label": "CrossRef DOI link to publisher maintained version"
+        },
+        {
+          "value": "article",
+          "name": "content_type",
+          "label": "Content Type"
+        },
+        {
+          "value": "© 2023 Elsevier B.V. All rights reserved.",
+          "name": "copyright",
+          "label": "Copyright"
+        }
+      ],
+      "article-number": "107319"
+    }
+  }
+}
