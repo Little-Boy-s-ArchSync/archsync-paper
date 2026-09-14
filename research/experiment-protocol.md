@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Task | EXP-101 |
-| Protocol version | 0.1.0-proposed |
+| Protocol version | 0.1.1-proposed |
 | Status | PROPOSED — NOT APPROVED / NOT FROZEN / NO OFFICIAL RUN AUTHORIZED |
 | Sheet dependency | RQ-101 — completed governed input: `claim-evidence.csv` + `validate-claim-evidence.mjs` |
 | Traceability input | RQ-102 — completed governed input: `RQ-TRACEABILITY.md` + `rq-traceability.csv` + `validate-rq-traceability.mjs` |
@@ -16,10 +16,12 @@
 This proposal makes the remaining experiment preparation auditable without
 claiming an approval, preregistration, freeze, dataset, participant, provider
 run, or result. The SHA-256 in the proposal manifest identifies only this
-review candidate. A later freeze process requires a separately named freeze
-manifest and a separate future validator that binds approved document versions
-and hashes before any official outcome is inspected. This proposal validator
-can never authorize that run.
+review candidate. A later freeze process requires the separately named
+`experiment-freeze-manifest.json` and
+`verify-experiment-readiness.mjs --check`, which bind approved document
+versions, exact bytes, decisions, preflight evidence and signed human approvals
+before any official outcome is inspected. The unresolved template and this
+proposal validator can never authorize that run.
 
 ## Research-question and evidence boundary
 
@@ -215,9 +217,11 @@ not adopt it. No freeze may proceed without the recorded human decision.
 
 ## Future freeze and run authorization
 
-A future freeze/readiness validator, separate from the permanent proposal-only
-guard in `validate-pre-experiment-protocols.mjs`, must require all of the
-following real records:
+The freeze/readiness validator in `verify-experiment-readiness.mjs` is separate
+from the permanent proposal-only guard in
+`validate-pre-experiment-protocols.mjs`. Its committed template is deliberately
+unresolved and authorizes zero runs. `--check` requires all of the following
+real records before it can print `READY FOR GOVERNED EXPERIMENT RUNS`:
 
 - accepted protocol and co-freeze decisions in `decision-log.md`;
 - approved, non-proposed versions of EXP-101, EXP-102, ETH-101, DATA-101,
@@ -229,15 +233,20 @@ following real records:
   consent records; and
 - a clean deterministic preflight with no safety or provenance blocker.
 
-Approval must be supplied by the accountable humans; an AI, operator, commit,
-validator PASS, proposal hash, or empty approval field cannot substitute for
-it. This repository currently permits only document review, test fixtures,
-validators, redaction canaries, schema checks, and current D1/D2/P3 software-
-verification replays. `--official-run` is permanently a negative proposal guard
-and must never be repurposed as the future readiness validator.
+The validator recomputes every referenced artifact hash, binds the exact Git
+commit, keeps `results` empty at freeze time, verifies separate accountable and
+independent Ed25519 signatures over one canonical freeze payload, and rejects
+unsafe paths or unresolved fields. Approval must be supplied by the accountable humans;
+an AI, operator, commit, validator PASS, proposal hash, or
+empty approval field cannot substitute for it. This repository currently
+permits only document review, test fixtures, validators, redaction canaries,
+schema checks, and current D1/D2/P3 software-verification replays.
+`--official-run` is permanently a negative proposal guard and must never be
+repurposed as the readiness validator.
 
 ## Version history
 
 | Version | Status | Summary |
 | --- | --- | --- |
 | 0.1.0-proposed | Proposed | Decision-ready umbrella protocol; no approval, freeze, official run, participant, provider call, dataset, or result |
+| 0.1.1-proposed | Proposed | Add a separately tested fail-closed freeze manifest and readiness validator; no real manifest, approval, freeze, official run or result |
