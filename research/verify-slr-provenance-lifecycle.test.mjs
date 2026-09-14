@@ -50,7 +50,25 @@ async function fixture(t) {
   for (const [path, bytes] of source.sentinelEvidenceArtifacts) await write(path, bytes);
   await write("research/phase-gate-register.csv", "gate_id,phase,decision,decision_date,owner,evidence,open_blocker,next_action\nPG-OLD,P0,HOLD,2026-09-11,Hiếu,pending,review,wait\n");
   await write("research/MEETING-CADENCE.md", "# Historical weekly decision\n2026-09-11: HOLD; freeze pending.\n");
-  for (const path of ["research/EXTERNAL-BASELINE-PROTOCOL.md", "research/statistical-analysis-plan.md", "research/validate-research-quality-gates.mjs"]) await write(path, await readFile(join(root, path)));
+  for (const path of ["research/EXTERNAL-BASELINE-PROTOCOL.md", "research/statistical-analysis-plan.md", "research/validate-research-quality-gates.mjs"]) {
+    let bytes = await readFile(join(root, path), "utf8");
+    // PR32 is immutable historical evidence. Later versioned amendments may
+    // legitimately change the same metadata markers, so reconstruct only the
+    // exact post-PR32 hunk bytes in this synthetic repository before replaying
+    // the retained public patch. The patch and its pinned digest stay unchanged.
+    if (path === "research/EXTERNAL-BASELINE-PROTOCOL.md") {
+      bytes = bytes
+        .replace("| Protocol version | 0.2.0 |", "| Protocol version | 0.1.1 |")
+        .replace(
+          /^Revision 0\.2\.0 \([^\n]+$/m,
+          "Revision 0.1.1 (2026-09-12) synchronizes the operational task owner with the current main plan. Comparator selection, D3 freeze and Hiếu's required approval retain their existing gates. The protocol remains proposed and unexecuted.",
+        );
+    }
+    if (path === "research/validate-research-quality-gates.mjs") {
+      bytes = bytes.replace('"| Protocol version | 0.2.0 |"', '"| Protocol version | 0.1.1 |"');
+    }
+    await write(path, bytes);
+  }
   const keys = generateKeyPairSync("ed25519");
   const publicKeyBytes = Buffer.from(keys.publicKey.export({ format: "pem", type: "spki" }));
   await write(SIGNED_REVIEW_PATHS.publicKey, publicKeyBytes);
@@ -146,6 +164,83 @@ test("actual main push, dispatch and GitHub PR test-merge checkout contexts", as
   await f.write("research/literature-protocol.md", f.frozen.protocol + "\nDisguised merge method change\n");
   f.currentPull.merge_commit_sha = f.commit("Alter test merge");
   invalid(await f.verify(), /frozen method\/evidence changed/);
+});
+
+test("regenerated GitHub test merge accepts only the same full tree and exact current parents", async (t) => {
+  const f = await fixture(t);
+  const tree = f.run("rev-parse", `${f.current}^{tree}`);
+  const merge = (parents, message, contentTree = tree) => f.run("commit-tree", contentTree,
+    ...parents.flatMap((parent) => ["-p", parent]), "-m", message);
+  const parents = [f.merged, f.current];
+  const eventMerge = merge(parents, "Original event merge");
+  const latestMerge = merge(parents, "Regenerated API merge");
+  assert.notEqual(eventMerge, latestMerge);
+  f.currentPull.merge_commit_sha = latestMerge;
+  f.run("checkout", "--detach", eventMerge);
+  assert.deepEqual((await f.verify()).issues, []);
+
+  for (const badParents of [[f.reviewed, f.current], [f.merged, f.freeze],
+    [f.current, f.merged], [f.current], [f.merged, f.current, f.reviewed]]) {
+    f.run("checkout", "--detach", merge(badParents, "Wrong checkout parents"));
+    invalid(await f.verify(), /checkout is neither/);
+  }
+  f.run("checkout", "--detach", eventMerge);
+  f.currentPull.merge_commit_sha = merge([f.reviewed, f.current], "Wrong API merge parents");
+  invalid(await f.verify(), /checkout is neither/);
+  f.currentPull.merge_commit_sha = latestMerge;
+  await f.write("README.md", "Changed unprotected bytes still invalidate merge equivalence\n");
+  f.run("add", "README.md");
+  const changedTree = f.run("write-tree");
+  f.run("checkout", "--detach", "--force", merge(parents, "Wrong checkout tree", changedTree));
+  invalid(await f.verify(), /checkout is neither/);
+  f.run("checkout", "--detach", eventMerge);
+  f.currentPull.merge_commit_sha = merge(parents, "Wrong API merge tree", changedTree);
+  invalid(await f.verify(), /checkout is neither/);
+  f.currentPull.merge_commit_sha = latestMerge;
+  f.environment.SLR_CURRENT_COMMIT = f.freeze;
+  invalid(await f.verify(), /current event does not identify/);
+});
+
+test("regenerated merge preserves exact-head approval and phase-owner review gates", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  await f.write(path, await readFile(join(f.directory, path), "utf8") +
+    `\n2026-09-13: correction; HOLD retained. https://github.com/${repo}/pull/26\n`);
+  const head = f.commit("Owner-reviewed phase correction");
+  f.currentPull.head.sha = head; f.environment.SLR_CURRENT_COMMIT = head;
+  const tree = f.run("rev-parse", `${head}^{tree}`);
+  const merge = (message) => f.run("commit-tree", tree, "-p", f.merged, "-p", head, "-m", message);
+  const eventMerge = merge("Original phase event merge");
+  f.currentPull.merge_commit_sha = merge("Regenerated phase API merge");
+  f.run("checkout", "--detach", eventMerge);
+  assert.deepEqual((await f.verify()).issues, []);
+  const requestJson = async (path) => path.includes("/pulls/32/reviews?") ? [] : f.requestJson(path);
+  invalid(await f.verify({ requestJson }), /accepted exact-head GitHub approval/);
+  const ordinaryReview = async (path) => path.includes("/pulls/32/reviews?") ?
+    [f.approval(head)] : f.requestJson(path);
+  invalid(await f.verify({ requestJson: ordinaryReview }), /requires Hiếu's exact-head approval/);
+});
+
+test("approved phase correction survives an exact GitHub PR test merge", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  const original = await readFile(join(f.directory, path), "utf8");
+  const addition = `\n2026-09-13: correction to pending-freeze statement; HOLD retained. https://github.com/${repo}/pull/26\n`;
+  await f.write(path, original + addition);
+  const phaseHead = f.commit("Phase correction on current PR");
+  f.currentPull.base.sha = f.merged;
+  f.currentPull.head.sha = phaseHead;
+  f.environment.SLR_CURRENT_COMMIT = phaseHead;
+  f.run("checkout", "--detach", f.merged);
+  f.run("merge", "--no-ff", "follow-up", "-m", "Synthetic GitHub test merge with phase correction");
+  const testMerge = f.run("rev-parse", "HEAD");
+  f.currentPull.merge_commit_sha = testMerge;
+  assert.deepEqual((await f.verify()).issues, []);
+
+  await f.write(path, original + addition + "Unreviewed merge resolution.\n");
+  const altered = f.commit("Unreviewed test-merge phase resolution");
+  f.currentPull.merge_commit_sha = altered;
+  invalid(await f.verify(), /requires Hiếu's exact-head approval/);
 });
 
 test("a separately reviewed exact SLR-103 codebook lock may be appended without changing frozen rules", async (t) => {
@@ -244,6 +339,17 @@ test("phase corrections retain historical HOLD and need Hiếu's actual exact-he
   invalid(await f.verify({ requestJson }), /requires Hiếu's exact-head approval/);
   await f.change(path, original.replace("HOLD", "GO"));
   invalid(await f.verify(), /historical phase decisions/);
+});
+
+test("named phase-owner approval remains valid when workflow membership metadata is unavailable", async (t) => {
+  const f = await fixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  const original = await readFile(join(f.directory, path), "utf8");
+  await f.change(path, original + "\n2026-09-13 correction to freeze status; P0 remains HOLD. https://github.com/" + repo + "/pull/32\n");
+  const requestJson = (requestPath) => requestPath.includes("/pulls/32/reviews?")
+    ? [{ ...f.approval(f.currentPull.head.sha, "L1nkinPark"), author_association: "NONE" }]
+    : f.requestJson(requestPath);
+  assert.deepEqual((await f.verify({ requestJson })).issues, []);
 });
 
 test("main retains accountable review for inherited phase corrections", async (t) => {

@@ -131,13 +131,15 @@ export function validateResearchQualityGates(input) {
 
   for (const marker of [
     "The current study reports no external baseline result",
-    "within-ArchSync regression comparison",
+    "within-ArchSync regression, not a competitor comparison",
     "dependency-cruiser",
-    "frozen D3 repositories",
-    "No comparative advantage will be claimed",
+    "non-empty set of units with identical semantics",
+    "an import edge is not automatically a service edge",
+    "No comparative advantage is claimed",
   ]) requireMarker(issues, "evaluation.tex", evaluation, marker);
   requireMarker(issues, "results.tex", results, "\\section{Controlled Verification Results}");
-  requireMarker(issues, "results.tex", results, "co-developed development benchmark");
+  requireMarker(issues, "results.tex", results, "not estimates from an independent D3 holdout");
+  requireMarker(issues, "results.tex", results, "not independent samples");
   if (discussion.includes("perfect scores")) {
     issues.push("discussion.tex: must not call controlled results perfect scores");
   }
@@ -149,7 +151,8 @@ export function validateResearchQualityGates(input) {
   for (const marker of [
     "no external tool baseline was run",
     "no independent real-world holdout exists",
-    "Only after those gates produce auditable evidence",
+    "reduce, but not eliminate, external-validity threats",
+    "Only after these gates produce auditable evidence",
   ]) requireMarker(issues, "conclusion.tex", conclusion, marker);
 
   const controlledStatuses = claimEvidence.match(/,verified-controlled,/g)?.length ?? 0;
@@ -167,11 +170,13 @@ export function validateResearchQualityGates(input) {
     "add `EVAL-BASELINE-001`",
   ]) requireMarker(issues, "PROJECT-EVIDENCE-AUDIT.md", audit, marker);
   for (const marker of [
-    "| Protocol version | 0.1.1 |",
+    "| Protocol version | 0.2.0 |",
     "| Status | Proposed - not executed |",
     "The current paper has no external baseline result",
     "dependency-cruiser",
     "unsupported, ambiguous, failed, and inconclusive cases",
+    "non-empty semantic intersection",
+    "repository-level, macro, and micro results",
   ]) requireMarker(issues, "EXTERNAL-BASELINE-PROTOCOL.md", baselineProtocol, marker);
 
   const expectedKeys = [

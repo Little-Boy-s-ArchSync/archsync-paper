@@ -16,6 +16,7 @@ const RECORD = "research/slr-review-record.md";
 const PHASE_PATHS = ["research/phase-gate-register.csv", "research/MEETING-CADENCE.md"];
 const LOCK_PATH_SET = new Set(LOCK_PATHS);
 const ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
+const PHASE_OWNER_LOGIN = "L1nkinPark";
 const TRANSITION = new Set([RECORD, SIGNED_REVIEW_PATHS.attestation, SIGNED_REVIEW_PATHS.signature,
   "research/literature-protocol.md", "research/decision-log.md"]);
 const sha = (value) => /^[0-9a-f]{40}$/.test(value ?? "");
@@ -44,6 +45,12 @@ export function gitEvidence(directory, { fetchMissing = false, execGit = exec } 
   };
   return {
     head: async () => (await run(["rev-parse", "HEAD"])).toString().trim(),
+    identity: async (commit) => {
+      await ensure(commit);
+      const headers = (await run(["cat-file", "commit", commit])).toString().split("\n\n", 1)[0].split("\n");
+      return { tree: headers.find((line) => line.startsWith("tree "))?.slice(5),
+        parents: headers.filter((line) => line.startsWith("parent ")).map((line) => line.slice(7)) };
+    },
     tree: async (commit) => {
       await ensure(commit);
       const result = new Map();
@@ -113,6 +120,28 @@ async function artifactsAt(git, commit) {
     [`${key}Bytes`, await git.read(commit, path)])));
 }
 
+async function isCurrentPullTestMerge(git, commit, pull) {
+  if (!sha(commit) || !sha(pull?.merge_commit_sha)) return false;
+  if (commit === pull.merge_commit_sha) return true;
+  if (!sha(pull.base?.sha) || !sha(pull.head?.sha)) return false;
+  // GitHub may regenerate a test merge while a rerun retains its event checkout.
+  // Only identical complete trees with the exact ordered current base/head
+  // parents qualify; neither stale parents nor merge-resolution changes do.
+  const [checkout, latest] = await Promise.all([git.identity(commit), git.identity(pull.merge_commit_sha)]);
+  const exactParents = ({ parents }) => parents.length === 2 &&
+    parents[0] === pull.base.sha && parents[1] === pull.head.sha;
+  return exactParents(checkout) && exactParents(latest) && sha(checkout.tree) && checkout.tree === latest.tree;
+}
+
+async function coversCurrentPullTestMerge(git, commit, current, currentPull) {
+  if (!currentPull || commit !== current || !sha(currentPull.head?.sha) ||
+      !await isCurrentPullTestMerge(git, commit, currentPull)) return false;
+  if (!await git.ancestor(currentPull.head.sha, current)) return false;
+  const approvedTree = await git.tree(currentPull.head.sha);
+  const testMergeTree = await git.tree(commit);
+  return PHASE_PATHS.every((path) => approvedTree.get(path) === testMergeTree.get(path));
+}
+
 async function allPages(requestJson, path) {
   const rows = [];
   for (let page = 1; ; page += 1) {
@@ -132,8 +161,9 @@ async function approved(requestJson, pull, login, independent = false) {
   requireThat(![...latest.values()].some((review) => review.state === "CHANGES_REQUESTED"),
     "unresolved changes-requested review");
   requireThat([...latest.values()].some((review) => review.state === "APPROVED" &&
-    review.commit_id === pull.head.sha && ASSOCIATIONS.has(review.author_association) &&
-    (!login || review.user?.login === login) &&
+    review.commit_id === pull.head.sha &&
+    (login ? review.user?.login === login :
+      ASSOCIATIONS.has(review.author_association) || review.user?.login === PHASE_OWNER_LOGIN) &&
     (!independent || (pull.user?.login && review.user?.login !== pull.user.login))), "accepted exact-head GitHub approval is required");
 }
 
@@ -192,6 +222,8 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
       if (pull.base?.repo?.full_name !== REPOSITORY || pull.base.ref !== "main" ||
           (!pull.merged && pull.number !== currentPull?.number)) continue;
       let coversCommit = await git.ancestor(commit, pull.head.sha);
+      if (!coversCommit && pull.number === currentPull?.number &&
+          await coversCurrentPullTestMerge(git, commit, current, currentPull)) coversCommit = true;
       if (!coversCommit && pull.merged && sha(pull.merge_commit_sha) &&
           await git.ancestor(commit, pull.merge_commit_sha) && await git.ancestor(pull.merge_commit_sha, current)) {
         const acceptedTree = await git.tree(pull.merge_commit_sha);
@@ -201,7 +233,7 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
         coversCommit = PHASE_PATHS.every((path) => acceptedTree.get(path) === approvedTree.get(path));
       }
       if (!coversCommit) continue;
-      try { await approved(requestJson, pull, "L1nkinPark"); accepted = true; break; } catch { /* Try another associated PR. */ }
+      try { await approved(requestJson, pull, PHASE_OWNER_LOGIN); accepted = true; break; } catch { /* Try another associated PR. */ }
     }
     requireThat(accepted, `phase correction ${commit} requires Hiếu's exact-head approval; no GO is inferred`);
   }
@@ -222,7 +254,7 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
         currentPull.state === "open" && currentPull.base?.repo?.full_name === REPOSITORY && currentPull.base.ref === "main",
       "current event does not identify an open PR to repository main");
       base = currentPull.base.sha;
-      requireThat(checkedOut === current || checkedOut === currentPull.merge_commit_sha,
+      requireThat(checkedOut === current || await isCurrentPullTestMerge(git, checkedOut, currentPull),
         "checkout is neither the PR head nor its GitHub test merge");
     } else {
       requireThat(["push", "workflow_dispatch"].includes(event) && environment.GITHUB_REF === "refs/heads/main",
@@ -275,6 +307,10 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
     const acceptedTree = await git.tree(merged);
     requireThat(PHASE_PATHS.every((path) => frozenTree.get(path) === acceptedTree.get(path)),
       "initial accepted merge changed the reviewed phase documents");
+    // GitHub's workflow token can omit a private organization membership from
+    // author_association. approved() still accepts that missing metadata only
+    // for the phase owner's exact GitHub identity; ordinary reviewers continue
+    // to require an eligible repository association.
     if (currentPull) await approved(requestJson, currentPull, undefined, true);
     await verifyPhaseHistory({ git, freeze: merged, current: checkedOut, currentPull, requestJson });
     return { issues: [], mode: "historical", freeze, reviewed, pullRequest: Number(number) };

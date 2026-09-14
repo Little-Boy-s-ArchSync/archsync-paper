@@ -127,6 +127,7 @@ const dockerPrefix = [
 
 const commands = [
   { id: "source-metadata", command: process.execPath, args: ["scripts/verify-paper-source.mjs"] },
+  { id: "pdf-page-budget-tests", command: process.execPath, args: ["--test", "scripts/pdf-page-budget.test.mjs"] },
   { id: "research-baseline", command: process.execPath, args: ["research/validate-baseline.mjs"] },
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
   { id: "submission-readiness", command: process.execPath, args: ["research/validate-submission-readiness.mjs"] },
@@ -193,6 +194,13 @@ for (const [id, file] of [
 }
 
 commands.push(
+  hostTexAvailable
+    ? { id: "pdf-variants", command: process.execPath, args: ["scripts/verify-pdf-variants.mjs"] }
+    : {
+        id: "pdf-variants",
+        command: "docker",
+        args: [...dockerPrefix, "node", "scripts/verify-pdf-variants.mjs"],
+      },
   hostTexAvailable
     ? { id: "anonymous-redaction", command: process.execPath, args: ["scripts/verify-pdf-redaction.mjs"] }
     : {

@@ -70,8 +70,17 @@ test("rejects missing repository and immutable commit links", async () => {
 
 test("rejects presenting the internal revision as an external baseline", async () => {
   const input = await fixture();
-  input.evaluation = input.evaluation.replace("within-ArchSync regression comparison", "external baseline comparison");
-  hasIssue(validateResearchQualityGates(input), "within-ArchSync regression comparison");
+  input.evaluation = input.evaluation.replace("within-ArchSync regression, not a competitor comparison", "external baseline comparison");
+  hasIssue(validateResearchQualityGates(input), "within-ArchSync regression, not a competitor comparison");
+});
+
+test("rejects an empty or unaccounted external-comparison capability map", async () => {
+  const input = await fixture();
+  input.evaluation = input.evaluation.replace("non-empty set of units with identical semantics", "candidate subset");
+  input.baselineProtocol = input.baselineProtocol.replace("non-empty semantic intersection", "common subset");
+  const result = validateResearchQualityGates(input);
+  hasIssue(result, "non-empty set of units with identical semantics");
+  hasIssue(result, "non-empty semantic intersection");
 });
 
 test("rejects an unqualified claim status and a result-dump conclusion", async () => {

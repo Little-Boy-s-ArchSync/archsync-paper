@@ -54,3 +54,53 @@ claims before a task is changed to `Đã làm`.
 Create one dated section or linked issue for each new ISO week. Never edit a
 past result to make a later gate pass. Corrections append a dated note that
 identifies the superseded statement and its evidence.
+
+## 2026-09-13 P0 search checkpoint correction
+
+[Issue #39](https://github.com/Little-Boy-s-ArchSync/archsync-paper/issues/39)
+corrects the current blocker stated in `PG-2026W37-P0` and the first operational
+review's Friday decision above. Those historical entries remain unchanged.
+P0 remains **HOLD** for incomplete SLR-102 exports and subsequent review tasks;
+the SLR-REV-101 freeze is no longer pending. This entry does not record P0 GO.
+
+- [PR #26](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/26)
+  accepted the signed protocol 1.0.0 freeze at
+  `e34054760273a104f0db99c86a4ddd222e509254` on 2026-09-13T05:47:50Z.
+  [Post-merge run 34741180070](https://github.com/Little-Boy-s-ArchSync/archsync-paper/actions/runs/34741180070)
+  passed Build paper and Devcontainer smoke.
+- [PR #35](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/35)
+  accepted the unchanged SLR-103 criteria 1.0.0 release lock at
+  `8270cfed385cbce73c811a5a4747256842f31f5a` on 2026-09-13T11:10:21Z.
+  [Post-merge run 34753743380](https://github.com/Little-Boy-s-ArchSync/archsync-paper/actions/runs/34753743380)
+  passed Build paper and Devcontainer smoke. Its retained 2/24 checkpoint is historical.
+- [PR #32](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/32)
+  accepted owner/version and repository-ownership alignment at
+  `13d9141b00db44aeaed55afb77238343c8f7ff5a` on 2026-09-13T12:52:28Z.
+  [Post-merge run 34758281444](https://github.com/Little-Boy-s-ArchSync/archsync-paper/actions/runs/34758281444)
+  passed Build paper and Devcontainer smoke. This governance acceptance does
+  not constitute official-search completion or screening evidence.
+- [The dated checkpoint](amendments/2026-09-13-p0-search-checkpoint/checkpoint.json)
+  (SHA-256 `2f93e961a91881ec2cd165545c6b1083d5d7fc5223864f43939aadc0ed5b470f`) binds the
+  retained independent metadata/hash verification receipts and all 11 completed
+  job-manifest hashes: five OpenAlex jobs and all six Semantic Scholar jobs.
+  Of 24 official query jobs, **11 are complete and 13 remain** at this checkpoint.
+  OpenAlex C1 is incomplete; IEEE has partial per-field browser evidence, with
+  no complete logical query job counted here; no ACM job is counted complete.
+  Receipt timestamps are preserved. This is not a cross-job deduplicated study count.
+- [PR #38](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/38)
+  separately addresses the 77-marker/76-page discrepancy raised in issue #39.
+  At head `41f4e2d1ceb5a447c2cdc547cbd7340f2f954b26`, the
+  [reconciliation](https://github.com/Little-Boy-s-ArchSync/archsync-paper/blob/41f4e2d1ceb5a447c2cdc547cbd7340f2f954b26/research/amendments/2026-09-13-source-order-ops/count-reconciliation.json)
+  maps one translation marker and 76 export-page markers containing 7,600 record
+  occurrences. The excluded translation marker is bound by SHA-256
+  `130bb7b61aebc80864b0badcb266b1314561b57fa45208b9354fbc234440826c`;
+  the reviewer-named final export marker remains included. Original amendment
+  bytes are retained. Exact-head review resolution and protected acceptance of
+  that separate PR were still pending when this checkpoint was recorded.
+
+Next action: obtain acceptance of the evidence-backed PR #38 reconciliation,
+continue the approved source-order campaign, and complete and freeze all 24 raw
+query bundles before inspecting individual records, screening, or extraction.
+This correction does not close SLR-102 or authorize SLR-105. Hiếu's exact-head
+accountable approval remains required by the phase-history lifecycle before
+this correction can be accepted; no new personal research statement is asserted.
