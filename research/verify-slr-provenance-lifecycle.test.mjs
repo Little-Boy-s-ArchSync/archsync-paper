@@ -118,6 +118,49 @@ async function fixture(t) {
 }
 const invalid = (result, pattern) => { assert.ok(result.issues.length > 0); assert.match(result.issues.join("\n"), pattern); };
 
+async function mainPhaseSyncFixture(t) {
+  const f = await fixture(t);
+  f.run("switch", "-c", "phase-correction", f.merged);
+  for (const [path, addition] of [
+    ["research/MEETING-CADENCE.md", `\n2026-09-13: freeze accepted; HOLD retained. https://github.com/${repo}/pull/40\n`],
+    ["research/phase-gate-register.csv", `PG-NEW,P0,HOLD,2026-09-13,Hiếu,https://github.com/${repo}/pull/40,search incomplete,wait\n`],
+  ]) await f.write(path, await readFile(join(f.directory, path), "utf8") + addition);
+  const phaseHead = f.commit("Phase correction approved in a separate PR");
+  f.run("switch", "main");
+  f.run("merge", "--no-ff", "phase-correction", "-m", "Accepted owner-approved correction");
+  const phaseMerge = f.run("rev-parse", "HEAD");
+  // The imported main parent may be later than the original phase PR merge.
+  await f.write("main-admin.md", "Unrelated work after phase acceptance\n");
+  const mainParent = f.commit("Main advances without another phase decision");
+  f.run("switch", "follow-up");
+  f.run("merge", "--no-ff", "main", "-m", "Sync approved main into owner-authored PR");
+  const sync = f.run("rev-parse", "HEAD");
+  const setHead = (head) => {
+    f.currentPull.head.sha = head; f.currentPull.merge_commit_sha = head;
+    f.environment.SLR_CURRENT_COMMIT = head;
+  };
+  setHead(sync);
+  f.currentPull.user.login = "L1nkinPark";
+  f.currentPull.base.sha = mainParent;
+  const phasePull = { number: 40, user: { login: "another-author" }, state: "closed", merged: true,
+    head: { sha: phaseHead }, merge_commit_sha: phaseMerge,
+    base: { ref: "main", repo: { full_name: repo }, sha: f.merged } };
+  let ownerReviewReads = 0;
+  const requestJson = async (path) => {
+    if (path.endsWith("/pulls/40")) return phasePull;
+    if (path.includes("/pulls/40/reviews?")) {
+      ownerReviewReads += 1;
+      return [f.approval(phaseHead, "L1nkinPark")];
+    }
+    if (path.includes("/pulls/32/reviews?")) return [f.approval(f.currentPull.head.sha, "independent-reviewer")];
+    if ([phaseHead, phaseMerge].some((commit) => path.includes(`/commits/${commit}/pulls?`))) return [{ number: 40 }];
+    if (path.includes(`/commits/${sync}/pulls?`)) return [{ number: 32 }];
+    return f.requestJson(path);
+  };
+  return { ...f, phaseHead, phaseMerge, mainParent, sync, phasePull, setHead, requestJson,
+    ownerReviewReads: () => ownerReviewReads };
+}
+
 test("real Git merge history permits PR32-style proposed owner metadata and preserves the signed source", async (t) => {
   const f = await fixture(t);
   // Exact public PR32 delta from 159ea31 to 287ca6b, applied to synthetic history.
@@ -360,6 +403,78 @@ test("main retains accountable review for inherited phase corrections", async (t
   f.currentPull.merged = true; f.currentPull.state = "closed"; f.currentPull.base.sha = current;
   const requestJson = (path) => path.includes("/commits/") && path.includes("/pulls?") ? [{ number: 32 }] : f.requestJson(path);
   assert.deepEqual((await f.verify({ requestJson, environment: { GITHUB_EVENT_NAME: "push", GITHUB_REF: "refs/heads/main", SLR_CURRENT_COMMIT: current } })).issues, []);
+});
+
+test("owner-authored PR inherits unchanged main phase state and rechecks the original owner review", async (t) => {
+  const f = await mainPhaseSyncFixture(t);
+  const git = gitEvidence(f.directory);
+  assert.ok((await git.phaseCommits(f.merged, f.sync)).includes(f.sync));
+  // This is the previous first-parent failure: the sync commit belongs only
+  // to the owner-authored PR, where no owner self-approval is available.
+  const withoutInheritance = { ...git, identity: async (commit) => {
+    const identity = await git.identity(commit);
+    return commit === f.sync ? { ...identity, parents: [] } : identity;
+  } };
+  invalid(await f.verify({ requestJson: f.requestJson, git: withoutInheritance }), /requires Hiếu's exact-head approval/);
+  assert.deepEqual((await f.verify({ requestJson: f.requestJson })).issues, []);
+  assert.ok(f.ownerReviewReads() > 0, "the original owner approval must actually be fetched again");
+
+  // Main's later push must preserve the same inherited proof without a
+  // fabricated self-review on the subsequently accepted administrative PR.
+  f.currentPull.merged = true; f.currentPull.state = "closed"; f.currentPull.base.sha = f.sync;
+  assert.deepEqual((await f.verify({ requestJson: f.requestJson, environment: {
+    GITHUB_EVENT_NAME: "push", GITHUB_REF: "refs/heads/main", SLR_CURRENT_COMMIT: f.sync,
+  } })).issues, []);
+});
+
+test("main-sync inheritance cannot launder missing, dismissed, stale, or rejected owner approval", async (t) => {
+  const f = await mainPhaseSyncFixture(t);
+  const originalApproval = f.approval(f.phaseHead, "L1nkinPark");
+  for (const reviews of [[], [{ ...originalApproval, state: "DISMISSED" }],
+    [{ ...originalApproval, commit_id: f.merged }],
+    [originalApproval, { ...originalApproval, state: "CHANGES_REQUESTED" }]]) {
+    const requestJson = (path) => path.includes("/pulls/40/reviews?") ? reviews : f.requestJson(path);
+    invalid(await f.verify({ requestJson }), /requires Hiếu's exact-head approval/);
+  }
+});
+
+test("main-sync inheritance still requires independent approval of the current exact head", async (t) => {
+  const f = await mainPhaseSyncFixture(t);
+  for (const reviews of [[], [f.approval(f.sync, "L1nkinPark")], [f.approval(f.phaseHead, "independent-reviewer")]]) {
+    const requestJson = (path) => path.includes("/pulls/32/reviews?") ? reviews : f.requestJson(path);
+    invalid(await f.verify({ requestJson }), /accepted exact-head GitHub approval/);
+  }
+});
+
+test("a phase-identical parent outside authenticated main cannot grant inheritance", async (t) => {
+  const f = await mainPhaseSyncFixture(t);
+  f.currentPull.base.sha = f.merged;
+  invalid(await f.verify({ requestJson: f.requestJson }), /requires Hiếu's exact-head approval/);
+});
+
+test("main-sync inheritance rejects phase merge resolutions changing either document or a file mode", async (t) => {
+  const f = await mainPhaseSyncFixture(t);
+  const paths = ["research/MEETING-CADENCE.md", "research/phase-gate-register.csv"];
+  for (const changed of [...paths, "mode"]) {
+    f.run("checkout", f.mainParent, "--", ...paths);
+    if (changed === "mode") f.run("update-index", "--chmod=+x", paths[0]);
+    else {
+      await f.write(changed, await readFile(join(f.directory, changed), "utf8") + "Unreviewed merge resolution.\n");
+      f.run("add", changed);
+    }
+    f.run("commit", "--amend", "--no-edit");
+    f.setHead(f.run("rev-parse", "HEAD"));
+    invalid(await f.verify({ requestJson: f.requestJson }), changed === "mode"
+      ? /phase correction must remain a regular document/ : /requires Hiếu's exact-head approval/);
+  }
+});
+
+test("a new phase correction after an unchanged main sync still requires its own accountable review", async (t) => {
+  const f = await mainPhaseSyncFixture(t);
+  const path = "research/MEETING-CADENCE.md";
+  await f.change(path, await readFile(join(f.directory, path), "utf8") +
+    `\n2026-09-14: another proposed correction. https://github.com/${repo}/pull/32\n`);
+  invalid(await f.verify({ requestJson: f.requestJson }), /requires Hiếu's exact-head approval/);
 });
 
 test("invalid event identities, missing objects and CLI outcomes remain fail closed", async (t) => {

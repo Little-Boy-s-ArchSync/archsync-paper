@@ -70,6 +70,9 @@ nhận repository anonymity hoặc submission readiness.
 │   ├── data-management-plan.md      # DATA-101 provenance proposal
 │   ├── measurement-study-protocol.md # EXP-103 A/B/C/D proposal
 │   ├── pre-experiment-proposal-manifest.json # Exact proposal hashes; không phải freeze
+│   ├── experiment-freeze-manifest.template.json # Unresolved, không cấp quyền chạy
+│   ├── verify-experiment-readiness.mjs # Cổng hash/chữ ký cho freeze thật tương lai
+│   ├── EXPERIMENT-FREEZE-RUNBOOK.md # Trình tự tạo bundle EXP-101 thật
 │   ├── holdout-report.template.md    # EVAL-111 scaffold; không có result
 │   ├── paper-results-manifest.schema.json
 │   ├── paper-results-manifest.template.json # ANALYSIS-101 handoff; không phải evidence
@@ -174,6 +177,8 @@ Các artifact SLR chính gồm:
   của năm proposal, đồng thời bind riêng RQ-101 (`claim-evidence.csv` và
   validator) với RQ-102 (traceability artifacts và validator); manifest này
   không phải freeze manifest hay authorization.
+- `research/EXPERIMENT-FREEZE-RUNBOOK.md` — hướng dẫn điền evidence thật, ký
+  payload và vượt cổng EXP-101 theo đúng thứ tự.
 
 Chạy research validators bằng:
 
@@ -185,6 +190,7 @@ node research/validate-slr-calibration-candidates.mjs
 node research/validate-slr-calibration-round-2-candidates.mjs
 node research/validate-rq-traceability.mjs
 node research/validate-pre-experiment-protocols.mjs
+node research/verify-experiment-readiness.mjs --template
 node research/validate-claim-evidence.mjs
 node research/validate-literature-protocol.mjs
 node research/validate-search-queries.mjs
@@ -200,8 +206,11 @@ node --test research/*.test.mjs
 `0 approvals; official runs blocked`. Chế độ `--official-run` là negative guard
 vĩnh viễn cho proposal packet và luôn phải thoát với mã 2; nó không trở thành
 readiness checker khi có thêm approval hoặc freeze artifact. Mọi freeze/run sau
-này cần một validator riêng được human-review, kiểm tra freeze manifest,
-approval, consent/provider/data authorization và mọi hash cần thiết.
+này dùng `verify-experiment-readiness.mjs --check` với
+`experiment-freeze-manifest.json`. Cổng này kiểm tra exact commit, mọi artifact
+hash, D3/tool/environment/assignment lock, ethics/data/preflight records và hai
+chữ ký Ed25519 của hai người khác nhau. File template luôn thiếu dữ liệu thật,
+giữ `official_runs_authorized=false` và không thể vượt cổng readiness.
 
 `holdout-report.template.md` và `paper-results-manifest.template.json` chỉ khóa
 cấu trúc bàn giao cho EVAL-111/ANALYSIS-101. Chúng giữ mọi trường dữ liệu và
