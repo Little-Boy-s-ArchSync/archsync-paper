@@ -199,7 +199,22 @@ export async function verifyMechanicalFreeze(git, reviewed, freeze, record) {
   }
 }
 
-async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJson }) {
+async function inheritsMainPhase(git, freeze, main, commit) {
+  const { parents } = await git.identity(commit);
+  if (parents.length !== 2) return false;
+  const mergedTree = await git.tree(commit);
+  for (const parent of parents) {
+    if (!await git.ancestor(freeze, parent) || !await git.ancestor(parent, main)) continue;
+    const parentTree = await git.tree(parent);
+    // Inherit the entire phase state from one authenticated main ancestor,
+    // never a mixture of parents or a merge resolution changing bytes/modes.
+    if (PHASE_PATHS.every((path) => mergedTree.get(path)?.startsWith("100644 blob ") &&
+        mergedTree.get(path) === parentTree.get(path))) return true;
+  }
+  return false;
+}
+
+async function verifyPhaseHistory({ git, freeze, main, current, currentPull, requestJson }) {
   const original = await git.tree(freeze);
   const target = await git.tree(current);
   for (const path of PHASE_PATHS) {
@@ -214,6 +229,10 @@ async function verifyPhaseHistory({ git, freeze, current, currentPull, requestJs
   }
   // Each introducing commit needs accountable approval, including corrections inherited on main.
   for (const commit of await git.phaseCommits(freeze, current)) {
+    // A main-sync merge adds no phase decision when it preserves a main
+    // parent's complete state. Keep the full-history traversal: the original
+    // introducing commits still need their actual exact-head owner reviews.
+    if (await inheritsMainPhase(git, freeze, main, commit)) continue;
     let candidates = currentPull ? [currentPull] : [];
     candidates = [...candidates, ...await allPages(requestJson, `${API}/commits/${commit}/pulls`)];
     let accepted = false;
@@ -312,7 +331,7 @@ export async function verifySlrProvenanceLifecycle({ environment, requestJson, g
     // for the phase owner's exact GitHub identity; ordinary reviewers continue
     // to require an eligible repository association.
     if (currentPull) await approved(requestJson, currentPull, undefined, true);
-    await verifyPhaseHistory({ git, freeze: merged, current: checkedOut, currentPull, requestJson });
+    await verifyPhaseHistory({ git, freeze: merged, main: base, current: checkedOut, currentPull, requestJson });
     return { issues: [], mode: "historical", freeze, reviewed, pullRequest: Number(number) };
   } catch (error) { return { issues: [`review lifecycle: ${error.message}`] }; }
 }
