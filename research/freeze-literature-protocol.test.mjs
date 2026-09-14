@@ -280,7 +280,7 @@ test("CLI validates disclosures across a split manuscript and writes only a disp
   const evidence = join(research, "evidence", "slr-sentinel");
   await mkdir(evidence, { recursive: true });
   await mkdir(join(repository, "sections"), { recursive: true });
-  const positioningDisclosure = "The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias";
+  const positioningDisclosure = "Related Work is a purposively scoped narrative synthesis, with source-selection and interpretation bias";
   assert.equal(paper.split(positioningDisclosure).length, 2);
   const relatedWork = paper.replace(positioningDisclosure, "");
   const mainPaper = "\\input{sections/related-work}\n\\input{sections/threats}\n";

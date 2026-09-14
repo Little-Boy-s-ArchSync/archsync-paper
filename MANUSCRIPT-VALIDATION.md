@@ -32,9 +32,9 @@ The invalid first attempt is preserved and explicitly excluded from reported res
 - Canonical named and anonymous roots rebuilt successfully; PDF variant and
   identifying-marker redaction checks pass.
 - Paper structure, source, reference-quality and RQ traceability checks pass.
-- Before upstream integration, all 241 research tests passed, including inventory
-  integrity and claim-scope checks. The remote synchronization also runs the
-  complete repository pre-push gate against the integrated branch.
+- After upstream integration, all 365 research tests pass. Coverage is 96.45%
+  lines, 90.21% branches and 95.44% functions, above the repository thresholds.
+  Remote synchronization also runs the full pre-push build and container gate.
 - Exact PDF and source hashes are in `supplementary/length-variant-validation.json`;
   rendered review findings are in `supplementary/VISUAL-QA.md`.
 
