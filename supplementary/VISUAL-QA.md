@@ -138,3 +138,12 @@ Fig-2 visibly reads `Matched/extra/missed` and `57 / 189 files parsed`; no new
 measurement or acceptance criterion was introduced. Current article hashes
 are in `length-variant-validation.json`. This is an artifact restoration and
 layout check, not independent scientific review or submission authorization.
+
+The first clean local gate caught a two-to-four-line conclusion spill onto an
+eleventh anonymous main-text page after restoring the taller original figures.
+The conclusion was tightened without removing its claims or limitations; fonts,
+margins, diagram dimensions and the 10+2 page-budget verifier were not changed.
+The rebuilt anonymous variant now uses 10 main-text pages plus 1 reference page,
+and both named variants remain 8/12 pages. Fresh page renders were rechecked
+after this final wording change. Six-author identification/redaction checks and
+the diagram/complete-source hash guards cover the restored assets.
