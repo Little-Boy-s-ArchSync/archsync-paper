@@ -161,3 +161,32 @@ All 15 structural/research validators and all 396 tests passed under the
 supported Node.js 22.16.0 test runtime. The full test suite was rerun after
 the rebuild completed to avoid checking hashes while output files changed.
 No experiment was executed or new empirical result introduced by this merge.
+
+## Protected-main integration - 2026-09-15
+
+Integrated protected main `672230e62ee6e1aa7d13b10a2c0037e9352ee403`
+(PR #46) into the six-author manuscript at `76922e2d8dc913e1eba794bf92aacfeb57176876`.
+The Related Work conflict was reconciled by retaining the expanded narrative
+synthesis and all four evidence-scoping intentions of the accepted PR:
+separate mapping-study and developer-practice support in the introduction;
+bound the contribution to the evaluated TypeScript service-topology slice;
+describe the view-specification/model comparison as one industrial case; and
+retain the monolith-to-microservice boundary of the Abgaz review. No citation
+was dropped. The concise introduction carries the same source distinction.
+
+An initial integration build overflowed the anonymous main-text budget.
+Redundant introduction wording was shortened without changing type size,
+margins, the conclusion's evidence limits, or the page-budget validator.
+The final two complete manuscripts pass the 8/12-page checks with 25 citations
+each, resolved references, no missing glyphs, and no overfull text columns.
+The anonymous manuscript passes at 10 main-text pages plus 1 reference page,
+with all 12 identifying-marker checks passing.
+
+All 20 pages of the two complete manuscripts were rendered and inspected,
+together with anonymous pages 10 and 11. The supplied figures, six named
+authors, corresponding-author footnote, confirmed contribution statements,
+table layout, and conclusion/reference transition remain intact. The original
+low-contrast figure annotations remain as supplied, rather than being replaced
+by an unapproved redesign. Current PDF/source hashes are recorded in
+`length-variant-validation.json`. This entry records build/visual checks, not
+independent member approval, final-commit CI, or submission authorization.
