@@ -38,3 +38,34 @@ test("both manuscripts retain model-conditioned and finite-sample boundaries", (
     assert.doesNotMatch(source, /[\u2014\u27f6\u201c\u201d]/u);
   }
 });
+
+test("author-supplied diagram sources remain bound to their portable PDF exports", () => {
+  const receipt = JSON.parse(readFileSync(new URL("../figures/author-source-receipt.json", import.meta.url)));
+  assert.deepEqual(receipt.figures.map(item => item.name), ["Fig-1", "Fig-2"]);
+  assert.equal(receipt.figures[0].supplied_svg_sha256, receipt.figures[0].canonical_svg_sha256);
+  for (const item of receipt.figures) for (const [extension, field] of [["svg", "canonical_svg_sha256"], ["pdf", "pdf_sha256"]]) {
+    const bytes = readFileSync(new URL(`../figures/${item.name}.${extension}`, import.meta.url));
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), item[field], `Unrecorded ${item.name}.${extension} substitution`);
+  }
+  const figure2 = readFileSync(new URL("../figures/Fig-2.svg", import.meta.url), "utf8");
+  assert.ok(figure2.includes("Matched/extra/missed"));
+  assert.ok(figure2.includes("57 / 189 files parsed"));
+  assert.ok(!figure2.includes("571189 files parsed"));
+});
+
+test("both complete manuscripts retain six authors, confirmed roles and supplied figures", () => {
+  const names = ["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"];
+  for (const name of ["archsync-8page.tex", "archsync-12page.tex"]) {
+    const source = readFileSync(new URL("../" + name, import.meta.url), "utf8");
+    let previous = -1;
+    for (const author of names) {
+      const at = source.indexOf(author);
+      assert.ok(at > previous, `${name} omits or reorders ${author}`);
+      previous = at;
+    }
+    for (const author of names.slice(4)) assert.ok(source.includes(`\\textbf{${author}} - Supervision; Methodology; Writing - review and editing.`));
+    for (const email of ["hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"]) assert.ok(source.includes(email));
+    assert.ok(source.includes("Corresponding author: Vo Duc Hieu"));
+    for (const number of [1, 2]) assert.ok(source.includes(`\\includegraphics[width=\\textwidth]{figures/Fig-${number}.pdf}`));
+  }
+});

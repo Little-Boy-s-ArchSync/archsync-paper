@@ -68,19 +68,26 @@ const acm = main.includes("\\documentclass[sigconf,nonacm]{acmart}");
 assert.ok(ieee || acm, "supported IEEE conference or ACM working-draft class required");
 if (ieee) {
   assert.equal((main.match(/\\IEEEauthorrefmark\{[1-4]\}/g) ?? []).length, 8);
+  assert.equal((main.match(/\\IEEEauthorrefmark\{5\}/g) ?? []).length, 3,
+    "two faculty coauthors must share the fifth affiliation");
 } else {
-  assert.equal((main.match(/\\author\{/g) ?? []).length, 4);
-  assert.equal((main.match(/\\email\{/g) ?? []).length, 4);
+  assert.equal((main.match(/\\author\{/g) ?? []).length, 6);
+  assert.equal((main.match(/\\email\{/g) ?? []).length, 6);
 }
 for (const identity of [
   "Vo Duc Hieu",
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
+  "Hoang Nguyen The",
+  "Minh Tam Phan",
+  "Faculty of Software Engineering, FPT University HCMC",
   "voduchieu@littleboys.biz",
   "an1dee@littleboys.biz",
   "bachcp6@littleboys.biz",
   "levankiet1212.2004@littleboys.biz",
+  "hoangnt20@fe.edu.vn",
+  "tampm@fe.edu.vn",
 ]) assert.ok(main.includes(identity), `main.tex is missing '${identity}'`);
 assert.doesNotMatch(
   main,

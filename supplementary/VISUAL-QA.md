@@ -106,3 +106,35 @@ end of a reference list is normal; no observation was added to fill a page.
 
 This is a layout check, not an independent scientific review. Earlier claims
 about ACM presentation and pale Figure 1 labels are superseded.
+
+## Superseding author-asset restoration - 2026-09-15
+
+The author supplied the six-author PDF and the two original SVG designs after
+the IEEE integration. Both IEEE length variants were rebuilt using those
+designs, not the alternate TikZ figures. The input/figure hashes and the two
+Fig-2 label corrections are recorded in `figures/author-source-receipt.json`.
+The prior TikZ-related layout assessment above is historical, not the current
+figure source contract.
+
+All 20 output pages were rendered with Poppler and inspected in contact sheets.
+The title page, both contribution pages, and both standalone diagrams were
+additionally inspected at 1500/1600 pixels. The named outputs retain exactly
+8 and 12 pages, with 25 cited references each. Fig-1 appears on pages 4/6 and
+Fig-2 on pages 5/8 of the short/full variants respectively. No text, table,
+formula, caption or diagram clipping/overlap was observed. The short version's
+references continue onto page 8; the full version's references continue onto
+page 12 without an orphan-only page.
+
+Both named title blocks now contain all six authors in the supplied order,
+the faculty affiliation and emails, and Vo Duc Hieu's corresponding-author
+designation. The contribution sections on pages 7/11 also include Hoang Nguyen
+The and Minh Tam Phan with the roles the user confirmed in this task. No ORCID
+was inferred for either author. The existing four ORCIDs remain unchanged.
+
+The supplied dark diagram fills and layout are preserved. Fig-1's small pale
+arrow annotations still benefit from zoom; this is a retained readability
+limitation of the author's design, not a missing glyph or a clipped label.
+Fig-2 visibly reads `Matched/extra/missed` and `57 / 189 files parsed`; no new
+measurement or acceptance criterion was introduced. Current article hashes
+are in `length-variant-validation.json`. This is an artifact restoration and
+layout check, not independent scientific review or submission authorization.
