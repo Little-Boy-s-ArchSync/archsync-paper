@@ -44,8 +44,8 @@ same questions.
 | --- | --- | --- | --- | --- | --- | --- |
 | F-RQ1 | D1 graph item and D2 annotated detector signal | Node/edge P/R/F1; signal TP/FP/FN/TN, P/R/F1 and specificity | Co-developed D1 Phase 2; D2 detector challenge | Hiếu | Section 4 RQ1; Sections 8 and 9 RQ1 | `verified-controlled` |
 | F-RQ2 | One D1 patch and its expected violated-rule set | Exact class, rule-set and P3 decision agreement | Co-developed D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ2; Sections 8 and 9 RQ2 | `verified-controlled` |
-| F-RQ3 | One finding-bearing D1 patch | Expected-file and exact-line agreement | Co-developed D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ3; Sections 8 and 9 RQ3 | `verified-controlled` |
-| F-RQ4 | Duplicate run, P3 cold/warm pair, parsed file instance and timed run | Replay, cache, full-scan equivalence, parsed fraction, median and p95 latency | Co-developed D1/D2 replay; P3 evidence and raw timings | Hiếu | Section 4 RQ4; Sections 8 and 9 RQ4 | `verified-controlled` |
+| F-RQ3 | One finding-bearing D1 patch | Case-level file/line agreement; 9 call-site and 2 anchor cases | Co-developed D1 Phase 2; P3 Git-diff replay | Hiếu | Section 4 RQ3; Sections 8 and 9 RQ3 | `verified-controlled` |
+| F-RQ4 | Duplicate run, P3 cold/warm pair, parsed file instance and timed run | Replay, cache, full-scan equivalence, parsed fraction, nearest-rank p50 and p95 latency | Co-developed D1/D2 replay; P3 evidence and raw timings | Hiếu | Section 4 RQ4; Sections 8 and 9 RQ4 | `verified-controlled` |
 
 The exact questions, denominators, artifact paths, and verification scope are in
 `rq-traceability.csv`. The numerical claims remain in `claim-evidence.csv`; this

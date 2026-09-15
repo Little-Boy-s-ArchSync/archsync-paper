@@ -1,0 +1,53 @@
+{
+  "count": 8,
+  "files": [
+    {
+      "file": "li2022symptoms.json",
+      "sha256": "7059a941f9abe285f77a0243cb2eee4924933088d16dbd6db033eed0b2808593",
+      "doi": "10.1109/icsa53651.2022.00011",
+      "endpoint": "https://api.crossref.org/works/10.1109/icsa53651.2022.00011"
+    },
+    {
+      "file": "li2023warnings.json",
+      "sha256": "35b9e052329b88b939541d4ced1898c0ff5fb3ff50d88ecda0e8b358a4d78a3f",
+      "doi": "10.1016/j.infsof.2023.107319",
+      "endpoint": "https://api.crossref.org/works/10.1016/j.infsof.2023.107319"
+    },
+    {
+      "file": "sar2024taxonomy.json",
+      "sha256": "bdf964ebf069271bf05b4f140d3c154d676076d9d59ef2ae3a0efae8bc9e907f",
+      "doi": "10.1002/spe.3364",
+      "endpoint": "https://api.crossref.org/works/10.1002/spe.3364"
+    },
+    {
+      "file": "lucena2025gatekeepers.json",
+      "sha256": "d0dbeb9f1d94ddebc9fed461df8f81d6e8754867e8d81e068283c956cef74593",
+      "doi": "10.5753/sbes.2025.11100",
+      "endpoint": "https://api.crossref.org/works/10.5753/sbes.2025.11100"
+    },
+    {
+      "file": "calint2022.json",
+      "sha256": "2ef6b4c184f93abfc3997bdd87b14fb2f769e3d19603f2855289048ff9c5916a",
+      "doi": "10.1007/978-3-031-10548-7_39",
+      "endpoint": "https://api.crossref.org/works/10.1007/978-3-031-10548-7_39"
+    },
+    {
+      "file": "evolution2024.json",
+      "sha256": "724cde6fe437b0da62cafb1375c86032f250d8c870013cd01954165d3f491462",
+      "doi": "10.1007/978-3-031-70797-1_10",
+      "endpoint": "https://api.crossref.org/works/10.1007/978-3-031-70797-1_10"
+    },
+    {
+      "file": "thermofisher2025.json",
+      "sha256": "d6a2e2518fe2725b4c41438911435afd73cda31c90042fb60633b61db7b0172a",
+      "doi": "10.1007/978-3-032-04207-1_25",
+      "endpoint": "https://api.crossref.org/works/10.1007/978-3-032-04207-1_25"
+    },
+    {
+      "file": "dependencies2024.json",
+      "sha256": "44b7fc4afaac7e8ef866f0029d28cb2a40d5029eedbd2decc0bdf9937a9e0d61",
+      "doi": "10.1145/3605098.3635917",
+      "endpoint": "https://api.crossref.org/works/10.1145/3605098.3635917"
+    }
+  ]
+}

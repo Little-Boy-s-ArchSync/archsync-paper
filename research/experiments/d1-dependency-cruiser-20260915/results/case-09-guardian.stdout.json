@@ -1,0 +1,332 @@
+{
+  "version": "0.1",
+  "analyzer": {
+    "id": "archsync-typescript",
+    "version": "0.2",
+    "stack": "typescript-node"
+  },
+  "metadata": {
+    "name": "order-platform-benchmark-observed",
+    "scanned_files": 10
+  },
+  "components": {
+    "frontend": {
+      "component": {
+        "name": "Storefront",
+        "type": "frontend",
+        "layer": "experience",
+        "technology": "TypeScript"
+      },
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 4,
+          "column": 3,
+          "snippet": "const response = await fetch(`${gatewayUrl}/orders`, {",
+          "detector": "component-root",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "frontend/src/format.ts",
+          "line": 2,
+          "column": 3,
+          "snippet": "return `$${amount.toFixed(2)}`;",
+          "detector": "component-root",
+          "confidence": 1
+        }
+      ]
+    },
+    "gateway": {
+      "component": {
+        "name": "API Gateway",
+        "type": "gateway",
+        "layer": "edge",
+        "technology": "Node.js"
+      },
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 4,
+          "column": 26,
+          "snippet": "fetch(`${gatewayUrl}/orders`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "gateway/src/logger.ts",
+          "line": 2,
+          "column": 3,
+          "snippet": "console.info(JSON.stringify({ method, path }));",
+          "detector": "component-root",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "gateway/src/server.ts",
+          "line": 4,
+          "column": 3,
+          "snippet": "return fetch(`${orderServiceUrl}/orders`, {",
+          "detector": "component-root",
+          "confidence": 1
+        }
+      ]
+    },
+    "order-service": {
+      "component": {
+        "name": "Order Service",
+        "type": "service",
+        "layer": "domain",
+        "technology": "Node.js"
+      },
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "gateway/src/server.ts",
+          "line": 4,
+          "column": 10,
+          "snippet": "fetch(`${orderServiceUrl}/orders`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 8,
+          "column": 3,
+          "snippet": "return (await redis.get(JSON.stringify(order))) !== null;",
+          "detector": "component-root",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/pricing.ts",
+          "line": 2,
+          "column": 3,
+          "snippet": "return lines.reduce((total, line) => total + line.quantity * line.unitPrice, 0);",
+          "detector": "component-root",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/service.ts",
+          "line": 11,
+          "column": 3,
+          "snippet": "if (await getCachedOrder(order)) return;",
+          "detector": "component-root",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/validation.ts",
+          "line": 2,
+          "column": 3,
+          "snippet": "return Array.isArray(order.lines) && order.lines.length > 0;",
+          "detector": "component-root",
+          "confidence": 1
+        }
+      ]
+    },
+    "payment-service": {
+      "component": {
+        "name": "Payment Service",
+        "type": "service",
+        "layer": "domain",
+        "technology": "Node.js"
+      },
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/service.ts",
+          "line": 14,
+          "column": 9,
+          "snippet": "fetch(`${paymentServiceUrl}/payments`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "payment-service/src/retry.ts",
+          "line": 1,
+          "column": 1,
+          "snippet": "export const retryDelaysMs = [100, 300, 900] as const;",
+          "detector": "component-root",
+          "confidence": 1
+        },
+        {
+          "kind": "source-location",
+          "file": "payment-service/src/service.ts",
+          "line": 8,
+          "column": 3,
+          "snippet": "await savePayment(payment);",
+          "detector": "component-root",
+          "confidence": 1
+        }
+      ]
+    },
+    "postgres": {
+      "component": {
+        "name": "PostgreSQL",
+        "type": "database",
+        "layer": "data"
+      },
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/service.ts",
+          "line": 22,
+          "column": 9,
+          "snippet": "database.query(\"insert into orders(payload) values ($1)\", [JSON.stringify(_order)])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        },
+        {
+          "kind": "source-location",
+          "file": "payment-service/src/service.ts",
+          "line": 12,
+          "column": 9,
+          "snippet": "database.query(\"insert into payments(payload) values ($1)\", [JSON.stringify(_payment)])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        }
+      ]
+    },
+    "redis": {
+      "component": {
+        "name": "redis",
+        "type": "cache",
+        "layer": "data"
+      },
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 12,
+          "column": 9,
+          "snippet": "redis.set(JSON.stringify(order), \"1\", { EX: 60 })",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 8,
+          "column": 17,
+          "snippet": "redis.get(JSON.stringify(order))",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        }
+      ]
+    }
+  },
+  "relationships": [
+    {
+      "from": "frontend",
+      "to": "gateway",
+      "type": "http",
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 4,
+          "column": 26,
+          "snippet": "fetch(`${gatewayUrl}/orders`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        }
+      ]
+    },
+    {
+      "from": "gateway",
+      "to": "order-service",
+      "type": "http",
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "gateway/src/server.ts",
+          "line": 4,
+          "column": 10,
+          "snippet": "fetch(`${orderServiceUrl}/orders`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        }
+      ]
+    },
+    {
+      "from": "order-service",
+      "to": "postgres",
+      "type": "data",
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/service.ts",
+          "line": 22,
+          "column": 9,
+          "snippet": "database.query(\"insert into orders(payload) values ($1)\", [JSON.stringify(_order)])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        }
+      ]
+    },
+    {
+      "from": "order-service",
+      "to": "redis",
+      "type": "data",
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 12,
+          "column": 9,
+          "snippet": "redis.set(JSON.stringify(order), \"1\", { EX: 60 })",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 8,
+          "column": 17,
+          "snippet": "redis.get(JSON.stringify(order))",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        }
+      ]
+    },
+    {
+      "from": "order-service",
+      "to": "payment-service",
+      "type": "http",
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/service.ts",
+          "line": 14,
+          "column": 9,
+          "snippet": "fetch(`${paymentServiceUrl}/payments`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        }
+      ]
+    },
+    {
+      "from": "payment-service",
+      "to": "postgres",
+      "type": "data",
+      "evidence": [
+        {
+          "kind": "source-location",
+          "file": "payment-service/src/service.ts",
+          "line": 12,
+          "column": 9,
+          "snippet": "database.query(\"insert into payments(payload) values ($1)\", [JSON.stringify(_payment)])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "branch": "andy-temp-branch",
+  "base_commit": "3da59ac65c3aff6752d52b9e686ff3867aa98d3b",
+  "unique_citations": 25,
+  "foundational_pre_2022": 4,
+  "recent_2022_2025": 21,
+  "checks_passed": [
+    "paper structure",
+    "decision log",
+    "claim evidence",
+    "research baseline",
+    "RQ traceability",
+    "both PDF variants",
+    "anonymous redaction",
+    "git diff whitespace"
+  ],
+  "compiler": "Tectonic 0.17.0",
+  "pdfs": {
+    "main.pdf": "ac91dde3c99762571cf855f8b087ea4730c74b2c6d45ed8bd43f97995db76975",
+    "main-anonymous.pdf": "f4e7704850d6de4a2bfe551126782a30854933c4e16a09768badec91ba340131"
+  },
+  "review": "Two parallel agent reviews; not a substitute for independent human approval",
+  "limitations": [
+    "Full-text quality appraisal was not newly completed for all cited studies.",
+    "Bibliography has optional publisher-address/online-first locator warnings; no unresolved citation keys.",
+    "Frozen baseline change is proposed, not accepted or merged."
+  ]
+}

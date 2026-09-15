@@ -1,5 +1,7 @@
 % !TeX program = pdflatex
+\RequirePackage[T1]{fontenc}
 \documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
 
 \usepackage{amsmath}
 \usepackage{booktabs}
@@ -50,8 +52,10 @@
   \author{%
     \IEEEauthorblockN{Vo Duc Hieu\IEEEauthorrefmark{1},
       Tran Minh Hoang\IEEEauthorrefmark{2},
-      Ha Hoang Bach\IEEEauthorrefmark{3}, and
-      Le Van Kiet\IEEEauthorrefmark{4}}
+      Ha Hoang Bach\IEEEauthorrefmark{3},
+      Le Van Kiet\IEEEauthorrefmark{4},\\
+      Hoang Nguyen The\IEEEauthorrefmark{5}, and
+      Minh Tam Phan\IEEEauthorrefmark{5}}
     \IEEEauthorblockA{\IEEEauthorrefmark{1}Software Engineering, FPT University, Ho Chi Minh City, Vietnam\\
       Email: voduchieu@littleboys.biz; ORCID: 0009-0007-5389-5177}
     \IEEEauthorblockA{\IEEEauthorrefmark{2}Computer Science and Engineering, VNUK Institute for Research and Executive Education,\\
@@ -62,6 +66,10 @@
     \IEEEauthorblockA{\IEEEauthorrefmark{4}Software Engineering, VNUK Institute for Research and Executive Education,\\
       The University of Danang, Da Nang, Vietnam\\
       Email: levankiet1212.2004@littleboys.biz; ORCID: 0009-0007-8434-882X}
+    \IEEEauthorblockA{\IEEEauthorrefmark{5}Faculty of Software Engineering, FPT University HCMC,\\
+      Ho Chi Minh City, 70000, Vietnam\\
+      Email: hoangnt20@fe.edu.vn, tampm@fe.edu.vn}
+    \thanks{Corresponding author: Vo Duc Hieu (voduchieu@littleboys.biz).}
   }
 \fi
 
@@ -85,7 +93,7 @@ software architecture, architecture conformance, architecture drift, static anal
 \input{sections/conclusion}
 \input{sections/author-information}
 
-\bibliographystyle{IEEEtran}
+\bibliographystyle{archsync-ieee}
 \bibliography{references}
 
 \end{document}

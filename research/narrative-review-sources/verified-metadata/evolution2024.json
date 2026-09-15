@@ -1,0 +1,608 @@
+{
+  "citation_key": "evolution2024",
+  "record_id": "LIT-0599",
+  "requested_endpoint": "https://api.crossref.org/works/10.1007/978-3-031-70797-1_10",
+  "response_endpoint": "https://api.crossref.org/works/10.1007/978-3-031-70797-1_10",
+  "retrieved_at_utc": "2026-09-14T12:29:36.496256+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "359e173af50e86c382eef7bf0a3454b1a6fbf409ae230183ac7ff25d3bba5dc3",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            8,
+            17
+          ]
+        ],
+        "date-time": "2026-08-17T15:01:31Z",
+        "timestamp": 1786978891665,
+        "version": "build-2736575974"
+      },
+      "publisher-location": "Cham",
+      "reference-count": 35,
+      "publisher": "Springer Nature Switzerland",
+      "isbn-type": [
+        {
+          "value": "9783031707964",
+          "type": "print"
+        },
+        {
+          "value": "9783031707971",
+          "type": "electronic"
+        }
+      ],
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                1,
+                1
+              ]
+            ],
+            "date-time": "2024-01-01T00:00:00Z",
+            "timestamp": 1704067200000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                1,
+                1
+              ]
+            ],
+            "date-time": "2024-01-01T00:00:00Z",
+            "timestamp": 1704067200000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "link.springer.com"
+        ],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "published-print": {
+        "date-parts": [
+          [
+            2024
+          ]
+        ]
+      },
+      "DOI": "10.1007/978-3-031-70797-1_10",
+      "type": "book-chapter",
+      "created": {
+        "date-parts": [
+          [
+            2024,
+            8,
+            31
+          ]
+        ],
+        "date-time": "2024-08-31T07:02:22Z",
+        "timestamp": 1725087742000
+      },
+      "page": "157-173",
+      "update-policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 7,
+      "title": [
+        "Exploring Architectural Evolution in Microservice Systems Using Repository Mining Techniques and Static Code Analysis"
+      ],
+      "prefix": "10.1007",
+      "author": [
+        {
+          "given": "Patric",
+          "family": "Genfer",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Uwe",
+          "family": "Zdun",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "297",
+      "published-online": {
+        "date-parts": [
+          [
+            2024,
+            9,
+            1
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "10_CR1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Godfrey, M.W., German, D.M.: The past, present, and future of software evolution. In: 2008 Frontiers of Software Maintenance, pp. 129–138. IEEE (2008)",
+          "DOI": "10.1109/FOSM.2008.4659256"
+        },
+        {
+          "key": "10_CR2",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Whiting, E., Andrews, S.: Drift and erosion in software architecture: summary and prevention strategies. In: Proceedings of the 2020 the 4th International Conference on Information System and Data Mining, pp. 132–138 (2020)",
+          "DOI": "10.1145/3404663.3404665"
+        },
+        {
+          "key": "10_CR3",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Baum, D., Dietrich, J., Anslow, C., Müller, R.: Visualizing design erosion: how big balls of mud are made. In: 2018 IEEE Working Conference on Software Visualization (VISSOFT), pp. 122–126. IEEE (2018)",
+          "DOI": "10.1109/VISSOFT.2018.00022"
+        },
+        {
+          "key": "10_CR4",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Rios, N., Spínola, R.O., Mendonça, M., Seaman, C.: The most common causes and effects of technical debt: first results from a global family of industrial surveys. In: Proceedings of the 12th ACM/IEEE International Symposium on Empirical Software Engineering and Measurement, pp. 1–10 (2018)",
+          "DOI": "10.1145/3239235.3268917"
+        },
+        {
+          "issue": "1",
+          "key": "10_CR5",
+          "doi-asserted-by": "publisher",
+          "first-page": "132",
+          "DOI": "10.1016/j.jss.2011.07.036",
+          "volume": "85",
+          "author": "L De Silva",
+          "year": "2012",
+          "unstructured": "De Silva, L., Balasubramaniam, D.: Controlling software architecture erosion: a survey. J. Syst. Softw. 85(1), 132–151 (2012)",
+          "journal-title": "J. Syst. Softw."
+        },
+        {
+          "key": "10_CR6",
+          "doi-asserted-by": "publisher",
+          "first-page": "195",
+          "DOI": "10.1007/978-3-319-67425-4_12",
+          "volume-title": "Present and Ulterior Software Engineering",
+          "author": "N Dragoni",
+          "year": "2017",
+          "unstructured": "Dragoni, N., Giallorenzo, S., Lafuente, A.L., Mazzara, M., Montesi, F., Mustafin, R., Safina, L.: Microservices: yesterday, today, and tomorrow. In: Present and Ulterior Software Engineering, pp. 195–216. Springer, Cham (2017). https://doi.org/10.1007/978-3-319-67425-4_12"
+        },
+        {
+          "key": "10_CR7",
+          "unstructured": "Newman, S.: Building Microservices. O’Reilly Media, Inc., Newton (2021)"
+        },
+        {
+          "key": "10_CR8",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Bogner, J., Fritzsch, J., Wagner, S., Zimmermann, A.: Limiting technical debt with maintainability assurance: an industry survey on used techniques and differences with service-and microservice-based systems. In: Proceedings of the 2018 International Conference on Technical Debt, pp. 125–133 (2018)",
+          "DOI": "10.1145/3194164.3194166"
+        },
+        {
+          "key": "10_CR9",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Bogner, J., Wagner, S., Zimmermann, A.: Automatically measuring the maintainability of service-and microservice-based systems: a literature review. In: Proceedings of the 27th International Workshop on Software Measurement and 12th International Conference on Software Process and Product Measurement, pp. 107–115 (2017)",
+          "DOI": "10.1145/3143434.3143443"
+        },
+        {
+          "key": "10_CR10",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "411",
+          "DOI": "10.1007/978-3-319-69035-3_29",
+          "volume-title": "Service-Oriented Computing",
+          "author": "U Zdun",
+          "year": "2017",
+          "unstructured": "Zdun, U., Navarro, E., Leymann, F.: Ensuring and assessing architecture conformance to microservice decomposition patterns. In: Maximilien, M., Vallecillo, A., Wang, J., Oriol, M. (eds.) ICSOC 2017. LNCS, vol. 10601, pp. 411–429. Springer, Cham (2017). https://doi.org/10.1007/978-3-319-69035-3_29"
+        },
+        {
+          "issue": "21",
+          "key": "10_CR11",
+          "doi-asserted-by": "publisher",
+          "first-page": "7800",
+          "DOI": "10.3390/app10217800",
+          "volume": "10",
+          "author": "A Walker",
+          "year": "2020",
+          "unstructured": "Walker, A., Das, D., Cerny, T.: Automated code-smell detection in microservices through static analysis: a case study. Appl. Sci. 10(21), 7800 (2020)",
+          "journal-title": "Appl. Sci."
+        },
+        {
+          "key": "10_CR12",
+          "doi-asserted-by": "publisher",
+          "first-page": "724",
+          "DOI": "10.1016/j.future.2019.05.048",
+          "volume": "100",
+          "author": "S-P Ma",
+          "year": "2019",
+          "unstructured": "Ma, S.-P., Fan, C.-Y., Chuang, Y., Liu, I.-H., Lan, C.-W.: Graph-based and scenario-driven microservice analysis, retrieval, and testing. Futur. Gener. Comput. Syst. 100, 724–735 (2019)",
+          "journal-title": "Futur. Gener. Comput. Syst."
+        },
+        {
+          "key": "10_CR13",
+          "doi-asserted-by": "crossref",
+          "unstructured": "de Toledo, S.S., Martini, A., Przybyszewska, A., Sjøberg, D.I.: Architectural technical debt in microservices: a case study in a large company. In: 2019 IEEE/ACM International Conference on Technical Debt, pp. 78–87. IEEE (2019)",
+          "DOI": "10.1109/TechDebt.2019.00026"
+        },
+        {
+          "issue": "4",
+          "key": "10_CR14",
+          "doi-asserted-by": "publisher",
+          "first-page": "573",
+          "DOI": "10.1109/TSE.2009.19",
+          "volume": "35",
+          "author": "S Ducasse",
+          "year": "2009",
+          "unstructured": "Ducasse, S., Pollet, D.: Software architecture reconstruction: a process-oriented taxonomy. IEEE Trans. Softw. Eng. 35(4), 573–591 (2009)",
+          "journal-title": "IEEE Trans. Softw. Eng."
+        },
+        {
+          "key": "10_CR15",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Cerny, T., Abdelfattah, A.S., Bushong, V., Al Maruf, A., Taibi, D.: Microservice architecture reconstruction and visualization techniques: a review. In: 2022 IEEE International Conference on Service-Oriented System Engineering (SOSE), pp. 39–48. IEEE (2022)",
+          "DOI": "10.1109/SOSE55356.2022.00011"
+        },
+        {
+          "key": "10_CR16",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Bushong, V., Das, D., Al Maruf, A., Cerny, T.: Using static analysis to address microservice architecture reconstruction. In: 2021 36th IEEE/ACM International Conference on Automated Software Engineering (ASE), pp. 1199–1201. IEEE (2021)",
+          "DOI": "10.1109/ASE51524.2021.9678749"
+        },
+        {
+          "key": "10_CR17",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Bushong, V., Das, D., Cernỳ, T.: Reconstructing the holistic architecture of microservice systems using static analysis. In: CLOSER, pp. 149–157 (2022)",
+          "DOI": "10.5220/0011032100003200"
+        },
+        {
+          "key": "10_CR18",
+          "doi-asserted-by": "publisher",
+          "first-page": "649",
+          "DOI": "10.1007/s10270-012-0301-9",
+          "volume": "13",
+          "author": "JM Barnes",
+          "year": "2014",
+          "unstructured": "Barnes, J.M., Garlan, D., Schmerl, B.: Evolution styles: foundations and models for software architecture evolution. Softw. Syst. Model. 13, 649–678 (2014)",
+          "journal-title": "Softw. Syst. Model."
+        },
+        {
+          "key": "10_CR19",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Moreira, M.G., De França, B.B.N.: Analysis of microservice evolution using cohesion metrics. In: Proceedings of the 16th Brazilian Symposium on Software Components, Architectures, and Reuse, pp. 40–49 (2022)",
+          "DOI": "10.1145/3559712.3559716"
+        },
+        {
+          "key": "10_CR20",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Tizzei, L.P., Azevedo, L., Soares, E., Thiago, R., Costa, R.: On the maintenance of a scientific application based on microservices: an experience report. In: 2020 IEEE International Conference on Web Services (ICWS), pp. 102–109. IEEE (2020)",
+          "DOI": "10.1109/ICWS49710.2020.00021"
+        },
+        {
+          "key": "10_CR21",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Sampaio, A.R., et al.: Supporting microservice evolution. In: 2017 IEEE International Conference on Software Maintenance and Evolution (ICSME), pp. 539–543. IEEE (2017)",
+          "DOI": "10.1109/ICSME.2017.63"
+        },
+        {
+          "key": "10_CR22",
+          "doi-asserted-by": "publisher",
+          "first-page": "103",
+          "DOI": "10.1007/978-3-031-48421-6_8",
+          "volume-title": "International Conference on Service-Oriented Computing",
+          "author": "X He",
+          "year": "2023",
+          "unstructured": "He, X., Shao, Z., Wang, T., Shi, H., Chen, Y., Wang, Z.: Predicting effect and cost of microservice system evolution using graph neural network. In: Monti, F., Rinderle-Ma, S., Ruiz Cortes, A., Zheng, Z., Mecella, M. (eds.) International Conference on Service-Oriented Computing, pp. 103–118. Springer, Heidelberg (2023). https://doi.org/10.1007/978-3-031-48421-6_8"
+        },
+        {
+          "key": "10_CR23",
+          "series-title": "Communications in Computer and Information Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "174",
+          "DOI": "10.1007/978-3-030-87568-8_11",
+          "volume-title": "Service-Oriented Computing",
+          "author": "M Stocker",
+          "year": "2021",
+          "unstructured": "Stocker, M., Zimmermann, O.: From code refactoring to API refactoring: agile service design and evolution. In: Barzen, J. (ed.) SummerSOC 2021. CCIS, vol. 1429, pp. 174–193. Springer, Cham (2021). https://doi.org/10.1007/978-3-030-87568-8_11"
+        },
+        {
+          "key": "10_CR24",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Lercher, A., Glock, J., Macho, C., Pinzger, M.: Microservice api evolution in practice: a study on strategies and challenges. arXiv:2311.08175 (2023)",
+          "DOI": "10.1016/j.jss.2024.112110"
+        },
+        {
+          "key": "10_CR25",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2023.111788",
+          "volume": "204",
+          "author": "WK Assunção",
+          "year": "2023",
+          "unstructured": "Assunção, W.K., Krüger, J., Mosser, S., Selaoui, S.: How do microservices evolve? an empirical analysis of changes in open-source microservice repositories. J. Syst. Softw. 204, 111788 (2023)",
+          "journal-title": "J. Syst. Softw."
+        },
+        {
+          "key": "10_CR26",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Heseding, F., Scheibel, W., Döllner, J.: Tooling for time-and space-efficient git repository mining. In: Proceedings of the 19th International Conference on Mining Software Repositories, pp. 413–417 (2022)",
+          "DOI": "10.1145/3524842.3528503"
+        },
+        {
+          "key": "10_CR27",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "52",
+          "DOI": "10.1007/978-3-642-35843-2_6",
+          "volume-title": "SOFSEM 2013: Theory and Practice of Computer Science",
+          "author": "C Kolassa",
+          "year": "2013",
+          "unstructured": "Kolassa, C., Riehle, D., Salim, M.A.: A model of the commit size distribution of open source. In: van Emde Boas, P., Groen, F.C.A., Italiano, G.F., Nawrocki, J., Sack, H. (eds.) SOFSEM 2013. LNCS, vol. 7741, pp. 52–66. Springer, Heidelberg (2013). https://doi.org/10.1007/978-3-642-35843-2_6"
+        },
+        {
+          "key": "10_CR28",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Rosik, J., Le Gear, A., Buckley, J., Babar, M. A., Connolly, D.: Assessing architectural drift in commercial software development: a case study. Softw. Pract. Exp. 41(1), 63–86 (2011)",
+          "DOI": "10.1002/spe.999"
+        },
+        {
+          "issue": "11",
+          "key": "10_CR29",
+          "doi-asserted-by": "publisher",
+          "first-page": "2521",
+          "DOI": "10.1007/s00607-021-01002-z",
+          "volume": "103",
+          "author": "E Ntentos",
+          "year": "2021",
+          "unstructured": "Ntentos, E.: Detector-based component model abstraction for microservice-based systems. Computing 103(11), 2521–2551 (2021)",
+          "journal-title": "Computing"
+        },
+        {
+          "key": "10_CR30",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "207",
+          "DOI": "10.1007/978-3-030-86044-8_15",
+          "volume-title": "Software Architecture",
+          "author": "P Genfer",
+          "year": "2021",
+          "unstructured": "Genfer, P., Zdun, U.: Identifying domain-based cyclic dependencies in microservice APIs using source code detectors. In: Biffl, S., Navarro, E., Löwe, W., Sirjani, M., Mirandola, R., Weyns, D. (eds.) ECSA 2021. LNCS, vol. 12857, pp. 207–222. Springer, Cham (2021). https://doi.org/10.1007/978-3-030-86044-8_15"
+        },
+        {
+          "key": "10_CR31",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "41",
+          "DOI": "10.1007/978-3-642-01247-1_5",
+          "volume-title": "Service-Oriented Computing – ICSOC 2008 Workshops",
+          "author": "M Hirzalla",
+          "year": "2009",
+          "unstructured": "Hirzalla, M., Cleland-Huang, J., Arsanjani, A.: A metrics suite for evaluating flexibility and complexity in service oriented architectures. In: Feuerlicht, G., Lamersdorf, W. (eds.) ICSOC 2008. LNCS, vol. 5472, pp. 41–52. Springer, Heidelberg (2009). https://doi.org/10.1007/978-3-642-01247-1_5"
+        },
+        {
+          "key": "10_CR32",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "3",
+          "DOI": "10.1007/978-3-030-58923-3_1",
+          "volume-title": "Software Architecture",
+          "author": "E Ntentos",
+          "year": "2020",
+          "unstructured": "Ntentos, E., Zdun, U., Plakidas, K., Meixner, S., Geiger, S.: Assessing architecture conformance to coupling-related patterns and practices in microservices. In: Jansen, A., Malavolta, I., Muccini, H., Ozkaya, I., Zimmermann, O. (eds.) ECSA 2020. LNCS, vol. 12292, pp. 3–20. Springer, Cham (2020). https://doi.org/10.1007/978-3-030-58923-3_1"
+        },
+        {
+          "key": "10_CR33",
+          "doi-asserted-by": "crossref",
+          "unstructured": "p Zhou, X., et al.: Benchmarking microservice systems for software engineering research. In: Proceedings of the 40th International Conference on Software Engineering: Companion Proceeedings, ser. ICSE 2018, pp. 323–324. Association for Computing Machinery, New York (2018). https://doi.org/10.1145/3183440.3194991",
+          "DOI": "10.1145/3183440.3194991"
+        },
+        {
+          "key": "10_CR34",
+          "doi-asserted-by": "publisher",
+          "first-page": "1",
+          "DOI": "10.1007/s10664-021-10063-9",
+          "volume": "27",
+          "author": "B Li",
+          "year": "2022",
+          "unstructured": "Li, B., Peng, X., Xiang, Q., Wang, H., Xie, T., Sun, J., Liu, X.: Enjoy your observability: an industrial survey of microservice tracing and analysis. Empir. Softw. Eng. 27, 1–28 (2022)",
+          "journal-title": "Empir. Softw. Eng."
+        },
+        {
+          "key": "10_CR35",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Zhang, C., et al.: Deeptralog: trace-log combined microservice anomaly detection through graph-based deep learning. In: Proceedings of the 44th International Conference on Software Engineering, pp. 623–634 (2022)",
+          "DOI": "10.1145/3510003.3510180"
+        }
+      ],
+      "container-title": [
+        "Lecture Notes in Computer Science",
+        "Software Architecture"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://link.springer.com/content/pdf/10.1007/978-3-031-70797-1_10",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            27
+          ]
+        ],
+        "date-time": "2024-11-27T11:07:29Z",
+        "timestamp": 1732705649000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://link.springer.com/10.1007/978-3-031-70797-1_10"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2024
+          ]
+        ]
+      },
+      "ISBN": [
+        "9783031707964",
+        "9783031707971"
+      ],
+      "references-count": 35,
+      "URL": "https://doi.org/10.1007/978-3-031-70797-1_10",
+      "relation": {},
+      "ISSN": [
+        "0302-9743",
+        "1611-3349"
+      ],
+      "issn-type": [
+        {
+          "value": "0302-9743",
+          "type": "print"
+        },
+        {
+          "value": "1611-3349",
+          "type": "electronic"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2024
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "1 September 2024",
+          "order": 1,
+          "name": "first_online",
+          "label": "First Online",
+          "group": {
+            "name": "ChapterHistory",
+            "label": "Chapter History"
+          }
+        },
+        {
+          "value": "ECSA",
+          "order": 1,
+          "name": "conference_acronym",
+          "label": "Conference Acronym",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "European Conference on Software Architecture",
+          "order": 2,
+          "name": "conference_name",
+          "label": "Conference Name",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Luxembourg City",
+          "order": 3,
+          "name": "conference_city",
+          "label": "Conference City",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Luxembourg",
+          "order": 4,
+          "name": "conference_country",
+          "label": "Conference Country",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "2024",
+          "order": 5,
+          "name": "conference_year",
+          "label": "Conference Year",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "1 September 2024",
+          "order": 7,
+          "name": "conference_start_date",
+          "label": "Conference Start Date",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "5 September 2024",
+          "order": 8,
+          "name": "conference_end_date",
+          "label": "Conference End Date",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "18",
+          "order": 9,
+          "name": "conference_number",
+          "label": "Conference Number",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "ecsa2024",
+          "order": 10,
+          "name": "conference_id",
+          "label": "Conference ID",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        }
+      ]
+    }
+  }
+}

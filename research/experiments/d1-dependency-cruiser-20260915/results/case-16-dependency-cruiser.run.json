@@ -1,0 +1,16 @@
+{
+  "program": "/opt/homebrew/Cellar/node/26.0.0/bin/node",
+  "args": [
+    "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper-andy-temp-branch/research/experiments/d1-dependency-cruiser-20260915/node_modules/dependency-cruiser/bin/dependency-cruiser.mjs",
+    "--config",
+    "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper-andy-temp-branch/research/experiments/d1-dependency-cruiser-20260915/dependency-cruiser.cjs",
+    "--output-type",
+    "json",
+    "."
+  ],
+  "cwd": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper-andy-temp-branch/research/experiments/d1-dependency-cruiser-20260915/work/case-16",
+  "elapsed_ms": 435.5431659999995,
+  "exit_code": 0,
+  "signal": null,
+  "error": null
+}

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { extractPdfText } from "./pdf-text.mjs";
 import { readFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,6 +7,10 @@ import { fileURLToPath } from "node:url";
 import { assertPdfPageBudget } from "./pdf-page-budget.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
+const mainSource = await readFile(join(root, "main.tex"), "utf8");
+const ieee = mainSource.includes("\\documentclass[conference]{IEEEtran}");
+const acm = mainSource.includes("\\documentclass[sigconf,nonacm]{acmart}");
+assert.ok(ieee || acm, "unsupported manuscript document class");
 const namedPdf = join(root, "main.pdf");
 const anonymousPdf = join(root, "main-anonymous.pdf");
 
@@ -16,19 +20,22 @@ for (const path of [namedPdf, anonymousPdf]) {
 }
 
 function extractedPdfText(path) {
-  return execFileSync("pdftotext", [path, "-"], {
-    encoding: "utf8",
-    maxBuffer: 20 * 1024 * 1024,
-  });
+  return extractPdfText(path);
 }
 
 const namedRaw = extractedPdfText(namedPdf);
 const anonymousRaw = extractedPdfText(anonymousPdf);
-const named = namedRaw.replace(/\s+/g, " ").trim();
-const anonymous = anonymousRaw.replace(/\s+/g, " ").trim();
+// Layout extraction can retain soft line hyphens and font ligatures.
+function normalizeText(raw) {
+  return raw.normalize("NFKC").replace(/(\p{L})-\r?\n\s*(?=\p{L})/gu, "$1").replace(/\s+/g, " ").trim();
+}
+const named = normalizeText(namedRaw);
+const anonymous = normalizeText(anonymousRaw);
 const normalizedNamed = named.toLowerCase();
 const normalizedAnonymous = anonymous.toLowerCase();
-const pageBudget = assertPdfPageBudget(anonymousRaw);
+// The IEEE venue budget is not a budget for the ACM working drafts.
+// Complete ACM 8/12-page deliverables are checked by validate-length-variants.mjs.
+const pageBudget = ieee ? assertPdfPageBudget(anonymousRaw) : null;
 
 function pdfAnchorPattern(anchor) {
   const words = anchor
@@ -51,7 +58,7 @@ function containsPdfAnchor(text, anchor) {
 }
 
 const sharedAnchors = [
-  "ArchSync: A Controlled Feasibility Study of Evidence-Backed Architecture Drift Detection in TypeScript Systems",
+  mainSource.match(/\\title\{([^}]+)\}/)?.[1] ?? assert.fail("missing manuscript title"),
   "Software teams can keep builds green while implementation relationships drift away from an approved architecture",
   "Introduction",
   "Background and Related Work",
@@ -83,18 +90,21 @@ const namedIdentities = [
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
+  "Hoang Nguyen The",
+  "Minh Tam Phan",
+  "Faculty of Software Engineering",
   "FPT University",
   "VNUK Institute for Research and Executive Education",
 ];
 for (const identity of namedIdentities) {
   assert.ok(
-    normalizedNamed.includes(identity.toLowerCase()),
+    containsPdfAnchor(normalizedNamed, identity),
     `named PDF is missing '${identity}'`,
   );
 }
 
 // PDF text extractors may insert whitespace inside displayed e-mail addresses.
-// The structure validator checks all four exact addresses in the TeX source;
+// The structure validator checks all six exact addresses in the TeX source;
 // here we use stable local parts and the domain to detect anonymous-PDF leaks.
 const anonymousForbidden = [
   ...namedIdentities,
@@ -102,11 +112,14 @@ const anonymousForbidden = [
   "an1dee",
   "bachcp6",
   "levankiet1212.2004",
+  "hoangnt20",
+  "tampm",
+  "fe.edu.vn",
   "littleboys.biz",
 ];
 for (const identity of anonymousForbidden) {
   assert.ok(
-    !normalizedAnonymous.includes(identity.toLowerCase()),
+    !containsPdfAnchor(normalizedAnonymous, identity),
     `anonymous PDF leaks '${identity}'`,
   );
 }
@@ -123,5 +136,5 @@ for (const logName of ["main.log", "main-anonymous.log"]) {
 }
 
 console.log(
-  `VALID PDF VARIANTS (named ${named.length} text chars; anonymous ${anonymous.length}; identities redacted; anonymous main ${pageBudget.mainPageCount}/${pageBudget.mainPageLimit} pages; references ${pageBudget.referencePageCount}/${pageBudget.referencePageLimit} pages)`,
+  `VALID PDF VARIANTS (named ${named.length} text chars; anonymous ${anonymous.length}; identities redacted; ${pageBudget ? `IEEE anonymous main ${pageBudget.mainPageCount}/${pageBudget.mainPageLimit} pages; references ${pageBudget.referencePageCount}/${pageBudget.referencePageLimit} pages` : "ACM working draft; length deliverables checked separately"})`,
 );

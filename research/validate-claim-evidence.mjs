@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { validateManuscriptComparisonBoundary } from "./validate-research-quality-gates.mjs";
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
 export const GOVERNED_TASK_ID = "RQ-101";
@@ -32,17 +33,17 @@ const EXPECTED_PLANNED_IDS = Array.from(
 const PAPER_MARKERS = new Map([
   [
     "C-001",
-    ["Full-graph nodes & 105 & 0 & 0 & 1.000", "20 patched repositories"],
+    ["Full-graph nodes & 105 & 0 & 0", "20 patched repositories"],
   ],
   ["C-002", ["ArchSync matched all 20 D1 labels"]],
   ["C-003", ["all seven violations"]],
   ["C-004", ["All 11 finding-bearing D1 cases"]],
-  ["C-005", ["20 & 0 & 0 & 20", "v0.2 achieved 1.000000"]],
+  ["C-005", ["20 & 0 & 0 & 20", "v0.2 matched all 20 positives and rejected all 20 annotated negatives"]],
   ["C-006", ["Incremental/full-scan agreement & 20/20"]],
   ["C-007", ["Cache hit on repeated check & 20/20"]],
   ["C-008", ["parsed 57 of 189 TypeScript file instances"]],
   ["C-009", ["518.51", "531.05", "242.62", "249.30", "53.2\\%"]],
-  ["C-010", ["Overall & 18 & 4 & 2 & 16", "v0.1 achieved precision 0.818182"]],
+  ["C-010", ["Overall & 18 & 4 & 2 & 16", "v0.1 achieved precision 0.818, recall 0.900, F1 0.857, and specificity 0.800"]],
   ["C-011", ["giving 42 current-version executions with no replay mismatch"]],
   ["C-012", ["Both D2 analyzer versions were also deterministic across their duplicate runs"]],
   ["C-013", ["Both D2 analyzer versions were also deterministic across their duplicate runs"]],
@@ -131,7 +132,7 @@ export function validateClaimEvidence(csvText, paperText) {
   if (new Set(ids).size !== ids.length)
     issues.push("claim-evidence.csv: claim_id values must be unique");
 
-  const expectedIds = [...EXPECTED_CURRENT_IDS, ...EXPECTED_PLANNED_IDS];
+  const expectedIds = [...EXPECTED_CURRENT_IDS, ...EXPECTED_PLANNED_IDS, "E-001"];
   for (const id of expectedIds) {
     if (!ids.includes(id)) issues.push(`claim-evidence.csv: missing ${id}`);
   }
@@ -192,6 +193,15 @@ export function validateClaimEvidence(csvText, paperText) {
           );
         }
       }
+    } else if (record.claim_id === "E-001") {
+      const expected = {
+        rq: "Feasibility", phase: "External", status: "withdrawn-from-manuscript",
+        evidence_artifact: "research/experiments/d1-dependency-cruiser-20260915/results/summary.json",
+      };
+      for (const [field, value] of Object.entries(expected)) {
+        if (record[field] !== value) issues.push(`claim-evidence.csv: E-001 ${field} must retain the withdrawn audit-only boundary`);
+      }
+      if (!/withdrawn|audit.only/i.test(record.claim)) issues.push("claim-evidence.csv: E-001 must explicitly identify withdrawn audit-only evidence");
     } else if (record.claim_id?.startsWith("P-")) {
       if (record.rq !== "Future") {
         issues.push(
@@ -216,6 +226,7 @@ export function validateClaimEvidence(csvText, paperText) {
     }
   }
 
+  issues.push(...validateManuscriptComparisonBoundary(paperText));
   const verifiedRecords = records.filter(
     (record) => record.status === "verified-controlled",
   );
@@ -230,6 +241,7 @@ export function validateClaimEvidence(csvText, paperText) {
 
   return {
     issues,
+    withdrawn: records.filter(record => record.status === "withdrawn-from-manuscript").length,
     verified: verifiedRecords.length,
     planned: plannedRecords.length,
   };
@@ -256,7 +268,7 @@ export async function main({
     return;
   }
   log(
-    `VALID CLAIM EVIDENCE ${GOVERNED_TASK_ID} (${result.verified} verified-controlled, ${result.planned} planned, all four feasibility RQs covered)`,
+    `VALID CLAIM EVIDENCE ${GOVERNED_TASK_ID} (${result.verified} verified-controlled, ${result.withdrawn} withdrawn-from-manuscript, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 

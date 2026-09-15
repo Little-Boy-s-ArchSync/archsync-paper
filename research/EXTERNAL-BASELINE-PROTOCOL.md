@@ -11,6 +11,15 @@
 
 Revision 0.2.0 (2026-09-14) adds a semantic-capability preflight, a non-empty-intersection gate, repository-level reporting, and an explicit comparator-rejection path. Comparator selection, D3 freeze and Hieu's required approval retain their existing gates. The protocol remains proposed and unexecuted.
 
+## Manuscript correction (2026-09-15)
+
+The scratch D1 inventory in `experiments/d1-dependency-cruiser-20260915/`
+is retained solely as an audit record and is withdrawn from the manuscript.
+Its outputs do not satisfy this protocol's approval, frozen common-capability,
+independent-label or supported-runtime requirements. `EVAL-BASELINE-001`
+remains **Proposed - not executed**; no accepted external comparison result
+is available for this paper. See `../supplementary/EXTERNAL-CLAIM-CORRECTION.md`.
+
 ## Goal and non-result boundary
 
 This protocol defines the minimum fair comparison between ArchSync and an

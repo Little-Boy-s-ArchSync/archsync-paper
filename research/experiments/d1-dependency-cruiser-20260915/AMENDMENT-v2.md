@@ -1,0 +1,5 @@
+# D1 inventory amendment v2 — patch isolation correction
+
+The v1 run (freeze commit 8170aae) is invalid and retained in results-v1-invalid. Git apply executed inside a subdirectory of the manuscript Git repository and returned success without applying the patches; all variants remained baseline. No v1 patched-case counts are reportable. This is a runner error, not a comparator error.
+
+Before any corrected outputs, create a fresh Git root inside each copied subject so patches apply relative to that subject. Require the exact changed-file list to equal the frozen D1 declaration before either tool executes. Save hashes of every resulting source file. Ignore .git metadata in source-file counting/hashes. Correct component count serialization to Object.keys because Guardian uses an object map. No detector, package, rule, label, or comparator configuration changes. Rerun both tools on all21 variants after committing amended script and manifest. All v1 capability and failure boundaries remain unchanged.

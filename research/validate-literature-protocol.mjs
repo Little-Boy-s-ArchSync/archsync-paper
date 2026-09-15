@@ -124,13 +124,13 @@ export function validateLiteratureProtocol({
   requireText(
     "main.tex",
     paper,
-    /The synthesis above is a scoped narrative review, not the result of a completed systematic literature review/,
+    /This section is a scoped narrative synthesis selected to establish context for ArchSync's design, not a systematic literature review/,
     "must disclose that current Related Work is not a completed systematic review",
   );
   requireText(
     "main.tex",
     paper,
-    /The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias/,
+    /Related Work is a purposively scoped narrative synthesis, with source-selection and interpretation bias/,
     "must disclose literature-positioning validity risk",
   );
   requireText(
@@ -142,7 +142,7 @@ export function validateLiteratureProtocol({
   requireText(
     "main.tex",
     paper,
-    /(?:versioned review protocol, search templates, and pending calibration evidence|versioned protocol, search templates, and review evidence) remain research-governance artifacts outside the manuscript/,
+    /These are limitations of the chosen narrative method, not temporary gaps awaiting completion of another review/,
     "must keep unfinished SLR progress outside the Related Work section",
   );
 

@@ -1,8 +1,7 @@
 # ArchSync Research Paper
 
-Nguồn LaTeX IEEE conference của bài nghiên cứu **ArchSync: A Controlled
-Feasibility Study of Evidence-Backed Architecture Drift Detection in TypeScript
-Systems**.
+Nguồn LaTeX của bài nghiên cứu **ArchSync: A Controlled Feasibility Study of
+Evidence-Backed Architecture Drift Detection in TypeScript Systems**.
 
 Chính sách của dự án yêu cầu repository được giữ **private** trong thời gian
 phản biện ẩn danh, nhưng audit GitHub ngày 2026-08-29 ghi nhận cả bảy repository
@@ -11,6 +10,37 @@ P0 blocker được giữ tại `archsync#45`, không phải quyết định cho
 hoặc bằng chứng ẩn danh. Venue, visibility, submission và artifact release vẫn
 chờ quyết định của người có thẩm quyền. Nhánh `main` trên GitHub là source of
 truth; Overleaf chỉ là mirror để đọc, comment và kiểm tra theo milestone.
+
+## 8-page and 12-page complete papers
+
+The branch includes **archsync-8page.tex / archsync-8page.pdf** and
+**archsync-12page.tex / archsync-12page.pdf**. Each TeX file contains the complete
+manuscript text, with 25 references and the two vector figures. Reference pages
+count toward the 8/12 PDF-page totals. Both use IEEE conference layout; the 12-page version is the detailed
+canonical manuscript and the 8-page version its synchronized concise form; a venue has not been selected. See
+`supplementary/conference-format-handoff.md` before adapting for submission.
+
+Edit the detailed manuscript in `sections/` and short replacements in
+`variants/8-page/`; regenerate complete files with:
+
+```sh
+node scripts/build-length-variants.mjs
+node scripts/validate-length-variants.mjs
+```
+
+Building uses Tectonic (set `TECTONIC` to an absolute executable path if needed); validation requires Poppler `pdfinfo` on PATH (or the
+`PDFINFO` environment variable). The complete TeX files can also be compiled
+individually with the included class, bibliography and figure assets. Avoid
+editing generated copies without applying the same change to their source
+sections. `supplementary/length-variant-validation.json` binds checked sources
+and PDFs by hash. `supplementary/VISUAL-QA.md` records rendered inspection.
+
+External comparison remains proposed and unexecuted within the reported study.
+The scratch inventory in `research/experiments/d1-dependency-cruiser-20260915/`
+is audit-only and withdrawn from the manuscript. Its ledger entry is explicitly
+marked `withdrawn-from-manuscript`. See `supplementary/EXTERNAL-CLAIM-CORRECTION.md`.
+The 25 citations do not expand the 23 chosen-review records.
+No publisher PDFs are redistributed here.
 
 ## Hai biến thể paper
 
@@ -27,7 +57,7 @@ nhận repository anonymity hoặc submission readiness.
 
 ```text
 .
-├── main.tex                     # IEEEtran preamble, author metadata, ordered inputs
+├── main.tex                     # IEEE conference preamble, author metadata, ordered inputs
 ├── main-anonymous.tex           # Minimal anonymous wrapper
 ├── references.bib               # Tài liệu tham khảo
 ├── sections/
@@ -35,9 +65,9 @@ nhận repository anonymity hoặc submission readiness.
 │   ├── introduction.tex
 │   ├── related-work.tex
 │   ├── approach.tex             # Problem, RQ và Proposed Approach
-│   ├── architecture.tex         # System diagram (TikZ)
+│   ├── architecture.tex         # System diagram (vector PDF)
 │   ├── implementation.tex
-│   ├── evaluation.tex           # Evaluation diagram (TikZ)
+│   ├── evaluation.tex           # Evaluation diagram (vector PDF)
 │   ├── results.tex
 │   ├── discussion.tex
 │   ├── threats-to-validity.tex
@@ -94,9 +124,10 @@ nhận repository anonymity hoặc submission readiness.
 page break. Mỗi file trong `sections/` có magic root comment trỏ về `main.tex` để
 LaTeX Workshop build đúng document khi đang sửa một section.
 
-Manuscript dùng `\documentclass[conference]{IEEEtran}` và bibliography style
-`IEEEtran`. Template conference chung này phải được thay bằng template riêng
-của venue nếu hội nghị được chọn cung cấp biến thể hoặc giới hạn trang khác.
+This branch uses `\documentclass[conference]{IEEEtran}`. The documented
+`archsync-ieee.bst` changes quotation/dash typography only; pinned upstream
+style identity and exact transformation are regression-tested. Venue-specific
+length, anonymity and bibliography requirements still need final author review.
 
 ## Bắt đầu nhanh trong VS Code hoặc Codespaces
 
@@ -238,7 +269,9 @@ node scripts/local-verify.mjs
 
 Lệnh yêu cầu Node.js 22, từ chối tracked worktree bẩn và tạo bundle trong
 `artifacts/local-verification/`. Nếu host không có `latexmk` hoặc `pdftotext`,
-lệnh tự build môi trường Docker đã pin để biên dịch và kiểm tra redaction. Quy tắc evidence và cách
+lệnh tự build môi trường Docker đã pin để biên dịch và kiểm tra redaction.
+Có thể chọn Tectonic thật qua `TECTONIC` và Python có pypdf qua `PYTHON_PDF`;
+bundle ghi rõ provider đã thực sự chạy, không thay thế bằng command giả. Quy tắc evidence và cách
 publish bundle theo exact commit nằm tại
 [`research/LOCAL-VERIFICATION.md`](research/LOCAL-VERIFICATION.md).
 

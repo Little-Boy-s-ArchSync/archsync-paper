@@ -26,6 +26,7 @@ test("accepts the governed paper claim ledger", () => {
   const result = validateClaimEvidence(csvText, paperText);
   assert.deepEqual(result.issues, []);
   assert.equal(result.verified, 13);
+  assert.equal(result.withdrawn, 1);
   assert.equal(result.planned, 4);
 });
 
@@ -216,7 +217,18 @@ test("runs the real claim-evidence files through the CLI entry point", async () 
   assert.equal(exitCode, null);
   assert.deepEqual(errors, []);
   assert.ok(
-    output.some((message) => message.includes("13 verified-controlled, 4 planned")),
+    output.some((message) => message.includes("13 verified-controlled, 1 withdrawn-from-manuscript, 4 planned")),
   );
   assert.ok(output.some((message) => message.includes("RQ-101")));
+});
+
+test("rejects promotion of the withdrawn external inventory audit row", () => {
+  for (const status of ["verified-controlled", "verified-descriptive", "planned"]) {
+    const result = validateClaimEvidence(csvText.replace("withdrawn-from-manuscript", status), paperText);
+    assert.ok(result.issues.some(issue => issue.includes("E-001")), status);
+  }
+});
+test("rejects reintroducing withdrawn external results in manuscript prose", () => {
+  const result = validateClaimEvidence(csvText, paperText + " We executed dependency-cruiser 18.3.0 on 21 variants.");
+  assert.ok(result.issues.some(issue => issue.includes("withdrawn external inventory")));
 });
