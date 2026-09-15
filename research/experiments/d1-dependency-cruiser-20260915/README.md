@@ -1,4 +1,16 @@
-# Executed D1 external-tool inventory (2026-09-15)
+# Withdrawn scratch inventory — audit only
+
+**Not manuscript evidence.** The following record preserves a local scratch run,
+not execution of EVAL-BASELINE-001. Its prior promotion into the evaluation was
+withdrawn on 2026-09-15. Node 26 was outside the project's declared supported
+Node 22.x runtime; package minimum-version compatibility is not support validation.
+Raw outputs and old interpretations below are retained to explain the correction,
+not to certify an approved comparison. Do not cite these counts or the claimed
+empty intersection as a result of the reported study. See
+`../../../supplementary/EXTERNAL-CLAIM-CORRECTION.md`.
+
+## Historical scratch-run record (superseded reporting status)
+
 
 **Result: zero shared labeled comparison units; comparative accuracy is not estimable.** This is an executed external-tool feasibility/inventory check on the team's D1 development benchmark, not an independent-data evaluation and not completion of EVAL-BASELINE-001/D3.
 

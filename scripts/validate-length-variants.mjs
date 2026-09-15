@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {verifyManuscriptVariants} from '../research/validate-research-quality-gates.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
 import {dirname,join} from 'node:path';
@@ -7,6 +8,7 @@ import {createHash} from 'node:crypto';
 const root=dirname(dirname(fileURLToPath(import.meta.url)));
 const pdfinfo=process.env.PDFINFO??'pdfinfo';
 const report=[];
+assert.deepEqual(await verifyManuscriptVariants(root), [], 'Generated variants must match canonical claims and exclude withdrawn external results');
 for(const pages of [8,12]){
  const name=`archsync-${pages}page`;
  const tex=await readFile(join(root,name+'.tex'),'utf8');
@@ -17,8 +19,8 @@ for(const pages of [8,12]){
  const labels=[...tex.matchAll(/\\label\{([^}]+)\}/g)].map(m=>m[1]);
  assert.equal(new Set(labels).size,labels.length);
  for(const m of tex.matchAll(/\\(?:ref|eqref)\{([^}]+)\}/g))assert.ok(labels.includes(m[1]),m[1]);
- assert.match(tex,/narrative synthesis/);assert.match(tex,/shared labeled subset/);
- assert.doesNotMatch(tex,/571189|53\.8\\%|does not compare ArchSync against an external tool/);
+ assert.match(tex,/narrative synthesis/);assert.match(tex,/External comparison remains future work/);
+ assert.doesNotMatch(tex,/571189|53\.8\\%/);
  const log=await readFile(join(root,'output',name+'.log'),'utf8');
  assert.doesNotMatch(log,/There were undefined|Citation .* undefined|Reference .* undefined/);
  assert.doesNotMatch(log,/Overfull \\hbox/,'Text exceeds a column');

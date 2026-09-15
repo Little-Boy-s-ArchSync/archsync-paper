@@ -11,13 +11,14 @@
 
 Revision 0.2.0 (2026-09-14) adds a semantic-capability preflight, a non-empty-intersection gate, repository-level reporting, and an explicit comparator-rejection path. Comparator selection, D3 freeze and Hieu's required approval retain their existing gates. The protocol remains proposed and unexecuted.
 
-## Current cross-reference (2026-09-15)
+## Manuscript correction (2026-09-15)
 
-The separately authorized [D1 exploratory inventory](experiments/d1-dependency-cruiser-20260915/README.md)
-executed both tools on author-developed data and found an empty shared labeled
-subset. Comparative accuracy metrics remain undefined. That run does not execute
-this frozen D3 protocol or satisfy its independent-data and approval gates. The
-non-result statements below describe this D3 protocol's frozen scope.
+The scratch D1 inventory in `experiments/d1-dependency-cruiser-20260915/`
+is retained solely as an audit record and is withdrawn from the manuscript.
+Its outputs do not satisfy this protocol's approval, frozen common-capability,
+independent-label or supported-runtime requirements. `EVAL-BASELINE-001`
+remains **Proposed - not executed**; no accepted external comparison result
+is available for this paper. See `../supplementary/EXTERNAL-CLAIM-CORRECTION.md`.
 
 ## Goal and non-result boundary
 

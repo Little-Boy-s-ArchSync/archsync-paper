@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { validateManuscriptComparisonBoundary } from "./validate-research-quality-gates.mjs";
 import { loadExpandedManuscript } from "./load-manuscript.mjs";
 
 export const GOVERNED_TASK_ID = "RQ-101";
@@ -194,20 +195,13 @@ export function validateClaimEvidence(csvText, paperText) {
       }
     } else if (record.claim_id === "E-001") {
       const expected = {
-        rq: "Feasibility",
-        phase: "External",
-        status: "verified-descriptive",
-        claim: "Pinned dependency-cruiser and Guardian completed a D1 inventory with no shared labeled accuracy units",
-        denominator_or_scope: "Baseline plus20 patched repositories;42 tool executions;54 import instances versus108 service instances across patches",
+        rq: "Feasibility", phase: "External", status: "withdrawn-from-manuscript",
         evidence_artifact: "research/experiments/d1-dependency-cruiser-20260915/results/summary.json",
-        verification: "node verify-results.mjs results",
       };
       for (const [field, value] of Object.entries(expected)) {
-        if (record[field] !== value) issues.push(`claim-evidence.csv: E-001 ${field} must retain the executed descriptive inventory boundary`);
+        if (record[field] !== value) issues.push(`claim-evidence.csv: E-001 ${field} must retain the withdrawn audit-only boundary`);
       }
-      for (const marker of ["shared labeled subset therefore contains zero items", "comparative precision, recall, F1, and agreement undefined", "108 service relationships cannot be scored as 108 dependency-cruiser misses"]) {
-        if (!paperText.replace(/\s+/g, " ").includes(marker)) issues.push(`main.tex: missing E-001 comparison boundary '${marker}'`);
-      }
+      if (!/withdrawn|audit.only/i.test(record.claim)) issues.push("claim-evidence.csv: E-001 must explicitly identify withdrawn audit-only evidence");
     } else if (record.claim_id?.startsWith("P-")) {
       if (record.rq !== "Future") {
         issues.push(
@@ -232,6 +226,7 @@ export function validateClaimEvidence(csvText, paperText) {
     }
   }
 
+  issues.push(...validateManuscriptComparisonBoundary(paperText));
   const verifiedRecords = records.filter(
     (record) => record.status === "verified-controlled",
   );
@@ -246,7 +241,7 @@ export function validateClaimEvidence(csvText, paperText) {
 
   return {
     issues,
-    descriptive: records.filter(record => record.status === "verified-descriptive").length,
+    withdrawn: records.filter(record => record.status === "withdrawn-from-manuscript").length,
     verified: verifiedRecords.length,
     planned: plannedRecords.length,
   };
@@ -273,7 +268,7 @@ export async function main({
     return;
   }
   log(
-    `VALID CLAIM EVIDENCE ${GOVERNED_TASK_ID} (${result.verified} verified-controlled, ${result.descriptive} verified-descriptive, ${result.planned} planned, all four feasibility RQs covered)`,
+    `VALID CLAIM EVIDENCE ${GOVERNED_TASK_ID} (${result.verified} verified-controlled, ${result.withdrawn} withdrawn-from-manuscript, ${result.planned} planned, all four feasibility RQs covered)`,
   );
 }
 

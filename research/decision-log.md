@@ -572,3 +572,8 @@
 ## D-025: Prepare two length variants with bounded evaluation claims
 
 - Date: 2026-09-15; Status: Local branch revision requested by Hoàng; Decision: retain the scoped narrative synthesis, provide complete 8-page and 12-page ACM working drafts pending venue selection, report D1 as counts with inline development-set caveats, move build provenance to supplementary material, and execute a separately scoped external-tool feasibility run without promoting it to an independent holdout or unsupported accuracy comparison. Historical review queues remain audit-only.
+
+
+## D-026: Withdraw scratch external-inventory claims from the manuscripts
+
+- Date: 2026-09-15; Status: Correction requested by Hoàng; Decision: supersede D-025's promotion of the scratch D1 run into manuscript evidence. EVAL-BASELINE-001 remains proposed and unexecuted in the reported study. Mark E-001 withdrawn-from-manuscript, preserve raw records for audit, remove its counts, package versions, incident narrative and empty-subset conclusion from both length variants and canonical sections. A local run and integrity checks do not establish protocol approval, independent labels or Node 22.x supported-runtime validation. No tracker completion or human approval is asserted.

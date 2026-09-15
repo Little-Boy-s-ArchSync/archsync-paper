@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import test from "node:test";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
-import { main, validateResearchQualityGates } from "./validate-research-quality-gates.mjs";
+import { main, validateResearchQualityGates, validateManuscriptComparisonBoundary, verifyManuscriptVariants } from "./validate-research-quality-gates.mjs";
 
 const repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), "..");
 const research = join(repositoryDirectory, "research");
@@ -114,24 +115,43 @@ test("runs the real quality gate through its CLI entry point", async () => {
   assert.ok(output.some((message) => message.includes("VALID RESEARCH QUALITY GATES 1.0.0")));
 });
 
- test("rejects deleting the empty common subset and undefined metric boundaries", async () => {
-  const input = await fixture();
-  input.results = input.results.replace("shared labeled subset therefore contains zero items", "shared subset has many items").replace("comparative precision, recall, F1, and agreement undefined", "comparative precision, recall, F1, and agreement excellent");
-  const result = validateResearchQualityGates(input);
-  hasIssue(result, "zero items");
-  hasIssue(result, "agreement undefined");
- });
- test("rejects a contradictory non-execution claim", async () => {
-  const input = await fixture();
-  input.conclusion += " no external tool baseline was run";
-  hasIssue(validateResearchQualityGates(input), "obsolete non-execution claim");
- });
- test("fails the gate if raw external inventory verification fails", async () => {
+test("rejects withdrawn inventory claims without rejecting historical D1 replay", () => {
+  assert.deepEqual(validateManuscriptComparisonBoundary("D1 performs 42 analyzer executions. External comparison remains future work."), []);
+  for (const claim of ["An executed external-tool inventory found an empty shared labeled subset.", "We executed dependency-cruiser 18.3.0.", "42 tool executions yielded 54 import dependencies."]) {
+    assert.ok(validateManuscriptComparisonBoundary(claim).length > 0);
+  }
+});
+
+test("fails closed when manuscript variant verification cannot complete", async () => {
   let exitCode;
-  const result = await main({repositoryDirectory, verifyInventory: async () => {throw new Error("raw output hash mismatch");}, log: () => {}, error: () => {}, setExitCode: code => {exitCode = code;}});
+  const result = await main({repositoryDirectory, verifyVariants: async () => {throw new Error("missing generated source");}, log: () => {}, error: () => {}, setExitCode: code => {exitCode = code;}});
   assert.equal(exitCode, 1);
-  hasIssue(result, "raw output hash mismatch");
- });
+  hasIssue(result, "missing generated source");
+});
+
+test("rejects a generated variant drifting from its canonical claims", async t => {
+  const directory = await mkdtemp(join(tmpdir(), "archsync-variant-boundary-"));
+  t.after(() => rm(directory, {recursive: true, force: true}));
+  await mkdir(join(directory, "sections"));
+  await mkdir(join(directory, "variants/8-page"), {recursive: true});
+  const canonical = "External comparison remains future work. D1 has 20 patches.";
+  const short = "External comparison remains future work. D1 uses 20 patches.";
+  for (const [name, content] of Object.entries({"main.tex": "\\input{sections/evaluation}", "main-anonymous.tex": "\\input{main.tex}", "sections/evaluation.tex": canonical, "variants/8-page/evaluation.tex": short, "archsync-8page.tex": short, "archsync-12page.tex": canonical})) await writeFile(join(directory, name), content);
+  assert.deepEqual(await verifyManuscriptVariants(directory), []);
+  await writeFile(join(directory, "archsync-8page.tex"), short.replace("20 patches", "30 patches"));
+  assert.ok((await verifyManuscriptVariants(directory)).some(issue => issue.includes("drifted")));
+  await writeFile(join(directory, "archsync-12page.tex"), "We executed dependency-cruiser 18.3.0.");
+  const issues = await verifyManuscriptVariants(directory);
+  assert.ok(issues.some(issue => issue.includes("withdrawn external inventory")));
+  assert.ok(issues.some(issue => issue.includes("must remain future work")));
+  for (const file of ["sections/evaluation.tex", "variants/8-page/evaluation.tex", "main-anonymous.tex"]) {
+    const original = await readFile(join(directory, file), "utf8");
+    await writeFile(join(directory, file), original + " 42 tool executions yielded 54 import dependencies.");
+    const reportedFile = file === "sections/evaluation.tex" ? "main.tex" : file;
+    assert.ok((await verifyManuscriptVariants(directory)).some(issue => issue.startsWith(reportedFile + ":") && issue.includes("withdrawn external inventory")), file);
+    await writeFile(join(directory, file), original);
+  }
+});
 
 test("rejects dropping the proposed D3 semantic intersection gate", async () => {
   const input = await fixture();

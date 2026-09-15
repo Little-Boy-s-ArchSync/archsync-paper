@@ -35,10 +35,11 @@ editing generated copies without applying the same change to their source
 sections. `supplementary/length-variant-validation.json` binds checked sources
 and PDFs by hash. `supplementary/VISUAL-QA.md` records rendered inspection.
 
-The executed external inventory is under
-`research/experiments/d1-dependency-cruiser-20260915/`. It reports 42 successful
-executions but zero shared labeled comparison units; it is not independent
-accuracy evidence. The 25 citations do not expand the 23 chosen-review records.
+External comparison remains proposed and unexecuted within the reported study.
+The scratch inventory in `research/experiments/d1-dependency-cruiser-20260915/`
+is audit-only and withdrawn from the manuscript. Its ledger entry is explicitly
+marked `withdrawn-from-manuscript`. See `supplementary/EXTERNAL-CLAIM-CORRECTION.md`.
+The 25 citations do not expand the 23 chosen-review records.
 No publisher PDFs are redistributed here.
 
 ## Hai biến thể paper

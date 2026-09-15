@@ -62,3 +62,24 @@ The named PDFs created at 02:19:46 (8-page) and 02:19:55 (12-page) local time on
 |---|---|
 | `archsync-8page.pdf` | `9c09c6f50d4d7ea41f37ebb45e509c74218d5003fa4b3b4d8d6536a60a48a57c` |
 | `archsync-12page.pdf` | `1919f06e1f235153db5befdb0e42e2230b21e8109f91911d1c7fdfcfda654a06` |
+
+
+## Superseding recheck after withdrawal of external-comparison claims
+
+On 2026-09-15, the canonical sections and both complete length variants were rebuilt after removing the disputed external inventory from the reported evaluation. External comparison is explicitly future work, with no accepted comparator result or common label mapping. Original D1 replay and graph totals are unchanged. The prior candidate hashes above are historical and do not identify this revised candidate.
+
+All 20 pages of the rebuilt 8-page and 12-page PDFs were rendered with Poppler at a 640-pixel page height and inspected as page overviews. The short version's Figure 2 page and the long version's changed methodology page were additionally rendered and inspected at 120 dpi; the long version's final bibliography page was checked at 100 dpi. Rendered files are local QA outputs in `/tmp/archsync-revised-qa/` and are not manuscript evidence.
+
+- Both complete versions remain exactly 8 and 12 pages with 25 citations each, resolved references, and no overfull text columns. No geometry, font-size, margin, or figure-size changes were needed.
+- Short version: Figures 1 and 2 remain on pages 4 and 5. Tables 1–3 are on page 6; Table 4 is on page 7. Page 8 contains a normal reference-list continuation.
+- Long version: Figures 1 and 2 remain on pages 6 and 8. Tables 1–3 are on page 9; Table 4 is on page 10. Page 12 contains references 12–25 and a preceding entry continuation in two columns; the former orphan-only final page has not returned.
+- Revised comparison-method text, equations, table captions, and final references fit within their columns without collision or clipping. Figure 2 retains “Matched, extra, missed” and “57 / 189 files parsed.” Figure designs are unchanged.
+- Final visual disposition: PASS. The earlier nonblocking note about small Figure 1 mathematical annotations under normal-scale viewing remains applicable.
+- Canonical named and anonymous PDFs were also rebuilt; source/structure and actual-PDF checks pass, including author redaction in the anonymous draft.
+
+| Revised file | SHA-256 |
+|---|---|
+| `archsync-8page.pdf` | `b5be03a53bccdfc0f1a7130937291b20ef757a94ded22d9decf11d663730dde9` |
+| `archsync-12page.pdf` | `6551871e9f1c84f044559e7dedc2bbd463062f662fe9cde2d87cc5780ae7acfd` |
+| `main.pdf` | `3b759a11adbfc342808be2d274bcd5a44068adc3efda5c0ed3e001af8188c194` |
+| `main-anonymous.pdf` | `e10b1628b2dfe8feb62b5f686abd46eaf4b718989d88eeac49e554bffbeae96c` |

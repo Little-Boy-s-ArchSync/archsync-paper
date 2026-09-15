@@ -8,10 +8,10 @@ function isInside(parent, target) {
 
 export async function loadExpandedManuscript(
   repositoryDirectory,
-  { readText = (path) => readFile(path, "utf8") } = {},
+  { readText = (path) => readFile(path, "utf8"), rootFile = "main.tex" } = {},
 ) {
   const repositoryRoot = resolve(repositoryDirectory);
-  const rootPath = join(repositoryRoot, "main.tex");
+  const rootPath = join(repositoryRoot, rootFile);
 
   async function expand(path, stack = []) {
     const absolutePath = resolve(path);
