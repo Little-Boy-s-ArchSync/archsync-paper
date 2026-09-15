@@ -106,3 +106,14 @@ end of a reference list is normal; no observation was added to fill a page.
 
 This is a layout check, not an independent scientific review. Earlier claims
 about ACM presentation and pale Figure 1 labels are superseded.
+
+
+## Local-edit reconciliation after remote 1ab217b (2026-09-15)
+
+The saved six-author metadata and supervisor contribution statements were adapted to the remote IEEE layout. The ACM-specific author override and old generated PDF/hash values were not reapplied. Both complete TeX variants and PDFs were regenerated from the canonical sections.
+
+Both first pages were rendered at 1200 pixels and visually inspected for the six names, five affiliation markers and email lines. All 20 pages were rendered at 500 pixels and inspected for page flow, clipping and overlap. The contribution blocks are visible on page 7 (short) and page 11 (long). This is a layout check, not a new independent scientific review. Updated PDF/source hashes are recorded in `length-variant-validation.json`.
+
+Validation: both variants retain exactly 8/12 pages and 25 citations, with resolved references and no column overflow or missing glyphs. Named and anonymous canonical PDFs were rebuilt; identity checks cover all six names and both email domains. The anonymous PDF passes the existing 10-page body / 2-page reference budget check. Research claims and evaluation data were not changed by this reconciliation.
+
+Reconciliation checks: 394 tests passed on Node.js 22.16.0 (0 failed, 0 skipped); the CONTRIBUTING structural/research validators also passed. These are manuscript/tooling checks, not new research experiments.

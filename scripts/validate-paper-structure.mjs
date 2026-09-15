@@ -67,7 +67,7 @@ const ieee = main.includes("\\documentclass[conference]{IEEEtran}");
 const acm = main.includes("\\documentclass[sigconf,nonacm]{acmart}");
 assert.ok(ieee || acm, "supported IEEE conference or ACM working-draft class required");
 if (ieee) {
-  assert.equal((main.match(/\\IEEEauthorrefmark\{[1-4]\}/g) ?? []).length, 8);
+  assert.equal((main.match(/\\IEEEauthorrefmark\{[1-5]\}/g) ?? []).length, 11);
 } else {
   assert.equal((main.match(/\\author\{/g) ?? []).length, 4);
   assert.equal((main.match(/\\email\{/g) ?? []).length, 4);
@@ -77,6 +77,10 @@ for (const identity of [
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
+  "Hoang Nguyen The",
+  "Minh Tam Phan",
+  "hoangnt20@fe.edu.vn",
+  "tampm@fe.edu.vn",
   "voduchieu@littleboys.biz",
   "an1dee@littleboys.biz",
   "bachcp6@littleboys.biz",

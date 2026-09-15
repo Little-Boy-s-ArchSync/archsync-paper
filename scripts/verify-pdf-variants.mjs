@@ -90,6 +90,8 @@ const namedIdentities = [
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
+  "Hoang Nguyen The",
+  "Minh Tam Phan",
   "FPT University",
   "VNUK Institute for Research and Executive Education",
 ];
@@ -101,7 +103,7 @@ for (const identity of namedIdentities) {
 }
 
 // PDF text extractors may insert whitespace inside displayed e-mail addresses.
-// The structure validator checks all four exact addresses in the TeX source;
+// The structure validator checks all six exact addresses in the TeX source;
 // here we use stable local parts and the domain to detect anonymous-PDF leaks.
 const anonymousForbidden = [
   ...namedIdentities,
@@ -110,6 +112,9 @@ const anonymousForbidden = [
   "bachcp6",
   "levankiet1212.2004",
   "littleboys.biz",
+  "hoangnt20",
+  "tampm",
+  "fe.edu.vn",
 ];
 for (const identity of anonymousForbidden) {
   assert.ok(

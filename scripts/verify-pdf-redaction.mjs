@@ -8,7 +8,12 @@ const forbidden = [
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
+  "Hoang Nguyen The",
+  "Minh Tam Phan",
   "littleboys.biz",
+  "hoangnt20",
+  "tampm",
+  "fe.edu.vn",
   "FPT University",
   "VNUK Institute",
 ];
