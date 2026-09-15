@@ -335,9 +335,9 @@ Component scoping parsed 57/189 file instances and warm caching reduced the reco
 
 \section{Conclusion and Future Work}
 
-ArchSync deterministically links declared contracts to source-derived TypeScript service graphs. On co-developed datasets, graph, classification, evidence-location, replay, and incremental/full-scan outputs match regression oracles. The detector corpus exposes earlier analyzer errors and verifies their correction through provenance tracking.
+ArchSync deterministically links declared contracts and source-derived TypeScript service graphs. Controlled outputs match the declared regression oracles, and provenance tracking corrects earlier detector errors on the targeted corpus.
 
-These results do not establish general accuracy, comparative advantage, or governance effectiveness. Data co-evolved with the implementation; accepted external comparisons, a common label mapping, and an independent real-world holdout are absent. The analyzer never rewrites the model; evolution requires human review. External accuracy, performance, and developer-value claims require auditable evidence from an independent multi-repository holdout, capability-matched external comparison, and real pull-request pilot.
+They do not establish general accuracy, comparative advantage, or governance effectiveness. Data co-evolved with the implementation; accepted external comparison and common label mapping are absent, and no independent real-world holdout exists. The analyzer never rewrites the model; evolution needs human review. Future gates are an independent multi-repository holdout, capability-matched external comparison, and real pull-request pilot. Only after those gates produce auditable evidence can external accuracy, performance, or developer value be claimed.
 
 \ifarchsyncanonymous\else
 \noindent\begin{minipage}{\columnwidth}
