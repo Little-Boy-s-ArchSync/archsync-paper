@@ -1,22 +1,22 @@
 {
   "status": "PASS",
-  "format": "ACM sigconf nonacm; working drafts, venue not selected",
+  "format": "IEEE conference; working length variants, venue not selected",
   "variants": [
     {
       "file": "archsync-8page",
       "pages": 8,
       "citations": 25,
       "labels": 6,
-      "pdf_sha256": "b5be03a53bccdfc0f1a7130937291b20ef757a94ded22d9decf11d663730dde9",
-      "source_sha256": "14a3bafb4d8a4a8548048060c6ef0cdc0cf76a583a584796fc1e09bcd5ad36ea"
+      "pdf_sha256": "5589c60b2d331bb89d607c46c8eb396cc1ae0edab7c90e3922f735a9c139f4d0",
+      "source_sha256": "9192948ff461276f9f04db0d668e01917f89e2d4a06641a5c3ca251efdf65256"
     },
     {
       "file": "archsync-12page",
       "pages": 12,
       "citations": 25,
-      "labels": 6,
-      "pdf_sha256": "6551871e9f1c84f044559e7dedc2bbd463062f662fe9cde2d87cc5780ae7acfd",
-      "source_sha256": "367e6c9e0948d0cac49096369b3f4d536e86ca164f58bc845940e1dccfc45b58"
+      "labels": 7,
+      "pdf_sha256": "5b5b13d3feb4f1693f8bd413f6aa5ca2cc435adc63b1c1acd28a38f249bfe578",
+      "source_sha256": "b2e327f11fc0980e56f383edfcaccefd3343a052df1edfd889fae2c68ffa4250"
     }
   ]
 }

@@ -13,14 +13,14 @@
 \label{fig:evaluation-protocol}
 \end{figure*}
 
-\textbf{Measures.} D1 reports matched, extra, and missed graph items, separating changed items from repeated baseline structure. Empty changed sets contribute no positive item. Classification uses all 20 cases; rule agreement uses seven violations; evidence agreement uses 11 finding-bearing cases and requires at least one matching file and line. D2 counts annotated detector signals, not unique edges, with
+\textbf{Measures.} D1 reports matched, extra, and missed graph items, separating changed items from repeated baseline structure. Empty changed sets contribute no positive item. Classification uses all 20 cases; rule agreement uses seven violations; evidence agreement splits the original 11 cases post hoc into nine call-site and two missing-relation anchor cases (08 and 17). It requires declared file/line matches per case, not per-finding recall; labels and acceptance rules are unchanged. D2 counts annotated detector signals, not unique edges, with
 \[
 P=\frac{TP}{TP+FP},\quad R=\frac{TP}{TP+FN},
 \]
 \[
 F_1=\frac{2PR}{P+R},\quad Sp=\frac{TN}{TN+FP}.
 \]
-Specificity covers only declared hard negatives. P3 checks decision, changed-file and architecture-delta equality, full-scan equivalence, replay, and expected cache miss/hit. Parsed scope is the ratio of affected-component TypeScript file instances to full-head instances. Latency medians and percentiles are descriptive; no population, significance, or comparative-performance inference is made.
+Specificity covers only declared hard negatives. P3 checks decision, changed-file and architecture-delta equality, full-scan equivalence, replay, and expected cache miss/hit. Parsed scope is the ratio of affected-component TypeScript file instances to full-head instances. Latency uses nearest-rank $x_{(\lceil pn\rceil)}$ at p50/p95. With 20 samples, p50 is the tenth observation, not the average of the middle pair. Original timings are descriptive, not population or comparative-performance estimates. Node 22.16.0, Windows 10.0.26200, i7-13650HX and 20 logical CPUs were recorded. RAM, power mode, background/thermal load and filesystem-cache state were not recorded.
 
 \textbf{Engineering gates.} The existing protocol required D1 precision/recall at least 0.85, exact decisions/rules/evidence, and deterministic replay; D2 required all annotated positives and negatives correct; P3 required exact replay/full-scan agreement and cache behavior. These are development acceptance rules, not statistical standards. The paper reports counts even where its underlying engineering gate computes rates.
 

@@ -1,15 +1,7 @@
-import { spawnSync } from "node:child_process";
+import { extractPdfText } from "./pdf-text.mjs";
+import { fileURLToPath } from "node:url";
 
-const result = spawnSync("pdftotext", ["main-anonymous.pdf", "-"], {
-  cwd: new URL("..", import.meta.url),
-  encoding: "utf8",
-  maxBuffer: 32 * 1024 * 1024,
-  shell: false,
-});
-if (result.status !== 0) {
-  process.stderr.write(result.stderr ?? "pdftotext failed\n");
-  process.exit(1);
-}
+const text = extractPdfText(fileURLToPath(new URL("../main-anonymous.pdf", import.meta.url)));
 
 const forbidden = [
   "Vo Duc Hieu",
@@ -20,7 +12,7 @@ const forbidden = [
   "FPT University",
   "VNUK Institute",
 ];
-const findings = forbidden.filter((value) => result.stdout.includes(value));
+const findings = forbidden.filter((value) => text.includes(value));
 if (findings.length > 0) {
   console.error(`PDF REDACTION FAIL: ${findings.join(", ")}`);
   process.exit(1);

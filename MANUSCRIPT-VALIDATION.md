@@ -1,55 +1,59 @@
-# Manuscript validation — 2026-09-15
+# Integrated manuscript validation - 2026-09-15
 
-## Deliverables
+## Deliverables and source of truth
 
-The `andy-temp-branch` revision provides complete manuscript text in
-`archsync-8page.tex` and `archsync-12page.tex`, with matching compiled PDFs.
-Both retain the existing ACM sigconf layout. A venue has not been selected;
-these are working length variants, not a claim of conference-format compliance.
-See `supplementary/conference-format-handoff.md` for conference requirements.
+This revision combines the evidence-scoped scientific-refinement v3 with the
+narrative synthesis and detector/governance explanation at andy-temp-branch
+8e7098b. Canonical sections generate a detailed 12-page manuscript and a
+concise 8-page version. Both now use IEEE conference layout, not ACM.
+The length includes references. No target venue or submission approval is implied.
 
-## Changes and evidence
+## Scientific corrections
 
-The manuscript presents a scoped narrative synthesis with 25 distinct citations,
-not an exhaustive SLR. The chosen review set remains 23 records. D1 results use
-matched, extra and missed counts with their small, author-developed scope stated
-inline. Detector logic, fixed violation precedence and the unresolved human
-REVIEW rejection lifecycle are explained; packaging audits are supplementary.
+- Model-conditioned reconstruction is written as A(S;M), including path and
+  metadata mapping. It is not autonomous architecture discovery.
+- Finding keys, relation-level gating, unresolved targets, old-edge new calls,
+  shared-model base/head evaluation, trusted cache and human REVIEW rejection
+  limits are explicit. The full paper includes a policy-boundary table.
+- The original 11 location cases are separated into 9 call-site and 2
+  missing-relation anchor cases, without relabeling any observation.
+- Latency is nearest-rank p50/p95, not arithmetic median or causal CPU savings.
+- Immutable measured Core, Guardian and Benchmark revisions remain distinct
+  from current development heads.
+- D1/D2 remain co-developed verification sets; P3 reuses D1. No independent
+  holdout, external-comparison result or superiority claim has been added.
+- The narrative synthesis retains 25 citations: 21 recent and 4 foundational.
+  Its scope is not an exhaustive SLR or completed independent appraisal.
+- Proposed input hashes and claim/RQ reporting are synchronized. Frozen SLR
+  decisions, signatures, source evidence and experiment authorization are unchanged.
 
-The earlier scratch dependency-cruiser inventory has been withdrawn from the
-manuscript. EVAL-BASELINE-001 remains proposed and unexecuted within the reported
-study; no accepted external comparison result is claimed. The scratch records
-are audit-only. See `supplementary/EXTERNAL-CLAIM-CORRECTION.md`.
+## Evidence and reproducible checks
 
-## Verification
+`supplementary/reporting/rq3-decomposition.json` was generated from the original
+benchmark commit, using the three raw inputs named and hashed in that report.
+It retains the individual location checks and all 40 latency observations.
+`research/derive-reporting.py` recomputes both measures; the Node reporting gate
+rejects changed units, stale script identity, and inconsistent summaries.
 
-- Both length variants rebuilt with Tectonic: exactly 8 and 12 pages.
-- Each variant has 25 resolved citations; label, source and length checks pass.
-- No unresolved references or horizontal text overflow in either variant.
-- All 20 rendered pages and enlarged figures/tables inspected; visual QA passes.
-  Figure 2 now labels D1 counts correctly and separates the 57 / 189 file counts.
-- Canonical named and anonymous roots rebuilt successfully; PDF variant and
-  identifying-marker redaction checks pass.
-- Paper structure, source, reference-quality and RQ traceability checks pass.
-- Correction: all 365 research tests pass, including cross-variant claim and
-  source-drift regression checks. Coverage: 96.60% lines, 90.28% branches,
-  95.49% functions. Remote synchronization reruns the complete pre-push gate.
-- Exact PDF and source hashes are in `supplementary/length-variant-validation.json`;
-  rendered review findings are in `supplementary/VISUAL-QA.md`.
+The two PDFs have 25 resolved citations, resolved labels, exact 8/12 lengths,
+no missing-character warnings and no horizontal column overflow.
+Every page was rasterized and visually inspected. Figure 1 has shorter,
+higher-contrast labels; Figure 2 separates D1, D2 and P3 and their units.
+Current PDF/source identities are in `supplementary/length-variant-validation.json`.
+See the superseding integration entry in `supplementary/VISUAL-QA.md`.
 
-## Remote integration
+Run the normal exact-commit local gate after committing a clean worktree:
+`node scripts/local-verify.mjs`. It records actual commands, outputs, hashes,
+PDF identities and environment in `artifacts/local-verification/`.
+Local Tectonic and pypdf are explicit alternative providers, not mocked
+latexmk/Poppler commands. CI keeps its pinned TeX Live/Poppler path.
+Hosted results and exact-head review remain distinct from local validation;
+this document does not predeclare them passed.
 
-The latest `origin/main` governance records are retained in this branch. Its older
-IEEE manuscript presentation is superseded here by the verified ACM length
-variants. Source and PDF checks retain format-specific IEEE limits conditionally;
-redaction and source identity checks still apply to both formats. Historical
-SLR receipts remain audit evidence and do not reactivate the discarded queues.
+## Remaining research inputs
 
-## Limits
-
-The local access register contains 18 PDFs, 14 extracted records and four awaiting
-extraction; five selected records still await full text. Access and citation identity
-are documented separately. Copyrighted source papers are not included in this repository.
-Optional bibliography fields and minor vertical balancing warnings remain; rendered
-pages show no clipping. The small pale labels in Figure 1 benefit from zoom.
-These checks do not establish journal quartile quality or venue acceptance.
+The missing independent D3, accepted capability-matched comparator experiment,
+source-access/appraisal items and author/venue decisions are listed in
+`supplementary/RESEARCH-COMPLETION.md`. Successful builds or regression tests
+do not complete those tasks. This is a polished controlled-feasibility
+manuscript, not an evidence-complete claim of real-world effectiveness.

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { extractPdfText } from "./pdf-text.mjs";
 import { readFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,16 +20,17 @@ for (const path of [namedPdf, anonymousPdf]) {
 }
 
 function extractedPdfText(path) {
-  return execFileSync("pdftotext", [path, "-"], {
-    encoding: "utf8",
-    maxBuffer: 20 * 1024 * 1024,
-  });
+  return extractPdfText(path);
 }
 
 const namedRaw = extractedPdfText(namedPdf);
 const anonymousRaw = extractedPdfText(anonymousPdf);
-const named = namedRaw.replace(/\s+/g, " ").trim();
-const anonymous = anonymousRaw.replace(/\s+/g, " ").trim();
+// Layout extraction can retain soft line hyphens and font ligatures.
+function normalizeText(raw) {
+  return raw.normalize("NFKC").replace(/(\p{L})-\r?\n\s*(?=\p{L})/gu, "$1").replace(/\s+/g, " ").trim();
+}
+const named = normalizeText(namedRaw);
+const anonymous = normalizeText(anonymousRaw);
 const normalizedNamed = named.toLowerCase();
 const normalizedAnonymous = anonymous.toLowerCase();
 // The IEEE venue budget is not a budget for the ACM working drafts.
@@ -94,7 +95,7 @@ const namedIdentities = [
 ];
 for (const identity of namedIdentities) {
   assert.ok(
-    normalizedNamed.includes(identity.toLowerCase()),
+    containsPdfAnchor(normalizedNamed, identity),
     `named PDF is missing '${identity}'`,
   );
 }
@@ -112,7 +113,7 @@ const anonymousForbidden = [
 ];
 for (const identity of anonymousForbidden) {
   assert.ok(
-    !normalizedAnonymous.includes(identity.toLowerCase()),
+    !containsPdfAnchor(normalizedAnonymous, identity),
     `anonymous PDF leaks '${identity}'`,
   );
 }

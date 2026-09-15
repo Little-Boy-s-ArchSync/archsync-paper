@@ -13,9 +13,8 @@ The prototype deliberately focuses on TypeScript and Node.js. It recognizes HTTP
 
 This paper makes the following contributions:
 \begin{itemize}
-  \item a machine-readable architecture contract with typed components and relationships plus deny, allow, require, and require-path rules;
-  \item a provenance-aware TypeScript source-to-graph pipeline with file, line, column, detector, snippet, and confidence evidence;
-  \item a three-way decision model separating violations from topology evolution;
-  \item a Git-diff gate with cached baseline graphs, component-incremental analysis, GitHub annotations, and explicit handling of introduced, pre-existing, and resolved findings;
-  \item a reproducible 20-patch controlled development benchmark plus a 40-signal positive/hard-negative regression corpus, with explicit evidence boundaries.
+  \item an executable-contract prototype integrating typed service relationships, four conformance rules, and source/model evidence;
+  \item a relation-level Git-diff gate that separates introduced violations, reviewable evolution, and historical findings using cached component-scoped observation;
+  \item a reproducible controlled verification artifact comprising 20 patches and 40 detector signals, with explicit units, provenance, and limits of inference.
 \end{itemize}
+These are bounded prototype contributions, not claims that expected-versus-observed comparison, dependency rules, or deterministic analysis are new concepts.

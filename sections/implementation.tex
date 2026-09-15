@@ -9,7 +9,8 @@ For a concrete PostgreSQL example, consider the following code inside the \textt
 \begin{verbatim}
 import { Pool as PgPool } from "pg";
 const db = new PgPool({
-  connectionString: "postgres://postgres:5432/orders"
+  connectionString:
+    "postgres://postgres:5432/orders"
 });
 await db.query("select 1");
 \end{verbatim}
@@ -21,4 +22,4 @@ The analysis uses per-file identifier maps and four passes over variable declara
 
 \archsyncrepository{archsync-benchmark}{https://github.com/Little-Boy-s-ArchSync/archsync-benchmark} supplies the synthetic Order Platform, 20 executable patches with group-authored ground truth, and the 40-signal positive/hard-negative corpus. Each patch runs on a fresh copy. Git-diff experiments additionally construct a baseline commit, perform cold and warm checks, and compare incremental head observations with a separate full scan. This full scan checks incremental equivalence; it does not independently establish extraction accuracy.
 
-The reported measurements use pinned Core and Guardian revisions, preserved source and patch manifests, and raw result artifacts. Verification checks artifact integrity and recomputes derived results. Revision identifiers, package hashes, coverage and smoke-test counts, historical verification commands, and the code-level detector/gate audit are supplied in the supplementary implementation audit. These controls make the experiment inspectable; they are not a research contribution or evidence of accuracy on external systems. \texttt{archsync-mcp} is not used in the experiment.
+Measurements use \archsynccommit{Core}{https://github.com/Little-Boy-s-ArchSync/archsync-core}{2affbbb0da859a32b9b9079b4bf718fc7b14993b}{2affbbb0da85}, \archsynccommit{Guardian}{https://github.com/Little-Boy-s-ArchSync/archsync-guardian}{8779bf7965b3bd15f25834f17ca5321c85ae3f43}{8779bf7965b3}, and \archsynccommit{Benchmark}{https://github.com/Little-Boy-s-ArchSync/archsync-benchmark}{24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb}{24d63ebf2fc3}. Later development heads do not replace these measured artifacts. Source/patch manifests, raw results, package hashes, historical verification commands, and the detector/gate audit remain in the supplementary artifact. These controls support inspection, not independent accuracy evidence. \texttt{archsync-mcp} is excluded.

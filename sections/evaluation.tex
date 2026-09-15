@@ -17,11 +17,9 @@ Figure~\ref{fig:evaluation-protocol} summarizes the executable verification prot
 
 \subsection{External-Comparison Boundary}
 
-External comparison remains future work; it was not executed within the reported evaluation. No accepted comparator result or common label mapping is available. A module-dependency analyzer is a candidate because it can express constraints on static dependencies in JavaScript/TypeScript, but selecting a tool does not establish equivalence between its observations and ArchSync's typed service relationships. That equivalence must be defined and reviewed before comparative measurements are interpreted.
+External comparison remains future work; it was not executed within the reported evaluation. No accepted comparator result or common label mapping is available. Module imports and remote service calls are different observation units. A module-dependency analyzer is therefore only a candidate, not an established equivalent baseline.
 
-The proposed comparison must distinguish the unit being labeled, the relationship a detector can observe, and the architecture rule applied to that relationship. A module import and a remote service call may occur in the same file without describing the same architecture edge. Conversely, a common abstraction may be possible if independently authored labels specify how both observations map to it. No common label mapping has been established. Unsupported HTTP, database, cache, or messaging relationships must not automatically become comparator false negatives.
-
-The proposed protocol requires freezing repositories and revisions, tool versions and configurations, dependency-resolution conditions, independently reviewed ground truth, and the common scoring unit before inspecting outputs. It should record unsupported cases separately from misses within supported scope. The proposed protocol rejects a comparator unless a non-empty semantic intersection is established; any adapter must be separately frozen before execution. A qualitative capability discussion cannot complete that baseline or support precision, recall, or superiority claims. Reusing D1 would still evaluate author-developed examples; independent data would be needed to address the holdout limitation. These requirements describe planned work and contribute no executions or observations to the results below.
+Before execution, the proposed protocol requires frozen repositories and revisions, tool versions and configurations, dependency-resolution conditions, independently reviewed labels, and a common scoring unit. It rejects a comparator unless a non-empty semantic intersection is established; any adapter must be separately frozen before execution. Unsupported relations are reported separately, not counted as false negatives. Reusing D1 would remain a controlled comparison, not independent validation. These requirements contribute no observations to the results.
 
 \begin{figure*}[t]
   \centering
@@ -33,21 +31,15 @@ The proposed protocol requires freezing repositories and revisions, tool version
 
 \subsection{Procedure}
 
-The executed procedure for D1 was:
-\begin{enumerate}
-  \item validate the expected architecture, ground-truth manifest, hashes, and all patch applications;
-  \item analyze the unchanged baseline twice;
-  \item for each case, copy the baseline into a fresh temporary directory and apply exactly one patch;
-  \item analyze the patched repository twice;
-  \item compare predicted nodes, edges, classification, violated rule identifiers, and source evidence with ground truth; and
-  \item remove the temporary directory before the next case.
-\end{enumerate}
+D1 validates model, ground truth, hashes and patch applicability before execution. The unchanged baseline is analyzed twice. Each of the 20 patches is then applied alone in a fresh temporary baseline copy, analyzed twice and compared with its declared graph delta, classification, rule identifiers and locations. Copies are removed between cases. This yields 42 analyzer executions.
 
-D1 performs 42 analyzer executions: two for the baseline and two for each of 20 cases. For D2, the manifest and annotated lines are validated before the entire repository is analyzed twice with each pinned analyzer version. Each observed relationship is expanded into detector--edge--file--line signals and compared with the annotations. D2 therefore adds four recorded executions, 46 across the reported current and historical Phase 2 evidence. The continuously rerun v0.2 gate executes 44 of them and verifies the frozen v0.1 package without rewriting that historical result.
+D2 validates its annotated source lines and analyzes the corpus twice with each pinned version: four further executions, or 46 across the current and historical Phase 2 evidence. The continuously rerun v0.2 gate executes 44; the frozen v0.1 package and result are verified without rewriting that historical observation. Observations are expanded to detector--edge--file--line signals for scoring.
 
-P3 performs 40 change-scoped checks, one cold and one warm per case. Each cold check invokes a full baseline analysis and an affected-component analysis; each warm check reuses the baseline cache and invokes only the affected-component analysis. An additional full head scan per case verifies the incremental result, giving 80 analyzer calls. The normalized results compared across cold and warm runs exclude elapsed time and cache-hit state but retain changed files, affected components, graph delta, findings, evidence, and scan scope. The oracle must match head classification, decision, finding set, graph delta, and scanned-file count.
+P3 executes 40 checks (cold and warm for each D1 case). A cold check analyzes base and affected components; a warm check reuses the base cache. Twenty separate full-head scans provide the equivalence oracle: 80 analyzer calls in total. Normalized comparison excludes elapsed time and cache-hit state but retains decisions, classifications, changed files, affected components, findings, graph delta, evidence and scan scope.
 
 Repeated results are compared as normalized JSON. The benchmark workflow installs SHA-256-verified runtime packages and executes the Phase 2 and Phase 3 protocols plus the PASS/BLOCK/REVIEW quickstart from clean \texttt{ubuntu-latest} and \texttt{windows-latest} checkouts; both jobs passed for benchmark audit commit \texttt{5fe3679}.
+
+The original timing artifact records Node.js 22.16.0, Windows OS release \texttt{10.0.26200}, an Intel Core i7-13650HX, and 20 logical CPUs. Cases ran sequentially. RAM, power mode, background load, thermal state, and filesystem-cache state were not recorded; present-day settings cannot fill those historical gaps.
 
 \subsection{Metrics}
 
@@ -61,14 +53,14 @@ D1 reports counts of matched, extra, and missed graph items, with changed items 
 \end{align}
 We report both complete-graph and patch-changed node and edge counts. When both expected and predicted changed sets are empty, the case is an exact match but contributes no positive item to the aggregate TP/FP/FN counts. D2's TP, FP, FN, and TN units are annotated detector signals rather than distinct graph edges; several positive source locations may support the same edge.
 
-Classification agreement is measured across all 20 cases. Rule-set agreement is measured on the seven violation cases. File and exact-line agreement are measured on the 11 finding-bearing cases; exact-line agreement means that at least one evidence item for the matched finding has the expected file and line. Determinism requires byte-identical normalized output across duplicate executions.
+Classification agreement uses all 20 cases; rule-set agreement uses seven violations. The 11 finding-bearing cases are decomposed post hoc into nine call-site cases and two missing-relation anchor cases. A match requires the declared file and line at the case level, not recall over all findings or call sites. P3 locations are matched by finding kind and rule identifier or evolution endpoints; the historical P2 artifact retains aggregated matched-finding evidence. The decomposition changes reporting, not labels or the original acceptance gate. Its derivation and input hashes are retained in the supplementary artifact. Determinism requires byte-identical normalized output across duplicate executions.
 
 P3 additionally measures exact merge-decision, changed-file-set, architecture-delta, and incremental/full-scan agreement. Incremental scope is
 \begin{equation}
   r_{\mathrm{parse}}=\frac{\sum_i |T_i^{\mathrm{parsed}}|}{\sum_i |T_i^{\mathrm{head}}|},
 \end{equation}
-where $T_i^{\mathrm{parsed}}$ contains TypeScript files parsed in affected components and $T_i^{\mathrm{head}}$ contains TypeScript files represented by the reconstructed head graph. Cache correctness requires a miss followed by a hit for every isolated case and identical normalized results. Cold and warm check latency are summarized by median and 95th percentile; no inferential comparison is made.
+where $T_i^{\mathrm{parsed}}$ contains TypeScript files parsed in affected components and $T_i^{\mathrm{head}}$ contains TypeScript files represented by the reconstructed head graph. Cache correctness requires a miss followed by a hit and identical normalized results. Latency uses the recorded nearest-rank percentile $x_{(\lceil pn\rceil)}$ at $p=0.5$ and $0.95$. For $n=20$, p50 is the tenth observation, not the average of observations ten and eleven. Original raw values are preserved; no inferential comparison is made.
 
 \subsection{Engineering Acceptance Criteria}
 
-Before reporting the controlled run, the D1 engineering exit gate required node and edge precision and recall of at least 0.85 for both complete and changed graphs, exact classification for every case, exact violated-rule sets, matching evidence files and lines, deterministic replay, and repository-specific coverage thresholds. D2 v0.2 additionally required zero missed positive signals, zero unexpected detections, all 20 hard negatives rejected, and byte-identical replay. P3 required exact classification, decision, changed-file sets, architecture deltas, rule sets, source files and lines for all applicable cases; full-scan equivalence, cache hits, and identical normalized replay for all repeated checks; and cross-platform completion of the full benchmark workflow. The value 0.85 is an engineering prototype threshold rather than a statistically derived standard. Passing these criteria verifies the declared regression contract only; it does not establish superiority to an external tool or accuracy on unseen repositories.
+The D1 prototype gate required complete/changed graph precision and recall of at least 0.85, exact case classifications and violated-rule sets, matching evidence locations, deterministic replay and repository coverage thresholds. D2 v0.2 required all annotated positives detected, no unexpected detections, all hard negatives rejected and byte-identical replay. P3 required exact applicable decisions, deltas, changed files, rules and locations, plus full-scan equivalence, cache/replay agreement and cross-platform functional completion. The 0.85 threshold is an engineering target, not a statistical standard; passing verifies the declared regression contract only.

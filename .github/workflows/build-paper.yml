@@ -34,11 +34,16 @@ jobs:
       - name: Test PDF page-budget verifier
         run: node --test scripts/pdf-page-budget.test.mjs
 
+      - name: Verify integrated reporting and typography
+        run: |
+          node scripts/verify-reporting.mjs
+          node --test scripts/verify-reporting.test.mjs scripts/verify-bibliography-style.test.mjs
+
       - name: Verify anonymous submission settings
         shell: bash
         run: |
           grep -F '\documentclass[conference]{IEEEtran}' main.tex
-          grep -F '\bibliographystyle{IEEEtran}' main.tex
+          node scripts/verify-paper-source.mjs
           grep -F '\input{main.tex}' main-anonymous.tex
           test "$(grep -c 'Email: .*@littleboys.biz; ORCID:' main.tex)" -eq 4
           if grep -F 'Anonymous Author' main.tex; then exit 1; fi

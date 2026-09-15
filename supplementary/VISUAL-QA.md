@@ -1,5 +1,8 @@
 # Rendered visual QA
 
+Current integration review: see the final section below. Earlier candidate
+hashes and layout descriptions are historical, not the current IEEE PDFs.
+
 **Final candidate status: PASS for named 8-page and 12-page rendered layout.** All 20 final pages were freshly rendered and inspected after the rebuild; figure and table pages were additionally checked at 130 dpi, and the final bibliography page at 100 dpi. The former 9-page short-version issue, isolated-reference-only12th page, and both Fig-2 factual labels are resolved. This scope does not certify anonymous PDFs or external submission requirements.
 
 Review performed on actual Poppler rasterizations, not source-only checks. Standalone vector figures were rendered at 110/130 dpi; every page of both named article PDFs was rendered at 65 dpi and visually inspected. Article pages containing figures and the dense table layout were additionally rendered and inspected at 160 dpi. Temporary review images are under `/tmp/archsync-visual-qa/`; they are not manuscript deliverables.
@@ -83,3 +86,23 @@ All 20 pages of the rebuilt 8-page and 12-page PDFs were rendered with Poppler a
 | `archsync-12page.pdf` | `6551871e9f1c84f044559e7dedc2bbd463062f662fe9cde2d87cc5780ae7acfd` |
 | `main.pdf` | `3b759a11adbfc342808be2d274bcd5a44068adc3efda5c0ed3e001af8188c194` |
 | `main-anonymous.pdf` | `e10b1628b2dfe8feb62b5f686abd46eaf4b718989d88eeac49e554bffbeae96c` |
+
+## Superseding IEEE integration recheck - 2026-09-15
+
+All 20 article pages were rasterized with Poppler at a 1400-pixel page height
+and visually inspected. Changed diagram and bibliography pages were rerendered
+and rechecked. The full Figure 1/table page was additionally inspected at
+1600 pixels. Current PDF identities are in length-variant-validation.json.
+
+The full version is 12 pages and the concise version is 8. Both keep IEEE
+body fonts and margins, straight quotation marks, dash list markers and
+short mathematical arrows. No clipped equations, code, table entries or
+overlapping figures were observed. Figure 1 uses vector TikZ with a shortened
+header and black mathematical labels; Figure 2 shows matched/extra/missed,
+9 call sites versus 2 anchors, and 57 / 189 file instances distinctly.
+The PostgreSQL example fits its column. The concise final bibliography is
+balanced using IEEE's reference-break control. Remaining white space at the
+end of a reference list is normal; no observation was added to fill a page.
+
+This is a layout check, not an independent scientific review. Earlier claims
+about ACM presentation and pale Figure 1 labels are superseded.

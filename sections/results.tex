@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 \section{Controlled Verification Results}
 
-\begin{table*}[t]
+\begin{table}[t]
   \caption{D1 counts on 20 co-developed patches. The five changed nodes and 12 changed edges are regression items, not independent samples of general accuracy; full-graph counts repeat baseline structure.}
   \label{tab:detection-results}
   \centering
@@ -16,7 +16,7 @@
     Changed edges & 12 & 0 & 0 \\
     \hline
   \end{tabular}
-\end{table*}
+\end{table}
 
 \begin{table}[t]
   \caption{Decision, evidence, and replay outcomes on controlled D1 cases.}
@@ -29,8 +29,8 @@
     \hline
     Classification & 20 & 20 \\
     Violation rule set & 7 & 7 \\
-    Evidence file & 11 & 11 \\
-    Evidence exact line & 11 & 11 \\
+    Call-site file and line & 9 & 9 \\
+    Missing-relation anchor file and line & 2 & 2 \\
     Deterministic cases & 20 & 20 \\
     \hline
   \end{tabular}
@@ -51,12 +51,13 @@
     Architecture-delta agreement & 20/20 \\
     Incremental/full-scan agreement & 20/20 \\
     Violation rule-set agreement & 7/7 \\
-    Exact evidence line & 11/11 \\
+    Call-site exact line & 9/9 \\
+    Anchor exact line & 2/2 \\
     Cache hit on repeated check & 20/20 \\
     Normalized cold/warm replay & 20/20 \\
     Incremental files / head files & 57/189 \\
-    Cold median / p95 (ms) & 518.51 / 531.05 \\
-    Warm median / p95 (ms) & 242.62 / 249.30 \\
+    Cold p50 / p95 (ms) & 518.51 / 531.05 \\
+    Warm p50 / p95 (ms) & 242.62 / 249.30 \\
     \hline
   \end{tabular}
 \end{table}
@@ -91,10 +92,10 @@ Table~\ref{tab:pattern-results} gives the signal-level regression result. On D2,
 ArchSync matched all 20 D1 labels: nine no-impact, seven violation, and four evolution cases. It also matched the complete expected rule-identifier set for all seven violations. The added allow and require-path cases exercise rule semantics beyond direct deny and require checks. Redis, AMQP, Fraud Service, and payment-cache additions were classified as evolution rather than violation, preserving a human-review path.
 
 \textbf{RQ3: evidence localization.}
-All 11 finding-bearing D1 cases contained the expected file and at least one evidence item at the exact expected line. Violation cases pointed to either the introducing call site or, for a missing required edge or path, a deterministic component anchor. Evolution cases pointed to the operation that created the new observed relationship. The metric does not evaluate uniqueness or ranking when multiple evidence items exist.
+All 11 finding-bearing D1 cases are split post hoc into call-site file/line agreement in 9/9 cases and anchor agreement in 2/2 cases, for missing-edge case 08 and missing-path case 17. Both P2 and P3 satisfy the separate checks. These are case-level outcomes: case 15 has two violated rules but contributes one case. An anchor is not a localized absent call, and neither measure evaluates ranking, all supporting locations, or reviewer effort.
 
 \textbf{RQ4: determinism and reproducibility.}
-The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 produced identical normalized cold and warm results for 20/20 cases, matched all 20 declared architecture deltas, matched a separate full head scan in all 20 cases, and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm median latency was 242.62 ms compared with 518.51 ms cold, a descriptive 53.2\% reduction; warm p95 was 249.30 ms compared with 531.05 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
+The D1 baseline and all 20 cases produced byte-identical normalized JSON across duplicate executions, giving 42 current-version executions with no replay mismatch. Both D2 analyzer versions were also deterministic across their duplicate runs. P3 produced identical normalized cold and warm results for 20/20 cases, matched all 20 declared architecture deltas, matched a separate full head scan in all 20 cases, and hit the baseline cache on every repeated check. As Table~\ref{tab:phase3-results} shows, component-incremental analysis parsed 57 of 189 TypeScript file instances, $r_{\mathrm{parse}}=0.3016$. On the recorded Windows environment, warm nearest-rank p50 latency was 242.62 ms compared with 518.51 ms cold, a descriptive 53.2\% reduction; warm p95 was 249.30 ms compared with 531.05 ms cold. Local verification reproduced all stored results and repository gates. GitHub Actions independently reproduced the functional benchmark, detector, and Git-diff evidence on both \texttt{ubuntu-latest} and \texttt{windows-latest}; timing values were not treated as cross-platform acceptance thresholds.
 
 \textbf{Boundary of the reported evidence.}
 The observations above come from D1, D2, and the P3 reuse of D1. No external-tool result is accepted into this evaluation, and no common label mapping has been established for comparative scoring. The internal v0.1--v0.2 detector comparison and incremental/full-scan equivalence therefore answer different questions from an external baseline: the former exposes targeted regression behavior, while the latter checks whether scoped execution preserves this implementation's full-scan result.

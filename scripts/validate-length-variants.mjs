@@ -12,7 +12,7 @@ assert.deepEqual(await verifyManuscriptVariants(root), [], 'Generated variants m
 for(const pages of [8,12]){
  const name=`archsync-${pages}page`;
  const tex=await readFile(join(root,name+'.tex'),'utf8');
- assert.match(tex,/\\documentclass\[sigconf,nonacm\]\{acmart\}/);
+ assert.match(tex,/\\documentclass\[conference\]\{IEEEtran\}/);
  assert.doesNotMatch(tex,/\\input\{/,'Complete version must contain all manuscript text');
  const cites=new Set([...tex.matchAll(/\\cite\{([^}]+)\}/g)].flatMap(m=>m[1].split(',')));
  assert.equal(cites.size,25);
@@ -24,11 +24,12 @@ for(const pages of [8,12]){
  const log=await readFile(join(root,'output',name+'.log'),'utf8');
  assert.doesNotMatch(log,/There were undefined|Citation .* undefined|Reference .* undefined/);
  assert.doesNotMatch(log,/Overfull \\hbox/,'Text exceeds a column');
+ assert.doesNotMatch(log,/Missing character/,'A required glyph is missing');
  const info=spawnSync(pdfinfo,[join(root,name+'.pdf')],{encoding:'utf8'});
  assert.equal(info.status,0,info.stderr||'Install Poppler or set PDFINFO');
  const actual=Number(info.stdout.match(/Pages:\s+(\d+)/)?.[1]);assert.equal(actual,pages,`${name} page count`);
  const bytes=await readFile(join(root,name+'.pdf'));
  report.push({file:name,pages:actual,citations:cites.size,labels:labels.length,pdf_sha256:createHash('sha256').update(bytes).digest('hex'),source_sha256:createHash('sha256').update(tex).digest('hex')});
 }
-await writeFile(join(root,'supplementary/length-variant-validation.json'),JSON.stringify({status:'PASS',format:'ACM sigconf nonacm; working drafts, venue not selected',variants:report},null,2)+'\n');
+await writeFile(join(root,'supplementary/length-variant-validation.json'),JSON.stringify({status:'PASS',format:'IEEE conference; working length variants, venue not selected',variants:report},null,2)+'\n');
 console.log('VALID LENGTH VARIANTS:8 and12pages;25citations each; complete sources; resolved references; no column overflow');
