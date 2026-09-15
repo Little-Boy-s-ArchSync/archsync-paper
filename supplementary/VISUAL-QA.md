@@ -107,13 +107,57 @@ end of a reference list is normal; no observation was added to fill a page.
 This is a layout check, not an independent scientific review. Earlier claims
 about ACM presentation and pale Figure 1 labels are superseded.
 
+## Superseding author-asset restoration - 2026-09-15
 
-## Local-edit reconciliation after remote 1ab217b (2026-09-15)
+The author supplied the six-author PDF and the two original SVG designs after
+the IEEE integration. Both IEEE length variants were rebuilt using those
+designs, not the alternate TikZ figures. The input/figure hashes and the two
+Fig-2 label corrections are recorded in `figures/author-source-receipt.json`.
+The prior TikZ-related layout assessment above is historical, not the current
+figure source contract.
 
-The saved six-author metadata and supervisor contribution statements were adapted to the remote IEEE layout. The ACM-specific author override and old generated PDF/hash values were not reapplied. Both complete TeX variants and PDFs were regenerated from the canonical sections.
+All 20 output pages were rendered with Poppler and inspected in contact sheets.
+The title page, both contribution pages, and both standalone diagrams were
+additionally inspected at 1500/1600 pixels. The named outputs retain exactly
+8 and 12 pages, with 25 cited references each. Fig-1 appears on pages 4/6 and
+Fig-2 on pages 5/8 of the short/full variants respectively. No text, table,
+formula, caption or diagram clipping/overlap was observed. The short version's
+references continue onto page 8; the full version's references continue onto
+page 12 without an orphan-only page.
 
-Both first pages were rendered at 1200 pixels and visually inspected for the six names, five affiliation markers and email lines. All 20 pages were rendered at 500 pixels and inspected for page flow, clipping and overlap. The contribution blocks are visible on page 7 (short) and page 11 (long). This is a layout check, not a new independent scientific review. Updated PDF/source hashes are recorded in `length-variant-validation.json`.
+Both named title blocks now contain all six authors in the supplied order,
+the faculty affiliation and emails, and Vo Duc Hieu's corresponding-author
+designation. The contribution sections on pages 7/11 also include Hoang Nguyen
+The and Minh Tam Phan with the roles the user confirmed in this task. No ORCID
+was inferred for either author. The existing four ORCIDs remain unchanged.
 
-Validation: both variants retain exactly 8/12 pages and 25 citations, with resolved references and no column overflow or missing glyphs. Named and anonymous canonical PDFs were rebuilt; identity checks cover all six names and both email domains. The anonymous PDF passes the existing 10-page body / 2-page reference budget check. Research claims and evaluation data were not changed by this reconciliation.
+The supplied dark diagram fills and layout are preserved. Fig-1's small pale
+arrow annotations still benefit from zoom; this is a retained readability
+limitation of the author's design, not a missing glyph or a clipped label.
+Fig-2 visibly reads `Matched/extra/missed` and `57 / 189 files parsed`; no new
+measurement or acceptance criterion was introduced. Current article hashes
+are in `length-variant-validation.json`. This is an artifact restoration and
+layout check, not independent scientific review or submission authorization.
 
-Reconciliation checks: 394 tests passed on Node.js 22.16.0 (0 failed, 0 skipped); the CONTRIBUTING structural/research validators also passed. These are manuscript/tooling checks, not new research experiments.
+The first clean local gate caught a two-to-four-line conclusion spill onto an
+eleventh anonymous main-text page after restoring the taller original figures.
+The conclusion was tightened without removing its claims or limitations; fonts,
+margins, diagram dimensions and the 10+2 page-budget verifier were not changed.
+The rebuilt anonymous variant now uses 10 main-text pages plus 1 reference page,
+and both named variants remain 8/12 pages. Fresh page renders were rechecked
+after this final wording change. Six-author identification/redaction checks and
+the diagram/complete-source hash guards cover the restored assets.
+
+## Remote integration verification - 2026-09-15
+
+Integrated remote revision `7bf6447` with the saved local author metadata.
+The newer remote sources already retain all six authors and their confirmed
+roles, corresponding-author designation, and supplied figures. Both length
+variants were rebuilt and validated at 8/12 pages with 25 citations each;
+current PDF/source hashes are recorded in `length-variant-validation.json`.
+The final full-version figure pages 6 and 8 were rendered and checked again.
+Named/anonymous identity checks and the anonymous page-budget guard passed.
+All 15 structural/research validators and all 396 tests passed under the
+supported Node.js 22.16.0 test runtime. The full test suite was rerun after
+the rebuild completed to avoid checking hashes while output files changed.
+No experiment was executed or new empirical result introduced by this merge.

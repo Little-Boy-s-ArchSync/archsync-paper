@@ -92,6 +92,7 @@ const namedIdentities = [
   "Le Van Kiet",
   "Hoang Nguyen The",
   "Minh Tam Phan",
+  "Faculty of Software Engineering",
   "FPT University",
   "VNUK Institute for Research and Executive Education",
 ];
@@ -111,10 +112,10 @@ const anonymousForbidden = [
   "an1dee",
   "bachcp6",
   "levankiet1212.2004",
-  "littleboys.biz",
   "hoangnt20",
   "tampm",
   "fe.edu.vn",
+  "littleboys.biz",
 ];
 for (const identity of anonymousForbidden) {
   assert.ok(

@@ -10,10 +10,10 @@ const forbidden = [
   "Le Van Kiet",
   "Hoang Nguyen The",
   "Minh Tam Phan",
-  "littleboys.biz",
   "hoangnt20",
   "tampm",
   "fe.edu.vn",
+  "littleboys.biz",
   "FPT University",
   "VNUK Institute",
 ];

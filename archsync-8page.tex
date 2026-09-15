@@ -3,6 +3,7 @@
 % !TeX program = pdflatex
 \RequirePackage[T1]{fontenc}
 \documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
 
 \usepackage{amsmath}
 \usepackage{booktabs}
@@ -53,8 +54,10 @@
   \author{%
     \IEEEauthorblockN{Vo Duc Hieu\IEEEauthorrefmark{1},
       Tran Minh Hoang\IEEEauthorrefmark{2},
-      Ha Hoang Bach\IEEEauthorrefmark{3}, Le Van Kiet\IEEEauthorrefmark{4},\\
-      Hoang Nguyen The\IEEEauthorrefmark{5}, and Minh Tam Phan\IEEEauthorrefmark{5}}
+      Ha Hoang Bach\IEEEauthorrefmark{3},
+      Le Van Kiet\IEEEauthorrefmark{4},\\
+      Hoang Nguyen The\IEEEauthorrefmark{5}, and
+      Minh Tam Phan\IEEEauthorrefmark{5}}
     \IEEEauthorblockA{\IEEEauthorrefmark{1}Software Engineering, FPT University, Ho Chi Minh City, Vietnam\\
       Email: voduchieu@littleboys.biz; ORCID: 0009-0007-5389-5177}
     \IEEEauthorblockA{\IEEEauthorrefmark{2}Computer Science and Engineering, VNUK Institute for Research and Executive Education,\\
@@ -68,6 +71,7 @@
     \IEEEauthorblockA{\IEEEauthorrefmark{5}Faculty of Software Engineering, FPT University HCMC,\\
       Ho Chi Minh City, 70000, Vietnam\\
       Email: hoangnt20@fe.edu.vn, tampm@fe.edu.vn}
+    \thanks{Corresponding author: Vo Duc Hieu (voduchieu@littleboys.biz).}
   }
 \fi
 
@@ -331,9 +335,9 @@ Component scoping parsed 57/189 file instances and warm caching reduced the reco
 
 \section{Conclusion and Future Work}
 
-ArchSync implements a deterministic bridge between a declared architecture contract and a source-derived TypeScript service graph. On the co-developed development datasets, its graph, classification, evidence-location, replay, and incremental/full-scan outputs agree with the declared regression oracles. The targeted detector corpus also exposes concrete errors in the earlier analyzer and verifies that provenance tracking addresses those cases.
+ArchSync deterministically links declared contracts and source-derived TypeScript service graphs. Controlled outputs match the declared regression oracles, and provenance tracking corrects earlier detector errors on the targeted corpus.
 
-They do not establish general accuracy, comparative advantage, or governance effectiveness: the datasets co-evolved with the implementation, no accepted external comparison or common label mapping is available, and no independent real-world holdout exists. The analyzer never rewrites the model; evolution needs human review. Next studies require an independent multi-repository holdout, capability-matched external comparison and real pull-request pilot. Only after those gates produce auditable evidence should claims extend to external accuracy, performance or developer value.
+They do not establish general accuracy, comparative advantage, or governance effectiveness. Data co-evolved with the implementation; accepted external comparison and common label mapping are absent, and no independent real-world holdout exists. The analyzer never rewrites the model; evolution needs human review. Future gates are an independent multi-repository holdout, capability-matched external comparison, and real pull-request pilot. Only after those gates produce auditable evidence can external accuracy, performance, or developer value be claimed.
 
 \ifarchsyncanonymous\else
 \noindent\begin{minipage}{\columnwidth}
@@ -347,9 +351,9 @@ They do not establish general accuracy, comparative advantage, or governance eff
 
 \noindent\textbf{Le Van Kiet} (ORCID: \href{https://orcid.org/0009-0007-8434-882X}{0009-0007-8434-882X}) - Software; Validation; Reproducibility.
 
-\noindent\textbf{Hoang Nguyen The} - Supervision; Validation; Review.
+\noindent\textbf{Hoang Nguyen The} - Supervision; Methodology; Writing - review and editing.
 
-\noindent\textbf{Minh Tam Phan} - Supervision; Validation; Review.
+\noindent\textbf{Minh Tam Phan} - Supervision; Methodology; Writing - review and editing.
 \end{minipage}
 \fi
 % Balance the reference continuation without changing IEEE fonts or margins.
