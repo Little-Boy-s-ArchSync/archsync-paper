@@ -14,8 +14,8 @@ const checks = [
   [main.includes(ieee ? "\\bibliographystyle{archsync-ieee}" : "\\bibliographystyle{ACM-Reference-Format}"), "bibliography style matches document class"],
   [anonymous.includes("\\input{main.tex}"), "anonymous wrapper input"],
   [["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"].every((value) => main.includes(value)), "six named authors"],
-  [["voduchieu@littleboys.biz", "an1dee@littleboys.biz", "bachcp6@littleboys.biz", "levankiet1212.2004@littleboys.biz", "hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"].every((value) => main.includes(value)), "six email records"],
-  [main.includes("Corresponding author: Vo Duc Hieu (voduchieu@littleboys.biz)."), "supplied corresponding-author designation"],
+  [["voduchieu42@gmail.com", "andyjobs2023@gmail.com", "hahoangbach2005@gmail.com", "levankiet1212.2004@gmail.com", "hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"].every((value) => main.includes(value)), "six email records"],
+  [main.includes("Corresponding author: Vo Duc Hieu (voduchieu42@gmail.com)."), "supplied corresponding-author designation"],
   [!main.includes("Anonymous Author"), "named source has no anonymous placeholder"],
   [!main.includes("Anonymous Institution"), "named source has no anonymous institution"],
 ];

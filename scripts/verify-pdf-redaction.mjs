@@ -14,6 +14,10 @@ const forbidden = [
   "tampm",
   "fe.edu.vn",
   "littleboys.biz",
+  "voduchieu42",
+  "andyjobs2023",
+  "hahoangbach2005",
+  "levankiet1212.2004@gmail.com",
   "FPT University",
   "VNUK Institute",
 ];
