@@ -588,3 +588,22 @@
 - Preservation: D-026 withdrawal remains effective. Frozen SLR records, signed evidence, raw benchmark runs, proposed external-comparison approvals and submission gates are not changed or bypassed.
 - Output: A full manuscript and a concise variant generated from canonical sections plus scoped short replacements. No venue, D3 population, comparator mapping, or human study is selected by this formatting request.
 - Verification: Recompute the reporting decomposition against pinned benchmark inputs, test both source variants, build named/anonymous PDFs, inspect rendering, and run local/hosted gates. Record actual outcomes in the integration validation supplement, not as research effectiveness evidence.
+
+
+## D-028: Strengthen technical validity without expanding literature scope
+
+- Date: 2026-09-26.
+- Status: User-requested local revision; independent content review pending.
+- Decision: Add TECHNICAL-VALIDITY-EXTENSION.md to operationalize existing proposed technical evaluation, distinguish input transformations from implementation mutation, require source-wide independent annotation for recall, preserve failure/coverage denominators, and define paired performance controls. Clarify those limits in both manuscript lengths.
+- Boundary: No D1/D2/P3 labels, measured results, thresholds, frozen proposal hashes, or active 23-record literature selection change. This extension is not a completed study, preregistration, approval, or claim of holdout independence. Existing external-comparison withdrawal remains effective.
+- Verification: Build both length variants and validate paper structure, decision log and research claims; record actual validation outcomes separately.
+
+
+## D-029: Prepare ICIIT 2027 (Ho Chi Minh City) venue draft
+
+- Date: 2026-09-26.
+- Status: User-selected tailoring target; local draft, not submission approval.
+- Decision: Preserve detailed IEEE working papers and add a separate ACM draft using the unmodified class/style from the official venue archive. Retain historical D1/D2/P3 results and report subsequent finite/adversarial development checks separately with actual methodological provenance and raw receipts.
+- Scope: No new independent holdout, accepted external baseline, human signoff, funding/conflict declaration or published release is asserted. Named/anonymous and compact/review profiles remain alternatives pending definitive upload instructions.
+- Source synchronization: Fetched origin; local main was15commits ahead and0behind origin/main, so fast-forward integration required no source change. Local edits were backed up before integration.
+- Verification: Venue-specific source/PDF validator, class identity, page/citation checks and exact-hash manifests accompany the local draft. Existing longer paper validators remain separate.

@@ -1,0 +1,238 @@
+note: Running TeX ...
+warning: libertine.sty:308: 
+Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
+warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_RBI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_R.otf]/OT" at 8.99997pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_R.otf]/OT" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_RI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_RBO.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZ.otf]/OT" at 8.99997pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZ.otf]/OT" at 9.00003pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZ.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:361: Requested font "[LinLibertine_DR.otf]/OT" at 8.99997pt
+warning: libertine.sty:361: Requested font "[LinLibertine_DR.otf]/OT" at 9.00003pt
+warning: libertine.sty:361: Requested font "[LinLibertine_DR.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_M.otf]/OT" at 8.99997pt
+warning: libertine.sty:435: Requested font "[LinLibertine_M.otf]/OT" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_M.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_MB.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_MO.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_MBO.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:436: Requested font "[LinBiolinum_K.otf]/OT" at 8.99997pt
+warning: libertine.sty:436: Requested font "[LinBiolinum_K.otf]/OT" at 9.00003pt
+warning: libertine.sty:436: Requested font "[LinBiolinum_K.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:437: Requested font "[LinLibertine_I.otf]/OT" at 8.99997pt
+warning: libertine.sty:437: Requested font "[LinLibertine_I.otf]/OT" at 9.00003pt
+warning: libertine.sty:437: Requested font "[LinLibertine_I.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: acmart.cls:868: 
+Requested font "[Inconsolatazi4-Regular.otf]/OT" at 8.99997pt
+warning: acmart.cls:868: Requested font "[Inconsolatazi4-Regular.otf]/OT" at 9.00003pt
+warning: acmart.cls:868: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: acmart.cls:868: Requested font "[Inconsolatazi4-Bold.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: iciit2027-supplement.tex:7: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: iciit2027-supplement.tex:7: 
+Requested font "MinLibReg-ot1" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> MinLibReg-ot1
+warning: iciit2027-supplement.tex:7: Requested font "MinLibReg-ot1" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> MinLibReg-ot1
+warning: iciit2027-supplement.tex:7: Requested font "nxlmi7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> nxlmi7
+warning: iciit2027-supplement.tex:7: Requested font "nxlmi5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> nxlmi5
+warning: iciit2027-supplement.tex:7: Requested font "ntxsy7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxsy7
+warning: iciit2027-supplement.tex:7: Requested font "ntxsy5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxsy5
+warning: iciit2027-supplement.tex:7: Requested font "ntxexx" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxexx
+warning: iciit2027-supplement.tex:7: Requested font "ntxexx" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxexx
+warning: iciit2027-supplement.tex:7: 
+Requested font "msam7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> msam7
+warning: iciit2027-supplement.tex:7: Requested font "msam5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> msam5
+warning: iciit2027-supplement.tex:7: 
+Requested font "msbm7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> msbm7
+warning: iciit2027-supplement.tex:7: Requested font "msbm5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> msbm5
+warning: iciit2027-supplement.tex:7: 
+Requested font "nxlmia" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> nxlmia
+warning: iciit2027-supplement.tex:7: Requested font "nxlmia" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> nxlmia
+warning: iciit2027-supplement.tex:7: 
+Requested font "ntxsym" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxsym
+warning: iciit2027-supplement.tex:7: Requested font "ntxsym" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxsym
+warning: iciit2027-supplement.tex:7: 
+Requested font "ntxsyc" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxsyc
+warning: iciit2027-supplement.tex:7: Requested font "ntxsyc" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxsyc
+warning: iciit2027-supplement.tex:7: Requested font "ntxexa" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxexa
+warning: iciit2027-supplement.tex:7: Requested font "ntxexa" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxexa
+warning: iciit2027-supplement.tex:10: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: appendix:2: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: appendix:2: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: appendix:6: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
+warning: appendix:13: Requested font "MinLibReg-ot1" at 9.0pt
+warning: appendix:13:  -> MinLibReg-ot1
+warning: appendix:13: Requested font "nxlmi" at 9.0pt
+warning: appendix:13:  -> nxlmi
+warning: appendix:13: Requested font "ntxsy" at 9.0pt
+warning: appendix:13:  -> ntxsy
+warning: appendix:13: Requested font "ntxexx" at 9.0pt
+warning: appendix:13:  -> ntxexx
+warning: appendix:13: Requested font "msam10" at 9.0pt
+warning: appendix:13:  -> msam10
+warning: appendix:13: 
+Requested font "msbm10" at 9.0pt
+warning: appendix:13:  -> msbm10
+warning: appendix:13: 
+Requested font "nxlmia" at 9.0pt
+warning: appendix:13:  -> nxlmia
+warning: appendix:13: Requested font "ntxsym" at 9.0pt
+warning: appendix:13:  -> ntxsym
+warning: appendix:13: Requested font "ntxsyc" at 9.0pt
+warning: appendix:13:  -> ntxsyc
+warning: appendix:13: Requested font "ntxexa" at 9.0pt
+warning: appendix:13:  -> ntxexa
+warning: appendix:38: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+note: Rerunning TeX because "iciit2027-supplement.aux" changed ...
+warning: libertine.sty:308: 
+Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
+warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_RBI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_R.otf]/OT" at 8.99997pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_R.otf]/OT" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_RI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:319: Requested font "[LinBiolinum_RBO.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZ.otf]/OT" at 8.99997pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZ.otf]/OT" at 9.00003pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZ.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:338: Requested font "[LinLibertine_RZI.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:361: Requested font "[LinLibertine_DR.otf]/OT" at 8.99997pt
+warning: libertine.sty:361: Requested font "[LinLibertine_DR.otf]/OT" at 9.00003pt
+warning: libertine.sty:361: Requested font "[LinLibertine_DR.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_M.otf]/OT" at 8.99997pt
+warning: libertine.sty:435: Requested font "[LinLibertine_M.otf]/OT" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_M.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_MB.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_MO.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:435: Requested font "[LinLibertine_MBO.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:436: Requested font "[LinBiolinum_K.otf]/OT" at 8.99997pt
+warning: libertine.sty:436: Requested font "[LinBiolinum_K.otf]/OT" at 9.00003pt
+warning: libertine.sty:436: Requested font "[LinBiolinum_K.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: libertine.sty:437: Requested font "[LinLibertine_I.otf]/OT" at 8.99997pt
+warning: libertine.sty:437: Requested font "[LinLibertine_I.otf]/OT" at 9.00003pt
+warning: libertine.sty:437: Requested font "[LinLibertine_I.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: acmart.cls:868: 
+Requested font "[Inconsolatazi4-Regular.otf]/OT" at 8.99997pt
+warning: acmart.cls:868: Requested font "[Inconsolatazi4-Regular.otf]/OT" at 9.00003pt
+warning: acmart.cls:868: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: acmart.cls:868: Requested font "[Inconsolatazi4-Bold.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: iciit2027-supplement.tex:7: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: iciit2027-supplement.tex:7: 
+Requested font "MinLibReg-ot1" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> MinLibReg-ot1
+warning: iciit2027-supplement.tex:7: Requested font "MinLibReg-ot1" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> MinLibReg-ot1
+warning: iciit2027-supplement.tex:7: Requested font "nxlmi7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> nxlmi7
+warning: iciit2027-supplement.tex:7: Requested font "nxlmi5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> nxlmi5
+warning: iciit2027-supplement.tex:7: Requested font "ntxsy7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxsy7
+warning: iciit2027-supplement.tex:7: Requested font "ntxsy5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxsy5
+warning: iciit2027-supplement.tex:7: Requested font "ntxexx" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxexx
+warning: iciit2027-supplement.tex:7: Requested font "ntxexx" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxexx
+warning: iciit2027-supplement.tex:7: 
+Requested font "msam7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> msam7
+warning: iciit2027-supplement.tex:7: Requested font "msam5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> msam5
+warning: iciit2027-supplement.tex:7: 
+Requested font "msbm7" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> msbm7
+warning: iciit2027-supplement.tex:7: Requested font "msbm5" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> msbm5
+warning: iciit2027-supplement.tex:7: 
+Requested font "nxlmia" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> nxlmia
+warning: iciit2027-supplement.tex:7: Requested font "nxlmia" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> nxlmia
+warning: iciit2027-supplement.tex:7: 
+Requested font "ntxsym" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxsym
+warning: iciit2027-supplement.tex:7: Requested font "ntxsym" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxsym
+warning: iciit2027-supplement.tex:7: 
+Requested font "ntxsyc" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxsyc
+warning: iciit2027-supplement.tex:7: Requested font "ntxsyc" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxsyc
+warning: iciit2027-supplement.tex:7: Requested font "ntxexa" at 7.3pt
+warning: iciit2027-supplement.tex:7:  -> ntxexa
+warning: iciit2027-supplement.tex:7: Requested font "ntxexa" at 5.5pt
+warning: iciit2027-supplement.tex:7:  -> ntxexa
+warning: iciit2027-supplement.tex:10: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: iciit2027-supplement.tex:10: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: appendix:2: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: appendix:2: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: appendix:6: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
+warning: appendix:13: Requested font "MinLibReg-ot1" at 9.0pt
+warning: appendix:13:  -> MinLibReg-ot1
+warning: appendix:13: Requested font "nxlmi" at 9.0pt
+warning: appendix:13:  -> nxlmi
+warning: appendix:13: Requested font "ntxsy" at 9.0pt
+warning: appendix:13:  -> ntxsy
+warning: appendix:13: Requested font "ntxexx" at 9.0pt
+warning: appendix:13:  -> ntxexx
+warning: appendix:13: Requested font "msam10" at 9.0pt
+warning: appendix:13:  -> msam10
+warning: appendix:13: 
+Requested font "msbm10" at 9.0pt
+warning: appendix:13:  -> msbm10
+warning: appendix:13: 
+Requested font "nxlmia" at 9.0pt
+warning: appendix:13:  -> nxlmia
+warning: appendix:13: Requested font "ntxsym" at 9.0pt
+warning: appendix:13:  -> ntxsym
+warning: appendix:13: Requested font "ntxsyc" at 9.0pt
+warning: appendix:13:  -> ntxsyc
+warning: appendix:13: Requested font "ntxexa" at 9.0pt
+warning: appendix:13:  -> ntxexa
+warning: appendix:38: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `iciit2027-supplement.pdf` (58.134765625 KiB)
+note: Skipped writing 3 intermediate files (use --keep-intermediates to keep them)

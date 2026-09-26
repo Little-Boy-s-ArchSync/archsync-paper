@@ -1,0 +1,40 @@
+{
+  "retrieved_utc": "2026-09-26T05:13:56.819717+00:00",
+  "sources": [
+    {
+      "url": "https://www.iciit.org/index.html",
+      "sha256": "9f9439615ec063719086594d0e36ce3b6cb42dbcbb5297cd832e2bc6a800176c",
+      "bytes": 35213
+    },
+    {
+      "url": "https://www.iciit.org/sub.html",
+      "sha256": "30f3a41de680d30ace91895d4beae3e06da6e5d7a211da684c0eb250816dc433",
+      "bytes": 25409
+    },
+    {
+      "url": "https://www.iciit.org/cfp.html",
+      "sha256": "ca9a5f9f358a15816edd9960659e745566bc793c928a036b2ce3560bd922b515",
+      "bytes": 24447
+    },
+    {
+      "url": "https://www.iciit.org/date.html",
+      "sha256": "4f7dfca0a4e5516714c8da2d387f9027871834545c8553a63a76ec2335479334",
+      "bytes": 23403
+    },
+    {
+      "url": "https://www.iciit.org/reg.html",
+      "sha256": "90fd11562452fd6711136476d55495672428b53a1ded2613614d695d315a3d97",
+      "bytes": 41584
+    },
+    {
+      "url": "https://www.iciit.org/venue.html",
+      "sha256": "7aef220e17eafb5edfe39f98883abae8bcfc8af836efe27da4dcdfe381dc6308",
+      "bytes": 22611
+    },
+    {
+      "url": "https://www.iciit.org/LaTeX-Templates.zip",
+      "sha256": "e0272aab662418d48c9b12df70d4815778eb1fb07f645ebbeacdcb7dded6ef44",
+      "bytes": 12866639
+    }
+  ]
+}

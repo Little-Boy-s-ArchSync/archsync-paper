@@ -1,0 +1,145 @@
+% Draft derived from the LaTeX archive linked by the official venue submission page.
+% Review formatting follows the supplied sample; anonymous and sigconf alternatives
+% are build profiles until the organizer's review-mode policy is confirmed.
+\ifdefined\compactprofile
+  \ifdefined\blindprofile\documentclass[sigconf,anonymous,balance=false]{acmart}\else\documentclass[sigconf,balance=false]{acmart}\fi
+\else
+  \ifdefined\blindprofile\documentclass[manuscript,screen,review,anonymous]{acmart}\else\documentclass[manuscript,screen,review]{acmart}\fi
+\fi
+\emergencystretch=3em
+\setcopyright{none}
+\settopmatter{printacmref=false,authorsperrow=2}
+\acmDOI{}
+\acmISBN{}
+\acmConference[ICIIT 2027 (Ho Chi Minh City)]{Draft for the 12th International Conference on Intelligent Information Technology}{March 4--7, 2027}{Ho Chi Minh City, Vietnam}
+\acmYear{2027}
+\copyrightyear{2027}
+\begin{document}
+\title[ArchSync: Service Architecture Conformance]{ArchSync: Evidence-Backed Conformance Checking for TypeScript Service Architectures}
+\author{Vo Duc Hieu}
+\orcid{0009-0007-5389-5177}
+\email{voduchieu42@gmail.com}
+\affiliation{\institution{FPT University}\department{Software Engineering}\city{Ho Chi Minh City}\country{Vietnam}}
+\author{Tran Minh Hoang}
+\orcid{0009-0000-0302-1841}
+\email{andyjobs2023@gmail.com}
+\affiliation{\institution{VNUK Institute for Research and Executive Education, The University of Danang}\department{Computer Science and Engineering}\city{Da Nang}\country{Vietnam}}
+\author{Ha Hoang Bach}
+\orcid{0009-0000-5118-0660}
+\email{hahoangbach2005@gmail.com}
+\affiliation{\institution{FPT University}\department{Information Assurance}\city{Ho Chi Minh City}\country{Vietnam}}
+\author{Le Van Kiet}
+\orcid{0009-0007-8434-882X}
+\email{levankiet1212.2004@gmail.com}
+\affiliation{\institution{VNUK Institute for Research and Executive Education, The University of Danang}\department{Software Engineering}\city{Da Nang}\country{Vietnam}}
+\author{Hoang Nguyen The}
+\email{hoangnt20@fe.edu.vn}
+\affiliation{\institution{FPT University}\department{Faculty of Software Engineering}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
+\author{Minh Tam Phan}
+\email{tampm@fe.edu.vn}
+\affiliation{\institution{FPT University}\department{Faculty of Software Engineering}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
+\renewcommand{\shortauthors}{Hieu et al.}
+\authorsaddresses{Corresponding author: Vo Duc Hieu, Software Engineering, FPT University, Ho Chi Minh City, Vietnam; email: voduchieu42@gmail.com.}
+\begin{abstract}
+Passing tests do not establish that a service change conforms to its intended architecture. ArchSync links a machine-readable architectural contract to selected HTTP, PostgreSQL, Redis and AMQP observations in TypeScript, retains source evidence, and maps introduced findings to PASS, BLOCK or REVIEW at a Git change. We evaluate this deterministic prototype using co-developed development datasets: 20 isolated architecture patches, 40 annotated detector signals, and an incremental replay of those same patches. A separately reported hardening campaign checks a finite rule domain against a matrix oracle and exercises adversarial source and cache behavior. The controlled observations support contract coherence and regression reliability. They do not establish representative accuracy, comparative superiority or developer productivity; independently labeled repositories and a capability-matched external comparison remain necessary. The contribution is an auditable integration of service-level observations, explicit rules and change-time decisions, together with evidence that exposes its reliability boundaries.
+\end{abstract}
+\begin{CCSXML}
+<ccs2012><concept><concept_id>10011007.10011006.10011041</concept_id><concept_desc>Software and its engineering~Software architecture</concept_desc><concept_significance>500</concept_significance></concept><concept><concept_id>10011007.10010940.10010971.10010980</concept_id><concept_desc>Software and its engineering~Software verification</concept_desc><concept_significance>300</concept_significance></concept></ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Software and its engineering~Software architecture}
+\ccsdesc[300]{Software and its engineering~Software verification}
+\keywords{architecture conformance, service-oriented systems, static analysis, architecture drift, reproducibility}
+\maketitle
+\ifdefined\blindprofile\else
+\noindent\textit{Corresponding author: Vo Duc Hieu (\nolinkurl{voduchieu42@gmail.com}).}\par
+\fi
+
+\section{Introduction}
+Service-oriented systems can preserve functional behavior while introducing a forbidden dependency, losing a required interaction, or adding infrastructure that needs a design decision. These changes concern different architectural judgments. A useful check must connect an observed interaction to the declared contract, identify supporting source evidence, and distinguish a violation from an evolution. ArchSync addresses this information-extraction and decision-support problem with deterministic rules; no learned model or AI effectiveness claim is required.
+
+Our contribution is an executable integration: (1) a typed expected/observed service graph with explicit constraints; (2) provenance-aware extraction of selected TypeScript interactions and evidence; and (3) a Git-diff gate that reports introduced violations separately from evolution. Model comparison and dependency constraints are established ideas. Our empirical contribution is a bounded, reproducible verification of this integration, including failure-first hardening rather than a claim of new general-purpose program analysis.
+
+We ask whether the prototype reconstructs declared graph changes and detector signals (RQ1), classifies controlled changes correctly (RQ2), supplies the declared evidence locations (RQ3), and preserves results under replay and incremental execution (RQ4). These are development-contract questions, not estimates of unseen-project accuracy.
+
+\input{related-work}
+
+\section{Executable Contract and Change-Time Analysis}
+Let $M=(V,E,R)$ be the expected architecture, with components $V$, directed typed relationships $E$, and rules $R$. The observed graph $O$ is reconstructed from supported source constructs. Component identifiers and metadata from $M$ condition reconstruction; this is not architecture recovery without prior structure. Edges collapse repeated observations with the same source, target and kind, while retaining their file/line evidence.
+
+A deny rule rejects matching edges. An allow rule restricts destinations of the selected outgoing relations. A require rule demands a matching direct edge for each selected source; require-path demands a nonempty directed path, optionally restricted to one edge type. An observed rule violation takes classification precedence; otherwise a graph difference is evolution, and an unchanged graph is no-impact. The analyzer never rewrites the expected model.
+
+The TypeScript adapter recognizes selected global fetch calls and imported PostgreSQL, Redis and AMQP client operations. Import provenance distinguishes package clients from method-name lookalikes. HTTP targets use host identity rather than port/path identity; AMQP broker reachability does not demonstrate routing compatibility. Unsupported wrappers, unresolved dynamic endpoints and inter-file flows can remain invisible. Evidence scores are heuristics, not calibrated probabilities.
+
+For a base/head pair, the gate reconstructs the base, analyzes affected source components and merges retained observations with new ones. Full-head scanning supplies a consistency oracle. New violation keys produce BLOCK, new evolution keys produce REVIEW, and no introduced finding produces PASS. Existing findings remain visible. Keys operate at relationship level, so an additional offending call on an existing edge need not introduce a new key. PASS therefore means no newly recognized gated finding, not complete architectural safety. REVIEW requires a separate architecture decision; unchanged inputs remain REVIEW after a human rejection. Repository governance is not implemented by the classification alone.
+
+Call-site evidence points to observed code. A missing required relation has no absent call to localize, so it receives a deterministic component anchor. These evidence types are scored separately. Cache identity binds the baseline and configuration; later hardening also separates repository scope and analyzer version and checks payload integrity. A checksum protects against accidental corruption, not a writer able to replace both payload and checksum.
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox[c]{.23\columnwidth}{\centering\small Contract and\\TypeScript source}}
+$\rightarrow$
+\fbox{\parbox[c]{.23\columnwidth}{\centering\small Typed graph\\and rule checks}}
+$\rightarrow$
+\fbox{\parbox[c]{.23\columnwidth}{\centering\small Findings with\\source evidence}}
+\par\smallskip
+\small Base/head comparison $\rightarrow$ introduced finding keys\\
+$\rightarrow$ PASS / BLOCK / REVIEW
+\caption{Source observations and explicit contracts feed a change-time decision. The model remains under separate human control.}
+\Description{A left-to-right workflow links contract and TypeScript source to typed graph and rule checks, then findings with source evidence. Base/head comparison selects introduced finding keys and yields PASS, BLOCK or REVIEW.}
+\label{fig:workflow}
+\end{figure}
+
+\textbf{Worked controlled example.} In D1 case 06, rule \texttt{ARCH-001} forbids a direct relationship from \texttt{frontend} to \texttt{payment-service}. The patch adds \texttt{payDirectly} and a fetch call to the payment endpoint. Reconstruction adds one HTTP edge between those components; the deny rule produces an error finding with evidence at \texttt{frontend/src/app.ts}, line 14 of the patched file. Because the finding is introduced relative to the base, the Git gate returns BLOCK. This is the frozen case's declared behavior, not a new production observation. A new relation without a violated rule instead needs REVIEW; the tool does not infer that the architectural change is approved.
+
+\section{Historical Controlled Evaluation}
+\textbf{Objects and independence.} D1 is a synthetic Order Platform baseline with five components and five relationships. Its 20 isolated patches comprise nine no-impact changes, seven violations and four evolutions. Topology labels preceded integration, but executable patches and precise evidence locations co-evolved with the analyzer. D2 has four positive and four hard-negative signals for each of five detector groups: fetch, PostgreSQL, Redis, AMQP publish and AMQP consume. It was constructed from v0.1 weaknesses and informed v0.2. Neither dataset is a holdout. P3 replays D1 through Git; it is not a third independent dataset.
+
+\textbf{Procedure and units.} D1 validates hashes, patch applicability and expected changes, then runs the baseline and each isolated patch twice (42 executions). D2 runs both pinned versions twice (four executions). P3 creates fresh baseline repositories, applies one patch, performs cold and warm checks, and separately scans the full head. Results are compared after excluding elapsed time and cache-hit state. The 20 cold/warm pairs plus full scans require 80 analyzer calls. D1 items are graph nodes/edges; D2 items are annotated detector--edge--file--line signals, which can share graph edges. Evidence matches are case-level, not recall over all call sites.
+
+\begin{table}[t]
+\caption{Historical development-contract results; repeated baseline structure is not independent evidence.}
+\label{tab:historic}
+\centering\small
+\begin{tabular}{lr}
+\toprule
+Measure & Agreement/count\\\midrule
+D1 changed nodes / edges & 5/5; 12/12\\
+D1 classifications / violation rule sets & 20/20; 7/7\\
+Call-site cases / missing-relation anchors & 9/9; 2/2\\
+P3 decisions / exact deltas & 20/20; 20/20\\
+P3 incremental/full scan / cold--warm replay & 20/20; 20/20\\
+P3 parsed / head file instances & 57/189\\\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Results.} Table~\ref{tab:historic} reports the meaningful changed-item and case denominators. Full-graph totals also matched 105 nodes and 108 edges, but repeatedly include baseline structure. On D2, v0.1 yielded TP=18, FP=4, FN=2 and TN=16; v0.2 yielded TP=20, FP=0, FN=0 and TN=20. The four false positives were local PostgreSQL/AMQP-shaped receivers; the two misses were Redis operations. These targeted repairs are within-tool regression evidence, not external comparative improvement. Duplicate normalized output matched, and P3 cache miss/hit results agreed in all 20 cases. Incremental/full agreement can preserve the same semantic omission in both modes.
+
+The original Windows recording used Node.js 22.16.0 and an Intel Core i7-13650HX. Cold/warm nearest-rank p50 values were 518.51/242.62 ms and p95 values 531.05/249.30 ms. They combine parsing, Git, cache I/O and reporting; RAM, power/load and filesystem-cache state were unrecorded. These are descriptive observations, not causal speedup or scalability evidence. Historical functional replays passed Linux and Windows; current local hardening below does not constitute a new cross-platform study.
+
+\section{Separate Technical Reliability Extension}
+The subsequent 2026-09-26 campaign targets local development defects and preserves original failures. It does not revise the preceding observations or their pinned analyzer packages.
+
+\textbf{Method provenance.} OpenAI Codex with delegated coding agents assisted in constructing the finite oracle, adversarial inputs and mutation harness, modifying the implementation, executing local checks and inspecting outputs. Reported counts come from retained executable test reports, not generated estimates. Test refinement after inspecting failures is disclosed below; the checks are development evidence. Cross-agent inspection is automated code review, not independent human annotation or adjudication. No human validation signoff is asserted for this extension.
+
+\textbf{Finite rule checking.} A separately implemented adjacency-matrix and transitive-closure oracle checks all 4,096 directed graphs on three fixed nodes, two edge types and 12 non-self edge slots. Each graph is evaluated against 192 combinations of deny/allow/require/require-path, exact/wildcard selectors and type constraints: 786,432 rule--graph evaluations. These are finite combinations, not independent samples. Additional checks apply ordering and consistent renaming on 241 graph states and inverse addition/removal deltas on all 4,096. Self-loop inputs, larger graphs, arbitrary wildcard fragments, extraction and component-metadata changes are outside this domain.
+
+\textbf{Test sensitivity.} Eight declared implementation mutations target rule enforcement, path traversal and classification. The initial suite killed seven; violation demotion survived because classification was not asserted. Adding the missing assertion produced eight kills, no survivors and no execution errors in the final audit. Both rounds are retained. This is test-development evidence against a small fault model, not a whole-program mutation score or independent validation.
+
+\textbf{Extraction and incremental faults.} Adversarial source tests exposed type-only imports treated as runtime clients, protocol mismatches, shadowed bindings and mistaken URL expressions. Binding symbols per file separates local names from package/global names. Later checks exposed wrong-host string concatenation and stale provenance after direct reassignment. Static string composition now resolves the complete URL; direct assignment conservatively invalidates the binding throughout its file, including earlier legitimate uses. Unresolved composition emits no relationship. The repair is not flow-sensitive soundness.
+
+Incremental checks exposed missed unusual/ignored filenames, nested-component evidence loss, cross-project cache reuse and corrupt-cache behavior. Exact source ownership, Git path handling, repository/version-bound cache identity and payload checks address the reproduced cases. The extension records failing inputs, repaired outputs and remaining limitations separately. Its full local suites passed 126 Core and 301 Guardian tests on Node.js 22.16.0/macOS arm64; those totals describe regression execution only. Two inert compiler-host callbacks are excluded from Guardian's configured coverage. The current analyzer is unreleased semantics version 0.3; its passing reuse of all 20 D1 cases is still development evidence.
+
+\section{Validity and Implications}
+\textbf{Construct and internal validity.} A typed structural view does not measure responsibilities, runtime quality or usefulness. Co-developed labels and implementation share assumptions. A separately coded oracle may still share a mistaken specification. D2 specificity covers explicit hard negatives, not all possible nonedges. File/line agreement measures one declared case location, not evidence completeness or ranking. Perfect replay can reproduce an incorrect inference.
+
+\textbf{External and comparative validity.} One synthetic system and targeted fixtures cannot establish representative TypeScript accuracy. Dynamic templates, alternative fallbacks, property and destructuring writes, wrappers and inter-file flows remain limitations. No accepted external-tool comparison or independently labeled real-repository holdout exists. Module-import dependencies and service calls require a nonempty common abstraction before comparison; unsupported relations must not become comparator false negatives. Narrative source selection can omit relevant work and does not establish exhaustive novelty. Missing full texts remain identified in the review register; no broader review is implied.
+
+\textbf{Conclusion validity.} The small changed-item counts and finite graph enumeration do not justify population confidence intervals or significance tests. Coverage and mutant kills measure tested implementation behavior, not production accuracy. The next study must freeze repository selection and tools before predictions, label the entire declared source scope (including files without predictions), retain annotation disagreements, and report per-repository errors, supported-vocabulary coverage and failures. A paired, controlled workload study is needed for performance; practitioner observations are needed for false-block burden and review effort.
+
+\section{Conclusion}
+ArchSync combines service-level extraction, explicit conformance rules and evidence-backed Git decisions. Controlled datasets establish agreement with development contracts; the separate hardening campaign finds and repairs concrete reliability faults while exposing residual limitations. The strongest supported result is auditable engineering coherence. Independent repositories, compatible baselines and practitioner evaluation remain necessary before broader accuracy or usefulness claims.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+\ifdefined\compactprofile\else\input{appendix}\fi
+\end{document}

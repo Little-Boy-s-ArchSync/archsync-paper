@@ -1,0 +1,89 @@
+{
+  "status": "DRAFT_NOT_SUBMITTED",
+  "venue": "ICIIT 2027 (Ho Chi Minh City)",
+  "track_fit": [
+    "Intelligent Software Systems",
+    "Service-Oriented Computing",
+    "Information Extraction and Classification"
+  ],
+  "title": "ArchSync: Evidence-Backed Conformance Checking for TypeScript Service Architectures",
+  "abstract": "Passing tests do not establish that a service change conforms to its intended architecture. ArchSync links a machine-readable architectural contract to selected HTTP, PostgreSQL, Redis and AMQP observations in TypeScript, retains source evidence, and maps introduced findings to PASS, BLOCK or REVIEW at a Git change. We evaluate this deterministic prototype using co-developed development datasets: 20 isolated architecture patches, 40 annotated detector signals, and an incremental replay of those same patches. A separately reported hardening campaign checks a finite rule domain against a matrix oracle and exercises adversarial source and cache behavior. The controlled observations support contract coherence and regression reliability. They do not establish representative accuracy, comparative superiority or developer productivity; independently labeled repositories and a capability-matched external comparison remain necessary. The contribution is an auditable integration of service-level observations, explicit rules and change-time decisions, together with evidence that exposes its reliability boundaries.",
+  "keywords": [
+    "architecture conformance",
+    "service-oriented systems",
+    "static analysis",
+    "architecture drift",
+    "reproducibility"
+  ],
+  "authors": [
+    {
+      "name": "Vo Duc Hieu",
+      "email": "voduchieu42@gmail.com",
+      "orcid": "0009-0007-5389-5177",
+      "institution": "FPT University",
+      "department": "Software Engineering",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "corresponding_author": true,
+      "approval": "not asserted"
+    },
+    {
+      "name": "Tran Minh Hoang",
+      "email": "andyjobs2023@gmail.com",
+      "orcid": "0009-0000-0302-1841",
+      "institution": "VNUK Institute for Research and Executive Education, The University of Danang",
+      "department": "Computer Science and Engineering",
+      "city": "Da Nang",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    },
+    {
+      "name": "Ha Hoang Bach",
+      "email": "hahoangbach2005@gmail.com",
+      "orcid": "0009-0000-5118-0660",
+      "institution": "FPT University",
+      "department": "Information Assurance",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    },
+    {
+      "name": "Le Van Kiet",
+      "email": "levankiet1212.2004@gmail.com",
+      "orcid": "0009-0007-8434-882X",
+      "institution": "VNUK Institute for Research and Executive Education, The University of Danang",
+      "department": "Software Engineering",
+      "city": "Da Nang",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    },
+    {
+      "name": "Hoang Nguyen The",
+      "email": "hoangnt20@fe.edu.vn",
+      "orcid": null,
+      "institution": "FPT University",
+      "department": "Faculty of Software Engineering",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    },
+    {
+      "name": "Minh Tam Phan",
+      "email": "tampm@fe.edu.vn",
+      "orcid": null,
+      "institution": "FPT University",
+      "department": "Faculty of Software Engineering",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    }
+  ],
+  "review_identity_policy": "not confirmed",
+  "submission_exclusivity": "requires author confirmation",
+  "funding_and_conflicts": "requires author confirmation"
+}

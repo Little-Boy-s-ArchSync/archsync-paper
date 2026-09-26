@@ -1,0 +1,40 @@
+{
+  "status": "LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED",
+  "citations": 25,
+  "class_matches_official_archive": true,
+  "bibliography_style_matches_official_archive": true,
+  "pdfs": [
+    {
+      "file": "iciit2027-review.pdf",
+      "pages": 9,
+      "sha256": "d6f9942f82f8794d5513f3f8f78b71b908e44f5c4b29c0bcff34f81a24279e3b",
+      "bytes": 131231
+    },
+    {
+      "file": "iciit2027-compact.pdf",
+      "pages": 5,
+      "sha256": "3cbfd0242646d6f0f92eff8d2a50ae19e0569a7a1722e5846be8cba38e8dea45",
+      "bytes": 110205
+    },
+    {
+      "file": "iciit2027-review-anonymous.pdf",
+      "pages": 9,
+      "sha256": "abb81696c341989596df0ae6e82ceaa4cda1c7e501324491c5ea41d5a34fb708",
+      "bytes": 124853
+    },
+    {
+      "file": "iciit2027-compact-anonymous.pdf",
+      "pages": 4,
+      "sha256": "e0af2e2c7e455aad0fe153748a346989e49755920dd1fc964ceb243ac2009666",
+      "bytes": 102908
+    },
+    {
+      "file": "iciit2027-supplement.pdf",
+      "pages": 3,
+      "sha256": "c760af6be1f3413fc187a295f1ffe63e59075a1756f15d3b58b2774dc2d67e6d",
+      "bytes": 59530
+    }
+  ],
+  "visual_review": "All five profiles inspected; see VISUAL-REVIEW.md and visual-inputs.json for exact input hashes.",
+  "submission_authorization": false
+}
