@@ -3,7 +3,7 @@
 This is a prepared local draft, not a submitted or accepted manuscript.
 
 - **Compact named draft:** `iciit2027-compact.pdf` / `.tex`, the reader-facing ACM
-  proceedings profile. All author metadata is inherited from the existing paper.
+  proceedings profile. Author identities are inherited from the existing paper; departments are omitted by user request.
 - **Single-column review draft:** `iciit2027-review.pdf` / `.tex`, following the
   review options stated in the official template. It includes the technical appendix.
 - `*-anonymous.pdf` profiles provide a technical alternative only; the public
@@ -33,8 +33,7 @@ PYTHON_PDF=/absolute/path/to/python3 sh ./build.sh
 No font size, margin or line-spacing reductions are applied. The official
 `acmart.cls` and `ACM-Reference-Format.bst` are unchanged; `acmart.dtx` preserves
 the accompanying original class source/license. Standard class options provide
-review/compact and named/anonymous profiles. `balance=false` disables last-page auto-balancing in the compact draft; it changes no type size, margins or page limit. `authorsperrow=2` improves the
-six-author heading; emergency line-break stretch prevents protruding text.
+review/compact and named/anonymous profiles. `balance=false` disables last-page auto-balancing in the compact draft; it changes no type size, margins or page limit. The user-requested centered author presentation is defined in `author-layout.tex`; it replaces the named-profile author renderer while preserving structured author metadata. Anonymous profiles retain the class renderer. Emergency line-break stretch prevents protruding text.
 Drafts omit fabricated DOI, ISBN and rights information. The supplied ACM
 review class prints its generic “Manuscript submitted to ACM” footer; that
 stock template text does not describe the status of this local draft.
@@ -53,3 +52,15 @@ conflicts/funding, and submission exclusivity. Confirm the upload profile,
 cutoff time zone and any permitted supplement with official instructions.
 Real rights metadata and payment obligations belong to the subsequent process.
 No email, upload, payment or submission is part of this package preparation.
+
+## Supervisor-request revision
+
+See `REVISION-TRACEABILITY.md` for the published comparison evidence, complete author-field checks and unresolved RBL requirement. The correspondence statement uses the class-supported author footnote (thanks); no extra statement interrupts the abstract or introduction. Author affiliations and addresses use the class-generated blocks. This draft is not yet certified against RBL.
+
+## Author style requested on 26 September 2026
+
+The supplied image supersedes the previous six-cell author layout: centered consecutive names use *, dagger, double dagger, section and paragraph affiliation markers; the two faculty authors share the paragraph marker. All names, emails, affiliations and ORCIDs come exclusively from the pre-existing manuscript and submission metadata; no identity information is imported from the image. This is a user-requested presentation customization, not an assertion that the venue requires this layout. The official class/style files and body typography are unchanged.
+
+## Current draft: 27 September 2026
+
+Start with [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md). Abstract and narrative now lead with contributions and results; repeated limits are consolidated in Section 6. Table 1 and all measured counts are retained. The author block groups six authors by two universities and omits majors/departments and visible ORCID lines. This supersedes the earlier five-symbol affiliation layout. Identity data remains from the manuscript, not the supplied reference image. Current compact/review profiles are 5/10 pages.

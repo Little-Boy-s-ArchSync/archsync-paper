@@ -2,7 +2,7 @@
 from pathlib import Path
 import hashlib,json,zipfile
 root=Path(__file__).resolve().parent
-source_names=['CLAIM-EVIDENCE.json','paper.tex','related-work.tex','appendix.tex','references.bib','acmart.cls','acmart.dtx','ACM-Reference-Format.bst','build.sh','validate.py','README.md','REQUIREMENTS.md','SUBMISSION-METADATA.md','submission-metadata.json','validation.json','evidence-manifest.json','VISUAL-REVIEW.md','visual-inputs.json','official/retrieval.json','template/LaTeX-Templates/acmart.cls','template/LaTeX-Templates/ACM-Reference-Format.bst']
+source_names=['DRAFT-CHECKLIST.md','official/2026-09-27/retrieval.json','official/2026-09-27/sample-sigconf.tex','author-layout.tex','REVISION-TRACEABILITY.md','CLAIM-EVIDENCE.json','paper.tex','related-work.tex','appendix.tex','references.bib','acmart.cls','acmart.dtx','ACM-Reference-Format.bst','build.sh','validate.py','README.md','REQUIREMENTS.md','SUBMISSION-METADATA.md','submission-metadata.json','validation.json','evidence-manifest.json','VISUAL-REVIEW.md','visual-inputs.json','official/retrieval.json','template/LaTeX-Templates/acmart.cls','template/LaTeX-Templates/ACM-Reference-Format.bst']
 profiles=['review','compact','review-anonymous','compact-anonymous','supplement']
 for profile in profiles:source_names += [f'iciit2027-{profile}.tex',f'iciit2027-{profile}.pdf',f'{profile}-build.log']
 artifacts=[]

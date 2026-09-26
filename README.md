@@ -1,5 +1,11 @@
 # ArchSync Research Paper
 
+## Current ICIIT 2027 (Ho Chi Minh City) draft
+
+[Read the 5-page draft](venues/iciit2027/iciit2027-compact.pdf) · [10-page review draft](venues/iciit2027/iciit2027-review.pdf) · [Submission checklist and source package](venues/iciit2027/DRAFT-CHECKLIST.md).
+
+The 27 September revision leads with contributions and results, consolidates validity limits, preserves the comparison table, and groups authors by university. This is a draft, not a submission. The older IEEE variants below remain historical/general manuscripts.
+
 Nguồn LaTeX của bài nghiên cứu **ArchSync: A Controlled Feasibility Study of
 Evidence-Backed Architecture Drift Detection in TypeScript Systems**.
 
@@ -17,7 +23,7 @@ The branch includes **archsync-8page.tex / archsync-8page.pdf** and
 **archsync-12page.tex / archsync-12page.pdf**. Each TeX file contains the complete
 manuscript text, with 25 references and the two vector figures. Reference pages
 count toward the 8/12 PDF-page totals. Both use IEEE conference layout; the 12-page version is the detailed
-canonical manuscript and the 8-page version its synchronized concise form; a venue has not been selected. See
+canonical manuscript and the 8-page version its synchronized concise form; the current venue-specific draft is linked above. See
 `supplementary/conference-format-handoff.md` before adapting for submission.
 
 Edit the detailed manuscript in `sections/` and short replacements in

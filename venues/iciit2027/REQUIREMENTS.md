@@ -51,3 +51,11 @@ The class is unchanged. Sample DOI/ISBN/copyright claims are removed and the
 conference metadata explicitly identifies a draft. The absence of such fields
 is intentional until genuine rights metadata exists. No submission, registration,
 email, payment, public release or acceptance has occurred in this preparation.
+
+## User-specified author presentation
+
+On 26 September 2026 the user supplied a centered symbolic affiliation layout and requested it explicitly. `author-layout.tex` implements that presentation for named profiles while preserving ACM author metadata. This intentional author-layout customization supersedes the earlier default author grid; it is not a venue requirement or organizer approval. The user explicitly prohibits using identity information from the image. All author data is preserved from the pre-existing manuscript.
+
+## 27 September recheck
+
+The fresh official class and bibliography still match this package; see `official/2026-09-27/retrieval.json`. Current draft profile selection and unresolved anonymity policy are recorded in `DRAFT-CHECKLIST.md`. University-only author grouping supersedes earlier department-level presentation at user request.

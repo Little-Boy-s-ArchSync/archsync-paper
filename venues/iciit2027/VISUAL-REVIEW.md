@@ -1,17 +1,7 @@
-# Final PDF visual review — 26 September 2026
+# Visual review — 27 September 2026
 
-All five final profiles were rendered with PDFium and visually inspected as full-document contact sheets. The reviewed PDF hashes and page counts are recorded in `visual-inputs.json`; those hashes were checked again against the source PDFs after inspection.
+All five profiles were rendered with PDFium and inspected as full-document contact sheets. The named compact first page was also inspected at full size. The two-university author grouping, correspondence footnote, abstract, Table 1, workflow figure, evaluation table, Section 6 and references render without observed clipping or overlap. Line-numbered review versions remain readable. Current compact profiles have 5 pages each; review profiles 10 pages each; supplement 3 pages.
 
-| Profile | Pages |
-| --- | ---: |
-| Named compact | 5 |
-| Named single-column review | 9 |
-| Anonymous compact | 4 |
-| Anonymous single-column review | 9 |
-| Technical supplement | 3 |
+Names, emails, affiliations and supplied ORCIDs are checked for absence in anonymous extracted text and PDF metadata. Named PDFs retain all six names/emails; ORCIDs are retained in structured source rather than displayed. The class-generated anonymous thanks placeholder contains no identity. These PDF checks cannot erase prior public repository history.
 
-No clipping, overlap or missing rendered content was observed at contact-sheet scale. The workflow figure, results table, author block, section order and references render consistently. The named compact version uses its fifth page for remaining references; it remains within the organizer's five-double-column-page included allowance. The review versions retain line numbers. Author identities are absent from the anonymous title blocks.
-
-The final strict manuscript validator reports no overfull boxes or unresolved references. Earlier render receipts refer to superseded drafts; only `visual-inputs.json` identifies the reviewed final versions. This is automated-agent visual inspection, not independent human scientific review, author approval, or a submission receipt. Portal anonymity requirements are not established by preparing anonymous alternatives.
-
-This revision includes the 315-test Guardian result, analyzer 0.4 and the third adversarial intervention. All five revised PDFs were rendered and inspected again; the hashes in `visual-inputs.json` identify this revision. Contact sheets and page renders are retained under `preparation/2026-09-26-paper-final/visual/` in the workspace.
+`visual-inputs.json` binds the inspected artifacts. Render files are retained at `preparation/2026-09-27-iciit-rework/visual/` in the parent workspace. The strict validator reports no overfull boxes, unresolved citations or unresolved references. All 25 citations and the existing Table 1 are retained. These checks concern presentation and consistency, not author consent or independent scientific review.
