@@ -1,27 +1,27 @@
 [
   {
-    "path": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper/venues/iciit2027/iciit2027-compact.pdf",
+    "file": "iciit2027-compact.pdf",
     "pages": 5,
-    "sha256": "3cbfd0242646d6f0f92eff8d2a50ae19e0569a7a1722e5846be8cba38e8dea45"
+    "sha256": "293a81df9bf6f0f33a5d975925d9dc4c404096785c370829cbb45f3bf5e5734d"
   },
   {
-    "path": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper/venues/iciit2027/iciit2027-review.pdf",
+    "file": "iciit2027-review.pdf",
     "pages": 9,
-    "sha256": "d6f9942f82f8794d5513f3f8f78b71b908e44f5c4b29c0bcff34f81a24279e3b"
+    "sha256": "dd1df449b42b33e6ff8cc8234c2d4c2c65e33a973856b0396a84517b6dc1c777"
   },
   {
-    "path": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper/venues/iciit2027/iciit2027-compact-anonymous.pdf",
+    "file": "iciit2027-compact-anonymous.pdf",
     "pages": 4,
-    "sha256": "e0af2e2c7e455aad0fe153748a346989e49755920dd1fc964ceb243ac2009666"
+    "sha256": "ac073efbed1be321757b049063512d366fb5cc999fe383704e8cc1c9272f4a24"
   },
   {
-    "path": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper/venues/iciit2027/iciit2027-review-anonymous.pdf",
+    "file": "iciit2027-review-anonymous.pdf",
     "pages": 9,
-    "sha256": "abb81696c341989596df0ae6e82ceaa4cda1c7e501324491c5ea41d5a34fb708"
+    "sha256": "7a95e031edaedd788622f714faac4a88d4daf8c1710d34e88118cfab3a1c5a9c"
   },
   {
-    "path": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper/venues/iciit2027/iciit2027-supplement.pdf",
+    "file": "iciit2027-supplement.pdf",
     "pages": 3,
-    "sha256": "c760af6be1f3413fc187a295f1ffe63e59075a1756f15d3b58b2774dc2d67e6d"
+    "sha256": "9a3910e5f9d1294e0b9c9ba708c05d058c63933b0c7b2d58338bfe55f331b7fb"
   }
 ]

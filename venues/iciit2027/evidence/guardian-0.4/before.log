@@ -1,0 +1,120 @@
+$ vitest run src/analyzer-adversarial.test.ts
+
+ RUN  v3.2.7 /Users/andytran/Coding/Little Boy's/acsidan/archsync-guardian
+
+ ❯ src/analyzer-adversarial.test.ts (43 tests | 11 failed) 185ms
+   ✓ does not invent an edge for type-only default import 25ms
+   ✓ does not invent an edge for type-only named import 6ms
+   ✓ does not invent an edge for type-only namespace import 5ms
+   ✓ does not invent an edge for pg protocol mismatch 4ms
+   ✓ does not invent an edge for redis protocol mismatch 5ms
+   ✓ does not invent an edge for fetch protocol mismatch 3ms
+   ✓ does not invent an edge for comparison is not URL 8ms
+   ✓ does not invent an edge for arithmetic is not URL 4ms
+   ✓ does not invent an edge for shadowed fetch parameter 7ms
+   ✓ does not invent an edge for shadowed process parameter 3ms
+   ✓ does not invent an edge for shadowed pg constructor 3ms
+   ✓ does not invent an edge for shadowed pg receiver 3ms
+   ✓ does not invent an edge for shadowed endpoint parameter 3ms
+   ✓ does not invent an edge for block-local endpoint leakage 3ms
+   ✓ separates same-named endpoints in sibling functions 10ms
+   ✓ preserves imported aliases and closures over valid resources 4ms
+   ✓ preserves an unshadowed global fetch beside a local binding 3ms
+   ✓ preserves a supported fallback with the same endpoint 3ms
+   ✓ uses the parsed concatenated URL rather than a URL-looking suffix 3ms
+   ✓ rejects an invalid port produced by concatenation 2ms
+   ✓ preserves static URL and path aliases 3ms
+   ✓ abstains from arbitrary addition with a URL operand 3ms
+   ✓ drops stale provenance after a resource reassignment 4ms
+   ✓ drops stale endpoint provenance after a compound assignment 3ms
+   ✓ keeps an unaffected binding beside a reassigned sibling 6ms
+   ✓ conservatively abstains even for a use before reassignment 2ms
+   ✓ abstains on cyclic string aliases without recursing forever 3ms
+   ✓ resolves parentheses within string concatenation 2ms
+   ✓ preserves the known side of the existing fallback heuristic 2ms
+   × invalidates endpoint provenance after array assignment 7ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after object shorthand assignment 4ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after renamed object assignment 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   ✓ invalidates endpoint provenance after nested default assignment 2ms
+   × invalidates endpoint provenance after object rest assignment 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after array rest assignment 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after postfix increment 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after prefix decrement 4ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after for-of assignment 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after for-in assignment 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates endpoint provenance after for-of destructuring 3ms
+     → expected [ 'http|stale' ] to deeply equal []
+   × invalidates a database receiver written by destructuring 3ms
+     → expected [ 'data|stale' ] to deeply equal []
+   ✓ keeps reads and property writes from invalidating unrelated endpoint bindings 4ms
+   ✓ keeps a sibling endpoint when a shadowed loop binding is written 5ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after array assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after object shorthand assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after renamed object assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after object rest assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after array rest assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after postfix increment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after prefix decrement
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after for-of assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after for-in assignment
+ FAIL  src/analyzer-adversarial.test.ts > invalidates endpoint provenance after for-of destructuring
+AssertionError: expected [ 'http|stale' ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "http|stale",
++ ]
+
+ ❯ src/analyzer-adversarial.test.ts:88:76
+     86|   ['for-of destructuring', 'for ({value: url} of incoming) {}'],
+     87| ])('invalidates endpoint provenance after %s', async (_label, write) =…
+     88|   expect(await edges(`let url:any="https://stale"; ${write} fetch(url)…
+       |                                                                            ^
+     89| });
+     90| it('invalidates a database receiver written by destructuring', async (…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  src/analyzer-adversarial.test.ts > invalidates a database receiver written by destructuring
+AssertionError: expected [ 'data|stale' ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "data|stale",
++ ]
+
+ ❯ src/analyzer-adversarial.test.ts:91:143
+     89| });
+     90| it('invalidates a database receiver written by destructuring', async (…
+     91|   expect(await edges('import {Client} from "pg"; let db=new Client({co…
+       |                                                                                                                                               ^
+     92| });
+     93| it('keeps reads and property writes from invalidating unrelated endpoi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  11 failed | 32 passed (43)
+   Start at  16:16:00
+   Duration  726ms (transform 59ms, setup 0ms, collect 366ms, tests 185ms, environment 0ms, prepare 48ms)
+
+[ELIFECYCLE] Test failed. See above for more details.

@@ -114,8 +114,8 @@ warning: appendix:13: Requested font "ntxsyc" at 9.0pt
 warning: appendix:13:  -> ntxsyc
 warning: appendix:13: Requested font "ntxexa" at 9.0pt
 warning: appendix:13:  -> ntxexa
-warning: appendix:38: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-note: Rerunning TeX because "iciit2027-supplement.aux" changed ...
+warning: appendix:37: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+note: Rerunning TeX because "iciit2027-supplement.out" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
@@ -231,8 +231,8 @@ warning: appendix:13: Requested font "ntxsyc" at 9.0pt
 warning: appendix:13:  -> ntxsyc
 warning: appendix:13: Requested font "ntxexa" at 9.0pt
 warning: appendix:13:  -> ntxexa
-warning: appendix:38: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: appendix:37: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `iciit2027-supplement.pdf` (58.134765625 KiB)
+note: Writing `iciit2027-supplement.pdf` (59.1669921875 KiB)
 note: Skipped writing 3 intermediate files (use --keep-intermediates to keep them)

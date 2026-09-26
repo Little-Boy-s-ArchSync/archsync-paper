@@ -114,6 +114,8 @@ warning: paper:52:  -> ntxexa
 warning: paper:52: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: paper:52: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:52: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: paper:52: Underfull \hbox (badness 1521) in paragraph at lines 52--52
+warning: paper:52: Underfull \hbox (badness 1158) in paragraph at lines 52--52
 warning: paper:52: Requested font "MinLibReg-ot1" at 9.0pt
 warning: paper:52:  -> MinLibReg-ot1
 warning: paper:52: Requested font "nxlmi" at 9.0pt
@@ -152,6 +154,7 @@ warning: related-work:7: Underfull \hbox (badness 1642) in paragraph at lines 6-
 warning: related-work:7: Underfull \hbox (badness 1112) in paragraph at lines 6--7
 warning: related-work:7: Underfull \hbox (badness 1577) in paragraph at lines 6--7
 warning: paper:68: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: paper:76: Underfull \hbox (badness 1107) in paragraph at lines 75--76
 warning: paper:79: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
 warning: paper:85: Requested font "MinLibReg-ot1" at 8.0pt
 warning: paper:85:  -> MinLibReg-ot1
@@ -209,10 +212,8 @@ warning: paper:125: Underfull \hbox (badness 3428) in paragraph at lines 124--12
 warning: paper:125: Underfull \hbox (badness 1642) in paragraph at lines 124--125
 warning: paper:131: Underfull \hbox (badness 10000) in paragraph at lines 130--131
 warning: paper:131: Underfull \hbox (badness 1253) in paragraph at lines 130--131
-warning: paper:131: Underfull \vbox (badness 4279) has occurred while \output is active
-warning: paper:136: Underfull \hbox (badness 4193) in paragraph at lines 135--136
-warning: paper:136: Underfull \hbox (badness 3612) in paragraph at lines 135--136
-warning: paper:136: Underfull \hbox (badness 1688) in paragraph at lines 135--136
+warning: paper:131: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: paper:136: Underfull \hbox (badness 4229) in paragraph at lines 135--136
 note: Running BibTeX on iciit2027-compact.aux ...
 note: warnings were issued by BibTeX; use --print and/or --keep-logs for details.
 note: Rerunning TeX because bibtex was run ...
@@ -331,6 +332,8 @@ warning: paper:52:  -> ntxexa
 warning: paper:52: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: paper:52: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:52: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: paper:52: Underfull \hbox (badness 1521) in paragraph at lines 52--52
+warning: paper:52: Underfull \hbox (badness 1158) in paragraph at lines 52--52
 warning: paper:52: Requested font "MinLibReg-ot1" at 9.0pt
 warning: paper:52:  -> MinLibReg-ot1
 warning: paper:52: Requested font "nxlmi" at 9.0pt
@@ -369,6 +372,7 @@ warning: related-work:7: Underfull \hbox (badness 1642) in paragraph at lines 6-
 warning: related-work:7: Underfull \hbox (badness 1112) in paragraph at lines 6--7
 warning: related-work:7: Underfull \hbox (badness 1577) in paragraph at lines 6--7
 warning: paper:68: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: paper:76: Underfull \hbox (badness 1107) in paragraph at lines 75--76
 warning: paper:79: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
 warning: paper:85: Requested font "MinLibReg-ot1" at 8.0pt
 warning: paper:85:  -> MinLibReg-ot1
@@ -426,10 +430,10 @@ warning: paper:125: Underfull \hbox (badness 3428) in paragraph at lines 124--12
 warning: paper:125: Underfull \hbox (badness 1642) in paragraph at lines 124--125
 warning: paper:131: Underfull \hbox (badness 10000) in paragraph at lines 130--131
 warning: paper:131: Underfull \hbox (badness 1253) in paragraph at lines 130--131
-warning: paper:131: Underfull \vbox (badness 4279) has occurred while \output is active
-warning: paper:136: Underfull \hbox (badness 4193) in paragraph at lines 135--136
-warning: paper:136: Underfull \hbox (badness 3612) in paragraph at lines 135--136
-warning: paper:136: Underfull \hbox (badness 1688) in paragraph at lines 135--136
+warning: paper:131: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: paper:136: Underfull \hbox (badness 4229) in paragraph at lines 135--136
+warning: iciit2027-compact.bbl:57: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: iciit2027-compact.bbl:337: Underfull \vbox (badness 10000) has occurred while \output is active
 note: Rerunning TeX because "iciit2027-compact.aux" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
@@ -546,6 +550,8 @@ warning: paper:52:  -> ntxexa
 warning: paper:52: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: paper:52: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:52: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+warning: paper:52: Underfull \hbox (badness 1521) in paragraph at lines 52--52
+warning: paper:52: Underfull \hbox (badness 1158) in paragraph at lines 52--52
 warning: paper:52: Requested font "MinLibReg-ot1" at 9.0pt
 warning: paper:52:  -> MinLibReg-ot1
 warning: paper:52: Requested font "nxlmi" at 9.0pt
@@ -589,6 +595,7 @@ warning: related-work:9: Underfull \hbox (badness 6380) in paragraph at lines 8-
 warning: related-work:9: Underfull \hbox (badness 4266) in paragraph at lines 8--9
 warning: paper:65: Underfull \hbox (badness 2050) in paragraph at lines 10--65
 warning: paper:68: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: paper:76: Underfull \hbox (badness 1107) in paragraph at lines 75--76
 warning: paper:79: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
 warning: paper:85: Requested font "MinLibReg-ot1" at 8.0pt
 warning: paper:85:  -> MinLibReg-ot1
@@ -646,12 +653,12 @@ warning: paper:125: Underfull \hbox (badness 3428) in paragraph at lines 124--12
 warning: paper:125: Underfull \hbox (badness 1642) in paragraph at lines 124--125
 warning: paper:131: Underfull \hbox (badness 10000) in paragraph at lines 130--131
 warning: paper:131: Underfull \hbox (badness 1253) in paragraph at lines 130--131
-warning: paper:131: Underfull \vbox (badness 4279) has occurred while \output is active
-warning: paper:136: Underfull \hbox (badness 4193) in paragraph at lines 135--136
-warning: paper:136: Underfull \hbox (badness 3612) in paragraph at lines 135--136
-warning: paper:136: Underfull \hbox (badness 1688) in paragraph at lines 135--136
+warning: paper:131: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: paper:136: Underfull \hbox (badness 4229) in paragraph at lines 135--136
+warning: iciit2027-compact.bbl:57: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: iciit2027-compact.bbl:337: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `iciit2027-compact.pdf` (107.6220703125 KiB)
+note: Writing `iciit2027-compact.pdf` (107.994140625 KiB)
 note: Writing `iciit2027-compact.blg` (849 B)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

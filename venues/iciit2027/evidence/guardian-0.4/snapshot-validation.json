@@ -1,0 +1,16 @@
+{
+  "snapshot": "/var/folders/mt/zhvthc515kgg9pxt4wjcjpyr0000gn/T/archsync-write-target-validation-mznxqt84/guardian",
+  "commit": "a568cc918b384d95b5398105b9979a11c431f35e",
+  "checks": [
+    {
+      "name": "install",
+      "exit_code": 0
+    },
+    {
+      "name": "verify",
+      "exit_code": 0
+    }
+  ],
+  "source_mismatches": [],
+  "files_compared": 410
+}

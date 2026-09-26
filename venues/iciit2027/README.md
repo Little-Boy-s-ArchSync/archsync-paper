@@ -18,7 +18,7 @@ This is a prepared local draft, not a submitted or accepted manuscript.
   unresolved requirements. These supersede the old IEEE layout assumption only
   for this venue-specific draft; the longer IEEE working papers are preserved.
 - `evidence-manifest.json` binds the copied local technical evidence; `evidence/`
-  separates current engineering receipts from historical manuscript measurements.
+  separates current engineering receipts from historical manuscript measurements. `CLAIM-EVIDENCE.json` maps the latest claims to raw receipts; `evidence/guardian-0.4/` includes the exact tested source archive and retained first failures.
 - `validation.json` records page counts, citation checks, artifact hashes and
   the exact official class/style comparison. `VISUAL-REVIEW.md` and `visual-inputs.json` record the separate rendered inspection.
 
