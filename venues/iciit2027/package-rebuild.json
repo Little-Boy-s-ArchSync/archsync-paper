@@ -1,0 +1,45 @@
+{
+  "archive_sha256": "b203ed6427a20a810bc80a0b12ab48e5c39797d05c0546f772f42efdcecfa9fd",
+  "method": "extract exact source ZIP to fresh temporary directory, run sh build.sh with real Tectonic and Python/pypdf",
+  "exit_code": 0,
+  "validation": {
+    "status": "LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED",
+    "citations": 25,
+    "class_matches_official_archive": true,
+    "bibliography_style_matches_official_archive": true,
+    "pdfs": [
+      {
+        "file": "iciit2027-review.pdf",
+        "pages": 9,
+        "sha256": "9a12d3f20623f9a78396fae84291e64c127510ac632dfd56b5b5eba20b1a6c4a",
+        "bytes": 131231
+      },
+      {
+        "file": "iciit2027-compact.pdf",
+        "pages": 5,
+        "sha256": "9bfbe4c7b47af00b3a619d673c6dbd864d1000656eab827ec9f4967330d39ee9",
+        "bytes": 110205
+      },
+      {
+        "file": "iciit2027-review-anonymous.pdf",
+        "pages": 9,
+        "sha256": "ee9aca4b41d8f91ca45dd29fd31689212972fc1cfe89ee8201cef05233fe925f",
+        "bytes": 124853
+      },
+      {
+        "file": "iciit2027-compact-anonymous.pdf",
+        "pages": 4,
+        "sha256": "1069191e9c5c5bf762e2e9a3bbd6e653a30f420c1bba6d52ed32deab704bd620",
+        "bytes": 102908
+      },
+      {
+        "file": "iciit2027-supplement.pdf",
+        "pages": 3,
+        "sha256": "e15751f5cdfd535a2eebaf04700b9e4228d4bc5782769b58f39f027de42a6e5b",
+        "bytes": 59533
+      }
+    ],
+    "visual_review": "separate review required",
+    "submission_authorization": false
+  }
+}
