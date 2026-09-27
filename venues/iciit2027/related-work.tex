@@ -1,0 +1,24 @@
+\section{Background and Related Work}
+This scoped narrative review positions ArchSync against foundational and contemporary conformance approaches. Sources were selected purposively from the retained keyword-search corpus, not through a completed systematic review. Contemporary evidence is from 2022--2025; two older references identify the origins of model comparison and dependency constraints, not current tool performance.
+
+\textbf{Problem and observation boundary.} A recent mapping characterizes architecture erosion \cite{li2022erosion}. Code-review studies identify symptoms in OpenStack and OpenStack/Qt projects \cite{li2022symptoms,li2023warnings}; their project overlap limits independence. Practitioner evidence identifies documentation and shared practices as ways to manage drift \cite{anthony2024drifting}. A recovery taxonomy and microservice-tool mapping distinguish reconstruction purposes and applicability \cite{sar2024taxonomy,bakhtin2024mapping}. View-based drift analysis compares intended and reconstructed specifications in an industrial case \cite{uzun2024drift}. These works motivate an explicit observation boundary rather than equating a partial source graph with the complete runtime architecture.
+
+\textbf{Closest conformance approaches.} Software Reflexion Models establish high-level/source model comparison \cite{murphy1995reflexion}, and Dependency Constraint Language develops declarative dependency constraints \cite{terra2009dcl}. ArchSync inherits these concepts. CALint checks Python dependencies against Clean Architecture rules \cite{calint2022}. ArchLintor already detects TypeScript module-interaction violations, provides source-linked diagnostics and supports CI/CD integration \cite{archlintor2025}. Thus neither TypeScript checking nor a CI gate alone is a novelty claim. LLM-generated architectural tests introduce a different translation step, where executing a test does not establish correct expression of the intended rule \cite{lucena2025gatekeepers}; ArchSync's runtime decisions instead use explicit deterministic rules.
+
+\textbf{Change-time feedback and verification.} Repository mining studies microservice evolution \cite{evolution2024}, and industrial conformance visualization reports practitioner experience \cite{thermofisher2025}. ArchSync joins typed service observations to introduced-finding keys at a Git head. Evaluation-method research stresses replicability \cite{konersmann2022replicability}; interrogation testing shows that targeted inputs can expose analyzer soundness and precision failures \cite{kaindlstorfer2024interrogation}. These motivate retained failure/repair evidence, not a claim that passing constructed tests estimates field accuracy.
+
+\begin{table}[t]
+\caption{Published context, not an executed baseline comparison. Different languages, units and datasets prevent numerical ranking.}
+\label{tab:external}
+\centering\small
+\begin{tabular}{@{}p{.23\columnwidth}p{.33\columnwidth}p{.35\columnwidth}@{}}
+\toprule
+Approach & Unit and decision & Evaluation evidence\\\midrule
+ArchLintor \cite{archlintor2025} & TypeScript module dependencies; allowed, forbidden, required & One author-developed eight-module example; inserted situations\\
+CALint \cite{calint2022} & Python dependencies; Clean Architecture rule & Three cases reported in abstract; full text unavailable\\
+Recovery comparison \cite{schneider2025comparison} & Components, connections, endpoints; recovery correctness & Nine tools on 17 Java/Spring applications\\
+ArchSync (this work) & Typed service relations; rules and introduced findings & 20 co-developed patches; 40 detector signals; no independent holdout\\\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Comparative boundary.} Table~\ref{tab:external} summarizes publications, not tools rerun on our data. ArchLintor's inserted absence/divergence examples do not supply a precision/recall benchmark. CALint's publisher abstract reports three cases; unavailable full text prevents a finer audit. Schneider et al. execute nine recovery tools on 17 Java/Spring applications \cite{schneider2025comparison}, illustrating an external comparison design rather than an ArchSync performance baseline. Our integration targets HTTP, PostgreSQL, Redis and AMQP service relations with evidence and introduced-finding decisions. We have not established a unique capability advantage or measured superiority over these approaches. Section~\ref{sec:validity} defines the remaining comparative requirement.

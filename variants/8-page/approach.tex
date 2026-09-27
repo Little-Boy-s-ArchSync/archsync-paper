@@ -1,0 +1,36 @@
+\section{Problem Definition}
+Let $M=(C_E,E_E,R)$ contain expected components, typed directed edges, and rules. An edge is $(u,t,v)$: source, relation type, and target. Given repository $S$ and supplied model $M$, the analyzer constructs $A(S;M)=(C_O,E_O,P)$, where $P$ links observations to file, line, column, detector, excerpt, and a fixed confidence annotation (not a calibrated probability).
+
+\emph{Deny} rejects matching edges; \emph{allow} restricts selected sources to an allowed target set; \emph{require} demands a direct matching edge for every selected source; \emph{require-path} demands a non-empty directed path. Selectors may use wildcards and constrain relation type. Given graph difference $\Delta$ and violation set $\mathcal V$, classification is
+\[
+\operatorname{class}(M,A(S;M))=
+\begin{cases}
+\text{violation},&|\mathcal V|>0,\\
+\text{evolution},&|\mathcal V|=0\land|\Delta|>0,\\
+\text{no-impact},&\text{otherwise.}
+\end{cases}
+\]
+For Git base $S_b$ and head $S_h$, findings are compared by stable semantic identity:
+\[
+\mathcal F_b=\mathcal F(M,A(S_b;M)),\quad
+\mathcal F_h=\mathcal F(M,A(S_h;M)),
+\]
+\[
+K_b=\{k(f):f\in\mathcal F_b\},\quad
+\mathcal F^+=\{f\in\mathcal F_h:k(f)\notin K_b\}.
+\]
+The analyzer maps paths and metadata using the model; this is not autonomous boundary discovery. The key $k(f)$ contains kind, rule identifier, change, component, and edge key; coordinates are excluded. Another call site for an old edge need not introduce a finding. Only introduced findings control the gate: a rule finding yields BLOCK, otherwise an evolution finding yields REVIEW, otherwise PASS. Common findings remain visible as pre-existing; base-only findings are resolved. PASS does not establish a violation-free head or complete observation.
+
+\section{Research Questions}
+The feasibility study asks: \textbf{RQ 1}, how many expected components, relationships, and detector signals are reconstructed; \textbf{RQ 2}, whether no-impact/violation/evolution labels and violated rule sets match; \textbf{RQ 3}, whether call-site and missing-relation anchor files/lines match separately at the case level; and \textbf{RQ 4}, whether normalized outputs replay identically and incremental/full-scan results agree, with what parsed scope and recorded cold/warm latency. D1 uses matched/extra/missed counts; D2 additionally uses descriptive signal-level precision, recall, F 1, and specificity. All questions are bounded by the development corpora. This post-hoc reporting clarification does not alter frozen inputs, labels, or acceptance rules.
+
+\section{Proposed Approach}
+\textbf{Executable intent and evidence.} A versioned YAML model defines component identifiers, layers, typed relationships, rules, severity, and ownership. Schema and semantic checks reject malformed models, unknown references, duplicate edges, and invalid identifiers. Expected edges are canonicalized; diagrams are derived views, not separate authorities. Findings retain a contract version, stable identifier, kind, severity, optional rule, affected element, source evidence, and model evidence. Forbidden-edge evidence identifies a detected call. Missing-edge/path evidence uses a deterministic component anchor because an absent call has no source location.
+
+\textbf{Observation.} Guardian parses TypeScript under declared component roots with the Compiler API. Detectors inspect imports, variable initializers, calls, and endpoint expressions for selected HTTP, PostgreSQL, Redis, and AMQP patterns. PostgreSQL/Redis operations require a receiver associated with a recognized client; AMQP requires a channel from a recognized connection. These per-file name associations filter unassociated method lookalikes but do not establish soundness under arbitrary reassignment or shadowing. Endpoints use literals and fixed fallbacks, not runtime execution. Targets use hostname only, ignoring port/path. Unresolved HTTP produces no edge and no explicit unknown finding. AMQP paths are broker-level, not proof of matching queues or message delivery. A typed require-path requires that type on every edge. Observations and evidence are sorted and deduplicated.
+
+\textbf{Fixed precedence.} Any rule violation outranks evolution, regardless of severity; both finding types remain inspectable. This conservative policy prevents a forbidden edge from being treated only as a reviewable addition, but can delay acceptable changes bundled with it. Configurable severity/context policies are alternatives, not evaluated features. The command returns 0/1/3 for PASS/BLOCK/REVIEW. A repository must separately enforce those outcomes.
+
+\textbf{Incremental gate and review lifecycle.} Guardian resolves a merge base, maps changed paths to source components, and caches the baseline graph by base commit, model hash, and analyzer version. It reparses all TypeScript files in affected components, replacing their observations while retaining unaffected ones. Component-wide scanning preserves independently detectable relationships; it does not add inter-file data-flow analysis. The same supplied model is used to analyze and evaluate base and head; a model edit invalidates the cache, not a separate model-to-model delta. Cache checks assume trusted local graph contents. Source annotations and a report support inspection. In existing D1 case 06, a frontend fetch at app.ts:14 creates a payment-service HTTP edge forbidden by ARCH-001; its new key yields BLOCK. This illustration adds no evaluation sample.
+
+The analyzer never rewrites the expected model. Accepting evolution requires a separately reviewed model change. The evaluated gate neither authenticates approval nor stores rejection: unchanged code/model still returns REVIEW after a human rejects the proposal. Repository controls must prevent the merge; the developer revises or withdraws the code and reruns. Persisting the rationale or adding a lasting constraint is a proposed governance action, not implemented automatic rejection handling.

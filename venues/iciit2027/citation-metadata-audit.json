@@ -1,0 +1,747 @@
+{
+  "retrieved_at_utc": "2026-09-27T06:02:23.808169+00:00",
+  "records": [
+    {
+      "key": "murphy1995reflexion",
+      "doi": "10.1145/222124.222136",
+      "cited_year": 1995,
+      "title": [
+        "Software reflexion models"
+      ],
+      "authors": [
+        "Gail C. Murphy",
+        "David Notkin",
+        "Kevin Sullivan"
+      ],
+      "dates": {
+        "published": [
+          [
+            1995,
+            10
+          ]
+        ],
+        "published-online": [
+          [
+            1995,
+            10
+          ]
+        ],
+        "published-print": [
+          [
+            1995,
+            10
+          ]
+        ],
+        "issued": [
+          [
+            1995,
+            10
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.1145%2F222124.222136",
+      "sha256": "2f9cbd86aeef6a02b55473629e6126925aa1538a278649a5efe9cd1cb92cb211",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "terra2009dcl",
+      "doi": "10.1002/spe.931",
+      "cited_year": 2009,
+      "title": [
+        "A dependency constraint language to manage object\u2010oriented software architectures"
+      ],
+      "authors": [
+        "Ricardo Terra",
+        "Marco Tulio Valente"
+      ],
+      "dates": {
+        "published": [
+          [
+            2009,
+            6,
+            8
+          ]
+        ],
+        "published-online": [
+          [
+            2009,
+            6,
+            8
+          ]
+        ],
+        "published-print": [
+          [
+            2009,
+            8,
+            25
+          ]
+        ],
+        "issued": [
+          [
+            2009,
+            6,
+            8
+          ]
+        ]
+      },
+      "type": "journal-article",
+      "source": "https://api.crossref.org/works/10.1002%2Fspe.931",
+      "sha256": "0a3086f9275c828fae81f123e5375e68beb98a86b78f780ce6ee6a6eaf989e6b",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "li2022erosion",
+      "doi": "10.1002/smr.2423",
+      "cited_year": 2022,
+      "title": [
+        "Understanding software architecture erosion: A systematic mapping study"
+      ],
+      "authors": [
+        "Ruiyin Li",
+        "Peng Liang",
+        "Mohamed Soliman",
+        "Paris Avgeriou"
+      ],
+      "dates": {
+        "published": [
+          [
+            2022,
+            2,
+            9
+          ]
+        ],
+        "published-online": [
+          [
+            2022,
+            2,
+            9
+          ]
+        ],
+        "published-print": [
+          [
+            2022,
+            3
+          ]
+        ],
+        "issued": [
+          [
+            2022,
+            2,
+            9
+          ]
+        ]
+      },
+      "type": "journal-article",
+      "source": "https://api.crossref.org/works/10.1002%2Fsmr.2423",
+      "sha256": "89aae457e90631bec91ec3dc70488a972d74a7ddcd08e5d8d58ba889b1cf6578",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "konersmann2022replicability",
+      "doi": "10.1109/ICSA53651.2022.00023",
+      "cited_year": 2022,
+      "title": [
+        "Evaluation Methods and Replicability of Software Architecture Research Objects"
+      ],
+      "authors": [
+        "Marco Konersmann",
+        "Angelika Kaplan",
+        "Thomas K\u00fchn",
+        "Robert Heinrich",
+        "Anne Koziolek",
+        "Ralf Reussner",
+        "Jan J\u00fcrjens",
+        "Mahmood al-Doori",
+        "Nicolas Boltz",
+        "Marco Ehl",
+        "Dominik Fuch\u00df",
+        "Katharina Gro\u00dfer",
+        "Sebastian Hahner",
+        "Jan Keim",
+        "Matthias Lohr",
+        "Timur Sa\u011flam",
+        "Sophie Schulz",
+        "Jan-Philipp T\u00f6berg"
+      ],
+      "dates": {
+        "published": [
+          [
+            2022,
+            3
+          ]
+        ],
+        "published-print": [
+          [
+            2022,
+            3
+          ]
+        ],
+        "issued": [
+          [
+            2022,
+            3
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.1109%2FICSA53651.2022.00023",
+      "sha256": "7b62c26c3a11e41ef36089a732a4716921689308f1fd8dfea51f294bc5cd93ae",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "kaindlstorfer2024interrogation",
+      "doi": "10.1145/3691620.3695034",
+      "cited_year": 2024,
+      "title": [
+        "Interrogation Testing of Program Analyzers for Soundness and Precision Issues"
+      ],
+      "authors": [
+        "David Kaindlstorfer",
+        "Anastasia Isychev",
+        "Valentin W\u00fcstholz",
+        "Maria Christakis"
+      ],
+      "dates": {
+        "published": [
+          [
+            2024,
+            10,
+            27
+          ]
+        ],
+        "published-online": [
+          [
+            2024,
+            10,
+            27
+          ]
+        ],
+        "published-print": [
+          [
+            2024,
+            10,
+            27
+          ]
+        ],
+        "issued": [
+          [
+            2024,
+            10,
+            27
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.1145%2F3691620.3695034",
+      "sha256": "84a2777f3fa0707a1426150ae952f4a38b261f78a431a2b18c16e09d0435268d",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "uzun2024drift",
+      "doi": "10.1016/j.csi.2023.103774",
+      "cited_year": 2024,
+      "title": [
+        "Detecting deviations in the code using architecture view-based drift analysis"
+      ],
+      "authors": [
+        "Burak Uzun",
+        "Bedir Tekinerdogan"
+      ],
+      "dates": {
+        "published": [
+          [
+            2024,
+            1
+          ]
+        ],
+        "published-print": [
+          [
+            2024,
+            1
+          ]
+        ],
+        "issued": [
+          [
+            2024,
+            1
+          ]
+        ]
+      },
+      "type": "journal-article",
+      "source": "https://api.crossref.org/works/10.1016%2Fj.csi.2023.103774",
+      "sha256": "3ec97ff31ffeb3d1b5db7729118a00774c1ca8ac96b0190a763aed5f146dd365",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "anthony2024drifting",
+      "doi": "10.1109/ICSA59870.2024.00018",
+      "cited_year": 2024,
+      "title": [
+        "We're Drifting Apart: Architectural Drift from the Developers' Perspective"
+      ],
+      "authors": [
+        "Emilie Anthony",
+        "Astrid Berntsson",
+        "Tiziano Santilli",
+        "Rebekka Wohlrab"
+      ],
+      "dates": {
+        "published": [
+          [
+            2024,
+            6,
+            4
+          ]
+        ],
+        "published-print": [
+          [
+            2024,
+            6,
+            4
+          ]
+        ],
+        "issued": [
+          [
+            2024,
+            6,
+            4
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.1109%2FICSA59870.2024.00018",
+      "sha256": "702db60c09a2de906230216ac86f863a568735ced0f3dafa1985495b0673e609",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "bakhtin2024mapping",
+      "doi": "10.1007/978-3-031-66326-0_1",
+      "cited_year": 2024,
+      "title": [
+        "Tools Reconstructing Microservice Architecture: A Systematic Mapping Study"
+      ],
+      "authors": [
+        "Alexander Bakhtin",
+        "Xiaozhou Li",
+        "Jacopo Soldani",
+        "Antonio Brogi",
+        "Tomas Cerny",
+        "Davide Taibi"
+      ],
+      "dates": {
+        "published": [
+          [
+            2024
+          ]
+        ],
+        "published-online": [
+          [
+            2024,
+            7,
+            30
+          ]
+        ],
+        "published-print": [
+          [
+            2024
+          ]
+        ],
+        "issued": [
+          [
+            2024
+          ]
+        ]
+      },
+      "type": "book-chapter",
+      "source": "https://api.crossref.org/works/10.1007%2F978-3-031-66326-0_1",
+      "sha256": "ff564455afebf42758e852eeeb88724a3d792cd0cfc20b596ca273ce28e583c2",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "archlintor2025",
+      "doi": "10.5753/sbes.2025.11075",
+      "cited_year": 2025,
+      "title": [
+        "ArchLintor: detecting architectural violations in TypeScript systems"
+      ],
+      "authors": [
+        "Matheus Resende",
+        "Rafael Durelli",
+        "Ricardo Terra"
+      ],
+      "dates": {
+        "published": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ],
+        "published-online": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ],
+        "issued": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.5753%2Fsbes.2025.11075",
+      "sha256": "28e9c557e38da51b4769496a860a8ab6ef0967af3887f2e7ae6ba4e543fc54f4",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "schneider2025comparison",
+      "doi": "10.1007/s10664-025-10686-2",
+      "cited_year": 2025,
+      "title": [
+        "Comparison of static analysis architecture recovery tools for microservice applications"
+      ],
+      "authors": [
+        "Simon Schneider",
+        "Alexander Bakhtin",
+        "Xiaozhou Li",
+        "Jacopo Soldani",
+        "Antonio Brogi",
+        "Tomas Cerny",
+        "Riccardo Scandariato",
+        "Davide Taibi"
+      ],
+      "dates": {
+        "published": [
+          [
+            2025,
+            6,
+            20
+          ]
+        ],
+        "published-online": [
+          [
+            2025,
+            6,
+            20
+          ]
+        ],
+        "published-print": [
+          [
+            2025,
+            9
+          ]
+        ],
+        "issued": [
+          [
+            2025,
+            6,
+            20
+          ]
+        ]
+      },
+      "type": "journal-article",
+      "source": "https://api.crossref.org/works/10.1007%2Fs10664-025-10686-2",
+      "sha256": "a2f0fc6c15e8d39c5b5c28d9051378a2e388ee10b729400940e4835cccbcc829",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "li2022symptoms",
+      "doi": "10.1109/icsa53651.2022.00011",
+      "cited_year": 2022,
+      "title": [
+        "Symptoms of Architecture Erosion in Code Reviews: A Study of Two OpenStack Projects"
+      ],
+      "authors": [
+        "Ruiyin Li",
+        "Mohamed Soliman",
+        "Peng Liang",
+        "Paris Avgeriou"
+      ],
+      "dates": {
+        "published": [
+          [
+            2022,
+            3
+          ]
+        ],
+        "published-print": [
+          [
+            2022,
+            3
+          ]
+        ],
+        "issued": [
+          [
+            2022,
+            3
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.1109%2Ficsa53651.2022.00011",
+      "sha256": "342097bb3d0daa98ecdc7308cd643910d873bf7dd0db8fd16946fac41635329d",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "li2023warnings",
+      "doi": "10.1016/j.infsof.2023.107319",
+      "cited_year": 2023,
+      "title": [
+        "Warnings: Violation symptoms indicating architecture erosion"
+      ],
+      "authors": [
+        "Ruiyin Li",
+        "Peng Liang",
+        "Paris Avgeriou"
+      ],
+      "dates": {
+        "published": [
+          [
+            2023,
+            12
+          ]
+        ],
+        "published-print": [
+          [
+            2023,
+            12
+          ]
+        ],
+        "issued": [
+          [
+            2023,
+            12
+          ]
+        ]
+      },
+      "type": "journal-article",
+      "source": "https://api.crossref.org/works/10.1016%2Fj.infsof.2023.107319",
+      "sha256": "8676cc06a246ac6188ef5bbc9c8862ff4a015fe8912e81564c14c67c14741920",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "sar2024taxonomy",
+      "doi": "10.1002/spe.3364",
+      "cited_year": 2024,
+      "title": [
+        "A Framework and Taxonomy for Characterizing the Applicability of Software Architecture Recovery Approaches: A Tertiary\u2010Mapping Study"
+      ],
+      "authors": [
+        "Abdul Qayum",
+        "Mengqi Zhang",
+        "Simon Colreavy",
+        "Muslim Chochlov",
+        "Jim Buckley",
+        "Dayi Lin",
+        "Ashish Rajendra Sai"
+      ],
+      "dates": {
+        "published": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ],
+        "published-online": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ],
+        "published-print": [
+          [
+            2025,
+            1
+          ]
+        ],
+        "issued": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ]
+      },
+      "type": "journal-article",
+      "source": "https://api.crossref.org/works/10.1002%2Fspe.3364",
+      "sha256": "19c4224716c153900bee797a8eb4b731b10f856ff9a97ffab301eb0667e45baf",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "lucena2025gatekeepers",
+      "doi": "10.5753/sbes.2025.11100",
+      "cited_year": 2025,
+      "title": [
+        "Language Models as Architectural Gatekeepers: Automating Conformance Checking from Natural Language"
+      ],
+      "authors": [
+        "Andrielly Lucena",
+        "Everton L. G. Alves",
+        "Jo\u00e3o Brunet"
+      ],
+      "dates": {
+        "published": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ],
+        "published-online": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ],
+        "issued": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ]
+      },
+      "type": "proceedings-article",
+      "source": "https://api.crossref.org/works/10.5753%2Fsbes.2025.11100",
+      "sha256": "4b5d51246df97d7634859294298e2009c8c0d3d46b89ad85d1f9f044642ada5e",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "calint2022",
+      "doi": "10.1007/978-3-031-10548-7_39",
+      "cited_year": 2022,
+      "title": [
+        "CALint: A Tool for\u00a0Enforcing the\u00a0Clean Architecture\u2019s Dependency Rule in\u00a0Python"
+      ],
+      "authors": [
+        "Clevio Orlando de Oliveira Junior",
+        "Jonathan Carvalho",
+        "F\u00e1bio Fagundes Silveira",
+        "Tiago Silva da Silva",
+        "Eduardo Martins Guerra"
+      ],
+      "dates": {
+        "published": [
+          [
+            2022
+          ]
+        ],
+        "published-online": [
+          [
+            2022,
+            7,
+            26
+          ]
+        ],
+        "published-print": [
+          [
+            2022
+          ]
+        ],
+        "issued": [
+          [
+            2022
+          ]
+        ]
+      },
+      "type": "book-chapter",
+      "source": "https://api.crossref.org/works/10.1007%2F978-3-031-10548-7_39",
+      "sha256": "be4fdfd6e4648f6afada0194f435d7b1726cee980c03b17f94c6ac660f4c9b39",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "evolution2024",
+      "doi": "10.1007/978-3-031-70797-1_10",
+      "cited_year": 2024,
+      "title": [
+        "Exploring Architectural Evolution in\u00a0Microservice Systems Using Repository Mining Techniques and\u00a0Static Code Analysis"
+      ],
+      "authors": [
+        "Patric Genfer",
+        "Uwe Zdun"
+      ],
+      "dates": {
+        "published": [
+          [
+            2024
+          ]
+        ],
+        "published-online": [
+          [
+            2024,
+            9,
+            1
+          ]
+        ],
+        "published-print": [
+          [
+            2024
+          ]
+        ],
+        "issued": [
+          [
+            2024
+          ]
+        ]
+      },
+      "type": "book-chapter",
+      "source": "https://api.crossref.org/works/10.1007%2F978-3-031-70797-1_10",
+      "sha256": "359e173af50e86c382eef7bf0a3454b1a6fbf409ae230183ac7ff25d3bba5dc3",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    },
+    {
+      "key": "thermofisher2025",
+      "doi": "10.1007/978-3-032-04207-1_25",
+      "cited_year": 2025,
+      "title": [
+        "Lessons from\u00a0Visualizing Software Architecture Structure Conformance at\u00a0Thermo Fisher Scientific"
+      ],
+      "authors": [
+        "Filip Zamfirov",
+        "Andrei Radulescu",
+        "Jacob Kr\u00fcger",
+        "Michel R. V. Chaudron"
+      ],
+      "dates": {
+        "published": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ],
+        "published-online": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ],
+        "published-print": [
+          [
+            2026
+          ]
+        ],
+        "issued": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ]
+      },
+      "type": "book-chapter",
+      "source": "https://api.crossref.org/works/10.1007%2F978-3-032-04207-1_25",
+      "sha256": "19782348f354046280179e402c43987e8370dbddf57312c1931a0f025d86514e",
+      "status": "metadata-retrieved-not-full-text-appraisal"
+    }
+  ]
+}

@@ -1,0 +1,573 @@
+{
+  "unit": "finding-bearing D1 case; all declared locations must have a match",
+  "interpretation": "Post-hoc reporting decomposition, not independent validation or per-finding recall",
+  "summary": {
+    "call_site_localization": {
+      "denominator": 9,
+      "case_ids": [
+        "case-06",
+        "case-07",
+        "case-09",
+        "case-10",
+        "case-15",
+        "case-16",
+        "case-18",
+        "case-19",
+        "case-20"
+      ],
+      "phase2": {
+        "file": 9,
+        "exact_line": 9
+      },
+      "phase3": {
+        "file": 9,
+        "exact_line": 9
+      }
+    },
+    "anchor_agreement": {
+      "denominator": 2,
+      "case_ids": [
+        "case-08",
+        "case-17"
+      ],
+      "phase2": {
+        "file": 2,
+        "exact_line": 2
+      },
+      "phase3": {
+        "file": 2,
+        "exact_line": 2
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "case-06",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "deny-rule"
+      ],
+      "expected": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 14
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 14,
+          "column": 26,
+          "snippet": "fetch(`${paymentServiceUrl}/payments`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 14,
+          "column": 26,
+          "detector": "typescript-fetch"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-07",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "deny-rule"
+      ],
+      "expected": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 7
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 7,
+          "column": 24,
+          "snippet": "database.query(\"select * from orders where id = $1\", [id])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 7,
+          "column": 24,
+          "detector": "typescript-pg"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-08",
+      "metric": "anchor_agreement",
+      "oracle_kinds": [
+        "required-edge"
+      ],
+      "expected": [
+        {
+          "file": "order-service/src/service.ts",
+          "line": 8
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/service.ts",
+          "line": 8,
+          "column": 3,
+          "snippet": "await saveOrder(order);",
+          "detector": "component-root",
+          "confidence": 1
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "order-service/src/service.ts",
+          "line": 8,
+          "column": 3,
+          "detector": "component-root"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-09",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "architecture-evolution"
+      ],
+      "expected": [
+        {
+          "file": "order-service/src/cache.ts",
+          "line": 8
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 12,
+          "column": 9,
+          "snippet": "redis.set(JSON.stringify(order), \"1\", { EX: 60 })",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        },
+        {
+          "kind": "source-location",
+          "file": "order-service/src/cache.ts",
+          "line": 8,
+          "column": 17,
+          "snippet": "redis.get(JSON.stringify(order))",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "order-service/src/cache.ts",
+          "line": 12,
+          "column": 9,
+          "detector": "typescript-redis"
+        },
+        {
+          "file": "order-service/src/cache.ts",
+          "line": 8,
+          "column": 17,
+          "detector": "typescript-redis"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-10",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "architecture-evolution"
+      ],
+      "expected": [
+        {
+          "file": "order-service/src/events.ts",
+          "line": 8
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/events.ts",
+          "line": 8,
+          "column": 3,
+          "snippet": "channel.publish(\"orders\", topic, Buffer.from(JSON.stringify(payload)))",
+          "detector": "typescript-amqp-publish",
+          "confidence": 0.98
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "order-service/src/events.ts",
+          "line": 8,
+          "column": 3,
+          "detector": "typescript-amqp-publish"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-15",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "allow-rule",
+        "deny-rule"
+      ],
+      "expected": [
+        {
+          "file": "gateway/src/server.ts",
+          "line": 7
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "gateway/src/server.ts",
+          "line": 7,
+          "column": 24,
+          "snippet": "database.query(\"select * from orders where id = $1\", [id])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "gateway/src/server.ts",
+          "line": 7,
+          "column": 24,
+          "detector": "typescript-pg"
+        },
+        {
+          "file": "gateway/src/server.ts",
+          "line": 7,
+          "column": 24,
+          "detector": "typescript-pg"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-16",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "allow-rule"
+      ],
+      "expected": [
+        {
+          "file": "gateway/src/server.ts",
+          "line": 5
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "gateway/src/server.ts",
+          "line": 5,
+          "column": 10,
+          "snippet": "fetch(`${paymentServiceUrl}/payments`, { method: \"POST\", body: JSON.stringify(payload) })",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "gateway/src/server.ts",
+          "line": 5,
+          "column": 10,
+          "detector": "typescript-fetch"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-17",
+      "metric": "anchor_agreement",
+      "oracle_kinds": [
+        "required-path"
+      ],
+      "expected": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 2
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 2,
+          "column": 3,
+          "snippet": "return payload;",
+          "detector": "component-root",
+          "confidence": 1
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 2,
+          "column": 3,
+          "detector": "component-root"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-18",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "deny-rule"
+      ],
+      "expected": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 7
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "frontend/src/app.ts",
+          "line": 7,
+          "column": 24,
+          "snippet": "reportingDatabase.query(\"select * from orders where id = $1\", [id])",
+          "detector": "typescript-pg",
+          "confidence": 0.99
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "frontend/src/app.ts",
+          "line": 7,
+          "column": 24,
+          "detector": "typescript-pg"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-19",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "architecture-evolution"
+      ],
+      "expected": [
+        {
+          "file": "order-service/src/fraud.ts",
+          "line": 4
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "order-service/src/fraud.ts",
+          "line": 4,
+          "column": 9,
+          "snippet": "fetch(`${fraudServiceUrl}/assess`, {",
+          "detector": "typescript-fetch",
+          "confidence": 1
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "order-service/src/fraud.ts",
+          "line": 4,
+          "column": 9,
+          "detector": "typescript-fetch"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    },
+    {
+      "id": "case-20",
+      "metric": "call_site_localization",
+      "oracle_kinds": [
+        "architecture-evolution"
+      ],
+      "expected": [
+        {
+          "file": "payment-service/src/risk-cache.ts",
+          "line": 6
+        }
+      ],
+      "phase2_actual_evidence": [
+        {
+          "kind": "source-location",
+          "file": "payment-service/src/risk-cache.ts",
+          "line": 6,
+          "column": 9,
+          "snippet": "paymentCache.hSet(\"risk\", id, JSON.stringify(value))",
+          "detector": "typescript-redis",
+          "confidence": 0.99
+        }
+      ],
+      "phase3_matched_evidence": [
+        {
+          "file": "payment-service/src/risk-cache.ts",
+          "line": 6,
+          "column": 9,
+          "detector": "typescript-redis"
+        }
+      ],
+      "phase2": {
+        "file": true,
+        "exact_line": true
+      },
+      "phase3": {
+        "file": true,
+        "exact_line": true
+      }
+    }
+  ],
+  "latency": {
+    "unit": "milliseconds; one sequential cold/warm observation per D1 case",
+    "quantile_method": "nearest rank; sorted[ceil(p*n)-1]",
+    "cold": {
+      "raw_ms": [
+        560.9,
+        531.05,
+        525.93,
+        512.94,
+        510.88,
+        518.51,
+        530.09,
+        519.17,
+        517.38,
+        514.04,
+        520.5,
+        515.28,
+        519.32,
+        507.2,
+        522.16,
+        528.23,
+        509.43,
+        509.1,
+        522.25,
+        517.73
+      ],
+      "nearest_rank_p50_ms": 518.51,
+      "nearest_rank_p95_ms": 531.05,
+      "arithmetic_median_ms": 518.8399999999999
+    },
+    "warm": {
+      "raw_ms": [
+        243.11,
+        240.09,
+        247.64,
+        248.77,
+        236.58,
+        244.51,
+        240.38,
+        245.78,
+        242.71,
+        249.3,
+        245.04,
+        238.75,
+        257.69,
+        238.47,
+        238.49,
+        242.62,
+        246.45,
+        238.57,
+        237.91,
+        241.78
+      ],
+      "nearest_rank_p50_ms": 242.62,
+      "nearest_rank_p95_ms": 249.3,
+      "arithmetic_median_ms": 242.66500000000002
+    },
+    "p50_reduction_percent": 53.208231278085286
+  },
+  "benchmark_commit": "24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb",
+  "input_sha256": {
+    "order-platform/ground-truth.json": "5d3ce2976dfcce59796dd58cee60dce51233e0f44fde8c41bd89b013e7f23e92",
+    "evidence/phase-2-results.json": "359d1317d80cd162cccad9e0811af1aaa2ab3e299e14771e292da3f0159c5503",
+    "evidence/phase-3-results.json": "c334f67dd5ec005f500bdb4973d8d14be5fae1564d6e080f984a3b7d90b0a754"
+  },
+  "script_sha256": "40907b62be526e0ad88bad30178a935529abff5add879f20b0b934bb00d2a7df"
+}

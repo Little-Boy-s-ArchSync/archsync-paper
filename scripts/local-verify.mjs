@@ -113,9 +113,14 @@ const coverageArguments = [
   "research/validate-slr-calibration-round-2-candidates.test.mjs",
 ];
 
-const hostTexAvailable =
-  commandAvailable("latexmk", ["-version"]) &&
-  commandAvailable("pdftotext", ["-v"]);
+const pythonPdf = process.env.PYTHON_PDF;
+const textAvailable = pythonPdf
+  ? commandAvailable(pythonPdf, ["-c", "import pypdf"])
+  : commandAvailable("pdftotext", ["-v"]);
+const tectonic = process.env.TECTONIC;
+const tectonicAvailable = Boolean(tectonic && commandAvailable(tectonic));
+const latexmkAvailable = commandAvailable("latexmk", ["-version"]);
+const hostTexAvailable = textAvailable && (tectonicAvailable || latexmkAvailable);
 const containerImage = "archsync-paper-local-verification:1.0.0";
 const dockerPrefix = [
   "run",
@@ -126,9 +131,21 @@ const dockerPrefix = [
   "/workspace",
   containerImage,
 ];
+const venuePython = pythonPdf || (platform() === "win32" ? "python" : "python3");
+const venuePythonAvailable = commandAvailable(venuePython, ["-c", "import pypdf"]);
+const needsContainer = !hostTexAvailable || !venuePythonAvailable;
+const venueCommand = (args) => venuePythonAvailable
+  ? { command: venuePython, args }
+  : { command: "docker", args: [...dockerPrefix, "/opt/archsync-venue/bin/python", ...args] };
 
 const commands = [
+  ...(needsContainer ? [{ id: "build-tex-container", command: "docker", args: ["build", "--file", "scripts/local-verification.Dockerfile", "--tag", containerImage, "."] }] : []),
+  { id: "venue-package", ...venueCommand(["venues/iciit2027/validate.py", "--check"]) },
+  { id: "venue-regression-tests", ...venueCommand(["venues/iciit2027/test_validate.py"]) },
   { id: "source-metadata", command: process.execPath, args: ["scripts/verify-paper-source.mjs"] },
+  { id: "bibliography-style-tests", command: process.execPath, args: ["--test", "scripts/verify-bibliography-style.test.mjs"] },
+  { id: "reporting-derivation", command: process.execPath, args: ["scripts/verify-reporting.mjs"] },
+  { id: "reporting-regression-tests", command: process.execPath, args: ["--test", "scripts/verify-reporting.test.mjs"] },
   { id: "pdf-page-budget-tests", command: process.execPath, args: ["--test", "scripts/pdf-page-budget.test.mjs"] },
   { id: "research-baseline", command: process.execPath, args: ["research/validate-baseline.mjs"] },
   { id: "decision-log", command: process.execPath, args: ["research/validate-decision-log.mjs"] },
@@ -169,14 +186,6 @@ if (calibrationTracked) {
   process.exit(2);
 }
 
-if (!hostTexAvailable) {
-  commands.push({
-    id: "build-tex-container",
-    command: "docker",
-    args: ["build", "--file", "scripts/local-verification.Dockerfile", "--tag", containerImage, "."],
-  });
-}
-
 for (const [id, file] of [
   ["compile-named", "main.tex"],
   ["compile-anonymous", "main-anonymous.tex"],
@@ -191,7 +200,9 @@ for (const [id, file] of [
   ];
   commands.push(
     hostTexAvailable
-      ? { id, command: latexArguments[0], args: latexArguments.slice(1) }
+      ? tectonicAvailable
+        ? { id, command: tectonic, args: ["--keep-logs", "--keep-intermediates", file] }
+        : { id, command: latexArguments[0], args: latexArguments.slice(1) }
       : { id, command: "docker", args: [...dockerPrefix, ...latexArguments] },
   );
 }
@@ -264,7 +275,8 @@ const summary = {
     architecture: arch(),
     node: process.versions.node,
     git: gitVersion.status === 0 ? gitVersion.stdout.trim() : null,
-    tex_provider: hostTexAvailable ? "host" : `docker:${containerImage}`,
+    tex_provider: hostTexAvailable ? (tectonicAvailable ? "host-tectonic" : "host-latexmk") : `docker:${containerImage}`,
+    pdf_text_provider: hostTexAvailable ? (pythonPdf ? "pypdf" : "poppler") : "docker:poppler",
     hostname_sha256: sha256(hostname()),
   },
   started_at_utc: startedAt.toISOString(),

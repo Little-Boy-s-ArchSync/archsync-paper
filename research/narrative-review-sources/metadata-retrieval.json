@@ -1,0 +1,100 @@
+[
+  {
+    "key": "li2022symptoms",
+    "record_id": "LIT-5111",
+    "doi": "10.1109/icsa53651.2022.00011",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "li2023warnings",
+    "record_id": "LIT-2481",
+    "doi": "10.1016/j.infsof.2023.107319",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "sar2024taxonomy",
+    "record_id": "LIT-0268",
+    "doi": "10.1002/spe.3364",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "bakhtin2024mapping",
+    "record_id": "LIT-0594",
+    "doi": "10.1007/978-3-031-66326-0_1",
+    "error": null
+  },
+  {
+    "key": "archlintor2025",
+    "record_id": "LIT-22765",
+    "doi": "10.5753/sbes.2025.11075",
+    "error": null
+  },
+  {
+    "key": "lucena2025gatekeepers",
+    "record_id": "LIT-22767",
+    "doi": "10.5753/sbes.2025.11100",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "calint2022",
+    "record_id": "LIT-0504",
+    "doi": "10.1007/978-3-031-10548-7_39",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "ntentos2022iac",
+    "record_id": "LIT-0517",
+    "doi": "10.1007/978-3-031-16697-6_7",
+    "error": null
+  },
+  {
+    "key": "refactor2024",
+    "record_id": "LIT-5614",
+    "doi": "10.1109/tse.2024.3449564",
+    "error": null
+  },
+  {
+    "key": "commits2025",
+    "record_id": "LIT-5616",
+    "doi": "10.1109/tse.2025.3587849",
+    "error": null
+  },
+  {
+    "key": "evolution2024",
+    "record_id": "LIT-0599",
+    "doi": "10.1007/978-3-031-70797-1_10",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "thermofisher2025",
+    "record_id": "LIT-0643",
+    "doi": "10.1007/978-3-032-04207-1_25",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  },
+  {
+    "key": "schneider2025comparison",
+    "record_id": "LIT-1380",
+    "doi": "10.1007/s10664-025-10686-2",
+    "error": null
+  },
+  {
+    "key": "staticmodels2024",
+    "record_id": "LIT-1284",
+    "doi": "10.1007/s10586-024-04394-7",
+    "error": null
+  },
+  {
+    "key": "dependencies2024",
+    "record_id": "LIT-6524",
+    "doi": "10.1145/3605098.3635917",
+    "error": "HTTP Error 429: Too Many Requests",
+    "fallback": "Retained source metadata in selected-papers.json; DOI/title and citation year retained; optional bibliographic fields omitted."
+  }
+]

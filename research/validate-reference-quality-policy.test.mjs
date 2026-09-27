@@ -132,3 +132,15 @@ test("rejects restoration of an old manuscript-only SLR method citation", async 
   const result = validateReferenceQualityPolicy(fixture);
   assertIssue(result, "removed manuscript citation 'page2021prisma'");
 });
+
+test("rejects replacing a narrative addition while retaining 25 bibliography entries", async () => {
+  const fixture = await loadFixture();
+  fixture.bibliography = fixture.bibliography.replace("schneider2025comparison", "unreviewedNarrativeAddition");
+  assertIssue(validateReferenceQualityPolicy(fixture), "missing audited citation 'schneider2025comparison'");
+});
+
+test("rejects a duplicate entry in the scoped narrative bibliography", async () => {
+  const fixture = await loadFixture();
+  fixture.bibliography += "\n @article{schneider2025comparison, title={Duplicate}, year={2025}}\n";
+  assertIssue(validateReferenceQualityPolicy(fixture), "expected 25 scoped narrative entries; found 26");
+});

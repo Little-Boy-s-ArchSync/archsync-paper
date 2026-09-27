@@ -1,5 +1,7 @@
-import { readFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { NARRATIVE_CITATION_KEYS } from "./narrative-citation-contract.mjs";
+import { loadExpandedManuscript } from "./load-manuscript.mjs";
+import { readFile, readdir } from "node:fs/promises";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 function metadataValue(text, field) {
@@ -16,7 +18,7 @@ function requireMarker(issues, file, text, marker) {
 }
 
 function bibliographyKeys(text) {
-  return [...text.matchAll(/^@\w+\{([^,]+),/gm)].map((match) => match[1]);
+  return [...text.matchAll(/^\s*@\w+\{([^,]+),/gm)].map((match) => match[1]);
 }
 
 function proseWords(text) {
@@ -41,7 +43,7 @@ export function validateResearchQualityGates(input) {
     abstract,
     relatedWork,
     architecture,
-    implementation,
+    implementationAudit,
     evaluation,
     results,
     discussion,
@@ -92,8 +94,8 @@ export function validateResearchQualityGates(input) {
   }
   for (const marker of [
     "two co-developed development datasets",
-    "does not compare ArchSync against an external tool",
-    "does not include an independently curated real-world holdout",
+    "external-tool comparison remains proposed",
+    "independently curated real-world holdout",
     "not comparative advantage or general accuracy",
   ]) requireMarker(issues, "abstract.tex", abstract, marker);
 
@@ -101,8 +103,8 @@ export function validateResearchQualityGates(input) {
     issues.push("related-work.tex: unfinished SLR protocol must not be a Related Work subsection");
   }
   for (const marker of [
-    "scoped narrative review",
-    "research-governance artifacts outside the manuscript",
+    "scoped narrative synthesis",
+    "Selection was purposive rather than exhaustive",
     "uzun2024drift",
     "anthony2024drifting",
   ]) requireMarker(issues, "related-work.tex", relatedWork, marker);
@@ -127,18 +129,18 @@ export function validateResearchQualityGates(input) {
     "2affbbb0da859a32b9b9079b4bf718fc7b14993b",
     "8779bf7965b3bd15f25834f17ca5321c85ae3f43",
     "24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb",
-  ]) requireMarker(issues, "implementation.tex", implementation, commit);
+  ]) requireMarker(issues, "supplementary/implementation-audit.md", implementationAudit, commit);
 
   for (const marker of [
-    "The current study reports no external baseline result",
-    "within-ArchSync regression, not a competitor comparison",
-    "dependency-cruiser",
-    "non-empty set of units with identical semantics",
-    "an import edge is not automatically a service edge",
-    "No comparative advantage is claimed",
+    "not an unbiased estimate of improvement on unseen programs",
+    "External comparison remains future work",
   ]) requireMarker(issues, "evaluation.tex", evaluation, marker);
   requireMarker(issues, "results.tex", results, "\\section{Controlled Verification Results}");
-  requireMarker(issues, "results.tex", results, "not estimates from an independent D3 holdout");
+  requireMarker(issues, "results.tex", results, "co-developed cases test contract agreement");
+  for (const [file, prose] of Object.entries({main, anonymous, abstract, relatedWork, architecture, evaluation, results, discussion, threats, conclusion})) {
+    issues.push(...validateManuscriptComparisonBoundary(prose, file));
+  }
+  requireMarker(issues, "results.tex", results, "they do not estimate performance on unseen projects");
   requireMarker(issues, "results.tex", results, "not independent samples");
   if (discussion.includes("perfect scores")) {
     issues.push("discussion.tex: must not call controlled results perfect scores");
@@ -149,10 +151,10 @@ export function validateResearchQualityGates(input) {
     if (conclusion.includes(forbidden)) issues.push(`conclusion.tex: result-dump marker '${forbidden}' is prohibited`);
   }
   for (const marker of [
-    "no external tool baseline was run",
+    "external comparison",
     "no independent real-world holdout exists",
-    "reduce, but not eliminate, external-validity threats",
-    "Only after these gates produce auditable evidence",
+    "They do not establish general accuracy, comparative advantage, or governance effectiveness",
+    "Only after those gates produce auditable evidence",
   ]) requireMarker(issues, "conclusion.tex", conclusion, marker);
 
   const controlledStatuses = claimEvidence.match(/,verified-controlled,/g)?.length ?? 0;
@@ -179,21 +181,10 @@ export function validateResearchQualityGates(input) {
     "repository-level, macro, and micro results",
   ]) requireMarker(issues, "EXTERNAL-BASELINE-PROTOCOL.md", baselineProtocol, marker);
 
-  const expectedKeys = [
-    "murphy1995reflexion",
-    "knodel2007comparison",
-    "terra2009dcl",
-    "ducasse2009reconstruction",
-    "li2022erosion",
-    "konersmann2022replicability",
-    "abgaz2023decomposition",
-    "kaindlstorfer2024interrogation",
-    "uzun2024drift",
-    "anthony2024drifting",
-  ];
+  const expectedKeys = NARRATIVE_CITATION_KEYS;
   const keys = bibliographyKeys(bibliography);
   if (keys.join("|") !== expectedKeys.join("|")) {
-    issues.push("references.bib: retained citation set or order does not match the governed ten-entry audit");
+    issues.push("references.bib: retained citation set or order does not match the governed 25-entry narrative scope");
   }
 
   const requiredOwners = ["@L1nkinPark", "@an1dee3301", "@teikv"];
@@ -213,8 +204,48 @@ export function validateResearchQualityGates(input) {
   return { issues, abstractWords: words.length, controlledClaims: controlledStatuses };
 }
 
+export function validateManuscriptComparisonBoundary(text, file = "manuscript") {
+  const prose = text.replace(/%.*$/gm, " ").replace(/\s+/g, " ");
+  const forbidden = [
+    /external[- ]tool (?:capability )?inventory/i,
+    /(?:executed|completed|ran|run) (?:an? |the |a separately scoped )?(?:dependency-cruiser|external comparator|external comparison|external baseline)/i,
+    /(?:empty|zero|no) shared labeled (?:subset|units)/i,
+    /shared labeled subset therefore contains zero items/i,
+    /54 (?:import|dependency)/i,
+    /50 unresolved/i,
+    /42 tool executions/i,
+    /dependency-cruiser.{0,100}(?:18\.3\.0|inventory|completed|executed)/i,
+    /d1-dependency-cruiser-20260915|tab:external-inventory/i,
+  ];
+  return forbidden.filter(pattern => pattern.test(prose)).map(pattern => `${file}: withdrawn external inventory claim is prohibited (${pattern})`);
+}
+
+function normalizedSource(text) {
+  return text.replace(/%.*$/gm, " ").replace(/\s+/g, " ").trim();
+}
+
+export async function verifyManuscriptVariants(repositoryDirectory) {
+  const issues = [];
+  const canonical = await loadExpandedManuscript(repositoryDirectory);
+  const shortDirectory = join(repositoryDirectory, "variants/8-page");
+  const shortFiles = await readdir(shortDirectory);
+  const short = await loadExpandedManuscript(repositoryDirectory, {readText: async path => {
+    const name = basename(path);
+    return readFile(dirname(path) === join(repositoryDirectory, "sections") && shortFiles.includes(name) ? join(shortDirectory, name) : path, "utf8");
+  }});
+  for (const [rootFile, expected] of [["main.tex", canonical], ["main-anonymous.tex", null], ["archsync-8page.tex", short], ["archsync-12page.tex", canonical]]) {
+    const actual = await loadExpandedManuscript(repositoryDirectory, {rootFile});
+    issues.push(...validateManuscriptComparisonBoundary(actual, rootFile));
+    if (!actual.includes("External comparison remains future work")) issues.push(`${rootFile}: external comparison must remain future work`);
+    if (expected !== null && normalizedSource(actual) !== normalizedSource(expected)) issues.push(`${rootFile}: generated manuscript has drifted from canonical/short sources; regenerate it`);
+  }
+  for (const name of shortFiles.filter(name => name.endsWith(".tex"))) issues.push(...validateManuscriptComparisonBoundary(await readFile(join(shortDirectory, name), "utf8"), `variants/8-page/${name}`));
+  return issues;
+}
+
 export async function main({
   repositoryDirectory = join(dirname(fileURLToPath(import.meta.url)), ".."),
+  verifyVariants = verifyManuscriptVariants,
   log = console.log,
   error = console.error,
   setExitCode = (code) => { process.exitCode = code; },
@@ -230,7 +261,7 @@ export async function main({
     ["abstract", join(sections, "abstract.tex")],
     ["relatedWork", join(sections, "related-work.tex")],
     ["architecture", join(sections, "architecture.tex")],
-    ["implementation", join(sections, "implementation.tex")],
+    ["implementationAudit", join(repositoryDirectory, "supplementary/implementation-audit.md")],
     ["evaluation", join(sections, "evaluation.tex")],
     ["results", join(sections, "results.tex")],
     ["discussion", join(sections, "discussion.tex")],
@@ -243,6 +274,11 @@ export async function main({
   const values = await Promise.all(names.map(([, path]) => readFile(path, "utf8")));
   const input = Object.fromEntries(names.map(([name], index) => [name, values[index]]));
   const result = validateResearchQualityGates(input);
+  try {
+    result.issues.push(...await verifyVariants(repositoryDirectory));
+  } catch (failure) {
+    result.issues.push(`manuscript variants: verification failed: ${failure.message}`);
+  }
   if (result.issues.length > 0) {
     error("INVALID RESEARCH QUALITY GATES");
     result.issues.forEach((issue) => error(`- ${issue}`));

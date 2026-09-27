@@ -1,0 +1,35 @@
+{
+  "source": "Author-supplied attachments, 2026-09-15",
+  "supplied_manuscript": {
+    "file": "archsync-12page.pdf",
+    "sha256": "2b63b73481833ef38ab5bc162e2c4078ab4cb7d94d15ec50b599c7310b742b68",
+    "use": "Six-author names/order, affiliations, emails and corresponding-author designation; not a replacement for the consolidated scientific content"
+  },
+  "figures": [
+    {
+      "name": "Fig-1",
+      "supplied_svg_sha256": "ce1678a85602454be4464aa75b97a44e0966296f84b562ab38cfae673e767393",
+      "canonical_svg_sha256": "ce1678a85602454be4464aa75b97a44e0966296f84b562ab38cfae673e767393",
+      "pdf_sha256": "772d28240f605a7a93d64a755f9d2eda0f4849d32fc80e329d0c23bae9d24dce",
+      "changes": []
+    },
+    {
+      "name": "Fig-2",
+      "supplied_svg_sha256": "484881cfeb4e013c426dfa216a6f1816679001f2d45811dc92785c7c2e06eff2",
+      "canonical_svg_sha256": "4a465d65a723fc48aba666fd393fea47570abf03eb3bae621d3eefe0b6d2e9b1",
+      "pdf_sha256": "0f3e518624638a558cb81dbc3d862d75c3b77fa399db857c6f07cad7d2be13a7",
+      "changes": [
+        "D1 evidence label: TP/FP/FN + P/R/F1 -> Matched/extra/missed",
+        "P3 evidence label: 571189 files parsed -> 57 / 189 files parsed",
+        "Refresh only these two labels' embedded PNG fallbacks"
+      ]
+    }
+  ],
+  "additional_author_contributions": {
+    "source": "User confirmation in this task: Supervisor, methodologies, reviewer, proofreader",
+    "authors": ["Hoang Nguyen The", "Minh Tam Phan"],
+    "manuscript_wording": "Supervision; Methodology; Writing - review and editing.",
+    "orcid": "Not supplied; no ORCID added",
+    "boundary": "Authorship metadata only; no repository ownership, independent-review approval or governance role is inferred"
+  }
+}

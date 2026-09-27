@@ -7,3 +7,7 @@
 # Preserve the upstream ACM template files byte-for-byte.
 acmart.cls whitespace=-blank-at-eol
 ACM-Reference-Format.bst whitespace=-blank-at-eol
+
+# Preserve the pinned IEEE upstream bytes and its exact typography-only transform.
+vendor/IEEEtran.bst whitespace=-blank-at-eol
+archsync-ieee.bst whitespace=-blank-at-eol

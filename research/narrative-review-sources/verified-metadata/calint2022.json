@@ -1,0 +1,596 @@
+{
+  "citation_key": "calint2022",
+  "record_id": "LIT-0504",
+  "requested_endpoint": "https://api.crossref.org/works/10.1007/978-3-031-10548-7_39",
+  "response_endpoint": "https://api.crossref.org/works/10.1007/978-3-031-10548-7_39",
+  "retrieved_at_utc": "2026-09-14T12:29:36.448606+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "be4fdfd6e4648f6afada0194f435d7b1726cee980c03b17f94c6ac660f4c9b39",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2025,
+            10,
+            4
+          ]
+        ],
+        "date-time": "2025-10-04T08:01:53Z",
+        "timestamp": 1759564913125,
+        "version": "3.40.3"
+      },
+      "publisher-location": "Cham",
+      "reference-count": 22,
+      "publisher": "Springer International Publishing",
+      "isbn-type": [
+        {
+          "type": "print",
+          "value": "9783031105470"
+        },
+        {
+          "type": "electronic",
+          "value": "9783031105487"
+        }
+      ],
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2022,
+                1,
+                1
+              ]
+            ],
+            "date-time": "2022-01-01T00:00:00Z",
+            "timestamp": 1640995200000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.springer.com/tdm"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2022,
+                1,
+                1
+              ]
+            ],
+            "date-time": "2022-01-01T00:00:00Z",
+            "timestamp": 1640995200000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "https://www.springer.com/tdm"
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "link.springer.com"
+        ],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "published-print": {
+        "date-parts": [
+          [
+            2022
+          ]
+        ]
+      },
+      "DOI": "10.1007/978-3-031-10548-7_39",
+      "type": "book-chapter",
+      "created": {
+        "date-parts": [
+          [
+            2022,
+            7,
+            25
+          ]
+        ],
+        "date-time": "2022-07-25T12:04:01Z",
+        "timestamp": 1658750641000
+      },
+      "page": "534-549",
+      "update-policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 1,
+      "title": [
+        "CALint: A Tool for Enforcing the Clean Architecture’s Dependency Rule in Python"
+      ],
+      "prefix": "10.1007",
+      "author": [
+        {
+          "given": "Clevio Orlando",
+          "family": "de Oliveira Junior",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-6501-4305",
+          "authenticated-orcid": false,
+          "given": "Jonathan",
+          "family": "Carvalho",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2063-2959",
+          "authenticated-orcid": false,
+          "given": "Fábio Fagundes",
+          "family": "Silveira",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-8459-7833",
+          "authenticated-orcid": false,
+          "given": "Tiago Silva",
+          "family": "da Silva",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5555-3487",
+          "authenticated-orcid": false,
+          "given": "Eduardo Martins",
+          "family": "Guerra",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "member": "297",
+      "published-online": {
+        "date-parts": [
+          [
+            2022,
+            7,
+            26
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "39_CR1",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Beltrão, A., Farzat, F., Travassos, G.: Technical debt: a clean architecture implementation. In: Anais Estendidos do XI Congresso Brasileiro de Software: Teoria e Prática. SBC, Porto Alegre, RS, Brasil, pp. 131–134 (2020). https://doi.org/10.5753/cbsoft_estendido.2020.14620. https://sol.sbc.org.br/index.php/cbsoft_estendido/article/view/14620",
+          "DOI": "10.5753/cbsoft_estendido.2020.14620"
+        },
+        {
+          "key": "39_CR2",
+          "unstructured": "Bui, D.: Reactive programming and clean architecture in Android development. Metropolia Ammattikorkeakoulu (2017)"
+        },
+        {
+          "key": "39_CR3",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Chen, T.H., et al.: An empirical study on the practice of maintaining object-relational mapping code in Java systems. In: 2016 IEEE/ACM 13th Working Conference on Mining Software Repositories (MSR), pp. 165–176. IEEE (2016)",
+          "DOI": "10.1145/2901739.2901758"
+        },
+        {
+          "key": "39_CR4",
+          "unstructured": "Cockburn, A.: Hexagonal architecture (2005). https://alistair.cockburn.us/hexagonal-architecture/"
+        },
+        {
+          "issue": "3",
+          "key": "39_CR5",
+          "doi-asserted-by": "publisher",
+          "first-page": "319",
+          "DOI": "10.1145/24039.24041",
+          "volume": "9",
+          "author": "J Ferrante",
+          "year": "1987",
+          "unstructured": "Ferrante, J., Ottenstein, K.J., Warren, J.D.: The program dependence graph and its use in optimization. ACM Trans. Program. Lang. Syst. (TOPLAS) 9(3), 319–349 (1987)",
+          "journal-title": "ACM Trans. Program. Lang. Syst. (TOPLAS)"
+        },
+        {
+          "key": "39_CR6",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Fontana, F.A., Pigazzini, I., Roveda, R., Tamburri, D., Zanoni, M., Di Nitto, E.: Arcan: a tool for architectural smells detection. In: 2017 IEEE International Conference on Software Architecture Workshops (ICSAW), pp. 282–285. IEEE (2017)",
+          "DOI": "10.1109/ICSAW.2017.16"
+        },
+        {
+          "key": "39_CR7",
+          "unstructured": "Python Software Foundation: Python language reference, modules (2022). https://docs.python.org/3/tutorial/modules.html"
+        },
+        {
+          "key": "39_CR8",
+          "volume-title": "Refactoring: Improving the Design of Existing Code",
+          "author": "M Fowler",
+          "year": "1999",
+          "unstructured": "Fowler, M.: Refactoring: Improving the Design of Existing Code. Addison-Wesley, Reading (1999)"
+        },
+        {
+          "key": "39_CR9",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "146",
+          "DOI": "10.1007/978-3-642-02351-4_10",
+          "volume-title": "Architectures for Adaptive Software Systems",
+          "author": "J Garcia",
+          "year": "2009",
+          "unstructured": "Garcia, J., Popescu, D., Edwards, G., Medvidovic, N.: Toward a catalogue of architectural bad smells. In: Mirandola, R., Gorton, I., Hofmeister, C. (eds.) QoSA 2009. LNCS, vol. 5581, pp. 146–162. Springer, Heidelberg (2009). https://doi.org/10.1007/978-3-642-02351-4_10"
+        },
+        {
+          "key": "39_CR10",
+          "unstructured": "Giordani, L.: Clean Architectures in Python, 2nd edn. Leanpub (2018). https://leanpub.com/clean-architectures-in-python"
+        },
+        {
+          "key": "39_CR11",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Guo, Y., et al.: Tracking technical debt - an exploratory case study. In: ICSM 2011: Proceedings of the 2011 27th IEEE International Conference on Software Maintenance, pp. 528–531, September 2011. https://doi.org/10.1109/ICSM.2011.6080824",
+          "DOI": "10.1109/ICSM.2011.6080824"
+        },
+        {
+          "key": "39_CR12",
+          "unstructured": "Heumsi: Python clean architecture example (2020). https://github.com/heumsi/python-clean-architecture-example"
+        },
+        {
+          "key": "39_CR13",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Hotta, K., Higo, Y., Kusumoto, S.: Identifying, tailoring, and suggesting form template method refactoring opportunities with program dependence graph. In: 2012 16th European Conference on Software Maintenance and Reengineering, pp. 53–62. IEEE (2012)",
+          "DOI": "10.1109/CSMR.2012.16"
+        },
+        {
+          "key": "39_CR14",
+          "unstructured": "Louden, K.C.: Compiler Construction. Cengage Learning, Boston (1997)"
+        },
+        {
+          "key": "39_CR15",
+          "unstructured": "Martin, R.C.: Clean Architecture: A Craftsman’s Guide to Software Structure and Design. Robert C. Martin Series. Prentice Hall, Boston (2017). https://www.safaribooksonline.com/library/view/clean-architecture-a/9780134494272/"
+        },
+        {
+          "key": "39_CR16",
+          "unstructured": "Microsoft:net microservices - architecture e-book (2021). https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design"
+        },
+        {
+          "key": "39_CR17",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Milojkovic, N., Ghafari, M., Nierstrasz, O.: It’s duck (typing) season! In: 2017 IEEE/ACM 25th International Conference on Program Comprehension (ICPC), pp. 312–315. IEEE (2017)",
+          "DOI": "10.1109/ICPC.2017.10"
+        },
+        {
+          "issue": "1",
+          "key": "39_CR18",
+          "first-page": "23",
+          "volume": "1",
+          "author": "M Prajapati",
+          "year": "2019",
+          "unstructured": "Prajapati, M., et al.: ASP.NET MVC-generic repository pattern and unit of work. Int. J. All Res. Writ. 1(1), 23–30 (2019)",
+          "journal-title": "Int. J. All Res. Writ."
+        },
+        {
+          "key": "39_CR19",
+          "unstructured": "Razina, E., Janzen, D.S.: Effects of dependency injection on maintainability. In: Proceedings of the 11th IASTED International Conference on Software Engineering and Applications, Cambridge, MA, p. 7 (2007)"
+        },
+        {
+          "key": "39_CR20",
+          "unstructured": "Rhodes, B.: The clean architecture in Python (2014). https://archive.org/details/pyvideo_2840___The_Clean_Architecture_in_Python"
+        },
+        {
+          "key": "39_CR21",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Rizzi, L., Fontana, F.A., Roveda, R.: Support for architectural smell refactoring. In: Proceedings of the 2nd International Workshop on Refactoring, pp. 7–10 (2018)",
+          "DOI": "10.1145/3242163.3242165"
+        },
+        {
+          "key": "39_CR22",
+          "series-title": "Advances in Intelligent Systems and Computing",
+          "doi-asserted-by": "publisher",
+          "first-page": "251",
+          "DOI": "10.1007/978-3-319-69341-5_23",
+          "volume-title": "Trends and Applications in Software Engineering",
+          "author": "P Velasco-Elizondo",
+          "year": "2018",
+          "unstructured": "Velasco-Elizondo, P., Castañeda-Calvillo, L., García-Fernandez, A., Vazquez-Reyes, S.: Towards detecting MVC architectural smells. In: Mejia, J., Muñoz, M., Rocha, Á., Quiñonez, Y., Calvo-Manzano, J. (eds.) CIMPS 2017. AISC, vol. 688, pp. 251–260. Springer, Cham (2018). https://doi.org/10.1007/978-3-319-69341-5_23"
+        }
+      ],
+      "container-title": [
+        "Lecture Notes in Computer Science",
+        "Computational Science and Its Applications – ICCSA 2022 Workshops"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://link.springer.com/content/pdf/10.1007/978-3-031-10548-7_39",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2022,
+            7,
+            25
+          ]
+        ],
+        "date-time": "2022-07-25T12:11:27Z",
+        "timestamp": 1658751087000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://link.springer.com/10.1007/978-3-031-10548-7_39"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2022
+          ]
+        ]
+      },
+      "ISBN": [
+        "9783031105470",
+        "9783031105487"
+      ],
+      "references-count": 22,
+      "URL": "https://doi.org/10.1007/978-3-031-10548-7_39",
+      "relation": {},
+      "ISSN": [
+        "0302-9743",
+        "1611-3349"
+      ],
+      "issn-type": [
+        {
+          "type": "print",
+          "value": "0302-9743"
+        },
+        {
+          "type": "electronic",
+          "value": "1611-3349"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2022
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "26 July 2022",
+          "order": 1,
+          "name": "first_online",
+          "label": "First Online",
+          "group": {
+            "name": "ChapterHistory",
+            "label": "Chapter History"
+          }
+        },
+        {
+          "value": "ICCSA",
+          "order": 1,
+          "name": "conference_acronym",
+          "label": "Conference Acronym",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "International Conference on Computational Science and Its Applications",
+          "order": 2,
+          "name": "conference_name",
+          "label": "Conference Name",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Malaga",
+          "order": 3,
+          "name": "conference_city",
+          "label": "Conference City",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Spain",
+          "order": 4,
+          "name": "conference_country",
+          "label": "Conference Country",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "2022",
+          "order": 5,
+          "name": "conference_year",
+          "label": "Conference Year",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "4 July 2022",
+          "order": 7,
+          "name": "conference_start_date",
+          "label": "Conference Start Date",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "7 July 2022",
+          "order": 8,
+          "name": "conference_end_date",
+          "label": "Conference End Date",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "iccsa2022",
+          "order": 10,
+          "name": "conference_id",
+          "label": "Conference ID",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "https://iccsa.org/",
+          "order": 11,
+          "name": "conference_url",
+          "label": "Conference URL",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Single-blind",
+          "order": 1,
+          "name": "type",
+          "label": "Type",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "CyberChair 4",
+          "order": 2,
+          "name": "conference_management_system",
+          "label": "Conference Management System",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "279",
+          "order": 3,
+          "name": "number_of_submissions_sent_for_review",
+          "label": "Number of Submissions Sent for Review",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "57",
+          "order": 4,
+          "name": "number_of_full_papers_accepted",
+          "label": "Number of Full Papers Accepted",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "24",
+          "order": 5,
+          "name": "number_of_short_papers_accepted",
+          "label": "Number of Short Papers Accepted",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "20% - The value is computed by the equation \"Number of Full Papers Accepted / Number of Submissions Sent for Review * 100\" and then rounded to a whole number.",
+          "order": 6,
+          "name": "acceptance_rate_of_full_papers",
+          "label": "Acceptance Rate of Full Papers",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "2.6",
+          "order": 7,
+          "name": "average_number_of_reviews_per_paper",
+          "label": "Average Number of Reviews per Paper",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "8.7",
+          "order": 8,
+          "name": "average_number_of_papers_per_reviewer",
+          "label": "Average Number of Papers per Reviewer",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "Yes",
+          "order": 9,
+          "name": "external_reviewers_involved",
+          "label": "External Reviewers Involved",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        },
+        {
+          "value": "285 Workshop submission accepted out of 815 submissions",
+          "order": 10,
+          "name": "additional_info_on_review_process",
+          "label": "Additional Info on Review Process",
+          "group": {
+            "name": "ConfEventPeerReviewInformation",
+            "label": "Peer Review Information (provided by the conference organizers)"
+          }
+        }
+      ]
+    }
+  }
+}

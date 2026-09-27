@@ -1,0 +1,11 @@
+# Downloaded full template archive and examples are local reference caches.
+official/LaTeX-Templates.zip
+template/LaTeX-Templates/*
+!template/LaTeX-Templates/acmart.cls
+!template/LaTeX-Templates/ACM-Reference-Format.bst
+*.blg
+# Local diagnostic runs are not submission sources.
+diagnostic*
+compact-diagnostic.log
+package-extraction-path.txt
+official/*.html

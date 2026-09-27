@@ -174,9 +174,9 @@ for (const id of ["V-RQ1", "V-RQ3", "V-RQ4"]) {
 }
 
 const paperQuestions = [
-  "How accurately can ArchSync reconstruct software architecture components and relationships from TypeScript source code?",
-  "How accurately can ArchSync distinguish no-impact changes, architecture-rule violations, and architecture evolution?",
-  "How accurately can ArchSync localize architectural findings in source code?",
+  "To what extent do model-conditioned graphs and detector signals agree with the declared D1/D2 annotations?",
+  "To what extent do classifications and violated-rule sets agree with declared controlled-case outcomes?",
+  "To what extent do call-site and missing-relation anchor locations agree with declared file/line references at the case level?",
   "Are ArchSync full-repository and Git-diff outputs deterministic and reproducible, and what analysis scope and latency are observed for the cached incremental gate?",
 ];
 for (let index = 0; index < paperQuestions.length; index += 1) {

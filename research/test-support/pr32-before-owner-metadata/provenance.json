@@ -1,0 +1,9 @@
+{
+  "source_commit": "159ea318aa8ab17a499e29462fe2dbb8bcdaa7d0",
+  "purpose": "Exact pre-PR32 documents for replay of immutable published owner-metadata patch; historical test input only",
+  "sha256": {
+    "EXTERNAL-BASELINE-PROTOCOL.md": "209729f3f6456186b63a13bee853967e3e6854dbf8ec3ec0fb7e290a3d142ef4",
+    "statistical-analysis-plan.md": "f5f18000d280ad804ac1c46149fbce38db702dde6650cf68ce9325821c65ff57",
+    "validate-research-quality-gates.mjs": "ff2d868f85467634f7a672ee12eaa9bb4f435d446eb4c71c0fb62b634ba2fe77"
+  }
+}

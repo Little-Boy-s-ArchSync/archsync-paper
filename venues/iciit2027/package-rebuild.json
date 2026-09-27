@@ -1,0 +1,76 @@
+{
+  "archive_sha256": "35dfb02d6d47a0f3b1f3976bd65c451361cb7e9a6a448cf37deefc83977b4ecf",
+  "status": "REBUILD_VERIFIED",
+  "exit_code": 0,
+  "text_matches": [
+    {
+      "file": "iciit2027-review.pdf",
+      "page_text_identical": true
+    },
+    {
+      "file": "iciit2027-compact.pdf",
+      "page_text_identical": true
+    },
+    {
+      "file": "iciit2027-review-anonymous.pdf",
+      "page_text_identical": true
+    },
+    {
+      "file": "iciit2027-compact-anonymous.pdf",
+      "page_text_identical": true
+    },
+    {
+      "file": "iciit2027-supplement.pdf",
+      "page_text_identical": true
+    }
+  ],
+  "method": "extract exact source ZIP into fresh directory and rebuild all five profiles",
+  "validation": {
+    "status": "LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED",
+    "citations": 17,
+    "abstract_metadata_matches": true,
+    "all_six_authors_and_order_match": true,
+    "shared_affiliation_and_email_order_match": true,
+    "author_block_pdf_fonts_verified": true,
+    "author_layout": "owner-requested-centered-shared-affiliation",
+    "default_acm_author_renderer": false,
+    "correspondence_in_author_footnote": true,
+    "evidence_hashes_verified": false,
+    "class_matches_official_archive": true,
+    "bibliography_style_matches_official_archive": true,
+    "pdfs": [
+      {
+        "file": "iciit2027-review.pdf",
+        "pages": 10,
+        "sha256": "414456c0bc7c36a11a8c6c87dc2f0b17593aab0a98777b312ea7d319fd460e22",
+        "bytes": 143561
+      },
+      {
+        "file": "iciit2027-compact.pdf",
+        "pages": 5,
+        "sha256": "74db40ae77a2dd57a7193f6f531a404c76e40dd06b0e3ba001b04f8a7878567a",
+        "bytes": 119839
+      },
+      {
+        "file": "iciit2027-review-anonymous.pdf",
+        "pages": 10,
+        "sha256": "46a802160a4973ae7941d836d22775e928e2f1cc7b5599358ebaa29f9a84761c",
+        "bytes": 129088
+      },
+      {
+        "file": "iciit2027-compact-anonymous.pdf",
+        "pages": 5,
+        "sha256": "9e24e8da53fc68a204d242798d8efd2d4a607dbbfe310aa71f37a7f7e82093d0",
+        "bytes": 104828
+      },
+      {
+        "file": "iciit2027-supplement.pdf",
+        "pages": 3,
+        "sha256": "04483884dd293cc11882ea45b3cf61b61dffdb88a3f9e7c5b8ba4cd4c39d0990",
+        "bytes": 60587
+      }
+    ],
+    "visual_review": "separate review required",
+    "submission_authorization": false
+  }
+}

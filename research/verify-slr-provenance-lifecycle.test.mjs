@@ -12,7 +12,7 @@ import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mj
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 import { REVIEW_CHECKLIST, REVIEWER_NAME, REVIEWER_ORCID, REVIEWER_OPERATOR_LOGIN, SIGNED_REVIEW_PATHS } from "./verify-slr-signed-attestation.mjs";
 import { LOCK_PATHS } from "./validate-slr-103-codebook-lock.mjs";
-import { gitEvidence, main, verifySlrProvenanceLifecycle } from "./verify-slr-provenance-lifecycle.mjs";
+import { gitEvidence, main, verifyMechanicalFreeze, verifySlrProvenanceLifecycle } from "./verify-slr-provenance-lifecycle.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const repo = "Little-Boy-s-ArchSync/archsync-paper";
@@ -118,6 +118,22 @@ async function fixture(t) {
 }
 const invalid = (result, pattern) => { assert.ok(result.issues.length > 0); assert.match(result.issues.join("\n"), pattern); };
 
+test("actual PR26 mechanical freeze replays its original disclosure contract without rewriting evidence", async () => {
+  const git = gitEvidence(root);
+  const reviewed = "1d84bc58614eeec0d9cc469276d3f362d697deec";
+  const freeze = "8d61423b20fbff136a79cf183723b96dedc0a3e6";
+  const record = (await git.read(freeze, recordPath)).toString();
+  assert.ok(record.includes(reviewed));
+  await verifyMechanicalFreeze(git, reviewed, freeze, record);
+});
+
+test("manuscript reporting amendments preserve the actual signed decision and RQ narrative blobs", async () => {
+  const git = gitEvidence(root);
+  for (const path of ["research/decision-log.md", "research/RQ-TRACEABILITY.md"]) {
+    assert.deepEqual(await readFile(join(root, path)), await git.read("8d61423b20fbff136a79cf183723b96dedc0a3e6", path), `${path} is immutable; keep post-hoc manuscript notes separately`);
+  }
+});
+
 async function mainPhaseSyncFixture(t) {
   const f = await fixture(t);
   f.run("switch", "-c", "phase-correction", f.merged);
@@ -166,16 +182,18 @@ test("real Git merge history permits PR32-style proposed owner metadata and pres
   // Exact public PR32 delta from 159ea31 to 287ca6b, applied to synthetic history.
   const patchPath = join(root, "research/test-support/pr32-owner-metadata.patch");
   assert.equal(digest(await readFile(patchPath)), "54fdaca35b2b76bb5d7b82f31f00237c8b95ec53ae20d900b949fe1d00ea1e25");
-  try {
-    f.run("apply", "--check", patchPath);
-  } catch {
-    // Once PR32 itself is the checkout (and after it reaches main), the fixture
-    // source already contains this exact delta. Reconstruct and commit its
-    // pre-PR32 state before replaying the immutable public patch below.
-    f.run("apply", "--reverse", "--check", patchPath);
-    f.run("apply", "--reverse", patchPath);
-    f.commit("Reconstruct pre-PR32 owner metadata");
+  // Replay against retained pre-PR32 bytes, not evolving proposed protocols.
+  // This preserves the public patch and its digest after later protocol revisions.
+  const historicalRoot = join(root, "research/test-support/pr32-before-owner-metadata");
+  const historical = JSON.parse(await readFile(join(historicalRoot, "provenance.json"), "utf8"));
+  assert.equal(historical.source_commit, "159ea318aa8ab17a499e29462fe2dbb8bcdaa7d0");
+  for (const [name, hash] of Object.entries(historical.sha256)) {
+    const bytes = await readFile(join(historicalRoot, name));
+    assert.equal(digest(bytes), hash, name);
+    await writeFile(join(f.directory, "research", name), bytes);
   }
+  f.commit("Restore exact pre-PR32 test inputs");
+  f.run("apply", "--check", patchPath);
   f.run("apply", patchPath);
   const current = f.commit("Apply exact published PR32 owner metadata patch");
   f.currentPull.head.sha = current; f.currentPull.merge_commit_sha = current; f.environment.SLR_CURRENT_COMMIT = current;
@@ -340,7 +358,7 @@ test("exact accepted review, pagination, unresolved changes and API failure are 
 
 test("tampered original records, keys, signatures, attestations and frozen methods cannot inherit approval", async (t) => {
   const f = await fixture(t);
-  for (const path of [recordPath, ...Object.values(SIGNED_REVIEW_PATHS), "research/literature-protocol.md", "research/literature-sentinel-recall.csv", "research/evidence/slr-new-method.json"]) {
+  for (const path of [recordPath, ...Object.values(SIGNED_REVIEW_PATHS), "research/literature-protocol.md", "research/literature-sentinel-recall.csv", "research/evidence/slr-new-method.json", "research/decision-log.md", "research/RQ-TRACEABILITY.md"]) {
     f.run("checkout", "--detach", f.current);
     await f.change(path, "Tampered administrative assertion\n");
     invalid(await f.verify(), /invalid original freeze PR|frozen method\/evidence changed/);

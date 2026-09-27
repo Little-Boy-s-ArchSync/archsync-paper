@@ -1,0 +1,15 @@
+{
+  "program": "git",
+  "args": [
+    "apply",
+    "--unsafe-paths",
+    "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper-andy-temp-branch/research/experiments/d1-dependency-cruiser-20260915/inputs/order-platform/changes/case-06.patch"
+  ],
+  "cwd": "/Users/andytran/Coding/Little Boy's/acsidan/archsync-paper-andy-temp-branch/research/experiments/d1-dependency-cruiser-20260915/work/case-06",
+  "elapsed_ms": 8.056875000000218,
+  "exit_code": 0,
+  "signal": null,
+  "error": null,
+  "stdout": "",
+  "stderr": ""
+}

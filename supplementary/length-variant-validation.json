@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "format": "IEEE conference; working length variants, venue not selected",
+  "variants": [
+    {
+      "file": "archsync-8page",
+      "pages": 8,
+      "citations": 25,
+      "labels": 6,
+      "pdf_sha256": "319a418ed416d40cd5cf127866e9aa8b23216e01f079eae084befd302a8970b5",
+      "source_sha256": "5bb5da7e8610bd50f8812a858ab515e43a36fa35fb45275bd464cf781e876b46"
+    },
+    {
+      "file": "archsync-12page",
+      "pages": 12,
+      "citations": 25,
+      "labels": 7,
+      "pdf_sha256": "769e1a9acdbe68a51948cbd02d72d3824e030835c30315cb3252b67808475c8a",
+      "source_sha256": "d9aec34e95a227ede6be6f06b5fc73027e3e4bbbbc328aa35956ac4a8faefd51"
+    }
+  ]
+}

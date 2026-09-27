@@ -1,0 +1,555 @@
+{
+  "citation_key": "thermofisher2025",
+  "record_id": "LIT-0643",
+  "requested_endpoint": "https://api.crossref.org/works/10.1007/978-3-032-04207-1_25",
+  "response_endpoint": "https://api.crossref.org/works/10.1007/978-3-032-04207-1_25",
+  "retrieved_at_utc": "2026-09-14T12:29:36.889135+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "19782348f354046280179e402c43987e8370dbddf57312c1931a0f025d86514e",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            8,
+            15
+          ]
+        ],
+        "date-time": "2026-08-15T17:01:50Z",
+        "timestamp": 1786813310683,
+        "version": "build-2736575974"
+      },
+      "publisher-location": "Cham",
+      "reference-count": 28,
+      "publisher": "Springer Nature Switzerland",
+      "isbn-type": [
+        {
+          "value": "9783032042064",
+          "type": "print"
+        },
+        {
+          "value": "9783032042071",
+          "type": "electronic"
+        }
+      ],
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2025,
+                9,
+                9
+              ]
+            ],
+            "date-time": "2025-09-09T00:00:00Z",
+            "timestamp": 1757376000000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2025,
+                9,
+                9
+              ]
+            ],
+            "date-time": "2025-09-09T00:00:00Z",
+            "timestamp": 1757376000000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "link.springer.com"
+        ],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "published-print": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "DOI": "10.1007/978-3-032-04207-1_25",
+      "type": "book-chapter",
+      "created": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ],
+        "date-time": "2025-09-09T03:30:49Z",
+        "timestamp": 1757388649000
+      },
+      "page": "372-389",
+      "update-policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 2,
+      "title": [
+        "Lessons from Visualizing Software Architecture Structure Conformance at Thermo Fisher Scientific"
+      ],
+      "prefix": "10.1007",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0009-0009-3654-4935",
+          "authenticated-orcid": false,
+          "given": "Filip",
+          "family": "Zamfirov",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Andrei",
+          "family": "Radulescu",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-0283-248X",
+          "authenticated-orcid": false,
+          "given": "Jacob",
+          "family": "Krüger",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-7517-6666",
+          "authenticated-orcid": false,
+          "given": "Michel R. V.",
+          "family": "Chaudron",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "297",
+      "published-online": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "25_CR1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Azadi, U., Fontana, F.A., Taibi, D.: Architectural smells detected by tools: a catalogue proposal. In: TechDebt (2019)",
+          "DOI": "10.1109/TechDebt.2019.00027"
+        },
+        {
+          "key": "25_CR2",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Dams, D., Mooij, A., Kramer, P., Rădulescu, A., Vaňhara, J.: Model-based software restructuring: lessons from cleaning up COM interfaces in industrial legacy code. In: SANER. IEEE (2018)",
+          "DOI": "10.1109/SANER.2018.8330258"
+        },
+        {
+          "key": "25_CR3",
+          "unstructured": "Fontana, F.A., Locatelli, F., Pigazzini, I., Mereghetti, P.: An architectural smell evaluation in an industrial context. In: ICSEA. IARIA (2020)"
+        },
+        {
+          "key": "25_CR4",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Fontana, F.A., Pigazzini, I., Roveda, R., Tamburri, D., Zanoni, M., Di Nitto, E.: Arcan: a tool for architectural smells detection. In: ICSAW. IEEE (2017)",
+          "DOI": "10.1109/ICSAW.2017.16"
+        },
+        {
+          "key": "25_CR5",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Gnoyke, P., Schulze, S., Krüger, J.: On developing and improving tools for architecture-smell tracking in Java systems. In: SCAM. IEEE (2023)",
+          "DOI": "10.1109/SCAM59687.2023.00034"
+        },
+        {
+          "key": "25_CR6",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Gnoyke, P., Schulze, S., Krüger, J.: Evolution patterns of software-architecture smells: an empirical study of intra- and inter-version smells. J. Syst. Softw. (2024)",
+          "DOI": "10.2139/ssrn.4693779"
+        },
+        {
+          "key": "25_CR7",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Groot, T., Ochoa Venegas, L., Lazăr, B., Krüger, J.: A catalog of unintended software dependencies in multi-lingual systems at ASML. In: ICSE-SEIP. ACM (2024)",
+          "DOI": "10.1145/3639477.3639725"
+        },
+        {
+          "key": "25_CR8",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "1",
+          "DOI": "10.1007/978-3-540-89437-7_1",
+          "volume-title": "Software-Intensive Systems and New Computing Paradigms",
+          "author": "M Hölzl",
+          "year": "2008",
+          "unstructured": "Hölzl, M., Rauschmayer, A., Wirsing, M.: Engineering of software-intensive systems: state of the art and research challenges. In: Wirsing, M., Banâtre, J.-P., Hölzl, M., Rauschmayer, A. (eds.) Software-Intensive Systems and New Computing Paradigms. LNCS, vol. 5380, pp. 1–44. Springer, Heidelberg (2008). https://doi.org/10.1007/978-3-540-89437-7_1"
+        },
+        {
+          "key": "25_CR9",
+          "unstructured": "ISO/IEC/IEEE: Systems and software engineering–architecture description. Technical report. ISO/IEC/IEEE 42010: 2011 (E)(Revision of ISO/IEC 42010: 2007 and IEEE Std 1471-2000), ISO/IEC/IEEE (2011)"
+        },
+        {
+          "key": "25_CR10",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Kakkenberg, R., Rukmono, S.A., Chaudron, M.R.V., Gerholt, W., Pinto, M., de Oliveira, C.R.: Arvisan: an interactive tool for visualisation and analysis of low-code architecture landscapes. In: MODELS. ACM (2024)",
+          "DOI": "10.1145/3652620.3688331"
+        },
+        {
+          "key": "25_CR11",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Kakkenberg, R., Zamfirov, F.: Software-analytics-visualisation-team/Arvisan- backend: Arvisan backend v1.0.0, July 2025. https://doi.org/10.5281/zenodo.15848517",
+          "DOI": "10.5281/zenodo.15848517"
+        },
+        {
+          "key": "25_CR12",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Kakkenberg, R., Zamfirov, F.: Software-analytics-visualisation-team/Arvisan- frontend: Arvisan frontend v1.0.0, July 2025. https://doi.org/10.5281/zenodo.15848538",
+          "DOI": "10.5281/zenodo.15848538"
+        },
+        {
+          "issue": "6",
+          "key": "25_CR13",
+          "doi-asserted-by": "publisher",
+          "first-page": "42",
+          "DOI": "10.1109/52.469759",
+          "volume": "12",
+          "author": "PB Kruchten",
+          "year": "1995",
+          "unstructured": "Kruchten, P.B.: The 4+ 1 view model of architecture. IEEE Softw. 12(6), 42–50 (1995)",
+          "journal-title": "IEEE Softw."
+        },
+        {
+          "key": "25_CR14",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Krüger, J., Hebig, R.: What developers (care to) recall: an interview survey on smaller systems. In: ICSME. IEEE (2020)",
+          "DOI": "10.1109/ICSME46990.2020.00015"
+        },
+        {
+          "key": "25_CR15",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Krüger, J., Hebig, R.: To memorize or to document: a survey of developers’ views on knowledge availability. In: Kadgien, R., Jedlitschka, A., Janes, A., Lenarduzzi, V., Li, X. (eds.) PROFES 2023. LNCS, vol. 14483, pp. 39–56. Springer, Cham (2024). https://doi.org/10.1007/978-3-031-49266-2_3",
+          "DOI": "10.1007/978-3-031-49266-2_3"
+        },
+        {
+          "key": "25_CR16",
+          "doi-asserted-by": "publisher",
+          "first-page": "335",
+          "DOI": "10.1007/978-81-322-2553-9_32",
+          "volume-title": "Emerging Research in Computing, Information, Communication and Applications",
+          "author": "N Kumar",
+          "year": "2016",
+          "unstructured": "Kumar, N.: Software architecture validation methods, tools support and case studies. In: Shetty, N.R., Prasad, N.H., Nalini, N. (eds.) Emerging Research in Computing, Information, Communication and Applications, pp. 335–345. Springer, New Delhi (2016). https://doi.org/10.1007/978-81-322-2553-9_32"
+        },
+        {
+          "key": "25_CR17",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Li, R., Liang, P., Soliman, M., Avgeriou, P.: Understanding software architecture erosion: a systematic mapping study. J. Softw. Evol. Process (2022)",
+          "DOI": "10.1002/smr.2423"
+        },
+        {
+          "key": "25_CR18",
+          "unstructured": "Martin, R.: OO design quality metrics: an analysis of dependencies (1994)"
+        },
+        {
+          "key": "25_CR19",
+          "series-title": "Lecture Notes in Computer Science",
+          "doi-asserted-by": "publisher",
+          "first-page": "320",
+          "DOI": "10.1007/978-3-030-00761-4_21",
+          "volume-title": "Software Architecture",
+          "author": "A Martini",
+          "year": "2018",
+          "unstructured": "Martini, A., Fontana, F.A., Biaggi, A., Roveda, R.: Identifying and prioritizing architectural debt through architectural smells: a case study in a large software company. In: Cuesta, C.E., Garlan, D., Pérez, J. (eds.) ECSA 2018. LNCS, vol. 11048, pp. 320–335. Springer, Cham (2018). https://doi.org/10.1007/978-3-030-00761-4_21"
+        },
+        {
+          "key": "25_CR20",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Mo, R., Snipes, W., Cai, Y., Ramaswamy, S., Kazman, R., Naedele, M.: Experiences applying automated architecture analysis tool suites. In: ASE (2018)",
+          "DOI": "10.1145/3238147.3240467"
+        },
+        {
+          "key": "25_CR21",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Perry, D.E., Wolf, A.L.: Foundations for the study of software architecture. ACM SIGSOFT Softw. Eng. Notes (1992)",
+          "DOI": "10.1145/141874.141884"
+        },
+        {
+          "key": "25_CR22",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Rukmono, S.A., Zamfirov, F., Ochoa, L., Chaudron, M.R.V.: From expert to novice: an empirical study on software architecture explanations (2025). https://arxiv.org/abs/2503.08628",
+          "DOI": "10.1007/s10664-025-10782-3"
+        },
+        {
+          "key": "25_CR23",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Runeson, P., Höst, M., Rainer, A., Regnell, B.: Case Study Research in Software Engineering: Guidelines and Examples. Wiley (2012)",
+          "DOI": "10.1002/9781118181034"
+        },
+        {
+          "key": "25_CR24",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Sas, D., Avgeriou, P., Fontana, F.A.: Investigating instability architectural smells evolution: an exploratory case study. In: ICSME. IEEE (2019)",
+          "DOI": "10.1109/ICSME.2019.00090"
+        },
+        {
+          "key": "25_CR25",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Sas, D., Avgeriou, P., Uyumaz, U.: On the evolution and impact of architectural smells—an industrial case study. Empirical Softw. Eng. (2022)",
+          "DOI": "10.1007/s10664-022-10132-7"
+        },
+        {
+          "key": "25_CR26",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Wan, Z., Zhang, Y., Xia, X., Jiang, Y., Lo, D.: Software architecture in practice: challenges and opportunities. In: ESEC/FSE, pp. 1457–1469. ACM (2023)",
+          "DOI": "10.1145/3611643.3616367"
+        },
+        {
+          "key": "25_CR27",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Zamfirov, F.: Software-analytics-visualisation-team/arvisan- dependency-parser: Arvisan dependency parser v1.0.0, July 2025. https://doi.org/10.5281/zenodo.15848528",
+          "DOI": "10.5281/zenodo.15848528"
+        },
+        {
+          "key": "25_CR28",
+          "doi-asserted-by": "publisher",
+          "unstructured": "Zamfirov, F., Andrei, R., Krüger, J., Chaudron, M.: Software subsystem dependencies: anonymized industrial dataset (2025). https://doi.org/10.5281/zenodo.15075337",
+          "DOI": "10.5281/zenodo.15075337"
+        }
+      ],
+      "container-title": [
+        "Lecture Notes in Computer Science",
+        "Software Engineering and Advanced Applications"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://link.springer.com/content/pdf/10.1007/978-3-032-04207-1_25",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2026,
+            8,
+            1
+          ]
+        ],
+        "date-time": "2026-08-01T03:31:21Z",
+        "timestamp": 1785555081000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://link.springer.com/10.1007/978-3-032-04207-1_25"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ]
+      },
+      "ISBN": [
+        "9783032042064",
+        "9783032042071"
+      ],
+      "references-count": 28,
+      "URL": "https://doi.org/10.1007/978-3-032-04207-1_25",
+      "relation": {},
+      "ISSN": [
+        "0302-9743",
+        "1611-3349"
+      ],
+      "issn-type": [
+        {
+          "value": "0302-9743",
+          "type": "print"
+        },
+        {
+          "value": "1611-3349",
+          "type": "electronic"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            9
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "9 September 2025",
+          "order": 1,
+          "name": "first_online",
+          "label": "First Online",
+          "group": {
+            "name": "ChapterHistory",
+            "label": "Chapter History"
+          }
+        },
+        {
+          "value": "Michel R. V. Chaudron and Filip Zamfirov have received funding from Eindhoven University of Technology and Thermo Fisher Scientific through the COMARIC project, which is funded from the Holland High Tech IMPULSE program. Andrei Radulescu works for Thermo Fisher Scientific.",
+          "order": 1,
+          "name": "Ethics",
+          "label": "Disclosure of Interests",
+          "group": {
+            "name": "EthicsHeading",
+            "label": "Ethics"
+          }
+        },
+        {
+          "value": "SEAA",
+          "order": 1,
+          "name": "conference_acronym",
+          "label": "Conference Acronym",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Euromicro Conference on Software Engineering and Advanced Applications",
+          "order": 2,
+          "name": "conference_name",
+          "label": "Conference Name",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Salerno",
+          "order": 3,
+          "name": "conference_city",
+          "label": "Conference City",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "Italy",
+          "order": 4,
+          "name": "conference_country",
+          "label": "Conference Country",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "2025",
+          "order": 5,
+          "name": "conference_year",
+          "label": "Conference Year",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "10 September 2025",
+          "order": 7,
+          "name": "conference_start_date",
+          "label": "Conference Start Date",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "12 September 2025",
+          "order": 8,
+          "name": "conference_end_date",
+          "label": "Conference End Date",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "51",
+          "order": 9,
+          "name": "conference_number",
+          "label": "Conference Number",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "seaa-12025",
+          "order": 10,
+          "name": "conference_id",
+          "label": "Conference ID",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        },
+        {
+          "value": "https://dsd-seaa.com/seaa2025/",
+          "order": 11,
+          "name": "conference_url",
+          "label": "Conference URL",
+          "group": {
+            "name": "ConferenceInfo",
+            "label": "Conference Information"
+          }
+        }
+      ]
+    }
+  }
+}

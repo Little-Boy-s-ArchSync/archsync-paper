@@ -1,0 +1,389 @@
+{
+  "status": "local-development-evidence-not-independent-validation",
+  "repository_HEAD_at_collection": {
+    "archsync-core": "8acf1aceb35e36cfe558bcbeb38f05f3578ba3b6",
+    "archsync-guardian": "13b686877a47b974a34e597ab43c34eace3f58ba",
+    "archsync-benchmark": "3e54bdbe257fbf7067b7d7bce15acd90943010bb"
+  },
+  "note": "Earlier copied source and receipts retain their original analyzer revision. evidence/guardian-0.4 contains the latest local candidate, exact patch, full source archive, and validation receipts. HEAD alone does not include working-tree changes.",
+  "files": [
+    {
+      "path": "evidence/archsync-core/evidence/rigor-2026-09-26/README.md",
+      "source": "archsync-core/evidence/rigor-2026-09-26/README.md",
+      "sha256": "97b07cf3407afd688b112fe21cc1819eaa2f85869db087e477c1219b7e74a3fa",
+      "bytes": 4396
+    },
+    {
+      "path": "evidence/archsync-core/evidence/rigor-2026-09-26/coverage.log",
+      "source": "archsync-core/evidence/rigor-2026-09-26/coverage.log",
+      "sha256": "6d678a6e72a6b1f1aec4a3e6387461ce76c50bf59ab298845a7c5e3af17f6221",
+      "bytes": 2311
+    },
+    {
+      "path": "evidence/archsync-core/evidence/rigor-2026-09-26/typecheck.log",
+      "source": "archsync-core/evidence/rigor-2026-09-26/typecheck.log",
+      "sha256": "be8847f670ba97f7cfbc3b4a11af7b2f1d40ea59c0f37cc0d0118394ce5f0b75",
+      "bytes": 77
+    },
+    {
+      "path": "evidence/archsync-core/evidence/rigor-2026-09-26/mutations/summary.json",
+      "source": "archsync-core/evidence/rigor-2026-09-26/mutations/summary.json",
+      "sha256": "03bd68f86bfd0984f42bbd936db42e00a6e826cdb834296482f32c2a012ca313",
+      "bytes": 3907
+    },
+    {
+      "path": "evidence/archsync-core/evidence/rigor-2026-09-26/mutations-initial/summary.json",
+      "source": "archsync-core/evidence/rigor-2026-09-26/mutations-initial/summary.json",
+      "sha256": "cae692357aa559f2b5bdeeed7acef43d0b376f0a118bf6e2508f04af6f0114d5",
+      "bytes": 3896
+    },
+    {
+      "path": "evidence/archsync-core/src/conformance-exhaustive.test.ts",
+      "source": "archsync-core/src/conformance-exhaustive.test.ts",
+      "sha256": "cd407e101bcd3d535862e601546129e22091183a1ce42ce9231183178854fadf",
+      "bytes": 5759
+    },
+    {
+      "path": "evidence/archsync-core/scripts/conformance-mutation-audit.mjs",
+      "source": "archsync-core/scripts/conformance-mutation-audit.mjs",
+      "sha256": "23caab603497dbb036e3e892fc3de808807bc6883867edf2b765f1a63607893f",
+      "bytes": 4666
+    },
+    {
+      "path": "evidence/archsync-core/src/conformance.ts",
+      "source": "archsync-core/src/conformance.ts",
+      "sha256": "ceb73388f6d4c2d9b0626fb55db1a66de64a584b61e37a70eaf8dec334ade0c1",
+      "bytes": 17074
+    },
+    {
+      "path": "evidence/archsync-core/package.json",
+      "source": "archsync-core/package.json",
+      "sha256": "96e7c54dc123228886f5b52165434a13ae33c94c1dfdb0ea0be370820023795f",
+      "bytes": 2527
+    },
+    {
+      "path": "evidence/archsync-core/pnpm-lock.yaml",
+      "source": "archsync-core/pnpm-lock.yaml",
+      "sha256": "9f24372d2f62691c0b608520234f05e5315636afff3c7d1bb4f7a35456847974",
+      "bytes": 50373
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/integration-2026-09-26/README.md",
+      "source": "archsync-guardian/evidence/integration-2026-09-26/README.md",
+      "sha256": "aa6671371e3a71d2d73cd0fb4564b6b78ac4b69e5e178f687ac4c9335f5852da",
+      "bytes": 3534
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/integration-2026-09-26/coverage-final.log",
+      "source": "archsync-guardian/evidence/integration-2026-09-26/coverage-final.log",
+      "sha256": "469132019131ac0834adc61b874c9903ca4f6e623eab2efb01769388bfff7dea",
+      "bytes": 7072
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/integration-2026-09-26/d1-final.json",
+      "source": "archsync-guardian/evidence/integration-2026-09-26/d1-final.json",
+      "sha256": "c047a0d50a66dfcf3f6119076727dcfdfcb8ccb8b1d5c37c0751026f9d9c07b9",
+      "bytes": 21264
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/robustness-2026-09-26/ANALYZER.md",
+      "source": "archsync-guardian/evidence/robustness-2026-09-26/ANALYZER.md",
+      "sha256": "648168f674af0652252f0121af76913e3c59da64e9d23641d5f82662bfedaed7",
+      "bytes": 8105
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/robustness-2026-09-26/analyzer-before.txt",
+      "source": "archsync-guardian/evidence/robustness-2026-09-26/analyzer-before.txt",
+      "sha256": "ba6c9f9dc877c5b161df14782cffe89107e75dea9883b4be54cacd8664b88b07",
+      "bytes": 8396
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/robustness-2026-09-26/analyzer-after.txt",
+      "source": "archsync-guardian/evidence/robustness-2026-09-26/analyzer-after.txt",
+      "sha256": "a94d813f4b7b1d012f84a209fde67ecbb721f3069deca4866177ab3a7a98ac36",
+      "bytes": 427
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/robustness-2026-09-26/analyzer-concat-mutation-before.txt",
+      "source": "archsync-guardian/evidence/robustness-2026-09-26/analyzer-concat-mutation-before.txt",
+      "sha256": "fe3f0226c2e8041cd6afddc7e5e5cfe5fc3d8d6ad6bd4a77136ed6cf917347be",
+      "bytes": 7237
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/robustness-2026-09-26/analyzer-concat-mutation-after.txt",
+      "source": "archsync-guardian/evidence/robustness-2026-09-26/analyzer-concat-mutation-after.txt",
+      "sha256": "0c967fec3c6102b0cb62ce93337fb223a61045195a3099b26333d462da7d158a",
+      "bytes": 2150
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/incremental-2026-09-26/README.md",
+      "source": "archsync-guardian/evidence/incremental-2026-09-26/README.md",
+      "sha256": "26bc70c2772b9c6264f84b8290b6b28ec0f9cf4c07f5cae18ee303d9b2f1c53d",
+      "bytes": 4772
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/incremental-2026-09-26/before-fixes-node22.log",
+      "source": "archsync-guardian/evidence/incremental-2026-09-26/before-fixes-node22.log",
+      "sha256": "e34a2eac2f2499e10c5a9c5f2cdce5dcee471041282be1bf7719c205ae2bab6d",
+      "bytes": 11821
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/incremental-2026-09-26/ignored-before-fix.log",
+      "source": "archsync-guardian/evidence/incremental-2026-09-26/ignored-before-fix.log",
+      "sha256": "194afa1ee7bcc53fb4218c98bf27490eaf2bcaa46a48af8f28683ab29c9858a0",
+      "bytes": 3329
+    },
+    {
+      "path": "evidence/archsync-guardian/evidence/incremental-2026-09-26/after-fixes.log",
+      "source": "archsync-guardian/evidence/incremental-2026-09-26/after-fixes.log",
+      "sha256": "59abef6e46d43bbb62f7ab6a3beedd6018998fbaa4635c448df55588cb0cc184",
+      "bytes": 3643
+    },
+    {
+      "path": "evidence/archsync-guardian/src/analyzer.ts",
+      "source": "archsync-guardian/src/analyzer.ts",
+      "sha256": "3c44dae6255417e4319ffc9bedc110a6cf330e51250e2d1d45b47dcabd0052d2",
+      "bytes": 23959
+    },
+    {
+      "path": "evidence/archsync-guardian/src/analyzer-adversarial.test.ts",
+      "source": "archsync-guardian/src/analyzer-adversarial.test.ts",
+      "sha256": "33be63ea63afe173f0141b01c0eceada0919c498b003601f260a905e44250e77",
+      "bytes": 5461
+    },
+    {
+      "path": "evidence/archsync-guardian/src/phase3.ts",
+      "source": "archsync-guardian/src/phase3.ts",
+      "sha256": "2d400e0acdc94d368958275405ff6f33eaa0e5021d389c778fa9f9979a2b2156",
+      "bytes": 23355
+    },
+    {
+      "path": "evidence/archsync-guardian/src/phase3-adversarial.test.ts",
+      "source": "archsync-guardian/src/phase3-adversarial.test.ts",
+      "sha256": "5cdae924f0a34179deb27487173689c5729601e5c3eff0d1ab499a8d4a3d9f5e",
+      "bytes": 8156
+    },
+    {
+      "path": "evidence/archsync-guardian/src/phase3-git.ts",
+      "source": "archsync-guardian/src/phase3-git.ts",
+      "sha256": "621e0644e09412f5b7b0a92cd7b754d8ce759e2f5ff0138245ed7679782e9001",
+      "bytes": 5300
+    },
+    {
+      "path": "evidence/archsync-guardian/src/phase3-git.test.ts",
+      "source": "archsync-guardian/src/phase3-git.test.ts",
+      "sha256": "af03206dd4e4ec95d187447b4949512aa7d7072495cffdd8a4a66f09231113aa",
+      "bytes": 4953
+    },
+    {
+      "path": "evidence/archsync-guardian/package.json",
+      "source": "archsync-guardian/package.json",
+      "sha256": "252b3f3ef875e888e410cc73b6fdbe5337fc61ab6cbfbafc18caf490e31aac09",
+      "bytes": 3698
+    },
+    {
+      "path": "evidence/archsync-guardian/pnpm-lock.yaml",
+      "source": "archsync-guardian/pnpm-lock.yaml",
+      "sha256": "3576b942065191f6c04a3dff98b474a7b09820a794edcc3906083bf4d185cf50",
+      "bytes": 52355
+    },
+    {
+      "path": "evidence/archsync-benchmark/order-platform/changes/case-06.patch",
+      "source": "archsync-benchmark/order-platform/changes/case-06.patch",
+      "sha256": "be6126580a0084b8a52dd0458d70d9c53ae8e84a14e5f61b5f5d4a21dfed2abb",
+      "bytes": 829
+    },
+    {
+      "path": "evidence/archsync-benchmark/order-platform/ground-truth.json",
+      "source": "archsync-benchmark/order-platform/ground-truth.json",
+      "sha256": "5d3ce2976dfcce59796dd58cee60dce51233e0f44fde8c41bd89b013e7f23e92",
+      "bytes": 22782
+    },
+    {
+      "path": "evidence/archsync-benchmark/order-platform/architecture.yaml",
+      "source": "archsync-benchmark/order-platform/architecture.yaml",
+      "sha256": "4987b08851c2cbc55eaa1ba2c4d9ec3bd70480f19cec7aed747aeaeaac3cf4a5",
+      "bytes": 2678
+    },
+    {
+      "path": "evidence/guardian-0.4/README.md",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "bbc67697dd91582d69eaf6f336be747589fdfdd243bbed7c0acb09c427c2863c",
+      "bytes": 2936
+    },
+    {
+      "path": "evidence/guardian-0.4/SHA256SUMS.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "299fe1fd6afeaa492091a9947a249d7c206bc6f3b9d09f0e238274cf38ca2e32",
+      "bytes": 2361
+    },
+    {
+      "path": "evidence/guardian-0.4/after.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "dfa9e9a705fb2aa27e9bdff2f0f375b2daf625aa14ea0ac04db40f8ea79b0620",
+      "bytes": 362
+    },
+    {
+      "path": "evidence/guardian-0.4/before.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "0b5f9a00efa768a302748461f6520e5f86f366c8d71bbba8203adbdd7b6f31c5",
+      "bytes": 6415
+    },
+    {
+      "path": "evidence/guardian-0.4/benchmark.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "c047a0d50a66dfcf3f6119076727dcfdfcb8ccb8b1d5c37c0751026f9d9c07b9",
+      "bytes": 21264
+    },
+    {
+      "path": "evidence/guardian-0.4/benchmark.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "b4c8559a7ca09090322ff8bd63b6370425dd41414c5f1ba8a865ea58ce8f6faf",
+      "bytes": 528
+    },
+    {
+      "path": "evidence/guardian-0.4/coverage.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "f3aa53ce989750de620aeda59a13046f1ce4f317dab435ce986bec36db72a994",
+      "bytes": 6711
+    },
+    {
+      "path": "evidence/guardian-0.4/guardian-changes.patch",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "97c6f34e78bfbcee5659a6207e991f4e2ebfd92f38aeab3fa299d31da3349466",
+      "bytes": 74990
+    },
+    {
+      "path": "evidence/guardian-0.4/guardian-source.tar.gz",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "9acef5a869552da6100ed67bc79910fa74e4b59ff5d21a35ec89a54c202fedbc",
+      "bytes": 600540
+    },
+    {
+      "path": "evidence/guardian-0.4/initial-snapshot-install.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "4331f92ef70a8febdf137fe26ad79ad5ea8995375d1b38241a4cf3c994296a22",
+      "bytes": 358
+    },
+    {
+      "path": "evidence/guardian-0.4/initial-snapshot-validation.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "b512b6649ebb4ae0ce78a1f3832b4c9bb848a3aa0530eae2ea8c7737ed46ca4b",
+      "bytes": 311
+    },
+    {
+      "path": "evidence/guardian-0.4/initial-snapshot-verify.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "596c02e2bc9978abce7058844020500d03fdafc27490394cd4fb544876654eed",
+      "bytes": 8811
+    },
+    {
+      "path": "evidence/guardian-0.4/package-install.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "0996511e8eb4f40d75d6b77595d84fec8421c7162863d0d0a34c7534f69c5060",
+      "bytes": 888
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-2-evidence-before.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "bd7b69ea6ff81988892cdad056b89f61676a163fc19c81541b045e9a2ff86c28",
+      "bytes": 23571
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-2-refresh-final.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "5157c9a04afef3b20731c7c838549a036077445b57cc636dc57d98ca6cdbb87f",
+      "bytes": 99
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-2-refresh.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "5157c9a04afef3b20731c7c838549a036077445b57cc636dc57d98ca6cdbb87f",
+      "bytes": 99
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-3-evidence-before.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "5b370a4edfdb3969260a553da0f8a45a1db8be8a22b58dc39a05ee4e320c9ebe",
+      "bytes": 12401
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-3-refresh-final.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "d82ba1b6c1a9871f63d35bb0471ead50f0e1ecfa393b186ef867f95fbd1eee93",
+      "bytes": 99
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-3-refresh.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "d82ba1b6c1a9871f63d35bb0471ead50f0e1ecfa393b186ef867f95fbd1eee93",
+      "bytes": 99
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-5-evidence-before.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "fe0f7e67de0d321876a2e557e9369f5c579a3f6adaeb751c050b82867706a43a",
+      "bytes": 6625
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-5-refresh-final.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "46b11956ecad8741926104711c6b3c688d5a7fdbc78da428383bd15a4c88138c",
+      "bytes": 99
+    },
+    {
+      "path": "evidence/guardian-0.4/phase-5-refresh.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "46b11956ecad8741926104711c6b3c688d5a7fdbc78da428383bd15a4c88138c",
+      "bytes": 99
+    },
+    {
+      "path": "evidence/guardian-0.4/snapshot-install.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "db4f70679971be78c002f8f0c50bcdd273f04e1e3e1fca35852679e9b5812bb1",
+      "bytes": 361
+    },
+    {
+      "path": "evidence/guardian-0.4/snapshot-validation.json",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "38cc43ee7838fba30fb2dd1eb0dad68a57c295eec17faf6938ce5ec0f5af3956",
+      "bytes": 363
+    },
+    {
+      "path": "evidence/guardian-0.4/snapshot-verify.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "b647ea00b23bca15f1c9760e93887f2da9047943e169c47bb185b007d5a32be5",
+      "bytes": 31030
+    },
+    {
+      "path": "evidence/guardian-0.4/src/analyzer-adversarial.test.ts",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "e3f0700acc7efa2599191ff1c7e992499edd81cb88c7927ba2d6c19c8b6c77da",
+      "bytes": 6952
+    },
+    {
+      "path": "evidence/guardian-0.4/src/analyzer.ts",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "b04fd26bbc7a0d43fd0b883b11a3b0f81eaa8154b172e1a55191f34654ad1df8",
+      "bytes": 25622
+    },
+    {
+      "path": "evidence/guardian-0.4/src/contracts.ts",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "fd98eaa5f08d5c2238ebcbf7b2b1d4012394e7cf867f924cf568f8dc000fbd74",
+      "bytes": 2764
+    },
+    {
+      "path": "evidence/guardian-0.4/typecheck.log",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "be8847f670ba97f7cfbc3b4a11af7b2f1d40ea59c0f37cc0d0118394ce5f0b75",
+      "bytes": 77
+    },
+    {
+      "path": "evidence/guardian-0.4/validate-snapshot.py",
+      "source": "local validated Guardian 0.4 candidate a568cc918b384d95b5398105b9979a11c431f35e",
+      "sha256": "cdbc10e3c7665a03f57452e514c7639918898eccc500135b2ea3a726dfa8f331",
+      "bytes": 1962
+    }
+  ]
+}

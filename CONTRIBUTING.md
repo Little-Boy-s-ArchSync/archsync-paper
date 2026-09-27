@@ -34,7 +34,7 @@ Không đưa nội dung section trở lại `main.tex`. Dùng `\input`, không d
 | Discussion | `sections/discussion.tex` | Hiếu | Hoàng |
 | Threats to Validity | `sections/threats-to-validity.tex` | Hoàng | Bách |
 | Conclusion | `sections/conclusion.tex` | Hiếu | Kiệt |
-| Named contribution block | `sections/author-information.tex` | Hiếu | Kiệt |
+| Author contribution record (not typeset) | `research/AUTHOR-CONTRIBUTIONS.md` | Hiếu | Kiệt |
 
 Ma trận trên là assignment cho `PAPER-102`, không phải bằng chứng một review đã
 xảy ra. Reviewer phải kiểm tra exact PR head và để lại review được giữ lại trên

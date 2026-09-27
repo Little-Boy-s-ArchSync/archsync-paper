@@ -1,0 +1,10 @@
+WROTE $HOME/Coding/Little Boy's/acsidan/preparation/2026-09-26-write-targets/benchmark.json
+VALID PHASE 2 BENCHMARK order-platform
+- baseline: 5 components, 5 relationships, no-impact
+- full graph nodes: precision 1.000, recall 1.000, F1 1.000
+- full graph edges: precision 1.000, recall 1.000, F1 1.000
+- changed nodes: precision 1.000, recall 1.000, F1 1.000
+- changed edges: precision 1.000, recall 1.000, F1 1.000
+- classification accuracy: 1.000
+- source evidence: file 1.000, exact line 1.000
+- deterministic: 20/20 cases

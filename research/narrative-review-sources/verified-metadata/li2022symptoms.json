@@ -1,0 +1,478 @@
+{
+  "citation_key": "li2022symptoms",
+  "record_id": "LIT-5111",
+  "requested_endpoint": "https://api.crossref.org/works/10.1109/icsa53651.2022.00011",
+  "response_endpoint": "https://api.crossref.org/works/10.1109/icsa53651.2022.00011",
+  "retrieved_at_utc": "2026-09-14T12:29:34.345124+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "342097bb3d0daa98ecdc7308cd643910d873bf7dd0db8fd16946fac41635329d",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            7,
+            25
+          ]
+        ],
+        "date-time": "2026-07-25T16:12:47Z",
+        "timestamp": 1784995967645,
+        "version": "3.55.0"
+      },
+      "reference-count": 44,
+      "publisher": "IEEE",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2022,
+                3,
+                1
+              ]
+            ],
+            "date-time": "2022-03-01T00:00:00Z",
+            "timestamp": 1646092800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-029"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2022,
+                3,
+                1
+              ]
+            ],
+            "date-time": "2022-03-01T00:00:00Z",
+            "timestamp": 1646092800000
+          },
+          "content-version": "stm-asf",
+          "delay-in-days": 0,
+          "URL": "https://doi.org/10.15223/policy-037"
+        }
+      ],
+      "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "published-print": {
+        "date-parts": [
+          [
+            2022,
+            3
+          ]
+        ]
+      },
+      "DOI": "10.1109/icsa53651.2022.00011",
+      "type": "proceedings-article",
+      "created": {
+        "date-parts": [
+          [
+            2022,
+            5,
+            24
+          ]
+        ],
+        "date-time": "2022-05-24T19:48:32Z",
+        "timestamp": 1653421712000
+      },
+      "page": "24-35",
+      "source": "Crossref",
+      "is-referenced-by-count": 12,
+      "title": [
+        "Symptoms of Architecture Erosion in Code Reviews: A Study of Two OpenStack Projects"
+      ],
+      "prefix": "10.1109",
+      "author": [
+        {
+          "given": "Ruiyin",
+          "family": "Li",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Wuhan University,School of Computer Science,Wuhan,China"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mohamed",
+          "family": "Soliman",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Groningen,Department of Mathematics and Computing Science,Groningen,The Netherlands"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Peng",
+          "family": "Liang",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Wuhan University,School of Computer Science,Wuhan,China"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Paris",
+          "family": "Avgeriou",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Groningen,Department of Mathematics and Computing Science,Groningen,The Netherlands"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "263",
+      "reference": [
+        {
+          "key": "ref39",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1023/A:1020557525901"
+        },
+        {
+          "key": "ref38",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2021.111035"
+        },
+        {
+          "key": "ref33",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1177/001316446002000104"
+        },
+        {
+          "key": "ref32",
+          "article-title": "Determining sample size",
+          "author": "israel",
+          "year": "1992",
+          "journal-title": "Fact Sheet PEOD-6"
+        },
+        {
+          "key": "ref31",
+          "author": "tan",
+          "year": "2016",
+          "journal-title": "Introduction to Data Mining"
+        },
+        {
+          "key": "ref30",
+          "first-page": "421",
+          "article-title": "Natural language processing with Python: Analyzing text with the natural language toolkit",
+          "volume": "44",
+          "author": "bird",
+          "year": "2010",
+          "journal-title": "Language Resources and Evaluation"
+        },
+        {
+          "key": "ref37",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICSM.2005.89"
+        },
+        {
+          "key": "ref36",
+          "article-title": "Understanding Statistics in the Behavioral Sciences",
+          "author": "pagano",
+          "year": "2012",
+          "journal-title": "Cengage Learning"
+        },
+        {
+          "key": "ref35",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1080/01621459.1972.10481251"
+        },
+        {
+          "key": "ref34",
+          "author": "shull",
+          "year": "2007",
+          "journal-title": "Guide to Advanced Empirical Software Engineering"
+        },
+        {
+          "key": "ref10",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10664-017-9515-3"
+        },
+        {
+          "key": "ref40",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICSME46990.2020.00055"
+        },
+        {
+          "key": "ref11",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/3129790.3129808"
+        },
+        {
+          "key": "ref12",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TechDebt.2019.00027"
+        },
+        {
+          "key": "ref13",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2020.110885"
+        },
+        {
+          "key": "ref14",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICSE.2013.6606617"
+        },
+        {
+          "key": "ref15",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/SANER.2015.7081827"
+        },
+        {
+          "key": "ref16",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2019.2912113"
+        },
+        {
+          "key": "ref17",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/smr.2423"
+        },
+        {
+          "key": "ref18",
+          "article-title": "Replication Package for the Paper: Symptoms of Architecture Erosion in Code Reviews: A Study of Two OpenStack Projects",
+          "author": "li",
+          "year": "2021"
+        },
+        {
+          "key": "ref19",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1147/sj.153.0182"
+        },
+        {
+          "key": "ref28",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.5381/jot.2013.12.2.a1"
+        },
+        {
+          "key": "ref4",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2011.07.036"
+        },
+        {
+          "key": "ref27",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ISSRE.2019.00042"
+        },
+        {
+          "key": "ref3",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2021.3060068"
+        },
+        {
+          "key": "ref6",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/WICSA.2016.37"
+        },
+        {
+          "key": "ref29",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/2635868.2635880"
+        },
+        {
+          "key": "ref5",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICSA.2018.00027"
+        },
+        {
+          "key": "ref8",
+          "first-page": "597",
+          "article-title": "Design principles and design patterns",
+          "volume": "1",
+          "author": "martin",
+          "year": "2000",
+          "journal-title": "Object Mentor"
+        },
+        {
+          "key": "ref7",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/CSMR.2012.35"
+        },
+        {
+          "key": "ref2",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICPC52881.2021.00037"
+        },
+        {
+          "key": "ref9",
+          "first-page": "133",
+          "article-title": "A four method framework for fighting software architecture erosion",
+          "volume": "9",
+          "author": "ayyaz",
+          "year": "2015",
+          "journal-title": "International Journal of Computer Control Quantum and Information Engineering"
+        },
+        {
+          "key": "ref1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/141874.141884"
+        },
+        {
+          "key": "ref20",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/2597073.2597082"
+        },
+        {
+          "key": "ref22",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/MSR.2015.21"
+        },
+        {
+          "key": "ref21",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/3183519.3183525"
+        },
+        {
+          "key": "ref24",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/SANER.2015.7081878"
+        },
+        {
+          "key": "ref42",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-642-29044-2"
+        },
+        {
+          "key": "ref41",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10664-020-09847-2"
+        },
+        {
+          "key": "ref23",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/WICSA.2016.15"
+        },
+        {
+          "key": "ref44",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICSME.2016.65"
+        },
+        {
+          "key": "ref26",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ICPC52881.2021.00038"
+        },
+        {
+          "key": "ref43",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/3379597.3387509"
+        },
+        {
+          "key": "ref25",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/2578128.2578231"
+        }
+      ],
+      "event": {
+        "name": "2022 IEEE 19th International Conference on Software Architecture (ICSA)",
+        "location": "Honolulu, HI, USA",
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              3,
+              12
+            ]
+          ]
+        },
+        "end": {
+          "date-parts": [
+            [
+              2022,
+              3,
+              15
+            ]
+          ]
+        }
+      },
+      "container-title": [
+        "2022 IEEE 19th International Conference on Software Architecture (ICSA)"
+      ],
+      "original-title": [],
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx7/9779678/9779679/09779696.pdf?arnumber=9779696",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2022,
+            6,
+            27
+          ]
+        ],
+        "date-time": "2022-06-27T21:12:17Z",
+        "timestamp": 1656364337000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://ieeexplore.ieee.org/document/9779696/"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2022,
+            3
+          ]
+        ]
+      },
+      "references-count": 44,
+      "URL": "https://doi.org/10.1109/icsa53651.2022.00011",
+      "relation": {},
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2022,
+            3
+          ]
+        ]
+      }
+    }
+  }
+}

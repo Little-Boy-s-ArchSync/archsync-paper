@@ -36,6 +36,7 @@ main-anonymous.pdf
 .devcontainer/smoke-challenge.json
 .devcontainer/smoke-evidence.json
 /artifacts/
+/.firecrawl/
 
 # Editor and operating-system files
 .DS_Store

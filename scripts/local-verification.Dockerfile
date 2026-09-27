@@ -8,6 +8,8 @@ COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
-      poppler-utils \
+      poppler-utils python3-venv \
     && rm -rf /var/lib/apt/lists/* \
-    && test "$(node --version)" = "v22.16.0"
+    && test "$(node --version)" = "v22.16.0" \
+    && python3 -m venv /opt/archsync-venue \
+    && /opt/archsync-venue/bin/pip install --no-cache-dir pypdf==6.10.0

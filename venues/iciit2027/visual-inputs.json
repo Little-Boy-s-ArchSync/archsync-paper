@@ -1,0 +1,27 @@
+[
+  {
+    "file": "iciit2027-review.pdf",
+    "pages": 10,
+    "sha256": "4fbb87a8a015a289c0f3ae26e83952922f632c8a0d244d787387067ac1f3aee1"
+  },
+  {
+    "file": "iciit2027-compact.pdf",
+    "pages": 5,
+    "sha256": "cef8a0e926f1e5c773ac3431a20f3ea7618c1255a95bf6cb3e03d1c3eae30287"
+  },
+  {
+    "file": "iciit2027-review-anonymous.pdf",
+    "pages": 10,
+    "sha256": "7a32aa6b7b9e4b6a08efa9df68c80622e844ef16b94eed959c3afe321e64f34d"
+  },
+  {
+    "file": "iciit2027-compact-anonymous.pdf",
+    "pages": 5,
+    "sha256": "856fa60b401f032ddddc6161a21a56dfb285a8a32877a8927537e268f60bc590"
+  },
+  {
+    "file": "iciit2027-supplement.pdf",
+    "pages": 3,
+    "sha256": "440a6d3446bc2483aaad6d115d17598afa082d02853ade0c5ac87f3014a9ebd5"
+  }
+]

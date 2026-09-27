@@ -1,0 +1,1253 @@
+{
+  "citation_key": "sar2024taxonomy",
+  "record_id": "LIT-0268",
+  "requested_endpoint": "https://api.crossref.org/works/10.1002/spe.3364",
+  "response_endpoint": "https://api.crossref.org/works/10.1002/spe.3364",
+  "retrieved_at_utc": "2026-09-14T12:29:35.137289+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "19c4224716c153900bee797a8eb4b731b10f856ff9a97ffab301eb0667e45baf",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            13
+          ]
+        ],
+        "date-time": "2026-01-13T16:23:39Z",
+        "timestamp": 1768321419322,
+        "version": "3.49.0"
+      },
+      "reference-count": 157,
+      "publisher": "Wiley",
+      "issue": "1",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                7,
+                17
+              ]
+            ],
+            "date-time": "2024-07-17T00:00:00Z",
+            "timestamp": 1721174400000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "http://creativecommons.org/licenses/by/4.0/"
+        }
+      ],
+      "funder": [
+        {
+          "DOI": "10.13039/501100001602",
+          "name": "Science Foundation Ireland",
+          "doi-asserted-by": "publisher",
+          "award": [
+            "13/RC/2094 P2"
+          ],
+          "award-info": [
+            {
+              "award-number": [
+                "13/RC/2094 P2"
+              ]
+            }
+          ],
+          "id": [
+            {
+              "id": "10.13039/501100001602",
+              "id-type": "DOI",
+              "asserted-by": "publisher"
+            }
+          ]
+        },
+        {
+          "DOI": "10.13039/501100008530",
+          "name": "European Regional Development Fund",
+          "doi-asserted-by": "publisher",
+          "id": [
+            {
+              "id": "10.13039/501100008530",
+              "id-type": "DOI",
+              "asserted-by": "publisher"
+            }
+          ]
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "onlinelibrary.wiley.com"
+        ],
+        "crossmark-restriction": true
+      },
+      "short-container-title": [
+        "Softw Pract Exp"
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2025,
+            1
+          ]
+        ]
+      },
+      "abstract": "<jats:title>Summary</jats:title><jats:p>Software architecture assists developers in addressing non‐functional requirements and in maintaining, debugging, and upgrading their software systems. Consequently, consistency between the designed architecture and the implemented software system itself is important; without this consistency the non‐functional requirements targeted may not be addressed and architectural documentation may mis‐direct maintenance efforts that target the associated code‐base. But often, when software is initially implemented or subsequently evolved, the designed architecture and software architecture become inconsistent, with the implemented structure degraded due to issues like developer time‐pressures, or ambiguous communication of the designed architecture. In such cases, Software Architecture Recovery (SAR) or consistency approaches can be applied to reconstruct the architecture of the software system and possibly to compare it to/re‐align it with the designed architecture. Many SAR approaches have been proposed in the research. However, choosing an appropriate architecture recovery approach for software systems is still an open issue. Consequently, this research aims to conduct a tertiary‐mapping study based on available secondary studies of architecture recovery approaches, to uncover important characteristics, towards the selection of appropriate SAR approaches. This research has aggregated 13 secondary studies and 10 primary studies beyond 2020 from 5 databases and, in doing so, identified 111 architecture recovery approaches. Based on these approaches, a taxonomy, containing nine main SAR‐selection categories is proposed and a framework (in the form of a supporting tool to help developers select an appropriate SAR approach) has been developed. Finally, this research identifies six potential open research gaps related to the underlying research that could be helpful for guiding research in the future.</jats:p>",
+      "DOI": "10.1002/spe.3364",
+      "type": "journal-article",
+      "created": {
+        "date-parts": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ],
+        "date-time": "2024-07-17T09:48:52Z",
+        "timestamp": 1721209732000
+      },
+      "page": "100-132",
+      "update-policy": "https://doi.org/10.1002/crossmark_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 3,
+      "title": [
+        "A Framework and Taxonomy for Characterizing the Applicability of Software Architecture Recovery Approaches: A Tertiary‐Mapping Study"
+      ],
+      "prefix": "10.1002",
+      "volume": "55",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-3285-2692",
+          "authenticated-orcid": false,
+          "given": "Abdul",
+          "family": "Qayum",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Lero, The Science Foundation Ireland Research Centre for Software, Department of CSIS University of Limerick  Limerick Ireland"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Mengqi",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Lero, The Science Foundation Ireland Research Centre for Software, Department of CSIS University of Limerick  Limerick Ireland"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Simon",
+          "family": "Colreavy",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Lero, The Science Foundation Ireland Research Centre for Software, Department of CSIS University of Limerick  Limerick Ireland"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Muslim",
+          "family": "Chochlov",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Lero, The Science Foundation Ireland Research Centre for Software, Department of CSIS University of Limerick  Limerick Ireland"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Jim",
+          "family": "Buckley",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Lero, The Science Foundation Ireland Research Centre for Software, Department of CSIS University of Limerick  Limerick Ireland"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Dayi",
+          "family": "Lin",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Centre for Software Excellence Huawei  Markham Ontario Canada"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Ashish Rajendra",
+          "family": "Sai",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Computer Science The Open University of the Netherlands  Heerlen The Netherlands"
+            },
+            {
+              "name": "Department of Advanced Computing Sciences Maastricht University  Maastricht The Netherlands"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "member": "311",
+      "published-online": {
+        "date-parts": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "e_1_2_10_2_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TVLSI.2020.2995094"
+        },
+        {
+          "key": "e_1_2_10_3_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GarlanD.Software architecture: a roadmap. Proceedings of the Conference on the Future of Software Engineering.2000;91‐101.",
+          "DOI": "10.1145/336512.336537"
+        },
+        {
+          "key": "e_1_2_10_4_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MedvidovicN TaylorRN.Software architecture: foundations theory and practice. Proceedings of the 32nd ACM/IEEE International Conference on Software Engineering‐Volume 2.2010;471‐472.",
+          "DOI": "10.1145/1810295.1810435"
+        },
+        {
+          "key": "e_1_2_10_5_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ZahidM MehmmodZ InayatI.Evolution in software architecture recovery techniques—a survey. 2017 13th International Conference on Emerging Technologies (ICET). IEEE.2017;1‐6.",
+          "DOI": "10.1109/ICET.2017.8281704"
+        },
+        {
+          "key": "e_1_2_10_6_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1142/9789812798039_0001"
+        },
+        {
+          "key": "e_1_2_10_7_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1049/ip-sen:20045037"
+        },
+        {
+          "key": "e_1_2_10_8_1",
+          "unstructured": "SousaG CastroJF.Supporting separation of concerns in requirements artifacts. WASP'04.2004;11."
+        },
+        {
+          "key": "e_1_2_10_9_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2002.1019479"
+        },
+        {
+          "key": "e_1_2_10_10_1",
+          "unstructured": "ÇatalÇ KarataşG.A systematic mapping study on software architecture recovery.2016 International Conference on Computer Science and Engineering UBMK 2016 Proceedings T.C. Istanbul Kultur University Turkey.2016."
+        },
+        {
+          "key": "e_1_2_10_11_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2011.07.036"
+        },
+        {
+          "key": "e_1_2_10_12_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/spe.999"
+        },
+        {
+          "key": "e_1_2_10_13_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ACCESS.2020.3024671"
+        },
+        {
+          "key": "e_1_2_10_14_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10664-017-9515-3"
+        },
+        {
+          "issue": "12",
+          "key": "e_1_2_10_15_1",
+          "first-page": "144",
+          "article-title": "Software architecture reconstruction method, a survey",
+          "volume": "5",
+          "author": "Nayyar Z",
+          "year": "2014",
+          "journal-title": "Int J Adv Comput Sci Appl"
+        },
+        {
+          "key": "e_1_2_10_16_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "LunguM KuhnA GîrbaT LanzaM.Interactive exploration of semantic clusters. 3rd IEEE International Workshop on Visualizing Software for Understanding and Analysis. IEEE.2005;1‐6.",
+          "DOI": "10.1109/VISSOF.2005.1684313"
+        },
+        {
+          "key": "e_1_2_10_17_1",
+          "volume-title": "The Famoos Oo Reengineering Handbook",
+          "author": "Ducasse S",
+          "year": "1999"
+        },
+        {
+          "key": "e_1_2_10_18_1",
+          "volume-title": "Software Architecture Visualisation",
+          "author": "Hatch A",
+          "year": "2004"
+        },
+        {
+          "key": "e_1_2_10_19_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "WangY LiuP GuoH LiH ChenX.Improved hierarchical clustering algorithm for software architecture recovery. 2010 International Conference on Intelligent Computing and Cognitive Informatics. IEEE.2010;247‐250.",
+          "DOI": "10.1109/ICICCI.2010.45"
+        },
+        {
+          "key": "e_1_2_10_20_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2005.25"
+        },
+        {
+          "key": "e_1_2_10_21_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-642-53917-6_5"
+        },
+        {
+          "key": "e_1_2_10_22_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-540-24769-2_14"
+        },
+        {
+          "key": "e_1_2_10_23_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-540-77619-2_5"
+        },
+        {
+          "key": "e_1_2_10_24_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2009.19"
+        },
+        {
+          "key": "e_1_2_10_25_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1049/ip-sen:20030581"
+        },
+        {
+          "key": "e_1_2_10_26_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/smr.567"
+        },
+        {
+          "key": "e_1_2_10_27_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GarciaJ IvkovicI MedvidovicN.A comparative analysis of software architecture recovery techniques. 2013 28th IEEE/ACM International Conference on Automated Software Engineering (ASE). IEEE.2013;486‐496.",
+          "DOI": "10.1109/ASE.2013.6693106"
+        },
+        {
+          "key": "e_1_2_10_28_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.comcom.2020.12.022"
+        },
+        {
+          "key": "e_1_2_10_29_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "LutellierT ChollakD GarciaJ et al.Comparing software architecture recovery techniques using accurate dependencies. 2015 IEEE/ACM 37th IEEE International Conference on Software Engineering vol. 2. IEEE.2015;69‐78.",
+          "DOI": "10.1109/ICSE.2015.136"
+        },
+        {
+          "key": "e_1_2_10_30_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.infsof.2004.11.005"
+        },
+        {
+          "key": "e_1_2_10_31_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.infsof.2015.03.007"
+        },
+        {
+          "key": "e_1_2_10_32_1",
+          "volume-title": "Guidelines for Performing Systematic Literature Reviews in Software Engineering",
+          "author": "Kitchenham B",
+          "year": "2007"
+        },
+        {
+          "key": "e_1_2_10_33_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.infsof.2010.03.006"
+        },
+        {
+          "key": "e_1_2_10_34_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "WohlinC.Guidelines for snowballing in systematic literature studies and a replication in software engineering. Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering.2014;1‐10.",
+          "DOI": "10.1145/2601248.2601268"
+        },
+        {
+          "key": "e_1_2_10_35_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.21236/ADA343688"
+        },
+        {
+          "key": "e_1_2_10_36_1",
+          "unstructured": "LassingN RijsenbrijD VlietH v.The goal of software architecture analysis: confidence building or risk assessment. Proceedings of First BeNeLux Conference on Software Architecture.1999;47‐57."
+        },
+        {
+          "key": "e_1_2_10_37_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2014.03.071"
+        },
+        {
+          "key": "e_1_2_10_38_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.infsof.2011.06.002"
+        },
+        {
+          "issue": "4",
+          "key": "e_1_2_10_39_1",
+          "first-page": "1",
+          "article-title": "Analysis of current trends in software aging: a literature survey",
+          "volume": "15",
+          "author": "Rahman T",
+          "year": "2022",
+          "journal-title": "Comput Inf Sci"
+        },
+        {
+          "key": "e_1_2_10_40_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MarcusA FengL MaleticJI.3d representations for software visualization. Proceedings of the 2003 ACM Symposium on Software Visualization.2003;27.",
+          "DOI": "10.1145/774833.774837"
+        },
+        {
+          "key": "e_1_2_10_41_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1023/A:1011217720860"
+        },
+        {
+          "key": "e_1_2_10_42_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.cl.2005.09.002"
+        },
+        {
+          "key": "e_1_2_10_43_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "BojicD VelasevicD.A use‐case driven method of architecture recovery for program understanding and reuse reengineering. Proceedings of the Fourth European Conference on Software Maintenance and Reengineering. IEEE.2000;23‐31.",
+          "DOI": "10.1109/CSMR.2000.827302"
+        },
+        {
+          "key": "e_1_2_10_44_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2006.31"
+        },
+        {
+          "key": "e_1_2_10_45_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MurphyGC NotkinD SullivanK.Software reflexion models: bridging the gap between source and high‐level models. Proceedings of the 3rd ACM SIGSOFT Symposium on Foundations of Software Engineering.1995;18‐28.",
+          "DOI": "10.1145/222124.222136"
+        },
+        {
+          "key": "e_1_2_10_46_1",
+          "volume-title": "Lightweight Structural Summarization as an Aid to Software Evolution",
+          "author": "Murphy GC",
+          "year": "1996"
+        },
+        {
+          "key": "e_1_2_10_47_1",
+          "unstructured": "BowmanIT HoltRC.Software architecture recovery using conway's law. Cascon vol. 98. Citeseer.1998;6."
+        },
+        {
+          "key": "e_1_2_10_48_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "BowmanIT HoltRC BrewsterNV.Linux as a case study: its extracted software architecture. Proceedings of the 21st International Conference on Software Engineering.1999;555‐563.",
+          "DOI": "10.1145/302405.302691"
+        },
+        {
+          "key": "e_1_2_10_49_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "KobayashiK KamimuraM KatoK YanoK MatsuoA.Feature‐gathering dependency‐based software clustering using dedication and modularity. 2012 28th IEEE International Conference on Software Maintenance (ICSM). IEEE.2012;462‐471.",
+          "DOI": "10.1109/ICSM.2012.6405308"
+        },
+        {
+          "key": "e_1_2_10_50_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GallH JazayeriM KlöschR LugmayrW TrausmuthG.Architecture recovery in ares. Joint Proceedings of the Second International Software Architecture Workshop (ISAW‐2) and International Workshop on Multiple Perspectives in Software Development (Viewpoints'96) on SIGSOFT'96 Workshops.1996;111‐115.",
+          "DOI": "10.1145/243327.243622"
+        },
+        {
+          "key": "e_1_2_10_51_1",
+          "volume-title": "View‐Based Software Architecture Reconstruction",
+          "author": "Riva C",
+          "year": "2004"
+        },
+        {
+          "key": "e_1_2_10_52_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "LungC‐H.Software architecture recovery and restructuring through clustering techniques. Proceedings of the Third International Workshop on Software Architecture.1998;101‐104.",
+          "DOI": "10.1145/288408.288434"
+        },
+        {
+          "key": "e_1_2_10_53_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-540-24741-8_9"
+        },
+        {
+          "key": "e_1_2_10_54_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "SartipiK.Software architecture recovery based on pattern matching. International Conference on Software Maintenance 2003. ICSM 2003. Proceedings. IEEE.2003;293‐296.",
+          "DOI": "10.1109/ICSM.2003.1235434"
+        },
+        {
+          "key": "e_1_2_10_55_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "CorazzaA Di MartinoS ScannielloG.A probabilistic based approach towards software system clustering. 2010 14th European Conference on Software Maintenance and Reengineering. IEEE.2010;88‐96.",
+          "DOI": "10.1109/CSMR.2010.36"
+        },
+        {
+          "key": "e_1_2_10_56_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2014.07.038"
+        },
+        {
+          "key": "e_1_2_10_57_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "CorazzaA Di MartinoS MaggioV ScannielloG.Investigating the use of lexical information for software system clustering. 2011 15th European Conference on Software Maintenance and Reengineering. IEEE.2011;35‐44.",
+          "DOI": "10.1109/CSMR.2011.8"
+        },
+        {
+          "key": "e_1_2_10_58_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "FavreJ‐M.Cacophony: Metamodel‐driven software architecture reconstruction. 11th Working Conference on Reverse Engineering. IEEE.2004;204‐213.",
+          "DOI": "10.1109/WCRE.2004.15"
+        },
+        {
+          "key": "e_1_2_10_59_1",
+          "unstructured": "WongK MüllerH.Rigi user's manual version 5.4. 4.1998."
+        },
+        {
+          "key": "e_1_2_10_60_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-319-48992-6_24"
+        },
+        {
+          "key": "e_1_2_10_61_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/smr.4360050402"
+        },
+        {
+          "key": "e_1_2_10_62_1",
+          "first-page": "16",
+          "volume-title": "Colloquium on Object Orientation in Databases and Software Engineering",
+          "author": "Hausi A",
+          "year": "1994"
+        },
+        {
+          "key": "e_1_2_10_63_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1023/A:1018916522804"
+        },
+        {
+          "key": "e_1_2_10_64_1",
+          "unstructured": "MancoridisS MitchellBS RorresC ChenY GansnerER.Using automatic clustering to produce high‐level system organizations of source code. Proceedings. 6th International Workshop on Program Comprehension. IWPC'98 (Cat. No. 98TB100242). IEEE.1998;45‐52."
+        },
+        {
+          "key": "e_1_2_10_65_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GarciaJ PopescuD MattmannC MedvidovicN CaiY.Enhancing architectural recovery using concerns. 2011 26th IEEE/ACM International Conference on Automated Software Engineering (ASE 2011). IEEE.2011;552‐555.",
+          "DOI": "10.1109/ASE.2011.6100123"
+        },
+        {
+          "key": "e_1_2_10_66_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2018.12.018"
+        },
+        {
+          "key": "e_1_2_10_67_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1145/3572905"
+        },
+        {
+          "key": "e_1_2_10_68_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "HanssenGK ŠmiteD MoeNB.Signs of agile trends in global software engineering research: a tertiary study. 2011 IEEE Sixth International Conference on Global Software Engineering Workshop. IEEE.2011;17‐23.",
+          "DOI": "10.1109/ICGSE-W.2011.12"
+        },
+        {
+          "key": "e_1_2_10_69_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/ACCESS.2020.2976885"
+        },
+        {
+          "key": "e_1_2_10_70_1",
+          "unstructured": "FranzagoM Di RuscioD MalavoltaI MucciniH.Protocol for a systematic mapping study on collaborative model‐driven software engineering. arXiv preprint arXiv:1611.026192016."
+        },
+        {
+          "key": "e_1_2_10_71_1",
+          "unstructured": "ChenL BabarMA ZhangH.Towards an evidence‐based understanding of electronic data sources. 14th International Conference on Evaluation and Assessment in Software Engineering (EASE).2010;1‐4."
+        },
+        {
+          "key": "e_1_2_10_72_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "NetoGTG SantosWB EndoPT FagundesRA.Multivocal literature reviews in software engineering: preliminary findings from a tertiary study. 2019 ACM/IEEE International Symposium on Empirical Software Engineering and Measurement (ESEM). IEEE.2019;1‐6.",
+          "DOI": "10.1109/ESEM.2019.8870142"
+        },
+        {
+          "key": "e_1_2_10_73_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ZhouY ZhangH HuangX YangS BabarMA TangH.Quality assessment of systematic reviews in software engineering: a tertiary study. Proceedings of the 19th International Conference on Evaluation and Assessment in Software Engineering.2015;1‐14.",
+          "DOI": "10.1145/2745802.2745815"
+        },
+        {
+          "key": "e_1_2_10_74_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ImtiazS BanoM IkramN NiaziM.A tertiary study: experiences of conducting systematic literature reviews in software engineering. Proceedings of the 17th International Conference on Evaluation and Assessment in Software Engineering.2013;177‐182.",
+          "DOI": "10.1145/2460999.2461025"
+        },
+        {
+          "key": "e_1_2_10_75_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "NapoleãoBM FelizardoKR deSouzaÉF et al.Establishing a search string to detect secondary studies in software engineering. 2021 47th Euromicro Conference on Software Engineering and Advanced Applications (SEAA). IEEE.2021;9‐16.",
+          "DOI": "10.1109/SEAA53835.2021.00010"
+        },
+        {
+          "key": "e_1_2_10_76_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.11124/JBIES-20-00167"
+        },
+        {
+          "key": "e_1_2_10_77_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "BushongV DasD Al MarufA CernyT.Using static analysis to address microservice architecture reconstruction. 2021 36th IEEE/ACM International Conference on Automated Software Engineering (ASE). IEEE.2021;1199‐1201.",
+          "DOI": "10.1109/ASE51524.2021.9678749"
+        },
+        {
+          "key": "e_1_2_10_78_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ChenJ WangZ JiangY et al.Negar: network embedding guided architecture recovery for software systems. 2022 29th Asia‐Pacific software engineering conference (APSEC). IEEE.2022;367‐376.",
+          "DOI": "10.1109/APSEC57359.2022.00049"
+        },
+        {
+          "key": "e_1_2_10_79_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ElyasiM SimitciogluME SaydemirA EkiciA SozerH.Hygar: a hybrid genetic algorithm for software architecture recovery. Proceedings of the 37th ACM/SIGAPP Symposium on Applied Computing.2022;1417‐1424.",
+          "DOI": "10.1145/3477314.3507020"
+        },
+        {
+          "key": "e_1_2_10_80_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10515-023-00384-y"
+        },
+        {
+          "key": "e_1_2_10_81_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2023.111754"
+        },
+        {
+          "issue": "8",
+          "key": "e_1_2_10_82_1",
+          "article-title": "Context‐aware expert for software architecture recovery (caesar): an automated approach for recovering software architectures",
+          "volume": "35",
+          "author": "Ibrahim K",
+          "year": "2023",
+          "journal-title": "J King Saud Univ‐Comput Inf Sci"
+        },
+        {
+          "key": "e_1_2_10_83_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ZhangY XuZ LiuC et al.Software architecture recovery with information fusion. Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering.2023;1535‐1547.",
+          "DOI": "10.1145/3611643.3616285"
+        },
+        {
+          "issue": "4",
+          "key": "e_1_2_10_84_1",
+          "first-page": "2013",
+          "article-title": "Ensemble clustering based approach for software architecture recovery",
+          "volume": "14",
+          "author": "Puchala SPR",
+          "year": "2022",
+          "journal-title": "Int J Inf Technol"
+        },
+        {
+          "key": "e_1_2_10_85_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1631/FITEE.2100461"
+        },
+        {
+          "key": "e_1_2_10_86_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "HoffA GerlingL SeidlC.Utilizing software architecture recovery to explore large‐scale software systems in virtual reality. 2022 Working Conference on Software Visualization (VISSOFT). IEEE.2022;119‐130.",
+          "DOI": "10.1109/VISSOFT55257.2022.00020"
+        },
+        {
+          "key": "e_1_2_10_87_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ZhangL ZouY XieB ZhuZ.Recommending relevant projects via user behaviour: an exploratory study on github. Proceedings of the 1st International Workshop on Crowd‐Based Software Development Methods and Technologies.2014;25‐30.",
+          "DOI": "10.1145/2666539.2666570"
+        },
+        {
+          "key": "e_1_2_10_88_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10664-020-09858-z"
+        },
+        {
+          "key": "e_1_2_10_89_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "HealeR TwycrossA.What is a case study?2018;7‐8.",
+          "DOI": "10.1136/eb-2017-102845"
+        },
+        {
+          "key": "e_1_2_10_90_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-540-71301-2_3"
+        },
+        {
+          "key": "e_1_2_10_91_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "PerryDE SimSE EasterbrookS.Case studies for software engineers. Proceedings of the 28th International Conference on Software Engineering.2006;1045‐1046.",
+          "DOI": "10.1145/1134285.1134497"
+        },
+        {
+          "key": "e_1_2_10_92_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1504/IJICBM.2016.074482"
+        },
+        {
+          "key": "e_1_2_10_93_1",
+          "volume-title": "Poster: which Similarity Metric to Use for Software Documents?",
+          "author": "Rahman MM",
+          "year": "2018"
+        },
+        {
+          "key": "e_1_2_10_94_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "SinkalaZT BlomM HeroldS.A mapping study of software architecture recovery for software product lines. Proceedings of the 12th European Conference on Software Architecture: Companion.2018;1‐7.",
+          "DOI": "10.1145/3241403.3241454"
+        },
+        {
+          "key": "e_1_2_10_95_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.infsof.2005.05.007"
+        },
+        {
+          "key": "e_1_2_10_96_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "JavedMA ZdunU.A systematic literature review of traceability approaches between software architecture and source code. Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering.2014;1‐10.",
+          "DOI": "10.1145/2601248.2601278"
+        },
+        {
+          "key": "e_1_2_10_97_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GirardJ‐F KoschkeR.Finding components in a hierarchy of modules: a step towards architectural understanding. 1997 Proceedings International Conference on Software Maintenance. IEEE.1997;58‐65.",
+          "DOI": "10.1109/ICSM.1997.624231"
+        },
+        {
+          "key": "e_1_2_10_98_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "PinzgerM FischerM GallH JazayeriM.Revealer: a lexical pattern matcher for architecture recovery. Ninth Working Conference on Reverse Engineering 2002. Proceedings. IEEE.2002;170‐178.",
+          "DOI": "10.1109/WCRE.2002.1173075"
+        },
+        {
+          "key": "e_1_2_10_99_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GuoGY AtleeJM KazmanR.A software architecture reconstruction method. Software Architecture: TC2 First Working IFIP Conference on Software Architecture (WICSA1) 22–24 February 1999 San Antonio Texas USA. Springer.1999;15‐33.",
+          "DOI": "10.1007/978-0-387-35563-4_2"
+        },
+        {
+          "key": "e_1_2_10_100_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1023/A:1008781513258"
+        },
+        {
+          "key": "e_1_2_10_101_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "KazmanR CarriereSJ.View extraction and view fusion in architectural understanding. Proceedings Fifth International Conference on Software Reuse (Cat. No. 98TB100203). IEEE.1998;290‐299.",
+          "DOI": "10.1109/ICSR.1998.685754"
+        },
+        {
+          "key": "e_1_2_10_102_1",
+          "unstructured": "DingL MedvidovicN.Focus: a light‐weight incremental approach to software architecture recovery and evolution. Proceedings Working IEEE/IFIP Conference on Software Architecture. IEEE.2001;191‐200."
+        },
+        {
+          "key": "e_1_2_10_103_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "HarrisDR ReubensteinHB YehAS.Reverse engineering to the architectural level. Proceedings of the 17th International Conference on Software Engineering.1995;186‐195.",
+          "DOI": "10.1145/225014.225032"
+        },
+        {
+          "key": "e_1_2_10_104_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "YehAS HarrisDR ChaseMP.Manipulating recovered software architecture views. Proceedings of the 19th International Conference on Software Engineering.1997;184‐194.",
+          "DOI": "10.1145/253228.253265"
+        },
+        {
+          "key": "e_1_2_10_105_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "StoermerC O'BrienL.Map‐mining architectures for product line evaluations. Proceedings Working IEEE/IFIP Conference on Software Architecture. IEEE.2001;35‐44.",
+          "DOI": "10.1109/WICSA.2001.948405"
+        },
+        {
+          "key": "e_1_2_10_106_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "StoermerC O'BrienL VerhoefC.Moving towards quality attribute driven software architecture reconstruction. 10th Working Conference on Reverse Engineering 2003. WCRE 2003. Proceedings. IEEE Computer Society.2003;46.",
+          "DOI": "10.1109/WCRE.2003.1287236"
+        },
+        {
+          "key": "e_1_2_10_107_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "PashovI RiebischM.Using feature modeling for program comprehension and software architecture recovery. Proceedings 11th IEEE International Conference and Workshop on the Engineering of Computer‐Based Systems 2004. IEEE.2004;406‐417.",
+          "DOI": "10.1109/ECBS.2004.1316725"
+        },
+        {
+          "key": "e_1_2_10_108_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "LunguM LanzaM GîrbaT.Package patterns for visual architecture recovery. Conference on Software Maintenance and Reengineering (CSMR'06). IEEE.2006;10.",
+          "DOI": "10.1109/CSMR.2006.39"
+        },
+        {
+          "key": "e_1_2_10_109_1",
+          "volume-title": "Archview‐Analyzing Evolutionary Aspects of Complex Software Systems",
+          "author": "Gall HC",
+          "year": "2005"
+        },
+        {
+          "key": "e_1_2_10_110_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.21236/ADA388707"
+        },
+        {
+          "key": "e_1_2_10_111_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "O'BrienL SmithD LewisG.Supporting migration to services using software architecture reconstruction. 13th IEEE International Workshop on Software Technology and Engineering Practice (STEP'05). IEEE.2005;81‐91.",
+          "DOI": "10.1109/STEP.2005.29"
+        },
+        {
+          "issue": "2",
+          "key": "e_1_2_10_112_1",
+          "first-page": "1",
+          "article-title": "Gupro–generic understanding of programs",
+          "volume": "72",
+          "author": "Riediger JEBKV",
+          "year": "2002",
+          "journal-title": "Electron Notes Theor Comput Sci"
+        },
+        {
+          "key": "e_1_2_10_113_1",
+          "volume-title": "Software Architecture Reconstruction",
+          "author": "Krikhaar RL",
+          "year": "1999"
+        },
+        {
+          "key": "e_1_2_10_114_1",
+          "first-page": "12",
+          "volume-title": "Cascon",
+          "author": "Tran JB",
+          "year": "1999"
+        },
+        {
+          "key": "e_1_2_10_115_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Abi‐AntounM.Static extraction and conformance checking of the runtime architecture of object‐oriented systems. Companion to the 23rd ACM SIGPLAN Conference on Object‐Oriented Programming Systems Languages and Applications.2008;911‐912.",
+          "DOI": "10.1145/1449814.1449904"
+        },
+        {
+          "key": "e_1_2_10_116_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "AntoniolG FiutemR CristoforettiL.Using metrics to identify design patterns in object‐oriented software. Proceedings Fifth International Software Metrics Symposium. Metrics (Cat. No. 98TB100262). IEEE.1998;23‐34.",
+          "DOI": "10.1109/METRIC.1998.731224"
+        },
+        {
+          "key": "e_1_2_10_117_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "PinzgerM GallH.Pattern‐supported architecture recovery. Proceedings 10th International Workshop on Program Comprehension. IEEE.2002;53‐61.",
+          "DOI": "10.1109/WPC.2002.1021318"
+        },
+        {
+          "key": "e_1_2_10_118_1",
+          "unstructured": "ChristlA KoschkeR StoreyM‐A.Equipping the reflexion method with automated clustering. 12th Working Conference on Reverse Engineering (WCRE'05). IEEE.2005;10."
+        },
+        {
+          "key": "e_1_2_10_119_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2003.1183929"
+        },
+        {
+          "key": "e_1_2_10_120_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "KoschkeR.Atomic architectural component recovery for program understanding and evolution. International Conference on Software Maintenance 2002. Proceedings. IEEE.2002;478‐481.",
+          "DOI": "10.1109/ICSM.2002.1167807"
+        },
+        {
+          "key": "e_1_2_10_121_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2007.08.025"
+        },
+        {
+          "key": "e_1_2_10_122_1",
+          "unstructured": "MedvidovicN EgyedA GruenbacherP.Stemming architectural erosion by coupling architectural discovery and recovery. Straw vol. 3. Citeseer.2003;61‐68."
+        },
+        {
+          "key": "e_1_2_10_123_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "GustafssonJ PaakkiJ NenonenL VerkamoAI.Architecture‐centric software evolution by software metrics and design patterns. Proceedings of the Sixth European Conference on Software Maintenance and Reengineering. IEEE.2002;108‐115.",
+          "DOI": "10.1109/CSMR.2002.995795"
+        },
+        {
+          "key": "e_1_2_10_124_1",
+          "volume-title": "Static and Dynamic Reverse Engineering Techniques for Java Software Systems",
+          "author": "Systä T",
+          "year": "2000"
+        },
+        {
+          "key": "e_1_2_10_125_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "SystaT YuP MullerH.Analyzing java software by combining metrics and program visualization. Proceedings of the Fourth European Conference on Software Maintenance and Reengineering. IEEE.2000;199‐208.",
+          "DOI": "10.1109/CSMR.2000.827328"
+        },
+        {
+          "key": "e_1_2_10_126_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "NiereJ SchäferW WadsackJP WendehalsL WelshJ.Towards pattern‐based design recovery. Proceedings of the 24th International Conference on Software Engineering.2002;338‐348.",
+          "DOI": "10.1145/581380.581382"
+        },
+        {
+          "key": "e_1_2_10_127_1",
+          "unstructured": "YanH GarlanD SchmerlB AldrichJ KazmanR.Discotect: a system for discovering architectures from running systems. Proceedings. 26th International Conference on Software Engineering. IEEE.2004;470‐479."
+        },
+        {
+          "key": "e_1_2_10_128_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "KnodelJ LindvallM MuthigD NaabM.Static evaluation of software architectures. Conference on Software Maintenance and Reengineering (CSMR'06). IEEE.2006;10.",
+          "DOI": "10.1109/CSMR.2006.53"
+        },
+        {
+          "key": "e_1_2_10_129_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/(SICI)1096-908X(199905/06)11:3<201::AID-SMR192>3.0.CO;2-1"
+        },
+        {
+          "key": "e_1_2_10_130_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "EixelsbergerW OgrisM GallH BellayB.Software architecture recovery of a program family. Proceedings of the 20th International Conference on Software Engineering. IEEE.1998;508‐511.",
+          "DOI": "10.1109/ICSE.1998.671617"
+        },
+        {
+          "key": "e_1_2_10_131_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Van DeursenA HofmeisterC KoschkeR MoonenL RivaC.Symphony: view‐driven software architecture reconstruction. Proceedings. Fourth Working IEEE/IFIP Conference on Software Architecture (WICSA 2004). IEEE.2004;122‐132.",
+          "DOI": "10.1109/WICSA.2004.1310696"
+        },
+        {
+          "key": "e_1_2_10_132_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "KramerC PrecheltL.Design recovery by automated search for structural design patterns in object‐oriented software. Proceedings of WCRE'96: 4rd Working Conference on Reverse Engineering. IEEE.1996;208‐215.",
+          "DOI": "10.1109/WCRE.1996.558905"
+        },
+        {
+          "key": "e_1_2_10_133_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/32.824377"
+        },
+        {
+          "key": "e_1_2_10_134_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10515-006-7738-4"
+        },
+        {
+          "key": "e_1_2_10_135_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/S1571-0661(04)80737-0"
+        },
+        {
+          "key": "e_1_2_10_136_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MaqboolO BabriHA.The weighted combined algorithm: a linkage algorithm for software clustering. Eighth European Conference on Software Maintenance and Reengineering 2004. CSMR 2004. Proceedings. IEEE.2004;15‐24.",
+          "DOI": "10.1109/CSMR.2004.1281402"
+        },
+        {
+          "key": "e_1_2_10_137_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10515-017-0211-8"
+        },
+        {
+          "key": "e_1_2_10_138_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s10586-017-1408-0"
+        },
+        {
+          "key": "e_1_2_10_139_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TSE.2007.70732"
+        },
+        {
+          "key": "e_1_2_10_140_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ZhangQ QiuD TianQ SunL.Object‐oriented software architecture recovery using a new hybrid clustering algorithm. 2010 Seventh International Conference on Fuzzy Systems and Knowledge Discovery vol. 6. IEEE.2010;2546‐2550.",
+          "DOI": "10.1109/FSKD.2010.5569799"
+        },
+        {
+          "key": "e_1_2_10_141_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2016.07.039"
+        },
+        {
+          "key": "e_1_2_10_142_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1002/smr.277"
+        },
+        {
+          "key": "e_1_2_10_143_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MirakhorliM.Software architecture reconstruction: why? What? How? 2015 IEEE 22nd International Conference on Software Analysis Evolution and Reengineering (SANER). IEEE.2015;595.",
+          "DOI": "10.1109/SANER.2015.7081885"
+        },
+        {
+          "key": "e_1_2_10_144_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "DarvasA KonnerthR.System architecture recovery based on software structure model. 2016 13th Working IEEE/IFIP Conference on Software Architecture (WICSA). IEEE.2016;109‐114.",
+          "DOI": "10.1109/WICSA.2016.22"
+        },
+        {
+          "key": "e_1_2_10_145_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "TzerposV HoltRC.Accd: an algorithm for comprehension‐driven clustering. Proceedings Seventh Working Conference on Reverse Engineering. IEEE.2000;258‐267.",
+          "DOI": "10.1109/WCRE.2000.891477"
+        },
+        {
+          "key": "e_1_2_10_146_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "SolmsF.A systematic method for architecture recovery. 2015 International Conference on Evaluation of Novel Approaches to Software Engineering (ENASE). IEEE.2015;215‐222.",
+          "DOI": "10.5220/0005383302150222"
+        },
+        {
+          "key": "e_1_2_10_147_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "DovalD MancoridisS MitchellBS.Automatic clustering of software systems using a genetic algorithm. STEP'99. Proceedings Ninth International Workshop Software Technology and Engineering Practice. IEEE.1999;73‐81.",
+          "DOI": "10.1109/STEP.1999.798481"
+        },
+        {
+          "key": "e_1_2_10_148_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "SajnaniH.Automatic software architecture recovery: a machine learning approach. 2012 20th IEEE International Conference on Program Comprehension (ICPC). IEEE.2012;265‐268.",
+          "DOI": "10.1109/ICPC.2012.6240501"
+        },
+        {
+          "key": "e_1_2_10_149_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "BibiM MaqboolO.Version information support for software architecture recovery. 2011 7th International Conference on Emerging Technologies. IEEE.2011;1‐6.",
+          "DOI": "10.1109/ICET.2011.6048495"
+        },
+        {
+          "key": "e_1_2_10_150_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "ShahbazianA LeeYK LeD BrunY MedvidovicN.Recovering architectural design decisions. 2018 IEEE International Conference on Software Architecture (ICSA). IEEE.2018;95‐9509.",
+          "DOI": "10.1109/ICSA.2018.00019"
+        },
+        {
+          "key": "e_1_2_10_151_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/978-3-642-02351-4_3"
+        },
+        {
+          "key": "e_1_2_10_152_1",
+          "unstructured": "SchwankeRW.An intelligent tool for re‐engineering software modularity. Proceedings‐13th International Conference on Software Engineering. IEEE Computer Society.1991;83‐84."
+        },
+        {
+          "key": "e_1_2_10_153_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MirakhorliM ShinY Cleland‐HuangJ CinarM.A tactic‐centric approach for automating traceability of quality concerns. 2012 34th International Conference on Software Engineering (ICSE). IEEE.2012;639‐649.",
+          "DOI": "10.1109/ICSE.2012.6227153"
+        },
+        {
+          "key": "e_1_2_10_154_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "MancoridisS MitchellBS ChenY GansnerER.Bunch: a clustering tool for the recovery and maintenance of software system structures. Proceedings IEEE International Conference on Software Maintenance‐1999 (ICSM'99).‘Software Maintenance for Business Change’ (Cat. No. 99CB36360). IEEE.1999;50‐59.",
+          "DOI": "10.1109/ICSM.1999.792498"
+        },
+        {
+          "key": "e_1_2_10_155_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jss.2021.111095"
+        },
+        {
+          "key": "e_1_2_10_156_1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/MCSE.2014.93"
+        },
+        {
+          "key": "e_1_2_10_157_1",
+          "doi-asserted-by": "crossref",
+          "unstructured": "TyllisN UllahF UzairM.An exploratory study of vulnerabilities in big data systems. 2023 IEEE International Conference on Big Data (BigData). IEEE.2023;1360‐1367.",
+          "DOI": "10.1109/BigData59044.2023.10386921"
+        },
+        {
+          "key": "e_1_2_10_158_1",
+          "volume-title": "Incremental Clustering of Source Code: a Machine Learning Approach",
+          "author": "Olsson T",
+          "year": "2022"
+        }
+      ],
+      "container-title": [
+        "Software: Practice and Experience"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/spe.3364",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            9
+          ]
+        ],
+        "date-time": "2024-12-09T00:53:52Z",
+        "timestamp": 1733705632000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://onlinelibrary.wiley.com/doi/10.1002/spe.3364"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ]
+      },
+      "references-count": 157,
+      "journal-issue": {
+        "issue": "1",
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        }
+      },
+      "alternative-id": [
+        "10.1002/spe.3364"
+      ],
+      "URL": "https://doi.org/10.1002/spe.3364",
+      "archive": [
+        "Portico"
+      ],
+      "relation": {},
+      "ISSN": [
+        "0038-0644",
+        "1097-024X"
+      ],
+      "issn-type": [
+        {
+          "value": "0038-0644",
+          "type": "print"
+        },
+        {
+          "value": "1097-024X",
+          "type": "electronic"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2024,
+            7,
+            17
+          ]
+        ]
+      },
+      "assertion": [
+        {
+          "value": "2023-10-02",
+          "order": 0,
+          "name": "received",
+          "label": "Received",
+          "group": {
+            "name": "publication_history",
+            "label": "Publication History"
+          }
+        },
+        {
+          "value": "2024-06-21",
+          "order": 2,
+          "name": "accepted",
+          "label": "Accepted",
+          "group": {
+            "name": "publication_history",
+            "label": "Publication History"
+          }
+        },
+        {
+          "value": "2024-07-17",
+          "order": 3,
+          "name": "published",
+          "label": "Published",
+          "group": {
+            "name": "publication_history",
+            "label": "Publication History"
+          }
+        }
+      ]
+    }
+  }
+}

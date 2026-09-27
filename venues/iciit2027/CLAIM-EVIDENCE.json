@@ -1,0 +1,37 @@
+{
+  "status": "local-development-evidence-not-independent-validation",
+  "latest_analyzer_version": "0.4",
+  "claims": [
+    {
+      "claim": "43 adversarial cases: 11 fail/32 pass before, 43 pass after",
+      "artifacts": [
+        "evidence/guardian-0.4/before.log",
+        "evidence/guardian-0.4/after.log"
+      ],
+      "interpretation": "same developer-authored suite before and after repair"
+    },
+    {
+      "claim": "315 Guardian tests; configured coverage 100%",
+      "artifacts": [
+        "evidence/guardian-0.4/coverage.log"
+      ],
+      "interpretation": "regression execution; compiler-host exclusions unchanged"
+    },
+    {
+      "claim": "20 deterministic known benchmark cases",
+      "artifacts": [
+        "evidence/guardian-0.4/benchmark.json"
+      ],
+      "interpretation": "D1 development replay, not an independent dataset"
+    },
+    {
+      "claim": "full repository verification and 410 matching tracked files",
+      "artifacts": [
+        "evidence/guardian-0.4/snapshot-validation.json",
+        "evidence/guardian-0.4/snapshot-verify.log",
+        "evidence/guardian-0.4/package-install.json"
+      ],
+      "interpretation": "clean local snapshot, not independent human reproduction"
+    }
+  ]
+}

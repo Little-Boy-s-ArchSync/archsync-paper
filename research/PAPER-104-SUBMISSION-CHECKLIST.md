@@ -1,10 +1,92 @@
 # PAPER-104 Submission and Authorship Checklist
 
-Version: 0.2.0
+Version: 0.3.0
 
-Prepared: 2026-09-14
+Updated: 2026-09-27. Historical snapshot prepared: 2026-09-14.
 
-Status: PREPARED - NOT AUTHORIZED - VENUE NOT SELECTED
+Status: PREPARED - NOT AUTHORIZED - ICIIT 2027 TARGET SELECTED
+
+## Current routing and decisions required
+
+The owner has selected the ICIIT 2027 ACM proceedings route. Use the current
+[venue audit](../venues/iciit2027/SUBMISSION-AUDIT-20260927.md),
+[package guide](../venues/iciit2027/README.md) and
+[submission metadata](../venues/iciit2027/SUBMISSION-METADATA.md).
+The ICSA dates, IEEE profile, four-author table and 10+2 page checklist in the
+historical record below are not instructions for this ICIIT submission.
+
+The latest owner-supplied order is Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
+Ha Hoang Bach, Hoang Nguyen-The and Minh Tam Phan. All six currently use the
+shared FPT HCMC affiliation supplied by the owner, with Minh Tam Phan as
+corresponding author. This replaces the historical proposed metadata, not the
+need for each author's own final confirmation. External Support status is an
+operational role, not an automatic inclusion in or exclusion from authorship.
+No individual eligibility, affiliation or consent is inferred from a task role.
+
+The current closure requirements are:
+
+- [x] Record the owner's venue choice and retain the official-source audit.
+- [x] Prepare the ACM candidate profiles and verify the retained package:
+  10-page single-column and 5-page double-column profiles, each with a named
+  and technical anonymous alternative. These are alternatives, not a decision
+  about which one the portal requires. The separate 3-page supplement is not
+  assumed to be accepted or exempt from page counting.
+- [ ] Confirm the actual initial-review profile, anonymity policy, supplement
+  rules, deadline time zone and acceptability of the requested custom author
+  layout against the portal or an organizer response.
+- [ ] Complete exact-candidate scientific and language review. Keep D1/D2/P3
+  controlled observations distinct from development verification and from
+  future independent real-repository/comparator evidence. Do not claim D3 or
+  an external research comparison has been completed. The bounded MBP-001
+  fixture preflight does not satisfy these missing empirical results.
+- [ ] Obtain attributable final confirmation from all six authors for their
+  identities, order, affiliation, accountability, actual contribution,
+  conflicts, prior/concurrent submission, AI-use disclosure and consent to
+  submit the same exact candidate. No optional per-author contribution
+  section is typeset; its omission does not waive authorship accountability.
+- [ ] Resolve privacy/ethics for the submitted scope, prior public exposure,
+  artifact licenses and third-party permissions under the selected venue's
+  requirements. Do not infer anonymity from PDF redaction or require results
+  from future vision phases that the current paper does not claim.
+- [ ] Record the exact final source, selected PDF and package hashes, inspect
+  that package, and obtain current eligible review and required checks for
+  that exact head. Local validation does not transfer a different head's
+  review or replace blocked hosted checks.
+- [ ] Complete the reviewed readiness-contract revision and human evidence
+  required by [SUBMISSION-READINESS.md](SUBMISSION-READINESS.md). The current
+  proposal-only validator cannot authorize submission or public release.
+- [ ] Obtain explicit authorization to submit that exact package. Keep later
+  ORCID/eRights, registration, presenter and APC/waiver arrangements distinct
+  from confirmed initial-upload requirements.
+
+PAPER-104 remains incomplete. Prepared files, venue selection and formatting
+checks alone do not authorize upload or establish that acceptance is likely.
+
+### Exact local verification observation
+
+The full normal local paper gate passed on 2026-09-27 at
+`8832e59faa669316e1ede0a712ed25241ec0679c`: all 31 invoked commands passed.
+The research-contract suite records 368 passes and one explicit Windows skip
+(a control-character filename cannot be created), not 369 passes. Its measured
+line/branch/function coverage is 96.49/90.28/95.49 percent. The venue regression
+suite also passed its 26 tests; named/anonymous IEEE working PDFs compiled and
+passed redaction checks. Those IEEE PDFs are not the ACM upload profiles.
+
+The local receipt is
+`artifacts/local-verification/8832e59faa66-2026-09-27T08-20-18.284Z/summary.json`,
+SHA-256 `269b6c3002fc7689d3908ebbed3d6ec525d0487aafae080b7196225d761ede1d`.
+It is a retained local artifact, not a published hosted-CI receipt. The passing
+readiness and experiment-template checks certify their intentionally incomplete
+states, not permission to submit or execute an experiment. This result binds
+the stated source commit and must not be attributed to a later changed head.
+
+## Historical record: 2026-09-14 ICSA candidate and four-author proposal
+
+The remainder preserves the earlier audit and its immutable source/run hashes.
+Its references to "current", "candidate", pending venue selection and author
+order describe 2026-09-14 only. They are not fresh verification, current ICIIT
+requirements or new personal declarations. Use the current checklist above
+for operational handoff; do not mark historical boxes to simulate closure.
 
 ## Purpose and authority boundary
 

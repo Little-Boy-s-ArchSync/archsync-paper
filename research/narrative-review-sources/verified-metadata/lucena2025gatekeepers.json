@@ -1,0 +1,281 @@
+{
+  "citation_key": "lucena2025gatekeepers",
+  "record_id": "LIT-22767",
+  "requested_endpoint": "https://api.crossref.org/works/10.5753/sbes.2025.11100",
+  "response_endpoint": "https://api.crossref.org/works/10.5753/sbes.2025.11100",
+  "retrieved_at_utc": "2026-09-14T12:29:34.385377+00:00",
+  "http_status": 200,
+  "raw_response_sha256": "4b5d51246df97d7634859294298e2009c8c0d3d46b89ad85d1f9f044642ada5e",
+  "response": {
+    "status": "ok",
+    "message-type": "work",
+    "message-version": "1.0.0",
+    "message": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            5,
+            27
+          ]
+        ],
+        "date-time": "2026-05-27T17:05:17Z",
+        "timestamp": 1779901517751,
+        "version": "3.53.1"
+      },
+      "reference-count": 22,
+      "publisher": "Sociedade Brasileira de Computação",
+      "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "abstract": "<jats:p>Ensuring that implemented code adheres to its intended architecture (architectural conformance) remains a critical challenge in software engineering. While formal verification tools exist, their use is hindered by the overhead of explicitly defining formal architectural specifications. At the same time, valuable architectural decisions and design constraints are often embedded in informal channels, such as pull request discussions and issue trackers, where they are expressed in natural language rather than formal specifications. In this paper, we explore the potential of Large Language Models (LLMs) to bridge this gap by investigating whether they can transform informal design rules, based on real development discussions on GitHub, into design tests — executable conformance checkers. Rather than relying on formal models, our approach focuses on deriving design tests from implicit architectural decisions discussed in natural language. To investigate this, we conducted a preliminary empirical study to generate 30 design tests representing rules for 6 design patterns. Our results show the potential of such a strategy, as 96.67% of the generated design tests execute successfully. Furthermore, 63.33% correctly assert expected behaviors, and 76.67% accurately reflect the intended architectural rules. This approach has the potential to simplify the conformance checking process by reducing the need to manually write formal specifications and tests. By leveraging existing development discussions, it makes the process more accessible and less time-consuming, and supports early identification of architectural violations during development.</jats:p>",
+      "DOI": "10.5753/sbes.2025.11100",
+      "type": "proceedings-article",
+      "created": {
+        "date-parts": [
+          [
+            2025,
+            10,
+            9
+          ]
+        ],
+        "date-time": "2025-10-09T12:18:17Z",
+        "timestamp": 1760012297000
+      },
+      "page": "713-719",
+      "source": "Crossref",
+      "is-referenced-by-count": 1,
+      "title": [
+        "Language Models as Architectural Gatekeepers: Automating Conformance Checking from Natural Language"
+      ],
+      "prefix": "10.5753",
+      "author": [
+        {
+          "given": "Andrielly",
+          "family": "Lucena",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Everton L. G.",
+          "family": "Alves",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "João",
+          "family": "Brunet",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "member": "3742",
+      "published-online": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "1",
+          "unstructured": "Mistral AI. 2024. Codestral. Mistral AI. <a href=\"https://mistral.ai/news/codestral\"target=\"_blank\">[link]</a> Accessed: 23 Mar. 2025."
+        },
+        {
+          "key": "2",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Emilie Anthony, Astrid Berntsson, Tiziano Santilli, and Rebekka Wohlrab. 2024. We’re Drifting Apart: Architectural Drift from the Developers’ Perspective. In 2024 IEEE 21st International Conference on Software Architecture (ICSA). IEEE, 101–111.",
+          "DOI": "10.1109/ICSA59870.2024.00018"
+        },
+        {
+          "key": "3",
+          "unstructured": "Len Bass, Paul Clements, and Rick Kazman. 2012. Software Architecture in Practice (3rd ed.). Addison-Wesley Professional."
+        },
+        {
+          "key": "4",
+          "doi-asserted-by": "crossref",
+          "unstructured": "David Baum, Jens Dietrich, Craig Anslow, and Richard Müller. 2018. Visualizing Design Erosion: How Big Balls of Mud are Made. In 2018 IEEEWorking Conference on Software Visualization (VISSOFT). 122–126. DOI: <a href=\"https://doi.org/10.1109/VISSOFT.2018.00022\"target=\"_blank\">10.1109/VISSOFT.2018.00022</a>",
+          "DOI": "10.1109/VISSOFT.2018.00022"
+        },
+        {
+          "key": "5",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Joao Brunet, Dalton Guerrero, and Jorge Figueiredo. 2009. Design tests: An approach to programmatically check your code against design rules. In 2009 31st International Conference on Software Engineering-Companion Volume. IEEE, 255–258.",
+          "DOI": "10.1109/ICSE-COMPANION.2009.5070995"
+        },
+        {
+          "key": "6",
+          "doi-asserted-by": "crossref",
+          "unstructured": "João Brunet, Gail C Murphy, Ricardo Terra, Jorge Figueiredo, and Dalton Serey. 2014. Do developers discuss design?. In Proceedings of the 11thWorking Conference on Mining Software Repositories. 340–343.",
+          "DOI": "10.1145/2597073.2597115"
+        },
+        {
+          "key": "7",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Andrea Caracciolo, Mircea Filip Lungu, and Oscar Nierstrasz. 2015. A unified approach to architecture conformance checking. In 2015 12th Working IEEE/IFIP Conference on Software Architecture. IEEE, 41–50.",
+          "DOI": "10.1109/WICSA.2015.11"
+        },
+        {
+          "key": "8",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Fangwei Chen, Li Zhang, and Xiaoli Lian. 2020. An improved mapping method for automated consistency check between software architecture and source code. In 2020 IEEE 20th International Conference on Software Quality, Reliability and Security (QRS). IEEE, 60–71.",
+          "DOI": "10.1109/QRS51102.2020.00021"
+        },
+        {
+          "key": "9",
+          "unstructured": "Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde De Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, et al. 2021. Evaluating large language models trained on code. arXiv preprint arXiv:2107.03374 (2021)."
+        },
+        {
+          "key": "10",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Eduardo F de Lima and Ricardo Terra. 2020. ArchPython: architecture conformance checking for Python systems. In Proceedings of the XXXIV Brazilian Symposium on Software Engineering. 772–777.",
+          "DOI": "10.1145/3422392.3422505"
+        },
+        {
+          "key": "11",
+          "unstructured": "Aaron Hurst, Adam Lerer, Adam P Goucher, Adam Perelman, Aditya Ramesh, Aidan Clark, AJ Ostrow, Akila Welihinda, Alan Hayes, Alec Radford, et al. 2024. Gpt-4o system card. arXiv preprint arXiv:2410.21276 (2024)."
+        },
+        {
+          "key": "12",
+          "unstructured": "Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, et al. 2020. Retrieval-augmented generation for knowledge-intensive nlp tasks. Advances in neural information processing systems 33 (2020), 9459–9474."
+        },
+        {
+          "key": "13",
+          "unstructured": "Andrielly Lucena. 2025. andriellyll/design-test-generation: Reproducibility Package – Language Models as Architectural Gatekeepers. DOI: <a href=\"https://doi.org/10.5281/zenodo.17055874\"target=\"_blank\">10.5281/zenodo.17055874</a>"
+        },
+        {
+          "key": "14",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Jorge Miño, Roberto Andrade, Jenny Torres, and Kharol Chicaiza. 2024. Leveraging Generative Artificial Intelligence for Software Antipattern Detection. In International Conference on Information Management. Springer, 138–149.",
+          "DOI": "10.1007/978-3-031-64359-0_11"
+        },
+        {
+          "key": "15",
+          "unstructured": "OpenAI. 2024. GPT-4o. OpenAI. <a href=\"https://openai.com/research/gpt-4o\"target=\"_blank\">[link]</a> Accessed: 21 Mar. 2025."
+        },
+        {
+          "key": "16",
+          "unstructured": "PostgreSQL Global Development Group. 2024. PostgreSQL Documentation. <a href=\"https://www.postgresql.org/docs/\"target=\"_blank\">[link]</a> Acessado: 2025-03-23."
+        },
+        {
+          "key": "17",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Mengchao Ren. 2024. Advancements and Applications of Large Language Models in Natural Language Processing: A Comprehensive Review. Applied and Computational Engineering 97 (2024), 55–63.",
+          "DOI": "10.54254/2755-2721/97/20241406"
+        },
+        {
+          "key": "18",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Guillermo Rodriguez, Marcelo Armentano, Álvaro Soria, and Emilio Corengia. 2020. Evaluation of Markov Models for Architecture Conformance Checking. IEEE Latin America Transactions 18, 01 (2020), 43–50.",
+          "DOI": "10.1109/TLA.2020.9049460"
+        },
+        {
+          "key": "19",
+          "unstructured": "Daniel Gustavo San Martín Santibánez. 2021. REMEDY: architectural conformance checking for adaptive systems. (2021)."
+        },
+        {
+          "key": "20",
+          "unstructured": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. Attention is all you need. Advances in neural information processing systems 30 (2017)."
+        },
+        {
+          "key": "21",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Erik Whiting and Sharon Andrews. 2020. Drift and Erosion in Software Architecture: Summary and Prevention Strategies. In Proceedings of the 2020 the 4th International Conference on Information System and Data Mining (Hawaii, HI, USA) (ICISDM ’20). Association for Computing Machinery, New York, NY, USA, 132–138. DOI: <a href=\"https://doi.org/10.1145/3404663.3404665\"target=\"_blank\">10.1145/3404663.3404665</a>",
+          "DOI": "10.1145/3404663.3404665"
+        },
+        {
+          "key": "22",
+          "unstructured": "Haozhou Zhao. 2023. pgvector: Open-source vector similarity search for Postgres. <a href=\"https://github.com/pgvector/pgvector\"target=\"_blank\">[link]</a>. Accessed: 17 May 2025."
+        }
+      ],
+      "event": {
+        "name": "Simpósio Brasileiro de Engenharia de Software",
+        "location": "Brasil",
+        "acronym": "SBES 2025",
+        "number": "39"
+      },
+      "container-title": [
+        "Anais do XXXIX Simpósio Brasileiro de Engenharia de Software (SBES 2025)"
+      ],
+      "original-title": [],
+      "link": [
+        {
+          "URL": "https://sol.sbc.org.br/index.php/sbes/article/download/37049/36834",
+          "content-type": "application/pdf",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://sol.sbc.org.br/index.php/sbes/article/download/37049/36834",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2025,
+            10,
+            9
+          ]
+        ],
+        "date-time": "2025-10-09T12:24:21Z",
+        "timestamp": 1760012661000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://sol.sbc.org.br/index.php/sbes/article/view/37049"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ]
+      },
+      "references-count": 22,
+      "URL": "https://doi.org/10.5753/sbes.2025.11100",
+      "relation": {},
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            22
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -34,18 +34,31 @@ jobs:
       - name: Test PDF page-budget verifier
         run: node --test scripts/pdf-page-budget.test.mjs
 
+      - name: Verify integrated reporting and typography
+        run: |
+          node scripts/verify-reporting.mjs
+          node --test scripts/verify-reporting.test.mjs scripts/verify-bibliography-style.test.mjs
+
       - name: Verify anonymous submission settings
         shell: bash
         run: |
           grep -F '\documentclass[conference]{IEEEtran}' main.tex
-          grep -F '\bibliographystyle{IEEEtran}' main.tex
+          node scripts/verify-paper-source.mjs
           grep -F '\input{main.tex}' main-anonymous.tex
-          test "$(grep -c 'Email: .*@littleboys.biz; ORCID:' main.tex)" -eq 4
+          # verify-paper-source.mjs above checks the exact six emails and four ORCIDs.
           if grep -F 'Anonymous Author' main.tex; then exit 1; fi
           if grep -F 'Anonymous Institution' main.tex; then exit 1; fi
 
       - name: Verify research baseline and glossary
         run: node research/validate-baseline.mjs
+
+      - name: Verify retained ICIIT package and author-order regressions
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venue-python"
+          "$RUNNER_TEMP/venue-python/bin/pip" install pypdf==6.10.0
+          "$RUNNER_TEMP/venue-python/bin/python" venues/iciit2027/validate.py --check
+          "$RUNNER_TEMP/venue-python/bin/python" venues/iciit2027/test_validate.py
+          echo "PYTHON_PDF=$RUNNER_TEMP/venue-python/bin/python" >> "$GITHUB_ENV"
 
       - name: Verify research decision namespace
         run: node research/validate-decision-log.mjs
@@ -173,12 +186,26 @@ jobs:
           SLR_CURRENT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
         run: node research/verify-slr-provenance-lifecycle.mjs
 
-      - name: Compile named and anonymous LaTeX variants
+      - name: Compile named and anonymous IEEE variants
         uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
           root_file: |
             main.tex
             main-anonymous.tex
+          texlive_version: 2024
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      # Each packaged venue profile loads its source-level compatibility hook.
+      - name: Compile official ICIIT ACM profiles
+        uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
+        with:
+          root_file: |
+            venues/iciit2027/iciit2027-review.tex
+            venues/iciit2027/iciit2027-compact.tex
+            venues/iciit2027/iciit2027-review-anonymous.tex
+            venues/iciit2027/iciit2027-compact-anonymous.tex
+            venues/iciit2027/iciit2027-supplement.tex
+          work_in_root_file_dir: true
           texlive_version: 2024
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
@@ -190,6 +217,10 @@ jobs:
             sudo apt-get install --yes --no-install-recommends poppler-utils
           fi
           node scripts/verify-pdf-variants.mjs
+          for profile in review compact review-anonymous compact-anonymous supplement; do
+            cp "venues/iciit2027/iciit2027-$profile.log" "venues/iciit2027/$profile-build.log"
+          done
+          "$PYTHON_PDF" venues/iciit2027/validate.py --fresh
 
       - name: Upload compiled PDFs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -198,6 +229,7 @@ jobs:
           path: |
             main.pdf
             main-anonymous.pdf
+            venues/iciit2027/iciit2027-*.pdf
           if-no-files-found: error
           retention-days: 30
 
@@ -209,6 +241,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6

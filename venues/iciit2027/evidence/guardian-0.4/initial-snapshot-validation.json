@@ -1,0 +1,14 @@
+{
+  "snapshot": "/var/folders/mt/zhvthc515kgg9pxt4wjcjpyr0000gn/T/archsync-write-target-validation-ves64xwh/guardian",
+  "commit": "02e9f6e14d22e554c4f59fb67dd894cf2b09e151",
+  "checks": [
+    {
+      "name": "install",
+      "exit_code": 0
+    },
+    {
+      "name": "verify",
+      "exit_code": 1
+    }
+  ]
+}
