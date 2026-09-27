@@ -7,6 +7,12 @@ are maintained in
 [`PAPER-104-SUBMISSION-CHECKLIST.md`](PAPER-104-SUBMISSION-CHECKLIST.md). That
 checklist is also fail-closed and does not grant submission authority.
 
+The owner-selected target is now the ICIIT 2027 ACM proceedings route. Follow
+the checklist's current ICIIT section and the
+[venue audit](../venues/iciit2027/SUBMISSION-AUDIT-20260927.md), not its retained
+2026-09-14 ICSA/four-author historical snapshot. A selected venue and prepared
+ACM profiles do not change the proposal-only machine contract below.
+
 ## Observed repository state
 
 The GitHub repository API reported all seven ArchSync repositories as public at

@@ -1,6 +1,6 @@
 # D3 annotation handoff - Tran Minh Hoang
 
-Version: 0.1.1, 2026-09-27.
+Version: 0.1.2, 2026-09-27.
 State: owner assignment recorded; preparation only, no official run authorized.
 
 ## Assignment and limits
@@ -131,8 +131,23 @@ see that candidate's `docs/MODULE-COMPARISON-PREFLIGHT.md`.
 The proposed module unit is a directed pair of source paths with static import
 or re-export syntax, including type-only/unused declarations. Dependency-cruiser
 requires matching pre-compilation and source-population settings. Its tsconfig
-option alone does not adopt `files/include/exclude`. A pinned-release preflight
-and the formal approval are still required; no comparator was executed here.
+option alone does not adopt `files/include/exclude`.
+
+The separately authorized MBP-001 development preflight has now executed with
+dependency-cruiser 18.3.0. Guardian commit
+`fa67715b82a63e94fffc5ad01440596623bfc40e` retains the harness and all first-run
+records, without changing the evaluated production adapter. Eight fixture
+groups use thirteen configurations: eight complete-source configurations have
+matching internal static-module pair sets; five incomplete or unsupported
+configurations remain unscored, including the retained import-type mismatch.
+These counts are compatibility observations, not accuracy estimates. The branch
+remains local, not pushed or merged by this work.
+
+See [the bounded authorization](MBP-001-EXECUTION-AUTHORIZATION.md) and
+[the raw-record report](MBP-001-DEVELOPMENT-REPORT.md). No architecture rules or
+PR decisions were compared. The formal research protocol, decision-semantic
+mapping and D3 approvals are still required; no research comparator experiment
+or D3 execution is authorized or claimed by this preflight.
 
 The development fixtures and engineering tests for this adapter are not D3 and
 must never be counted as independent repositories, labels or observations.
