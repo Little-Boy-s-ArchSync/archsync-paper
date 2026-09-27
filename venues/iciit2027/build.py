@@ -16,6 +16,9 @@ for profile in ['review', 'compact', 'review-anonymous', 'compact-anonymous', 's
     if result.returncode:
         sys.stdout.buffer.write(result.stdout)
         raise SystemExit(result.returncode)
+    if not os.environ.get('TECTONIC'):
+        # Validate the final converged TeX pass, not latexmk's first-pass warnings.
+        (root/f'{profile}-build.log').write_bytes((root/Path(source).with_suffix('.log')).read_bytes())
 command = [sys.executable, str(root/'validate.py')]
 if '--check' in sys.argv:
     command.append('--fresh')

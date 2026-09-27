@@ -195,10 +195,8 @@ jobs:
           texlive_version: 2024
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
-      # The venue supplies acmart 1.90a (2023). TeX Live 2024's hyperxmp
-      # rejects its package load order. The scoped latexmk hook loads hyperref
-      # first with the class's own options, without editing the official class.
-      - name: Compile official ICIIT ACM profiles with compatibility hook
+      # Each packaged venue profile loads its source-level compatibility hook.
+      - name: Compile official ICIIT ACM profiles
         uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
           root_file: |
@@ -209,7 +207,7 @@ jobs:
             venues/iciit2027/iciit2027-supplement.tex
           work_in_root_file_dir: true
           texlive_version: 2024
-          args: -r ../../scripts/iciit-latexmkrc -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Verify PDF content and double-blind redaction
         shell: bash

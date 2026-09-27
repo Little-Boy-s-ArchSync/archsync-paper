@@ -114,3 +114,8 @@ Obtain all authors' acceptance of the exact candidate and declarations required
 by the portal. The two faculty ORCIDs are needed before ACM eRights completion;
 they have not been supplied. Confirm presenter, registration/APC and any waiver.
 No email, upload, payment, registration or submission was performed.
+
+The source archive includes `texlive-compat.tex`, loaded by all venue profiles,
+so plain latexmk and the supplied builder apply the same package-order fix as CI.
+The official class/BST and requested author presentation are unchanged.
+The latexmk builder validates the final converged TeX log.

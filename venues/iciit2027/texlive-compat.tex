@@ -1,0 +1,5 @@
+% Retain the official class while satisfying newer hyperxmp loading order.
+% Use the same options acmart requests later to avoid an option clash.
+\AddToHook{package/hyperxmp/before}{%
+  \RequirePackage[bookmarksnumbered,unicode]{hyperref}%
+}
