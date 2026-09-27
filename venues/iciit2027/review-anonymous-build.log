@@ -136,8 +136,8 @@ warning: paper:55:  -> ntxexa
 warning: paper:55: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
 warning: paper:57: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:57: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: paper:62: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: related-work:1: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 6.0pt
-warning: related-work:4: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: related-work:11: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
 warning: related-work:19: Underfull \hbox (badness 2941) in paragraph at lines 19--19
 warning: related-work:20: Underfull \hbox (badness 1789) in paragraph at lines 20--20
@@ -166,7 +166,7 @@ warning: paper:67:  -> ntxexa
 warning: paper:94: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:95: Underfull \hbox (badness 1057) in paragraph at lines 94--95
 warning: paper:122: Underfull \hbox (badness 1077) in paragraph at lines 121--122
-warning: paper:126: Underfull \vbox (badness 4108) has occurred while \output is active
+warning: paper:126: Underfull \vbox (badness 1062) has occurred while \output is active
 warning: paper:140: Underfull \vbox (badness 4048) has occurred while \output is active
 warning: appendix:7: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: appendix:24: Underfull \vbox (badness 10000) has occurred while \output is active
@@ -341,13 +341,12 @@ warning: paper:67:  -> ntxexa
 warning: paper:94: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:95: Underfull \hbox (badness 1057) in paragraph at lines 94--95
 warning: paper:122: Underfull \hbox (badness 1077) in paragraph at lines 121--122
-warning: paper:126: Underfull \vbox (badness 4108) has occurred while \output is active
+warning: paper:126: Underfull \vbox (badness 1062) has occurred while \output is active
 warning: paper:140: Underfull \vbox (badness 4048) has occurred while \output is active
 warning: iciit2027-review-anonymous.bbl:47: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: iciit2027-review-anonymous.bbl:90: Underfull \vbox (badness 5260) has occurred while \output is active
 warning: appendix:8: Underfull \vbox (badness 4779) has occurred while \output is active
 warning: appendix:26: Underfull \vbox (badness 2073) has occurred while \output is active
-note: Rerunning TeX because "iciit2027-review-anonymous.out" changed ...
+note: Rerunning TeX because "iciit2027-review-anonymous.aux" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
@@ -516,14 +515,13 @@ warning: paper:67:  -> ntxexa
 warning: paper:94: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:95: Underfull \hbox (badness 1057) in paragraph at lines 94--95
 warning: paper:122: Underfull \hbox (badness 1077) in paragraph at lines 121--122
-warning: paper:126: Underfull \vbox (badness 4108) has occurred while \output is active
+warning: paper:126: Underfull \vbox (badness 1062) has occurred while \output is active
 warning: paper:140: Underfull \vbox (badness 4048) has occurred while \output is active
 warning: iciit2027-review-anonymous.bbl:47: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: iciit2027-review-anonymous.bbl:90: Underfull \vbox (badness 5260) has occurred while \output is active
 warning: appendix:8: Underfull \vbox (badness 4779) has occurred while \output is active
 warning: appendix:26: Underfull \vbox (badness 2073) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `iciit2027-review-anonymous.pdf` (125.3955078125 KiB)
+note: Writing `iciit2027-review-anonymous.pdf` (126.0634765625 KiB)
 note: Writing `iciit2027-review-anonymous.blg` (552 B)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

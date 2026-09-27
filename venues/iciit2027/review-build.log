@@ -224,7 +224,7 @@ warning: paper:55: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language
 warning: paper:57: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:57: Requested font "[LinBiolinum_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:61: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 6.0pt
-warning: related-work:4: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: paper:62: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: related-work:11: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
 warning: related-work:19: Underfull \hbox (badness 2941) in paragraph at lines 19--19
 warning: related-work:20: Underfull \hbox (badness 1789) in paragraph at lines 20--20
@@ -251,8 +251,7 @@ warning: paper:67: Requested font "ntxexa" at 9.0pt
 warning: paper:67:  -> ntxexa
 warning: paper:68: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: paper:68: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: paper:94: 
-Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
+warning: paper:94: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:95: Underfull \hbox (badness 1057) in paragraph at lines 94--95
 note: Running BibTeX on iciit2027-review.aux ...
 note: warnings were issued by BibTeX; use --print and/or --keep-logs for details.
@@ -513,10 +512,9 @@ warning: paper:94:
 Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:95: Underfull \hbox (badness 1057) in paragraph at lines 94--95
 warning: iciit2027-review.bbl:47: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: appendix:7: Underfull \vbox (badness 3861) has occurred while \output is active
 warning: appendix:24: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: appendix:40: Underfull \vbox (badness 2073) has occurred while \output is active
-note: Rerunning TeX because "iciit2027-review.aux" changed ...
+note: Rerunning TeX because "iciit2027-review.out" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
@@ -774,11 +772,10 @@ warning: paper:94:
 Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:95: Underfull \hbox (badness 1057) in paragraph at lines 94--95
 warning: iciit2027-review.bbl:47: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: appendix:7: Underfull \vbox (badness 3861) has occurred while \output is active
 warning: appendix:24: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: appendix:40: Underfull \vbox (badness 2073) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
+note: Writing `iciit2027-review.pdf` (140.197265625 KiB)
 note: Writing `iciit2027-review.blg` (542 B)
-note: Writing `iciit2027-review.pdf` (139.8251953125 KiB)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

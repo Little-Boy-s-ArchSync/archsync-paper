@@ -1,6 +1,16 @@
-# Visual review — 27 September 2026
+# Visual review - 27 September 2026
 
-## Bibliographic field correction (current)
+## Concurrent refinement integration (current)
+
+All five profiles were rebuilt and their complete 1600px page render contact
+sheets inspected in tmp/pdfs/concurrent-integration/. Resolved section/figure
+references, the explicit result-to-RQ mapping, disclosure heading and corrected
+proceedings citation render without observed clipping or overlap. Page counts
+remain 10/5/10/5/3; all 26 local validator regression tests pass. Current hashes
+are in visual-inputs.json. Prior observations below belong to prior builds.
+These presentation checks do not add independent experimental evidence.
+
+## Earlier bibliographic field correction
 
 All five profiles were rebuilt, rendered at 1600px and inspected as complete
 contact sheets in tmp/pdfs/bibliography-revision/. The compact reference page
