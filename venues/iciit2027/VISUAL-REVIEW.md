@@ -1,6 +1,27 @@
 # Visual review — 27 September 2026
 
-## Current official-template author layout
+## Current owner-supplied shared-affiliation layout
+
+The latest explicit owner request replaces the default author renderer for
+the two named ICIIT profiles only. Both first pages were rendered at 1700px and
+inspected; all 15 named-profile pages were also rendered into contact sheets.
+No observed clipping, overlaps or lost content. Review/compact remain 10/5
+pages. The centered two-line name list, shared faculty/address, bold email
+lines, Kiet-before-Bach order, Hoang Nguyen-The spelling and Minh Tam Phan star
+match the user's typed block and example presentation.
+
+Four ORCIDs remain associated with their original authors in structured
+metadata; they are not added to the visible block. The research source from
+the abstract onward is byte-identical to the previous candidate. Anonymous
+and supplement extracted page text is identical to the previous version.
+All five profiles pass semantic, citation, evidence-hash, no-overflow and
+identity checks; 13 targeted regression tests pass.
+
+Renders are in tmp/pdfs/shared-author-block/. visual-inputs.json binds the
+inspected PDFs. This intentional custom layout needs organizer confirmation;
+visual inspection supplies neither coauthor consent nor submission approval.
+
+## Earlier official-template author layout (superseded)
 
 The owner selected the unmodified ACM author renderer. Both named first pages
 were inspected at full size; all five venue profiles were rendered and checked

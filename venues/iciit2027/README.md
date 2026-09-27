@@ -22,26 +22,31 @@ confirm the actual portal instructions first.
 
 ## Current author and template decisions
 
-The owner explicitly selected the default ACM author layout on 27 September.
-This supersedes the earlier symbolic/university-grouped custom renderer.
-The author order remains Hieu, Hoang, Bach, Kiet, Hoang Nguyen The, Minh Tam Phan.
-All identity values come from the prior manuscript, never an illustrative image.
+The owner's latest 27 September instruction explicitly replaces the earlier
+default ACM layout with the supplied centered, shared-affiliation block.
+The order is Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan.
+All six use the owner-supplied Faculty of Software Engineering, FPT University
+HCMC, Ho Chi Minh City, 70000, Vietnam. Minh Tam Phan has the star and
+corresponding-author footnote. Values come from the user's typed block,
+not from the example image's unrelated student names.
 
 The official class and bibliography are unchanged and match a fresh download.
-There is no custom author renderer or author-row override. The ACM Reference
-Format block is enabled. DOI/ISBN and rights information are not invented;
+The named profiles now use author-layout.tex; anonymous profiles retain the
+standard class renderer. This customization is not default ACM compliance or
+organizer approval. The ACM Reference Format block is enabled. DOI/ISBN and rights information are not invented;
 the booktitle explicitly identifies the target as a draft. The stock review
 footer says "Manuscript submitted to ACM"; this class text is not evidence of
 a portal submission.
 
-Standard manuscript mode suppresses emails in the displayed author block.
-The six exact emails and four supplied ORCIDs remain validated in source and
-metadata; compact mode displays the emails. No optional contribution section
+Both named profiles display all six emails in name order, on three centered
+lines. Four supplied ORCIDs remain mapped to their authors in source and
+metadata, without extra ORCID lines in the requested block. No optional contribution section
 is typeset. Previously declared roles are kept outside the paper in
 research/AUTHOR-CONTRIBUTIONS.md. Required research-use AI disclosure remains.
 
-Fonts, margins and vertical leading are not reduced. The retained emergency
-line-breaking reserve prevents protruding technical text. The documented
+Body fonts, margins and vertical leading are unchanged. The named author block
+uses normal serif text and bold monospace email lines to follow the image.
+The retained emergency line-breaking reserve prevents protruding technical text. The documented
 balance=false compact option disables automatic last-page balancing only.
 
 ## Build and check
@@ -73,6 +78,8 @@ independent review or submission authorization.
 ## Outstanding before submission
 
 Confirm review profile/anonymity, supplement treatment and cutoff time zone.
+Confirm acceptance of the requested custom author layout with the organizer.
+The earlier IEEE working PDFs are not the target of this venue-only change.
 Obtain all authors' acceptance of the exact candidate and declarations required
 by the portal. The two faculty ORCIDs are needed before ACM eRights completion;
 they have not been supplied. Confirm presenter, registration/APC and any waiver.

@@ -41,10 +41,34 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'author order drift'):
             validate(transform)
 
-    def test_custom_author_renderer_rejected(self):
+    def test_visible_author_order_drift_rejected(self):
         def transform(path, value):
-            return value + '\n' + r'\def\@mkauthors{custom}' if path.name == 'paper.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'custom author renderer'):
+            return value.replace('Le Van Kiet, Ha Hoang Bach', 'Ha Hoang Bach, Le Van Kiet') if path.name == 'author-layout.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'visible author order drift'):
+            validate(transform)
+
+    def test_shared_affiliation_drift_rejected(self):
+        def transform(path, value):
+            return value.replace('70000', '99999') if path.name == 'submission-metadata.json' else value
+        with self.assertRaisesRegex(AssertionError, 'shared affiliation drift'):
+            validate(transform)
+
+    def test_visible_correspondence_star_drift_rejected(self):
+        def transform(path, value):
+            return value.replace(r'Minh Tam Phan\textsuperscript{*}', 'Minh Tam Phan') if path.name == 'author-layout.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'correspondence star drift'):
+            validate(transform)
+
+    def test_visible_email_order_drift_rejected(self):
+        def transform(path, value):
+            return value.replace('voduchieu42@gmail.com', 'SWAP').replace('andyjobs2023@gmail.com', 'voduchieu42@gmail.com').replace('SWAP', 'andyjobs2023@gmail.com') if path.name == 'author-layout.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'visible email order drift'):
+            validate(transform)
+
+    def test_anonymous_guard_required(self):
+        def transform(path, value):
+            return value.replace(r'\ifdefined\blindprofile\else', '') if path.name == 'author-layout.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'preserve anonymous renderer'):
             validate(transform)
 
     def test_optional_contribution_heading_rejected(self):
@@ -53,7 +77,7 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'optional author contribution'):
             validate(transform)
 
-    def test_source_email_drift_still_rejected_in_standard_review_layout(self):
+    def test_source_email_drift_still_rejected_in_shared_review_layout(self):
         def transform(path, value):
             return value.replace('voduchieu42@gmail.com', 'wrong@example.org') if path.name == 'paper.tex' else value
         with self.assertRaises(AssertionError):

@@ -1,5 +1,5 @@
 {
-  "archive_sha256": "26ef82bb535cf218806723c05ba54cdfc8f391b5fd8a08af4c38bc5127f28ebd",
+  "archive_sha256": "0647fbf0699f2043508c01e5d60a03e1b1abbff82af63c8d3339aab7ef663535",
   "method": "extract exact source ZIP into fresh directory and rebuild all five profiles",
   "exit_code": 0,
   "validation": {
@@ -7,6 +7,9 @@
     "citations": 25,
     "abstract_metadata_matches": true,
     "all_six_authors_and_order_match": true,
+    "shared_affiliation_and_email_order_match": true,
+    "author_layout": "owner-requested-centered-shared-affiliation",
+    "default_acm_author_renderer": false,
     "correspondence_in_author_footnote": true,
     "evidence_hashes_verified": false,
     "class_matches_official_archive": true,
@@ -15,31 +18,31 @@
       {
         "file": "iciit2027-review.pdf",
         "pages": 10,
-        "sha256": "24b9c8a25ab89242b39b672e3e1c075d283317640690070130ac20faf890ffd0",
-        "bytes": 136359
+        "sha256": "fd46621ec7731ccf90c16d7572c7ca16d6de21c0dc2f6929fc4ebfed4da40b56",
+        "bytes": 137690
       },
       {
         "file": "iciit2027-compact.pdf",
         "pages": 5,
-        "sha256": "ebc086ed534424eea20e73e3f9b67fd56b97fbbe67b0c987a2b458a4257c7956",
-        "bytes": 113289
+        "sha256": "fc45d48f12e61fbc2755b9aac0656abbad7287ea1cc02536199a0bbfe1a27458",
+        "bytes": 114498
       },
       {
         "file": "iciit2027-review-anonymous.pdf",
         "pages": 10,
-        "sha256": "90f1939ac8ae02ae5b193a3b28e669094dffa5fb60d48aee0f15717356e461b6",
+        "sha256": "17a2e89fa3f3d8983dd88e3856ebdbe4d544ff26a772e5fca3d326d15d5b3878",
         "bytes": 130583
       },
       {
         "file": "iciit2027-compact-anonymous.pdf",
         "pages": 5,
-        "sha256": "7867352486ab2cc127adfb13835efe48ca8a84f9018b2bce8b0b6ee43fee212d",
-        "bytes": 107304
+        "sha256": "3c4fe9dc5f712ebcd7f0f9d9a5389726657dbab5e6111c44a43c59efc698d19b",
+        "bytes": 107305
       },
       {
         "file": "iciit2027-supplement.pdf",
         "pages": 3,
-        "sha256": "e333d1c84099b215a7252992aac2d5aeeeddbd99ca4db6c172061aacd3cddfba",
+        "sha256": "0e690dab1b3cefcdbe082761070f4a48f9b060614082eda1a28517a992f220d6",
         "bytes": 60587
       }
     ],

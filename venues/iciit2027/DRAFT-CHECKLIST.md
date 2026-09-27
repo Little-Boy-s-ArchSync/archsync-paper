@@ -13,11 +13,11 @@ These are draft candidates, not a portal submission. The public venue instructio
 
 | Check | Finding |
 | --- | --- |
-| Template | Official submission page links ACM LaTeX archive. Fresh download on 27 September matches retained acmart class and bibliography style. The latest owner request restores the default ACM author renderer and ACM Reference Format block. |
+| Template | Official class and bibliography bytes are unchanged. The latest explicit owner request replaces default author rendering with a centered shared-affiliation block in named profiles. This customization needs organizer confirmation; ACM Reference Format remains enabled. |
 | Length | Official minimum: 8 single-column / 4 double-column pages including references. Regular allowance: 10 / 5; extra pages charged. Current 10 / 5 profiles fit both bounds. These allowance numbers are not a declared hard maximum. |
 | Deadline | Official page: 30 September 2026 for full papers. Cutoff time zone remains unspecified. |
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |
-| Authors | Six ordered records and emails match manuscript metadata. Default ACM rendering preserves the confirmed author order and institution data. Review mode suppresses emails by class design; compact mode displays them. ORCIDs remain in structured source. No fresh coauthor consent is inferred. |
+| Authors | Latest order: Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan. All six share the owner-supplied FPT HCMC faculty/address; Minh Tam Phan carries the correspondence star. Both named profiles show the six emails in order. ORCIDs remain in structured source. No fresh coauthor consent is inferred. |
 | Contribution section | No separate per-author contribution section required by the checked public instructions. Removed from IEEE variants; already absent in the ICIIT body. Previous roles remain in research/AUTHOR-CONTRIBUTIONS.md. Research-use AI methods disclosure remains. |
 | References | 25 citations; unchanged official ACM bibliography style; citation resolution checked during build. |
 | Abstract | Contribution-first, 136 words, one final scope sentence. Abstract synchronized across PDF source and metadata. |

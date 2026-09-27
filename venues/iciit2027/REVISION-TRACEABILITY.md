@@ -48,3 +48,20 @@ IEEE variants; prior roles are retained as a project record outside the paper.
 The research-use AI methods paragraph and all results remain unchanged.
 See SUBMISSION-AUDIT-20260927.md. This corrects layout/document consistency;
 it is not acceptance, independent scientific validation or permission to submit.
+
+## Latest explicit author-block request, 27 September
+
+The owner supplied the final text and example style for the ICIIT author block:
+Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan; a common Faculty of
+Software Engineering, FPT University HCMC address; six ordered emails; and
+Minh Tam Phan's star. Named PDFs and structured submission metadata use those
+exact values. The star is bound to the corresponding-author footnote.
+Existing ORCIDs are retained with their respective authors, without adding
+visible lines not present in the requested example.
+
+This request expressly supersedes the previous default ACM renderer and
+earlier author order/affiliation/correspondence. It does not claim organizer
+acceptance of the custom layout, coauthor consent, or a new research result.
+The ICIIT body after the abstract, all figures, citations and evidence remain
+unchanged. Earlier IEEE working PDFs and immutable research records are not
+silently rewritten to match this venue-only metadata request.

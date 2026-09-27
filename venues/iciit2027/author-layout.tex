@@ -1,0 +1,25 @@
+% Latest owner-supplied names, order, shared affiliation, emails and star.
+% This is a requested presentation, not a claim of default ACM compliance.
+% Structured author records and supplied ORCIDs remain in paper.tex.
+% Anonymous profiles retain the original ACM renderer.
+\ifdefined\blindprofile\else
+\makeatletter
+\def\@mkauthors{%
+  \global\setbox\mktitle@bx=\vbox{%
+    \unvbox\mktitle@bx\par\medskip
+    \begingroup\hsize=\textwidth\centering\normalfont
+    {\large
+    Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet, Ha Hoang Bach,\\
+    Hoang Nguyen-The, and Minh Tam Phan\textsuperscript{*}\par}
+    \medskip\normalsize
+    Faculty of Software Engineering, FPT University HCMC,\\
+    Ho Chi Minh City, 70000, Vietnam\\
+    {\ttfamily\bfseries
+    \nolinkurl{voduchieu42@gmail.com}, \nolinkurl{andyjobs2023@gmail.com},\\
+    \nolinkurl{levankiet1212.2004@gmail.com}, \nolinkurl{hahoangbach2005@gmail.com},\\
+    \nolinkurl{hoangnt20@fe.edu.vn}, \nolinkurl{tampm@fe.edu.vn}\par}
+    \endgroup\medskip
+  }%
+}
+\makeatother
+\fi

@@ -8,6 +8,8 @@
 \fi
 % Line-breaking reserve only; no font, margin, or vertical-spacing change.
 \emergencystretch=3em
+% Owner-requested shared-affiliation layout; organizer approval is not asserted.
+\input{author-layout}
 \setcopyright{none}
 \acmDOI{}
 \acmISBN{}
@@ -18,28 +20,28 @@
 \begin{document}
 \title[ArchSync: Service Architecture Conformance]{ArchSync: Evidence-Backed Conformance Checking for TypeScript Service Architectures}
 \author{Vo Duc Hieu}
-\thanks{Corresponding author: Vo Duc Hieu.}
 \orcid{0009-0007-5389-5177}
 \email{voduchieu42@gmail.com}
-\affiliation{\institution{FPT University}\city{Ho Chi Minh City}\country{Vietnam}}
+\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
 \author{Tran Minh Hoang}
 \orcid{0009-0000-0302-1841}
 \email{andyjobs2023@gmail.com}
-\affiliation{\institution{VNUK Institute for Research and Executive Education, The University of Danang}\city{Da Nang}\country{Vietnam}}
-\author{Ha Hoang Bach}
-\orcid{0009-0000-5118-0660}
-\email{hahoangbach2005@gmail.com}
-\affiliation{\institution{FPT University}\city{Ho Chi Minh City}\country{Vietnam}}
+\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
 \author{Le Van Kiet}
 \orcid{0009-0007-8434-882X}
 \email{levankiet1212.2004@gmail.com}
-\affiliation{\institution{VNUK Institute for Research and Executive Education, The University of Danang}\city{Da Nang}\country{Vietnam}}
-\author{Hoang Nguyen The}
+\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
+\author{Ha Hoang Bach}
+\orcid{0009-0000-5118-0660}
+\email{hahoangbach2005@gmail.com}
+\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
+\author{Hoang Nguyen-The}
 \email{hoangnt20@fe.edu.vn}
-\affiliation{\institution{FPT University}\city{Ho Chi Minh City}\country{Vietnam}}
+\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
 \author{Minh Tam Phan}
+\thanks{Corresponding author: Minh Tam Phan.}
 \email{tampm@fe.edu.vn}
-\affiliation{\institution{FPT University}\city{Ho Chi Minh City}\country{Vietnam}}
+\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
 \renewcommand{\shortauthors}{Hieu et al.}
 \begin{abstract}
 Service changes can introduce architectural drift while preserving functional behavior. ArchSync provides deterministic conformance checking for TypeScript service architectures through three integrated capabilities: a typed architectural contract, provenance-aware extraction of HTTP, PostgreSQL, Redis and AMQP relationships, and an evidence-backed Git gate that maps introduced findings to PASS, BLOCK or REVIEW. Evaluation covers 20 architecture patches and 40 annotated detector signals, with all 20 patch classifications matching their development labels and incremental execution matching full scans in all 20 replay cases. A separate reliability campaign checks 786,432 finite rule--graph combinations against a matrix oracle; the hardened implementation passes 126 Core and 315 Guardian regression tests. The resulting workflow connects pull-request decisions to explicit rules and inspectable evidence, supporting reproducible architecture checks. Results are limited to controlled, co-developed datasets and developer-authored reliability checks; broader validation is future work.
