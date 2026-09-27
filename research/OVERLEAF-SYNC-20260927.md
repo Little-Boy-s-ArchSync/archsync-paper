@@ -113,3 +113,30 @@ confirmation. All-author final consent remains separate.
 Hoang's D3 assignment is recorded in `D3-ANNOTATION-HANDOFF-HOANG.md`. Assignment
 is not personal acceptance, proven independence, completed labels, dataset
 freeze or an executed comparator. Those scientific requirements remain open.
+
+## Subsequent concurrent-refinement synchronization
+
+On 2026-09-27, the ICIIT folder's paper.tex, related-work.tex, references.bib and
+SOURCE-MANIFEST.json were updated from source commit
+`f35220232df7d4070d891c0873e787c2428471d2`. The root additive source ZIP was also
+updated. Its transport SHA-256 is
+`32c3d4cc7a9ee115a3e702f6162fd8674b6cdd0dc377829b3cb807707e0aff71`.
+The original IEEE root/sections were not changed.
+
+The named compact preview compiled to five pages with Errors 0, Warnings 7,
+Info 12. The resolved Figure 1 cross-reference, explicit results-to-RQ mapping
+and Methods and AI-use disclosure heading are visible in the online PDF;
+the result/disclosure page was visually inspected. The seven warnings remain
+the class-path notice, unused option, changed showhyphens and four bibliography
+field notices. No missing publication metadata was invented to silence them.
+The editor was left on iciit2027-compact-current.tex and PDF page 1.
+
+The uploaded JSON manifest is retained as a downloadable file; Overleaf does
+not preview it. No round-trip byte comparison of that blob is claimed.
+The other four source profiles retain the unchanged shared files but were not
+separately compiled on Overleaf in this synchronization. Their local five-PDF
+rebuild/page-text verification is a separate receipt.
+
+The owner-authorized MBP-001 fixture preflight is recorded outside the paper's
+results. It is not D3 or the approved research baseline experiment, and its
+counts were not added to the manuscript or historical evidence archive.

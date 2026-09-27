@@ -28,6 +28,12 @@ and receipts, not a production analyzer repair.
 - The retained run passed the offline verifier. Its four tests also passed,
   including rejection of tampering, omitted cases and relabeling as D3.
 
+Postflight repository checks also passed: typecheck and 338 Vitest tests, with
+six explicitly platform-skipped filesystem tests on Windows (344 total). These
+are terminal-observed engineering checks, not additional comparative data or a
+new hosted-CI/full-release certification. All 194 committed lab files were
+byte-compared against Git objects; the retained source/output bytes match.
+
 ## What the first run establishes
 
 Eight approved groups were represented by thirteen small configurations.
