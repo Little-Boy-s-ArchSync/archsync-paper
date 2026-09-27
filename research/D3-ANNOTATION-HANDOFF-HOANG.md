@@ -1,6 +1,6 @@
 # D3 annotation handoff - Tran Minh Hoang
 
-Version: 0.1.0, 2026-09-27.
+Version: 0.1.1, 2026-09-27.
 State: owner assignment recorded; preparation only, no official run authorized.
 
 ## Assignment and limits
@@ -80,6 +80,40 @@ hashes and run mechanical validators within the data-access policy. Suggestions
 must be checked and adopted by the named person against real source evidence.
 AI must not invent repository facts, labels, review, blinding, or approval, and
 the same prediction-producing workflow must not supply the held-out truth.
+
+## Reuse the existing benchmark preparation tools
+
+The benchmark repository already contains `holdout/README.md`,
+`holdout/PROTOCOL.md`, two reviewer JSONL templates, an adjudication template,
+repository-capture helpers and replay/metric helpers. Use these as the technical
+starting point instead of creating a second incompatible workflow. Its ten-item
+repository inventory is candidate-only; it is not a selected, annotated or
+frozen D3 dataset. Check its historical metadata and each person's prior exposure
+before proposing any selection under the final approved rules.
+
+The commands `pnpm holdout:candidates:verify` and `pnpm holdout:verify` validate
+preparation only. `pnpm holdout:gate` is intentionally blocked for the present
+empty proposed manifest. Do not turn the template into an approval or treat
+structural validation as evidence that a person independently read the source.
+The annotation helper checks two declared reviewer IDs and supplied fields; it
+cannot authenticate people, establish blinding, validate a human label or verify
+that an evidence path/line exists in the frozen source snapshot.
+
+The existing row-level metric helper distinguishes node, edge and rule units.
+Its classification denominator is input metric rows, not necessarily unique
+change cases. The final analysis must preserve that distinction and must not
+count a case three times as three independently sampled changes.
+
+Benchmark candidate `3ea0419b23a4f4082b5b3622cb16d68fff4e999d` on local branch
+`fix/holdout-outcome-integrity-20260927` corrects the preparatory replay and
+metric outputs, explicitly versioned as schema 2. Failed attempts cannot report
+successful deterministic replay, earlier retained outputs cannot be changed by
+a reused analyzer object, and line-location credit requires the correct file.
+The Windows / Node 22.16.0 full `pnpm verify` gate passed, including 177 unit
+tests with no failures or skips and the configured library coverage gate. The
+source-bound engineering receipt is `evidence/unit-coverage.json`; these tests
+are not independent accuracy measurements. This candidate is not pushed or
+merged by this work. Existing frozen D1/D2/Phase 3 results were not changed.
 
 ## Two evaluation scopes must remain separate
 
