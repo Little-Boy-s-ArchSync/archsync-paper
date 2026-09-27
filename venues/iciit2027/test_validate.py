@@ -20,6 +20,25 @@ def validate(transform=None, byte_transform=None):
         return runpy.run_path(str(root/'validate.py'), run_name='__main__')
 
 class VenueValidation(unittest.TestCase):
+    def test_verified_issue_year_cannot_revert_to_online_year(self):
+        def transform(path, value):
+            return value.replace('year = {2025},\n  volume = {55}', 'year = {2024},\n  volume = {55}') if path.name == 'references.bib' else value
+        with self.assertRaisesRegex(AssertionError, 'verified bibliographic field drift'):
+            validate(transform)
+
+    def test_article_number_is_not_a_page_number_or_invented_length(self):
+        for field in ['pages', 'numpages']:
+            def transform(path, value):
+                return value.replace('articleno={128}', 'articleno={128}, ' + field + '={128}') if path.name == 'references.bib' else value
+            with self.subTest(field=field), self.assertRaisesRegex(AssertionError, 'unverified pagination'):
+                validate(transform)
+
+    def test_publisher_location_cannot_be_replaced_with_conference_city(self):
+        def transform(path, value):
+            return value.replace('address={Porto Alegre}', 'address={Recife}') if path.name == 'references.bib' else value
+        with self.assertRaisesRegex(AssertionError, 'verified bibliographic field drift'):
+            validate(transform)
+
     def test_rebuild_receipt_requires_this_archive_and_all_successful_profiles(self):
         check = validate()['verify_rebuild_receipt']
         receipt = {'status': 'REBUILD_VERIFIED', 'archive_sha256': 'a'*64, 'exit_code': 0,

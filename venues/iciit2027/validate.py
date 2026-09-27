@@ -34,6 +34,17 @@ keys = set(k.strip() for group in re.findall(r'\\cite\{([^}]+)\}', source) for k
 bibkeys = set(re.findall(r'@\w+\{([^,]+),', (root/'references.bib').read_text(encoding='utf-8')))
 scope = json.loads((root/'reference-scope.json').read_text(encoding='utf-8'))
 assert keys == set(scope['citation_keys']) == bibkeys, 'venue citation membership drift'
+bibliography = (root/'references.bib').read_text(encoding='utf-8')
+entries = {re.search(r'@\w+\{([^,]+),', entry).group(1): entry
+           for entry in re.split(r'(?m)(?=^\s*@\w+\{)', bibliography)
+           if re.search(r'@\w+\{([^,]+),', entry)}
+field_evidence = json.loads((root/'bibliography-field-evidence.json').read_text(encoding='utf-8'))
+for record in field_evidence['publisher_checks']:
+    entry = entries[record['key']]
+    for field, value in record['verified_bibtex_fields'].items():
+        found = re.search(r'\b' + re.escape(field) + r'\s*=\s*\{([^}]+)\}', entry, re.I)
+        assert found and found.group(1) == value, ('verified bibliographic field drift', record['key'], field)
+assert not re.search(r'\b(?:pages|numpages)\s*=', entries['schneider2025comparison'], re.I), 'article identifier must not become unverified pagination'
 for entry in re.split(r'(?m)(?=^\s*@\w+\{)', (root/'references.bib').read_text(encoding='utf-8')):
     match = re.search(r'@\w+\{([^,]+),', entry)
     if not match:

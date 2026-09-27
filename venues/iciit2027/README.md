@@ -9,6 +9,15 @@ The venue narrative now has 17 citations (15 recent, two method-origin exception
 This is separate from the frozen 25-citation historical narrative contract.
 Independent real-repository and external-comparator results are still absent.
 
+Bibliographic field corrections are documented in bibliography-field-evidence.json.
+Live DOI and publisher metadata establish the Qayum issue citation as 2025,
+55(1), 100-132 (online in 2024), and Schneider's 128 as an article identifier,
+not a page number. Six publisher locations are now source-backed. Unknown
+Schneider page count and IEEE publisher location are left unfilled; no value
+is invented to silence a warning. citation-metadata-audit.json remains the
+earlier observation, not a receipt for this later field correction. This work
+does not execute an official SLR search or establish journal rankings.
+
 ## Which file to read
 
 - iciit2027-review.pdf: 10-page single-column review profile, including the appendix.

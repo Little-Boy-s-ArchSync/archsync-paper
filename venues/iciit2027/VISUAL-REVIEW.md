@@ -1,6 +1,18 @@
 # Visual review — 27 September 2026
 
-## Current scientific reviewer revision
+## Bibliographic field correction (current)
+
+All five profiles were rebuilt, rendered at 1600px and inspected as complete
+contact sheets in tmp/pdfs/bibliography-revision/. The compact reference page
+was also inspected at full size. Qayum now visibly cites the 2025 issue,
+55(1), 100-132 while retaining the online-2024 note; Schneider visibly uses
+Article 128 rather than page 128. Added publisher locations do not cause
+observed clipping or overlap. Page counts remain 10/5/10/5/3. Twenty-six local
+regression checks pass. visual-inputs.json binds these PDFs; earlier hashes
+below are historical. No D1/D2/P3 result, author order, scientific claim or
+independent-evaluation status changed.
+
+## Earlier scientific reviewer revision
 
 All five regenerated profiles were rendered and their full-document contact
 sheets inspected in tmp/pdfs/reviewer-revision/. The motivation-first abstract,

@@ -347,7 +347,7 @@ warning: iciit2027-review-anonymous.bbl:47: Requested font "[LinLibertine_RI.otf
 warning: iciit2027-review-anonymous.bbl:90: Underfull \vbox (badness 5260) has occurred while \output is active
 warning: appendix:8: Underfull \vbox (badness 4779) has occurred while \output is active
 warning: appendix:26: Underfull \vbox (badness 2073) has occurred while \output is active
-note: Rerunning TeX because "iciit2027-review-anonymous.aux" changed ...
+note: Rerunning TeX because "iciit2027-review-anonymous.out" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
@@ -524,6 +524,6 @@ warning: appendix:8: Underfull \vbox (badness 4779) has occurred while \output i
 warning: appendix:26: Underfull \vbox (badness 2073) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `iciit2027-review-anonymous.pdf` (125.3076171875 KiB)
-note: Writing `iciit2027-review-anonymous.blg` (774 B)
+note: Writing `iciit2027-review-anonymous.pdf` (125.3955078125 KiB)
+note: Writing `iciit2027-review-anonymous.blg` (552 B)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

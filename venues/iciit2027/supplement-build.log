@@ -115,7 +115,7 @@ warning: appendix:13:  -> ntxsyc
 warning: appendix:13: Requested font "ntxexa" at 9.0pt
 warning: appendix:13:  -> ntxexa
 warning: appendix:37: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-note: Rerunning TeX because "iciit2027-supplement.aux" changed ...
+note: Rerunning TeX because "iciit2027-supplement.out" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt

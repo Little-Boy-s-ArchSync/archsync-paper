@@ -1,0 +1,345 @@
+{
+  "purpose": "Metadata-field verification only; not an official SLR search, full-text appraisal, Q ranking, or experiment result",
+  "request_id": "61187128-c2dc-46c0-a032-5df0b2fb0d03",
+  "recorded_at_utc": "2026-09-27 07:42:09 UTC",
+  "publisher_checks": [
+    {
+      "key": "sar2024taxonomy",
+      "doi": "10.1002/spe.3364",
+      "source_url": "https://onlinelibrary.wiley.com/doi/10.1002/spe.3364",
+      "scrape_id": "01a0e1c9-696a-767e-9e53-f7becfb45aad",
+      "status_code": 200,
+      "verified_bibtex_fields": {
+        "year": "2025",
+        "volume": "55",
+        "number": "1",
+        "pages": "100--132"
+      },
+      "note": "The publisher's issue citation is 2025, 55(1), 100-132. First online publication on 17 July 2024 is retained separately."
+    },
+    {
+      "key": "schneider2025comparison",
+      "doi": "10.1007/s10664-025-10686-2",
+      "source_url": "https://link.springer.com/article/10.1007/s10664-025-10686-2",
+      "scrape_id": "01a0e1c9-590f-727a-a05a-ff9f90498dd9",
+      "status_code": 200,
+      "verified_bibtex_fields": {
+        "year": "2025",
+        "volume": "30",
+        "number": "5",
+        "articleno": "128"
+      },
+      "note": "128 is the article identifier, not page 128 or a count of pages. The page count has not been verified and is not supplied."
+    },
+    {
+      "key": "lucena2025gatekeepers",
+      "doi": "10.5753/sbes.2025.11100",
+      "source_url": "https://sol.sbc.org.br/index.php/sbes/article/view/37049",
+      "scrape_id": "01a0e1ca-ac32-7384-8f98-f77c7c540360",
+      "status_code": 200,
+      "verified_bibtex_fields": {
+        "address": "Porto Alegre",
+        "pages": "713--719"
+      },
+      "note": "The publisher's Como Citar record states Porto Alegre as publisher location, distinct from conference venue Recife/PE."
+    },
+    {
+      "key": "archlintor2025",
+      "doi": "10.5753/sbes.2025.11075",
+      "source_url": "https://sol.sbc.org.br/index.php/sbes/article/view/37076",
+      "scrape_id": "01a0e1ca-bf59-76ec-99f6-635681df1239",
+      "status_code": 200,
+      "verified_bibtex_fields": {
+        "address": "Porto Alegre",
+        "pages": "900--906"
+      },
+      "note": "The publisher's Como Citar record states Porto Alegre as publisher location, distinct from conference venue Recife/PE."
+    }
+  ],
+  "unverified_fields": [
+    {
+      "key": "schneider2025comparison",
+      "field": "numpages",
+      "reason": "Publisher landing-page and DOI metadata identify article 128 but do not give its length. Attempted publisher PDF download returned HTML, not a verified PDF."
+    },
+    {
+      "key": "li2022symptoms",
+      "field": "address",
+      "reason": "No publisher location in the retrieved DOI metadata; not inferred from conference city."
+    }
+  ],
+  "date_note": {
+    "key": "thermofisher2025",
+    "cited_year": 2025,
+    "reason": "Retains verified online publication year 2025-09-09; the DOI metadata separately reports print year 2026. Both dates are recent; no recency exception is claimed."
+  },
+  "records": [
+    {
+      "doi": "10.1002/spe.3364",
+      "source_url": "https://api.crossref.org/v1/works/10.1002%2Fspe.3364/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.321Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "A Framework and Taxonomy for Characterizing the Applicability of Software Architecture Recovery Approaches: A Tertiary‐Mapping Study",
+        "page": "100-132",
+        "volume": "55",
+        "issue": "1",
+        "publisher": "Wiley",
+        "published-online": {
+          "date-parts": [
+            [
+              2024,
+              7,
+              17
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.1007/s10664-025-10686-2",
+      "source_url": "https://api.crossref.org/v1/works/10.1007%2Fs10664-025-10686-2/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.313Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "Comparison of static analysis architecture recovery tools for microservice applications",
+        "article-number": "128",
+        "volume": "30",
+        "issue": "5",
+        "publisher": "Springer Science and Business Media LLC",
+        "published-online": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              20
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              9
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.1007/978-3-031-66326-0_1",
+      "source_url": "https://api.crossref.org/v1/works/10.1007%2F978-3-031-66326-0_1/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.323Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "Tools Reconstructing Microservice Architecture: A Systematic Mapping Study",
+        "page": "3-18",
+        "publisher": "Springer Nature Switzerland",
+        "publisher-location": "Cham",
+        "published-online": {
+          "date-parts": [
+            [
+              2024,
+              7,
+              30
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.1007/978-3-031-10548-7_39",
+      "source_url": "https://api.crossref.org/v1/works/10.1007%2F978-3-031-10548-7_39/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.320Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "CALint: A Tool for Enforcing the Clean Architecture’s Dependency Rule in Python",
+        "page": "534-549",
+        "publisher": "Springer International Publishing",
+        "publisher-location": "Cham",
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              26
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.1007/978-3-031-70797-1_10",
+      "source_url": "https://api.crossref.org/v1/works/10.1007%2F978-3-031-70797-1_10/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.311Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "Exploring Architectural Evolution in Microservice Systems Using Repository Mining Techniques and Static Code Analysis",
+        "page": "157-173",
+        "publisher": "Springer Nature Switzerland",
+        "publisher-location": "Cham",
+        "published-online": {
+          "date-parts": [
+            [
+              2024,
+              9,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.1109/ICSA53651.2022.00011",
+      "source_url": "https://api.crossref.org/v1/works/10.1109%2FICSA53651.2022.00011/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.380Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "Symptoms of Architecture Erosion in Code Reviews: A Study of Two OpenStack Projects",
+        "page": "24-35",
+        "publisher": "IEEE",
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.5753/sbes.2025.11100",
+      "source_url": "https://api.crossref.org/v1/works/10.5753%2Fsbes.2025.11100/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.349Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "Language Models as Architectural Gatekeepers: Automating Conformance Checking from Natural Language",
+        "page": "713-719",
+        "publisher": "Sociedade Brasileira de Computação",
+        "published-online": {
+          "date-parts": [
+            [
+              2025,
+              9,
+              22
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.5753/sbes.2025.11075",
+      "source_url": "https://api.crossref.org/v1/works/10.5753%2Fsbes.2025.11075/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.401Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "ArchLintor: detecting architectural violations in TypeScript systems",
+        "page": "900-906",
+        "publisher": "Sociedade Brasileira de Computação",
+        "published-online": {
+          "date-parts": [
+            [
+              2025,
+              9,
+              22
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "doi": "10.1007/978-3-032-04207-1_25",
+      "source_url": "https://api.crossref.org/v1/works/10.1007%2F978-3-032-04207-1_25/transform",
+      "observed_at_utc": "2026-09-27T07:33:41.352Z",
+      "workflow": {
+        "version": "1.0.0",
+        "digest": "sha256:fff4a9de87839349086f0f9fedb69d3fa93920ac11875eb4ef752d28863c59f2"
+      },
+      "upstream_status": 200,
+      "fields": {
+        "title": "Lessons from Visualizing Software Architecture Structure Conformance at Thermo Fisher Scientific",
+        "page": "372-389",
+        "publisher": "Springer Nature Switzerland",
+        "publisher-location": "Cham",
+        "published-online": {
+          "date-parts": [
+            [
+              2025,
+              9,
+              9
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -660,6 +660,6 @@ warning: paper:149: Underfull \hbox (badness 2293) in paragraph at lines 148--14
 warning: paper:149: Underfull \hbox (badness 2359) in paragraph at lines 148--149
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `iciit2027-compact-anonymous.blg` (775 B)
-note: Writing `iciit2027-compact-anonymous.pdf` (101.986328125 KiB)
+note: Writing `iciit2027-compact-anonymous.pdf` (102.0595703125 KiB)
+note: Writing `iciit2027-compact-anonymous.blg` (553 B)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)
