@@ -927,6 +927,6 @@ warning: paper:143: Underfull \vbox (badness 10000) has occurred while \output i
 warning: iciit2027-compact.bbl:269: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `iciit2027-compact.pdf` (109.8505859375 KiB)
+note: Writing `iciit2027-compact.pdf` (109.8349609375 KiB)
 note: Writing `iciit2027-compact.blg` (849 B)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

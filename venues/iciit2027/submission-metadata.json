@@ -27,11 +27,31 @@
       "approval": "not asserted"
     },
     {
+      "name": "Tran Minh Hoang",
+      "email": "andyjobs2023@gmail.com",
+      "orcid": "0009-0000-0302-1841",
+      "institution": "VNUK Institute for Research and Executive Education, The University of Danang",
+      "city": "Da Nang",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    },
+    {
       "name": "Ha Hoang Bach",
       "email": "hahoangbach2005@gmail.com",
       "orcid": "0009-0000-5118-0660",
       "institution": "FPT University",
       "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "corresponding_author": false,
+      "approval": "not asserted"
+    },
+    {
+      "name": "Le Van Kiet",
+      "email": "levankiet1212.2004@gmail.com",
+      "orcid": "0009-0007-8434-882X",
+      "institution": "VNUK Institute for Research and Executive Education, The University of Danang",
+      "city": "Da Nang",
       "country": "Vietnam",
       "corresponding_author": false,
       "approval": "not asserted"
@@ -52,26 +72,6 @@
       "orcid": null,
       "institution": "FPT University",
       "city": "Ho Chi Minh City",
-      "country": "Vietnam",
-      "corresponding_author": false,
-      "approval": "not asserted"
-    },
-    {
-      "name": "Tran Minh Hoang",
-      "email": "andyjobs2023@gmail.com",
-      "orcid": "0009-0000-0302-1841",
-      "institution": "VNUK Institute for Research and Executive Education, The University of Danang",
-      "city": "Da Nang",
-      "country": "Vietnam",
-      "corresponding_author": false,
-      "approval": "not asserted"
-    },
-    {
-      "name": "Le Van Kiet",
-      "email": "levankiet1212.2004@gmail.com",
-      "orcid": "0009-0007-8434-882X",
-      "institution": "VNUK Institute for Research and Executive Education, The University of Danang",
-      "city": "Da Nang",
       "country": "Vietnam",
       "corresponding_author": false,
       "approval": "not asserted"

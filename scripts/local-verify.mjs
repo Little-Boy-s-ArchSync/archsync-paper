@@ -131,8 +131,17 @@ const dockerPrefix = [
   "/workspace",
   containerImage,
 ];
+const venuePython = pythonPdf || (platform() === "win32" ? "python" : "python3");
+const venuePythonAvailable = commandAvailable(venuePython, ["-c", "import pypdf"]);
+const needsContainer = !hostTexAvailable || !venuePythonAvailable;
+const venueCommand = (args) => venuePythonAvailable
+  ? { command: venuePython, args }
+  : { command: "docker", args: [...dockerPrefix, "/opt/archsync-venue/bin/python", ...args] };
 
 const commands = [
+  ...(needsContainer ? [{ id: "build-tex-container", command: "docker", args: ["build", "--file", "scripts/local-verification.Dockerfile", "--tag", containerImage, "."] }] : []),
+  { id: "venue-package", ...venueCommand(["venues/iciit2027/validate.py", "--check"]) },
+  { id: "venue-regression-tests", ...venueCommand(["venues/iciit2027/test_validate.py"]) },
   { id: "source-metadata", command: process.execPath, args: ["scripts/verify-paper-source.mjs"] },
   { id: "bibliography-style-tests", command: process.execPath, args: ["--test", "scripts/verify-bibliography-style.test.mjs"] },
   { id: "reporting-derivation", command: process.execPath, args: ["scripts/verify-reporting.mjs"] },
@@ -175,14 +184,6 @@ if (calibrationTracked) {
 } else if (reviewEvidenceTracked) {
   console.error("LOCAL PAPER VERIFY REFUSED: SLR review evidence requires the governed screening calibration summary.");
   process.exit(2);
-}
-
-if (!hostTexAvailable) {
-  commands.push({
-    id: "build-tex-container",
-    command: "docker",
-    args: ["build", "--file", "scripts/local-verification.Dockerfile", "--tag", containerImage, "."],
-  });
 }
 
 for (const [id, file] of [

@@ -7,10 +7,10 @@ Service changes can introduce architectural drift while preserving functional be
 Keywords: architecture conformance, service-oriented systems, static analysis, architecture drift, reproducibility
 
 1. Vo Duc Hieu — FPT University, Ho Chi Minh City, Vietnam; voduchieu42@gmail.com (corresponding author); ORCID 0009-0007-5389-5177
-2. Ha Hoang Bach — FPT University, Ho Chi Minh City, Vietnam; hahoangbach2005@gmail.com; ORCID 0009-0000-5118-0660
-3. Hoang Nguyen The — FPT University, Ho Chi Minh City, Vietnam; hoangnt20@fe.edu.vn; ORCID not supplied in existing manuscript
-4. Minh Tam Phan — FPT University, Ho Chi Minh City, Vietnam; tampm@fe.edu.vn; ORCID not supplied in existing manuscript
-5. Tran Minh Hoang — VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam; andyjobs2023@gmail.com; ORCID 0009-0000-0302-1841
-6. Le Van Kiet — VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam; levankiet1212.2004@gmail.com; ORCID 0009-0007-8434-882X
+2. Tran Minh Hoang — VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam; andyjobs2023@gmail.com; ORCID 0009-0000-0302-1841
+3. Ha Hoang Bach — FPT University, Ho Chi Minh City, Vietnam; hahoangbach2005@gmail.com; ORCID 0009-0000-5118-0660
+4. Le Van Kiet — VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam; levankiet1212.2004@gmail.com; ORCID 0009-0007-8434-882X
+5. Hoang Nguyen The — FPT University, Ho Chi Minh City, Vietnam; hoangnt20@fe.edu.vn; ORCID not supplied in existing manuscript
+6. Minh Tam Phan — FPT University, Ho Chi Minh City, Vietnam; tampm@fe.edu.vn; ORCID not supplied in existing manuscript
 
 No author approval, exclusivity, conflict or funding declaration is inferred from this metadata.

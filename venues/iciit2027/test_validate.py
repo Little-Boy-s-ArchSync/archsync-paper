@@ -1,0 +1,57 @@
+"""Regression checks against retained assets; no source or evidence is rewritten."""
+import contextlib, io, json, runpy, sys, unittest
+from pathlib import Path
+from unittest.mock import patch
+
+root = Path(__file__).resolve().parent
+read_text = Path.read_text
+read_bytes = Path.read_bytes
+
+def validate(transform=None, byte_transform=None):
+    def text(path, *args, **kwargs):
+        # A locale-dependent read must fail this test even on UTF-8 Linux.
+        assert kwargs.get('encoding') == 'utf-8', 'text encoding must be explicit'
+        value = read_text(path, *args, **kwargs)
+        return transform(path, value) if transform else value
+    def binary(path):
+        value = read_bytes(path)
+        return byte_transform(path, value) if byte_transform else value
+    with patch.object(sys, 'argv', ['validate.py', '--fresh']), patch.object(Path, 'read_text', text), patch.object(Path, 'read_bytes', binary), contextlib.redirect_stdout(io.StringIO()):
+        runpy.run_path(str(root/'validate.py'), run_name='__main__')
+
+class VenueValidation(unittest.TestCase):
+    def test_current_assets_and_explicit_utf8(self):
+        validate()
+
+    def test_owner_order_cannot_change_even_if_metadata_is_self_consistent(self):
+        def transform(path, value):
+            if path.name == 'submission-metadata.json':
+                data = json.loads(value)
+                data['authors'][1], data['authors'][2] = data['authors'][2], data['authors'][1]
+                return json.dumps(data)
+            return value
+        with self.assertRaisesRegex(AssertionError, 'owner-confirmed author order'):
+            validate(transform)
+
+    def test_display_order_must_match(self):
+        def transform(path, value):
+            if path.name == 'author-layout.tex':
+                return value.replace('Tran Minh Hoang', 'SWAP-NAME').replace('Ha Hoang Bach', 'Tran Minh Hoang').replace('SWAP-NAME', 'Ha Hoang Bach')
+            return value
+        with self.assertRaisesRegex(AssertionError, 'display author order'):
+            validate(transform)
+
+    def test_abstract_metadata_drift_rejected(self):
+        def transform(path, value):
+            return value.replace('Service changes can introduce', 'Changed abstract can introduce') if path.name == 'SUBMISSION-METADATA.md' else value
+        with self.assertRaisesRegex(AssertionError, 'copyable abstract drift'):
+            validate(transform)
+
+    def test_changed_evidence_bytes_rejected(self):
+        def transform(path, value):
+            return value + b'tampered' if path == root/'evidence/guardian-0.4/before.log' else value
+        with self.assertRaises(AssertionError):
+            validate(byte_transform=transform)
+
+if __name__ == '__main__':
+    unittest.main()

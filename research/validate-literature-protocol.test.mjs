@@ -48,6 +48,28 @@ function validate(overrides = {}) {
   return validateLiteratureProtocol({ ...source, ...overrides });
 }
 
+const historicalMarkers = [
+  ["This section is a scoped narrative synthesis selected to establish context for ArchSync's design, not a systematic literature review", "The synthesis above is a scoped narrative review, not the result of a completed systematic literature review"],
+  ["Related Work is a purposively scoped narrative synthesis, with source-selection and interpretation bias", "The current Related Work synthesis is narrative and may reflect source-selection and interpretation bias"],
+  ["These are limitations of the chosen narrative method, not temporary gaps awaiting completion of another review", "versioned review protocol, search templates, and pending calibration evidence remain research-governance artifacts outside the manuscript"],
+];
+const historicalPaper = historicalMarkers.reduce((text, [current, old]) => text.replace(current, old), paper);
+
+test("current validation rejects historical prose while explicit historical replay validates its own disclosures", () => {
+  assert.equal(validate({ paper: historicalPaper }).issues.filter(issue => issue.startsWith("main.tex:")).length, 3);
+  assert.deepEqual(validateLiteratureProtocol({ ...source, paper: historicalPaper }, { manuscriptDisclosure: "historical-narrative" }).issues, []);
+  assert.ok(validateLiteratureProtocol(source, { manuscriptDisclosure: "unknown" }).issues.includes("main.tex: unknown manuscript disclosure profile"));
+});
+
+test("historical replay still requires every disclosure and all non-editorial protocol rules", () => {
+  for (const [, old] of historicalMarkers) {
+    const result = validateLiteratureProtocol({ ...source, paper: historicalPaper.replace(old, "") }, { manuscriptDisclosure: "historical-narrative" });
+    assert.equal(result.issues.filter(issue => issue.startsWith("main.tex:")).length, 1);
+  }
+  const result = validateLiteratureProtocol({ ...source, paper: historicalPaper, protocol: protocol.replace("| Official search execution | Not started |", "| Official search execution | Started |") }, { manuscriptDisclosure: "historical-narrative" });
+  assert.ok(result.issues.some(issue => issue.includes("official search must remain Not started")));
+});
+
 function assertIssue(result, fragment) {
   assert.ok(
     result.issues.some((issue) => issue.includes(fragment)),

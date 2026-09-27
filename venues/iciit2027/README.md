@@ -65,4 +65,21 @@ The supplied image supersedes the previous six-cell author layout: centered cons
 
 Start with [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md). Abstract and narrative now lead with contributions and results; repeated limits are consolidated in Section 6. Table 1 and all measured counts are retained. The author block groups six authors by two universities and omits majors/departments and visible ORCID lines. This supersedes the earlier five-symbol affiliation layout. Identity data remains from the manuscript, not the supplied reference image. Current compact/review profiles are 5/10 pages.
 
-The displayed and structured author order is grouped by FPT University, followed by VNUK/The University of Danang, as the user requested.
+The owner reconfirmed on 27 September: preserve the agreed author order
+(Hieu, Hoang, Bach, Kiet, Hoang Nguyen The, Minh Tam Phan), grouping affiliation
+information only. This supersedes the intervening university-sorted author order.
+
+## Merge-readiness verification
+
+Use Python with pypdf 6.10.0. Text encodings are explicit UTF-8 on every platform.
+Run `python validate.py --check` for the retained PDFs, evidence, metadata and
+source archive, then `python test_validate.py` for negative regression tests.
+Run `python build.py` to regenerate all five profiles (latexmk by default, or
+set TECTONIC to its executable); `--check` validates a fresh build without
+replacing the retained validation receipt. After visual inspection, update
+`visual-inputs.json`, run `python package.py`, and run
+`python verify-package-rebuild.py` to verify the exact source ZIP in isolation.
+
+The hosted build now checks the retained package and compiles all five ICIIT
+profiles as well as both IEEE roots. Local verification checks the retained
+venue package and its regressions. None of these checks authorizes submission.

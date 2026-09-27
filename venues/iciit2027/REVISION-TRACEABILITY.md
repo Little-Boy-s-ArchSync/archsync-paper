@@ -30,6 +30,10 @@ The supplied image now controls named-profile author presentation: centered name
 
 The Abstract now has one final scope sentence; repeated caveats move to Section 6. Practitioner implications describe deterministic pull-request checks without unsupported exclusive novelty. Table 1 and measured counts are preserved. The author block is grouped by university, with departments removed and ORCIDs kept only in structured source. See `DRAFT-CHECKLIST.md` for current format and identity-policy checks. Earlier references to department checks describe superseded metadata.
 
-The latest author block lists the four FPT University authors first, then the two VNUK/The University of Danang authors. The structured paper declarations and submission metadata follow the same grouped order.
+An intervening revision sorted authors by university. That revision is superseded
+by the owner's 27 September confirmation: retain the agreed author order and
+group only affiliation information.
 
-The displayed author names, structured author declarations and submission metadata now list four FPT University authors followed by two VNUK/The University of Danang authors.
+Displayed names, structured declarations and submission metadata must follow
+Vo Duc Hieu, Tran Minh Hoang, Ha Hoang Bach, Le Van Kiet, Hoang Nguyen The,
+Minh Tam Phan. The validator checks that order in source, metadata and named PDFs.
