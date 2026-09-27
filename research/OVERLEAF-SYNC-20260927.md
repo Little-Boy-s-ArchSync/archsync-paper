@@ -2,7 +2,38 @@
 
 State: working candidate synchronized; not submission approval or completed D3.
 
-## Source and destination
+## Bibliographic refresh (latest)
+
+Canonical source commit: `a2438b8372d6fef0e1e48fa682d0b6f76b54b1b7`.
+Additive transport SHA-256:
+`c2df782e3ab341590b98184017de55e380e016801cc1a21731779bda89713d9f`.
+
+The candidate-directory bibliography and SOURCE-MANIFEST.json were updated,
+and bibliography-field-evidence.json was added. The root transport ZIP was
+replaced with the corresponding 21-file transport. The old IEEE source and
+root bibliography were not changed.
+
+The named compact profile was recompiled in the actual Overleaf editor:
+five pages, Errors 0, Warnings 7, Info 11. The PDF visibly cites Qayum as
+2025, 55(1), 100-132 with the distinct first-online-2024 note, and Schneider
+as Article 128 (September 2025). Publisher locations came from retrieved
+DOI/publisher metadata. The changed reference pages 4 and 5 were visually
+inspected at fit-height zoom without observed overflow or overlap.
+
+The seven remaining warnings are recorded, not suppressed: three template
+compatibility notices, one unverified IEEE publisher address, and three
+BibTeX notices about the unverified Schneider page count. Article identifier
+128 must not be used as a page number or invented page count to silence them.
+No experiment result or evidence label changed.
+
+Locally, all five profiles rebuilt and passed 26 regression tests. Rebuilding
+the exact source ZIP (`3b8cc7397fc654f5866d87f90e600a6e99bf6b6e3651237c4e8066e95ac6622c`)
+in an isolated directory reproduced all five PDFs' extracted page text.
+The historical evidence ZIP remained unchanged. These local and Overleaf
+checks do not establish independent scientific validation or submission
+readiness. No GitHub push, merge, hosted Action or actual submission occurred.
+
+## Initial source and destination (prior sync)
 
 - Project: https://www.overleaf.com/project/6a7c1533ba25b6f1dddfd951
 - Source commit: `4cf4c8a18ebc5d0e51290b34da40a89b707f874c`.
