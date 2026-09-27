@@ -1,0 +1,4 @@
+# Keep the venue-supplied acmart.cls byte-identical. Modern hyperxmp requires
+# hyperref to be loaded first, with the same options that acmart requests.
+# This hook runs inside class loading, after the underlying amsart class exists.
+$pdflatex = 'pdflatex %O "\AddToHook{package/hyperxmp/before}{\RequirePackage[bookmarksnumbered,unicode]{hyperref}}\input{%S}"';
