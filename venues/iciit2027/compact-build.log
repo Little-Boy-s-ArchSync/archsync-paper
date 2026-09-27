@@ -173,7 +173,6 @@ warning: paper:53:  -> ntxsyc
 warning: paper:53: Requested font "ntxexa" at 10.0pt
 warning: paper:53:  -> ntxexa
 warning: paper:53: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.3pt
-warning: paper:53: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
 warning: paper:53: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: paper:53: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:53: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
@@ -483,7 +482,6 @@ warning: paper:53:  -> ntxsyc
 warning: paper:53: Requested font "ntxexa" at 10.0pt
 warning: paper:53:  -> ntxexa
 warning: paper:53: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.3pt
-warning: paper:53: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
 warning: paper:53: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: paper:53: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:53: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
@@ -792,7 +790,6 @@ warning: paper:53:  -> ntxsyc
 warning: paper:53: Requested font "ntxexa" at 10.0pt
 warning: paper:53:  -> ntxexa
 warning: paper:53: Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.3pt
-warning: paper:53: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
 warning: paper:53: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: paper:53: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:53: Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
@@ -930,6 +927,6 @@ warning: paper:143: Underfull \vbox (badness 10000) has occurred while \output i
 warning: iciit2027-compact.bbl:269: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
+note: Writing `iciit2027-compact.pdf` (109.8505859375 KiB)
 note: Writing `iciit2027-compact.blg` (849 B)
-note: Writing `iciit2027-compact.pdf` (109.873046875 KiB)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)
