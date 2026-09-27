@@ -1,0 +1,6 @@
+% The venue's retained acmart class loads hyperxmp before hyperref.
+% Newer hyperxmp requires the opposite order. Keep the supplied class intact
+% and pass the same options it will request later to avoid an option clash.
+\AddToHook{package/hyperxmp/before}{%
+  \RequirePackage[bookmarksnumbered,unicode]{hyperref}%
+}

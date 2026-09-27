@@ -69,6 +69,9 @@ build.py --check validates a fresh build without replacing the retained receipt.
 After meaningful layout changes, render and inspect pages and update
 visual-inputs.json before repackaging. VISUAL-REVIEW.md records the visual check.
 
+texlive-compat.tex loads hyperref before hyperxmp for newer TeX Live releases,
+using the supplied class options without editing the official class file.
+
 paper.tex is the shared body. appendix.tex appears in the review profile and
 separate supplement. Evidence manifests and CLAIM-EVIDENCE.json bind the
 historical controlled results and later development reliability receipts.

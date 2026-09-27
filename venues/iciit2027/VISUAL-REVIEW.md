@@ -95,3 +95,7 @@ All five profiles were rendered with PDFium and inspected as full-document conta
 Names, emails, affiliations and supplied ORCIDs are checked for absence in anonymous extracted text and PDF metadata. Named PDFs retain all six names/emails; ORCIDs are retained in structured source rather than displayed. The class-generated anonymous thanks placeholder contains no identity. These PDF checks cannot erase prior public repository history.
 
 `visual-inputs.json` binds the inspected artifacts. Render files are retained at `preparation/2026-09-27-iciit-rework/visual/` in the parent workspace. The strict validator reports no overfull boxes, unresolved citations or unresolved references. All 25 citations and the existing Table 1 are retained. These checks concern presentation and consistency, not author consent or independent scientific review.
+
+The TeX Live compatibility follow-up preserves identical page text and rendered
+pixels (72 dpi, all 33 pages) against the previously inspected draft at 36cd426.
+The compatibility hook changes package loading order only.
