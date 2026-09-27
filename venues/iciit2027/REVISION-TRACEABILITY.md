@@ -29,3 +29,7 @@ The supplied image now controls named-profile author presentation: centered name
 ## 27 September contribution-first revision
 
 The Abstract now has one final scope sentence; repeated caveats move to Section 6. Practitioner implications describe deterministic pull-request checks without unsupported exclusive novelty. Table 1 and measured counts are preserved. The author block is grouped by university, with departments removed and ORCIDs kept only in structured source. See `DRAFT-CHECKLIST.md` for current format and identity-policy checks. Earlier references to department checks describe superseded metadata.
+
+The latest author block lists the four FPT University authors first, then the two VNUK/The University of Danang authors. The structured paper declarations and submission metadata follow the same grouped order.
+
+The displayed author names, structured author declarations and submission metadata now list four FPT University authors followed by two VNUK/The University of Danang authors.

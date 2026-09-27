@@ -505,7 +505,7 @@ warning: paper:135: Underfull \vbox (badness 10000) has occurred while \output i
 warning: iciit2027-review.bbl:50: Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
 warning: iciit2027-review.bbl:141: Underfull \vbox (badness 4279) has occurred while \output is active
 warning: appendix:5: Underfull \vbox (badness 10000) has occurred while \output is active
-note: Rerunning TeX because "iciit2027-review.aux" changed ...
+note: Rerunning TeX because "iciit2027-review.out" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
@@ -760,6 +760,6 @@ warning: iciit2027-review.bbl:141: Underfull \vbox (badness 4279) has occurred w
 warning: appendix:5: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
+note: Writing `iciit2027-review.pdf` (131.8251953125 KiB)
 note: Writing `iciit2027-review.blg` (848 B)
-note: Writing `iciit2027-review.pdf` (131.8115234375 KiB)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)
