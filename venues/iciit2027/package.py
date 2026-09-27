@@ -4,7 +4,7 @@ import hashlib,json,zipfile
 root=Path(__file__).resolve().parent
 source_names=['DRAFT-CHECKLIST.md','SUBMISSION-AUDIT-20260927.md','official/2026-09-27/retrieval.json','official/2026-09-27/sample-sigconf.tex','REVISION-TRACEABILITY.md','CLAIM-EVIDENCE.json','paper.tex','related-work.tex','appendix.tex','references.bib','acmart.cls','acmart.dtx','ACM-Reference-Format.bst','build.sh','build.py','validate.py','test_validate.py','verify-package-rebuild.py','README.md','REQUIREMENTS.md','SUBMISSION-METADATA.md','submission-metadata.json','validation.json','evidence-manifest.json','VISUAL-REVIEW.md','visual-inputs.json','official/retrieval.json','template/LaTeX-Templates/acmart.cls','template/LaTeX-Templates/ACM-Reference-Format.bst']
 profiles=['review','compact','review-anonymous','compact-anonymous','supplement']
-source_names += ['author-layout.tex']
+source_names += ['author-layout.tex','COMPLIANCE-CHECK.md','FRESH-READ.md','official/2026-09-27-compliance/retrieval.json']
 for profile in profiles:source_names += [f'iciit2027-{profile}.tex',f'iciit2027-{profile}.pdf',f'{profile}-build.log']
 artifacts=[]
 for name,files in [('archsync-iciit2027-source.zip',[root/p for p in source_names]),('archsync-iciit2027-evidence.zip',sorted((root/'evidence').rglob('*'))+[root/'evidence-manifest.json'])]:

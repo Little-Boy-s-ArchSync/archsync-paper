@@ -1,5 +1,23 @@
 # Visual review — 27 September 2026
 
+## Current compliance and proofread pass
+
+All five revised profiles were rendered and inspected as full-document contact
+sheets; compact pages 3 and 5 were also inspected at reading size for the RQ
+mapping, explicit AI methods disclosure and corrected references. No clipping,
+overlap, missing glyphs or undefined references were observed. Figure 1 and
+Tables 1–2 match their references. Named author typography is unchanged at the
+user's request. It remains a deliberate template exception, not an approved
+submission format. The compact/review profiles remain 5/10 pages and the
+supplement 3. Both anonymous profiles pass text/metadata identity checks.
+
+The two mis-typed conference-paper entries now print their proceedings titles;
+the repeated series label is removed. The official bibliography style is unchanged.
+All 25 cited keys resolve. Tables and original evidence bytes remain unchanged.
+Renders are in preparation/2026-09-27-draft-compliance/visual in the parent
+workspace. visual-inputs.json binds this inspection to the exact PDF bytes.
+The separate human 90-second read has been prepared but not performed.
+
 ## Current screenshot-style typography correction
 
 The owner's repeated request to match the sample exposed a rendering issue:

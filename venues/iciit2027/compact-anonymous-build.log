@@ -199,8 +199,6 @@ warning: paper:92: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;l
 warning: paper:93: Underfull \hbox (badness 2961) in paragraph at lines 92--93
 warning: paper:97: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:97: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: paper:116: Underfull \hbox (badness 1281) in paragraph at lines 115--116
-warning: paper:116: Underfull \hbox (badness 1199) in paragraph at lines 115--116
 warning: paper:118: Underfull \hbox (badness 1661) in paragraph at lines 117--118
 warning: paper:125: Underfull \hbox (badness 1418) in paragraph at lines 124--125
 warning: paper:125: Underfull \hbox (badness 6559) in paragraph at lines 124--125
@@ -420,13 +418,11 @@ warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 
 warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 24--25
 warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 25--25
 warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 25--25
-warning: paper:65: Underfull \hbox (badness 3168) in paragraph at lines 29--65
-warning: paper:92: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
+warning: paper:92: 
+Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:93: Underfull \hbox (badness 2961) in paragraph at lines 92--93
 warning: paper:97: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:97: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: paper:116: Underfull \hbox (badness 1281) in paragraph at lines 115--116
-warning: paper:116: Underfull \hbox (badness 1199) in paragraph at lines 115--116
 warning: paper:118: Underfull \hbox (badness 1661) in paragraph at lines 117--118
 warning: paper:125: Underfull \hbox (badness 1418) in paragraph at lines 124--125
 warning: paper:125: Underfull \hbox (badness 6559) in paragraph at lines 124--125
@@ -450,7 +446,7 @@ warning: paper:145: Underfull \hbox (badness 2293) in paragraph at lines 144--14
 warning: paper:145: Underfull \hbox (badness 2359) in paragraph at lines 144--145
 warning: iciit2027-compact-anonymous.bbl:57: Underfull \vbox (badness 10000) has occurred while \output is active
 warning: iciit2027-compact-anonymous.bbl:337: Underfull \vbox (badness 10000) has occurred while \output is active
-note: Rerunning TeX because "iciit2027-compact-anonymous.aux" changed ...
+note: Rerunning TeX because "iciit2027-compact-anonymous.out" changed ...
 warning: libertine.sty:308: 
 Requested font "[LinLibertine_R.otf]/OT" at 8.99997pt
 warning: libertine.sty:308: Requested font "[LinLibertine_R.otf]/OT" at 9.00003pt
@@ -649,13 +645,11 @@ warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 
 warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 24--25
 warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 25--25
 warning: related-work:25: Underfull \hbox (badness 10000) in paragraph at lines 25--25
-warning: paper:65: Underfull \hbox (badness 3168) in paragraph at lines 29--65
-warning: paper:92: Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
+warning: paper:92: 
+Requested font "[Inconsolatazi4-Regular.otf]/OT:script=latn;language=dflt;+ss03;" at 9.0pt
 warning: paper:93: Underfull \hbox (badness 2961) in paragraph at lines 92--93
 warning: paper:97: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
 warning: paper:97: Requested font "[LinBiolinum_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 7.0pt
-warning: paper:116: Underfull \hbox (badness 1281) in paragraph at lines 115--116
-warning: paper:116: Underfull \hbox (badness 1199) in paragraph at lines 115--116
 warning: paper:118: Underfull \hbox (badness 1661) in paragraph at lines 117--118
 warning: paper:125: Underfull \hbox (badness 1418) in paragraph at lines 124--125
 warning: paper:125: Underfull \hbox (badness 6559) in paragraph at lines 124--125
@@ -682,5 +676,5 @@ warning: iciit2027-compact-anonymous.bbl:337: Underfull \vbox (badness 10000) ha
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
 note: Writing `iciit2027-compact-anonymous.blg` (859 B)
-note: Writing `iciit2027-compact-anonymous.pdf` (104.7890625 KiB)
+note: Writing `iciit2027-compact-anonymous.pdf` (105.435546875 KiB)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

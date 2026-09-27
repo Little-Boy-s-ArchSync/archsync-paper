@@ -2,7 +2,7 @@
 
 ## Reader entry points
 
-- [Compact named draft](iciit2027-compact.pdf): 5 pages including references; preferred for quick reading.
+- [Compact named draft](iciit2027-compact.pdf): 5 pages including references; working upload candidate for this pass, pending portal/profile and anonymity confirmation.
 - [Single-column named review draft](iciit2027-review.pdf): 10 pages including references and technical appendix; the supplied template explicitly recommends manuscript/screen/review options for review.
 - Anonymous alternatives: [compact](iciit2027-compact-anonymous.pdf), [review](iciit2027-review-anonymous.pdf).
 - [Exact editable source package](archsync-iciit2027-source.zip).
@@ -30,3 +30,5 @@ Official sources: [submission](https://www.iciit.org/sub.html), [dates](https://
 
 The later same-day recheck, current author-layout decision, exact fresh template
 hashes and remaining upload questions are in SUBMISSION-AUDIT-20260927.md.
+
+Latest disclosure, template and anonymity findings: [COMPLIANCE-CHECK.md](COMPLIANCE-CHECK.md). The custom author layout is deferred at the user’s request, not certified compliant.

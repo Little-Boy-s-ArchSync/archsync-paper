@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.iciit.org/sub.html",
+    "retrieved_at": "2026-09-27T07:30:15.110572+00:00",
+    "file": "submission.html",
+    "sha256": "30f3a41de680d30ace91895d4beae3e06da6e5d7a211da684c0eb250816dc433"
+  },
+  {
+    "url": "https://www.iciit.org/LaTeX-Templates.zip",
+    "retrieved_at": "2026-09-27T07:30:18.242479+00:00",
+    "file": "template.zip",
+    "sha256": "e0272aab662418d48c9b12df70d4815778eb1fb07f645ebbeacdcb7dded6ef44"
+  }
+]

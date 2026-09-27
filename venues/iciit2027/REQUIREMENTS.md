@@ -80,3 +80,7 @@ that order. Structured metadata is aligned; existing ORCID ownership is retained
 This supersedes the earlier default-renderer selection, not the official venue
 rules. The custom layout needs organizer confirmation. Research content,
 measurements, anonymous rendering and historical IEEE working files are unchanged.
+
+## Latest compliance pass
+
+See [COMPLIANCE-CHECK.md](COMPLIANCE-CHECK.md) for the fresh policy check. Five-page compact is the working candidate; upload profile/anonymity and any portal-only AI declaration remain unresolved. The user explicitly deferred changing the custom author block.

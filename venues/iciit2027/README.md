@@ -1,7 +1,7 @@
 # ICIIT 2027 (Ho Chi Minh City) candidate package
 
 This is a prepared candidate, not a submitted or accepted manuscript.
-Start with [SUBMISSION-AUDIT-20260927.md](SUBMISSION-AUDIT-20260927.md) and
+Start with [COMPLIANCE-CHECK.md](COMPLIANCE-CHECK.md), [SUBMISSION-AUDIT-20260927.md](SUBMISSION-AUDIT-20260927.md), and
 [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md).
 
 ## Which file to read
