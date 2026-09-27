@@ -70,9 +70,22 @@ python validate.py --check
 ```
 
 Run from this directory. Set TECTONIC to use that engine instead of latexmk.
+On Windows, the Tectonic installation may also require `FONTCONFIG_FILE` to
+point to an existing valid Fontconfig `fonts.conf` from the host's font runtime.
+Keep this setting local to the build process; do not suppress Fontconfig errors
+or change manuscript fonts to bypass missing host configuration. The validated
+PDF font checks still apply. No machine-specific absolute path is embedded in
+the source package.
 build.py --check validates a fresh build without replacing the retained receipt.
 After meaningful layout changes, render and inspect pages and update
 visual-inputs.json before repackaging. VISUAL-REVIEW.md records the visual check.
+
+The package rebuild starts with an incomplete receipt, retains per-profile
+diagnostic logs on failure, and marks success only after all five rebuilt
+profiles match the retained page text. `validate.py --check` requires that
+success receipt to bind the current source ZIP, so a prior successful rebuild
+cannot certify a changed archive. This verifies technical package reproduction,
+not independent research reproduction or permission to submit.
 
 paper.tex is the shared body. appendix.tex appears in the review profile and
 separate supplement. Evidence manifests and CLAIM-EVIDENCE.json bind the

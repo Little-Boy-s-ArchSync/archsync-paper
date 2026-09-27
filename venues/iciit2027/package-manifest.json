@@ -3,8 +3,8 @@
   "archives": [
     {
       "file": "archsync-iciit2027-source.zip",
-      "sha256": "d9e6e2a1e7c86133b25c020c42f32d5377799a3cf89d721fa8d7ffae34c54d29",
-      "bytes": 724917
+      "sha256": "ab367d78b5413e09a8c4effb754ac9e474ff66d622ef1e81d3ff4ba6dc2ec243",
+      "bytes": 727573
     },
     {
       "file": "archsync-iciit2027-evidence.zip",
@@ -15,7 +15,7 @@
   "source_files": [
     {
       "path": "DRAFT-CHECKLIST.md",
-      "sha256": "1611b15a83bc721de972baafb3a68cb02d35261fc36c9567143bbe3a74349656"
+      "sha256": "682f14f01ea4861e7227d8ee50d077e1df4ce25a1d8b28922e6482291fc3a9c9"
     },
     {
       "path": "SUBMISSION-AUDIT-20260927.md",
@@ -75,23 +75,23 @@
     },
     {
       "path": "validate.py",
-      "sha256": "eed28202bde82936b221e78cda1966800da72c8bcc8348acf7a7c62a87084936"
+      "sha256": "e0aa57dee37456e8d656bb1b8723e1151e7d5b9015fd0f2758e97bac86473f78"
     },
     {
       "path": "test_validate.py",
-      "sha256": "4c3e9e4a13e844419a979f2b421b002660d128b7ae880752f13f9acfb8d3e02c"
+      "sha256": "df6c3621178693f6de7e4f36473c39568270847aa8c531cb64f38307e80714d0"
     },
     {
       "path": "verify-package-rebuild.py",
-      "sha256": "36a5db044a9459f8b86931595831b29425adaf7a62217580a729416518ae429b"
+      "sha256": "0c03462240bbf09846e1d6723c7db3d40f47346004f3b120782f02f3a3503651"
     },
     {
       "path": "README.md",
-      "sha256": "634228490fa321cac0cb061855f727a315d2d78ea864ff2ae1e7c67ab43ac313"
+      "sha256": "d02b8401dcfffa9039c192aab630366f4160f3eab08583fbb11671d0cfecaf62"
     },
     {
       "path": "REQUIREMENTS.md",
-      "sha256": "f279164dd35d1085d35c46b455672f8dabca400762b32ce0df44454b2b0bcd07"
+      "sha256": "40c032fec559fe8d16d364254fcb623e8f639a22e2194cea6cd640edb4881e6e"
     },
     {
       "path": "SUBMISSION-METADATA.md",

@@ -1,4 +1,4 @@
-# ICIIT 2027 (Ho Chi Minh City) draft — 27 September 2026
+# ICIIT 2027 (Ho Chi Minh City) candidate - 27 September 2026
 
 ## Reader entry points
 
@@ -19,9 +19,9 @@ These are draft candidates, not a portal submission. The public venue instructio
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |
 | Authors | Latest order: Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan. All six share the owner-supplied FPT HCMC faculty/address; Minh Tam Phan carries the correspondence star. Both named profiles show the six emails in order. ORCIDs remain in structured source. No fresh coauthor consent is inferred. |
 | Contribution section | No separate per-author contribution section required by the checked public instructions. Removed from IEEE variants; already absent in the ICIIT body. Previous roles remain in research/AUTHOR-CONTRIBUTIONS.md. Research-use AI methods disclosure remains. |
-| References | 25 citations; unchanged official ACM bibliography style; citation resolution checked during build. |
-| Abstract | Contribution-first, 136 words, one final scope sentence. Abstract synchronized across PDF source and metadata. |
-| Evidence | Existing historical and development counts preserved. Table 1 unchanged. No new baseline or D3 evaluation introduced. |
+| References | 17 citations: 15 from 2022-2025 and two documented method-origin exceptions. Unchanged official ACM bibliography style; citation resolution checked during build. |
+| Abstract | Motivation-first, 140 words; states the mechanism, bounded development observations, contribution and unresolved external evaluation. Abstract synchronized across PDF source and metadata. |
+| Evidence | Existing historical and development counts preserved. Literature context is explicitly not an executed comparison; the development-results table is not independent accuracy. No new baseline or D3 evaluation introduced. |
 | Validity | Repeated qualifications consolidated into Section 6; scope, independence, failure provenance and methodological assistance retained. |
 | Practitioner relevance | Introduction and Conclusion explain deterministic pull-request checks with inspectable evidence. No unsupported exclusive novelty or measured productivity claim. |
 | PDF quality | Five profiles built; named PDFs visually inspected, anonymous identity checks and rendered review recorded in VISUAL-REVIEW.md. |

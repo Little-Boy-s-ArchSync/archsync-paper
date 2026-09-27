@@ -1,4 +1,4 @@
-# ICIIT 2027 (Ho Chi Minh City) — verified draft requirements
+# ICIIT 2027 (Ho Chi Minh City) - verified candidate requirements
 
 Verified 2026-09-26 from the official pages captured under `official/` with URL,
 UTC retrieval time and SHA-256 in `official/retrieval.json`.
@@ -23,8 +23,10 @@ the scope evidence instead.
 
 ## What the draft contains
 
-- A compact venue-specific treatment, retaining 25 citations and the original
-  bounded D1/D2/P3 results. It does not replace the longer IEEE working drafts.
+- A compact venue-specific treatment with 17 citations: 15 from 2022-2025 and
+  two documented method-origin exceptions. The original bounded D1/D2/P3
+  observations are retained and identified as development verification, not
+  independent effectiveness. It does not replace the longer IEEE working drafts.
 - A separate technical-reliability section covering the finite Core oracle,
   mutation-driven test improvement and current Guardian repairs; no results
   are promoted to independent field accuracy.

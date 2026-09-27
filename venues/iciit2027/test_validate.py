@@ -1,5 +1,5 @@
 """Regression checks against retained assets; no source or evidence is rewritten."""
-import contextlib, io, json, runpy, sys, unittest
+import contextlib, hashlib, io, json, runpy, subprocess, sys, tempfile, unittest, zipfile
 from pathlib import Path
 from unittest.mock import patch
 
@@ -20,6 +20,68 @@ def validate(transform=None, byte_transform=None):
         return runpy.run_path(str(root/'validate.py'), run_name='__main__')
 
 class VenueValidation(unittest.TestCase):
+    def test_rebuild_receipt_requires_this_archive_and_all_successful_profiles(self):
+        check = validate()['verify_rebuild_receipt']
+        receipt = {'status': 'REBUILD_VERIFIED', 'archive_sha256': 'a'*64, 'exit_code': 0,
+                   'text_matches': [{'file': f'iciit2027-{profile}.pdf', 'page_text_identical': True}
+                                    for profile in ['review', 'compact', 'review-anonymous', 'compact-anonymous', 'supplement']]}
+        check(receipt, 'a'*64)
+        for changes in [{'status': 'REBUILD_FAILED'}, {'status': 'REBUILD_INCOMPLETE'},
+                        {'archive_sha256': 'b'*64}, {'exit_code': 1}, {'exit_code': False},
+                        {'text_matches': []}, {'text_matches': receipt['text_matches'][:-1]},
+                        {'text_matches': receipt['text_matches'] + receipt['text_matches'][:1]},
+                        {'text_matches': [{'file': 'iciit2027-review.pdf', 'page_text_identical': False}] + receipt['text_matches'][1:]},
+                        {'text_matches': [{'file': 'iciit2027-review.pdf', 'page_text_identical': 1}] + receipt['text_matches'][1:]}]:
+            with self.subTest(changes=changes), self.assertRaises(AssertionError):
+                check({**receipt, **changes}, 'a'*64)
+
+    def test_rebuild_failures_invalidate_old_success_and_preserve_diagnostics(self):
+        # Controlled software fixtures, not research source or experimental results.
+        builders = [None,
+                    "from pathlib import Path\nPath('review-build.log').write_text('controlled failure', encoding='utf-8')\nraise SystemExit(7)\n",
+                    "from pathlib import Path\nPath('validation.json').write_text('{\"pdfs\": []}', encoding='utf-8')\n"]
+        for builder, expected_stage in zip(builders, ['extract', 'build', 'validate-and-compare']):
+            with self.subTest(stage=expected_stage), tempfile.TemporaryDirectory(prefix='archsync-rebuild-test-') as name:
+                temporary = Path(name)
+                (temporary/'verify-package-rebuild.py').write_bytes(read_bytes(root/'verify-package-rebuild.py'))
+                (temporary/'package-rebuild.json').write_text('{"status": "REBUILD_VERIFIED"}', encoding='utf-8')
+                archive = temporary/'archsync-iciit2027-source.zip'
+                if builder is None:
+                    archive.write_bytes(b'not a ZIP')
+                else:
+                    with zipfile.ZipFile(archive, 'w') as zipped:
+                        zipped.writestr('build.py', builder)
+                result = subprocess.run([sys.executable, str(temporary/'verify-package-rebuild.py')], capture_output=True)
+                self.assertNotEqual(result.returncode, 0)
+                receipt = json.loads((temporary/'package-rebuild.json').read_text(encoding='utf-8'))
+                self.assertEqual(receipt['status'], 'REBUILD_FAILED')
+                self.assertEqual(receipt['failed_stage'], expected_stage)
+                self.assertEqual(receipt['archive_sha256'], hashlib.sha256(archive.read_bytes()).hexdigest())
+                self.assertEqual(receipt['text_matches'], [])
+                diagnostics = temporary/receipt['diagnostics']
+                self.assertTrue(diagnostics.is_dir())
+                if expected_stage == 'build':
+                    self.assertEqual(receipt['exit_code'], 7)
+                    self.assertEqual((diagnostics/'review-build.log').read_text(encoding='utf-8'), 'controlled failure')
+
+    def test_checklist_citation_count_cannot_describe_an_older_candidate(self):
+        def transform(path, value):
+            return value.replace('| References | 17 citations:', '| References | 25 citations:') if path.name == 'DRAFT-CHECKLIST.md' else value
+        with self.assertRaisesRegex(AssertionError, 'checklist citation count drift'):
+            validate(transform)
+
+    def test_requirements_citation_count_cannot_describe_an_older_candidate(self):
+        def transform(path, value):
+            return value.replace('with 17 citations:', 'with 25 citations:') if path.name == 'REQUIREMENTS.md' else value
+        with self.assertRaisesRegex(AssertionError, 'requirements citation count drift'):
+            validate(transform)
+
+    def test_checklist_abstract_count_matches_the_actual_submission_abstract(self):
+        def transform(path, value):
+            return value.replace('Motivation-first, 140 words;', 'Motivation-first, 136 words;') if path.name == 'DRAFT-CHECKLIST.md' else value
+        with self.assertRaisesRegex(AssertionError, 'checklist abstract word count drift'):
+            validate(transform)
+
     def test_old_nonfoundational_citation_rejected(self):
         def transform(path, value):
             return value.replace('year = {2022}', 'year = {2012}') if path.name == 'references.bib' else value

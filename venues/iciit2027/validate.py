@@ -8,6 +8,15 @@ expected_emails = ['voduchieu42@gmail.com', 'andyjobs2023@gmail.com', 'levankiet
 expected_orcids = ['0009-0007-5389-5177', '0009-0000-0302-1841', '0009-0007-8434-882X', '0009-0000-5118-0660', None, None]
 shared_affiliation = {'department': 'Faculty of Software Engineering', 'institution': 'FPT University HCMC', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'}
 
+def verify_rebuild_receipt(receipt, archive_sha256):
+    assert receipt.get('status') == 'REBUILD_VERIFIED', 'source package rebuild is not verified'
+    assert receipt.get('archive_sha256') == archive_sha256, 'rebuild receipt belongs to a different archive'
+    assert type(receipt.get('exit_code')) is int and receipt['exit_code'] == 0, 'rebuild command failed'
+    expected = [{'file': f'iciit2027-{profile}.pdf', 'page_text_identical': True}
+                for profile in ['review', 'compact', 'review-anonymous', 'compact-anonymous', 'supplement']]
+    assert receipt.get('text_matches') == expected, 'rebuild must match all five profiles exactly'
+    assert all(row['page_text_identical'] is True for row in receipt['text_matches']), 'rebuild matches must be actual booleans'
+
 def verify_author_typography(runs):
     # Inspect emitted PDF fonts, not only LaTeX declarations: urlstyle{rm}
     # can silently override ttfamily and an unavailable encoding can fall back.
@@ -51,6 +60,11 @@ assert all(all(a[field] == value for field, value in shared_affiliation.items())
 abstract = re.search(r'\\begin\{abstract\}\s*(.*?)\s*\\end\{abstract\}', (root/'paper.tex').read_text(encoding='utf-8'), re.S).group(1)
 assert metadata['abstract'] == abstract.replace('--', '–'), 'abstract metadata drift'
 assert metadata['abstract'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), 'copyable abstract drift'
+checklist = (root/'DRAFT-CHECKLIST.md').read_text(encoding='utf-8')
+requirements = (root/'REQUIREMENTS.md').read_text(encoding='utf-8')
+assert f'| References | {len(keys)} citations:' in checklist, 'checklist citation count drift'
+assert f'with {len(keys)} citations:' in requirements, 'requirements citation count drift'
+assert f'Motivation-first, {len(metadata["abstract"].split())} words;' in checklist, 'checklist abstract word count drift'
 # Verify the complete ordered author block against the copyable submission data.
 paper_source = (root/'paper.tex').read_text(encoding='utf-8')
 blocks = re.findall(r'\\author\{([^}]+)\}(.*?)(?=\\author\{|\\renewcommand\{\\shortauthors)', paper_source, re.S)
@@ -138,6 +152,8 @@ if '--check' in sys.argv:
     with zipfile.ZipFile(root/'archsync-iciit2027-source.zip') as archive:
         for item in package['source_files']:
             assert hashlib.sha256(archive.read(item['path'])).hexdigest() == item['sha256'], item['path']
+    verify_rebuild_receipt(json.loads((root/'package-rebuild.json').read_text(encoding='utf-8')),
+                           hashlib.sha256((root/'archsync-iciit2027-source.zip').read_bytes()).hexdigest())
 elif '--fresh' not in sys.argv:
     (root/'validation.json').write_text(json.dumps(report,indent=2)+'\n', encoding='utf-8', newline='\n')
 print(json.dumps(report,indent=2))
