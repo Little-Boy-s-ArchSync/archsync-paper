@@ -26,6 +26,11 @@ for (name, block), author in zip(blocks, metadata['authors']):
     assert name in (root/'SUBMISSION-METADATA.md').read_text(), name
     assert author['email'] in (root/'SUBMISSION-METADATA.md').read_text(), name
 layout = (root/'author-layout.tex').read_text()
+institutions = [author['institution'] for author in metadata['authors']]
+assert institutions == [institutions[0]] * 4 + [institutions[-1]] * 2, 'authors are not grouped by university in metadata order'
+assert '\\textsuperscript{1}FPT University' in layout
+assert '\\textsuperscript{2}VNUK Institute for Research and Executive Education' in layout
+assert layout.count('\\textit{Email:}') == 2, 'expected one grouped email line per university'
 for author in metadata['authors']:
     for value in [author['name'], author['email']]:
         if value: assert value in layout, ('display metadata drift', value)
