@@ -1,6 +1,27 @@
 # Visual review — 27 September 2026
 
-## Current owner-supplied shared-affiliation layout
+## Current screenshot-style typography correction
+
+The owner's repeated request to match the sample exposed a rendering issue:
+acmart's roman URL font overrode the prior outer typewriter declaration.
+The corrected block explicitly uses T1 Times-style 12pt/14pt text for names
+and affiliation, a 12pt gap between those groups, and T1 bold Courier-style
+10pt/12pt text for the three email lines. A local UrlFont definition prevents
+the class from changing the email face. No body font or margin is changed.
+
+Both first pages were re-rendered at 1800px and visually inspected against the
+sample. All named pages were re-rendered into contact sheets with no observed
+clipping or overlap. PDF text visitors confirm actual NimbusRomNo9L-Regu and
+NimbusMonL-Bold fonts (not a LaTeX-only assertion). Fifteen regression tests
+pass, including a test rejecting serif email fallback.
+The previous six-author metadata, order and correspondence star are unchanged.
+Review/compact remain 10/5 pages; the anonymous and supplement page text is
+unchanged. visual-inputs.json binds these inspected PDFs. Current first-page
+renders are in tmp/pdfs/exact-author-style/; full contact sheets are in
+tmp/pdfs/shared-author-block/. Organizer acceptance of the customization is
+still not asserted.
+
+## Earlier shared-affiliation layout (typography superseded)
 
 The latest explicit owner request replaces the default author renderer for
 the two named ICIIT profiles only. Both first pages were rendered at 1700px and

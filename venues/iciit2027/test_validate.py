@@ -17,9 +17,21 @@ def validate(transform=None, byte_transform=None):
         value = read_bytes(path)
         return byte_transform(path, value) if byte_transform else value
     with patch.object(sys, 'argv', ['validate.py', '--fresh']), patch.object(Path, 'read_text', text), patch.object(Path, 'read_bytes', binary), contextlib.redirect_stdout(io.StringIO()):
-        runpy.run_path(str(root/'validate.py'), run_name='__main__')
+        return runpy.run_path(str(root/'validate.py'), run_name='__main__')
 
 class VenueValidation(unittest.TestCase):
+    def test_real_pdf_email_fonts_reject_serif_fallback(self):
+        namespace = validate()
+        bad_runs = [(email, 'Times-Bold', 10) for email in namespace['expected_emails']]
+        with self.assertRaisesRegex(AssertionError, 'bold monospace'):
+            namespace['verify_author_typography'](bad_runs)
+
+    def test_email_font_override_cannot_be_removed(self):
+        def transform(path, value):
+            return value.replace(r'\def\UrlFont', r'\def\UnusedFont') if path.name == 'author-layout.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'explicit email font override'):
+            validate(transform)
+
     def test_current_assets_and_explicit_utf8(self):
         validate()
 

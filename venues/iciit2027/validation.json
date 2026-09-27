@@ -4,6 +4,7 @@
   "abstract_metadata_matches": true,
   "all_six_authors_and_order_match": true,
   "shared_affiliation_and_email_order_match": true,
+  "author_block_pdf_fonts_verified": true,
   "author_layout": "owner-requested-centered-shared-affiliation",
   "default_acm_author_renderer": false,
   "correspondence_in_author_footnote": true,
@@ -14,31 +15,31 @@
     {
       "file": "iciit2027-review.pdf",
       "pages": 10,
-      "sha256": "ff4518b71ee4f4bee0f811d50e2f6f7159241f91694499ceba971ea9002fdfc5",
-      "bytes": 137692
+      "sha256": "d9fc44374b87bf8fe9b93fc3b4fe4bf530b8fcf35d86253e8c297ce6c1e8f809",
+      "bytes": 144410
     },
     {
       "file": "iciit2027-compact.pdf",
       "pages": 5,
-      "sha256": "9e751c28483821b340fd7137c968fab5ee30f224b4bdd12e60c41d5109141c76",
-      "bytes": 114498
+      "sha256": "8ae4c338a49b530dfd21b11984162444e4be65f15ecf94133198a81aeab7df6c",
+      "bytes": 122220
     },
     {
       "file": "iciit2027-review-anonymous.pdf",
       "pages": 10,
-      "sha256": "2e6f5034fc679b647c7235e35ab1fd2a923d9352c80a6ef66a5984cd6065a073",
-      "bytes": 130583
+      "sha256": "76036cb8bbfa9ef0806dbd8c9f4548cf051e10b6357982b6b6160ce27f6200e4",
+      "bytes": 130582
     },
     {
       "file": "iciit2027-compact-anonymous.pdf",
       "pages": 5,
-      "sha256": "f949d121044e9bcd5959bfb640129563179acb684304d6ddd4a965b999fbac53",
+      "sha256": "f36aaa70ccf2d996b897c8e923b3e8bfec7623a629d91b5355e1d6f320d4fa4f",
       "bytes": 107304
     },
     {
       "file": "iciit2027-supplement.pdf",
       "pages": 3,
-      "sha256": "925373f34c597cfb3c2d66aa892dca2338231b9b4709e5d863dd0ebb1d70d8f9",
+      "sha256": "1a8ed46a41eb899fa96d97003111a222076bde6dc8f6c2446e21dc5e13723807",
       "bytes": 60587
     }
   ],

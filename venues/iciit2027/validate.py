@@ -7,6 +7,17 @@ expected_authors = ['Vo Duc Hieu', 'Tran Minh Hoang', 'Le Van Kiet', 'Ha Hoang B
 expected_emails = ['voduchieu42@gmail.com', 'andyjobs2023@gmail.com', 'levankiet1212.2004@gmail.com', 'hahoangbach2005@gmail.com', 'hoangnt20@fe.edu.vn', 'tampm@fe.edu.vn']
 expected_orcids = ['0009-0007-5389-5177', '0009-0000-0302-1841', '0009-0007-8434-882X', '0009-0000-5118-0660', None, None]
 shared_affiliation = {'department': 'Faculty of Software Engineering', 'institution': 'FPT University HCMC', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'}
+
+def verify_author_typography(runs):
+    # Inspect emitted PDF fonts, not only LaTeX declarations: urlstyle{rm}
+    # can silently override ttfamily and an unavailable encoding can fall back.
+    for email in expected_emails:
+        matches = [(font, size) for text, font, size in runs if email in re.sub(r'\s+', '', text)]
+        assert matches, ('missing email font run', email)
+        assert all(re.search(r'NimbusMon|Courier|TeXGyreCursor', font, re.I) and 'bold' in font.lower() and abs(size - 10) < .1 for font, size in matches), ('email must render in 10pt bold monospace', email, matches)
+    for marker in ['Vo Duc Hieu,', 'Faculty of Software Engineering']:
+        matches = [(font, size) for text, font, size in runs if re.sub(r'\s+', '', marker) in re.sub(r'\s+', '', text)]
+        assert any(re.search(r'NimbusRom|Times|TeXGyreTermes', font, re.I) and abs(size - 12) < .1 for font, size in matches), ('names and affiliation must render in 12pt Times-style serif', marker)
 assert set(sys.argv[1:]) <= {'--check', '--fresh'}, 'unknown validation option'
 assert not ('--check' in sys.argv and '--fresh' in sys.argv), 'choose retained or fresh validation'
 source = (root/'paper.tex').read_text(encoding='utf-8') + (root/'related-work.tex').read_text(encoding='utf-8')
@@ -46,6 +57,7 @@ for field in shared_affiliation.values():
 positions = [layout.index(name) for name in expected_authors]
 assert positions == sorted(positions), 'visible author order drift'
 assert 'VNUK' not in layout and 'ORCID:' not in layout, 'visible block differs from requested shared layout'
+assert r'\def\UrlFont{\fontencoding{T1}\fontfamily{pcr}\fontseries{b}\fontsize{10}{12}\selectfont}' in layout, 'explicit email font override required'
 assert 'Author Information and Contributions' not in paper_source, 'optional author contribution section restored'
 assert 'printacmref=false' not in paper_source, 'required ACM reference block suppressed'
 evidence_checked = False
@@ -82,6 +94,9 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
             else:
                 assert re.sub(r'\s+', '', marker.lower()) in re.sub(r'\s+', '', text.lower()),(profile,marker)
         if 'anonymous' not in profile:
+            runs = []
+            pdf.pages[0].extract_text(visitor_text=lambda text, cm, tm, font, size: runs.append((text, str(font.get('/BaseFont', '')) if font else '', size)))
+            verify_author_typography(runs)
             positions = [re.sub(r'\s+', '', text.lower()).index(re.sub(r'\s+', '', name.lower())) for name in expected_authors]
             assert positions == sorted(positions), (profile, 'PDF author order drift')
             first_page = re.sub(r'\s+', '', (pdf.pages[0].extract_text() or '').lower())
@@ -92,7 +107,7 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
             assert all(re.sub(r'\s+', '', value.lower()) in first_page for value in shared_affiliation.values()), (profile, 'shared affiliation missing')
             assert 'vnuk' not in first_page, (profile, 'old affiliation leaked into new block')
     rows.append({'file':path.name,'pages':len(pdf.pages),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size})
-report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'shared_affiliation_and_email_order_match':True,'author_layout':'owner-requested-centered-shared-affiliation','default_acm_author_renderer':False,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
+report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'shared_affiliation_and_email_order_match':True,'author_block_pdf_fonts_verified':True,'author_layout':'owner-requested-centered-shared-affiliation','default_acm_author_renderer':False,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
 if '--check' in sys.argv:
     assert report == json.loads((root/'validation.json').read_text(encoding='utf-8')), 'retained PDF validation receipt drift'
     package = json.loads((root/'package-manifest.json').read_text(encoding='utf-8'))

@@ -46,6 +46,9 @@ research/AUTHOR-CONTRIBUTIONS.md. Required research-use AI disclosure remains.
 
 Body fonts, margins and vertical leading are unchanged. The named author block
 uses normal serif text and bold monospace email lines to follow the image.
+The block uses 12pt Times-style names/affiliation and 10pt bold Courier-style
+emails. A local UrlFont override prevents the class's roman URL style from
+silently replacing the email font. The validator checks actual PDF font runs.
 The retained emergency line-breaking reserve prevents protruding technical text. The documented
 balance=false compact option disables automatic last-page balancing only.
 

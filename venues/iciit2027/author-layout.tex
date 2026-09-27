@@ -8,13 +8,15 @@
   \global\setbox\mktitle@bx=\vbox{%
     \unvbox\mktitle@bx\par\medskip
     \begingroup\hsize=\textwidth\centering\normalfont
-    {\large
+    \fontencoding{T1}\fontfamily{ptm}\fontsize{12}{14}\selectfont
     Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet, Ha Hoang Bach,\\
-    Hoang Nguyen-The, and Minh Tam Phan\textsuperscript{*}\par}
-    \medskip\normalsize
+    Hoang Nguyen-The, and Minh Tam Phan\textsuperscript{*}\par
+    \vskip12pt
     Faculty of Software Engineering, FPT University HCMC,\\
     Ho Chi Minh City, 70000, Vietnam\\
-    {\ttfamily\bfseries
+    {\fontencoding{T1}\fontfamily{pcr}\fontseries{b}\fontsize{10}{12}\selectfont
+    % acmart's global urlstyle{rm} otherwise overrides an outer ttfamily.
+    \def\UrlFont{\fontencoding{T1}\fontfamily{pcr}\fontseries{b}\fontsize{10}{12}\selectfont}%
     \nolinkurl{voduchieu42@gmail.com}, \nolinkurl{andyjobs2023@gmail.com},\\
     \nolinkurl{levankiet1212.2004@gmail.com}, \nolinkurl{hahoangbach2005@gmail.com},\\
     \nolinkurl{hoangnt20@fe.edu.vn}, \nolinkurl{tampm@fe.edu.vn}\par}
