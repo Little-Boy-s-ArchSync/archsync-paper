@@ -1,6 +1,6 @@
 # D3 annotation handoff - Tran Minh Hoang
 
-Version: 0.1.2, 2026-09-27.
+Version: 0.1.3, 2026-09-27.
 State: owner assignment recorded; preparation only, no official run authorized.
 
 ## Assignment and limits
@@ -95,9 +95,28 @@ The commands `pnpm holdout:candidates:verify` and `pnpm holdout:verify` validate
 preparation only. `pnpm holdout:gate` is intentionally blocked for the present
 empty proposed manifest. Do not turn the template into an approval or treat
 structural validation as evidence that a person independently read the source.
-The annotation helper checks two declared reviewer IDs and supplied fields; it
-cannot authenticate people, establish blinding, validate a human label or verify
-that an evidence path/line exists in the frozen source snapshot.
+The legacy structural annotation helper checks two declared reviewer IDs and
+supplied fields; it does not authenticate people, establish blinding, validate
+a human label or check the cited location against source bytes.
+
+A separate source-location API is now available in Benchmark candidate
+`f6873df4cdbaef7d7e962affb8761c68eb39003b`, in
+`scripts/lib/holdout-annotation-source.mjs`. See the usage and limits in that
+candidate's `holdout/README.md`. For each repository, it accepts a complete
+capture manifest, a separately retained reviewed digest, all tracked file bytes
+and both reviewer rows. Each row must bind `repository_id` and
+`repository_commit`. It rejects changed/incomplete source, incorrect commit,
+unsafe or out-of-scope paths, nonexistent lines and invalid source text. Its
+seven regression tests include the structural validator's false acceptance of
+a nonexistent file and a controlled local Git capture. The 184-test unit suite
+passes without skips; this is software verification, not D3 accuracy.
+
+The new API must be called explicitly; the existing freeze/adjudication helpers
+do not automatically invoke it. The final reviewed orchestration must require
+the check before accepting source-grounded annotations. Its result proves only
+location consistency with supplied pinned bytes, not label correctness,
+completeness, human identity, independence, approval or upstream provenance.
+The candidate remains local and does not select, annotate or execute D3.
 
 The existing row-level metric helper distinguishes node, edge and rule units.
 Its classification denominator is input metric rows, not necessarily unique
