@@ -6,6 +6,21 @@ Local input: `d1c9ac90068c69a8e9a5de07a27a48a65b4d5852`.
 
 This is selective source integration, not a Git merge or approving review.
 
+## Subsequent Git ancestry integration
+
+After the owner authorized push, review and protected merge, the local branch
+merged the exact PR #50 head above. The 19 content conflicts were resolved
+against the already-audited newer candidate, preserving its source/PDF/ZIP and
+manifest bytes together. The four automatically merged presentation documents
+also retain the current candidate's scope rather than importing stale 25-citation
+claims. The useful remote source changes listed below had already been integrated.
+The remote compliance and reading packets and official retrieval record are now
+retained as historical records, with explicit scope notices on the two documents.
+They are not included as fresh receipts in the current source ZIP.
+
+This ancestry integration does not transfer Kiệt's approval of PR #50 to this
+new head. The combined branch needs its own exact-head review and required CI.
+
 ## Retained improvements
 
 - Resolve section references through labels instead of hardcoded numbers.
