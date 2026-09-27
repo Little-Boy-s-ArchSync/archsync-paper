@@ -1,5 +1,13 @@
 # Supervisor-request revision — 26 September 2026
 
+## Current scientific revision - 27 September
+
+See REVIEW-RESPONSE-20260927.md for the current mapping. The following sections
+are retained history: their 25-reference scope, published Code2DFD numerical
+paragraph and previous author layouts are not descriptions of the current PDF.
+Current venue scope is 17 citations; borrowed performance numbers were removed
+instead of presenting literature context as an executed comparison.
+
 Target: ICIIT 2027 (Ho Chi Minh City). Local revision; no submission or author approval recorded.
 
 | Requested correction | Implemented evidence | Remaining boundary |

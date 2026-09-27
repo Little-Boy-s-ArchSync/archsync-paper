@@ -1,10 +1,10 @@
 {
-  "archive_sha256": "ef8760722ee30dd9dd86649bc5411687dab7f5e1d5a395765f3c8017fb17c672",
+  "archive_sha256": "eba7367a8ad658efad5aa4a54a749fc86cab9abc322a093194360e8d019a490d",
   "method": "extract exact source ZIP into fresh directory and rebuild all five profiles",
   "exit_code": 0,
   "validation": {
     "status": "LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED",
-    "citations": 25,
+    "citations": 17,
     "abstract_metadata_matches": true,
     "all_six_authors_and_order_match": true,
     "shared_affiliation_and_email_order_match": true,
@@ -19,31 +19,31 @@
       {
         "file": "iciit2027-review.pdf",
         "pages": 10,
-        "sha256": "d6c6d87c6ef8a8c14d734a23196140946ee2065d94cf7475ef13327fd2ce3384",
-        "bytes": 144410
+        "sha256": "afa4e0fb908f880155b899bc93b36584b05e086076f99cef03ae1557b04a9eb4",
+        "bytes": 143127
       },
       {
         "file": "iciit2027-compact.pdf",
         "pages": 5,
-        "sha256": "ac57b15f29a4925c6c45e59961673057b82c962104234559f8bcaa5ecdcb5026",
-        "bytes": 122220
+        "sha256": "c280db9fd070b9b627355297410bad7cf2311ce55a145e9ef4ec60e9f8c85a88",
+        "bytes": 119472
       },
       {
         "file": "iciit2027-review-anonymous.pdf",
         "pages": 10,
-        "sha256": "6fc25fe24eedf6878d544be7894d9fc183bb073354c90f9246f307b42a5f838a",
-        "bytes": 130582
+        "sha256": "632cc8b75a6ddc5cac3820a71d40281ab89a2765e35494a88781ca00bff122b9",
+        "bytes": 128315
       },
       {
         "file": "iciit2027-compact-anonymous.pdf",
         "pages": 5,
-        "sha256": "2ee84e80f59a83be8dc7f174e2479899fb74c6ed33326101fa53c18d8e86b60a",
-        "bytes": 107304
+        "sha256": "02b77684cddea383bb865ecbe0853007aea78145a5061a128bdc93c5fa1092bb",
+        "bytes": 104434
       },
       {
         "file": "iciit2027-supplement.pdf",
         "pages": 3,
-        "sha256": "10eae8521d85824b68178e3cb875694679a48beb16e8b0a5d442ded8cd6ab684",
+        "sha256": "5f681832a69ea130a0a41fa56dc99986ee149a3dc6cf8a08ead196c8332335dc",
         "bytes": 60587
       }
     ],

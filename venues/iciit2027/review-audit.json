@@ -1,0 +1,132 @@
+{
+  "status": "retained-observation-audit-not-new-experimental-evidence",
+  "benchmark_commit": "24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb",
+  "input_sha256": {
+    "order-platform/ground-truth.json": "5d3ce2976dfcce59796dd58cee60dce51233e0f44fde8c41bd89b013e7f23e92",
+    "evidence/phase-2-results.json": "359d1317d80cd162cccad9e0811af1aaa2ab3e299e14771e292da3f0159c5503",
+    "evidence/phase-3-results.json": "c334f67dd5ec005f500bdb4973d8d14be5fae1564d6e080f984a3b7d90b0a754",
+    "evidence/typescript-pattern-baseline-v0.1.json": "4e7fa926565d78604650e3368dfabbc92649653554a2497e4cbad4adb55f7e6e",
+    "evidence/typescript-pattern-results.json": "9b963b8d6683778b262fe6aafc068b010399f703c9d8a2f048286854b54baa77"
+  },
+  "D1": {
+    "systems": 1,
+    "classification": [
+      20,
+      20
+    ],
+    "label_distribution": {
+      "no-impact": 9,
+      "violation": 7,
+      "evolution": 4
+    },
+    "changed_nodes": {
+      "matched": 5,
+      "expected": 5,
+      "actual": 5
+    },
+    "changed_edges": {
+      "matched": 12,
+      "expected": 12,
+      "actual": 12
+    },
+    "violation_rule_sets": [
+      7,
+      7
+    ],
+    "locations": {
+      "call_sites": {
+        "matches": 9,
+        "cases": 9,
+        "case_ids": [
+          "case-06",
+          "case-07",
+          "case-09",
+          "case-10",
+          "case-15",
+          "case-16",
+          "case-18",
+          "case-19",
+          "case-20"
+        ]
+      },
+      "missing_relation_anchors": {
+        "matches": 2,
+        "cases": 2,
+        "case_ids": [
+          "case-08",
+          "case-17"
+        ]
+      }
+    }
+  },
+  "P3": {
+    "decisions": [
+      20,
+      20
+    ],
+    "incremental_parsed_file_instances": 57,
+    "full_head_file_instances": 189,
+    "reported_exact_delta_matches": 20,
+    "reported_full_scan_matches": 20,
+    "reported_deterministic_cases": 20
+  },
+  "D2_group_reconciliation": {
+    "v0.1": {
+      "true_positive": 18,
+      "false_positive": 4,
+      "false_negative": 2,
+      "true_negative": 16
+    },
+    "v0.2": {
+      "true_positive": 20,
+      "false_positive": 0,
+      "false_negative": 0,
+      "true_negative": 20
+    }
+  },
+  "nearest_rank_latency_ms": {
+    "cold": {
+      "p50": 518.51,
+      "p95": 531.05
+    },
+    "warm": {
+      "p50": 242.62,
+      "p95": 249.3
+    }
+  },
+  "finite_domain_arithmetic": {
+    "graphs": 4096,
+    "rule_configurations": 192,
+    "evaluations": 786432,
+    "independent_samples": false
+  },
+  "retained_failure_receipts": {
+    "initial": {
+      "mutants": 8,
+      "statuses": {
+        "assertion-failure": 7,
+        "passed": 1
+      }
+    },
+    "final": {
+      "mutants": 8,
+      "statuses": {
+        "assertion-failure": 8
+      }
+    },
+    "adversarial_before": [
+      "11 failed | 32 passed (43)"
+    ],
+    "adversarial_after": [
+      "43 passed (43)"
+    ]
+  },
+  "limitations": [
+    "No analyzer was rerun; no new labels or benchmark observations were created.",
+    "D1 classification, changed-item sets and declared locations recomputed from retained per-case fields.",
+    "P3 exact-delta/full-scan/determinism entries sum recorded booleans; complete raw paired graphs are not re-derived here.",
+    "D2 confusion counts reconcile detector groups with aggregate receipts, not independently relabeled source programs.",
+    "Hashes establish identity, not correctness of ground truth.",
+    "No independent holdout, executed comparator, population confidence interval or practitioner outcome is supplied."
+  ]
+}

@@ -4,6 +4,11 @@ This is a prepared candidate, not a submitted or accepted manuscript.
 Start with [SUBMISSION-AUDIT-20260927.md](SUBMISSION-AUDIT-20260927.md) and
 [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md).
 
+Latest scientific corrections: [reviewer response](REVIEW-RESPONSE-20260927.md).
+The venue narrative now has 17 citations (15 recent, two method-origin exceptions).
+This is separate from the frozen 25-citation historical narrative contract.
+Independent real-repository and external-comparator results are still absent.
+
 ## Which file to read
 
 - iciit2027-review.pdf: 10-page single-column review profile, including the appendix.

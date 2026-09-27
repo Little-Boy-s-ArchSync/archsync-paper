@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-09-27",
+  "scope": "ICIIT manuscript only; frozen SLR membership and historical IEEE manuscripts are unchanged",
+  "recency_window": [
+    2022,
+    2026
+  ],
+  "citation_keys": [
+    "li2022erosion",
+    "li2022symptoms",
+    "li2023warnings",
+    "anthony2024drifting",
+    "sar2024taxonomy",
+    "bakhtin2024mapping",
+    "uzun2024drift",
+    "murphy1995reflexion",
+    "terra2009dcl",
+    "calint2022",
+    "archlintor2025",
+    "lucena2025gatekeepers",
+    "evolution2024",
+    "thermofisher2025",
+    "konersmann2022replicability",
+    "kaindlstorfer2024interrogation",
+    "schneider2025comparison"
+  ],
+  "foundational_exceptions": {
+    "murphy1995reflexion": {
+      "year": 1995,
+      "doi": "10.1145/222124.222136",
+      "role": "Original Software Reflexion Models source for high-level/source comparison; Section 2 attribution only, not contemporary effectiveness."
+    },
+    "terra2009dcl": {
+      "year": 2009,
+      "doi": "10.1002/spe.931",
+      "role": "Full Dependency Constraint Language account used for declarative rule ancestry; Section 2 attribution only, not contemporary effectiveness."
+    }
+  },
+  "removed_keys": [
+    "knodel2007comparison",
+    "ducasse2009reconstruction",
+    "abgaz2023decomposition",
+    "ntentos2022iac",
+    "refactor2024",
+    "commits2025",
+    "staticmodels2024",
+    "dependencies2024"
+  ],
+  "removed_reason": "Focus the venue narrative on service conformance and verification; older comparison/taxonomy not indispensable once direct origins and contemporary recovery synthesis are cited. Adjacent decomposition, IaC, repair, prediction and multi-source work is not evaluated here.",
+  "not_claimed": [
+    "new independent appraisal",
+    "verified journal quartiles",
+    "completed systematic literature review"
+  ],
+  "access_limit": "CALint is abstract-level only; preserve that qualifier."
+}

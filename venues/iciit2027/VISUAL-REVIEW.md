@@ -1,5 +1,17 @@
 # Visual review — 27 September 2026
 
+## Current scientific reviewer revision
+
+All five regenerated profiles were rendered and their full-document contact
+sheets inspected in tmp/pdfs/reviewer-revision/. The motivation-first abstract,
+focused 17-reference narrative, pinned repo links, explicit development-result
+caption and benchmark interpretation are readable without observed clipping or
+overlap. Review/compact remain 10/5 pages; supplement is 3 pages. The author
+typography is unchanged. Anonymous text and annotation checks omit identifying
+repo URLs. Earlier visual receipts below are historical, not current hashes.
+visual-inputs.json binds this revision. Scientific gaps remain in the reviewer
+response; layout validation does not close them.
+
 ## Current screenshot-style typography correction
 
 The owner's repeated request to match the sample exposed a rendering issue:

@@ -20,6 +20,24 @@ def validate(transform=None, byte_transform=None):
         return runpy.run_path(str(root/'validate.py'), run_name='__main__')
 
 class VenueValidation(unittest.TestCase):
+    def test_old_nonfoundational_citation_rejected(self):
+        def transform(path, value):
+            return value.replace('year = {2022}', 'year = {2012}') if path.name == 'references.bib' else value
+        with self.assertRaisesRegex(AssertionError, 'undocumented old citation'):
+            validate(transform)
+
+    def test_external_context_label_required(self):
+        def transform(path, value):
+            return value.replace('not an executed baseline comparison', 'baseline comparison') if path.name == 'related-work.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'impersonate executed baseline'):
+            validate(transform)
+
+    def test_pinned_repo_link_required(self):
+        def transform(path, value):
+            return value.replace('/archsync-core/tree/', '/archsync-core/blob/') if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'pinned artifact link missing'):
+            validate(transform)
+
     def test_real_pdf_email_fonts_reject_serif_fallback(self):
         namespace = validate()
         bad_runs = [(email, 'Times-Bold', 10) for email in namespace['expected_emails']]

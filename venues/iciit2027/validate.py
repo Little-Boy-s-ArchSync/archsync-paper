@@ -23,7 +23,23 @@ assert not ('--check' in sys.argv and '--fresh' in sys.argv), 'choose retained o
 source = (root/'paper.tex').read_text(encoding='utf-8') + (root/'related-work.tex').read_text(encoding='utf-8')
 keys = set(k.strip() for group in re.findall(r'\\cite\{([^}]+)\}', source) for k in group.split(','))
 bibkeys = set(re.findall(r'@\w+\{([^,]+),', (root/'references.bib').read_text(encoding='utf-8')))
-assert len(keys) == 25 and keys <= bibkeys
+scope = json.loads((root/'reference-scope.json').read_text(encoding='utf-8'))
+assert keys == set(scope['citation_keys']) == bibkeys, 'venue citation membership drift'
+for entry in re.split(r'(?m)(?=^\s*@\w+\{)', (root/'references.bib').read_text(encoding='utf-8')):
+    match = re.search(r'@\w+\{([^,]+),', entry)
+    if not match:
+        continue
+    key = match.group(1)
+    year = int(re.search(r'\byear\s*=\s*\{(\d{4})\}', entry, re.I).group(1))
+    if not scope['recency_window'][0] <= year <= scope['recency_window'][1]:
+        exception = scope['foundational_exceptions'].get(key)
+        assert exception and exception['year'] == year and exception['role'], ('undocumented old citation', key)
+        doi = re.search(r'\bdoi\s*=\s*\{([^}]+)\}', entry, re.I).group(1)
+        assert doi.lower() == exception['doi'].lower(), ('foundation DOI drift', key)
+assert 'not an executed baseline comparison' in source, 'published context must not impersonate executed baseline'
+assert 'regression-oracle agreement' in source and 'not an external baseline' in source, 'development evidence boundary missing'
+for repo in ['core', 'guardian', 'benchmark']:
+    assert re.search(r'https://github.com/Little-Boy-s-ArchSync/archsync-' + repo + r'/tree/[a-f0-9]{40}', source), ('pinned artifact link missing', repo)
 for name in ['acmart.cls', 'ACM-Reference-Format.bst']:
     assert (root/name).read_bytes() == (root/'template/LaTeX-Templates'/name).read_bytes()
 metadata = json.loads((root/'submission-metadata.json').read_text(encoding='utf-8'))
@@ -84,6 +100,10 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
         assert 'author information and contributions' not in text.lower(), 'optional contribution section in PDF'
         if 'anonymous' in profile:
             identity_text = re.sub(r'\s+', '', (text + str(pdf.metadata)).lower())
+            assert 'little-boy-s-archsync' not in identity_text, 'repository identity leaked into anonymous text'
+            for page in pdf.pages:
+                for annotation in page.get('/Annots', []):
+                    assert 'little-boy-s-archsync' not in str(annotation.get_object()).lower(), 'repository identity leaked into anonymous link'
             for author in metadata['authors']:
                 for field in ['name','email','institution','orcid']:
                     if author.get(field):
