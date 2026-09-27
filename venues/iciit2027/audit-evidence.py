@@ -103,5 +103,5 @@ report = {
   'No independent holdout, executed comparator, population confidence interval or practitioner outcome is supplied.'
  ]
 }
-out.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+out.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
 print(json.dumps(report,indent=2))

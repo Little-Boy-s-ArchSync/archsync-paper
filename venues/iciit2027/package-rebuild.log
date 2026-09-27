@@ -20,32 +20,32 @@ supplement: exit 0
     {
       "file": "iciit2027-review.pdf",
       "pages": 10,
-      "sha256": "afa4e0fb908f880155b899bc93b36584b05e086076f99cef03ae1557b04a9eb4",
+      "sha256": "ed730ce8298a7d649bcfd391a9db4d6bb1f6e6b7d89a8a1f224db1d34c290dfe",
       "bytes": 143127
     },
     {
       "file": "iciit2027-compact.pdf",
       "pages": 5,
-      "sha256": "c280db9fd070b9b627355297410bad7cf2311ce55a145e9ef4ec60e9f8c85a88",
+      "sha256": "0fe1aaceb8df4f6be725de7c3db1009c5ca2db44127af5d2bbb592d5e1672dff",
       "bytes": 119472
     },
     {
       "file": "iciit2027-review-anonymous.pdf",
       "pages": 10,
-      "sha256": "632cc8b75a6ddc5cac3820a71d40281ab89a2765e35494a88781ca00bff122b9",
+      "sha256": "71f8ec9931a70d2d073f7fbb38d27fed0c869bf17dc3068a7217defdb31b219c",
       "bytes": 128315
     },
     {
       "file": "iciit2027-compact-anonymous.pdf",
       "pages": 5,
-      "sha256": "02b77684cddea383bb865ecbe0853007aea78145a5061a128bdc93c5fa1092bb",
+      "sha256": "65e5ccd9d467c464daceb3ca4b8feaa88fb71350468fe0553f7ed90501ee2018",
       "bytes": 104434
     },
     {
       "file": "iciit2027-supplement.pdf",
       "pages": 3,
-      "sha256": "5f681832a69ea130a0a41fa56dc99986ee149a3dc6cf8a08ead196c8332335dc",
-      "bytes": 60587
+      "sha256": "001ff16d62618d5dfc6f8cc8157ba847b5badb29e00bf2de4c15d9f1abaeb77b",
+      "bytes": 60584
     }
   ],
   "visual_review": "separate review required",

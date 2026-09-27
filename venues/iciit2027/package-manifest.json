@@ -3,8 +3,8 @@
   "archives": [
     {
       "file": "archsync-iciit2027-source.zip",
-      "sha256": "eba7367a8ad658efad5aa4a54a749fc86cab9abc322a093194360e8d019a490d",
-      "bytes": 724934
+      "sha256": "d9e6e2a1e7c86133b25c020c42f32d5377799a3cf89d721fa8d7ffae34c54d29",
+      "bytes": 724917
     },
     {
       "file": "archsync-iciit2027-evidence.zip",
@@ -143,15 +143,15 @@
     },
     {
       "path": "audit-evidence.py",
-      "sha256": "85a7f7444f0c98707c842291840f8523afd16c958f5b36e61858374e6348c6a8"
+      "sha256": "aa01d2ec11a3aba2b56e79fc1a57806d607be991402970cc7b9f6827961f7d20"
     },
     {
       "path": "review-audit.json",
-      "sha256": "8d4283997034701430beb3efa106f5acb2681570f49c1010d495bfb887367574"
+      "sha256": "ad631bba515563a72b73e4ae59e9678cef6fd2b19a30185d51afe6b8bc600e1d"
     },
     {
       "path": "citation-metadata-audit.json",
-      "sha256": "4892057f6c3dfd9776694d5938f24b65e0f61a246c97217abdfb90f945977f2f"
+      "sha256": "7ad504686b124138a1acd8373ecd419e392b381dfcc73b11e844eb9ade679c5d"
     },
     {
       "path": "iciit2027-review.tex",
