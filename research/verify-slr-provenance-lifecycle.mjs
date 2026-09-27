@@ -186,13 +186,22 @@ export async function verifyMechanicalFreeze(git, reviewed, freeze, record) {
     }
   }
   const root = resolve("/synthetic-git-snapshot");
+  const paper = await loadExpandedManuscript(root, {
+    readText: (path) => read(relative(root, path).replaceAll("\\", "/")),
+  });
+  // This is the signed, immutable reviewed Git snapshot, not the current paper.
+  // Recheck its applicable disclosure contract without inventing replacement
+  // prose or applying a later editorial rule retroactively. Both profiles still
+  // require all three disclosures; the current CLI has no legacy-mode switch.
+  const manuscriptDisclosure = paper.includes("This section is a scoped narrative synthesis selected to establish context for ArchSync's design, not a systematic literature review")
+    ? "current-narrative" : "historical-narrative";
   const frozen = freezeLiteratureProtocol({
     protocol: await read("research/literature-protocol.md"), decisions: await read("research/decision-log.md"),
     baseline: await read("research/RESEARCH.md"), traceability: await read("research/RQ-TRACEABILITY.md"),
     bibliography: await read("references.bib"),
-    paper: await loadExpandedManuscript(root, { readText: (path) => read(relative(root, path)) }),
+    paper,
     reviewRecord: record, sentinelRecall, sentinelEvidenceHashes: hashes, sentinelEvidenceArtifacts: artifacts,
-  });
+  }, { manuscriptDisclosure });
   requireThat(frozen.issues.length === 0, `invalid original mechanical freeze: ${frozen.issues.join("; ")}`);
   for (const [path, expected] of [["research/literature-protocol.md", frozen.protocol], ["research/decision-log.md", frozen.decisions]]) {
     requireThat((await git.read(freeze, path)).equals(Buffer.from(expected)), `non-mechanical original freeze: ${path}`);

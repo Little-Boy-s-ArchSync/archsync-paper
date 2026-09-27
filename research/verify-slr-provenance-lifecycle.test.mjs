@@ -12,7 +12,7 @@ import { loadSlrCandidateFixture } from "./test-support/slr-candidate-fixture.mj
 import { createSentinelEvidenceFixture } from "./test-support/slr-sentinel-fixture.mjs";
 import { REVIEW_CHECKLIST, REVIEWER_NAME, REVIEWER_ORCID, REVIEWER_OPERATOR_LOGIN, SIGNED_REVIEW_PATHS } from "./verify-slr-signed-attestation.mjs";
 import { LOCK_PATHS } from "./validate-slr-103-codebook-lock.mjs";
-import { gitEvidence, main, verifySlrProvenanceLifecycle } from "./verify-slr-provenance-lifecycle.mjs";
+import { gitEvidence, main, verifyMechanicalFreeze, verifySlrProvenanceLifecycle } from "./verify-slr-provenance-lifecycle.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const repo = "Little-Boy-s-ArchSync/archsync-paper";
@@ -117,6 +117,22 @@ async function fixture(t) {
   return { directory, run, write, commit, change, source, frozen, record, reviewed, freeze, merged, current, originalPull, currentPull, approval, requests, requestJson, environment, verify };
 }
 const invalid = (result, pattern) => { assert.ok(result.issues.length > 0); assert.match(result.issues.join("\n"), pattern); };
+
+test("actual PR26 mechanical freeze replays its original disclosure contract without rewriting evidence", async () => {
+  const git = gitEvidence(root);
+  const reviewed = "1d84bc58614eeec0d9cc469276d3f362d697deec";
+  const freeze = "8d61423b20fbff136a79cf183723b96dedc0a3e6";
+  const record = (await git.read(freeze, recordPath)).toString();
+  assert.ok(record.includes(reviewed));
+  await verifyMechanicalFreeze(git, reviewed, freeze, record);
+});
+
+test("manuscript reporting amendments preserve the actual signed decision and RQ narrative blobs", async () => {
+  const git = gitEvidence(root);
+  for (const path of ["research/decision-log.md", "research/RQ-TRACEABILITY.md"]) {
+    assert.deepEqual(await readFile(join(root, path)), await git.read("8d61423b20fbff136a79cf183723b96dedc0a3e6", path), `${path} is immutable; keep post-hoc manuscript notes separately`);
+  }
+});
 
 async function mainPhaseSyncFixture(t) {
   const f = await fixture(t);
@@ -342,7 +358,7 @@ test("exact accepted review, pagination, unresolved changes and API failure are 
 
 test("tampered original records, keys, signatures, attestations and frozen methods cannot inherit approval", async (t) => {
   const f = await fixture(t);
-  for (const path of [recordPath, ...Object.values(SIGNED_REVIEW_PATHS), "research/literature-protocol.md", "research/literature-sentinel-recall.csv", "research/evidence/slr-new-method.json"]) {
+  for (const path of [recordPath, ...Object.values(SIGNED_REVIEW_PATHS), "research/literature-protocol.md", "research/literature-sentinel-recall.csv", "research/evidence/slr-new-method.json", "research/decision-log.md", "research/RQ-TRACEABILITY.md"]) {
     f.run("checkout", "--detach", f.current);
     await f.change(path, "Tampered administrative assertion\n");
     invalid(await f.verify(), /invalid original freeze PR|frozen method\/evidence changed/);

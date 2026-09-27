@@ -51,7 +51,7 @@ export function freezeLiteratureProtocol({
   sentinelRecall,
   sentinelEvidenceHashes = new Map(),
   sentinelEvidenceArtifacts = new Map(),
-}) {
+}, { manuscriptDisclosure = "current-narrative" } = {}) {
   const candidate = validateLiteratureProtocol({
     protocol,
     decisions,
@@ -59,7 +59,7 @@ export function freezeLiteratureProtocol({
     traceability,
     paper,
     bibliography,
-  });
+  }, { manuscriptDisclosure });
   if (candidate.issues.length > 0) {
     return {
       issues: candidate.issues.map((issue) => `candidate state: ${issue}`),
@@ -197,7 +197,7 @@ export function freezeLiteratureProtocol({
     sentinelRecall,
     sentinelEvidenceHashes,
     sentinelEvidenceArtifacts,
-  });
+  }, { manuscriptDisclosure });
   return {
     issues: frozen.issues.map((issue) => `frozen state: ${issue}`),
     protocol: nextProtocol,
