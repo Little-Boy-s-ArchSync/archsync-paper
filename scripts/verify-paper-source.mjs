@@ -16,6 +16,7 @@ const checks = [
   [["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"].every((value) => main.includes(value)), "six named authors"],
   [["voduchieu42@gmail.com", "andyjobs2023@gmail.com", "hahoangbach2005@gmail.com", "levankiet1212.2004@gmail.com", "hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"].every((value) => main.includes(value)), "six email records"],
   [main.includes("Corresponding author: Vo Duc Hieu (voduchieu42@gmail.com)."), "supplied corresponding-author designation"],
+  [["0009-0007-5389-5177", "0009-0000-0302-1841", "0009-0000-5118-0660", "0009-0007-8434-882X"].every((value) => main.includes(`ORCID: ${value}`)), "four supplied ORCID records"],
   [!main.includes("Anonymous Author"), "named source has no anonymous placeholder"],
   [!main.includes("Anonymous Institution"), "named source has no anonymous institution"],
 ];
