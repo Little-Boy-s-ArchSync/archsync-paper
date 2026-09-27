@@ -53,7 +53,7 @@ test("author-supplied diagram sources remain bound to their portable PDF exports
   assert.ok(!figure2.includes("571189 files parsed"));
 });
 
-test("both complete manuscripts retain six authors, confirmed roles and supplied figures", () => {
+test("both complete manuscripts retain six authors and figures without optional role lists", () => {
   const names = ["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"];
   for (const name of ["archsync-8page.tex", "archsync-12page.tex"]) {
     const source = readFileSync(new URL("../" + name, import.meta.url), "utf8");
@@ -63,9 +63,19 @@ test("both complete manuscripts retain six authors, confirmed roles and supplied
       assert.ok(at > previous, `${name} omits or reorders ${author}`);
       previous = at;
     }
-    for (const author of names.slice(4)) assert.ok(source.includes(`\\textbf{${author}} - Supervision; Methodology; Writing - review and editing.`));
+    assert.doesNotMatch(source, /Author Information and Contributions|Conceptualization;|Supervision; Methodology/);
     for (const email of ["hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"]) assert.ok(source.includes(email));
     assert.ok(source.includes("Corresponding author: Vo Duc Hieu"));
     for (const number of [1, 2]) assert.ok(source.includes(`\\includegraphics[width=\\textwidth]{figures/Fig-${number}.pdf}`));
+  }
+});
+
+test("declared roles are preserved outside the typeset manuscripts", () => {
+  const roles = readFileSync(new URL("../research/AUTHOR-CONTRIBUTIONS.md", import.meta.url), "utf8");
+  for (const author of ["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"]) assert.ok(roles.includes(author));
+  assert.ok(roles.includes("Supervision; Methodology; Writing - review and editing."));
+  for (const file of ["sections/author-information.tex", "variants/8-page/author-information.tex"]) {
+    const fragment = readFileSync(new URL("../" + file, import.meta.url), "utf8");
+    assert.equal(fragment.split(/\r?\n/).filter(line => line.trim() && !line.trimStart().startsWith("%")).length, 0);
   }
 });

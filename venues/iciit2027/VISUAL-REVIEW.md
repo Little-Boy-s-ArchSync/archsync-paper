@@ -1,8 +1,24 @@
 # Visual review — 27 September 2026
 
-## PR #50 author-order correction
+## Current official-template author layout
 
-The latest Windows/Tectonic rebuild restores the owner-confirmed order while
+The owner selected the unmodified ACM author renderer. Both named first pages
+were inspected at full size; all five venue profiles were rendered and checked
+as page contact sheets after restoring ACM Reference Format. No observed
+clipping or overlap. Review/compact remain 10/5 pages and supplement 3.
+The review renderer's uppercase names and omitted emails are class behavior;
+six source email records remain exact, and compact mode displays them.
+Four ORCIDs remain in source. No optional contribution section is present.
+
+Rendered checks are retained locally at tmp/iciit-audit-20260927/. The changed
+IEEE endings were also inspected after removing their role lists; contribution
+records are outside the typeset paper. The latest visual-inputs.json binds the
+current venue PDFs. This is technical layout inspection, not author consent,
+independent scientific validation or submission approval.
+
+## Earlier PR #50 author-order correction (superseded layout)
+
+The earlier Windows/Tectonic rebuild restored the owner-confirmed order while
 keeping two affiliation groups. The changed named first pages were rendered
 and inspected, together with reference/appendix and supplement layout checks.
 No observed clipping or overlap was introduced. Extracted text, metadata,

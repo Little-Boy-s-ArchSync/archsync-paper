@@ -35,10 +35,34 @@ class VenueValidation(unittest.TestCase):
 
     def test_display_order_must_match(self):
         def transform(path, value):
-            if path.name == 'author-layout.tex':
+            if path.name == 'paper.tex':
                 return value.replace('Tran Minh Hoang', 'SWAP-NAME').replace('Ha Hoang Bach', 'Tran Minh Hoang').replace('SWAP-NAME', 'Ha Hoang Bach')
             return value
-        with self.assertRaisesRegex(AssertionError, 'display author order'):
+        with self.assertRaisesRegex(AssertionError, 'author order drift'):
+            validate(transform)
+
+    def test_custom_author_renderer_rejected(self):
+        def transform(path, value):
+            return value + '\n' + r'\def\@mkauthors{custom}' if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'custom author renderer'):
+            validate(transform)
+
+    def test_optional_contribution_heading_rejected(self):
+        def transform(path, value):
+            return value + '\n' + r'\section*{Author Information and Contributions}' if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'optional author contribution'):
+            validate(transform)
+
+    def test_source_email_drift_still_rejected_in_standard_review_layout(self):
+        def transform(path, value):
+            return value.replace('voduchieu42@gmail.com', 'wrong@example.org') if path.name == 'paper.tex' else value
+        with self.assertRaises(AssertionError):
+            validate(transform)
+
+    def test_required_acm_reference_block_cannot_be_suppressed(self):
+        def transform(path, value):
+            return value + '\n' + r'\settopmatter{printacmref=false}' if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'required ACM reference block'):
             validate(transform)
 
     def test_abstract_metadata_drift_rejected(self):

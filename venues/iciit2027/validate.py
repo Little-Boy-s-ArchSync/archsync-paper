@@ -29,11 +29,10 @@ for (name, block), author in zip(blocks, metadata['authors']):
     assert ('\\thanks{Corresponding author: Vo Duc Hieu.}' in block) == author['corresponding_author'], (name, 'correspondence')
     assert name in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), name
     assert author['email'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), name
-layout = (root/'author-layout.tex').read_text(encoding='utf-8')
-assert [layout.index(name) for name in expected_authors] == sorted(layout.index(name) for name in expected_authors), 'display author order drift'
-for author in metadata['authors']:
-    for value in [author['name'], author['email']]:
-        if value: assert value in layout, ('display metadata drift', value)
+assert '\\input{author-layout}' not in paper_source and '@mkauthors' not in paper_source, 'custom author renderer is not permitted'
+assert not (root/'author-layout.tex').exists(), 'obsolete custom author renderer retained'
+assert 'Author Information and Contributions' not in paper_source, 'optional author contribution section restored'
+assert 'printacmref=false' not in paper_source, 'required ACM reference block suppressed'
 evidence_checked = False
 if (root/'evidence').is_dir():
     manifest = json.loads((root/'evidence-manifest.json').read_text(encoding='utf-8'))
@@ -54,6 +53,8 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
         assert minimum <= len(pdf.pages) <= maximum, (profile,len(pdf.pages))
         assert '786,432' in text and '315' in text and '126' in text
         assert 'codex' in text.lower() and 'references' in text.lower()
+        assert 'acm reference format' in text.lower(), (profile, 'missing ACM reference block')
+        assert 'author information and contributions' not in text.lower(), 'optional contribution section in PDF'
         if 'anonymous' in profile:
             identity_text = re.sub(r'\s+', '', (text + str(pdf.metadata)).lower())
             for author in metadata['authors']:
@@ -63,9 +64,12 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
 
         for marker in [value for author in metadata['authors'] for value in (author['name'], author['email'])]:
             if 'anonymous' in profile: assert re.sub(r'\s+', '', marker.lower()) not in re.sub(r'\s+', '', text.lower()),(profile,marker)
-            else: assert re.sub(r'\s+', '', marker.lower()) in re.sub(r'\s+', '', text.lower()),(profile,marker)
+            # The unmodified ACM manuscript author renderer suppresses email;
+            # exact six-email source/metadata validation above still applies.
+            elif profile == 'compact' or '@' not in marker:
+                assert re.sub(r'\s+', '', marker.lower()) in re.sub(r'\s+', '', text.lower()),(profile,marker)
         if 'anonymous' not in profile:
-            positions = [re.sub(r'\s+', '', text).index(re.sub(r'\s+', '', name)) for name in expected_authors]
+            positions = [re.sub(r'\s+', '', text.lower()).index(re.sub(r'\s+', '', name.lower())) for name in expected_authors]
             assert positions == sorted(positions), (profile, 'PDF author order drift')
     rows.append({'file':path.name,'pages':len(pdf.pages),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size})
 report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}

@@ -52,10 +52,20 @@ conference metadata explicitly identifies a draft. The absence of such fields
 is intentional until genuine rights metadata exists. No submission, registration,
 email, payment, public release or acceptance has occurred in this preparation.
 
-## User-specified author presentation
+## Historical user-specified presentation (superseded)
 
 On 26 September 2026 the user supplied a centered symbolic affiliation layout and requested it explicitly. `author-layout.tex` implements that presentation for named profiles while preserving ACM author metadata. This intentional author-layout customization supersedes the earlier default author grid; it is not a venue requirement or organizer approval. The user explicitly prohibits using identity information from the image. All author data is preserved from the pre-existing manuscript.
 
 ## 27 September recheck
 
 The fresh official class and bibliography still match this package; see `official/2026-09-27/retrieval.json`. Current draft profile selection and unresolved anonymity policy are recorded in `DRAFT-CHECKLIST.md`. University-only author grouping supersedes earlier department-level presentation at user request.
+
+## Current instruction: default ACM author presentation
+
+The owner's later 27 September response explicitly selects the default ACM
+author layout while preserving the confirmed six-author order. The custom
+renderer is removed. The standard ACM Reference Format block is restored;
+DOI/ISBN remain empty until the real rights process. No optional role list is
+typeset. Research-use AI disclosure remains in methods. This supersedes all
+historical custom layout instructions above; see SUBMISSION-AUDIT-20260927.md
+for the current official-source check and unresolved requirements.

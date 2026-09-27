@@ -513,5 +513,5 @@ warning: appendix:40: Underfull \vbox (badness 2073) has occurred while \output 
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
 note: Writing `iciit2027-review-anonymous.blg` (858 B)
-note: Writing `iciit2027-review-anonymous.pdf` (126.9814453125 KiB)
+note: Writing `iciit2027-review-anonymous.pdf` (127.5224609375 KiB)
 note: Skipped writing 4 intermediate files (use --keep-intermediates to keep them)

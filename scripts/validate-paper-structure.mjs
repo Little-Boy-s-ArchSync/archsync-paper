@@ -39,7 +39,6 @@ const expectedHeadings = [
   "Discussion",
   "Threats to Validity",
   "Conclusion and Future Work",
-  "Author Information and Contributions",
 ];
 
 const main = await readFile(mainPath, "utf8");

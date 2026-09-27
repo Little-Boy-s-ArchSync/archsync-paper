@@ -1,85 +1,79 @@
-# ICIIT 2027 (Ho Chi Minh City) draft package
+# ICIIT 2027 (Ho Chi Minh City) candidate package
 
-This is a prepared local draft, not a submitted or accepted manuscript.
+This is a prepared candidate, not a submitted or accepted manuscript.
+Start with [SUBMISSION-AUDIT-20260927.md](SUBMISSION-AUDIT-20260927.md) and
+[DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md).
 
-- **Compact named draft:** `iciit2027-compact.pdf` / `.tex`, the reader-facing ACM
-  proceedings profile. Author identities are inherited from the existing paper; departments are omitted by user request.
-- **Single-column review draft:** `iciit2027-review.pdf` / `.tex`, following the
-  review options stated in the official template. It includes the technical appendix.
-- `*-anonymous.pdf` profiles provide a technical alternative only; the public
-  venue instructions do not settle review anonymity. Redaction cannot erase
-  the repositories' earlier public history.
-- `iciit2027-supplement.pdf` supplies the same technical appendix separately
-  for the compact draft. Organizer acceptance of supplementary uploads remains
-  unconfirmed.
-- `SUBMISSION-METADATA.md` and `submission-metadata.json` contain copyable title,
-  abstract, keywords and ordered authors. No author declaration is inferred.
-- `REQUIREMENTS.md` and `official/retrieval.json` record official sources and
-  unresolved requirements. These supersede the old IEEE layout assumption only
-  for this venue-specific draft; the longer IEEE working papers are preserved.
-- `evidence-manifest.json` binds the copied local technical evidence; `evidence/`
-  separates current engineering receipts from historical manuscript measurements. `CLAIM-EVIDENCE.json` maps the latest claims to raw receipts; `evidence/guardian-0.4/` includes the exact tested source archive and retained first failures.
-- `validation.json` records page counts, citation checks, artifact hashes and
-  the exact official class/style comparison. `VISUAL-REVIEW.md` and `visual-inputs.json` record the separate rendered inspection.
+## Which file to read
 
-## Build and validation
+- iciit2027-review.pdf: 10-page single-column review profile, including the appendix.
+- iciit2027-compact.pdf: 5-page double-column proceedings-style profile, including references.
+- The two *-anonymous.pdf alternatives are technical redacted profiles.
+- iciit2027-supplement.pdf: the separate 3-page appendix for compact readers;
+  the organizer has not confirmed supplementary upload or its page counting.
+- archsync-iciit2027-source.zip: exact editable source and retained PDF package.
+- archsync-iciit2027-evidence.zip: separately retained research receipts.
+- SUBMISSION-METADATA.md / submission-metadata.json: title, abstract, keywords
+  and ordered author data for verification, not declarations made on behalf of authors.
 
-Install Tectonic and a Python environment with `pypdf`, then run:
+Do not upload an IEEE working PDF as the ACM venue manuscript. The public
+instructions do not settle named/anonymous or single/double-column review mode;
+confirm the actual portal instructions first.
+
+## Current author and template decisions
+
+The owner explicitly selected the default ACM author layout on 27 September.
+This supersedes the earlier symbolic/university-grouped custom renderer.
+The author order remains Hieu, Hoang, Bach, Kiet, Hoang Nguyen The, Minh Tam Phan.
+All identity values come from the prior manuscript, never an illustrative image.
+
+The official class and bibliography are unchanged and match a fresh download.
+There is no custom author renderer or author-row override. The ACM Reference
+Format block is enabled. DOI/ISBN and rights information are not invented;
+the booktitle explicitly identifies the target as a draft. The stock review
+footer says "Manuscript submitted to ACM"; this class text is not evidence of
+a portal submission.
+
+Standard manuscript mode suppresses emails in the displayed author block.
+The six exact emails and four supplied ORCIDs remain validated in source and
+metadata; compact mode displays the emails. No optional contribution section
+is typeset. Previously declared roles are kept outside the paper in
+research/AUTHOR-CONTRIBUTIONS.md. Required research-use AI disclosure remains.
+
+Fonts, margins and vertical leading are not reduced. The retained emergency
+line-breaking reserve prevents protruding technical text. The documented
+balance=false compact option disables automatic last-page balancing only.
+
+## Build and check
+
+Use Python with pypdf 6.10.0, plus latexmk or a TECTONIC executable:
 
 ```sh
-PYTHON_PDF=/absolute/path/to/python3 sh ./build.sh
+python build.py
+python test_validate.py
+python package.py
+python verify-package-rebuild.py
+python validate.py --check
 ```
 
-No font size, margin or line-spacing reductions are applied. The official
-`acmart.cls` and `ACM-Reference-Format.bst` are unchanged; `acmart.dtx` preserves
-the accompanying original class source/license. Standard class options provide
-review/compact and named/anonymous profiles. `balance=false` disables last-page auto-balancing in the compact draft; it changes no type size, margins or page limit. The user-requested centered author presentation is defined in `author-layout.tex`; it replaces the named-profile author renderer while preserving structured author metadata. Anonymous profiles retain the class renderer. Emergency line-break stretch prevents protruding text.
-Drafts omit fabricated DOI, ISBN and rights information. The supplied ACM
-review class prints its generic “Manuscript submitted to ACM” footer; that
-stock template text does not describe the status of this local draft.
+Run from this directory. Set TECTONIC to use that engine instead of latexmk.
+build.py --check validates a fresh build without replacing the retained receipt.
+After meaningful layout changes, render and inspect pages and update
+visual-inputs.json before repackaging. VISUAL-REVIEW.md records the visual check.
 
-The paper's shared body is `paper.tex`; compact and review profiles use that same
-body. `appendix.tex` is included in the review profile and standalone supplement.
-The new technical-reliability section is explicitly AI-assisted developer
-validation: finite graph checking and adversarial regressions, not an
-independent repository sample. Historical D1/D2/P3 labels and observations
-are unchanged. New source corrections do not rewrite the old packaged analyzer.
+paper.tex is the shared body. appendix.tex appears in the review profile and
+separate supplement. Evidence manifests and CLAIM-EVIDENCE.json bind the
+historical controlled results and later development reliability receipts.
+These are not independent field accuracy or an executed external comparison.
 
-## Remaining author decisions
+The hosted workflow checks the retained package and compiles all five venue
+profiles plus both IEEE roots. Local checks do not replace author approval,
+independent review or submission authorization.
 
-Review exact content, authorship/order, source evidence, research-use provenance,
-conflicts/funding, and submission exclusivity. Confirm the upload profile,
-cutoff time zone and any permitted supplement with official instructions.
-Real rights metadata and payment obligations belong to the subsequent process.
-No email, upload, payment or submission is part of this package preparation.
+## Outstanding before submission
 
-## Supervisor-request revision
-
-See `REVISION-TRACEABILITY.md` for the published comparison evidence, complete author-field checks and unresolved RBL requirement. The correspondence statement uses the class-supported author footnote (thanks); no extra statement interrupts the abstract or introduction. Author affiliations and addresses use the class-generated blocks. This draft is not yet certified against RBL.
-
-## Author style requested on 26 September 2026
-
-The supplied image supersedes the previous six-cell author layout: centered consecutive names use *, dagger, double dagger, section and paragraph affiliation markers; the two faculty authors share the paragraph marker. All names, emails, affiliations and ORCIDs come exclusively from the pre-existing manuscript and submission metadata; no identity information is imported from the image. This is a user-requested presentation customization, not an assertion that the venue requires this layout. The official class/style files and body typography are unchanged.
-
-## Current draft: 27 September 2026
-
-Start with [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md). Abstract and narrative now lead with contributions and results; repeated limits are consolidated in Section 6. Table 1 and all measured counts are retained. The author block groups six authors by two universities and omits majors/departments and visible ORCID lines. This supersedes the earlier five-symbol affiliation layout. Identity data remains from the manuscript, not the supplied reference image. Current compact/review profiles are 5/10 pages.
-
-The owner reconfirmed on 27 September: preserve the agreed author order
-(Hieu, Hoang, Bach, Kiet, Hoang Nguyen The, Minh Tam Phan), grouping affiliation
-information only. This supersedes the intervening university-sorted author order.
-
-## Merge-readiness verification
-
-Use Python with pypdf 6.10.0. Text encodings are explicit UTF-8 on every platform.
-Run `python validate.py --check` for the retained PDFs, evidence, metadata and
-source archive, then `python test_validate.py` for negative regression tests.
-Run `python build.py` to regenerate all five profiles (latexmk by default, or
-set TECTONIC to its executable); `--check` validates a fresh build without
-replacing the retained validation receipt. After visual inspection, update
-`visual-inputs.json`, run `python package.py`, and run
-`python verify-package-rebuild.py` to verify the exact source ZIP in isolation.
-
-The hosted build now checks the retained package and compiles all five ICIIT
-profiles as well as both IEEE roots. Local verification checks the retained
-venue package and its regressions. None of these checks authorizes submission.
+Confirm review profile/anonymity, supplement treatment and cutoff time zone.
+Obtain all authors' acceptance of the exact candidate and declarations required
+by the portal. The two faculty ORCIDs are needed before ACM eRights completion;
+they have not been supplied. Confirm presenter, registration/APC and any waiver.
+No email, upload, payment, registration or submission was performed.

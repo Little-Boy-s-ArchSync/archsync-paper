@@ -22,7 +22,7 @@ A fair new comparator run needs a nonempty shared semantic unit: TypeScript modu
 
 The supplied class produced a zero-width superscript overflow with `authornote`. The final source uses its supported `thanks` footnote for the corresponding-author statement; the class is unmodified and the strict overflow check is retained.
 
-## Subsequent user author-style request
+## Historical user author-style request (now superseded)
 
 The supplied image now controls named-profile author presentation: centered names, five affiliation symbols, explicit email/ORCID lines and shared faculty affiliation. The user clarified that no identity information from the image may be used. All author data was restored from the pre-edit manuscript; only the visual layout is adapted. Structured author records and anonymous rendering remain intact. This supersedes the previous default-grid presentation described above; the correspondence footnote is retained separately so the affiliation asterisk is not mistaken for a correspondence marker.
 
@@ -37,3 +37,14 @@ group only affiliation information.
 Displayed names, structured declarations and submission metadata must follow
 Vo Duc Hieu, Tran Minh Hoang, Ha Hoang Bach, Le Van Kiet, Hoang Nguyen The,
 Minh Tam Phan. The validator checks that order in source, metadata and named PDFs.
+
+## Later 27 September official-template check
+
+The owner selected the default ACM author layout. Removed the custom renderer
+and row-count override, kept the exact ordered metadata, and restored the
+ACM Reference Format block without invented publication identifiers.
+The optional contribution section is absent from ICIIT and removed from the
+IEEE variants; prior roles are retained as a project record outside the paper.
+The research-use AI methods paragraph and all results remain unchanged.
+See SUBMISSION-AUDIT-20260927.md. This corrects layout/document consistency;
+it is not acceptance, independent scientific validation or permission to submit.

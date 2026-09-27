@@ -13,11 +13,12 @@ These are draft candidates, not a portal submission. The public venue instructio
 
 | Check | Finding |
 | --- | --- |
-| Template | Official submission page links ACM LaTeX archive. Fresh download on 27 September matches retained acmart class and bibliography style. Named author layout is a disclosed user-requested customization. |
+| Template | Official submission page links ACM LaTeX archive. Fresh download on 27 September matches retained acmart class and bibliography style. The latest owner request restores the default ACM author renderer and ACM Reference Format block. |
 | Length | Official minimum: 8 single-column / 4 double-column pages including references. Regular allowance: 10 / 5; extra pages charged. Current 10 / 5 profiles fit both bounds. These allowance numbers are not a declared hard maximum. |
 | Deadline | Official page: 30 September 2026 for full papers. Cutoff time zone remains unspecified. |
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |
-| Authors | Six ordered records and emails match manuscript metadata. Grouped by FPT University and VNUK/The University of Danang; majors/departments removed at user request. ORCIDs retained in structured source, omitted from visible block. No fresh coauthor consent is inferred. |
+| Authors | Six ordered records and emails match manuscript metadata. Default ACM rendering preserves the confirmed author order and institution data. Review mode suppresses emails by class design; compact mode displays them. ORCIDs remain in structured source. No fresh coauthor consent is inferred. |
+| Contribution section | No separate per-author contribution section required by the checked public instructions. Removed from IEEE variants; already absent in the ICIIT body. Previous roles remain in research/AUTHOR-CONTRIBUTIONS.md. Research-use AI methods disclosure remains. |
 | References | 25 citations; unchanged official ACM bibliography style; citation resolution checked during build. |
 | Abstract | Contribution-first, 136 words, one final scope sentence. Abstract synchronized across PDF source and metadata. |
 | Evidence | Existing historical and development counts preserved. Table 1 unchanged. No new baseline or D3 evaluation introduced. |
@@ -26,3 +27,6 @@ These are draft candidates, not a portal submission. The public venue instructio
 | PDF quality | Five profiles built; named PDFs visually inspected, anonymous identity checks and rendered review recorded in VISUAL-REVIEW.md. |
 
 Official sources: [submission](https://www.iciit.org/sub.html), [dates](https://www.iciit.org/date.html), [portal](https://confsys.iconf.org/submission/iciit2027). Fresh retrieval hashes and the review-template sample are in `official/2026-09-27/`.
+
+The later same-day recheck, current author-layout decision, exact fresh template
+hashes and remaining upload questions are in SUBMISSION-AUDIT-20260927.md.

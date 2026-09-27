@@ -129,6 +129,10 @@ for (const identity of anonymousForbidden) {
 }
 assert.match(normalizedAnonymous, /anonymous author/);
 assert.ok(
+  !containsPdfAnchor(normalizedNamed, "Author Information and Contributions"),
+  "named PDF includes the removed optional contribution block",
+);
+assert.ok(
   !normalizedAnonymous.includes("author information and contributions"),
   "anonymous PDF includes the named contribution block",
 );
