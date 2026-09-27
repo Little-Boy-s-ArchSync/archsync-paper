@@ -13,11 +13,11 @@ These are draft candidates, not a portal submission. The public venue instructio
 
 | Check | Finding |
 | --- | --- |
-| Template | Official submission page links ACM LaTeX archive. Fresh download on 27 September matches retained acmart class and bibliography style. The visible block uses LNCS-style numbered institutional affiliations by user request; the paper itself remains ACM-formatted, so this block alone must not be described as a full LNCS submission. |
+| Template | Official submission page links ACM LaTeX archive. Fresh download on 27 September matches retained acmart class and bibliography style. Named author layout is a disclosed user-requested customization. |
 | Length | Official minimum: 8 single-column / 4 double-column pages including references. Regular allowance: 10 / 5; extra pages charged. Current 10 / 5 profiles fit both bounds. These allowance numbers are not a declared hard maximum. |
 | Deadline | Official page: 30 September 2026 for full papers. Cutoff time zone remains unspecified. |
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |
-| Authors | Preserve the owner's order: Hieu, Hoang, Bach, Kiet, Hoang Nguyen The, Minh Tam Phan. The LNCS-style block groups only university affiliations and email details, not author order. Majors/departments are omitted; ORCIDs remain in structured source. No fresh coauthor consent is inferred. |
+| Authors | Six ordered records and emails match manuscript metadata. Grouped by FPT University and VNUK/The University of Danang; majors/departments removed at user request. ORCIDs retained in structured source, omitted from visible block. No fresh coauthor consent is inferred. |
 | References | 25 citations; unchanged official ACM bibliography style; citation resolution checked during build. |
 | Abstract | Contribution-first, 136 words, one final scope sentence. Abstract synchronized across PDF source and metadata. |
 | Evidence | Existing historical and development counts preserved. Table 1 unchanged. No new baseline or D3 evaluation introduced. |

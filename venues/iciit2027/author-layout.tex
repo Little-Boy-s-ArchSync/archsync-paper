@@ -1,7 +1,6 @@
-% LNCS-style affiliation/email grouping; preserve the owner-confirmed author order.
-% This changes the author-block presentation only. ICIIT's linked proceedings
-% template remains acmart; see DRAFT-CHECKLIST.md before using this for upload.
-% Identity values come from manuscript metadata, not any attached image.
+% User-requested presentation: group authors by university, omit majors.
+% All identity values come from existing manuscript metadata, not image content.
+% ORCIDs remain in the structured ACM author records in paper.tex.
 \ifdefined\blindprofile\else
 \makeatletter
 \def\@mkauthors{%
@@ -15,9 +14,9 @@
     \textsuperscript{1}FPT University, Ho Chi Minh City, Vietnam\\
     \textsuperscript{2}VNUK Institute for Research and Executive Education,\\
     The University of Danang, Da Nang, Vietnam\\
-    \textit{Email:} \nolinkurl{voduchieu42@gmail.com},\;\nolinkurl{hahoangbach2005@gmail.com},\\
-    \nolinkurl{hoangnt20@fe.edu.vn},\;\nolinkurl{tampm@fe.edu.vn}\\
-    \textit{Email:} \nolinkurl{andyjobs2023@gmail.com},\;\nolinkurl{levankiet1212.2004@gmail.com}\par
+    \textsuperscript{1}\nolinkurl{voduchieu42@gmail.com}, \nolinkurl{hahoangbach2005@gmail.com},\\
+    \nolinkurl{hoangnt20@fe.edu.vn}, \nolinkurl{tampm@fe.edu.vn}\\
+    \textsuperscript{2}\nolinkurl{andyjobs2023@gmail.com}, \nolinkurl{levankiet1212.2004@gmail.com}\par
     \endgroup\medskip
   }%
 }
