@@ -3,6 +3,22 @@
 Version: 0.1.3, 2026-09-27.
 State: owner assignment recorded; preparation only, no official run authorized.
 
+## Current-scope notice (2026-09-28)
+
+This is a historical assignment handoff, not the operational protocol for the
+current D3 study. The later [nonblind module-only governance amendment](amendments/2026-09-28-d3-nonblind-module-design/README.md)
+records the selected 56 primary cases plus four context-only cases and the
+two development-associated author reviewers, Hiếu and Hoàng. Their source
+reviews are nonblind and cannot be reported as external independent ground
+truth. The older discussion below about a separately eligible independent
+reviewer remains relevant only to a future study making an independence claim;
+it is not a prerequisite for honestly reporting this bounded, nonblind D3
+study. The exact resolver, historical-rule applicability, original reviews,
+method freeze, paired tool runs and measured results are still pending. See
+[Benchmark method coordination](https://github.com/Little-Boy-s-ArchSync/archsync-benchmark/issues/37)
+for the current two-author gate. This notice does not accept that gate or
+authorize a D3 run.
+
 ## Assignment and limits
 
 The project owner assigned Hoang in this work session with the exact response
