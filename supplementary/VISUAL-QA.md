@@ -3,7 +3,7 @@
 Current integration review: see the final section below. Earlier candidate
 hashes and layout descriptions are historical, not the current IEEE PDFs.
 
-**Final candidate status: PASS for named 8-page and 12-page rendered layout.** All 20 final pages were freshly rendered and inspected after the rebuild; figure and table pages were additionally checked at 130 dpi, and the final bibliography page at 100 dpi. The former 9-page short-version issue, isolated-reference-only12th page, and both Fig-2 factual labels are resolved. This scope does not certify anonymous PDFs or external submission requirements.
+**Historical candidate status: PASS for the earlier named 8-page and 12-page rendered layout.** All 20 pages of that earlier candidate were inspected. The current revision must use the actual page counts and hashes in `length-variant-validation.json` and a new visual-QA entry below; a filename is a page budget, not a demand for an extra page. This record does not certify anonymous PDFs or external submission requirements.
 
 Review performed on actual Poppler rasterizations, not source-only checks. Standalone vector figures were rendered at 110/130 dpi; every page of both named article PDFs was rendered at 65 dpi and visually inspected. Article pages containing figures and the dense table layout were additionally rendered and inspected at 160 dpi. Temporary review images are under `/tmp/archsync-visual-qa/`; they are not manuscript deliverables.
 

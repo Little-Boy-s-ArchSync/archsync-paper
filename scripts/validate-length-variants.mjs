@@ -27,9 +27,10 @@ for(const pages of [8,12]){
  assert.doesNotMatch(log,/Missing character/,'A required glyph is missing');
  const info=spawnSync(pdfinfo,[join(root,name+'.pdf')],{encoding:'utf8'});
  assert.equal(info.status,0,info.stderr||'Install Poppler or set PDFINFO');
- const actual=Number(info.stdout.match(/Pages:\s+(\d+)/)?.[1]);assert.equal(actual,pages,`${name} page count`);
+ const actual=Number(info.stdout.match(/Pages:\s+(\d+)/)?.[1]);
+ assert(Number.isInteger(actual)&&actual>0&&actual<=pages,`${name} exceeds its ${pages}-page budget or has no valid page count: ${actual}`);
  const bytes=await readFile(join(root,name+'.pdf'));
- report.push({file:name,pages:actual,citations:cites.size,labels:labels.length,pdf_sha256:createHash('sha256').update(bytes).digest('hex'),source_sha256:createHash('sha256').update(tex).digest('hex')});
+ report.push({file:name,page_budget:pages,pages:actual,citations:cites.size,labels:labels.length,pdf_sha256:createHash('sha256').update(bytes).digest('hex'),source_sha256:createHash('sha256').update(tex).digest('hex')});
 }
-await writeFile(join(root,'supplementary/length-variant-validation.json'),JSON.stringify({status:'PASS',format:'IEEE conference; working length variants, venue not selected',variants:report},null,2)+'\n');
-console.log('VALID LENGTH VARIANTS:8 and12pages;25citations each; complete sources; resolved references; no column overflow');
+await writeFile(join(root,'supplementary/length-variant-validation.json'),JSON.stringify({status:'PASS',format:'IEEE conference; working length budgets (at most 8 and 12 pages), venue not selected',variants:report},null,2)+'\n');
+console.log('VALID LENGTH VARIANTS: within 8- and 12-page budgets;25citations each; complete sources; resolved references; no column overflow');
