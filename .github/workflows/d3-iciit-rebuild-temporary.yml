@@ -39,6 +39,14 @@ jobs:
           python3 -m venv "$RUNNER_TEMP/venue-python"
           "$RUNNER_TEMP/venue-python/bin/pip" install pypdf==6.10.0
           "$RUNNER_TEMP/venue-python/bin/python" venues/iciit2027/validate.py --fresh
+      - name: Rebuild retained source ZIP in isolation
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/venue-bin"
+          chmod +x .github/scripts/latexmk-docker.sh
+          ln -s "$GITHUB_WORKSPACE/.github/scripts/latexmk-docker.sh" "$RUNNER_TEMP/venue-bin/latexmk"
+          export PATH="$RUNNER_TEMP/venue-bin:$PATH"
+          "$RUNNER_TEMP/venue-python/bin/python" venues/iciit2027/verify-package-rebuild.py
       - name: Upload five PDFs and exact logs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
@@ -47,3 +55,5 @@ jobs:
             venues/iciit2027/iciit2027-*.pdf
             venues/iciit2027/*-build.log
             venues/iciit2027/validation.json
+            venues/iciit2027/package-rebuild.json
+            venues/iciit2027/package-rebuild.log

@@ -1,4 +1,16 @@
-# Visual review - 27 September 2026
+# Visual review - 28 September 2026
+
+## D3 scope and nonblind-review clarification (current)
+
+The five ACM profiles were rebuilt in the pinned TeX Live 2024 hosted job
+36370633982 after updating the venue-specific paper and appendix. Fresh PDF
+validation passed; page counts remain 10/5/10/5/3. I rendered and inspected
+the affected review pages 8-10, compact pages 4-5, and supplement page 3.
+The D3 boundary, limitations and references are legible without observed
+clipping or overlap. The compact conclusion and references retain their
+existing two-column layout. This visual inspection checks presentation only;
+it does not authenticate reviewer labels, a tool comparison, or submission
+readiness. The current PDF hashes are in visual-inputs.json.
 
 ## Concurrent refinement integration (current)
 
