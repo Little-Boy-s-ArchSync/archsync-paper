@@ -46,10 +46,12 @@ The official class formats the structured author metadata; no manual author
 font, centered email-line, spacing or `\@mkauthors` override is required.
 
 The six-author order remains Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
-Ha Hoang Bach, Hoang Nguyen-The, and Minh Tam Phan. All six retain the
-Faculty of Software Engineering, FPT University HCMC, Ho Chi Minh City,
-70000, Vietnam and their supplied emails. Four supplied ORCIDs remain bound
-to the same authors. Compact PDFs display all six emails in order; the standard
+Ha Hoang Bach, Hoang Nguyen-The, and Minh Tam Phan. The 29 September owner
+correction restores per-author affiliations: Hoang and Kiet are at VNUK in
+Computer Science and Engineering and Software Engineering respectively; Hieu
+is in Software Engineering and Bach is in Information Assurance at FPT
+University. The two faculty authors retain their existing FPT University HCMC
+affiliation. Four supplied ORCIDs remain bound to the same authors. Compact PDFs display all six emails in order; the standard
 single-column review renderer omits visible emails while retaining their source
 metadata. Minh Tam Phan retains the corresponding-author footnote;
 the class controls the footnote marker and author-block presentation.

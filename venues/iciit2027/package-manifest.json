@@ -3,8 +3,8 @@
   "archives": [
     {
       "file": "archsync-iciit2027-source.zip",
-      "sha256": "b0aa103465d0940f8ef70f6ef2a98c9f4780fb98a7a91694d8eb8fb66aee7c62",
-      "bytes": 2229340
+      "sha256": "97965c14e7573b81bb2f16a16377380cd0a3502a9c0fb3606e793132a6693546",
+      "bytes": 721352
     },
     {
       "file": "archsync-iciit2027-evidence.zip",
@@ -31,7 +31,7 @@
     },
     {
       "path": "REVISION-TRACEABILITY.md",
-      "sha256": "02d6c71f93ac64c8446926cac5835db4530347e35f82e8462efd83c56b8a26a0"
+      "sha256": "236ce12ae647eaadc391179fbe4629b7837a30c8b9dfcd7e10c2e6437041afdc"
     },
     {
       "path": "CLAIM-EVIDENCE.json",
@@ -39,7 +39,7 @@
     },
     {
       "path": "paper.tex",
-      "sha256": "0902e5136bc55c712ca25631c32ec8195755a7edb3d1dc3194460180879946ac"
+      "sha256": "0be16bb1291ccc58d14fa855e0b6b04a9df4d05d47dc066670d41e9d1e4e4596"
     },
     {
       "path": "related-work.tex",
@@ -75,11 +75,11 @@
     },
     {
       "path": "validate.py",
-      "sha256": "6bb2fbb694047286595c1d450f9ffc2f4a9243c4b0efe3a978a04a1ad5cc44d1"
+      "sha256": "5f2305bf8b748f42c97259bb591eec9c91d8285c7f385e3cf45a4f45c8ce5078"
     },
     {
       "path": "test_validate.py",
-      "sha256": "a0e19a10c4087647e5a33d1667778881531b5c15cb9b89e2a47124c95843672a"
+      "sha256": "e07157378a4382d03a9617bc5e4215d3176085646e086efbe2de3483cac8a765"
     },
     {
       "path": "verify-package-rebuild.py",
@@ -87,7 +87,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "1029be0a912bd607577c7405d060a1d1b35731dbb0bb53e0a2ec18b3e6a42f4b"
+      "sha256": "4bdc99582dfbb87e04d9abd8f787e70b3b95c7494454cf0c3c4f44867a724a25"
     },
     {
       "path": "REQUIREMENTS.md",
@@ -95,15 +95,15 @@
     },
     {
       "path": "SUBMISSION-METADATA.md",
-      "sha256": "eb661df309aff50fa34d5e0a7fcaceeef0f1181d20fedccb6b843c49447deb9c"
+      "sha256": "9543ae43c4b9a6b7e4e68194ccab6913abac352a5c18d8bfbff35b6ff312d904"
     },
     {
       "path": "submission-metadata.json",
-      "sha256": "9a81f447b79cf861321f355fb637c67025900610799cf071008642abc4eb0dd9"
+      "sha256": "cd973dc94558daef49810d4e5798876ee8280d5d8d6ba32419293129c92cd506"
     },
     {
       "path": "validation.json",
-      "sha256": "30ed19d4c095bc7d5cbdf1472691fe765c0ee8f4ad97c040b9895d309df765b6"
+      "sha256": "575f681b4c148e6683b96a90ba61c60c0584ce2b3d0da2fceed6cc3f7b5181e3"
     },
     {
       "path": "evidence-manifest.json",
@@ -111,11 +111,11 @@
     },
     {
       "path": "VISUAL-REVIEW.md",
-      "sha256": "8cb80c59c5660cffc26dd3cd827b2a616a4d7793a51ab69f0af8a2dd4a2d6c5d"
+      "sha256": "29bfd223adf50f78e667268953c03eda074d30211099bb9ec1dab2e29f01d596"
     },
     {
       "path": "visual-inputs.json",
-      "sha256": "abd16857389ebbe1ef5a6b5b15443f35292731d720fc892d88a6b5005b1d62f7"
+      "sha256": "488b5b85ae8cdb62de8e2e4322842f6f62047a2d90ebacbd61a22cfd83d257c1"
     },
     {
       "path": "official/retrieval.json",
@@ -163,11 +163,11 @@
     },
     {
       "path": "iciit2027-review.pdf",
-      "sha256": "f66b6b8939d83a43413b4bd02d146504a4fe27bdaad34090ba57396d76d683a8"
+      "sha256": "fafb83e6e7386aa37684fb5a0a78143ab93088b4e4066d6c3f95a6088268b336"
     },
     {
       "path": "review-build.log",
-      "sha256": "ea0c02a06df8f3ce6ba1f09990cc2d63479f0f2e2d0561824c7137bb04905806"
+      "sha256": "c02060d03aafd85217b0363f5c98728564b025b7336d0d87e552449f0cda6d3d"
     },
     {
       "path": "iciit2027-compact.tex",
@@ -175,11 +175,11 @@
     },
     {
       "path": "iciit2027-compact.pdf",
-      "sha256": "7586cc5027dd1bca10c93c48a87e152aaa946ff246126dd55fd717fd9b058c9d"
+      "sha256": "be4c5409877b7efc871876721890b7530dd1435d5e7cce56d1fa25516512be98"
     },
     {
       "path": "compact-build.log",
-      "sha256": "b416880add92bb8e6ba7c840abe9d55cda6dff376943dd50a6cb8973eabd3425"
+      "sha256": "f00f81ec50418f2e1660037954cdafce38c012fb52d51631a3c3bbf43bc537fa"
     },
     {
       "path": "iciit2027-review-anonymous.tex",
@@ -187,11 +187,11 @@
     },
     {
       "path": "iciit2027-review-anonymous.pdf",
-      "sha256": "f9ac61e37099da3a7548e6ab906a2a49913096d4b6ee6e9e81a85afe57bd7781"
+      "sha256": "dd707644d148b62676619584b32ba0db662fa7cc8c227380638a287961708fc4"
     },
     {
       "path": "review-anonymous-build.log",
-      "sha256": "c6a3621ae09ad573fa5d6308f672257cdcd2e9ec05fd2f21cca44a28b50b6576"
+      "sha256": "099e6e75a5b2e0abf9203e2cc580aeab6865385f9c803a5cd211f24e8af73714"
     },
     {
       "path": "iciit2027-compact-anonymous.tex",
@@ -199,11 +199,11 @@
     },
     {
       "path": "iciit2027-compact-anonymous.pdf",
-      "sha256": "6a9371be5290384ba7c2510557796627b3f43981fd5e53face7c06b6db992c8c"
+      "sha256": "ad9ce3c7ce513517ad2f1e613852adb1bf226220e7fe72b0a2e6d200f5bd942f"
     },
     {
       "path": "compact-anonymous-build.log",
-      "sha256": "8935cb302e1996e89b751f5dd68f14faf147eba4f0f932e29689d4bd06607418"
+      "sha256": "4f1d8368422a7014dc59feebb2ab7204ad1ff9ff019846c7b1219aa2b4004ecb"
     },
     {
       "path": "iciit2027-supplement.tex",
@@ -211,11 +211,11 @@
     },
     {
       "path": "iciit2027-supplement.pdf",
-      "sha256": "49636ea5599ecd467120a05d1fd2e4176f173e4987085ce5fbfd226a0bec81c1"
+      "sha256": "e800a9ac6d57d6140ed5b03726146429587d87551be4cae9b42133ac9c36b583"
     },
     {
       "path": "supplement-build.log",
-      "sha256": "c10b8221d0401e3f2f579fe6e508d457677f57e7beb38d4c310c465e45f0440c"
+      "sha256": "7673210b6666403c79e8f28800e330e857d7cbc07a9071dfd803b583348d4203"
     }
   ]
 }

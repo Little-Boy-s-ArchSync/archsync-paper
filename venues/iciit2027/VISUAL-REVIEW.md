@@ -150,3 +150,16 @@ Names, emails, affiliations and supplied ORCIDs are checked for absence in anony
 Standalone-source compatibility follow-up: all five retained profiles have
 identical page text and rendered pixels at 72 dpi to reviewed head 1fa2967.
 Author presentation, scientific claims and evidence remain unchanged.
+
+## Per-author affiliation correction — 29 September 2026
+
+The named compact and review first pages were rendered and inspected after the
+owner corrected the author affiliations. The compact profile visibly places
+Tran Minh Hoang and Le Van Kiet at VNUK Institute for Research and Executive
+Education, The University of Danang, with Computer Science and Engineering and
+Software Engineering respectively. Vo Duc Hieu appears in Software Engineering
+at FPT University, and Ha Hoang Bach appears in Information Assurance at FPT
+University. The two faculty-author records retain FPT University HCMC. The
+standard ACM layout remains readable without clipping, overlap or a page-count
+change. Automated checks bind all five current PDFs in `visual-inputs.json` and
+confirm that anonymous profiles contain none of the author identity fields.
