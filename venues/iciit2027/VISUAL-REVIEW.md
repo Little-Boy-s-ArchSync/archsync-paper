@@ -1,4 +1,22 @@
-# Visual review - 28 September 2026
+# Visual review - 29 September 2026
+
+## Current compact submission candidate
+
+The named five-page `sigconf` candidate was rebuilt from the official class
+without the earlier `balance=false` override. All five pages were rendered
+and inspected on 29 September. The first page visibly retains the six-author
+order and unchanged email sequence. It displays Vo Duc Hieu in Software
+Engineering at FPT University, Tran Minh Hoang in Computer Science and
+Engineering at VNUK, Le Van Kiet in Software Engineering at VNUK, and Ha
+Hoang Bach in Information Assurance at FPT University, with their respective
+Ho Chi Minh City or Da Nang locations. The last reference page now balances
+its columns. No clipping, overlap, or lost content was observed on the five
+rendered pages. The single-column review first page was also inspected;
+ACM's manuscript renderer prints institution/country there but retains the
+full affiliation in source and metadata. The official event name replaces
+the visible `Draft for` prefix without inventing DOI, ISBN or rights data.
+`visual-inputs.json` binds the five rebuilt PDF files. This is a layout check,
+not D3 validation, coauthor consent or submission authorization.
 
 ## Standard ACM author renderer restoration (current)
 

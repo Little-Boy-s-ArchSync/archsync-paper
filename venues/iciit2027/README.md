@@ -66,8 +66,8 @@ is typeset. Previously declared roles remain in research/AUTHOR-CONTRIBUTIONS.md
 Regenerated page counts, hashes and visual checks must accompany the renderer
 change. Standard author rendering resolves the custom-block exception; it does
 not settle the venue's initial upload profile, anonymity or supplement policy.
-The documented balance=false compact option disables automatic last-page
-balancing only.
+The compact profile uses the supplied sample's plain `sigconf` class option;
+the class controls final-page column balancing.
 
 ## Build and check
 

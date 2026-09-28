@@ -50,7 +50,7 @@ no ORCID in the repository; do not fabricate them. ACM publication rights fields
 must come from the real rights process after acceptance, not template examples.
 
 The class is unchanged. Sample DOI/ISBN/copyright claims are removed and the
-conference metadata explicitly identifies a draft. The absence of such fields
+conference metadata uses the official event name without claiming publication. The absence of such fields
 is intentional until genuine rights metadata exists. No submission, registration,
 email, payment, public release or acceptance has occurred in this preparation.
 

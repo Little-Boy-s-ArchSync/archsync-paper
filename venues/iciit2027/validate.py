@@ -30,7 +30,7 @@ def verify_standard_author_source(source):
     active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
     assert not re.search(r'\\(?:input|include)\s*\{author-layout(?:\.tex)?\}', active), 'custom author renderer must not be loaded'
     assert not re.search(r'@mkauthors|\\(?:fontsize|fontfamily|UrlFont)\b', active), 'standard ACM author renderer must not be overridden'
-    assert r'\documentclass[sigconf,anonymous,balance=false]{acmart}' in active, 'compact anonymous class option missing'
+    assert r'\documentclass[sigconf,anonymous]{acmart}' in active, 'compact anonymous class option missing'
     assert r'\documentclass[manuscript,screen,review,anonymous]{acmart}' in active, 'review anonymous class option missing'
 
 assert set(sys.argv[1:]) <= {'--check', '--fresh'}, 'unknown validation option'
@@ -150,8 +150,14 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
                 email_positions = [first_page.index(email.lower()) for email in expected_emails]
                 assert email_positions == sorted(email_positions), (profile, 'PDF email order drift')
             assert 'correspondingauthor.' in first_page, (profile, 'correspondence footnote drift')
+            # ACM's manuscript author renderer prints institution/country only;
+            # sigconf prints department and city as well. Exact per-author
+            # values are checked above in the structured source and metadata.
             rendered_values = ['FPT University', 'VNUK Institute for Research and Executive Education',
-                               'The University of Danang', 'Ho Chi Minh City', 'Da Nang', 'Vietnam']
+                               'The University of Danang', 'Vietnam']
+            if profile.startswith('compact'):
+                rendered_values += ['Software Engineering', 'Computer Science and Engineering',
+                                    'Information Assurance', 'Ho Chi Minh City', 'Da Nang']
             assert all(re.sub(r'\s+', '', value.lower()) in first_page for value in rendered_values), (profile, 'author affiliation missing')
     rows.append({'file':path.name,'pages':len(pdf.pages),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size})
 report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'per_author_affiliations_and_email_order_match':True,'standard_author_renderer_source_verified':True,'author_layout':'standard-acm','default_acm_author_renderer':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}

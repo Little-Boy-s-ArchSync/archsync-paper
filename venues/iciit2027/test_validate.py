@@ -126,13 +126,13 @@ class VenueValidation(unittest.TestCase):
         namespace = {'re': __import__('re')}
         exec(compile(ast.Module(body=[function], type_ignores=[]), str(root/'validate.py'), 'exec'), namespace)
         check = namespace['verify_standard_author_source']
-        source = r'\documentclass[sigconf,anonymous,balance=false]{acmart}' + '\n' + r'\documentclass[manuscript,screen,review,anonymous]{acmart}'
+        source = r'\documentclass[sigconf,anonymous]{acmart}' + '\n' + r'\documentclass[manuscript,screen,review,anonymous]{acmart}'
         check(source)
         check(source + '\n' + r'% Historical \input{author-layout} is not executed')
         for override in [r'\input{author-layout}', r'\include{author-layout.tex}', r'\def\@mkauthors{}', r'\fontsize{12}{14}', r'\fontfamily{ptm}', r'\def\UrlFont{}']:
             with self.subTest(override=override), self.assertRaises(AssertionError):
                 check(source + '\n' + override)
-        for options in ['sigconf,anonymous,balance=false', 'manuscript,screen,review,anonymous']:
+        for options in ['sigconf,anonymous', 'manuscript,screen,review,anonymous']:
             with self.subTest(options=options), self.assertRaisesRegex(AssertionError, 'anonymous class option'):
                 check(source.replace(options, options.replace(',anonymous', '')))
 
