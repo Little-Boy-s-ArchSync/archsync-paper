@@ -1,5 +1,12 @@
 # Reviewer-response audit and revision - 27 September 2026
 
+Author-layout update, 28 September 2026: the owner now selects the standard ACM
+author renderer with the six-author metadata and correspondence preserved.
+Historical custom-template findings and counts below describe their dated review;
+the centered-block exception is superseded. Upload profile/anonymity and supplement
+rules remain unresolved. Rebuilt artifacts and the exact source archive now pass
+their retained validation and isolated rebuild checks.
+
 Readiness: **Needs revision for a persuasive empirical full-paper claim**.
 Coverage: **Partial**. Text, source/metadata consistency, retained numerical
 records and rendered profiles were reviewed; independent labels, a new tool
@@ -43,7 +50,7 @@ applicable units, not percentages of correctness or a complete verification.
 | No repository links | Sections 3 and 4 link Core, Guardian and Benchmark to full immutable commit URLs. Anonymous profiles omit identifying links. | Check reviewer access and choose an approved anonymous artifact route if needed. Links do not turn the synthetic benchmark into a real-project evaluation. |
 | Abstract overloaded with numbers | Rewritten motivation -> mechanism -> bounded verification -> findings -> contribution -> limitation. Removed finite enumeration and unit-test counts from the abstract. | No wording can supply missing external validity. |
 | Old non-foundational references | Reduced 25 citations to 17. Fifteen are 2022-2025; only Reflexion Models (1995) and DCL (2009) remain as explicit method-origin exceptions. | Recheck recency at future submission dates. Ranking/independent appraisal is not certified by this audit. |
-| Conference format | Official ICIIT page rechecked: ACM proceedings, not IEEE. Five profiles still compile at 10/5/10/5/3 pages. | Requested custom author block is not the default renderer and still needs organizer acceptance or a user-approved return to it. Review mode/supplement rules need confirmation. |
+| Conference format | Official ICIIT page rechecked: ACM proceedings, not IEEE. Five profiles compile at 10/5/10/5/3 pages. The 28 September candidate restores the standard ACM author renderer and retains all supplied author metadata. | Review mode/anonymity and supplement rules still need confirmation through the authenticated submission workflow. |
 | Novelty overstated | Introduction explicitly attributes established concepts. Section 2 acknowledges ArchLintor's TypeScript checks, source diagnostics and CI integration. Claims are about this executable integration and inspected failure modes. | A unique capability advantage, superior outcomes and user value have not been demonstrated. |
 | Small units / inflated counts | Section 4 reports changed-item denominators; Section 6 separates one system, 20 reused patches, 40 constructed signals, repeated runs and a finite three-node enumeration. | More tests or repeated runs do not enlarge the independent study population. No population CI/significance claim was added. |
 | Successful CI/package checks sound like scientific validation | Section 4 explicitly separates cross-OS installation/replay from correctness of labels, external accuracy and comparative performance. | Independent reproduction and effectiveness evaluation remain separate studies. |

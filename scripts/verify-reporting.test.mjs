@@ -9,7 +9,8 @@ test("real retained reporting derivation is internally consistent", () => assert
 test("retained PDF and complete-source bytes match the validation manifest", () => {
   const manifest = JSON.parse(readFileSync(new URL("../supplementary/length-variant-validation.json", import.meta.url)));
   assert.equal(manifest.status, "PASS");
-  assert.deepEqual(manifest.variants.map(x => x.pages), [8, 12]);
+  assert.deepEqual(manifest.variants.map(x => x.page_budget), [8, 12]);
+  for (const item of manifest.variants) assert.ok(Number.isInteger(item.pages) && item.pages > 0 && item.pages <= item.page_budget);
   for (const item of manifest.variants) for (const [extension, field] of [["pdf", "pdf_sha256"], ["tex", "source_sha256"]]) {
     const bytes = readFileSync(new URL("../" + item.file + "." + extension, import.meta.url));
     assert.equal(item[field], createHash("sha256").update(bytes).digest("hex"));

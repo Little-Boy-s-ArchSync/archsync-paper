@@ -17,9 +17,11 @@ Figure~\ref{fig:evaluation-protocol} summarizes the executable verification prot
 
 \subsection{External-Comparison Boundary}
 
-External comparison remains future work; it was not executed within the reported evaluation. No accepted comparator result or common label mapping is available. Module imports and remote service calls are different observation units. A module-dependency analyzer is therefore only a candidate, not an established equivalent baseline.
+External comparison remains future work: no comparator result or common label mapping is reported. Module imports and remote service calls are different units.
 
-Before execution, the proposed protocol requires frozen repositories and revisions, tool versions and configurations, dependency-resolution conditions, independently reviewed labels, and a common scoring unit. It rejects a comparator unless a non-empty semantic intersection is established; any adapter must be separately frozen before execution. Unsupported relations are reported separately, not counted as false negatives. Reusing D1 would remain a controlled comparison, not independent validation. These requirements contribute no observations to the results.
+The prepared D3 packet selects 56 primary changes in three public repositories and four context-only cases. A prospective dependency-cruiser comparison covers direct cross-group source-file module edges, not service edges. Both reviewers are development-associated authors with prior output exposure; their nonblind assessment cannot supply independent truth. No D3 label or prediction is reported.
+
+Before execution, both authors must freeze exact source, tools, resolver, group mapping, full base/head file coverage, two original reviews, reconciliation, Unknown and unsupported handling, and denominators. Unsupported relations are not automatic misses or true negatives. An independent holdout remains a separate later gate.
 
 \begin{figure*}[t]
   \centering

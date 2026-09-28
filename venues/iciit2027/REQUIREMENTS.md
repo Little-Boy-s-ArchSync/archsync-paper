@@ -56,29 +56,48 @@ email, payment, public release or acceptance has occurred in this preparation.
 
 ## Historical user-specified presentation (superseded)
 
-On 26 September 2026 the user supplied a centered symbolic affiliation layout and requested it explicitly. `author-layout.tex` implements that presentation for named profiles while preserving ACM author metadata. This intentional author-layout customization supersedes the earlier default author grid; it is not a venue requirement or organizer approval. The user explicitly prohibits using identity information from the image. All author data is preserved from the pre-existing manuscript.
+On 26 September 2026 the user supplied a centered symbolic affiliation layout
+and requested it explicitly. The then-current `author-layout.tex` implemented
+that presentation for named profiles while preserving ACM author metadata. The
+28 September decision below supersedes and removes that customization. The
+user explicitly prohibited using identity information from the image. All
+author data remains preserved from the pre-existing manuscript.
 
 ## 27 September recheck
 
 The fresh official class and bibliography still match this package; see `official/2026-09-27/retrieval.json`. Current draft profile selection and unresolved anonymity policy are recorded in `DRAFT-CHECKLIST.md`. University-only author grouping supersedes earlier department-level presentation at user request.
 
-## Earlier same-day instruction: default ACM author presentation (superseded)
+## Earlier same-day instruction: default ACM author presentation (historical)
 
-The owner's later 27 September response explicitly selects the default ACM
-author layout while preserving the confirmed six-author order. The custom
-renderer is removed. The standard ACM Reference Format block is restored;
+The owner's later 27 September response selected the default ACM author layout
+while preserving the confirmed six-author order. That decision was temporarily
+superseded by another custom-block request and is now reinstated by the current
+28 September decision. The standard ACM Reference Format block is restored;
 DOI/ISBN remain empty until the real rights process. No optional role list is
-typeset. Research-use AI disclosure remains in methods. This supersedes all
-historical custom layout instructions above; see SUBMISSION-AUDIT-20260927.md
-for the current official-source check and unresolved requirements.
+typeset. Research-use AI disclosure remains in methods. See
+SUBMISSION-AUDIT-20260927.md for the current official-source check and
+unresolved requirements.
 
-## Latest instruction: shared FPT author block
+## Earlier instruction: shared FPT author block (superseded)
 
 The owner subsequently supplied the exact centered block to use. The ICIIT
 named profiles now display Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
 Ha Hoang Bach, Hoang Nguyen-The, and Minh Tam Phan with a star on the last name.
 The owner supplied one common faculty/address and the six email addresses in
 that order. Structured metadata is aligned; existing ORCID ownership is retained.
-This supersedes the earlier default-renderer selection, not the official venue
-rules. The custom layout needs organizer confirmation. Research content,
-measurements, anonymous rendering and historical IEEE working files are unchanged.
+This temporarily superseded the earlier default-renderer selection, not the
+official venue rules. It is historical after the 28 September decision below.
+Research content, measurements, anonymous rendering and historical IEEE working
+files are unchanged.
+
+## Current decision — 28 September 2026: standard ACM author renderer
+
+The owner now requests the standard ACM author renderer for named profiles,
+superseding all centered-block instructions above. Preserve the six ordered
+authors, their shared faculty/address, supplied emails, four supplied ORCIDs
+and Minh Tam Phan's corresponding-author footnote in structured metadata.
+The class controls presentation; no custom centered renderer or manual
+name/email font overrides remain active. This removes the custom-author-block
+exception, but initial profile/anonymity, supplement treatment and portal-only
+declarations still require confirmation. The rebuilt named and anonymous PDFs,
+source archive and rebuild receipt validate at 10/5/10/5/3 pages.

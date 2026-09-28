@@ -1,5 +1,11 @@
 # ICIIT 2027 (Ho Chi Minh City): disclosure and submission check
 
+Current author-renderer decision (28 September 2026): the owner requests standard
+ACM rendering for named profiles, with all six author records, shared affiliation,
+emails, four supplied ORCIDs and correspondence preserved. This supersedes the
+custom-layout deferral described in the historical receipt below. It does not
+resolve initial profile/anonymity, supplementary-file rules or portal declarations.
+
 Historical receipt for PR #50 commit `36cd4267df0b1bc319b8f5b11bc0a938ec4e503b`.
 Retained during integration, not a fresh audit of the newer 17-reference candidate.
 For the current manuscript, see REVIEW-RESPONSE-20260927.md and DRAFT-CHECKLIST.md.

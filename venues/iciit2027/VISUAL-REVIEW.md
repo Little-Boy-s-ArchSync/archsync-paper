@@ -1,4 +1,39 @@
-# Visual review - 27 September 2026
+# Visual review - 28 September 2026
+
+## Standard ACM author renderer restoration (current)
+
+The named review and compact first pages were rebuilt with the unmodified
+`acmart` author renderer and inspected at 150 dpi. The six supplied authors
+remain in the requested order with their structured affiliations, emails and
+four supplied ORCIDs; Minh Tam Phan carries the native corresponding-author
+note. The review profile uses ACM's manuscript presentation, while the compact
+profile uses ACM's conference grid. Neither page shows observed clipping,
+overlap or column spill. Page counts remain 10/5/10/5/3. The custom author
+layout described in older entries below is historical and superseded by this
+build.
+
+## Reviewer-role attribution correction (current)
+
+The five ACM profiles were rebuilt with the pinned TeX Live 2024 image after
+replacing an unsupported claim that both D3 reviewers developed the tool with
+the supported statement that both are development-associated authors with
+prior output exposure. Review page 6 and compact page 4 were rendered at
+180 dpi and inspected. The corrected limitation and surrounding conclusion
+remain legible without clipping, overlap, or column spill. Page counts remain
+10/5/10/5/3. This check concerns presentation and attribution accuracy; it
+does not establish independent D3 labels, results, or submission approval.
+
+## D3 scope and nonblind-review clarification (current)
+
+The five ACM profiles were rebuilt in the pinned TeX Live 2024 hosted job
+36370633982 after updating the venue-specific paper and appendix. Fresh PDF
+validation passed; page counts remain 10/5/10/5/3. I rendered and inspected
+the affected review pages 8-10, compact pages 4-5, and supplement page 3.
+The D3 boundary, limitations and references are legible without observed
+clipping or overlap. The compact conclusion and references retain their
+existing two-column layout. This visual inspection checks presentation only;
+it does not authenticate reviewer labels, a tool comparison, or submission
+readiness. The current PDF hashes are in visual-inputs.json.
 
 ## Concurrent refinement integration (current)
 

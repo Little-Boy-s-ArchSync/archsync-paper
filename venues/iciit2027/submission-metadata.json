@@ -90,7 +90,7 @@
     }
   ],
   "author_metadata_source": "Owner's latest explicit shared-affiliation block on 2026-09-27; supersedes the earlier ICIIT order, faculty name spelling and corresponding author. Individual coauthor approval is not inferred.",
-  "author_layout": "owner-requested-centered-shared-affiliation; not default ACM rendering",
+  "author_layout": "standard ACM renderer with repeated structured shared-affiliation records",
   "review_identity_policy": "not confirmed",
   "submission_exclusivity": "requires author confirmation",
   "funding_and_conflicts": "requires author confirmation"

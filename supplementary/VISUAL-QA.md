@@ -3,7 +3,7 @@
 Current integration review: see the final section below. Earlier candidate
 hashes and layout descriptions are historical, not the current IEEE PDFs.
 
-**Final candidate status: PASS for named 8-page and 12-page rendered layout.** All 20 final pages were freshly rendered and inspected after the rebuild; figure and table pages were additionally checked at 130 dpi, and the final bibliography page at 100 dpi. The former 9-page short-version issue, isolated-reference-only12th page, and both Fig-2 factual labels are resolved. This scope does not certify anonymous PDFs or external submission requirements.
+**Historical candidate status: PASS for the earlier named 8-page and 12-page rendered layout.** All 20 pages of that earlier candidate were inspected. The current revision must use the actual page counts and hashes in `length-variant-validation.json` and a new visual-QA entry below; a filename is a page budget, not a demand for an extra page. This record does not certify anonymous PDFs or external submission requirements.
 
 Review performed on actual Poppler rasterizations, not source-only checks. Standalone vector figures were rendered at 110/130 dpi; every page of both named article PDFs was rendered at 65 dpi and visually inspected. Article pages containing figures and the dense table layout were additionally rendered and inspected at 160 dpi. Temporary review images are under `/tmp/archsync-visual-qa/`; they are not manuscript deliverables.
 
@@ -190,3 +190,33 @@ low-contrast figure annotations remain as supplied, rather than being replaced
 by an unapproved redesign. Current PDF/source hashes are recorded in
 `length-variant-validation.json`. This entry records build/visual checks, not
 independent member approval, final-commit CI, or submission authorization.
+
+## D3-boundary candidate - 2026-09-28
+
+The named IEEE manuscripts were rebuilt from candidate `f0e43d87b494980b442df9fa3c0bd2f113d8e2ac`
+using TeX Live 2024 in hosted run 36367671470. The validation manifest records
+8 pages for the 8-page budget (`7ab23dcdbbc19bc6a374a9a3c73489dce9995aa24d08e1a4a56667b9185427c6`)
+and 11 pages for the 12-page budget (`debbbe6379ce01e44876d93b635a1dbcf26807bb94fe01c5a596cbf18fd5a4c0`).
+Both contain 25 citations. The validator found no unresolved references,
+missing glyphs, or overfull text columns. The anonymous venue-profile
+devcontainer check passed its 10-main-text-page budget on the same source head.
+
+Poppler renders of short pages 5-8 and long pages 7-11 were inspected after
+the D3-boundary wording change. Figures, tables, equations, section transitions,
+conclusion, and reference columns remain readable without clipping or overlap.
+The final reference-only short page and partly filled final long page are
+intentional consequences of normal pagination; prose was not added to fill a
+nominal page count. This visual review is not a scientific evaluation or an
+author/submission approval. The D3 text describes a prepared nonblind,
+module-only comparison, not completed external results or independent truth.
+
+## D3 reviewer-role correction - 2026-09-28
+
+The canonical discussion and threats text now describes both D3 reviewers as
+nonblind, development-associated author-reviewers. This matches the governance
+record without implying that both modified the analyzer or its rules. The
+generated 12-page-budget manuscript was rebuilt at 11 pages. Page 10, which
+contains both corrected passages, was rendered at 160 dpi and inspected; the
+two-column text remains legible without clipping, overlap, or column spill.
+This check verifies wording and layout only and does not establish D3 labels,
+independent ground truth, author approval, or submission authorization.

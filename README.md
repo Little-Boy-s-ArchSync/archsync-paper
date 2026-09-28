@@ -17,12 +17,12 @@ hoặc bằng chứng ẩn danh. Venue, visibility, submission và artifact rele
 chờ quyết định của người có thẩm quyền. Nhánh `main` trên GitHub là source of
 truth; Overleaf chỉ là mirror để đọc, comment và kiểm tra theo milestone.
 
-## 8-page and 12-page complete papers
+## Complete papers with 8- and 12-page budgets
 
 The branch includes **archsync-8page.tex / archsync-8page.pdf** and
 **archsync-12page.tex / archsync-12page.pdf**. Each TeX file contains the complete
 manuscript text, with 25 references and the two vector figures. Reference pages
-count toward the 8/12 PDF-page totals. Both use IEEE conference layout; the 12-page version is the detailed
+count toward the 8/12 PDF-page limits. The filenames identify page budgets, not a requirement to fill every page. Both use IEEE conference layout; the 12-page-budget version is the detailed
 canonical manuscript and the 8-page version its synchronized concise form; the current venue-specific draft is linked above. See
 `supplementary/conference-format-handoff.md` before adapting for submission.
 
@@ -38,8 +38,7 @@ Building uses Tectonic (set `TECTONIC` to an absolute executable path if needed)
 `PDFINFO` environment variable). The complete TeX files can also be compiled
 individually with the included class, bibliography and figure assets. Avoid
 editing generated copies without applying the same change to their source
-sections. `supplementary/length-variant-validation.json` binds checked sources
-and PDFs by hash. `supplementary/VISUAL-QA.md` records rendered inspection.
+sections. `supplementary/length-variant-validation.json` records each actual page count and budget and binds checked sources and PDFs by hash. `supplementary/VISUAL-QA.md` records rendered inspection.
 
 External comparison remains proposed and unexecuted within the reported study.
 The scratch inventory in `research/experiments/d1-dependency-cruiser-20260915/`

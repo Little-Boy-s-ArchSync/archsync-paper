@@ -1,5 +1,5 @@
 """Regression checks against retained assets; no source or evidence is rewritten."""
-import contextlib, hashlib, io, json, runpy, subprocess, sys, tempfile, unittest, zipfile
+import ast, contextlib, hashlib, io, json, runpy, subprocess, sys, tempfile, unittest, zipfile
 from pathlib import Path
 from unittest.mock import patch
 
@@ -119,17 +119,22 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'pinned artifact link missing'):
             validate(transform)
 
-    def test_real_pdf_email_fonts_reject_serif_fallback(self):
-        namespace = validate()
-        bad_runs = [(email, 'Times-Bold', 10) for email in namespace['expected_emails']]
-        with self.assertRaisesRegex(AssertionError, 'bold monospace'):
-            namespace['verify_author_typography'](bad_runs)
-
-    def test_email_font_override_cannot_be_removed(self):
-        def transform(path, value):
-            return value.replace(r'\def\UrlFont', r'\def\UnusedFont') if path.name == 'author-layout.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'explicit email font override'):
-            validate(transform)
+    def test_standard_author_source_rejects_custom_renderers_and_preserves_anonymity(self):
+        # Exercise renderer guards independently of PDFs being rebuilt.
+        tree = ast.parse(read_text(root/'validate.py', encoding='utf-8'))
+        function = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'verify_standard_author_source')
+        namespace = {'re': __import__('re')}
+        exec(compile(ast.Module(body=[function], type_ignores=[]), str(root/'validate.py'), 'exec'), namespace)
+        check = namespace['verify_standard_author_source']
+        source = r'\documentclass[sigconf,anonymous,balance=false]{acmart}' + '\n' + r'\documentclass[manuscript,screen,review,anonymous]{acmart}'
+        check(source)
+        check(source + '\n' + r'% Historical \input{author-layout} is not executed')
+        for override in [r'\input{author-layout}', r'\include{author-layout.tex}', r'\def\@mkauthors{}', r'\fontsize{12}{14}', r'\fontfamily{ptm}', r'\def\UrlFont{}']:
+            with self.subTest(override=override), self.assertRaises(AssertionError):
+                check(source + '\n' + override)
+        for options in ['sigconf,anonymous,balance=false', 'manuscript,screen,review,anonymous']:
+            with self.subTest(options=options), self.assertRaisesRegex(AssertionError, 'anonymous class option'):
+                check(source.replace(options, options.replace(',anonymous', '')))
 
     def test_current_assets_and_explicit_utf8(self):
         validate()
@@ -152,34 +157,22 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'author order drift'):
             validate(transform)
 
-    def test_visible_author_order_drift_rejected(self):
-        def transform(path, value):
-            return value.replace('Le Van Kiet, Ha Hoang Bach', 'Ha Hoang Bach, Le Van Kiet') if path.name == 'author-layout.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'visible author order drift'):
-            validate(transform)
-
     def test_shared_affiliation_drift_rejected(self):
         def transform(path, value):
             return value.replace('70000', '99999') if path.name == 'submission-metadata.json' else value
         with self.assertRaisesRegex(AssertionError, 'shared affiliation drift'):
             validate(transform)
 
-    def test_visible_correspondence_star_drift_rejected(self):
+    def test_correspondence_owner_cannot_change(self):
         def transform(path, value):
-            return value.replace(r'Minh Tam Phan\textsuperscript{*}', 'Minh Tam Phan') if path.name == 'author-layout.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'correspondence star drift'):
+            return value.replace(r'\authornote{Corresponding author.}', r'\authornote{Other note.}') if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'correspondence'):
             validate(transform)
 
-    def test_visible_email_order_drift_rejected(self):
+    def test_supplied_orcid_mapping_cannot_change(self):
         def transform(path, value):
-            return value.replace('voduchieu42@gmail.com', 'SWAP').replace('andyjobs2023@gmail.com', 'voduchieu42@gmail.com').replace('SWAP', 'andyjobs2023@gmail.com') if path.name == 'author-layout.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'visible email order drift'):
-            validate(transform)
-
-    def test_anonymous_guard_required(self):
-        def transform(path, value):
-            return value.replace(r'\ifdefined\blindprofile\else', '') if path.name == 'author-layout.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'preserve anonymous renderer'):
+            return value.replace('0009-0007-5389-5177', '0000-0000-0000-0000') if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'orcid'):
             validate(transform)
 
     def test_optional_contribution_heading_rejected(self):
@@ -188,7 +181,7 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'optional author contribution'):
             validate(transform)
 
-    def test_source_email_drift_still_rejected_in_shared_review_layout(self):
+    def test_source_email_drift_rejected_in_standard_review_layout(self):
         def transform(path, value):
             return value.replace('voduchieu42@gmail.com', 'wrong@example.org') if path.name == 'paper.tex' else value
         with self.assertRaises(AssertionError):
