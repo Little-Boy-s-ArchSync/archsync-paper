@@ -8,6 +8,10 @@ Latest scientific corrections: [reviewer response](REVIEW-RESPONSE-20260927.md).
 The venue narrative now has 17 citations (15 recent, two method-origin exceptions).
 This is separate from the frozen 25-citation historical narrative contract.
 Independent real-repository and external-comparator results are still absent.
+The prepared D3 module-only comparison is nonblind and author-associated; its
+56 selected cases have no accepted reviews, paired tool runs, or scores in this
+manuscript. It is not the independent repository study still needed for
+external validity.
 
 Bibliographic field corrections are documented in bibliography-field-evidence.json.
 Live DOI and publisher metadata establish the Qayum issue citation as 2025,
