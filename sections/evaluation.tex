@@ -21,7 +21,7 @@ External comparison remains future work: no comparator result or common label ma
 
 The prepared D3 packet selects 56 primary changes in three public repositories and four context-only cases. A prospective dependency-cruiser comparison covers direct cross-group source-file module edges, not service edges. Both reviewers are development-associated authors with prior output exposure; their nonblind assessment cannot supply independent truth. No D3 label or prediction is reported.
 
-Before execution, both authors must freeze exact source, tools, resolver, group mapping, full base/head file coverage, two original reviews, reconciliation, Unknown and unsupported handling, and denominators. Unsupported relations are not automatic misses or true negatives. An independent holdout remains a separate later gate.
+Before execution, both authors must freeze exact source, tools, resolver, group mapping, full base/head file coverage, two original reviews, reconciliation, Unknown and unsupported handling, and denominators. Every eligible file, including one without a predicted edge, must appear on both sides so absence of a prediction can be checked. Original reviews are retained before reconciliation; unresolved source or reviewer disagreements remain Unknown, not negatives. Tool failures remain in attempted coverage, while per-repository reports separate attempted from scored cases. Unsupported relations are not automatic misses or true negatives. This bounded module comparison does not test service-edge detection or remove nonblind selection bias. An independent holdout remains a separate later gate.
 
 \begin{figure*}[t]
   \centering
