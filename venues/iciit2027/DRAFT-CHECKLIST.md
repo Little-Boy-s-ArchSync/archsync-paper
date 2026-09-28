@@ -13,7 +13,7 @@ These are draft candidates, not a portal submission. The public venue instructio
 
 | Check | Finding |
 | --- | --- |
-| Template | Official class and bibliography bytes are unchanged. The 28 September owner decision restores standard ACM author rendering in named profiles; structured metadata is preserved and no custom centered override is loaded; ACM Reference Format remains enabled. |
+| Template | Official class and bibliography bytes are unchanged. The 28 September owner decision restores standard ACM author rendering in named profiles; structured metadata is preserved and no custom centered override is loaded. ACM Reference Format remains enabled, but its publisher-city phrase is omitted at the owner's 29 September request; this departs from the supplied sample and requires organizer confirmation before upload. |
 | Length | Official minimum: 8 single-column / 4 double-column pages including references. Regular allowance: 10 / 5; extra pages charged. Current 10 / 5 profiles fit both bounds. These allowance numbers are not a declared hard maximum. |
 | Deadline | Official page: 30 September 2026 for full papers. Cutoff time zone remains unspecified. |
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |

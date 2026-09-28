@@ -193,6 +193,13 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'required ACM reference block'):
             validate(transform)
 
+    def test_owner_requested_publisher_address_omission_cannot_drift(self):
+        def transform(path, value):
+            return value.replace(r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM}',
+                                 r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM, New York, NY, USA}') if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'publisher-address omission missing'):
+            validate(transform)
+
     def test_abstract_metadata_drift_rejected(self):
         def transform(path, value):
             return value.replace('Service changes can introduce', 'Changed abstract can introduce') if path.name == 'SUBMISSION-METADATA.md' else value

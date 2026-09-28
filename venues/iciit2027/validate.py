@@ -102,6 +102,7 @@ for (name, block), author in zip(blocks, metadata['authors']):
 verify_standard_author_source(paper_source)
 assert 'Author Information and Contributions' not in paper_source, 'optional author contribution section restored'
 assert 'printacmref=false' not in paper_source, 'required ACM reference block suppressed'
+assert r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM}' in paper_source, 'owner-requested publisher-address omission missing'
 evidence_checked = False
 if (root/'evidence').is_dir():
     manifest = json.loads((root/'evidence-manifest.json').read_text(encoding='utf-8'))
@@ -123,6 +124,7 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
         assert '786,432' in text and '315' in text and '126' in text
         assert 'codex' in text.lower() and 'references' in text.lower()
         assert 'acm reference format' in text.lower(), (profile, 'missing ACM reference block')
+        assert 'ACM, New York, NY, USA' not in (pdf.pages[0].extract_text() or ''), (profile, 'publisher address still displayed on first page')
         assert 'author information and contributions' not in text.lower(), 'optional contribution section in PDF'
         if 'anonymous' in profile:
             identity_text = re.sub(r'\s+', '', (text + str(pdf.metadata)).lower())

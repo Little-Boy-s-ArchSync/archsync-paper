@@ -1,5 +1,16 @@
 # Visual review - 29 September 2026
 
+## Owner-requested publisher-city omission
+
+The named compact first page was rebuilt and inspected after replacing only
+the generated ACM publisher address with `ACM` in the ACM Reference Format
+block. `New York, NY, USA` is no longer printed there; the separate ICIIT
+conference line continues to show Ho Chi Minh City, Vietnam. The first-page
+author block, abstract, columns and footnote remain legible without observed
+clipping or overlap. The official class file remains unchanged. This is a
+presentation exception to the supplied ACM sample, not proof of venue approval.
+The five rebuilt PDF hashes are recorded in `visual-inputs.json`.
+
 ## Current compact submission candidate
 
 The named five-page `sigconf` candidate was rebuilt from the official class

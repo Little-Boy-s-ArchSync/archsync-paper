@@ -7,6 +7,12 @@
 \else
  \ifdefined\blindprofile\documentclass[manuscript,screen,review,anonymous]{acmart}\else\documentclass[manuscript,screen,review]{acmart}\fi
 \fi
+% Owner-requested presentation exception: retain the ACM Reference Format
+% block but omit the publisher's New York address. The official sample includes
+% that address; this candidate needs organizer confirmation before submission.
+\makeatletter
+\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM}{}{\ClassError{acmart}{Cannot remove ACM publisher address}{Check the official class version}}
+\makeatother
 % Line-breaking reserve only; no font, margin, or vertical-spacing change.
 \emergencystretch=3em
 \setcopyright{none}

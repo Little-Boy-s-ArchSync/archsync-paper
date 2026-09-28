@@ -58,7 +58,11 @@ the class controls the footnote marker and author-block presentation.
 
 The official class and bibliography remain unchanged. Anonymous profiles use
 the standard anonymous class options and retain identity checks. ACM Reference
-Format remains enabled; DOI/ISBN and rights information are not invented.
+Format remains enabled, but the owner's 29 September request removes its
+publisher-city phrase while retaining `ACM`. This is a visible exception to the
+supplied ACM sample, which requires the reference block; organizer acceptance
+of this altered citation has not been confirmed. DOI/ISBN and rights information
+are not invented.
 The stock review footer is not evidence of a portal submission. Required
 research-use AI disclosure remains in methods; no optional contribution section
 is typeset. Previously declared roles remain in research/AUTHOR-CONTRIBUTIONS.md.
