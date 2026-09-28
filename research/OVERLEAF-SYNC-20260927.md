@@ -140,3 +140,42 @@ rebuild/page-text verification is a separate receipt.
 The owner-authorized MBP-001 fixture preflight is recorded outside the paper's
 results. It is not D3 or the approved research baseline experiment, and its
 counts were not added to the manuscript or historical evidence archive.
+
+## 2026-09-28 D3 interpretation correction
+
+The live Overleaf project was inspected after the two-author, nonblind D3
+preparation was merged in the paper repository. The selected main document
+remained `iciit2027-compact-current.tex`; the edited file was only
+`iciit2027-candidate-20260927/paper.tex`. Its prior external-validity and
+conclusion paragraphs still described an independently labelled repository
+holdout as future work and did not disclose the prepared D3 population or the
+two authors' prior output exposure. Those **two paragraphs only** were updated
+to match the corresponding interpretation in canonical source commit
+`3684073c87ee02b4d275c6e081c9eaefc2850515`,
+`venues/iciit2027/paper.tex` (SHA-256
+`0902e5136bc55c712ca25631c32ec8195755a7edb3d1dc3194460180879946ac`).
+
+The online wording now states that the prepared D3 packet has 56 primary and
+four context-only changes across three public repositories, that the proposed
+dependency-cruiser comparison is limited to direct cross-group source-file
+module-import edges, and that the two development-associated reviewers are
+nonblind. It explicitly reports **no D3 labels, paired tool outputs or
+comparative scores**. It does not treat this packet as an independently
+labelled holdout or as evidence of superiority.
+
+Immediately after the edit, the full Overleaf editor content was copied back
+and compared byte-for-byte with the intended edited text. The resulting online
+`paper.tex` had SHA-256
+`0d76e3e889ae261966074345e1622e233d163cca1b54328c823a521ab22dc8a6`.
+The selected compact profile recompiled to a new PDF build
+`1a0e86aeda8-bcbd8853c64e282f` with **Errors 0, Warnings 6, Info 2**.
+The warnings include the existing class-path notice, changed `showhyphens`
+command and incomplete bibliography fields; no publication metadata was
+invented to suppress them. The older IEEE root files were not edited.
+
+The online candidate is **not byte-identical** to the canonical source: it
+retains its Overleaf class-path/TeX Live compatibility adaptation and custom
+named-author layout. This scoped text synchronization does not certify venue
+format compliance, affiliations, author consent, D3 execution, a paper result
+or submission readiness. Further D3 results, if any, require a separately
+reviewed evidence-backed manuscript revision and a new synchronization.
