@@ -88,9 +88,9 @@ for (const anchor of sharedAnchors) {
 const namedIdentities = [
   "Vo Duc Hieu",
   "Tran Minh Hoang",
-  "Ha Hoang Bach",
   "Le Van Kiet",
-  "Hoang Nguyen The",
+  "Ha Hoang Bach",
+  "Hoang Nguyen-The",
   "Minh Tam Phan",
   "Faculty of Software Engineering",
   "FPT University",
