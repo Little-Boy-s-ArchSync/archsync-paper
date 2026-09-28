@@ -209,3 +209,14 @@ intentional consequences of normal pagination; prose was not added to fill a
 nominal page count. This visual review is not a scientific evaluation or an
 author/submission approval. The D3 text describes a prepared nonblind,
 module-only comparison, not completed external results or independent truth.
+
+## D3 reviewer-role correction - 2026-09-28
+
+The canonical discussion and threats text now describes both D3 reviewers as
+nonblind, development-associated author-reviewers. This matches the governance
+record without implying that both modified the analyzer or its rules. The
+generated 12-page-budget manuscript was rebuilt at 11 pages. Page 10, which
+contains both corrected passages, was rendered at 160 dpi and inspected; the
+two-column text remains legible without clipping, overlap, or column spill.
+This check verifies wording and layout only and does not establish D3 labels,
+independent ground truth, author approval, or submission authorization.

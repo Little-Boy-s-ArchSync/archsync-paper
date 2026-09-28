@@ -8,7 +8,7 @@
       "pages": 8,
       "citations": 25,
       "labels": 6,
-      "pdf_sha256": "7ab23dcdbbc19bc6a374a9a3c73489dce9995aa24d08e1a4a56667b9185427c6",
+      "pdf_sha256": "c887aef5bbed01776ef100856bfc9748c86b1b72c3b33be5a0d718ea265de6ea",
       "source_sha256": "e944ccd8675c14c1e8f793967d811c56ced6b089b0f6aba66d6d1bf49a25b15d"
     },
     {
@@ -17,8 +17,8 @@
       "pages": 11,
       "citations": 25,
       "labels": 7,
-      "pdf_sha256": "debbbe6379ce01e44876d93b635a1dbcf26807bb94fe01c5a596cbf18fd5a4c0",
-      "source_sha256": "ac10b496d6057b19e6bb236895ccc476ac2af4af43eed980788dc8dbad1961d8"
+      "pdf_sha256": "d9df45a04cd36b59b4c56062a863bc3f0d2c4232624cd7aeb08c6a7d89d434ef",
+      "source_sha256": "0a8a311ccebc452ccfd455b012cd9926e3102cc56d037cf5692c1aba4e4f4e7c"
     }
   ]
 }
