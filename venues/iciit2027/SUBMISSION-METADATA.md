@@ -6,26 +6,23 @@ Service changes can introduce architectural drift while preserving functional be
 
 Keywords: architecture conformance, service-oriented systems, static analysis, architecture drift, reproducibility
 
-Latest owner-supplied ICIIT block (2026-09-27):
+Latest owner correction (2026-09-29):
 
 Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet, Ha Hoang Bach,
 Hoang Nguyen-The, and Minh Tam Phan *
 
-Faculty of Software Engineering, FPT University HCMC,
-Ho Chi Minh City, 70000, Vietnam
+1. Vo Duc Hieu — Software Engineering, FPT University, Ho Chi Minh City, 70000, Vietnam — voduchieu42@gmail.com; ORCID 0009-0007-5389-5177
+2. Tran Minh Hoang — Computer Science and Engineering, VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam — andyjobs2023@gmail.com; ORCID 0009-0000-0302-1841
+3. Le Van Kiet — Software Engineering, VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam — levankiet1212.2004@gmail.com; ORCID 0009-0007-8434-882X
+4. Ha Hoang Bach — Information Assurance, FPT University, Ho Chi Minh City, 70000, Vietnam — hahoangbach2005@gmail.com; ORCID 0009-0000-5118-0660
+5. Hoang Nguyen-The — Faculty of Software Engineering, FPT University HCMC, Ho Chi Minh City, 70000, Vietnam — hoangnt20@fe.edu.vn; ORCID not supplied
+6. Minh Tam Phan — Faculty of Software Engineering, FPT University HCMC, Ho Chi Minh City, 70000, Vietnam — tampm@fe.edu.vn; corresponding author (*); ORCID not supplied
 
-1. Vo Duc Hieu - voduchieu42@gmail.com; ORCID 0009-0007-5389-5177
-2. Tran Minh Hoang - andyjobs2023@gmail.com; ORCID 0009-0000-0302-1841
-3. Le Van Kiet - levankiet1212.2004@gmail.com; ORCID 0009-0007-8434-882X
-4. Ha Hoang Bach - hahoangbach2005@gmail.com; ORCID 0009-0000-5118-0660
-5. Hoang Nguyen-The - hoangnt20@fe.edu.vn; ORCID not supplied
-6. Minh Tam Phan - tampm@fe.edu.vn; corresponding author (*); ORCID not supplied
-
-All six structured records use the shared affiliation explicitly supplied by the
-owner. ORCIDs remain in source/metadata and are not added to the pictured block.
-This latest instruction supersedes the earlier ICIIT order, affiliation,
-faculty-name spelling and corresponding-author designation. Historical IEEE
-working manuscripts and frozen research evidence are not rewritten by this
-venue-only presentation change.
+The structured records use the per-author affiliations confirmed by the owner.
+Hoàng and Kiệt are at VNUK; their departments are Computer Science and
+Engineering and Software Engineering respectively. Hiếu is in Software
+Engineering and Bách is in Information Assurance at FPT University. ORCIDs
+remain bound to the same authors. This correction supersedes the shared-
+affiliation block dated 2026-09-27. Historical research evidence is unchanged.
 
 No author approval, exclusivity, conflict or funding declaration is inferred from this metadata.

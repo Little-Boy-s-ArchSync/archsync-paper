@@ -74,3 +74,13 @@ metadata. It does not claim coauthor consent or a new research result.
 The ICIIT body after the abstract, all figures, citations and evidence remain
 unchanged. Earlier IEEE working PDFs and immutable research records are not
 silently rewritten to match this venue-only metadata request.
+
+## Author affiliation correction — 29 September 2026
+
+The owner corrected the shared-affiliation block. Tran Minh Hoang and Le Van
+Kiet are affiliated with VNUK Institute for Research and Executive Education,
+The University of Danang, in Computer Science and Engineering and Software
+Engineering respectively. Vo Duc Hieu is in Software Engineering at FPT
+University; Ha Hoang Bach is in Information Assurance at FPT University. The
+standard ACM renderer, author order, email/ORCID mapping and corresponding
+author remain unchanged. The validator now checks these per-author records.

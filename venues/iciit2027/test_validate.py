@@ -157,10 +157,10 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'author order drift'):
             validate(transform)
 
-    def test_shared_affiliation_drift_rejected(self):
+    def test_author_affiliation_drift_rejected(self):
         def transform(path, value):
             return value.replace('70000', '99999') if path.name == 'submission-metadata.json' else value
-        with self.assertRaisesRegex(AssertionError, 'shared affiliation drift'):
+        with self.assertRaisesRegex(AssertionError, 'author affiliation drift'):
             validate(transform)
 
     def test_correspondence_owner_cannot_change(self):

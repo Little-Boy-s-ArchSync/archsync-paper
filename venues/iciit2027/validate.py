@@ -6,7 +6,14 @@ root = Path(__file__).resolve().parent
 expected_authors = ['Vo Duc Hieu', 'Tran Minh Hoang', 'Le Van Kiet', 'Ha Hoang Bach', 'Hoang Nguyen-The', 'Minh Tam Phan']
 expected_emails = ['voduchieu42@gmail.com', 'andyjobs2023@gmail.com', 'levankiet1212.2004@gmail.com', 'hahoangbach2005@gmail.com', 'hoangnt20@fe.edu.vn', 'tampm@fe.edu.vn']
 expected_orcids = ['0009-0007-5389-5177', '0009-0000-0302-1841', '0009-0007-8434-882X', '0009-0000-5118-0660', None, None]
-shared_affiliation = {'department': 'Faculty of Software Engineering', 'institution': 'FPT University HCMC', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'}
+expected_affiliations = [
+    {'department': 'Software Engineering', 'institution': 'FPT University', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'},
+    {'department': 'Computer Science and Engineering', 'institution': 'VNUK Institute for Research and Executive Education, The University of Danang', 'city': 'Da Nang', 'postcode': None, 'country': 'Vietnam'},
+    {'department': 'Software Engineering', 'institution': 'VNUK Institute for Research and Executive Education, The University of Danang', 'city': 'Da Nang', 'postcode': None, 'country': 'Vietnam'},
+    {'department': 'Information Assurance', 'institution': 'FPT University', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'},
+    {'department': 'Faculty of Software Engineering', 'institution': 'FPT University HCMC', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'},
+    {'department': 'Faculty of Software Engineering', 'institution': 'FPT University HCMC', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'},
+]
 
 def verify_rebuild_receipt(receipt, archive_sha256):
     assert receipt.get('status') == 'REBUILD_VERIFIED', 'source package rebuild is not verified'
@@ -66,7 +73,8 @@ assert [a['name'] for a in metadata['authors']] == expected_authors, 'owner-conf
 assert [a['email'] for a in metadata['authors']] == expected_emails, 'owner-supplied email drift'
 assert [a['orcid'] for a in metadata['authors']] == expected_orcids, 'supplied ORCID mapping drift'
 assert [a['name'] for a in metadata['authors'] if a['corresponding_author']] == ['Minh Tam Phan'], 'corresponding author drift'
-assert all(all(a[field] == value for field, value in shared_affiliation.items()) for a in metadata['authors']), 'shared affiliation drift'
+assert [{field: a.get(field) for field in ('department', 'institution', 'city', 'postcode', 'country')}
+        for a in metadata['authors']] == expected_affiliations, 'author affiliation drift'
 abstract = re.search(r'\\begin\{abstract\}\s*(.*?)\s*\\end\{abstract\}', (root/'paper.tex').read_text(encoding='utf-8'), re.S).group(1)
 assert metadata['abstract'] == abstract.replace('--', '–'), 'abstract metadata drift'
 assert metadata['abstract'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), 'copyable abstract drift'
@@ -81,7 +89,11 @@ blocks = re.findall(r'\\author\{([^}]+)\}(.*?)(?=\\author\{|\\renewcommand\{\\sh
 assert [name for name, _ in blocks] == [a['name'] for a in metadata['authors']], 'author order drift'
 for (name, block), author in zip(blocks, metadata['authors']):
     for field, macro in [('email','email'),('department','department'),('institution','institution'),('city','city'),('postcode','postcode'),('country','country')]:
-        assert '\\' + macro + '{' + author[field] + '}' in block, (name, field)
+        value = author.get(field)
+        if value:
+            assert '\\' + macro + '{' + value + '}' in block, (name, field)
+        else:
+            assert not re.search(r'\\' + macro + r'\{[^}]*\}', block), (name, field)
     orcids = re.findall(r'\\orcid\{([^}]+)\}', block)
     assert orcids == ([author['orcid']] if author['orcid'] else []), (name, 'orcid')
     assert re.findall(r'\\authornote\{([^}]+)\}', block) == (['Corresponding author.'] if author['corresponding_author'] else []), (name, 'correspondence')
@@ -138,11 +150,11 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
                 email_positions = [first_page.index(email.lower()) for email in expected_emails]
                 assert email_positions == sorted(email_positions), (profile, 'PDF email order drift')
             assert 'correspondingauthor.' in first_page, (profile, 'correspondence footnote drift')
-            rendered_affiliation_fields = ('department', 'institution', 'city', 'country') if profile.startswith('compact') else ('institution', 'city', 'country')
-            assert all(re.sub(r'\s+', '', shared_affiliation[field].lower()) in first_page for field in rendered_affiliation_fields), (profile, 'shared affiliation missing')
-            assert 'vnuk' not in first_page, (profile, 'old affiliation leaked into new block')
+            rendered_values = ['FPT University', 'VNUK Institute for Research and Executive Education',
+                               'The University of Danang', 'Ho Chi Minh City', 'Da Nang', 'Vietnam']
+            assert all(re.sub(r'\s+', '', value.lower()) in first_page for value in rendered_values), (profile, 'author affiliation missing')
     rows.append({'file':path.name,'pages':len(pdf.pages),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size})
-report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'shared_affiliation_and_email_order_match':True,'standard_author_renderer_source_verified':True,'author_layout':'standard-acm','default_acm_author_renderer':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
+report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'per_author_affiliations_and_email_order_match':True,'standard_author_renderer_source_verified':True,'author_layout':'standard-acm','default_acm_author_renderer':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
 if '--check' in sys.argv:
     assert report == json.loads((root/'validation.json').read_text(encoding='utf-8')), 'retained PDF validation receipt drift'
     package = json.loads((root/'package-manifest.json').read_text(encoding='utf-8'))
