@@ -1,22 +1,24 @@
 {
   "status": "PASS",
-  "format": "IEEE conference; working length variants, venue not selected",
+  "format": "IEEE conference; working length budgets (at most 8 and 12 pages), venue not selected",
   "variants": [
     {
       "file": "archsync-8page",
+      "page_budget": 8,
       "pages": 8,
       "citations": 25,
       "labels": 6,
-      "pdf_sha256": "523ab7c44da6367340832fcadf554a0f5602986f15d2c123f2d4ee67b2fb70fe",
-      "source_sha256": "664b946cf4e38ba7efa6049c9b0180d3a3e512aadaba4f4bb7ff32b927bc8588"
+      "pdf_sha256": "7ab23dcdbbc19bc6a374a9a3c73489dce9995aa24d08e1a4a56667b9185427c6",
+      "source_sha256": "e944ccd8675c14c1e8f793967d811c56ced6b089b0f6aba66d6d1bf49a25b15d"
     },
     {
       "file": "archsync-12page",
-      "pages": 12,
+      "page_budget": 12,
+      "pages": 11,
       "citations": 25,
       "labels": 7,
-      "pdf_sha256": "5585f7eb3d0fcbf025228d4754a85134498633c6eff91050f4883994151e59cb",
-      "source_sha256": "9fc99f43285b9bc0808dca6a51b4a8ac83e627794b1e7b7d8e64be9470f05ec2"
+      "pdf_sha256": "debbbe6379ce01e44876d93b635a1dbcf26807bb94fe01c5a596cbf18fd5a4c0",
+      "source_sha256": "ac10b496d6057b19e6bb236895ccc476ac2af4af43eed980788dc8dbad1961d8"
     }
   ]
 }

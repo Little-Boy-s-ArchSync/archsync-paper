@@ -190,3 +190,22 @@ low-contrast figure annotations remain as supplied, rather than being replaced
 by an unapproved redesign. Current PDF/source hashes are recorded in
 `length-variant-validation.json`. This entry records build/visual checks, not
 independent member approval, final-commit CI, or submission authorization.
+
+## D3-boundary candidate - 2026-09-28
+
+The named IEEE manuscripts were rebuilt from candidate `f0e43d87b494980b442df9fa3c0bd2f113d8e2ac`
+using TeX Live 2024 in hosted run 36367671470. The validation manifest records
+8 pages for the 8-page budget (`7ab23dcdbbc19bc6a374a9a3c73489dce9995aa24d08e1a4a56667b9185427c6`)
+and 11 pages for the 12-page budget (`debbbe6379ce01e44876d93b635a1dbcf26807bb94fe01c5a596cbf18fd5a4c0`).
+Both contain 25 citations. The validator found no unresolved references,
+missing glyphs, or overfull text columns. The anonymous venue-profile
+devcontainer check passed its 10-main-text-page budget on the same source head.
+
+Poppler renders of short pages 5-8 and long pages 7-11 were inspected after
+the D3-boundary wording change. Figures, tables, equations, section transitions,
+conclusion, and reference columns remain readable without clipping or overlap.
+The final reference-only short page and partly filled final long page are
+intentional consequences of normal pagination; prose was not added to fill a
+nominal page count. This visual review is not a scientific evaluation or an
+author/submission approval. The D3 text describes a prepared nonblind,
+module-only comparison, not completed external results or independent truth.
