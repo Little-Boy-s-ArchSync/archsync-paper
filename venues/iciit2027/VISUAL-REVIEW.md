@@ -1,5 +1,16 @@
 # Visual review - 28 September 2026
 
+## Reviewer-role attribution correction (current)
+
+The five ACM profiles were rebuilt with the pinned TeX Live 2024 image after
+replacing an unsupported claim that both D3 reviewers developed the tool with
+the supported statement that both are development-associated authors with
+prior output exposure. Review page 6 and compact page 4 were rendered at
+180 dpi and inspected. The corrected limitation and surrounding conclusion
+remain legible without clipping, overlap, or column spill. Page counts remain
+10/5/10/5/3. This check concerns presentation and attribution accuracy; it
+does not establish independent D3 labels, results, or submission approval.
+
 ## D3 scope and nonblind-review clarification (current)
 
 The five ACM profiles were rebuilt in the pinned TeX Live 2024 hosted job

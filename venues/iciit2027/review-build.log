@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.7.2)  28 SEP 2026 02:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.7.2)  28 SEP 2026 05:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1236,7 +1236,7 @@ Package rerunfilecheck Info: File `iciit2027-review.out' has not changed.
 Here is how much of TeX's memory you used:
  21625 strings out of 473201
  350045 string characters out of 5718211
- 830371 words of memory out of 5000000
+ 831371 words of memory out of 5000000
  43820 multiletter control sequences out of 15000+600000
  729345 words of font info for 434 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -1252,7 +1252,7 @@ eTI.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></o
 pt/texlive/texdir/texmf-dist/fonts/type1/public/newtx/txsys.pfb></opt/texlive/t
 exdir/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></opt/texlive/texdir/texmf-
 dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on iciit2027-review.pdf (10 pages, 485665 bytes).
+Output written on iciit2027-review.pdf (10 pages, 485675 bytes).
 PDF statistics:
  273 PDF objects out of 1000 (max. 8388607)
  231 compressed objects within 3 object streams
