@@ -7,16 +7,16 @@
       "pages": 8,
       "citations": 25,
       "labels": 6,
-      "pdf_sha256": "319a418ed416d40cd5cf127866e9aa8b23216e01f079eae084befd302a8970b5",
-      "source_sha256": "5bb5da7e8610bd50f8812a858ab515e43a36fa35fb45275bd464cf781e876b46"
+      "pdf_sha256": "523ab7c44da6367340832fcadf554a0f5602986f15d2c123f2d4ee67b2fb70fe",
+      "source_sha256": "664b946cf4e38ba7efa6049c9b0180d3a3e512aadaba4f4bb7ff32b927bc8588"
     },
     {
       "file": "archsync-12page",
       "pages": 12,
       "citations": 25,
       "labels": 7,
-      "pdf_sha256": "769e1a9acdbe68a51948cbd02d72d3824e030835c30315cb3252b67808475c8a",
-      "source_sha256": "d9aec34e95a227ede6be6f06b5fc73027e3e4bbbbc328aa35956ac4a8faefd51"
+      "pdf_sha256": "5585f7eb3d0fcbf025228d4754a85134498633c6eff91050f4883994151e59cb",
+      "source_sha256": "9fc99f43285b9bc0808dca6a51b4a8ac83e627794b1e7b7d8e64be9470f05ec2"
     }
   ]
 }
