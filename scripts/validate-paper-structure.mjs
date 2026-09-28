@@ -78,7 +78,7 @@ for (const identity of [
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
-  "Hoang Nguyen The",
+  "Hoang Nguyen-The",
   "Minh Tam Phan",
   "Faculty of Software Engineering, FPT University HCMC",
   "voduchieu42@gmail.com",

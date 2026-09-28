@@ -8,7 +8,7 @@ const forbidden = [
   "Tran Minh Hoang",
   "Ha Hoang Bach",
   "Le Van Kiet",
-  "Hoang Nguyen The",
+  "Hoang Nguyen-The",
   "Minh Tam Phan",
   "hoangnt20",
   "tampm",

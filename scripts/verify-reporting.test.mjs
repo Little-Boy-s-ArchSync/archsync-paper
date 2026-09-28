@@ -55,7 +55,7 @@ test("author-supplied diagram sources remain bound to their portable PDF exports
 });
 
 test("both complete manuscripts retain six authors and figures without optional role lists", () => {
-  const names = ["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"];
+  const names = ["Vo Duc Hieu", "Tran Minh Hoang", "Le Van Kiet", "Ha Hoang Bach", "Hoang Nguyen-The", "Minh Tam Phan"];
   for (const name of ["archsync-8page.tex", "archsync-12page.tex"]) {
     const source = readFileSync(new URL("../" + name, import.meta.url), "utf8");
     let previous = -1;
@@ -73,7 +73,7 @@ test("both complete manuscripts retain six authors and figures without optional 
 
 test("declared roles are preserved outside the typeset manuscripts", () => {
   const roles = readFileSync(new URL("../research/AUTHOR-CONTRIBUTIONS.md", import.meta.url), "utf8");
-  for (const author of ["Vo Duc Hieu", "Tran Minh Hoang", "Ha Hoang Bach", "Le Van Kiet", "Hoang Nguyen The", "Minh Tam Phan"]) assert.ok(roles.includes(author));
+  for (const author of ["Vo Duc Hieu", "Tran Minh Hoang", "Le Van Kiet", "Ha Hoang Bach", "Hoang Nguyen-The", "Minh Tam Phan"]) assert.ok(roles.includes(author));
   assert.ok(roles.includes("Supervision; Methodology; Writing - review and editing."));
   for (const file of ["sections/author-information.tex", "variants/8-page/author-information.tex"]) {
     const fragment = readFileSync(new URL("../" + file, import.meta.url), "utf8");
