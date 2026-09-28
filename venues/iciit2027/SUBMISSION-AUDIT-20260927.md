@@ -1,6 +1,6 @@
-# ICIIT 2027 submission suitability check
+# ICIIT 2027 (Ho Chi Minh City) submission suitability check
 
-Checked: 2026-09-27. Target: the ACM proceedings route, not the alternative journals.
+Official-source check: 2026-09-27; author-renderer decision updated 2026-09-28. Target: the ACM proceedings route, not the alternative journals.
 Verdict: plausible topical fit and mechanically validated candidate formats;
 not a guarantee of acceptance and not final submission authorization.
 
@@ -10,10 +10,10 @@ not a guarantee of acceptance and not final submission authorization.
 | --- | --- | --- |
 | Scope | CFP group 5 explicitly includes Service-Oriented Computing and Intelligent Software Systems; group 2 includes information extraction/classification and decision support. | ArchSync's typed service observations and conformance gate are a reasonable fit. This is an assessment, not a program-chair decision. Do not claim the runtime tool uses an LLM merely to fit the title of the conference. |
 | Publication route | ICIIT advertises ACM proceedings separately from JAIT and Optoelectronics Letters. | Use the ACM venue package, not the longer IEEE working PDFs. Publication/indexing statements on the site are not independent guarantees of acceptance or future indexing. |
-| Template | The LaTeX archive linked from the submission page matches the retained class and bibliography bytes. Its sample prohibits margin, type-size, leading and manual vertical-spacing changes. | A later explicit owner request supersedes default author rendering with author-layout.tex for named profiles. The centered block is intentional, not a claim of default ACM compliance; obtain organizer acceptance or revert to the class renderer before submission. Body typography and the ACM Reference Format block remain unchanged, with draft-target booktitle and no invented DOI/ISBN/rights. |
+| Template | The LaTeX archive linked from the submission page matches the retained class and bibliography bytes. Its sample prohibits margin, type-size, leading and manual vertical-spacing changes. | The 28 September owner decision restores the standard ACM author renderer for named profiles and supersedes the custom centered override. Six-author metadata and correspondence remain intact. Body typography and the ACM Reference Format block remain unchanged, with draft-target booktitle and no invented DOI/ISBN/rights. |
 | Length | Minimum 8 single-column / 4 double-column pages, including figures, tables and references. Regular fee covers 10 / 5, not a published hard maximum. | Fresh named and anonymous review PDFs are 10 pages each; compact PDFs are 5 pages each. A separate 3-page supplement is not included in those totals and cannot be assumed uploadable or free of page counting. |
 | Author contributions | No mandatory standalone per-author contribution section was found in the public ICIIT submission instructions, linked template or ACM authorship policy. | Omitted from typeset manuscripts at the owner's request. The venue body already omitted it; the IEEE variants now do too. Previous role declarations are preserved outside the paper in research/AUTHOR-CONTRIBUTIONS.md. |
-| Author identities | The latest typed owner instruction supplies six ordered names/emails, one common FPT HCMC faculty/address, and a star on Minh Tam Phan. | Both named profiles now display this block. Structured records match it, retaining the four supplied ORCIDs with their original owners. Kiet precedes Bach, the faculty name is Hoang Nguyen-The, and Minh Tam Phan is the corresponding author. This records the owner's supplied metadata, not independent verification of affiliations or all-author consent. |
+| Author identities | The latest typed owner instruction supplies six ordered names/emails, one common FPT HCMC faculty/address, and Minh Tam Phan as corresponding author. | Named profiles now use standard ACM rendering of these structured author records. Structured records match it, retaining the four supplied ORCIDs with their original owners. Kiet precedes Bach, the faculty name is Hoang Nguyen-The, and Minh Tam Phan is the corresponding author. This records the owner's supplied metadata, not independent verification of affiliations or all-author consent. |
 | Research-use AI | ACM's 2026-05-14 policy requires detailed methods disclosure for AI used in conducting research, distinct from writing-only assistance. | Retained the methods paragraph describing Codex/delegated-agent assistance to code, oracle, tests and execution. Removing role lists does not remove this provenance. |
 | Deadline | Official homepage/date page: full paper 30 September 2026; abstract-only 5 October. No cutoff time zone is stated. | A full paper, not merely an abstract, is needed for the publication route. Confirm the cutoff and submit before it once the actual candidate is approved. |
 | Review identity/profile | Public submission instructions mention both lengths but do not explicitly select a mandatory review profile or state blind-review requirements. Public portal exposes login only. | Confirm single-column versus double-column and named versus anonymous in the logged-in portal or with the organizer. Absence of a public blind rule is not proof of single-blind review. |
@@ -22,8 +22,8 @@ not a guarantee of acceptance and not final submission authorization.
 ## Outstanding information before upload
 
 1. Portal instructions or an organizer reply confirming the exact initial review
-   profile, anonymity, supplementary files/page counting and deadline time zone,
-   including acceptance of the newly requested custom author layout.
+   profile, anonymity, supplementary files/page counting and deadline time zone.
+   The later standard-renderer decision removes the custom-author-block exception.
 2. All six authors' agreement on the exact final candidate, order, substantial
    contributions/accountability, and submission. Confirm no conflicting
    simultaneous submission; disclose funding/conflicts where required.

@@ -57,7 +57,7 @@ The research-use AI methods paragraph and all results remain unchanged.
 See SUBMISSION-AUDIT-20260927.md. This corrects layout/document consistency;
 it is not acceptance, independent scientific validation or permission to submit.
 
-## Latest explicit author-block request, 27 September
+## Historical explicit author-block request, 27 September (superseded)
 
 The owner supplied the final text and example style for the ICIIT author block:
 Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan; a common Faculty of
@@ -67,9 +67,10 @@ exact values. The star is bound to the corresponding-author footnote.
 Existing ORCIDs are retained with their respective authors, without adding
 visible lines not present in the requested example.
 
-This request expressly supersedes the previous default ACM renderer and
-earlier author order/affiliation/correspondence. It does not claim organizer
-acceptance of the custom layout, coauthor consent, or a new research result.
+This request temporarily superseded the previous default ACM renderer and
+earlier author order/affiliation/correspondence. The 28 September decision
+restores the native ACM renderer while preserving the same supplied author
+metadata. It does not claim coauthor consent or a new research result.
 The ICIIT body after the abstract, all figures, citations and evidence remain
 unchanged. Earlier IEEE working PDFs and immutable research records are not
 silently rewritten to match this venue-only metadata request.

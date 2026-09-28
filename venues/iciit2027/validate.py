@@ -17,16 +17,15 @@ def verify_rebuild_receipt(receipt, archive_sha256):
     assert receipt.get('text_matches') == expected, 'rebuild must match all five profiles exactly'
     assert all(row['page_text_identical'] is True for row in receipt['text_matches']), 'rebuild matches must be actual booleans'
 
-def verify_author_typography(runs):
-    # Inspect emitted PDF fonts, not only LaTeX declarations: urlstyle{rm}
-    # can silently override ttfamily and an unavailable encoding can fall back.
-    for email in expected_emails:
-        matches = [(font, size) for text, font, size in runs if email in re.sub(r'\s+', '', text)]
-        assert matches, ('missing email font run', email)
-        assert all(re.search(r'NimbusMon|Courier|TeXGyreCursor', font, re.I) and 'bold' in font.lower() and abs(size - 10) < .1 for font, size in matches), ('email must render in 10pt bold monospace', email, matches)
-    for marker in ['Vo Duc Hieu,', 'Faculty of Software Engineering']:
-        matches = [(font, size) for text, font, size in runs if re.sub(r'\s+', '', marker) in re.sub(r'\s+', '', text)]
-        assert any(re.search(r'NimbusRom|Times|TeXGyreTermes', font, re.I) and abs(size - 12) < .1 for font, size in matches), ('names and affiliation must render in 12pt Times-style serif', marker)
+def verify_standard_author_source(source):
+    # The official class renders author metadata. Do not replace it with a
+    # hand-built block or impose the former custom font/spacing contract.
+    active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
+    assert not re.search(r'\\(?:input|include)\s*\{author-layout(?:\.tex)?\}', active), 'custom author renderer must not be loaded'
+    assert not re.search(r'@mkauthors|\\(?:fontsize|fontfamily|UrlFont)\b', active), 'standard ACM author renderer must not be overridden'
+    assert r'\documentclass[sigconf,anonymous,balance=false]{acmart}' in active, 'compact anonymous class option missing'
+    assert r'\documentclass[manuscript,screen,review,anonymous]{acmart}' in active, 'review anonymous class option missing'
+
 assert set(sys.argv[1:]) <= {'--check', '--fresh'}, 'unknown validation option'
 assert not ('--check' in sys.argv and '--fresh' in sys.argv), 'choose retained or fresh validation'
 source = (root/'paper.tex').read_text(encoding='utf-8') + (root/'related-work.tex').read_text(encoding='utf-8')
@@ -85,20 +84,10 @@ for (name, block), author in zip(blocks, metadata['authors']):
         assert '\\' + macro + '{' + author[field] + '}' in block, (name, field)
     orcids = re.findall(r'\\orcid\{([^}]+)\}', block)
     assert orcids == ([author['orcid']] if author['orcid'] else []), (name, 'orcid')
-    assert re.findall(r'\\thanks\{Corresponding author: ([^}]+)\.\}', block) == ([name] if author['corresponding_author'] else []), (name, 'correspondence')
+    assert re.findall(r'\\authornote\{([^}]+)\}', block) == (['Corresponding author.'] if author['corresponding_author'] else []), (name, 'correspondence')
     assert name in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), name
     assert author['email'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), name
-assert paper_source.count('\\input{author-layout}') == 1, 'shared author renderer must be included once'
-layout = (root/'author-layout.tex').read_text(encoding='utf-8')
-assert '\\ifdefined\\blindprofile\\else' in layout and layout.rstrip().endswith('\\fi'), 'custom layout must preserve anonymous renderer'
-assert re.findall(r'\\nolinkurl\{([^}]+)\}', layout) == expected_emails, 'visible email order drift'
-assert layout.count('\\textsuperscript{*}') == 1 and 'Minh Tam Phan\\textsuperscript{*}' in layout, 'correspondence star drift'
-for field in shared_affiliation.values():
-    assert field in layout, ('visible affiliation drift', field)
-positions = [layout.index(name) for name in expected_authors]
-assert positions == sorted(positions), 'visible author order drift'
-assert 'VNUK' not in layout and 'ORCID:' not in layout, 'visible block differs from requested shared layout'
-assert r'\def\UrlFont{\fontencoding{T1}\fontfamily{pcr}\fontseries{b}\fontsize{10}{12}\selectfont}' in layout, 'explicit email font override required'
+verify_standard_author_source(paper_source)
 assert 'Author Information and Contributions' not in paper_source, 'optional author contribution section restored'
 assert 'printacmref=false' not in paper_source, 'required ACM reference block suppressed'
 evidence_checked = False
@@ -134,25 +123,26 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
                     if author.get(field):
                         assert re.sub(r'\s+', '', author[field].lower()) not in identity_text, (profile, field)
 
-        for marker in [value for author in metadata['authors'] for value in (author['name'], author['email'])]:
+        # The native single-column review renderer omits visible emails.
+        # Structured source retains them; compact rendering must display them.
+        marker_fields = ('name', 'email') if 'anonymous' in profile or profile.startswith('compact') else ('name',)
+        for marker in [author[field] for author in metadata['authors'] for field in marker_fields]:
             if 'anonymous' in profile: assert re.sub(r'\s+', '', marker.lower()) not in re.sub(r'\s+', '', text.lower()),(profile,marker)
             else:
                 assert re.sub(r'\s+', '', marker.lower()) in re.sub(r'\s+', '', text.lower()),(profile,marker)
         if 'anonymous' not in profile:
-            runs = []
-            pdf.pages[0].extract_text(visitor_text=lambda text, cm, tm, font, size: runs.append((text, str(font.get('/BaseFont', '')) if font else '', size)))
-            verify_author_typography(runs)
             positions = [re.sub(r'\s+', '', text.lower()).index(re.sub(r'\s+', '', name.lower())) for name in expected_authors]
             assert positions == sorted(positions), (profile, 'PDF author order drift')
             first_page = re.sub(r'\s+', '', (pdf.pages[0].extract_text() or '').lower())
-            email_positions = [first_page.index(email.lower()) for email in expected_emails]
-            assert email_positions == sorted(email_positions), (profile, 'PDF email order drift')
-            assert 'minhtamphan*' in first_page, (profile, 'missing corresponding-author star')
-            assert 'correspondingauthor:minhtamphan.' in first_page, (profile, 'correspondence footnote drift')
-            assert all(re.sub(r'\s+', '', value.lower()) in first_page for value in shared_affiliation.values()), (profile, 'shared affiliation missing')
+            if profile.startswith('compact'):
+                email_positions = [first_page.index(email.lower()) for email in expected_emails]
+                assert email_positions == sorted(email_positions), (profile, 'PDF email order drift')
+            assert 'correspondingauthor.' in first_page, (profile, 'correspondence footnote drift')
+            rendered_affiliation_fields = ('department', 'institution', 'city', 'country') if profile.startswith('compact') else ('institution', 'city', 'country')
+            assert all(re.sub(r'\s+', '', shared_affiliation[field].lower()) in first_page for field in rendered_affiliation_fields), (profile, 'shared affiliation missing')
             assert 'vnuk' not in first_page, (profile, 'old affiliation leaked into new block')
     rows.append({'file':path.name,'pages':len(pdf.pages),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size})
-report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'shared_affiliation_and_email_order_match':True,'author_block_pdf_fonts_verified':True,'author_layout':'owner-requested-centered-shared-affiliation','default_acm_author_renderer':False,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
+report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_six_authors_and_order_match':True,'shared_affiliation_and_email_order_match':True,'standard_author_renderer_source_verified':True,'author_layout':'standard-acm','default_acm_author_renderer':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
 if '--check' in sys.argv:
     assert report == json.loads((root/'validation.json').read_text(encoding='utf-8')), 'retained PDF validation receipt drift'
     package = json.loads((root/'package-manifest.json').read_text(encoding='utf-8'))

@@ -9,9 +9,9 @@ supplement: exit 0
   "abstract_metadata_matches": true,
   "all_six_authors_and_order_match": true,
   "shared_affiliation_and_email_order_match": true,
-  "author_block_pdf_fonts_verified": true,
-  "author_layout": "owner-requested-centered-shared-affiliation",
-  "default_acm_author_renderer": false,
+  "standard_author_renderer_source_verified": true,
+  "author_layout": "standard-acm",
+  "default_acm_author_renderer": true,
   "correspondence_in_author_footnote": true,
   "evidence_hashes_verified": false,
   "class_matches_official_archive": true,
@@ -20,31 +20,31 @@ supplement: exit 0
     {
       "file": "iciit2027-review.pdf",
       "pages": 10,
-      "sha256": "e1d5553e8f3140a7be551ef776216ff6354db4a791d69e187dc89de98f8afac8",
-      "bytes": 485675
+      "sha256": "30c4c7c2839a2934b7bbdb2035b3346b6445e31b93196a88a3b222e4f28975ad",
+      "bytes": 462486
     },
     {
       "file": "iciit2027-compact.pdf",
       "pages": 5,
-      "sha256": "bcffbe0154b30d71034a2de50138e1a750225d9973bbfc7605b8f56fc7e0afe7",
-      "bytes": 455947
+      "sha256": "968f41aa67a42070f22555d019580da2f931af541e4e839f379a7dbeb60783bb",
+      "bytes": 430348
     },
     {
       "file": "iciit2027-review-anonymous.pdf",
       "pages": 10,
-      "sha256": "40639fa68f35865d873bc32acb4b31c3a108dad2af9973a8005087ec74acd92f",
-      "bytes": 454573
+      "sha256": "2e7917119af5e624ca84aa6b03b6dd444982497f07918dc076a88ad94dcf30fb",
+      "bytes": 454568
     },
     {
       "file": "iciit2027-compact-anonymous.pdf",
       "pages": 5,
-      "sha256": "2757d49bd2087d0b464fa73989f44b70bf49a913bf9cb47cbeee35a378666b3f",
-      "bytes": 423957
+      "sha256": "0f5a795c0c04d4abdcfa3f9622e86f94419bc1b3981ebcd54bd76d926c89125a",
+      "bytes": 423886
     },
     {
       "file": "iciit2027-supplement.pdf",
       "pages": 3,
-      "sha256": "279f19688fcf7ecb1d961ed534b8ebe87354676e51722ba26edee4bdd8d052d5",
+      "sha256": "2fc394229311e0800c67bedb6a1bbec7db2c93fedce61ca53177aef17166b411",
       "bytes": 242407
     }
   ],

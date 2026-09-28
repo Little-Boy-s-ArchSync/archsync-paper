@@ -40,35 +40,32 @@ confirm the actual portal instructions first.
 
 ## Current author and template decisions
 
-The owner's latest 27 September instruction explicitly replaces the earlier
-default ACM layout with the supplied centered, shared-affiliation block.
-The order is Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan.
-All six use the owner-supplied Faculty of Software Engineering, FPT University
-HCMC, Ho Chi Minh City, 70000, Vietnam. Minh Tam Phan has the star and
-corresponding-author footnote. Values come from the user's typed block,
-not from the example image's unrelated student names.
+The owner's 28 September decision restores the standard ACM author renderer
+for both named profiles. This supersedes the earlier custom centered block.
+The official class formats the structured author metadata; no manual author
+font, centered email-line, spacing or `\@mkauthors` override is required.
 
-The official class and bibliography are unchanged and match a fresh download.
-The named profiles now use author-layout.tex; anonymous profiles retain the
-standard class renderer. This customization is not default ACM compliance or
-organizer approval. The ACM Reference Format block is enabled. DOI/ISBN and rights information are not invented;
-the booktitle explicitly identifies the target as a draft. The stock review
-footer says "Manuscript submitted to ACM"; this class text is not evidence of
-a portal submission.
+The six-author order remains Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
+Ha Hoang Bach, Hoang Nguyen-The, and Minh Tam Phan. All six retain the
+Faculty of Software Engineering, FPT University HCMC, Ho Chi Minh City,
+70000, Vietnam and their supplied emails. Four supplied ORCIDs remain bound
+to the same authors. Compact PDFs display all six emails in order; the standard
+single-column review renderer omits visible emails while retaining their source
+metadata. Minh Tam Phan retains the corresponding-author footnote;
+the class controls the footnote marker and author-block presentation.
 
-Both named profiles display all six emails in name order, on three centered
-lines. Four supplied ORCIDs remain mapped to their authors in source and
-metadata, without extra ORCID lines in the requested block. No optional contribution section
-is typeset. Previously declared roles are kept outside the paper in
-research/AUTHOR-CONTRIBUTIONS.md. Required research-use AI disclosure remains.
+The official class and bibliography remain unchanged. Anonymous profiles use
+the standard anonymous class options and retain identity checks. ACM Reference
+Format remains enabled; DOI/ISBN and rights information are not invented.
+The stock review footer is not evidence of a portal submission. Required
+research-use AI disclosure remains in methods; no optional contribution section
+is typeset. Previously declared roles remain in research/AUTHOR-CONTRIBUTIONS.md.
 
-Body fonts, margins and vertical leading are unchanged. The named author block
-uses normal serif text and bold monospace email lines to follow the image.
-The block uses 12pt Times-style names/affiliation and 10pt bold Courier-style
-emails. A local UrlFont override prevents the class's roman URL style from
-silently replacing the email font. The validator checks actual PDF font runs.
-The retained emergency line-breaking reserve prevents protruding technical text. The documented
-balance=false compact option disables automatic last-page balancing only.
+Regenerated page counts, hashes and visual checks must accompany the renderer
+change. Standard author rendering resolves the custom-block exception; it does
+not settle the venue's initial upload profile, anonymity or supplement policy.
+The documented balance=false compact option disables automatic last-page
+balancing only.
 
 ## Build and check
 
@@ -112,7 +109,7 @@ independent review or submission authorization.
 ## Outstanding before submission
 
 Confirm review profile/anonymity, supplement treatment and cutoff time zone.
-Confirm acceptance of the requested custom author layout with the organizer.
+The standard ACM author renderer is now selected; confirm the remaining venue-specific upload instructions.
 The earlier IEEE working PDFs are not the target of this venue-only change.
 Obtain all authors' acceptance of the exact candidate and declarations required
 by the portal. The two faculty ORCIDs are needed before ACM eRights completion;

@@ -1,5 +1,17 @@
 # Visual review - 28 September 2026
 
+## Standard ACM author renderer restoration (current)
+
+The named review and compact first pages were rebuilt with the unmodified
+`acmart` author renderer and inspected at 150 dpi. The six supplied authors
+remain in the requested order with their structured affiliations, emails and
+four supplied ORCIDs; Minh Tam Phan carries the native corresponding-author
+note. The review profile uses ACM's manuscript presentation, while the compact
+profile uses ACM's conference grid. Neither page shows observed clipping,
+overlap or column spill. Page counts remain 10/5/10/5/3. The custom author
+layout described in older entries below is historical and superseded by this
+build.
+
 ## Reviewer-role attribution correction (current)
 
 The five ACM profiles were rebuilt with the pinned TeX Live 2024 image after
