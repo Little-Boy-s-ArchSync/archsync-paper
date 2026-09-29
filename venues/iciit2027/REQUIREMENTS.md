@@ -63,6 +63,15 @@ that presentation for named profiles while preserving ACM author metadata. The
 user explicitly prohibited using identity information from the image. All
 author data remains preserved from the pre-existing manuscript.
 
+## Current author decision - 29 September 2026
+
+The owner now lists only Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha
+Hoang Bach, in that order, and designates Vo Duc Hieu as corresponding author.
+The two faculty authors and their emails are absent from active manuscript
+profiles and submission metadata. Older six-author passages below are historical
+and superseded, not current submission instructions. Consent and eligibility
+remain to be resolved before submission.
+
 ## 27 September recheck
 
 The fresh official class and bibliography still match this package; see `official/2026-09-27/retrieval.json`. Current draft profile selection and unresolved anonymity policy are recorded in `DRAFT-CHECKLIST.md`. University-only author grouping supersedes earlier department-level presentation at user request.

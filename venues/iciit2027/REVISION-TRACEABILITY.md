@@ -1,5 +1,11 @@
 # Supervisor-request revision — 26 September 2026
 
+Current author update (29 September 2026): the active paper and validator now
+retain only Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha Hoang Bach, with
+Vo Duc Hieu as corresponding author. Six-author statements below document
+earlier revisions and are superseded for submission. This does not establish
+the removed individuals' consent or current submission authorization.
+
 ## Current scientific revision - 27 September
 
 See REVIEW-RESPONSE-20260927.md for the current mapping. The following sections

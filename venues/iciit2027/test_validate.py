@@ -169,6 +169,12 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'correspondence'):
             validate(transform)
 
+    def test_removed_authors_cannot_reappear_in_active_source(self):
+        def transform(path, value):
+            return value + '\n' + r'\author{Minh Tam Phan}' if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'removed author still in paper source'):
+            validate(transform)
+
     def test_supplied_orcid_mapping_cannot_change(self):
         def transform(path, value):
             return value.replace('0009-0007-5389-5177', '0000-0000-0000-0000') if path.name == 'paper.tex' else value
@@ -193,11 +199,11 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'required ACM reference block'):
             validate(transform)
 
-    def test_owner_requested_publisher_address_omission_cannot_drift(self):
+    def test_owner_requested_publisher_phrase_omission_cannot_drift(self):
         def transform(path, value):
-            return value.replace(r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM}',
+            return value.replace(r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{}',
                                  r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM, New York, NY, USA}') if path.name == 'paper.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'publisher-address omission missing'):
+        with self.assertRaisesRegex(AssertionError, 'publisher-phrase omission missing'):
             validate(transform)
 
     def test_abstract_metadata_drift_rejected(self):

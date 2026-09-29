@@ -8,7 +8,7 @@ const [main, anonymous] = await Promise.all([
 
 const ieee = main.includes("\\documentclass[conference]{IEEEtran}");
 const acm = main.includes("\\documentclass[sigconf,nonacm]{acmart}");
-const authorOrder = ["Vo Duc Hieu", "Tran Minh Hoang", "Le Van Kiet", "Ha Hoang Bach", "Hoang Nguyen-The", "Minh Tam Phan"];
+const authorOrder = ["Vo Duc Hieu", "Tran Minh Hoang", "Le Van Kiet", "Ha Hoang Bach"];
 const namedBlock = main.split("\\IEEEauthorblockN{").at(-1)?.split("\\IEEEauthorblockA{")[0] ?? "";
 let authorPosition = -1;
 const namedAuthorsInOrder = authorOrder.every((name) => {
@@ -22,8 +22,9 @@ const checks = [
   [ieee || acm, "supported IEEE conference or ACM working-draft class"],
   [main.includes(ieee ? "\\bibliographystyle{archsync-ieee}" : "\\bibliographystyle{ACM-Reference-Format}"), "bibliography style matches document class"],
   [anonymous.includes("\\input{main.tex}"), "anonymous wrapper input"],
-  [namedAuthorsInOrder, "six named authors in the latest owner-supplied order"],
-  [["voduchieu42@gmail.com", "andyjobs2023@gmail.com", "hahoangbach2005@gmail.com", "levankiet1212.2004@gmail.com", "hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"].every((value) => main.includes(value)), "six email records"],
+  [namedAuthorsInOrder, "four named authors in the latest owner-supplied order"],
+  [["voduchieu42@gmail.com", "andyjobs2023@gmail.com", "hahoangbach2005@gmail.com", "levankiet1212.2004@gmail.com"].every((value) => main.includes(value)), "four email records"],
+  [!["Hoang Nguyen-The", "Minh Tam Phan", "hoangnt20@fe.edu.vn", "tampm@fe.edu.vn"].some((value) => main.includes(value)), "removed authors absent from working manuscript"],
   [main.includes("Corresponding author: Vo Duc Hieu (voduchieu42@gmail.com)."), "supplied corresponding-author designation"],
   [["0009-0007-5389-5177", "0009-0000-0302-1841", "0009-0000-5118-0660", "0009-0007-8434-882X"].every((value) => main.includes(`ORCID: ${value}`)), "four supplied ORCID records"],
   [!main.includes("Anonymous Author"), "named source has no anonymous placeholder"],
