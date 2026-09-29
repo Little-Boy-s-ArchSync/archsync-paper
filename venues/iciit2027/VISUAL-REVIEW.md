@@ -1,6 +1,48 @@
-# Visual review - 28 September 2026
+# Visual review - 29 September 2026
 
-## Standard ACM author renderer restoration (current)
+## Current four-author candidate
+
+The owner removed Hoang Nguyen-The and Minh Tam Phan and moved the
+corresponding-author star to Vo Duc Hieu. The named compact and review first
+pages were rendered at 1800 pixels and inspected: only Hieu, Hoang, Kiet and
+Bach appear, in that order. The compact email line and all affiliations remain
+legible. The compact last page was also inspected; references are readable
+without clipping or overlap. The four main profiles remain 10/5/10/5 pages.
+The official class is unchanged. The compact TeX output routine reports one
+4.18721 pt overfull box on the last bibliography page; no visible overflow was
+found, and the validator allows only this one sub-5-pt compact warning. This
+presentation review is not coauthor consent or submission authorization.
+
+## Owner-requested publisher-phrase omission
+
+The named compact first page was rebuilt and inspected after removing the
+generated `ACM, New York, NY, USA` publisher phrase from the ACM Reference
+Format block. The separate ICIIT
+conference line continues to show Ho Chi Minh City, Vietnam. The first-page
+author block, abstract, columns and footnote remain legible without observed
+clipping or overlap. The official class file remains unchanged. This is a
+presentation exception to the supplied ACM sample, not proof of venue approval.
+The five rebuilt PDF hashes are recorded in `visual-inputs.json`.
+
+## Earlier compact submission candidate (superseded author list)
+
+The named five-page `sigconf` candidate was rebuilt from the official class
+without the earlier `balance=false` override. All five pages were rendered
+and inspected on 29 September. The first page visibly retains the six-author
+order and unchanged email sequence. It displays Vo Duc Hieu in Software
+Engineering at FPT University, Tran Minh Hoang in Computer Science and
+Engineering at VNUK, Le Van Kiet in Software Engineering at VNUK, and Ha
+Hoang Bach in Information Assurance at FPT University, with their respective
+Ho Chi Minh City or Da Nang locations. The last reference page now balances
+its columns. No clipping, overlap, or lost content was observed on the five
+rendered pages. The single-column review first page was also inspected;
+ACM's manuscript renderer prints institution/country there but retains the
+full affiliation in source and metadata. The official event name replaces
+the visible `Draft for` prefix without inventing DOI, ISBN or rights data.
+`visual-inputs.json` binds the five rebuilt PDF files. This is a layout check,
+not D3 validation, coauthor consent or submission authorization.
+
+## Earlier standard ACM author renderer restoration (superseded author list)
 
 The named review and compact first pages were rebuilt with the unmodified
 `acmart` author renderer and inspected at 150 dpi. The six supplied authors

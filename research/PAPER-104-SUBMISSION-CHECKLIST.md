@@ -16,9 +16,8 @@ The ICSA dates, IEEE profile, four-author table and 10+2 page checklist in the
 historical record below are not instructions for this ICIIT submission.
 
 The latest owner-supplied order is Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
-Ha Hoang Bach, Hoang Nguyen-The and Minh Tam Phan. All six currently use the
-shared FPT HCMC affiliation supplied by the owner, with Minh Tam Phan as
-corresponding author. This replaces the historical proposed metadata, not the
+and Ha Hoang Bach, with Vo Duc Hieu as corresponding author. Hieu and Bach
+are at FPT University; Hoang and Kiet are at VNUK. This replaces the historical proposed metadata, not the
 need for each author's own final confirmation. External Support status is an
 operational role, not an automatic inclusion in or exclusion from authorship.
 No individual eligibility, affiliation or consent is inferred from a task role.
@@ -39,11 +38,13 @@ The current closure requirements are:
   future independent real-repository/comparator evidence. Do not claim D3 or
   an external research comparison has been completed. The bounded MBP-001
   fixture preflight does not satisfy these missing empirical results.
-- [ ] Obtain attributable final confirmation from all six authors for their
+- [ ] Obtain attributable final confirmation from all four listed authors for their
   identities, order, affiliation, accountability, actual contribution,
   conflicts, prior/concurrent submission, AI-use disclosure and consent to
   submit the same exact candidate. No optional per-author contribution
   section is typeset; its omission does not waive authorship accountability.
+  Resolve the two removed individuals' authorship/acknowledgment status with
+  them before submission; do not infer their consent from the owner's edit.
 - [ ] Resolve privacy/ethics for the submitted scope, prior public exposure,
   artifact licenses and third-party permissions under the selected venue's
   requirements. Do not infer anonymity from PDF redaction or require results

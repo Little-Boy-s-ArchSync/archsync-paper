@@ -45,7 +45,7 @@ jobs:
           grep -F '\documentclass[conference]{IEEEtran}' main.tex
           node scripts/verify-paper-source.mjs
           grep -F '\input{main.tex}' main-anonymous.tex
-          # verify-paper-source.mjs above checks the exact six emails and four ORCIDs.
+          # verify-paper-source.mjs above checks the exact four emails and ORCIDs.
           if grep -F 'Anonymous Author' main.tex; then exit 1; fi
           if grep -F 'Anonymous Institution' main.tex; then exit 1; fi
 

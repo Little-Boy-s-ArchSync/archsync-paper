@@ -1,5 +1,5 @@
 {
-  "archive_sha256": "97965c14e7573b81bb2f16a16377380cd0a3502a9c0fb3606e793132a6693546",
+  "archive_sha256": "0d36cb1963240ca26c777f6bf6a62fe404fbd43e79ade29000b22279b7e67126",
   "status": "REBUILD_VERIFIED",
   "exit_code": 0,
   "text_matches": [
@@ -29,7 +29,7 @@
     "status": "LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED",
     "citations": 17,
     "abstract_metadata_matches": true,
-    "all_six_authors_and_order_match": true,
+    "all_four_authors_and_order_match": true,
     "per_author_affiliations_and_email_order_match": true,
     "standard_author_renderer_source_verified": true,
     "author_layout": "standard-acm",
@@ -42,32 +42,32 @@
       {
         "file": "iciit2027-review.pdf",
         "pages": 10,
-        "sha256": "f6a3e4e5ade696798df9cf5a0e1086be75303f49085803a833e3e4b9e4c7e28c",
-        "bytes": 136681
+        "sha256": "a95998233e7fa4279c790552d3849746940133cd3d5243faa29f3412a42231d2",
+        "bytes": 461790
       },
       {
         "file": "iciit2027-compact.pdf",
         "pages": 5,
-        "sha256": "2b5fba6dcbfe76bb8e2cb145ff8fd4d5635f0f11df4e3239ca16693eb4ae8781",
-        "bytes": 111562
+        "sha256": "7bdc7eef2fae14bca34c994d8a97fb70b727699387fc346201edbb4ef848de22",
+        "bytes": 429883
       },
       {
         "file": "iciit2027-review-anonymous.pdf",
         "pages": 10,
-        "sha256": "b2eab04de87f356bcd2ec070719ffd3a8ffebebbbfe376583921213620486c0f",
-        "bytes": 129802
+        "sha256": "995daa081b074f8b7a6f361d9ca5b45591701516531a03c8ee2cab6cec7252ad",
+        "bytes": 454260
       },
       {
         "file": "iciit2027-compact-anonymous.pdf",
         "pages": 5,
-        "sha256": "25bec32474378100f95ff515dfab86680daeba61c3c0c9496b8ba625487b52ab",
-        "bytes": 104943
+        "sha256": "622422ecaeda2b18092a96f99b65dcdb445d04fc15ee540c7fd3c4a8115c5338",
+        "bytes": 423676
       },
       {
         "file": "iciit2027-supplement.pdf",
         "pages": 3,
-        "sha256": "c96df2d1334f2dbf45e33054e9d8fa2248a8e1f1009b084a78f06e49c8635a14",
-        "bytes": 60771
+        "sha256": "8d87cb4480b121106680917942aa2b65dbc7a8f19caae70c3763285a34468baf",
+        "bytes": 242407
       }
     ],
     "visual_review": "separate review required",

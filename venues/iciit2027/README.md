@@ -45,20 +45,23 @@ for both named profiles. This supersedes the earlier custom centered block.
 The official class formats the structured author metadata; no manual author
 font, centered email-line, spacing or `\@mkauthors` override is required.
 
-The six-author order remains Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
-Ha Hoang Bach, Hoang Nguyen-The, and Minh Tam Phan. The 29 September owner
+The four-author order is Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
+and Ha Hoang Bach. The 29 September owner
 correction restores per-author affiliations: Hoang and Kiet are at VNUK in
 Computer Science and Engineering and Software Engineering respectively; Hieu
 is in Software Engineering and Bach is in Information Assurance at FPT
-University. The two faculty authors retain their existing FPT University HCMC
-affiliation. Four supplied ORCIDs remain bound to the same authors. Compact PDFs display all six emails in order; the standard
+University. Four supplied ORCIDs remain bound to the same authors. Compact PDFs display all four emails in order; the standard
 single-column review renderer omits visible emails while retaining their source
-metadata. Minh Tam Phan retains the corresponding-author footnote;
+metadata. Vo Duc Hieu carries the corresponding-author footnote;
 the class controls the footnote marker and author-block presentation.
 
 The official class and bibliography remain unchanged. Anonymous profiles use
 the standard anonymous class options and retain identity checks. ACM Reference
-Format remains enabled; DOI/ISBN and rights information are not invented.
+Format remains enabled, but the owner's 29 September request removes its
+publisher-and-address phrase. This is a visible exception to the
+supplied ACM sample, which requires the reference block; organizer acceptance
+of this altered citation has not been confirmed. DOI/ISBN and rights information
+are not invented.
 The stock review footer is not evidence of a portal submission. Required
 research-use AI disclosure remains in methods; no optional contribution section
 is typeset. Previously declared roles remain in research/AUTHOR-CONTRIBUTIONS.md.
@@ -66,8 +69,8 @@ is typeset. Previously declared roles remain in research/AUTHOR-CONTRIBUTIONS.md
 Regenerated page counts, hashes and visual checks must accompany the renderer
 change. Standard author rendering resolves the custom-block exception; it does
 not settle the venue's initial upload profile, anonymity or supplement policy.
-The documented balance=false compact option disables automatic last-page
-balancing only.
+The compact profile uses the supplied sample's plain `sigconf` class option;
+the class controls final-page column balancing.
 
 ## Build and check
 

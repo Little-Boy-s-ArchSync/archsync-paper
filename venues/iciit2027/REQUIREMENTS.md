@@ -50,7 +50,7 @@ no ORCID in the repository; do not fabricate them. ACM publication rights fields
 must come from the real rights process after acceptance, not template examples.
 
 The class is unchanged. Sample DOI/ISBN/copyright claims are removed and the
-conference metadata explicitly identifies a draft. The absence of such fields
+conference metadata uses the official event name without claiming publication. The absence of such fields
 is intentional until genuine rights metadata exists. No submission, registration,
 email, payment, public release or acceptance has occurred in this preparation.
 
@@ -62,6 +62,15 @@ that presentation for named profiles while preserving ACM author metadata. The
 28 September decision below supersedes and removes that customization. The
 user explicitly prohibited using identity information from the image. All
 author data remains preserved from the pre-existing manuscript.
+
+## Current author decision - 29 September 2026
+
+The owner now lists only Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha
+Hoang Bach, in that order, and designates Vo Duc Hieu as corresponding author.
+The two faculty authors and their emails are absent from active manuscript
+profiles and submission metadata. Older six-author passages below are historical
+and superseded, not current submission instructions. Consent and eligibility
+remain to be resolved before submission.
 
 ## 27 September recheck
 

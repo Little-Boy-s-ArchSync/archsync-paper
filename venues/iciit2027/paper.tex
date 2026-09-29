@@ -1,24 +1,32 @@
 \input{texlive-compat}
-% Draft derived from the LaTeX archive linked by the official venue submission page.
+% Candidate derived from the LaTeX archive linked by the official venue submission page.
 % Review formatting follows the supplied sample; anonymous and sigconf alternatives
 % are build profiles until the organizer's review-mode policy is confirmed.
 \ifdefined\compactprofile
- \ifdefined\blindprofile\documentclass[sigconf,anonymous,balance=false]{acmart}\else\documentclass[sigconf,balance=false]{acmart}\fi
+ \ifdefined\blindprofile\documentclass[sigconf,anonymous]{acmart}\else\documentclass[sigconf]{acmart}\fi
 \else
  \ifdefined\blindprofile\documentclass[manuscript,screen,review,anonymous]{acmart}\else\documentclass[manuscript,screen,review]{acmart}\fi
 \fi
+% Owner-requested presentation exception: retain the ACM Reference Format
+% block but omit its publisher/address phrase. The official sample includes
+% that phrase; this candidate needs organizer confirmation before submission.
+\makeatletter
+\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{}{}{\ClassError{acmart}{Cannot remove ACM publisher phrase}{Check the official class version}}
+\patchcmd{\@mkbibcitation}{\@article@string\unskip, \ref{TotPages}}{\@article@string\unskip\ \ref{TotPages}}{}{\ClassError{acmart}{Cannot repair citation punctuation}{Check the official class version}}
+\makeatother
 % Line-breaking reserve only; no font, margin, or vertical-spacing change.
 \emergencystretch=3em
 \setcopyright{none}
 \acmDOI{}
 \acmISBN{}
-\acmConference[ICIIT 2027 (Ho Chi Minh City)]{Draft for the 12th International Conference on Intelligent Information Technology}{March 4--7, 2027}{Ho Chi Minh City, Vietnam}
-\acmBooktitle{Draft for ICIIT 2027 (Ho Chi Minh City)}
+\acmConference[ICIIT 2027]{12th International Conference on Intelligent Information Technology}{March 4--7, 2027}{Ho Chi Minh City, Vietnam}
+\acmBooktitle{12th International Conference on Intelligent Information Technology (ICIIT 2027)}
 \acmYear{2027}
 \copyrightyear{2027}
 \begin{document}
 \title[ArchSync: Service Architecture Conformance]{ArchSync: Evidence-Backed Conformance Checking for TypeScript Service Architectures}
 \author{Vo Duc Hieu}
+\authornote{Corresponding author.}
 \orcid{0009-0007-5389-5177}
 \email{voduchieu42@gmail.com}
 \affiliation{\department{Software Engineering}\institution{FPT University}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
@@ -34,13 +42,6 @@
 \orcid{0009-0000-5118-0660}
 \email{hahoangbach2005@gmail.com}
 \affiliation{\department{Information Assurance}\institution{FPT University}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
-\author{Hoang Nguyen-The}
-\email{hoangnt20@fe.edu.vn}
-\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
-\author{Minh Tam Phan}
-\authornote{Corresponding author.}
-\email{tampm@fe.edu.vn}
-\affiliation{\department{Faculty of Software Engineering}\institution{FPT University HCMC}\city{Ho Chi Minh City}\postcode{70000}\country{Vietnam}}
 \renewcommand{\shortauthors}{Hieu et al.}
 \begin{abstract}
 Service changes can introduce architectural drift while preserving functional behavior, leaving maintainers without a clear link between a violated design rule and the code responsible. ArchSync combines an explicit architectural contract, provenance-aware extraction of selected TypeScript service interactions, and a Git gate that distinguishes introduced violations from changes requiring an architecture decision. We investigate implementation correctness using co-developed patches and detector signals, followed by finite rule checking and adversarial testing. All 20 development patches match their declared classifications, but targeted adversarial inputs expose extraction and incremental-analysis defects that require repair. Retained failing inputs and repaired outputs make these interventions inspectable. The contribution is a reproducible integration of established conformance concepts with service-level evidence and change-time decisions. The results establish bounded development behavior, not real-world accuracy or superiority over existing tools; independent repository evaluation and an executed external comparison remain necessary.

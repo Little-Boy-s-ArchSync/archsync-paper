@@ -25,7 +25,7 @@
       "postcode": "70000",
       "city": "Ho Chi Minh City",
       "country": "Vietnam",
-      "corresponding_author": false,
+      "corresponding_author": true,
       "approval": "not asserted"
     },
     {
@@ -63,33 +63,9 @@
       "country": "Vietnam",
       "corresponding_author": false,
       "approval": "not asserted"
-    },
-    {
-      "name": "Hoang Nguyen-The",
-      "email": "hoangnt20@fe.edu.vn",
-      "orcid": null,
-      "department": "Faculty of Software Engineering",
-      "institution": "FPT University HCMC",
-      "postcode": "70000",
-      "city": "Ho Chi Minh City",
-      "country": "Vietnam",
-      "corresponding_author": false,
-      "approval": "not asserted"
-    },
-    {
-      "name": "Minh Tam Phan",
-      "email": "tampm@fe.edu.vn",
-      "orcid": null,
-      "department": "Faculty of Software Engineering",
-      "institution": "FPT University HCMC",
-      "postcode": "70000",
-      "city": "Ho Chi Minh City",
-      "country": "Vietnam",
-      "corresponding_author": true,
-      "approval": "not asserted"
     }
   ],
-  "author_metadata_source": "Owner's explicit correction on 2026-09-29, consistent with the established manuscript metadata: Tran Minh Hoang and Le Van Kiet are at VNUK; departments are Software Engineering for Vo Duc Hieu and Le Van Kiet, Computer Science and Engineering for Tran Minh Hoang, and Information Assurance for Ha Hoang Bach. Individual coauthor approval is not inferred.",
+  "author_metadata_source": "Owner's explicit corrections on 2026-09-29: retain Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet, and Ha Hoang Bach in that order; remove the two faculty authors; designate Vo Duc Hieu as corresponding author. Tran Minh Hoang and Le Van Kiet are at VNUK. Individual coauthor approval is not inferred.",
   "author_layout": "standard ACM renderer with structured per-author affiliations",
   "review_identity_policy": "not confirmed",
   "submission_exclusivity": "requires author confirmation",
