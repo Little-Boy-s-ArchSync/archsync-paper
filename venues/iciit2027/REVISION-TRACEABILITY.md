@@ -1,5 +1,12 @@
 # Supervisor-request revision — 26 September 2026
 
+## Current review revision — 4 November 2026
+
+[Response to the five review comments](REVIEW-RESPONSE-20261104.md) maps the
+current contribution-first wording, real-project discussion, language/focus
+comparison column, tiny contract example and Figure 1 caption to each request.
+Earlier revision notes below retain their dated scope.
+
 ## Current scientific revision - 27 September
 
 See REVIEW-RESPONSE-20260927.md for the current mapping. The following sections

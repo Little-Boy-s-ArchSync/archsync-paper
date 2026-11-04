@@ -97,7 +97,7 @@ class VenueValidation(unittest.TestCase):
 
     def test_checklist_abstract_count_matches_the_actual_submission_abstract(self):
         def transform(path, value):
-            return value.replace('Motivation-first, 140 words;', 'Motivation-first, 136 words;') if path.name == 'DRAFT-CHECKLIST.md' else value
+            return value.replace('Motivation-first, 131 words;', 'Motivation-first, 136 words;') if path.name == 'DRAFT-CHECKLIST.md' else value
         with self.assertRaisesRegex(AssertionError, 'checklist abstract word count drift'):
             validate(transform)
 

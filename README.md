@@ -4,7 +4,7 @@
 
 [Read the 5-page draft](venues/iciit2027/iciit2027-compact.pdf) · [10-page review draft](venues/iciit2027/iciit2027-review.pdf) · [Submission checklist and source package](venues/iciit2027/DRAFT-CHECKLIST.md).
 
-The 27 September revision leads with contributions and results, consolidates validity limits, preserves the comparison table, and groups authors by university. This is a draft, not a submission. The older IEEE variants below remain historical/general manuscripts.
+The [4 November review revision](venues/iciit2027/REVIEW-RESPONSE-20261104.md) states the integration contribution positively, discusses real-project behavior and synthetic-data threats, adds the language/focus comparison column and tiny contract example, and verifies the embedded Git gate figure. The six-author metadata uses standard ACM rendering with the confirmed per-author affiliations. The older IEEE variants below remain historical/general manuscripts.
 
 Nguồn LaTeX của bài nghiên cứu **ArchSync: A Controlled Feasibility Study of
 Evidence-Backed Architecture Drift Detection in TypeScript Systems**.

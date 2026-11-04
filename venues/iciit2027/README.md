@@ -4,7 +4,12 @@ This is a prepared candidate, not a submitted or accepted manuscript.
 Start with [SUBMISSION-AUDIT-20260927.md](SUBMISSION-AUDIT-20260927.md) and
 [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md).
 
-Latest scientific corrections: [reviewer response](REVIEW-RESPONSE-20260927.md).
+Latest manuscript revision: [response to the five review comments, 4 November 2026](REVIEW-RESPONSE-20261104.md).
+The contribution is stated positively, Section 6 discusses likely real-project
+behavior and synthetic-data threats, Table 1 separates language/focus, and
+Section 3 includes a tiny contract example alongside the embedded Git gate figure.
+
+Earlier scientific corrections: [reviewer response](REVIEW-RESPONSE-20260927.md).
 The venue narrative now has 17 citations (15 recent, two method-origin exceptions).
 This is separate from the frozen 25-citation historical narrative contract.
 Independent real-repository and external-comparator results are still absent.

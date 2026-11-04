@@ -1,3 +1,30 @@
+# Visual review — 4 November 2026
+
+## Five-comment manuscript revision (current)
+
+All five profiles were rebuilt with Tectonic and rendered at 144 dpi. Full-document
+contact sheets were inspected; the changed comparison table, tiny example and
+workflow were inspected at page size, with an additional 216 dpi Table 1 caption
+detail. Table 1 uses a dedicated Language / focus column and ragged-right cells
+at the existing font size. Figure 1 is embedded as vector/text content and its
+stage labels, arrows and decision caption are legible. No clipping, overlap or
+column overflow was observed. Two conditional-boundary word-spacing defects
+were corrected and verified in the final PDF text.
+
+The named compact profile has Table 1 and the tiny example on page 2, Figure 1
+on page 3, and the real-project discussion on page 4. The named review profile
+has Table 1 and the example on page 3, Figure 1 on page 4, and the real-project
+discussion on page 6. Both anonymous main profiles also contain all four items.
+The compact profiles remain 5 pages, review profiles 10, and supplement 3.
+
+The strict builder reports no overfull boxes or unresolved citations/references.
+Author identities, anonymous redaction, the 17-citation set, abstract metadata
+and retained evidence hashes pass validation. `visual-inputs.json` binds the
+final PDFs. Renders and content-presence checks are retained in the parent
+workspace at `preparation/2026-11-04-paper-review/`.
+
+Earlier dated reviews below are retained as history.
+
 # Visual review - 28 September 2026
 
 ## Standard ACM author renderer restoration (current)
