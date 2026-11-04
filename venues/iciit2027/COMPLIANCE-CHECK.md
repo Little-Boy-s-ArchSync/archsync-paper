@@ -1,9 +1,9 @@
 # ICIIT 2027 (Ho Chi Minh City): disclosure and submission check
 
 Current author-renderer decision (28 September 2026): the owner requests standard
-ACM rendering for named profiles, with all six author records, per-author affiliations,
-emails, four supplied ORCIDs and correspondence preserved. The 29 September
-owner correction supersedes the earlier shared-affiliation block. This supersedes the
+ACM rendering for named profiles, with four author records, per-author affiliations,
+emails, four supplied ORCIDs and Vo Duc Hieu as corresponding author. The 29 September
+owner correction also removes two former authors and supersedes the earlier shared-affiliation block. This supersedes the
 custom-layout deferral described in the historical receipt below. It does not
 resolve initial profile/anonymity, supplementary-file rules or portal declarations.
 

@@ -5,9 +5,15 @@
 [Response to the five review comments](REVIEW-RESPONSE-20261104.md) maps the
 current contribution-first wording, real-project discussion, language/focus
 comparison column, tiny contract example and Figure 1 caption to each request.
-Earlier revision notes below retain their dated scope.
+On 4 November 2026 the user explicitly authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating it into [PR #61](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/61). The combined candidate keeps all five review fixes and the 131-word abstract while adopting four authors, Vo Duc Hieu as corresponding author, native compact-column balancing and the documented ACM citation exception. This records repository-integration authorization; individual consent and portal submission remain separate. Earlier revision notes below retain their dated scope.
 
-## Current scientific revision - 27 September
+Author update from PR #60 (29 September 2026, adopted 4 November): the active paper and validator now
+retain only Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha Hoang Bach, with
+Vo Duc Hieu as corresponding author. Six-author statements below document
+earlier revisions and are superseded for submission. This does not establish
+the removed individuals' consent or current submission authorization.
+
+## Scientific revision - 27 September 2026 (history)
 
 See REVIEW-RESPONSE-20260927.md for the current mapping. The following sections
 are retained history: their 25-reference scope, published Code2DFD numerical

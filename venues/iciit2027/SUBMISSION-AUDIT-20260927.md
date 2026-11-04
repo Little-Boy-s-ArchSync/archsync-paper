@@ -1,5 +1,9 @@
 # ICIIT 2027 (Ho Chi Minh City) submission suitability check
 
+Historical official-source audit. The six-author statements below are
+superseded by the owner's four-author decision on 2026-09-29; see
+SUBMISSION-METADATA.md and DRAFT-CHECKLIST.md for the active candidate.
+
 Official-source check: 2026-09-27; author-renderer decision updated 2026-09-28. Target: the ACM proceedings route, not the alternative journals.
 Verdict: plausible topical fit and mechanically validated candidate formats;
 not a guarantee of acceptance and not final submission authorization.

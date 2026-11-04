@@ -8,6 +8,7 @@ Latest manuscript revision: [response to the five review comments, 4 November 20
 The contribution is stated positively, Section 6 discusses likely real-project
 behavior and synthetic-data threats, Table 1 separates language/focus, and
 Section 3 includes a tiny contract example alongside the embedded Git gate figure.
+The user authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating its four-author, correspondence and ACM presentation changes on 4 November 2026. These changes are combined with all five review fixes; repository integration does not establish individual consent or submission authorization.
 
 Earlier scientific corrections: [reviewer response](REVIEW-RESPONSE-20260927.md).
 The venue narrative now has 17 citations (15 recent, two method-origin exceptions).
@@ -50,29 +51,33 @@ for both named profiles. This supersedes the earlier custom centered block.
 The official class formats the structured author metadata; no manual author
 font, centered email-line, spacing or `\@mkauthors` override is required.
 
-The six-author order remains Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
-Ha Hoang Bach, Hoang Nguyen-The, and Minh Tam Phan. The 29 September owner
-correction restores per-author affiliations: Hoang and Kiet are at VNUK in
+The four-author order is Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet,
+and Ha Hoang Bach. The 29 September changes from PR #60, adopted in the
+user-authorized 4 November integration, retain per-author affiliations: Hoang and Kiet are at VNUK in
 Computer Science and Engineering and Software Engineering respectively; Hieu
 is in Software Engineering and Bach is in Information Assurance at FPT
-University. The two faculty authors retain their existing FPT University HCMC
-affiliation. Four supplied ORCIDs remain bound to the same authors. Compact PDFs display all six emails in order; the standard
+University. Four supplied ORCIDs remain bound to the same authors. Compact PDFs display all four emails in order; the standard
 single-column review renderer omits visible emails while retaining their source
-metadata. Minh Tam Phan retains the corresponding-author footnote;
+metadata. Vo Duc Hieu carries the corresponding-author footnote;
 the class controls the footnote marker and author-block presentation.
 
 The official class and bibliography remain unchanged. Anonymous profiles use
 the standard anonymous class options and retain identity checks. ACM Reference
-Format remains enabled; DOI/ISBN and rights information are not invented.
+Format remains enabled, but the owner's 29 September request removes its
+publisher-and-address phrase. This is a visible exception to the
+supplied ACM sample, which requires the reference block; organizer acceptance
+of this altered citation has not been confirmed. DOI/ISBN and rights information
+are not invented.
 The stock review footer is not evidence of a portal submission. Required
 research-use AI disclosure remains in methods; no optional contribution section
-is typeset. Previously declared roles remain in research/AUTHOR-CONTRIBUTIONS.md.
+is typeset. The four listed authors' roles remain in research/AUTHOR-CONTRIBUTIONS.md;
+earlier six-author roles remain in version history.
 
 Regenerated page counts, hashes and visual checks must accompany the renderer
 change. Standard author rendering resolves the custom-block exception; it does
 not settle the venue's initial upload profile, anonymity or supplement policy.
-The documented balance=false compact option disables automatic last-page
-balancing only.
+The compact profile uses the supplied sample's plain `sigconf` class option;
+the class controls final-page column balancing.
 
 ## Build and check
 
@@ -118,9 +123,10 @@ independent review or submission authorization.
 Confirm review profile/anonymity, supplement treatment and cutoff time zone.
 The standard ACM author renderer is now selected; confirm the remaining venue-specific upload instructions.
 The earlier IEEE working PDFs are not the target of this venue-only change.
-Obtain all authors' acceptance of the exact candidate and declarations required
-by the portal. The two faculty ORCIDs are needed before ACM eRights completion;
-they have not been supplied. Confirm presenter, registration/APC and any waiver.
+Obtain all four listed authors' acceptance of the exact candidate and declarations
+required by the portal. Resolve the two removed individuals' authorship or
+acknowledgment status with them before submission. Confirm presenter,
+registration/APC and any waiver.
 No email, upload, payment, registration or submission was performed.
 
 The source archive includes `texlive-compat.tex`, loaded by all venue profiles,

@@ -126,13 +126,13 @@ class VenueValidation(unittest.TestCase):
         namespace = {'re': __import__('re')}
         exec(compile(ast.Module(body=[function], type_ignores=[]), str(root/'validate.py'), 'exec'), namespace)
         check = namespace['verify_standard_author_source']
-        source = r'\documentclass[sigconf,anonymous,balance=false]{acmart}' + '\n' + r'\documentclass[manuscript,screen,review,anonymous]{acmart}'
+        source = r'\documentclass[sigconf,anonymous]{acmart}' + '\n' + r'\documentclass[manuscript,screen,review,anonymous]{acmart}'
         check(source)
         check(source + '\n' + r'% Historical \input{author-layout} is not executed')
         for override in [r'\input{author-layout}', r'\include{author-layout.tex}', r'\def\@mkauthors{}', r'\fontsize{12}{14}', r'\fontfamily{ptm}', r'\def\UrlFont{}']:
             with self.subTest(override=override), self.assertRaises(AssertionError):
                 check(source + '\n' + override)
-        for options in ['sigconf,anonymous,balance=false', 'manuscript,screen,review,anonymous']:
+        for options in ['sigconf,anonymous', 'manuscript,screen,review,anonymous']:
             with self.subTest(options=options), self.assertRaisesRegex(AssertionError, 'anonymous class option'):
                 check(source.replace(options, options.replace(',anonymous', '')))
 
@@ -169,6 +169,12 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'correspondence'):
             validate(transform)
 
+    def test_removed_authors_cannot_reappear_in_active_source(self):
+        def transform(path, value):
+            return value + '\n' + r'\author{Minh Tam Phan}' if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'removed author still in paper source'):
+            validate(transform)
+
     def test_supplied_orcid_mapping_cannot_change(self):
         def transform(path, value):
             return value.replace('0009-0007-5389-5177', '0000-0000-0000-0000') if path.name == 'paper.tex' else value
@@ -191,6 +197,13 @@ class VenueValidation(unittest.TestCase):
         def transform(path, value):
             return value + '\n' + r'\settopmatter{printacmref=false}' if path.name == 'paper.tex' else value
         with self.assertRaisesRegex(AssertionError, 'required ACM reference block'):
+            validate(transform)
+
+    def test_owner_requested_publisher_phrase_omission_cannot_drift(self):
+        def transform(path, value):
+            return value.replace(r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{}',
+                                 r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM, New York, NY, USA}') if path.name == 'paper.tex' else value
+        with self.assertRaisesRegex(AssertionError, 'publisher-phrase omission missing'):
             validate(transform)
 
     def test_abstract_metadata_drift_rejected(self):

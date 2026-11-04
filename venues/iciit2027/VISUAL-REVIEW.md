@@ -1,6 +1,35 @@
+# Integrated PR #60 / PR #61 visual review — 4 November 2026
+
+## Current four-author review revision
+
+All five venue profiles were rebuilt with TeX Live and rendered at 144 dpi.
+The four authors appear in the agreed order, with Vo Duc Hieu carrying the
+corresponding-author note. Per-author affiliations, four emails and four ORCIDs
+remain synchronized with metadata. The ACM citation presentation and native
+compact balancing from PR #60 are retained alongside all five review fixes.
+
+The named compact profile has Table 1 and the tiny example on page 2, Figure 1
+on page 3 and the real-project discussion on page 4. In the named review
+profile these are on pages 2, 3, 4 and 6 respectively. All four main profiles
+contain the figure, comparison column, example and discussion. The five page
+counts remain 10/5/10/5/3. Full-document contacts and changed-page renders were
+inspected without observed clipping or overlap.
+
+The compact named log retains the 4.18721 pt bibliography output-box warning
+already documented in PR #60. The anonymous compact log reports a 1.152 pt
+vertical output-box warning on the final bibliography page; the rendered page
+shows complete, readable references without visible clipping. These diagnostics
+are retained, and the existing validation exception has not been broadened.
+No unresolved citations or references were found.
+
+`visual-inputs.json` binds this rebuild. Page renders and content-presence checks
+are retained in the parent workspace at
+`preparation/2026-11-04-pr60-pr61-integration/`. Earlier dated reviews below
+retain their original author and rendering scopes.
+
 # Visual review — 4 November 2026
 
-## Five-comment manuscript revision (current)
+## Earlier six-author five-comment manuscript revision
 
 All five profiles were rebuilt with Tectonic and rendered at 144 dpi. Full-document
 contact sheets were inspected; the changed comparison table, tiny example and
@@ -25,9 +54,51 @@ workspace at `preparation/2026-11-04-paper-review/`.
 
 Earlier dated reviews below are retained as history.
 
-# Visual review - 28 September 2026
+# Earlier visual review - 29 September 2026
 
-## Standard ACM author renderer restoration (current)
+## Earlier four-author candidate before review-comment integration
+
+The owner removed Hoang Nguyen-The and Minh Tam Phan and moved the
+corresponding-author star to Vo Duc Hieu. The named compact and review first
+pages were rendered at 1800 pixels and inspected: only Hieu, Hoang, Kiet and
+Bach appear, in that order. The compact email line and all affiliations remain
+legible. The compact last page was also inspected; references are readable
+without clipping or overlap. The four main profiles remain 10/5/10/5 pages.
+The official class is unchanged. The compact TeX output routine reports one
+4.18721 pt overfull box on the last bibliography page; no visible overflow was
+found, and the validator allows only this one sub-5-pt compact warning. This
+presentation review is not coauthor consent or submission authorization.
+
+## Owner-requested publisher-phrase omission
+
+The named compact first page was rebuilt and inspected after removing the
+generated `ACM, New York, NY, USA` publisher phrase from the ACM Reference
+Format block. The separate ICIIT
+conference line continues to show Ho Chi Minh City, Vietnam. The first-page
+author block, abstract, columns and footnote remain legible without observed
+clipping or overlap. The official class file remains unchanged. This is a
+presentation exception to the supplied ACM sample, not proof of venue approval.
+The five rebuilt PDF hashes are recorded in `visual-inputs.json`.
+
+## Earlier compact submission candidate (superseded author list)
+
+The named five-page `sigconf` candidate was rebuilt from the official class
+without the earlier `balance=false` override. All five pages were rendered
+and inspected on 29 September. The first page visibly retains the six-author
+order and unchanged email sequence. It displays Vo Duc Hieu in Software
+Engineering at FPT University, Tran Minh Hoang in Computer Science and
+Engineering at VNUK, Le Van Kiet in Software Engineering at VNUK, and Ha
+Hoang Bach in Information Assurance at FPT University, with their respective
+Ho Chi Minh City or Da Nang locations. The last reference page now balances
+its columns. No clipping, overlap, or lost content was observed on the five
+rendered pages. The single-column review first page was also inspected;
+ACM's manuscript renderer prints institution/country there but retains the
+full affiliation in source and metadata. The official event name replaces
+the visible `Draft for` prefix without inventing DOI, ISBN or rights data.
+`visual-inputs.json` binds the five rebuilt PDF files. This is a layout check,
+not D3 validation, coauthor consent or submission authorization.
+
+## Earlier standard ACM author renderer restoration (superseded author list)
 
 The named review and compact first pages were rebuilt with the unmodified
 `acmart` author renderer and inspected at 150 dpi. The six supplied authors
