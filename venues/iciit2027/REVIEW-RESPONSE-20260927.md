@@ -1,5 +1,9 @@
 # Reviewer-response audit and revision - 27 September 2026
 
+Historical revision record. Its six-author statements are superseded by the
+owner's four-author decision on 2026-09-29; the active source and metadata
+define the current candidate.
+
 Author-layout update, 28 September 2026: the owner now selects the standard ACM
 author renderer with the six-author metadata and correspondence preserved.
 Historical custom-template findings and counts below describe their dated review;

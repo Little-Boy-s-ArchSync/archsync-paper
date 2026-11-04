@@ -90,9 +90,6 @@ const namedIdentities = [
   "Tran Minh Hoang",
   "Le Van Kiet",
   "Ha Hoang Bach",
-  "Hoang Nguyen-The",
-  "Minh Tam Phan",
-  "Faculty of Software Engineering",
   "FPT University",
   "VNUK Institute for Research and Executive Education",
 ];
@@ -102,9 +99,12 @@ for (const identity of namedIdentities) {
     `named PDF is missing '${identity}'`,
   );
 }
+for (const removed of ["Hoang Nguyen-The", "Minh Tam Phan"]) {
+  assert.ok(!containsPdfAnchor(normalizedNamed, removed), `named PDF still includes removed author '${removed}'`);
+}
 
 // PDF text extractors may insert whitespace inside displayed e-mail addresses.
-// The structure validator checks all six exact addresses in the TeX source;
+// The structure validator checks all four exact addresses in the TeX source;
 // here we use stable local parts and the domain to detect anonymous-PDF leaks.
 const anonymousForbidden = [
   ...namedIdentities,
@@ -112,8 +112,6 @@ const anonymousForbidden = [
   "an1dee",
   "bachcp6",
   "levankiet1212.2004",
-  "hoangnt20",
-  "tampm",
   "fe.edu.vn",
   "littleboys.biz",
   "voduchieu42",

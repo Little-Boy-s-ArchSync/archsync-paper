@@ -1,4 +1,4 @@
-# ICIIT 2027 (Ho Chi Minh City) candidate - 27 September 2026
+# ICIIT 2027 (Ho Chi Minh City) candidate - updated 29 September 2026
 
 ## Reader entry points
 
@@ -13,11 +13,11 @@ These are draft candidates, not a portal submission. The public venue instructio
 
 | Check | Finding |
 | --- | --- |
-| Template | Official class and bibliography bytes are unchanged. The 28 September owner decision restores standard ACM author rendering in named profiles; structured metadata is preserved and no custom centered override is loaded; ACM Reference Format remains enabled. |
+| Template | Official class and bibliography bytes are unchanged. The 28 September owner decision restores standard ACM author rendering in named profiles; structured metadata is preserved and no custom centered override is loaded. ACM Reference Format remains enabled, but its publisher-and-address phrase is omitted at the owner's 29 September request; this departs from the supplied sample and requires organizer confirmation before upload. |
 | Length | Official minimum: 8 single-column / 4 double-column pages including references. Regular allowance: 10 / 5; extra pages charged. Current 10 / 5 profiles fit both bounds. These allowance numbers are not a declared hard maximum. |
 | Deadline | Official page: 30 September 2026 for full papers. Cutoff time zone remains unspecified. |
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |
-| Authors | Latest order: Hieu, Hoang, Kiet, Bach, Hoang Nguyen-The, Minh Tam Phan. All six share the owner-supplied FPT HCMC faculty/address; Minh Tam Phan retains the class-rendered corresponding-author footnote. Compact named PDFs show the six emails in order; standard single-column review omits visible emails while retaining the structured source values. ORCIDs remain in structured source. No fresh coauthor consent is inferred. |
+| Authors | Latest order: Hieu, Hoang, Kiet, Bach. Hieu and Bach are at FPT University in Ho Chi Minh City; Hoang and Kiet are at VNUK Institute for Research and Executive Education, The University of Danang. Their individual departments are retained in source and metadata. Hieu carries the class-rendered corresponding-author footnote. Compact named PDFs show the four retained emails in order; standard single-column review omits visible emails while retaining the structured source values. ORCIDs remain in structured source. The two removed authors' consent and the four retained authors' final approval are not inferred. |
 | Contribution section | No separate per-author contribution section required by the checked public instructions. Removed from IEEE variants; already absent in the ICIIT body. Previous roles remain in research/AUTHOR-CONTRIBUTIONS.md. Research-use AI methods disclosure remains. |
 | References | 17 citations: 15 from 2022-2025 and two documented method-origin exceptions. Unchanged official ACM bibliography style; citation resolution checked during build. |
 | Abstract | Motivation-first, 140 words; states the mechanism, bounded development observations, contribution and unresolved external evaluation. Abstract synchronized across PDF source and metadata. |
