@@ -1,4 +1,4 @@
-# ICIIT 2027 (Ho Chi Minh City) candidate - updated 29 September 2026
+# ICIIT 2027 (Ho Chi Minh City) candidate - updated 4 November 2026
 
 ## Reader entry points
 
@@ -9,6 +9,8 @@
 
 These are draft candidates, not a portal submission. The public venue instructions allow both column layouts but do not unambiguously select an upload profile or state blind-review requirements. The named single-column review profile follows the supplied template's review guidance; the final identity/profile choice must follow the actual portal or organizer instructions. The public portal exposes a login page, not an anonymity policy. A named PDF must not be used if the actual submission instructions require anonymity.
 
+On 4 November 2026, the user authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating its four-author, correspondence and ACM presentation changes into the five-comment review revision. This authorizes repository integration; individual authorship consent and portal submission remain separate decisions.
+
 ## Checks and disposition
 
 | Check | Finding |
@@ -18,9 +20,9 @@ These are draft candidates, not a portal submission. The public venue instructio
 | Deadline | Official page: 30 September 2026 for full papers. Cutoff time zone remains unspecified. |
 | Identity policy | No explicit blind-review requirement found on submission page or public portal. This is unresolved, not evidence that review is single-blind. |
 | Authors | Latest order: Hieu, Hoang, Kiet, Bach. Hieu and Bach are at FPT University in Ho Chi Minh City; Hoang and Kiet are at VNUK Institute for Research and Executive Education, The University of Danang. Their individual departments are retained in source and metadata. Hieu carries the class-rendered corresponding-author footnote. Compact named PDFs show the four retained emails in order; standard single-column review omits visible emails while retaining the structured source values. ORCIDs remain in structured source. The two removed authors' consent and the four retained authors' final approval are not inferred. |
-| Contribution section | No separate per-author contribution section required by the checked public instructions. Removed from IEEE variants; already absent in the ICIIT body. Previous roles remain in research/AUTHOR-CONTRIBUTIONS.md. Research-use AI methods disclosure remains. |
+| Contribution section | No separate per-author contribution section required by the checked public instructions. Removed from IEEE variants; already absent in the ICIIT body. The four listed authors' roles remain in research/AUTHOR-CONTRIBUTIONS.md; earlier six-author roles remain in version history. Research-use AI methods disclosure remains. |
 | References | 17 citations: 15 from 2022-2025 and two documented method-origin exceptions. Unchanged official ACM bibliography style; citation resolution checked during build. |
-| Abstract | Motivation-first, 140 words; states the mechanism, bounded development observations, contribution and unresolved external evaluation. Abstract synchronized across PDF source and metadata. |
+| Abstract | Motivation-first, 131 words; states the integration, controlled findings and inspectable failure/repair contribution. Scope and external-evaluation requirements are consolidated in Section 6. Abstract synchronized across PDF source and metadata. |
 | Evidence | Existing historical and development counts preserved. Literature context is explicitly not an executed comparison; the development-results table is not independent accuracy. No new baseline or D3 evaluation introduced. |
 | Validity | Repeated qualifications consolidated into Section 6; scope, independence, failure provenance and methodological assistance retained. |
 | Practitioner relevance | Introduction and Conclusion explain deterministic pull-request checks with inspectable evidence. No unsupported exclusive novelty or measured productivity claim. |
