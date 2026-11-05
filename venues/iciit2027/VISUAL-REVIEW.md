@@ -1,3 +1,36 @@
+# Final guide-current visual review — 5 November 2026
+
+All five profiles use the unmodified ACM production 2.21 class and bibliography
+style. The main review profiles have 10 pages each, compact previews 5 each,
+and the technical supplement 4: 34 rendered pages in total. All page geometries
+are standard Letter (612 by 792 PDF points); every inspected font is embedded.
+
+Full-document contacts and the changed first pages, paragraph headings, Figure 1,
+both tables, tiny example and complete references were inspected. The four-author
+order, Hieu correspondence note, native ACM Reference Format and Authors' Contact
+Information block render correctly. Standard paragraph headings are clear; table
+and figure descriptions are present in source. The documented pbalance option
+balances the compact reference columns. No clipping, overlap or missing symbols
+was observed. The supplement now uses the same four actual author records and
+complete abstract, CCS, keywords and native reference metadata.
+
+The named review has Table 1 and the tiny example on page 3, Figure 1 on page 4
+and the real-project discussion on page 6. The compact preview places the table
+and example on page 2, Figure 1 on page 3 and the real-project discussion on
+page 4. Both anonymous profiles retain all four items and pass identity checks.
+
+One 1.1135 pt anonymous-compact vertical output-box diagnostic remains on the
+balanced bibliography page. It is retained explicitly in validation.json and
+has no observed visible defect. The stricter validator rejects horizontal,
+larger vertical or other-profile overflow. No unresolved citations or references
+or ignored postal/mandatory-metadata warnings remain.
+
+The scientific wording matches merged revision 586150f after normalizing only
+heading markup and visual descriptions. The dated guide snapshots, normalization
+check and final renders are retained in the parent workspace at
+preparation/2026-11-05-final-guide-audit/. visual-inputs.json binds the current
+PDFs. Earlier records below retain their original versions and author scopes.
+
 # Integrated PR #60 / PR #61 visual review — 4 November 2026
 
 ## Current four-author review revision

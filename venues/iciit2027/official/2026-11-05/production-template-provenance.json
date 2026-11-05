@@ -1,0 +1,72 @@
+{
+  "status": "PRODUCTION_CLASS_GENERATED_UNMODIFIED",
+  "retrieved_at_utc": "2026-11-05T06:39:44.665502+00:00",
+  "source_url": "https://mirrors.ctan.org/macros/latex/contrib/acmart.zip",
+  "final_url": "https://sg.mirrors.cicku.me/ctan/macros/latex/contrib/acmart.zip",
+  "official_acm_download_url": "https://portalparts.acm.org/hippo/latex_templates/acmart-primary.zip",
+  "official_acm_download_observation": "Direct fetch returned HTTP 403; production release obtained from CTAN.",
+  "version": "2.21",
+  "class_release_date": "2026-11-01",
+  "acm_page_publication_date": "2026-11-03",
+  "archive_bytes": 9899159,
+  "archive_sha256": "81977a834f5cfd5302c37181ede34d2663eeea60604d1d89230e3c5e74b9a4bb",
+  "files": {
+    "acmart.dtx": {
+      "sha256": "60d819ce2c75a0a5fa78e1fbdfd6f967e6635d9c36e8badc6d8193c3d1dc7595",
+      "bytes": 307757
+    },
+    "acmart.ins": {
+      "sha256": "fa7daaa9375775ce699f33f909667bdb83c0408fd8d67606926df86c346c4044",
+      "bytes": 1016
+    },
+    "ACM-Reference-Format.bst": {
+      "sha256": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04",
+      "bytes": 94292
+    },
+    "README": {
+      "sha256": "07ed2223a3e8af3612a575d9d8b46a8dee0c639ec035c7caf194c129d78f5975",
+      "bytes": 16006
+    },
+    "acmart.cls": {
+      "sha256": "cb641fdfe8a6b9bbe171a0794218657c737c4b622c584dab09115a9e269eb296",
+      "bytes": 122511
+    }
+  },
+  "generation": {
+    "command": [
+      "latex",
+      "-interaction=nonstopmode",
+      "-halt-on-error",
+      "acmart.ins"
+    ],
+    "exit_code": 0,
+    "image": "archsync-paper-local-verification:1.0.0",
+    "image_id": "sha256:37d221ecfaec7fbcb0765bd17b4429cb783aad20c978afd18dc17fc3b44152c5",
+    "network": "none",
+    "log_sha256": "7250cc350a142ee4646dd5482622e63c80638339a7627ba384433157e3ce90a1",
+    "method": "Official acmart.ins/docstrip run against byte-identical production sources; generated class received no patches or edits."
+  },
+  "source_dtx_unchanged_after_generation": true,
+  "archive_source_checks": {
+    "acmart.dtx": {
+      "identical_to_production_archive": true,
+      "archive_member": "acmart/acmart.dtx",
+      "sha256": "60d819ce2c75a0a5fa78e1fbdfd6f967e6635d9c36e8badc6d8193c3d1dc7595"
+    },
+    "acmart.ins": {
+      "identical_to_production_archive": true,
+      "archive_member": "acmart/acmart.ins",
+      "sha256": "fa7daaa9375775ce699f33f909667bdb83c0408fd8d67606926df86c346c4044"
+    },
+    "ACM-Reference-Format.bst": {
+      "identical_to_production_archive": true,
+      "archive_member": "acmart/ACM-Reference-Format.bst",
+      "sha256": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04"
+    },
+    "README": {
+      "identical_to_production_archive": true,
+      "archive_member": "acmart/README",
+      "sha256": "07ed2223a3e8af3612a575d9d8b46a8dee0c639ec035c7caf194c129d78f5975"
+    }
+  }
+}

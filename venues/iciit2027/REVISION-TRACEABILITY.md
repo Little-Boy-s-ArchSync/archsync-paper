@@ -1,6 +1,31 @@
 # Supervisor-request revision — 26 September 2026
 
-## Current review revision — 4 November 2026
+## Current guide revision — 5 November 2026
+
+[FINAL-GUIDE-AUDIT-20261105.md](FINAL-GUIDE-AUDIT-20261105.md) maps the current
+official guide and all five reviewer corrections. The primary review candidate
+uses `manuscript,screen,review`; compact output is a proceedings preview.
+Unmodified ACM production `acmart` 2.21 and production bibliography files replace
+the earlier template release, with [CTAN provenance](official/2026-11-05/production-template-provenance.json).
+The native ACM Reference Format is restored, superseding the publisher/address
+omission; paragraph headings use standard sectioning and both tables have text
+descriptions. Compact previews use the documented `pbalance` class option.
+The five profiles build with pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages;
+37 venue tests and visual review of all 34 pages pass. Archive verification is
+recorded in `package-rebuild.json`. The supplement has four-author metadata,
+abstract, CCS concepts, keywords and native ACM reference text. Obsolete postal
+values are omitted because the current class ignores `postcode`; all four ORCID
+check digits are valid. Normalized scientific wording matches merged commit
+`586150ff30b618b5a6d8bb38a687530c3ef07b7c`.
+
+Current dates: full paper 30 November 2026, abstract 5 December 2026, notification
+20 December 2026 and registration 10 January 2027. Minimum pages remain 8/4
+(single/double column), with regular allowance 10/5. Anonymity and supplement
+policy remain portal/organizer questions. The four-author order with Hieu
+correspondence, 131-word abstract, 17 venue citations and active 23-paper review
+remain unchanged. The following dated records describe their original revisions.
+
+## Integrated review revision — 4 November 2026 (history)
 
 [Response to the five review comments](REVIEW-RESPONSE-20261104.md) maps the
 current contribution-first wording, real-project discussion, language/focus

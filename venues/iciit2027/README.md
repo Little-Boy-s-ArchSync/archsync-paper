@@ -1,14 +1,22 @@
 # ICIIT 2027 (Ho Chi Minh City) candidate package
 
 This is a prepared candidate, not a submitted or accepted manuscript.
-Start with [SUBMISSION-AUDIT-20260927.md](SUBMISSION-AUDIT-20260927.md) and
-[DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md).
+Start with the [current guide and reviewer audit](FINAL-GUIDE-AUDIT-20261105.md) and
+[DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md). The September submission audit is retained as history.
 
-Latest manuscript revision: [response to the five review comments, 4 November 2026](REVIEW-RESPONSE-20261104.md).
+Latest guide revision, 5 November 2026: the unmodified ACM production `acmart` 2.21
+class and bibliography style replace the earlier retained template release. Native
+ACM Reference Format is restored, standard paragraph headings replace manual bold
+leads, and both tables have text descriptions. All five profiles build with
+pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages; 37 venue tests pass and all 34
+rendered pages pass visual review. Archive verification is recorded in
+`package-rebuild.json`.
+
+The [response to the five review comments, 4 November 2026](REVIEW-RESPONSE-20261104.md) remains current scientifically.
 The contribution is stated positively, Section 6 discusses likely real-project
 behavior and synthetic-data threats, Table 1 separates language/focus, and
 Section 3 includes a tiny contract example alongside the embedded Git gate figure.
-The user authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating its four-author, correspondence and ACM presentation changes on 4 November 2026. These changes are combined with all five review fixes; repository integration does not establish individual consent or submission authorization.
+The user authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating its four-author, correspondence and ACM presentation changes on 4 November 2026. The four-author and correspondence changes remain combined with all five review fixes; the former ACM citation omission is superseded by the 5 November native-format restoration. Repository integration does not establish individual consent or submission authorization.
 
 Earlier scientific corrections: [reviewer response](REVIEW-RESPONSE-20260927.md).
 The venue narrative now has 17 citations (15 recent, two method-origin exceptions).
@@ -30,10 +38,11 @@ does not execute an official SLR search or establish journal rankings.
 
 ## Which file to read
 
-- iciit2027-review.pdf: 10-page single-column review profile, including the appendix.
-- iciit2027-compact.pdf: 5-page double-column proceedings-style profile, including references.
+- iciit2027-review.pdf: primary single-column review candidate, including the appendix, following the guide's `manuscript,screen,review` recommendation. 10 pages including references and appendix.
+- iciit2027-compact.pdf: double-column proceedings preview, including references. 5 pages including references.
 - The two *-anonymous.pdf alternatives are technical redacted profiles.
-- iciit2027-supplement.pdf: the separate 3-page appendix for compact readers;
+- iciit2027-supplement.pdf: the separate 4-page appendix for compact readers, with four-author metadata,
+  its own abstract, CCS concepts, keywords and native ACM reference block;
   the organizer has not confirmed supplementary upload or its page counting.
 - archsync-iciit2027-source.zip: exact editable source and retained PDF package.
 - archsync-iciit2027-evidence.zip: separately retained research receipts.
@@ -41,8 +50,8 @@ does not execute an official SLR search or establish journal rankings.
   and ordered author data for verification, not declarations made on behalf of authors.
 
 Do not upload an IEEE working PDF as the ACM venue manuscript. The public
-instructions do not settle named/anonymous or single/double-column review mode;
-confirm the actual portal instructions first.
+guide recommends the single-column review profile; compact output is a proceedings
+preview. Confirm named/anonymous requirements and any portal-specific upload directions.
 
 ## Current author and template decisions
 
@@ -57,31 +66,40 @@ user-authorized 4 November integration, retain per-author affiliations: Hoang an
 Computer Science and Engineering and Software Engineering respectively; Hieu
 is in Software Engineering and Bach is in Information Assurance at FPT
 University. Four supplied ORCIDs remain bound to the same authors. Compact PDFs display all four emails in order; the standard
-single-column review renderer omits visible emails while retaining their source
-metadata. Vo Duc Hieu carries the corresponding-author footnote;
+single-column review renderer includes them in the native Authors' Contact
+Information block. Vo Duc Hieu carries the corresponding-author footnote;
 the class controls the footnote marker and author-block presentation.
 
-The official class and bibliography remain unchanged. Anonymous profiles use
-the standard anonymous class options and retain identity checks. ACM Reference
-Format remains enabled, but the owner's 29 September request removes its
-publisher-and-address phrase. This is a visible exception to the
-supplied ACM sample, which requires the reference block; organizer acceptance
-of this altered citation has not been confirmed. DOI/ISBN and rights information
-are not invented.
+The current package uses official production `acmart` 2.21 (1 November 2026),
+obtained from CTAN and generated with the supplied installer without class edits.
+The bibliography style and source files are unmodified production files;
+[production-template-provenance.json](official/2026-11-05/production-template-provenance.json)
+records the archive hash and per-file checks. Raw retrieval of the venue ZIP
+failed, and direct ACM download returned HTTP 403; CTAN supplied the verified
+production release. The native ACM Reference Format,
+including its publisher/address phrase, is restored. This supersedes the
+29 September omission; no template exception is carried forward. DOI/ISBN and
+rights information await the genuine publication process. Anonymous alternatives
+retain the class-supported anonymous option and identity checks.
 The stock review footer is not evidence of a portal submission. Required
 research-use AI disclosure remains in methods; no optional contribution section
 is typeset. The four listed authors' roles remain in research/AUTHOR-CONTRIBUTIONS.md;
 earlier six-author roles remain in version history.
 
-Regenerated page counts, hashes and visual checks must accompany the renderer
-change. Standard author rendering resolves the custom-block exception; it does
-not settle the venue's initial upload profile, anonymity or supplement policy.
-The compact profile uses the supplied sample's plain `sigconf` class option;
-the class controls final-page column balancing.
+Regenerated page counts, hashes and visual checks must accompany this template
+update. The primary single-column review candidate follows the guide; anonymity
+and supplementary-upload policy still require portal/organizer confirmation.
+Compact profiles use `sigconf,pbalance` (and `anonymous` for redacted output),
+using the documented ACM class option for final-page balancing. Obsolete postal
+values are omitted because the production class ignores `postcode`; all four
+ORCID check digits are valid. Normalized scientific wording matches merged
+commit `586150ff30b618b5a6d8bb38a687530c3ef07b7c`.
 
 ## Build and check
 
-Use Python with pypdf 6.10.0, plus latexmk or a TECTONIC executable:
+This revision was built with pdfLaTeX and TeX Live 2024. Use Python with pypdf
+6.10.0 and latexmk for the tested build route. The builder also exposes a
+TECTONIC override for environments providing that executable:
 
 ```sh
 python build.py
@@ -118,10 +136,18 @@ The hosted workflow checks the retained package and compiles all five venue
 profiles plus both IEEE roots. Local checks do not replace author approval,
 independent review or submission authorization.
 
-## Outstanding before submission
+## Current dates and outstanding submission questions
 
-Confirm review profile/anonymity, supplement treatment and cutoff time zone.
-The standard ACM author renderer is now selected; confirm the remaining venue-specific upload instructions.
+The current [official dates](https://www.iciit.org/date.html) are full paper
+30 November 2026, abstract 5 December 2026, notification 20 December 2026 and
+registration 10 January 2027. The guide specifies minimum 8 single-column or
+4 double-column pages including references, with a regular allowance of 10 or
+5 respectively. Both main review profiles have 10 pages and both compact
+previews have 5; the separate supplement has 4 pages.
+
+Confirm anonymity, supplement treatment, any portal-specific upload directions
+and the cutoff time zone. Standard ACM rendering and the native reference block
+are selected.
 The earlier IEEE working PDFs are not the target of this venue-only change.
 Obtain all four listed authors' acceptance of the exact candidate and declarations
 required by the portal. Resolve the two removed individuals' authorship or
@@ -129,7 +155,8 @@ acknowledgment status with them before submission. Confirm presenter,
 registration/APC and any waiver.
 No email, upload, payment, registration or submission was performed.
 
-The source archive includes `texlive-compat.tex`, loaded by all venue profiles,
-so plain latexmk and the supplied builder apply the same package-order fix as CI.
-The official class/BST and requested author presentation are unchanged.
+The installed class/BST are unmodified ACM production files; the four-author
+metadata and standard author renderer are preserved. Validation records
+`sigconf,pbalance`, native paragraph headings, figure/table descriptions and
+standalone supplement metadata.
 The latexmk builder validates the final converged TeX log.

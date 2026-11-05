@@ -2,9 +2,11 @@
 
 ## Current ICIIT 2027 (Ho Chi Minh City) draft
 
-[Read the 5-page draft](venues/iciit2027/iciit2027-compact.pdf) · [10-page review draft](venues/iciit2027/iciit2027-review.pdf) · [Submission checklist and source package](venues/iciit2027/DRAFT-CHECKLIST.md).
+[Primary single-column review candidate](venues/iciit2027/iciit2027-review.pdf) · [Compact proceedings preview](venues/iciit2027/iciit2027-compact.pdf) · [Current guide and reviewer audit](venues/iciit2027/FINAL-GUIDE-AUDIT-20261105.md) · [Checklist and source package](venues/iciit2027/DRAFT-CHECKLIST.md).
 
-The [4 November review revision](venues/iciit2027/REVIEW-RESPONSE-20261104.md) states the integration contribution positively, discusses real-project behavior and synthetic-data threats, adds the language/focus comparison column and tiny contract example, and verifies the embedded Git gate figure. The current four-author metadata uses standard ACM rendering and per-author affiliations, with Vo Duc Hieu as corresponding author. The user-authorized integration of [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) preserves these author and ACM presentation changes alongside all five review fixes. The older IEEE variants below remain historical/general manuscripts.
+The 5 November guide revision preserves all five [review corrections](venues/iciit2027/REVIEW-RESPONSE-20261104.md) and updates the manuscript to the current unmodified ACM production `acmart` 2.21 class and bibliography style. The native ACM Reference Format is restored, paragraph headings use standard sectioning, and both tables have text descriptions. The four authors and their per-author affiliations remain unchanged, with Vo Duc Hieu as corresponding author; the abstract remains 131 words, with 17 venue citations and a separate 23-paper chosen-review scope. The primary review profile follows the guide's `manuscript,screen,review` recommendation; compact output is a proceedings preview. All five profiles build with pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages; 37 venue tests pass and all 34 rendered pages pass visual review. Archive verification is recorded in `venues/iciit2027/package-rebuild.json`. The older IEEE variants below remain historical/general manuscripts.
+
+The current official dates are full paper **30 November 2026**, abstract **5 December 2026**, notification **20 December 2026**, and registration **10 January 2027**. See the linked audit for official sources and remaining portal-specific identity/supplement questions.
 
 Nguồn LaTeX của bài nghiên cứu **ArchSync: A Controlled Feasibility Study of
 Evidence-Backed Architecture Drift Detection in TypeScript Systems**.

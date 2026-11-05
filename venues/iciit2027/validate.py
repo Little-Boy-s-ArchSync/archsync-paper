@@ -7,10 +7,10 @@ expected_authors = ['Vo Duc Hieu', 'Tran Minh Hoang', 'Le Van Kiet', 'Ha Hoang B
 expected_emails = ['voduchieu42@gmail.com', 'andyjobs2023@gmail.com', 'levankiet1212.2004@gmail.com', 'hahoangbach2005@gmail.com']
 expected_orcids = ['0009-0007-5389-5177', '0009-0000-0302-1841', '0009-0007-8434-882X', '0009-0000-5118-0660']
 expected_affiliations = [
-    {'department': 'Software Engineering', 'institution': 'FPT University', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'},
+    {'department': 'Software Engineering', 'institution': 'FPT University', 'city': 'Ho Chi Minh City', 'postcode': None, 'country': 'Vietnam'},
     {'department': 'Computer Science and Engineering', 'institution': 'VNUK Institute for Research and Executive Education, The University of Danang', 'city': 'Da Nang', 'postcode': None, 'country': 'Vietnam'},
     {'department': 'Software Engineering', 'institution': 'VNUK Institute for Research and Executive Education, The University of Danang', 'city': 'Da Nang', 'postcode': None, 'country': 'Vietnam'},
-    {'department': 'Information Assurance', 'institution': 'FPT University', 'city': 'Ho Chi Minh City', 'postcode': '70000', 'country': 'Vietnam'},
+    {'department': 'Information Assurance', 'institution': 'FPT University', 'city': 'Ho Chi Minh City', 'postcode': None, 'country': 'Vietnam'},
 ]
 
 def verify_rebuild_receipt(receipt, archive_sha256):
@@ -28,8 +28,90 @@ def verify_standard_author_source(source):
     active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
     assert not re.search(r'\\(?:input|include)\s*\{author-layout(?:\.tex)?\}', active), 'custom author renderer must not be loaded'
     assert not re.search(r'@mkauthors|\\(?:fontsize|fontfamily|UrlFont)\b', active), 'standard ACM author renderer must not be overridden'
-    assert r'\documentclass[sigconf,anonymous]{acmart}' in active, 'compact anonymous class option missing'
+    assert r'\documentclass[sigconf,pbalance]{acmart}' in active, 'compact named class option missing'
+    assert r'\documentclass[sigconf,anonymous,pbalance]{acmart}' in active, 'compact anonymous class option missing'
     assert r'\documentclass[manuscript,screen,review,anonymous]{acmart}' in active, 'review anonymous class option missing'
+    assert not re.search(r'\\(?:balance|nobalance|balancecols)\b|@BAdblcol', active), 'use the documented class balancing option without output overrides'
+
+def verify_author_records_source(source, authors):
+    blocks = re.findall(r'\\author\{([^}]+)\}(.*?)(?=\\author\{|\\renewcommand\{\\shortauthors)', source, re.S)
+    assert [name for name, _ in blocks] == [a['name'] for a in authors], 'author order drift'
+    assert all(name not in source for name in ('Hoang Nguyen-The', 'Minh Tam Phan')), 'removed author still in paper source'
+    for (name, block), author in zip(blocks, authors):
+        for field, macro in [('email','email'),('department','department'),('institution','institution'),('city','city'),('postcode','postcode'),('country','country')]:
+            value = author.get(field)
+            if value:
+                assert '\\' + macro + '{' + value + '}' in block, (name, field)
+            else:
+                assert not re.search(r'\\' + macro + r'\{[^}]*\}', block), (name, field)
+        assert re.findall(r'\\orcid\{([^}]+)\}', block) == ([author['orcid']] if author['orcid'] else []), (name, 'orcid')
+        assert re.findall(r'\\authornote\{([^}]+)\}', block) == (['Corresponding author.'] if author['corresponding_author'] else []), (name, 'correspondence')
+
+def verify_supplement_source(source):
+    active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
+    assert r'\documentclass[manuscript,screen]{acmart}' in active, 'supplement standard manuscript class missing'
+    assert not re.search(r'@mkauthors|\\(?:fontsize|fontfamily|UrlFont)\b', active), 'supplement author renderer must not be overridden'
+    assert re.search(r'\\begin\{abstract\}\s*\S.*?\\end\{abstract\}', active, re.S), 'supplement abstract missing'
+    assert all(marker in active for marker in [r'\begin{CCSXML}', r'\end{CCSXML}', r'\ccsdesc', r'\keywords{', r'\maketitle']), 'supplement CCS/keywords/title metadata missing'
+
+def verify_native_acm_citation_source(source):
+    active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
+    assert '@mkbibcitation' not in active, 'native ACM citation renderer must not be overridden'
+    assert not re.search(r'printacmref\s*=\s*(?:false|\{false\})', active), 'required ACM reference block suppressed'
+
+def verify_native_acm_citation_text(text):
+    assert re.search(r'\bACM,\s*New\s+York,\s*NY,\s*USA\b', text), 'native ACM publisher/address phrase missing from first page'
+
+def verify_standard_sectioning_source(source):
+    active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
+    assert not re.search(r'(?m)^\s*\\textbf\{[^{}\n]+\.\}', active), 'lead-in headings must use standard paragraph sectioning'
+
+def verify_accessible_floats(source):
+    # Each main-paper visual needs its own plain-text description. A total
+    # count alone would miss a description copied onto the wrong float.
+    active = re.sub(r'(?m)(?<!\\)%.*$', '', source)
+    expected = {'fig:workflow': 'figure', 'tab:external': 'table', 'tab:historic': 'table'}
+    found = {}
+    for match in re.finditer(r'\\begin\{(figure|table)(\*?)\}(.*?)\\end\{\1\2\}', active, re.S):
+        kind, _, body = match.groups()
+        labels = re.findall(r'\\label\{([^{}]+)\}', body)
+        assert len(labels) == 1 and labels[0] not in found, 'each visual must have one unique label'
+        label = labels[0]
+        descriptions = re.findall(r'\\Description(?:\[[^\]]*\])?\{([^{}]*)\}', body)
+        assert len(descriptions) == 1 and 0 < len(descriptions[0].strip()) < 2000, ('visual needs one nonempty plain-text description under 2000 characters', label)
+        found[label] = kind
+    assert found == expected, 'main-paper figure/table inventory drift'
+
+def verify_production_template(provenance_bytes, files):
+    provenance = json.loads(provenance_bytes.decode('utf-8'))
+    assert provenance.get('version') == '2.21' and provenance.get('class_release_date') == '2026-11-01', 'production template version drift'
+    assert provenance.get('status') == 'PRODUCTION_CLASS_GENERATED_UNMODIFIED', 'production class generation status missing'
+    assert provenance.get('archive_sha256') == '81977a834f5cfd5302c37181ede34d2663eeea60604d1d89230e3c5e74b9a4bb', 'production template archive identity drift'
+    # Pin the reviewed receipt itself, so replacing both a file and its claimed
+    # hash cannot make an edited template appear to be the production release.
+    assert hashlib.sha256(provenance_bytes).hexdigest() == 'a2ead7f16d065dcc38e90c3ed149d76580b2bb04e87d50bc6de570d94c6481a1', 'production provenance receipt drift'
+    paths = {'acmart.cls': 'acmart.cls', 'acmart.dtx': 'acmart.dtx', 'acmart.ins': 'acmart.ins',
+             'ACM-Reference-Format.bst': 'ACM-Reference-Format.bst',
+             'README': 'official/2026-11-05/acmart-README'}
+    for member, path in paths.items():
+        content = files[path]
+        record = provenance['files'][member]
+        assert len(content) == record['bytes'] and hashlib.sha256(content).hexdigest() == record['sha256'], ('production template file drift', path)
+    for name in ['acmart.cls', 'ACM-Reference-Format.bst']:
+        assert files[name] == files['template/LaTeX-Templates/' + name], ('template pair copy drift', name)
+    assert re.search(rb'\\ProvidesClass\{acmart\}\s*\[2026/11/01 v2\.21\b', files['acmart.cls']), 'generated class version header drift'
+    return provenance
+
+def verify_layout_diagnostics(profile, log):
+    warnings = [line.strip() for line in re.findall(r'(?m)^[ \t]*Overfull[^\n]*', log)]
+    if not warnings:
+        return []
+    # The unmodified production class/pbalance output has one inspected
+    # final-column warning in the anonymous compact profile. Bound its kind,
+    # context, count and size; horizontal and all other overflows fail.
+    match = re.fullmatch(r'Overfull \\vbox \(([0-9.]+)pt too high\) has occurred while \\output is active(?: \[\])?', warnings[0])
+    assert profile == 'compact-anonymous' and len(warnings) == 1 and match and 1 < float(match.group(1)) < 1.2, ('unexpected overfull layout diagnostic', profile, warnings)
+    return [{'kind': 'vbox', 'points': float(match.group(1)), 'context': 'output routine'}]
 
 assert set(sys.argv[1:]) <= {'--check', '--fresh'}, 'unknown validation option'
 assert not ('--check' in sys.argv and '--fresh' in sys.argv), 'choose retained or fresh validation'
@@ -66,6 +148,12 @@ for repo in ['core', 'guardian', 'benchmark']:
     assert re.search(r'https://github.com/Little-Boy-s-ArchSync/archsync-' + repo + r'/tree/[a-f0-9]{40}', source), ('pinned artifact link missing', repo)
 for name in ['acmart.cls', 'ACM-Reference-Format.bst']:
     assert (root/name).read_bytes() == (root/'template/LaTeX-Templates'/name).read_bytes()
+template_paths = ['acmart.cls', 'acmart.dtx', 'acmart.ins', 'ACM-Reference-Format.bst',
+                  'official/2026-11-05/acmart-README', 'template/LaTeX-Templates/acmart.cls',
+                  'template/LaTeX-Templates/ACM-Reference-Format.bst']
+template_provenance = verify_production_template(
+    (root/'official/2026-11-05/production-template-provenance.json').read_bytes(),
+    {name: (root/name).read_bytes() for name in template_paths})
 metadata = json.loads((root/'submission-metadata.json').read_text(encoding='utf-8'))
 assert [a['name'] for a in metadata['authors']] == expected_authors, 'owner-confirmed author order drift'
 assert [a['email'] for a in metadata['authors']] == expected_emails, 'owner-supplied email drift'
@@ -83,26 +171,19 @@ assert f'with {len(keys)} citations:' in requirements, 'requirements citation co
 assert f'Motivation-first, {len(metadata["abstract"].split())} words;' in checklist, 'checklist abstract word count drift'
 # Verify the complete ordered author block against the copyable submission data.
 paper_source = (root/'paper.tex').read_text(encoding='utf-8')
-blocks = re.findall(r'\\author\{([^}]+)\}(.*?)(?=\\author\{|\\renewcommand\{\\shortauthors)', paper_source, re.S)
-assert [name for name, _ in blocks] == [a['name'] for a in metadata['authors']], 'author order drift'
-assert all(name not in paper_source for name in ('Hoang Nguyen-The', 'Minh Tam Phan')), 'removed author still in paper source'
-for (name, block), author in zip(blocks, metadata['authors']):
-    for field, macro in [('email','email'),('department','department'),('institution','institution'),('city','city'),('postcode','postcode'),('country','country')]:
-        value = author.get(field)
-        if value:
-            assert '\\' + macro + '{' + value + '}' in block, (name, field)
-        else:
-            assert not re.search(r'\\' + macro + r'\{[^}]*\}', block), (name, field)
-    orcids = re.findall(r'\\orcid\{([^}]+)\}', block)
-    assert orcids == ([author['orcid']] if author['orcid'] else []), (name, 'orcid')
-    assert re.findall(r'\\authornote\{([^}]+)\}', block) == (['Corresponding author.'] if author['corresponding_author'] else []), (name, 'correspondence')
-    assert name in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), name
-    assert author['email'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), name
+supplement_source = (root/'iciit2027-supplement.tex').read_text(encoding='utf-8')
+verify_author_records_source(paper_source, metadata['authors'])
+verify_author_records_source(supplement_source, metadata['authors'])
+verify_supplement_source(supplement_source)
+verify_native_acm_citation_source(supplement_source)
+for author in metadata['authors']:
+    assert author['name'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), author['name']
+    assert author['email'] in (root/'SUBMISSION-METADATA.md').read_text(encoding='utf-8'), author['name']
 verify_standard_author_source(paper_source)
+verify_native_acm_citation_source(paper_source)
+verify_standard_sectioning_source(source)
+verify_accessible_floats(source)
 assert 'Author Information and Contributions' not in paper_source, 'optional author contribution section restored'
-assert 'printacmref=false' not in paper_source, 'required ACM reference block suppressed'
-assert r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{}' in paper_source, 'owner-requested publisher-phrase omission missing'
-assert r'\patchcmd{\@mkbibcitation}{\@article@string\unskip, \ref{TotPages}}{\@article@string\unskip\ \ref{TotPages}}' in paper_source, 'citation punctuation repair missing'
 evidence_checked = False
 if (root/'evidence').is_dir():
     manifest = json.loads((root/'evidence-manifest.json').read_text(encoding='utf-8'))
@@ -113,16 +194,13 @@ if (root/'evidence').is_dir():
             assert any(item['path'] == artifact for item in manifest['files']), artifact
     evidence_checked = True
 rows=[]
+layout_diagnostics = {}
 for profile in ['review','compact','review-anonymous','compact-anonymous','supplement']:
     path=root/f'iciit2027-{profile}.pdf'
     pdf=PdfReader(path); text='\n'.join(p.extract_text() or '' for p in pdf.pages)
     log=(root/f'{profile}-build.log').read_text(encoding='utf-8')
     assert not re.search(r'There were undefined|Citation .* undefined|Reference .* undefined|error:',log), profile
-    overfull = [float(width) for width in re.findall(r'Overfull \\hbox \(([0-9.]+)pt too wide\)', log)]
-    # The official class's final-column output routine produces one small
-    # bibliography box warning in the four-author compact layout. Its retained
-    # last page is visually checked; any larger or other-profile warning fails.
-    assert not overfull or (profile == 'compact' and len(overfull) == 1 and max(overfull) < 5), (profile, overfull)
+    layout_diagnostics[profile] = verify_layout_diagnostics(profile, log)
     if profile != 'supplement':
         minimum,maximum=(4,5) if profile.startswith('compact') else (8,10)
         assert minimum <= len(pdf.pages) <= maximum, (profile,len(pdf.pages))
@@ -132,8 +210,7 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
         first_page_text = pdf.pages[0].extract_text() or ''
         if 'anonymous' not in profile:
             assert all(name not in first_page_text for name in ('Hoang Nguyen-The', 'Minh Tam Phan')), (profile, 'removed author still displayed')
-        assert 'ACM, New York, NY, USA' not in first_page_text, (profile, 'publisher address still displayed on first page')
-        assert not re.search(r'\bACM,\s*\d+\s+pages\b', first_page_text), (profile, 'publisher name still displayed in citation')
+        verify_native_acm_citation_text(first_page_text)
         assert 'author information and contributions' not in text.lower(), 'optional contribution section in PDF'
         if 'anonymous' in profile:
             identity_text = re.sub(r'\s+', '', (text + str(pdf.metadata)).lower())
@@ -146,9 +223,8 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
                     if author.get(field):
                         assert re.sub(r'\s+', '', author[field].lower()) not in identity_text, (profile, field)
 
-        # The native single-column review renderer omits visible emails.
-        # Structured source retains them; compact rendering must display them.
-        marker_fields = ('name', 'email') if 'anonymous' in profile or profile.startswith('compact') else ('name',)
+        # ACM 2.21 includes emails in the named review contact-information block.
+        marker_fields = ('name', 'email')
         for marker in [author[field] for author in metadata['authors'] for field in marker_fields]:
             if 'anonymous' in profile: assert re.sub(r'\s+', '', marker.lower()) not in re.sub(r'\s+', '', text.lower()),(profile,marker)
             else:
@@ -170,8 +246,20 @@ for profile in ['review','compact','review-anonymous','compact-anonymous','suppl
                 rendered_values += ['Software Engineering', 'Computer Science and Engineering',
                                     'Information Assurance', 'Ho Chi Minh City', 'Da Nang']
             assert all(re.sub(r'\s+', '', value.lower()) in first_page for value in rendered_values), (profile, 'author affiliation missing')
+    else:
+        first_page_text = pdf.pages[0].extract_text() or ''
+        first_page = re.sub(r'\s+', '', first_page_text.lower())
+        assert 'acmreferenceformat' in first_page, 'supplement ACM reference block missing'
+        verify_native_acm_citation_text(first_page_text)
+        positions = [first_page.index(re.sub(r'\s+', '', name.lower())) for name in expected_authors]
+        assert positions == sorted(positions), 'supplement PDF author order drift'
+        assert 'correspondingauthor.' in first_page, 'supplement correspondence footnote missing'
+        assert all(email.lower() in first_page for email in expected_emails), 'supplement author email missing'
+        for value in ['FPT University', 'VNUK Institute for Research and Executive Education', 'The University of Danang', 'Vietnam']:
+            assert re.sub(r'\s+', '', value.lower()) in first_page, ('supplement affiliation missing', value)
+        assert all(re.sub(r'\s+', '', name.lower()) not in first_page for name in ('Hoang Nguyen-The', 'Minh Tam Phan')), 'removed author in supplement'
     rows.append({'file':path.name,'pages':len(pdf.pages),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size})
-report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_four_authors_and_order_match':True,'per_author_affiliations_and_email_order_match':True,'standard_author_renderer_source_verified':True,'author_layout':'standard-acm','default_acm_author_renderer':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'class_matches_official_archive':True,'bibliography_style_matches_official_archive':True,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
+report={'status':'LOCAL_DRAFT_VALIDATED_NOT_SUBMITTED','citations':len(keys),'abstract_metadata_matches':True,'all_four_authors_and_order_match':True,'per_author_affiliations_and_email_order_match':True,'standard_author_renderer_source_verified':True,'native_acm_reference_format':True,'standard_paragraph_sectioning_verified':True,'figure_and_table_descriptions_verified':True,'supplement_metadata_verified':True,'author_layout':'standard-acm','default_acm_author_renderer':True,'correspondence_in_author_footnote':True,'evidence_hashes_verified':evidence_checked,'production_template_version':template_provenance['version'],'class_matches_production_generation_receipt':True,'production_template_sources_verified':True,'bibliography_style_matches_production_archive':True,'layout_diagnostics':layout_diagnostics,'pdfs':rows,'visual_review':'separate review required','submission_authorization':False}
 if '--check' in sys.argv:
     assert report == json.loads((root/'validation.json').read_text(encoding='utf-8')), 'retained PDF validation receipt drift'
     package = json.loads((root/'package-manifest.json').read_text(encoding='utf-8'))

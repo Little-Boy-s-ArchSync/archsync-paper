@@ -1,5 +1,35 @@
 # ICIIT 2027 (Ho Chi Minh City): disclosure and submission check
 
+## Current guide alignment — 5 November 2026
+
+Start with [FINAL-GUIDE-AUDIT-20261105.md](FINAL-GUIDE-AUDIT-20261105.md).
+Current dates are full paper 30 November 2026, abstract 5 December 2026,
+notification 20 December 2026 and registration 10 January 2027. The official
+minimum remains 8 single-column or 4 double-column pages including references;
+regular allowance is 10/5. The single-column `manuscript,screen,review` profile
+is the primary guide-aligned review candidate; compact `sigconf,pbalance` is a proceedings
+preview using the documented balancing option. Venue anonymity, supplement policy and authenticated portal directions
+remain unconfirmed.
+
+The current sources use unmodified ACM production `acmart` 2.21 with an
+unmodified production bibliography style/source set; [production provenance](official/2026-11-05/production-template-provenance.json)
+records the CTAN archive and generated-class checks. Native ACM Reference Format
+is restored, superseding the former publisher/address exception. Paragraph
+headings use standard sectioning and both tables have text descriptions.
+The four listed authors with Vo Duc Hieu correspondence, 131-word abstract,
+17 venue citations and active 23-paper review are preserved. No custom author
+renderer or missing faculty-ORCID requirement is current.
+
+All five profiles build with pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages;
+37 venue tests and visual review of all 34 rendered pages pass. The separate
+supplement carries four-author metadata, its own abstract, CCS concepts, keywords
+and native ACM reference block. All four ORCID check digits are valid; obsolete
+postal values are omitted because the current class ignores `postcode`. Archive
+verification is recorded in `package-rebuild.json`. The historical verification
+outcome below belongs only to its earlier source/artifact bytes.
+
+## Historical receipt and previous decisions
+
 Current author-renderer decision (28 September 2026): the owner requests standard
 ACM rendering for named profiles, with four author records, per-author affiliations,
 emails, four supplied ORCIDs and Vo Duc Hieu as corresponding author. The 29 September

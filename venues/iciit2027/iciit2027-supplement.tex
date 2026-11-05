@@ -1,13 +1,38 @@
-\input{texlive-compat}
 \documentclass[manuscript,screen]{acmart}
 \setcopyright{none}
-\settopmatter{printacmref=false}
 \acmDOI{}\acmISBN{}
-\acmConference[ICIIT 2027 (Ho Chi Minh City)]{Draft supplement for ICIIT 2027 (Ho Chi Minh City)}{March 4--7, 2027}{Ho Chi Minh City, Vietnam}
-\emergencystretch=3em
+\acmConference[ICIIT 2027 (Ho Chi Minh City)]{Technical supplement for the 12th International Conference on Intelligent Information Technology}{March 4--7, 2027}{Ho Chi Minh City, Vietnam}
+\acmBooktitle{Technical supplement for ICIIT 2027 (Ho Chi Minh City)}
+\acmYear{2027}\copyrightyear{2027}
 \begin{document}
 \title{ArchSync: Technical Evidence Supplement}
-\author{ArchSync author team}
+\author{Vo Duc Hieu}
+\authornote{Corresponding author.}
+\orcid{0009-0007-5389-5177}
+\email{voduchieu42@gmail.com}
+\affiliation{\department{Software Engineering}\institution{FPT University}\city{Ho Chi Minh City}\country{Vietnam}}
+\author{Tran Minh Hoang}
+\orcid{0009-0000-0302-1841}
+\email{andyjobs2023@gmail.com}
+\affiliation{\department{Computer Science and Engineering}\institution{VNUK Institute for Research and Executive Education, The University of Danang}\city{Da Nang}\country{Vietnam}}
+\author{Le Van Kiet}
+\orcid{0009-0007-8434-882X}
+\email{levankiet1212.2004@gmail.com}
+\affiliation{\department{Software Engineering}\institution{VNUK Institute for Research and Executive Education, The University of Danang}\city{Da Nang}\country{Vietnam}}
+\author{Ha Hoang Bach}
+\orcid{0009-0000-5118-0660}
+\email{hahoangbach2005@gmail.com}
+\affiliation{\department{Information Assurance}\institution{FPT University}\city{Ho Chi Minh City}\country{Vietnam}}
+\renewcommand{\shortauthors}{Hieu et al.}
+\begin{abstract}
+This supplement supplies operational detail for ArchSync's controlled implementation verification and technical reliability checks. It identifies the historical and current artifact scopes, finite oracle construction, mutation procedure, retained extraction and cache failures, and proposed repository follow-up. These details accompany the main manuscript's reported development evidence.
+\end{abstract}
+\begin{CCSXML}
+<ccs2012><concept><concept_id>10011007.10011006.10011041</concept_id><concept_desc>Software and its engineering~Software architecture</concept_desc><concept_significance>500</concept_significance></concept><concept><concept_id>10011007.10010940.10010971.10010980</concept_id><concept_desc>Software and its engineering~Software verification</concept_desc><concept_significance>300</concept_significance></concept></ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Software and its engineering~Software architecture}
+\ccsdesc[300]{Software and its engineering~Software verification}
+\keywords{architecture conformance, service-oriented systems, static analysis, architecture drift, reproducibility}
 \maketitle
 \input{appendix}
 \end{document}
