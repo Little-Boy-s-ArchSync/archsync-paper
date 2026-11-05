@@ -3,15 +3,37 @@
 Manuscript: *ArchSync: Evidence-Backed Conformance Checking for TypeScript Service Architectures*.
 Target: **ICIIT 2027 (Ho Chi Minh City)**.
 
-The five requested manuscript corrections pass the source and rendered audit.
-The current revision restores native ACM citation presentation, uses standard
-paragraph headings and describes both tables. All five profiles build with
-pdfLaTeX/TeX Live 2024 at **10/5/10/5/4 pages**; **37 venue tests pass**, and
-**all 34 rendered pages pass visual review**. The scientific wording, normalized
-for these formatting changes, matches merged commit
-`586150ff30b618b5a6d8bb38a687530c3ef07b7c`. Current artifact identities are bound by
-`validation.json` and `visual-inputs.json`; archive verification is recorded in
-`package-rebuild.json` and the source-archive identity in `package-manifest.json`.
+The five requested manuscript corrections remain in the source. The user's
+later instruction makes the supplied local `LaTeX-Templates/` folder the
+prevailing template authority: exact unmodified **`acmart` v1.90a**, DTX and
+bibliography files. The earlier 2.21 production-template choice is superseded.
+Each entry starts with `\documentclass`; review uses `manuscript,screen,review`
+and compact proceedings preview plain `sigconf`. Tables use native fonts and
+spacing. Native ACM Reference Format and semantic paragraph headings remain.
+**The local-template build, all 40 venue tests, fresh validation and all 34
+rendered-page inspections pass.** The five page counts are 10/5/10/5/4. Archive
+identity/reconstruction is recorded in `package-manifest.json` and
+`package-rebuild.json`; this audit carries no circular source ZIP hash.
+
+The [local provenance receipt](official/2026-11-05/local-template-provenance.json)
+binds all **55 supplied template files** to the original folder/ZIP. The supplied
+README/DTX identify 1.90 while the supplied class identifies 1.90a; that difference
+originates in the ZIP. The class is copied unchanged, rather than regenerated.
+
+The initial native-font build exposed body line overflows. Seven scoped
+`sloppypar` environments, permitted by the supplied `acmguide.pdf` §2.16 (p. 29),
+and native-size `table*` cells resolve them. The final build has **zero body
+overflows**. It retains one native output-routine diagnostic in each compact
+profile: named 4.18721 pt horizontal box and anonymous 1.152 pt vertical box.
+The complete last pages remain readable without overlap. Validation checks the
+exact profile, context, size and count, rejecting other overflow variations.
+
+The minimal `acmart-preload-hook.tex` resolves package loading order through the
+local guide's documented mechanism (§2.20, pp. 30–31). Supplied class bytes and
+first-command `\documentclass` entry points are preserved. Plain sample class
+options remain, with no `pbalance` or `balance=false` override. All 40 venue tests,
+fresh validation and visual review of all 34 pages pass. Archive verification
+is recorded in `package-rebuild.json`.
 
 ## Five-comment review matrix
 
@@ -25,7 +47,7 @@ records retain their dated scopes.
 | 2. Discuss expected real-project behavior and synthetic-data threats; keep D3 brief. | **PASS** | [paper.tex](paper.tex), Section 6, “Construct and internal validity,” “Expected behavior on real projects” and “External and comparative validity”: co-development, overfitting, anticipated signal balance, clustered reuse, wrappers/configuration, missed relations, false PASS/false BLOCK, host merging, contract staleness and repository scale are explicit. Expected behavior is identified as design-derived. [appendix.tex](appendix.tex), “Exploratory D3 and independent follow-up”: one paragraph states future exploratory, nonblind, module-only scope and absent results. |
 | 3. Explain why the combination remains useful alongside ArchLintor and CALint. | **PASS** | [paper.tex](paper.tex), Section 1 contribution paragraph; [related-work.tex](related-work.tex), Section 2, “Closest conformance approaches” and “Published evidence and integration value”: a changed fetch destination can alter a service relationship while imports remain unchanged. Service observations connect to source evidence, explicit rules and base/head BLOCK/REVIEW decisions. Existing conformance concepts are attributed; no unique-capability or superiority result is asserted. |
 | 4. Add explicit language/focus distinctions inside the comparison table. | **PASS** | [related-work.tex](related-work.tex), Table 1 (`tab:external`): “Language / focus” separates TypeScript module conformance, Python Clean Architecture, Java/Spring recovery and TypeScript service conformance at Git time. The published-context/non-executed-comparison caption and CALint abstract-only access qualifier remain. |
-| 5. Include a legible Figure 1 and a tiny formal-definition example. | **PASS** | [paper.tex](paper.tex), Section 3 “Executable Contract and Change-Time Analysis,” “Tiny contract example,” and Figure 1 (`fig:workflow`): the three-component example uses `http`/`data` edges and contrasts satisfied path, removed required path (BLOCK) and an added rule-compliant edge (REVIEW). The Git gate figure is embedded directly in the shared source, with decision precedence in its caption and a text description. The current five profiles were visually checked at reading size, including Figure 1 and the tiny example. |
+| 5. Include a legible Figure 1 and a tiny formal-definition example. | **PASS** | [paper.tex](paper.tex), Section 3 “Executable Contract and Change-Time Analysis,” “Tiny contract example,” and Figure 1 (`fig:workflow`): the three-component example uses `http`/`data` edges and contrasts satisfied path, removed required path (BLOCK) and an added rule-compliant edge (REVIEW). The Git gate figure is embedded directly in the shared source, with decision precedence in its caption and a text description. Figure 1 and the tiny example pass fresh reading-size visual inspection in the current profiles. |
 
 The [4 November response](REVIEW-RESPONSE-20261104.md) maps the same five
 requests. The [27 September audit](REVIEW-RESPONSE-20260927.md) is an earlier
@@ -39,18 +61,30 @@ Official sources checked for this audit: [submission instructions](https://www.i
 [registration](https://www.iciit.org/reg.html),
 [conference page](https://www.iciit.org/) and the
 [submission portal](https://confsys.iconf.org/submission/iciit2027).
-The [venue template ZIP](https://www.iciit.org/LaTeX-Templates.zip) could not be
-retrieved as raw bytes during this audit, and direct ACM production download
-returned HTTP 403. The current **ACM production `acmart` 2.21** release (class
-dated 1 November 2026) was obtained through
-[CTAN](https://mirrors.ctan.org/macros/latex/contrib/acmart.zip). The class was
-generated with the supplied `acmart.ins` installer against unchanged production
-sources; the class and bibliography files have no local patches.
-[Production provenance](official/2026-11-05/production-template-provenance.json)
-retains the archive identity, generated-class method and per-file hashes.
-[Raw retrieval records](official/2026-11-05/retrieval.json) retain individual
-failures as failures. The current production release and native reference block
-supersede the earlier package and publisher/address omission.
+The current template source is the user's existing workspace folder
+`LaTeX-Templates/`, specifically its README, `samples/sample-manuscript.tex`,
+`samples/sample-sigconf.tex`, `acmart.cls`, `acmart.dtx` and
+`ACM-Reference-Format.bst`. The class declares **v1.90a, 11 June 2023**.
+The [local provenance receipt](official/2026-11-05/local-template-provenance.json)
+binds all copied template files to the user-supplied ZIP. Its local class SHA-256 is
+`c27fec209ad1e1be8af87ffc63295c3833ba83238e34f594d36c89a4e48fa48c`;
+its BST SHA-256 is
+`6225898340ce8ca3536ab1141cfd822e4d80049bd3a19c85bd6221072e2466d0`.
+
+Local sample instructions are explicit: `sample-manuscript.tex` lines 37–48
+require a first-command class declaration and review options; lines 352–355
+prohibit manual template alterations; lines 470–476 require standard sectioning;
+lines 609–626 require figure descriptions. Table descriptions are retained
+accessibility additions, rather than requirements asserted from this local
+sample. The current revision removes explicit small table fonts, `pbalance`,
+`emergencystretch` and reduced `tabcolsep` overrides.
+
+The earlier production audit remains historically accurate: venue-ZIP raw
+retrieval failed, direct ACM download returned HTTP 403, and unmodified CTAN
+2.21 was acquired and tested. Its
+[production provenance](official/2026-11-05/production-template-provenance.json)
+is retained as a superseded template-selection record. It no longer establishes
+which package the user requested for the current candidate.
 
 | Guide item | Current requirement or finding | Candidate disposition |
 | --- | --- | --- |
@@ -59,14 +93,14 @@ supersede the earlier package and publisher/address omission.
 | Notification | **20 December 2026**. | Planning date, not a decision on this manuscript. |
 | Registration | **10 January 2027**. | Registration and payment remain separate author actions. |
 | Conference dates and place | **4–7 March 2027, Ho Chi Minh City, Vietnam**. | Check source/metadata event fields against the current guide. |
-| Proceedings template | ACM format using the official class and bibliography style. | Unmodified production class/BST verified against the CTAN provenance receipt. Native ACM publisher/address citation restored: **PASS**. Compact previews use documented `pbalance`. |
-| Minimum manuscript length | **8 single-column pages or 4 double-column pages**, including references. | Review profiles have 10 pages and compact previews 5 pages, including references; the separate supplement has 4 pages. |
-| Regular page allowance | **10 single-column pages or 5 double-column pages**; extra-page conditions are separate. | Main profiles fit the regular allowance with standard class fonts/margins. The allowance is not represented as an unconditional hard maximum. |
-| Paragraph headings | Use semantic sectioning consistent with the official template. | Manual bold paragraph leads replaced with standard paragraph headings; source and rendered checks **PASS**. |
-| Figures and tables | Include the cited material, legible labels/captions and appropriate text descriptions. | Figure 1 and both tables have text descriptions. The four-column comparison, tiny example and Figure 1 are legible at reading size: **PASS**. |
+| Supplied template | The user's local v1.90a class/DTX/BST and README/samples prevail. | Exact local bytes; first-command `\documentclass`; plain sample class options; native citation and table typography. All 40 venue tests and fresh validation pass. |
+| Minimum manuscript length | **8 single-column pages or 4 double-column pages**, including references. | Review profiles have 10 pages, compact previews 5 pages and the separate supplement 4 pages. |
+| Regular page allowance | **10 single-column pages or 5 double-column pages**; extra-page conditions are separate. | Main profiles fit 10/5 pages at native local-template fonts/margins. The allowance is not represented as an unconditional hard maximum. |
+| Paragraph headings | Local sample requires standard sectioning and prohibits simulated bold paragraph headings. | Semantic paragraph commands retained; source and current rendered checks pass. |
+| Figures and tables | Local sample requires figure captions/descriptions, proper caption positions and booktabs table rules. | Figure 1 description retained; table descriptions are additional metadata. Manual small table fonts and reduced padding are removed. All 34 current pages pass reading-size visual inspection. |
 | Named/anonymous and initial review profile | Public pages do not settle every authenticated upload requirement. | The single-column `manuscript,screen,review` profile is the primary guide-aligned review candidate; compact output is a proceedings preview. Named/anonymous choice still follows portal/organizer instructions. |
-| Supplementary appendix | Public confirmation of a separate supplementary upload and its page counting remains absent. | Review profiles include the appendix; compact readers have a 4-page supplement with four-author metadata, its own abstract, CCS concepts, keywords and native ACM reference block. Portal acceptance remains unconfirmed. |
-| Author information | Four listed authors in order: Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet, Ha Hoang Bach; Hieu is corresponding author. | Per-author affiliations, four emails and four ORCIDs match source/metadata; all four ORCID check digits are valid. Ignored legacy postal values are omitted. Repository integration was authorized; individual final acceptance and removed individuals' status remain separate. |
+| Supplementary appendix | Separate-upload acceptance and page counting remain unconfirmed. | Review profiles include the appendix; the separate supplement retains four-author metadata, abstract, CCS concepts, keywords and native reference text. The separate supplement is 4 pages and visually inspected. |
+| Author information | Four listed authors: Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet, Ha Hoang Bach; Hieu is corresponding author. | Separate author/affiliation/email/ORCID metadata retained; the local class controls presentation. Individual final acceptance and removed individuals' status remain separate. |
 | Research and AI-use disclosure | Preserve accurate methods, data scope, provenance and actual assistance. | Section 5 methods disclosure and Section 6 validity boundaries retained. No invented independent study or D3 result. |
 
 ## Remaining scientific evidence requirements
@@ -102,21 +136,26 @@ those commits; its initial six-email description is historical. PR #61 had
 no issue comments. These account records establish the recorded GitHub review
 scope, rather than additional scientific results or blanket author approval.
 
-## Final verification receipts
+## Current local-template verification
 
-| Verification | Result and retained record |
+| Check | Final result and evidence |
 | --- | --- |
-| Five-profile build | **PASS**, pdfLaTeX/TeX Live 2024. Named review 10 pages; named compact 5; anonymous review 10; anonymous compact 5; supplement 4. `validation.json` binds each PDF. |
-| Venue regression checks | **37/37 PASS** in `test_validate.py`, covering template identity, metadata, native reference text, semantic headings, descriptions, redaction and retained package contracts. |
-| Rendered inspection | **PASS**, all 34 pages. First pages, headings, Table 1, tiny example, Figure 1 and complete references were inspected at reading size. `visual-inputs.json` binds the inspected PDFs; `VISUAL-REVIEW.md` records scope. |
-| Layout diagnostics | Named profiles and supplement have no recorded overflow. Anonymous compact retains a 1.1135 pt output-routine vertical-box warning; the rendered references remain complete and legible. The diagnostic is retained in validation/logs. |
-| Scientific text preservation | **PASS**, normalized scientific wording matches merged `586150ff30b618b5a6d8bb38a687530c3ef07b7c`. The parent workspace retains `preparation/2026-11-05-final-guide-audit/scientific-text-check.json`. |
-| Author/abstract checks | **PASS**, four authors in order, Hieu correspondence, per-author affiliations, four emails, four valid ORCID check digits and unchanged 131-word main abstract. Supplement metadata supplies the same four authors. |
-| Production source identity | **PASS**, production `acmart` 2.21 generated by its supplied installer; unmodified DTX/BST/source identities in `official/2026-11-05/production-template-provenance.json`. |
-| Exact-source archive reconstruction | Verification is recorded in `package-rebuild.json`; its archive identity must match `package-manifest.json`. The receipt requires successful reconstruction and identical page text for all five profiles. |
+| Exact supplied template | **PASS**: 55 files match the user-supplied folder/ZIP `e0272aab…`; class 1.90a and original README/DTX 1.90 labels are preserved without regeneration. `official/2026-11-05/local-template-provenance.json` binds the identities. |
+| Build and page counts | **PASS**: named review 10, named compact 5, anonymous review 10, anonymous compact 5, supplement 4 pages. First-command class entries use plain local sample options. |
+| Regression and fresh validation | **40/40 tests PASS**; `validate.py --fresh` passes. Template identity, metadata, native fonts, class options, preload hook, scoped paragraph wrapping, reference text, descriptions and redaction are checked. |
+| Rendered inspection | **PASS**, all 34 pages. Reading-size checks cover first pages, native-size full-width tables, tiny example, Figure 1 and complete references. Letter geometry, embedded native fonts and PDF creator 1.90a are verified. Current hashes are in `visual-inputs.json`; scope is in `VISUAL-REVIEW.md`. |
+| Body layout | **Zero body overflows** after seven local `sloppypar` scopes permitted by guide §2.16 and regular-size `table*` cells. No `pbalance`, `balance=false`, global font/margin/spacing changes or reduced table-padding override is retained. |
+| Native output diagnostics | Exactly one named-compact 4.18721 pt horizontal output box and one anonymous-compact 1.152 pt vertical output box remain. The complete last pages are readable without overlap. Validation rejects any other profile, context, size or count. |
+| Package-order compatibility | The minimal `acmart-preload-hook.tex` uses the supplied guide's §2.20 mechanism. It resolves package loading order while preserving byte-identical supplied class files and first-command class entries. |
+| Scientific text and metadata | **PASS**, paper, related work and appendix match merged `586150ff30b618b5a6d8bb38a687530c3ef07b7c` under markup-only normalization. Proof is retained in the parent workspace at `preparation/2026-11-05-template-folder/scientific-text-check.json`. Four authors, Hieu correspondence, four emails/ORCIDs, 131-word main abstract, 17 venue citations and the separate 23-paper review remain. |
+| Exact-source archive reconstruction | Archive identity and verification are recorded externally in `package-manifest.json` and `package-rebuild.json`. The rebuild receipt requires successful reconstruction and identical page text for all five profiles; this audit is itself included in that archive. |
 
-The source ZIP hash is recorded externally in `package-manifest.json` and
-`package-rebuild.json`, avoiding a circular hash dependency because this audit
-is itself included in the ZIP. Earlier technical approvals retain their original
-commit scope; final submission declarations and the future empirical evidence
-requirements above remain separate.
+## Superseded 2.21 verification snapshot
+
+Before the later local-folder instruction, the unmodified production 2.21
+candidate built with pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages, passed 37
+venue tests, and passed visual inspection of 34 pages. Its scientific wording
+matched merged `586150ff30b618b5a6d8bb38a687530c3ef07b7c` after normalizing
+heading markup and non-visible descriptions. Its exact source ZIP rebuilt
+successfully. Those observations remain facts about that candidate; they are
+not a test or page-count receipt for the new local-template revision.

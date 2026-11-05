@@ -3,18 +3,29 @@
 Manuscript: *ArchSync: Evidence-Backed Conformance Checking for TypeScript Service Architectures*.
 Target: ICIIT 2027 (Ho Chi Minh City).
 
-Guide follow-up, 5 November 2026: all five corrections below are retained. The
-[current audit](FINAL-GUIDE-AUDIT-20261105.md) updates the official dates,
-installs unmodified production `acmart` 2.21, restores native ACM Reference
-Format, uses standard paragraph headings and adds both table descriptions.
-The primary review candidate follows `manuscript,screen,review`; compact output
-is a proceedings preview. The four authors with Hieu correspondence, 131-word
-abstract, 17 citations and separate active 23-paper review are unchanged.
-The five profiles build with pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages;
-37 venue tests and visual review of all 34 pages pass. Compact previews use the
-documented `pbalance` option. The supplement now has its own four-author metadata,
-abstract, CCS concepts, keywords and native ACM reference block. Archive verification
-is recorded in `package-rebuild.json`.
+Template follow-up, 5 November 2026: all five corrections below are retained.
+The [current audit](FINAL-GUIDE-AUDIT-20261105.md) now follows the user's supplied
+local `LaTeX-Templates/` folder: exact unmodified `acmart` v1.90a files,
+first-command `\documentclass`, review `manuscript,screen,review`, compact
+plain `sigconf`, and native table fonts/spacing. The prior 2.21 choice is
+superseded. Native reference text and semantic paragraph headings remain;
+Figure 1 has the description required by the local sample, and both table
+descriptions are retained additions. Four authors with Hieu correspondence,
+the 131-word abstract, 17 citations and separate 23-paper scope remain.
+All 40 venue tests and fresh validation pass. Five local-template profiles have
+10/5/10/5/4 pages; all 34 rendered pages pass reading-size inspection. Archive
+verification is recorded in `package-rebuild.json`.
+
+The local reference copy contains 55 byte-identical supplied files. Its README/DTX
+version 1.90 and class version 1.90a differ in the original ZIP; the class is
+copied unchanged. Native-font build 1 produced 10/5/10/5/4 pages with horizontal
+overflows. The local guide's §2.16 permits the seven scoped `sloppypar` remedies;
+regular-sized table cells use `table*`. Its §2.20 documents the package-order
+preload hook, which leaves supplied class bytes and first-command entries intact.
+Final body overflows are zero. One native named-compact 4.18721 pt horizontal
+output box and one anonymous-compact 1.152 pt vertical output box are retained
+with complete, readable last pages; validation enforces exact profile, context,
+size and count. No balancing-option override is retained.
 
 | Review comment | Revision and location |
 | --- | --- |
@@ -28,11 +39,13 @@ All historical numerical results, retained research evidence and 17 venue citati
 are preserved. The scientific changes concern presentation and interpretation;
 they add no repository experiment or comparative result.
 
-On 4 November 2026 the user authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating it into this revision. The combined candidate retains all five corrections above and the 131-word abstract, with Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha Hoang Bach as the four listed authors and Vo Duc Hieu as corresponding author. That integration also retained PR #60's native compact-column balancing and documented ACM publisher/address omission. The 5 November guide revision preserves native balancing but supersedes the omission by restoring the unmodified ACM reference block. Repository-integration authorization does not establish the removed individuals' consent, the listed authors' final acceptance or portal submission authorization.
+On 4 November 2026 the user authorized merging [PR #60](https://github.com/Little-Boy-s-ArchSync/archsync-paper/pull/60) and incorporating it into this revision. The combined candidate retains all five corrections above and the 131-word abstract, with Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha Hoang Bach as the four listed authors and Vo Duc Hieu as corresponding author. That integration also retained PR #60's native compact-column balancing and documented ACM publisher/address omission. The 5 November revision restores the native ACM reference block. The subsequent local-folder instruction also removes the added balancing option in favor of plain sample class options. Repository-integration authorization does not establish the removed individuals' consent, the listed authors' final acceptance or portal submission authorization.
 
-Earlier build, figure/table inspection and exact-source package verification
-are recorded in `validation.json`, `VISUAL-REVIEW.md`, `visual-inputs.json` and
-`package-rebuild.json` for their original PDFs. The current audit links the 5 November
-validation and visual receipts; archive verification is recorded in
-`package-rebuild.json`. Normalized scientific wording matches merged commit
-`586150ff30b618b5a6d8bb38a687530c3ef07b7c`.
+Earlier build, figure/table inspection and source-package checks retain their
+original byte scope. The superseded 2.21 candidate passed 37 venue tests and
+visual review of 34 pages; those counts are historical. Current local-template
+receipts bind the rebuilt PDFs in `validation.json` and `visual-inputs.json`;
+archive verification is recorded in `package-rebuild.json`. Scientific wording
+matches merged `586150ff30b618b5a6d8bb38a687530c3ef07b7c` under markup-only
+normalization, recorded in the parent workspace at
+`preparation/2026-11-05-template-folder/scientific-text-check.json`.

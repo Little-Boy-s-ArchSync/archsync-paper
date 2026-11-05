@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.7.2)  5 NOV 2026 06:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.7.2)  5 NOV 2026 07:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -8,8 +8,13 @@ entering extended mode
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (./acmart.cls
-Document Class: acmart 2026/11/01 v2.21 Typesetting articles for the Associatio
-n for Computing Machinery
+Document Class: acmart 2023/06/11 v1.90a Typesetting articles for the Associati
+on for Computing Machinery
+
+Class acmart Warning: I am loading acmart-preload-hook.tex. You are fully respo
+nsible for any problems from now on. on input line 46.
+
+(./acmart-preload-hook.tex)
 (/opt/texlive/texdir/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
@@ -32,19 +37,19 @@ Package: xstring 2023/08/22 v1.86 String manipulations (CT)
 (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 )
-Package acmart Info: Not using screen mode on input line 81.
-Package acmart Info: Using breaking urls on hyphens on input line 89.
-Package acmart Info: Requiring acmthm on input line 97.
-Package acmart Info: Not using review mode on input line 106.
-Package acmart Info: Not using authorversion mode on input line 114.
-Package acmart Info: Not using nonacm mode on input line 126.
-Package acmart Info: Explicitly selecting natbib mode on input line 142.
-Package acmart Info: Not using anonymous mode on input line 150.
-Package acmart Info: Not using timestamp mode on input line 158.
-Package acmart Info: Not using authordraft mode on input line 168.
-Package acmart Info: Using screen mode on input line 188.
-Class acmart Info: Using format manuscript, number 0 on input line 188.
-Class acmart Info: Using fontsize 9pt on input line 296.
+Package acmart Info: Not using screen mode on input line 76.
+Package acmart Info: Using breaking urls on hyphens on input line 84.
+Package acmart Info: Requiring acmthm on input line 92.
+Package acmart Info: Not using review mode on input line 101.
+Package acmart Info: Not using authorversion mode on input line 109.
+Package acmart Info: Not using nonacm mode on input line 121.
+Package acmart Info: Explicitly selecting natbib mode on input line 137.
+Package acmart Info: Not using anonymous mode on input line 145.
+Package acmart Info: Not using timestamp mode on input line 153.
+Package acmart Info: Not using authordraft mode on input line 163.
+Package acmart Info: Using screen mode on input line 178.
+Class acmart Info: Using format manuscript, number 0 on input line 178.
+Class acmart Info: Using fontsize 9pt on input line 277.
 
 (/opt/texlive/texdir/texmf-dist/tex/latex/amscls/amsart.cls
 Document Class: amsart 2020/05/29 v2.20.6
@@ -234,6 +239,10 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
 (/opt/texlive/texdir/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
+)
+(/opt/texlive/texdir/texmf-dist/tex/latex/textcase/textcase.sty
+Package: textcase 2025/02/16 v1.05 Text only upper/lower case changing (DPC)
+Package textcase Info: Defining Legacy names on input line 20.
 )
 \@ACM@acmcp@delta=\dimen167
 
@@ -669,10 +678,10 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@ACM@badge@width=\skip64
 \@ACM@title@width=\skip65
 \@ACM@badge@skip=\skip66
-Class acmart Info: Printing CCS on input line 1831.
-Class acmart Info: Printing bibformat on input line 1831.
-Class acmart Info: Printing folios on input line 1833.
-Class acmart Info: Setting authorsperrow to 0 on input line 1841.
+Class acmart Info: Printing CCS on input line 1729.
+Class acmart Info: Printing bibformat on input line 1729.
+Class acmart Info: Printing folios on input line 1731.
+Class acmart Info: Setting authorsperrow to 0 on input line 1739.
 
 (/opt/texlive/texdir/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write3
@@ -705,16 +714,20 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthR=\skip81
 \@temptokenb=\toks40
 )
+\@folio@wd=\dimen194
+\@folio@ht=\dimen195
+\@folio@voffset=\dimen196
+
 Special comment 'acks'
 LaTeX Font Info:    Trying to load font information for T1+LinuxLibertineT-TLF 
-on input line 3637.
+on input line 3527.
 
 (/opt/texlive/texdir/texmf-dist/tex/latex/libertine/T1LinuxLibertineT-TLF.fd
 File: T1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Li
 nuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 3637.
+(Font)              scaled to size 9.0pt on input line 3527.
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 7.
 Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 7.
@@ -880,13 +893,13 @@ Package hyperref Info: Link coloring ON on input line 7.
 (/opt/texlive/texdir/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count323
-\scratchdimen=\dimen194
+\scratchdimen=\dimen197
 \scratchbox=\box63
 \nofMPsegments=\count324
 \nofMParguments=\count325
 \everyMPshowfont=\toks41
 \MPscratchCnt=\count326
-\MPscratchDim=\dimen195
+\MPscratchDim=\dimen198
 \MPnumerator=\count327
 \makeMPintoPDFobject=\count328
 \everyMPtoPDFconversion=\toks42
@@ -1093,6 +1106,38 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 6.6pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 9.0pt on input line 13.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 6.6pt on input line 13.
 
 
 [1.1{/opt/texlive/texdir/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/opt/tex
@@ -1103,44 +1148,16 @@ mf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/opt/texlive/texdir/texmf-di
 st/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/opt/texlive/texdir/texmf-dist/fo
 nts/enc/dvips/libertine/lbtn_7grukw.enc}{/opt/texlive/texdir/texmf-dist/fonts/e
 nc/dvips/inconsolata/i4-t1-4.enc}]
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.6pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 9.0pt on input line 13.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 6.6pt on input line 13.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
+
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 32.
 [2.2{/opt/texlive/texdir/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}]
+)
 
-
-[3.3])
+[3.3]
 
 (/opt/texlive/texdir/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
@@ -1157,13 +1174,13 @@ Package rerunfilecheck Info: File `iciit2027-supplement.out' has not changed.
 (rerunfilecheck)             Checksum: 690109218D6E4223D122AE40E9C3A5E8;2065.
  ) 
 Here is how much of TeX's memory you used:
- 21129 strings out of 473201
- 340290 string characters out of 5718211
- 806788 words of memory out of 5000000
- 43576 multiletter control sequences out of 15000+600000
- 689772 words of font info for 297 fonts, out of 8000000 for 9000
+ 21133 strings out of 473201
+ 340354 string characters out of 5718211
+ 801839 words of memory out of 5000000
+ 43572 multiletter control sequences out of 15000+600000
+ 694663 words of font info for 296 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,12n,131p,1017b,591s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,12n,131p,1017b,591s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/texlive/texdir/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi
 4r.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/libertine/LinBiolinum
 T.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/libertine/LinBiolinumT
@@ -1172,10 +1189,10 @@ T.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/libertine/LinLibertine
 TB.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/libertine/LinLibertin
 eTI.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></o
 pt/texlive/texdir/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
-Output written on iciit2027-supplement.pdf (4 pages, 378920 bytes).
+Output written on iciit2027-supplement.pdf (4 pages, 385623 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
- 13 named destinations out of 1000 (max. 500000)
- 76369 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 130 PDF objects out of 1000 (max. 8388607)
+ 99 compressed objects within 1 object stream
+ 14 named destinations out of 1000 (max. 500000)
+ 80465 words of extra memory for PDF output out of 89155 (max. 10000000)
 

@@ -1,5 +1,5 @@
 {
-  "archive_sha256": "e39aeb1eef0d12403d0b03e8f2370a712abe33118e2e7dadb5de773880b5e648",
+  "archive_sha256": "472d221d3199737838aa91264223fe1ca74a56b7840f29e6e73a85b22039bc36",
   "status": "REBUILD_VERIFIED",
   "exit_code": 0,
   "text_matches": [
@@ -36,22 +36,31 @@
     "standard_paragraph_sectioning_verified": true,
     "figure_and_table_descriptions_verified": true,
     "supplement_metadata_verified": true,
+    "profile_class_first_command_verified": true,
+    "package_order_preload_hook_verified": true,
+    "standard_layout_source_verified": true,
     "author_layout": "standard-acm",
     "default_acm_author_renderer": true,
     "correspondence_in_author_footnote": true,
     "evidence_hashes_verified": false,
-    "production_template_version": "2.21",
-    "class_matches_production_generation_receipt": true,
-    "production_template_sources_verified": true,
-    "bibliography_style_matches_production_archive": true,
+    "supplied_template_version": "1.90a",
+    "class_matches_user_supplied_template": true,
+    "supplied_template_inventory_verified": true,
+    "bibliography_style_matches_user_supplied_template": true,
     "layout_diagnostics": {
       "review": [],
-      "compact": [],
+      "compact": [
+        {
+          "kind": "hbox",
+          "points": 4.18721,
+          "context": "output routine"
+        }
+      ],
       "review-anonymous": [],
       "compact-anonymous": [
         {
           "kind": "vbox",
-          "points": 1.1135,
+          "points": 1.152,
           "context": "output routine"
         }
       ],
@@ -61,32 +70,32 @@
       {
         "file": "iciit2027-review.pdf",
         "pages": 10,
-        "sha256": "7d65928d9fb6d03f3dcd4c48379647f18eb2e04e62ba6c079003aae264286d94",
-        "bytes": 460905
+        "sha256": "bb4c06b5d492ba92eee62120d28db0194bbfe9db6d739f1702c79a274c521ed2",
+        "bytes": 463389
       },
       {
         "file": "iciit2027-compact.pdf",
         "pages": 5,
-        "sha256": "fc8686d7a24783ec8f4fef2718c0238b3e4ea4842ea775b58a3381efb06da463",
-        "bytes": 434769
+        "sha256": "6becbb0e33f95342075d0e38a8c008f29c35795bdb4d310a65bd4efe9e7e01e2",
+        "bytes": 436547
       },
       {
         "file": "iciit2027-review-anonymous.pdf",
         "pages": 10,
-        "sha256": "011c21b1416c8a247fe8e5182272d0fab7dd5030b874bae72d0574093da3af4b",
-        "bytes": 452913
+        "sha256": "383a8ce28068923fe40bd722211fc28366dfb219e3ff7430e591d1c2c0a72cea",
+        "bytes": 456268
       },
       {
         "file": "iciit2027-compact-anonymous.pdf",
         "pages": 5,
-        "sha256": "36a60c199c0e4aa1287b3638a18d87319f3c9626a5b5f68afc0837be63a212bb",
-        "bytes": 428477
+        "sha256": "a525f854d09f68c9249742a5e528681da57094ece386f60faf723734bcec5470",
+        "bytes": 430216
       },
       {
         "file": "iciit2027-supplement.pdf",
         "pages": 4,
-        "sha256": "5be8082470d712e97a86d8b8282c05eec466376c62111fb6d2680d1a3cef68d0",
-        "bytes": 378920
+        "sha256": "6b1fdb19a6b1caf6599c335bfaef0f8bb5b153928f0ee036e6fc3fbdd985ced9",
+        "bytes": 385623
       }
     ],
     "visual_review": "separate review required",

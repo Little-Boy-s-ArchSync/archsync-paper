@@ -1,26 +1,48 @@
 # ICIIT 2027 (Ho Chi Minh City) — current candidate requirements
 
-Checked against the current official guide on 5 November 2026. Start with
-[FINAL-GUIDE-AUDIT-20261105.md](FINAL-GUIDE-AUDIT-20261105.md) and
-[DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md). Earlier September instructions and
-receipts retain their dated scope; their deadlines and template release do not
-control this candidate. All five profiles build with pdfLaTeX/TeX Live 2024;
-37 venue tests and visual review of all 34 rendered pages pass. Archive
-verification is recorded in `package-rebuild.json`.
+The user's later instruction on 5 November 2026 makes the supplied workspace
+`LaTeX-Templates/` folder authoritative for template choice. It supersedes the
+earlier 2.21 selection, while the current conference dates and the five review
+fixes remain. Start with [FINAL-GUIDE-AUDIT-20261105.md](FINAL-GUIDE-AUDIT-20261105.md)
+and [DRAFT-CHECKLIST.md](DRAFT-CHECKLIST.md). The local-template build has 10/5/10/5/4 pages; all 40 venue tests, fresh
+validation and all 34 rendered-page inspections pass. Archive verification is
+recorded in `package-rebuild.json`.
 
 | Item | Official evidence and consequence |
 | --- | --- |
 | Identity/location | 12th International Conference on Intelligent Information Technology, 4–7 March 2027, Ho Chi Minh City, Vietnam. [Home](https://www.iciit.org/) and [venue](https://www.iciit.org/venue.html). |
 | Destination | ACM conference proceedings is the candidate target, distinct from the site's journal alternatives. Advertisement of proceedings/indexing does not establish acceptance or guaranteed indexing. [Submission](https://www.iciit.org/sub.html). |
 | Dates | Full paper 30 November 2026; abstract 5 December 2026; notification 20 December 2026; registration 10 January 2027. The public cutoff time/timezone remains unspecified. [Dates](https://www.iciit.org/date.html). |
-| Format | English; the guide's review recommendation is `manuscript,screen,review`. This single-column profile is the primary review candidate. Compact `sigconf,pbalance` is a proceedings preview using the documented class balancing option. Native ACM Reference Format is restored. |
-| Production template | Unmodified ACM production `acmart` 2.21 (1 November 2026), obtained from CTAN; class generated with the supplied installer and no edits. Unmodified bibliography style/source files are retained. [Production provenance](official/2026-11-05/production-template-provenance.json) records archive SHA-256 `81977a834f5cfd5302c37181ede34d2663eeea60604d1d89230e3c5e74b9a4bb` and file checks. Raw venue-ZIP retrieval failed and direct ACM download returned HTTP 403; the verified CTAN production release supersedes the earlier retained template. |
-| Length | Minimum 8 single-column or 4 double-column pages, including references. Regular allowance 10 single-column or 5 double-column pages; extra pages incur charges. A hard maximum is not stated. Both main review profiles are 10 pages, both compact previews 5 pages, and the separate supplement 4 pages. |
-| Paragraphs and accessibility | Standard paragraph sectioning replaces manual bold leads. Figure 1 remains embedded with a description; both tables have text descriptions. All 34 pages were visually inspected; cited keys and references resolve. |
+| Format | English. The local `sample-manuscript.tex` requires `manuscript,screen,review` for review; this is the primary candidate. The local `sample-sigconf.tex` uses plain `sigconf` for camera-ready/proceedings preview. Each build entry starts with `\documentclass`. Native ACM Reference Format remains. |
+| Supplied template | Exact unmodified local `acmart` v1.90a (11 June 2023) class, DTX and `ACM-Reference-Format.bst` from the user's `LaTeX-Templates/` folder. The later explicit local-folder instruction supersedes the earlier CTAN 2.21 choice. The [local provenance receipt](official/2026-11-05/local-template-provenance.json) binds the copied files and originating ZIP; CTAN provenance is historical. |
+| Length | Minimum 8 single-column or 4 double-column pages including references; regular allowance 10/5; extra pages incur charges. A hard maximum is not stated. Final main profiles have 10/5 pages; the separate supplement has 4 pages. |
+| Paragraphs and accessibility | Standard paragraph sectioning and native table fonts/spacing. Manual small table fonts, `pbalance`, `emergencystretch` and reduced `tabcolsep` overrides are removed. The local samples require descriptions for figures; the two table descriptions are retained additions. All 34 rendered pages pass inspection, with native embedded fonts on Letter pages and PDF creator version 1.90a. |
 | Review identity | The public guide does not settle venue-specific anonymity. Named and technically anonymized alternatives remain available; follow the authenticated portal/organizer instructions. Redaction does not erase public history. |
-| Supplement | Separate supplementary upload acceptance and its page counting remain unconfirmed. Review output includes the appendix; compact readers have a 4-page supplement with its own four-author metadata, abstract, CCS concepts, keywords and native ACM reference block. |
+| Supplement | Upload acceptance and page counting remain unconfirmed. Review output includes the appendix; compact readers have a separate supplement with its own four-author metadata, abstract, CCS concepts, keywords and native reference block. The supplement is 4 pages and visually checked. |
 | Fit | The [call for papers](https://www.iciit.org/cfp.html) includes intelligent software systems, service-oriented computing and information extraction/classification. The draft emphasizes auditable extraction and deterministic conformance decisions. |
 | Publication obligations | Accepted-paper registration and presentation are required for proceedings publication. [Registration](https://www.iciit.org/reg.html). Confirm presenter, charges and any waiver before payment. |
+
+## Supplied-file identity and native wrapping
+
+The [local provenance receipt](official/2026-11-05/local-template-provenance.json)
+binds all **55 supplied template files** to the original folder/ZIP. The supplied
+README/DTX identify 1.90 while the supplied class identifies 1.90a; that difference
+originates in the ZIP. The class is copied unchanged, rather than regenerated.
+
+The initial native-font build exposed body line overflows. Seven scoped
+`sloppypar` environments, permitted by the supplied `acmguide.pdf` §2.16 (p. 29),
+and native-size `table*` cells resolve them. The final build has **zero body
+overflows**. It retains one native output-routine diagnostic in each compact
+profile: named 4.18721 pt horizontal box and anonymous 1.152 pt vertical box.
+The complete last pages remain readable without overlap. Validation checks the
+exact profile, context, size and count, rejecting other overflow variations.
+
+The minimal `acmart-preload-hook.tex` resolves package loading order through the
+local guide's documented mechanism (§2.20, pp. 30–31). Supplied class bytes and
+first-command `\documentclass` entry points are preserved. Plain sample class
+options remain, with no `pbalance` or `balance=false` override. All 40 venue tests,
+fresh validation and visual review of all 34 pages pass. Archive verification
+is recorded in `package-rebuild.json`.
 
 ## Manuscript and scope preserved
 
@@ -40,14 +62,13 @@ verification is recorded in `package-rebuild.json`.
 - Four authors in order: Vo Duc Hieu, Tran Minh Hoang, Le Van Kiet and Ha Hoang
   Bach; Vo Duc Hieu is corresponding author. Their per-author affiliations,
   four emails and four supplied ORCIDs are preserved; all four ORCID check digits
-  are valid. Obsolete postal values are omitted because the current class
-  ignores `postcode`. No missing faculty ORCID
-  is a current requirement because those two individuals are no longer listed.
+  are valid. No missing faculty ORCID is a current requirement because those
+  two individuals are no longer listed.
 
 ## Outstanding submission decisions
 
-Build, venue tests and visual checks are complete; archive verification is
-recorded in `package-rebuild.json`. Confirm anonymity, portal-specific upload directions, supplementary-file policy
+Local-template build, all 40 venue tests, fresh validation and all-page visual
+checks pass. Archive verification is recorded in `package-rebuild.json`. Confirm anonymity, portal-specific upload directions, supplementary-file policy
 and cutoff timezone. Obtain the four listed authors' acceptance of the exact
 candidate and the required declarations on contribution, conflicts/funding,
 simultaneous submission and accountability. Resolve removed individuals'
@@ -69,8 +90,11 @@ is established by this preparation.
   introduced then was a documented template exception.
 - 4 November: PR #60 was merged and incorporated into the five-comment revision
   through PR #61, preserving the four-author update and scientific corrections.
-- 5 November: the current production template, native ACM reference block,
-  semantic paragraph headings and table descriptions supersede the earlier
-  template release and publisher/address exception. The five profiles build at
-  10/5/10/5/4 pages; 37 venue tests and all 34 rendered pages pass visual review.
-  Archive verification is recorded in `package-rebuild.json`.
+- 5 November, earlier production audit: unmodified CTAN `acmart` 2.21, native
+  reference text, semantic headings and table descriptions were validated at
+  10/5/10/5/4 pages with 37 venue tests and 34 inspected pages. That receipt
+  remains valid for its own bytes, but its template selection is superseded.
+- 5 November, later local-folder instruction: exact supplied v1.90a files and
+  sample entry/typography rules prevail. Scientific content and author metadata
+  remain. Final 10/5/10/5/4-page profiles pass 40 venue tests and all 34
+  rendered-page inspections; archive verification is in `package-rebuild.json`.

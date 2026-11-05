@@ -3,8 +3,8 @@
   "archives": [
     {
       "file": "archsync-iciit2027-source.zip",
-      "sha256": "e39aeb1eef0d12403d0b03e8f2370a712abe33118e2e7dadb5de773880b5e648",
-      "bytes": 2404773
+      "sha256": "472d221d3199737838aa91264223fe1ca74a56b7840f29e6e73a85b22039bc36",
+      "bytes": 15250184
     },
     {
       "file": "archsync-iciit2027-evidence.zip",
@@ -15,7 +15,7 @@
   "source_files": [
     {
       "path": "DRAFT-CHECKLIST.md",
-      "sha256": "6d18dc2fa73a726289e0dee38fe639a977542123ffbfff3638590a7ca451cc7c"
+      "sha256": "e91382b5e82ef9875995c5e7f2a0a0987eeddcb704e0c0f827ff55710bb48c6f"
     },
     {
       "path": "SUBMISSION-AUDIT-20260927.md",
@@ -31,7 +31,7 @@
     },
     {
       "path": "REVISION-TRACEABILITY.md",
-      "sha256": "19ae91484d49bdc8ca86b7611ec3ef10fc8f2396b18c49ecd763e7e72eb0c073"
+      "sha256": "eef9aae0671f1b612b6eb6941e73b22dd81f8a85d5c46a8cc1873fe51009ffb1"
     },
     {
       "path": "CLAIM-EVIDENCE.json",
@@ -39,11 +39,11 @@
     },
     {
       "path": "paper.tex",
-      "sha256": "45d96ae4796c52d776d76d48cc4cd8df7670b933fe65573cf85edbdafda554b7"
+      "sha256": "f053d4bc6f9b07ef2ea2dd404e4e0302e6863ebeb66a37ab321ee8bdc81b0cc1"
     },
     {
       "path": "related-work.tex",
-      "sha256": "c1ea72ca0a38078dd3eae6bc454242099f3b8b30d79421edcd9e39b11512452d"
+      "sha256": "c3f819ec468d545402ed7cf4faeae751c4a5b9779cc81165b3c516fdf94f97ca"
     },
     {
       "path": "appendix.tex",
@@ -55,15 +55,15 @@
     },
     {
       "path": "acmart.cls",
-      "sha256": "cb641fdfe8a6b9bbe171a0794218657c737c4b622c584dab09115a9e269eb296"
+      "sha256": "c27fec209ad1e1be8af87ffc63295c3833ba83238e34f594d36c89a4e48fa48c"
     },
     {
       "path": "acmart.dtx",
-      "sha256": "60d819ce2c75a0a5fa78e1fbdfd6f967e6635d9c36e8badc6d8193c3d1dc7595"
+      "sha256": "b803357d16edcd79799f68948f841a5d0dac6bff9ad917b97eb38204160b5046"
     },
     {
       "path": "ACM-Reference-Format.bst",
-      "sha256": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04"
+      "sha256": "6225898340ce8ca3536ab1141cfd822e4d80049bd3a19c85bd6221072e2466d0"
     },
     {
       "path": "build.sh",
@@ -75,11 +75,11 @@
     },
     {
       "path": "validate.py",
-      "sha256": "28daefe88bf968144f240f2158b508c6fea41211a17e9755b80d0380069e72e1"
+      "sha256": "4a1cda3087a55830aaec3b7a0927e125cc8924e02d572b9dda05a3e1d0c74e6b"
     },
     {
       "path": "test_validate.py",
-      "sha256": "eeeb462318c2233eb25316cda8285f2c505bb4d396871eff9e390bc55f43d988"
+      "sha256": "454fdfe8c7c306af8136cf4c0df6a84e34878fa364b8c6163128938924e7258b"
     },
     {
       "path": "verify-package-rebuild.py",
@@ -87,23 +87,23 @@
     },
     {
       "path": "README.md",
-      "sha256": "ab7049f5962a6b1bd3290aa516fe634c057798a09cb2e351addea5c0cb635807"
+      "sha256": "7a9cd3e11e966664b667805a78cc3e51c52b42191e60a01227f8d9d3f725148d"
     },
     {
       "path": "REQUIREMENTS.md",
-      "sha256": "ddfa0b295f421f47a17e906a18b420fafba66dfba7536e798b628dfcb3455e32"
+      "sha256": "b24fe8ae57c0b4667e2288614f11783089fa50d3c017d66f3207507e49d76c73"
     },
     {
       "path": "SUBMISSION-METADATA.md",
-      "sha256": "09c5f1b7e1994ceddf7572428d104f411cfd2c25fd7cf091edb41a11afca0f29"
+      "sha256": "bb970deeb46f11a8df622dfb636d726f8d8ee4ba07bfe31027722cfa456e73f4"
     },
     {
       "path": "submission-metadata.json",
-      "sha256": "97ec91c6f7dbd495a959faa34d63640959dcd4808cdf64b83a51c5c6b3e5c525"
+      "sha256": "41d90f475f5d23d481c7b4934bca7e005cccedcdc9af63cd3a8b8fd36232b9db"
     },
     {
       "path": "validation.json",
-      "sha256": "1322f7ca57eca581d6efc17f6f352a0a9f90384745cf275c3df193a878ba90cc"
+      "sha256": "0f3136b304211dadbeea8617bfd682498f2cf0e63cdbec94d34c3f7fa39fdcfa"
     },
     {
       "path": "evidence-manifest.json",
@@ -111,11 +111,11 @@
     },
     {
       "path": "VISUAL-REVIEW.md",
-      "sha256": "198f26fbae8ea5bc9e1e8738e3897f63d185cee8967fe2835acd972f2ac5420e"
+      "sha256": "90be563715c50126014ac93d91d0132dca1ba75fa692d624776c6efd9765060b"
     },
     {
       "path": "visual-inputs.json",
-      "sha256": "963fd4036fc59519805956ed7630452c0e46e4d6ce0670f74fda6e13eb48531e"
+      "sha256": "90785b13277859e8b692916d0687acb4d356f3d634c0f935b1c712d9044bb683"
     },
     {
       "path": "official/retrieval.json",
@@ -123,11 +123,11 @@
     },
     {
       "path": "template/LaTeX-Templates/acmart.cls",
-      "sha256": "cb641fdfe8a6b9bbe171a0794218657c737c4b622c584dab09115a9e269eb296"
+      "sha256": "c27fec209ad1e1be8af87ffc63295c3833ba83238e34f594d36c89a4e48fa48c"
     },
     {
       "path": "template/LaTeX-Templates/ACM-Reference-Format.bst",
-      "sha256": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04"
+      "sha256": "6225898340ce8ca3536ab1141cfd822e4d80049bd3a19c85bd6221072e2466d0"
     },
     {
       "path": "acmart.ins",
@@ -135,7 +135,7 @@
     },
     {
       "path": "FINAL-GUIDE-AUDIT-20261105.md",
-      "sha256": "598b5c07f1c46ad9c559a63001fea2a61c67c37bc68f1bcffda53fc18a4c0249"
+      "sha256": "67b8a598aff8e1c3d7e6e1d3d452e1f618d2f6031e21398caff4c0025caf2a98"
     },
     {
       "path": "official/2026-11-05/production-template-provenance.json",
@@ -155,7 +155,7 @@
     },
     {
       "path": "texlive-compat.tex",
-      "sha256": "26e1606cb128903a3f6fc00c2fda06f6a6574a5d4cbf88b951b67fe53cebe9a7"
+      "sha256": "e3c4c165c85bddb5278d68c82ba3443f1ba0e1ae2610a5f22c5c07c63d8014f1"
     },
     {
       "path": "reference-scope.json",
@@ -167,7 +167,7 @@
     },
     {
       "path": "REVIEW-RESPONSE-20261104.md",
-      "sha256": "202be25a67bbc1ac8cdfe0f6f4f4baa37ee0ce4da2d5430fb6debf7ec87bd769"
+      "sha256": "29d3b95d2b206a593900cfd82ed6aabcff93944a0757caf5debfb62f047e6f96"
     },
     {
       "path": "audit-evidence.py",
@@ -186,64 +186,284 @@
       "sha256": "488478e7fe2de8df779048737d8ff580160fd9a394e34d979027acd7cf919c47"
     },
     {
+      "path": "acmart-preload-hook.tex",
+      "sha256": "f2a20c5c9a67efef0b7cf9c0e0411db21c5a7575a7939789642cbd55f5161d28"
+    },
+    {
+      "path": "official/2026-11-05/local-template-provenance.json",
+      "sha256": "30e8dc819c93a3664062e2d6dddce22c817185f6c8f42a429b9ce18065b0940f"
+    },
+    {
+      "path": "template/LaTeX-Templates/.gitignore",
+      "sha256": "4c217909ab4fb1256cb066a2d8c6ced970904133621bf2113c643d60fd31fad6"
+    },
+    {
+      "path": "template/LaTeX-Templates/Makefile",
+      "sha256": "a7874e8ae445bfbbe83a180b278f76c6a10b801f7a37e71155f5d3d39d519996"
+    },
+    {
+      "path": "template/LaTeX-Templates/README",
+      "sha256": "b0a1c43a36cddac4635050632a955bbf6bc7de2cd2a61f29139347a6fb7c1e09"
+    },
+    {
+      "path": "template/LaTeX-Templates/acm-jdslogo.png",
+      "sha256": "539a878e7d7b5442591def37a29eca693dde3a789cc9f3b83c0f1aa117898219"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmart.bib",
+      "sha256": "da283243f63178da207da639cc94652407a0fe218d3cd12b852d21de9d01c8da"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmart.dtx",
+      "sha256": "b803357d16edcd79799f68948f841a5d0dac6bff9ad917b97eb38204160b5046"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmart.ins",
+      "sha256": "fa7daaa9375775ce699f33f909667bdb83c0408fd8d67606926df86c346c4044"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmart.pdf",
+      "sha256": "027938dbc822f28de001bd1959ba193e9773e030774e26d0cffe05b19e5a7bd1"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmauthoryear.bbx",
+      "sha256": "555a33a0485d23250b7fb340dd8781b8afc91a9c71faa2a744705dd1d5d2a6e8"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmauthoryear.cbx",
+      "sha256": "cb22394f982fcaf8ed7f0df34234696f45fc130afcf9ee3cd1260805ad2170d1"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmdatamodel.dbx",
+      "sha256": "a5bab6fed4585780632607ef2790ee8797864244a4b80bc0c4e3bfcb76b0c2bc"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmguide.pdf",
+      "sha256": "f98ed52a02c15a0da69aa9d00d7145f2e38ab3e1ebc7238ca0e23ae066b52607"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmnumeric.bbx",
+      "sha256": "bbf30642de2ea8b16f2d7056f9114af7e1d29efb2293848e61197ccd9e897943"
+    },
+    {
+      "path": "template/LaTeX-Templates/acmnumeric.cbx",
+      "sha256": "22db9dd1bcb095d8af106e6a834f0ce1f182c73eee656589043c0153f226d911"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/abbrev.bib",
+      "sha256": "9c7ce82da9113aa18037b9860cfe37270ec9e1cab8a9a9841e3aa730db8c6756"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/acmart.cls~",
+      "sha256": "30a0c9264b387c556aed4e35115591e5527313268c8c8e810910f044ce9f8a23"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmcp.pdf",
+      "sha256": "1df7b29e18538522fb9ef20f26410f3ca456d4f62dd7b61275c85b732f6e24e5"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmcp.tex",
+      "sha256": "95ee25a93fafde772ff655cf8b5fd8514cef65c4191d1deeff424540c8a6f896"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmlarge.pdf",
+      "sha256": "881e00642be8130c0699c8378d92795fb0fb92346efa3baaeacb3adb129cf81b"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmlarge.tex",
+      "sha256": "b88ccf17ef3f192f37dbf57819e3f297f36c6894f17bbab4160782da98f25754"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-biblatex.pdf",
+      "sha256": "636a78aed874713d9307f3abd4cc14218e9d6e5347a73456077fd1595d4e303d"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-biblatex.tex",
+      "sha256": "8738d81482eb3abc2f398ef2741121bf7ff8af385273b64c9f37232e54c6d9e7"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-conf.pdf",
+      "sha256": "d15bd94e0529a4feb2075e9ae855cddfcffa6b1601b30ff561292070a2b48fe9"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-conf.tex",
+      "sha256": "0f80d24739c6bf46a0d5d34ae182bdca00693bb5f7bba9965013c44f83e142b1"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-submission.pdf",
+      "sha256": "541d3ba69f0f6fe5ed2bb6f89f2cf21218a8615e473090b4eb45f7953b7c85ad"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-submission.tex",
+      "sha256": "13d8cff74aef3fb71731af2d45f5e349929740d7cff1b8559d6d55eded6f3572"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall-tagged.tex~",
+      "sha256": "e7262f4a7d5d2dbb0967fa91ca8c7461d2b8e771897f5fb2b83b4ab5b23b2b9f"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall.pdf",
+      "sha256": "e6faada9992ffd2bbc098a36652040c7a3200540545aa3abf9fcb75cda694a97"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmsmall.tex",
+      "sha256": "e159639a08b1d18d4eba9f8c5ddecad8fe85bf5aad053b8c5a07f429713478d4"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmtog.pdf",
+      "sha256": "c35c74aa5dec43339771f183d0c93157a36cb238e63d410cd9ff371b263ae5f8"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-acmtog.tex",
+      "sha256": "87ccbae2e5dc578f939bdd8ad6b4bf55e4947446cd3a7ca9f37bbd1cd5d8a703"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-authordraft.pdf",
+      "sha256": "80a2044147292813e171c7cffab44c820c96d3ea22c92e9b26785dba51935158"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-authordraft.tex",
+      "sha256": "e9d0bc8a1fb3e9fb6f4a351d73683f04cf7899a2742879b49ad9cc556c4bf6fc"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-base.bib",
+      "sha256": "e4bc7fab7be6200e71dab2b685bbc492b1e8188cee0b10860c1a772cbf8d0bc8"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-franklin.png",
+      "sha256": "c3a1c87e65c70cbc5310c0212a267532a3002c685cc1bb8e3ce74c1caacd3f02"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-lualatex.pdf",
+      "sha256": "d4cbe14bc1b294e60619d2d91f87b8849a177c672b5e28f086abfabb7afe1898"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-lualatex.tex",
+      "sha256": "f4c63b362ac6b2b1a7e17be04272a1e1acc8e810f3cb154fcb477a2dbe5ab0c0"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-manuscript.pdf",
+      "sha256": "392979fcfba4bf6b4d5826809f7d9aff32f77f68506c73418068c45c2c64959d"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-manuscript.tex",
+      "sha256": "1df82f21e2030ab8872ce365f5c5bfb2111ddcb5242e8788e58e054128d628c8"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigconf-biblatex.pdf",
+      "sha256": "d60e7bda67c5dd588ec5a61f1f806b8e9c0c71ff0ab28fe64462f62d889df3b0"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigconf-biblatex.tex",
+      "sha256": "6e8d36ebce6ec2ba5a09a8dfd8e25b4394f15f42525fe056b510d416b53e2bdd"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigconf-i13n.pdf",
+      "sha256": "6eb05f4059ac715e3e0ee119008c7394b202ab8c59669c3e118ce619fcdcc574"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigconf-i13n.tex",
+      "sha256": "bcec3356660eccdd8b6169820924627b5fe6f674aa8c0e53520542ed1bdc55fc"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigconf.pdf",
+      "sha256": "28d5776ef8c29b8eb3c626e60cbd517600417809c35726ef918a38b831c6e944"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigconf.tex",
+      "sha256": "2545555d71c11aa7c3aa877ce8e59a13c2e6d9a5a9376820d873ed979352d60b"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigplan.pdf",
+      "sha256": "bd8abd69b7eef53c866f7697d3e1e523941e1761f860697421d34fc1d13c1cc9"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-sigplan.tex",
+      "sha256": "006856001458b3163d1c8ad13e8561c6b99f40f2ac51770ea465799f37098657"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-xelatex.pdf",
+      "sha256": "e1998bbb55dc534fb845661123ddfc14957ff170689dfacfb87b5c4c29f57e72"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sample-xelatex.tex",
+      "sha256": "efee35be99ffbb27f42375e4a9378db4b7ec1fc8f57e8888fa9979840699836d"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/samples.dtx",
+      "sha256": "21a5c216445b8ed3f69c6a80ebc7f2b4f32c60b95488896f9f1f4e40b1e74b64"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/samples.ins",
+      "sha256": "d035b199f98025d11231ed562f4fd0a68eaba53bf1dbd69d10f0fc77892e9015"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/sampleteaser.pdf",
+      "sha256": "46154916fe8ecc9c3fae87705bfdff78e1d537fe5c4bfd74227cc338de6f2810"
+    },
+    {
+      "path": "template/LaTeX-Templates/samples/software.bib",
+      "sha256": "ccab561fcf9d036877bb20bd3c44718f68167f1a4350254e92acc80140d893e5"
+    },
+    {
       "path": "iciit2027-review.tex",
-      "sha256": "41549a85bdedf6f1f058476e3b5624429827f9a6dc67255f1fee2d5540c00fa5"
+      "sha256": "78dab75a2fa4e6d8f89c9eb54546f0e62ebd919a4f18cc17a453df7c47a447b0"
     },
     {
       "path": "iciit2027-review.pdf",
-      "sha256": "d93630c89aac71f5d766cacd20b6f7f659b487d79e1d41d76180a708d92765e6"
+      "sha256": "6081058fc3ccd2d0d9df8ba1b8317837208ff151a6e0703c5b8d292c4c33ff8f"
     },
     {
       "path": "review-build.log",
-      "sha256": "2d591c159f8a72ee81483f47b1f0c7072b84cf0766d2324898b57990ffefec8e"
+      "sha256": "02f1e72857e78eeb308e93f83e5f0124715bb33204391ccbfbb65c9f0116f991"
     },
     {
       "path": "iciit2027-compact.tex",
-      "sha256": "099d4757742dcd908fb323861de6fcba6e69412400a9d335b16592065139f6d4"
+      "sha256": "bae4631762462feb78496e38425f404d65c2756f0df0b274184ea3f1b04136cd"
     },
     {
       "path": "iciit2027-compact.pdf",
-      "sha256": "325c59b87c9aa9a936b983a52dd49a6cf6e700d3495e7cd830f7dc027b0d3233"
+      "sha256": "144943a555bde1eeb18c69bdef6bc8d854deaa700af6d42e30f1afc65b94fe06"
     },
     {
       "path": "compact-build.log",
-      "sha256": "b0b56f83c74fcb23d50dda805ace4a6a4f4b3bc2f3bff9eba4852399a96084aa"
+      "sha256": "03f93570b613bb39cc6fa507c63a410d94f7d96982cf8fd54321560edefad0b7"
     },
     {
       "path": "iciit2027-review-anonymous.tex",
-      "sha256": "98aee1ad629a1f437adb52ebb63fca836937ed5a5bea208d9acbf077c14f4a48"
+      "sha256": "cb6b62df1b1f9b3bbdbfcbfaa95de2e305136373cde69759a9ae550c0d0e7de6"
     },
     {
       "path": "iciit2027-review-anonymous.pdf",
-      "sha256": "2e7ea2d92e462f936fc400e251f6c8e1e80e16f71d28806fb2b4a42a14d5964b"
+      "sha256": "e4481a5d7c02529fafed46d1ad35de6d04b345f7cad136d7a2a04a592f5a844c"
     },
     {
       "path": "review-anonymous-build.log",
-      "sha256": "689b70a0ab2263dd619c3ca417859e0330da8e75a7630be97dfb130cff4ecaa3"
+      "sha256": "aaedb63fab027c3fff968b34a5aae7c31d0bcffb68b0ab92a8c935f27169ef8b"
     },
     {
       "path": "iciit2027-compact-anonymous.tex",
-      "sha256": "8dc2e6de1ffb196d083d162361ea81cc80f971036e8eef6f399787212a5e4b5c"
+      "sha256": "0a307935e74af53c58c4f1160ab3ce3c2c538f497d3a1466ef846e4001036d94"
     },
     {
       "path": "iciit2027-compact-anonymous.pdf",
-      "sha256": "d9c333b32fc02c21ca7b72ce235088cb634bfcf9099b61cd43caf4a663badb91"
+      "sha256": "e1266f984503c0bc5816d9b44fbd2835f89fd28d6ce37e679bb7af9072426585"
     },
     {
       "path": "compact-anonymous-build.log",
-      "sha256": "fc5c94ed38862695fb330c4ba8ba4baf3147d8b77e2cb5f8ccee06abd53a24d4"
+      "sha256": "4b1731a6d0e7cd7ef16845f7cc684fd0b4676bfdb8568681249aae39b3525d36"
     },
     {
       "path": "iciit2027-supplement.tex",
-      "sha256": "c9c12fbdd871c0bf9f5d6baf0e1a23103fa8d22acc120471f6e6d8110ca4402b"
+      "sha256": "bd913079d10344ef2bb12b12d69fd04ac79dd5abe5498c917082fe8b893c0d4e"
     },
     {
       "path": "iciit2027-supplement.pdf",
-      "sha256": "f330e31d689ca52470fa4fe526868b5b7147e2c8c53c040868402d74e374a41e"
+      "sha256": "2eb7be1c7281916f2a9d27cdfc1cddc2c0999758ac7fbfcdd0fa84e73af5680d"
     },
     {
       "path": "supplement-build.log",
-      "sha256": "f6295e026fc4b64ff08d9a9ec486972809c5ec1c9e4a53573a8c36373067d8f9"
+      "sha256": "9e4a93e558fea59004c5bf30594c4b3ee69cc79465d4b40d93f76b34e974d39b"
     }
   ]
 }

@@ -1,0 +1,6 @@
+% Package-order compatibility for the supplied acmart 1.90a on TeX Live 2024.
+% The local acmguide.pdf section 2.20 documents this class preload hook.
+% It changes package loading only; the supplied class and layout remain unchanged.
+\AddToHook{package/hyperxmp/before}{%
+  \RequirePackage[bookmarksnumbered,unicode]{hyperref}%
+}

@@ -1,8 +1,5 @@
-# Downloaded full template archive and examples are local reference caches.
+# The raw download is a local cache; the supplied reference folder is versioned.
 official/LaTeX-Templates.zip
-template/LaTeX-Templates/*
-!template/LaTeX-Templates/acmart.cls
-!template/LaTeX-Templates/ACM-Reference-Format.bst
 *.blg
 # Local diagnostic runs are not submission sources.
 diagnostic*
