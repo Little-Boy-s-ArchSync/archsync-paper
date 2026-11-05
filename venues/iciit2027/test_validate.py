@@ -19,7 +19,98 @@ def validate(transform=None, byte_transform=None):
     with patch.object(sys, 'argv', ['validate.py', '--fresh']), patch.object(Path, 'read_text', text), patch.object(Path, 'read_bytes', binary), contextlib.redirect_stdout(io.StringIO()):
         return runpy.run_path(str(root/'validate.py'), run_name='__main__')
 
+def source_guard(name):
+    # Source/PDF-text guards can be tested before a manuscript rebuild.
+    tree = ast.parse(read_text(root/'validate.py', encoding='utf-8'))
+    function = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == name)
+    namespace = {'re': __import__('re'), 'json': json, 'hashlib': hashlib}
+    exec(compile(ast.Module(body=[function], type_ignores=[]), str(root/'validate.py'), 'exec'), namespace)
+    return namespace[name]
+
 class VenueValidation(unittest.TestCase):
+    def local_template_fixture(self):
+        reference = root/'template/LaTeX-Templates'
+        return (read_bytes(root/'official/2026-11-05/local-template-provenance.json'),
+                {path.relative_to(reference).as_posix(): read_bytes(path) for path in reference.rglob('*') if path.is_file()},
+                {name: read_bytes(root/name) for name in ['acmart.cls', 'acmart.dtx', 'acmart.ins', 'ACM-Reference-Format.bst']})
+
+    def test_local_template_receipt_binds_every_reference_file_and_active_copy(self):
+        check = source_guard('verify_local_template')
+        provenance, reference, active = self.local_template_fixture()
+        check(provenance, reference, active)
+        for name in reference:
+            with self.subTest(reference=name), self.assertRaisesRegex(AssertionError, 'supplied template file drift'):
+                check(provenance, {**reference, name: reference[name] + b'changed'}, active)
+        for name in active:
+            with self.subTest(active=name), self.assertRaisesRegex(AssertionError, 'active template differs'):
+                check(provenance, reference, {**active, name: active[name] + b'changed'})
+        for changed in [{k: v for k, v in reference.items() if k != 'README'}, {**reference, 'unexpected-file': b'extra'}]:
+            with self.assertRaisesRegex(AssertionError, 'file inventory drift'):
+                check(provenance, changed, active)
+
+    def test_editing_both_template_copies_cannot_impersonate_the_supplied_folder(self):
+        check = source_guard('verify_local_template')
+        provenance, reference, active = self.local_template_fixture()
+        for name in ['acmart.cls', 'ACM-Reference-Format.bst']:
+            changed = active[name] + b'changed'
+            with self.subTest(name=name), self.assertRaisesRegex(AssertionError, 'supplied template file drift'):
+                check(provenance, {**reference, name: changed}, {**active, name: changed})
+
+    def test_local_receipt_cannot_relabel_version_archive_or_edited_source(self):
+        check = source_guard('verify_local_template')
+        provenance, reference, active = self.local_template_fixture()
+        for field, replacement in [('version', '2.21'), ('class_release_date', '2026-11-01')]:
+            data = json.loads(provenance)
+            data[field] = replacement
+            with self.subTest(field=field), self.assertRaisesRegex(AssertionError, 'version drift'):
+                check(json.dumps(data).encode('utf-8'), reference, active)
+        data = json.loads(provenance)
+        data['source_archive']['sha256'] = '0'*64
+        with self.assertRaisesRegex(AssertionError, 'archive identity drift'):
+            check(json.dumps(data).encode('utf-8'), reference, active)
+        data = json.loads(provenance)
+        changed = active['acmart.cls'] + b'changed'
+        data['files']['acmart.cls'] = {'sha256': hashlib.sha256(changed).hexdigest(), 'bytes': len(changed)}
+        with self.assertRaisesRegex(AssertionError, 'provenance receipt drift'):
+            check(json.dumps(data).encode('utf-8'), {**reference, 'acmart.cls': changed}, {**active, 'acmart.cls': changed})
+
+    def test_only_exact_reviewed_native_output_diagnostics_are_allowed(self):
+        check = source_guard('verify_layout_diagnostics')
+        reviewed = {
+            'compact': (r'Overfull \hbox (4.18721pt too wide) has occurred while \output is active', 'hbox', 4.18721),
+            'compact-anonymous': (r'Overfull \vbox (1.152pt too high) has occurred while \output is active []', 'vbox', 1.152),
+        }
+        for profile in ['review', 'compact', 'review-anonymous', 'compact-anonymous', 'supplement']:
+            self.assertEqual(check(profile, 'No overfull diagnostics'), [])
+            for expected_profile, (warning, kind, points) in reviewed.items():
+                if profile == expected_profile:
+                    self.assertEqual(check(profile, warning), [{'kind': kind, 'points': points, 'context': 'output routine'}])
+                    with self.subTest(profile=profile, duplicate=True), self.assertRaisesRegex(AssertionError, 'unexpected overfull'):
+                        check(profile, warning + '\n' + warning)
+                else:
+                    with self.subTest(profile=profile, warning=warning), self.assertRaisesRegex(AssertionError, 'unexpected overfull'):
+                        check(profile, warning)
+
+    def test_horizontal_unknown_and_out_of_bound_vertical_overflows_fail(self):
+        check = source_guard('verify_layout_diagnostics')
+        warnings = [r'Overfull \hbox (4.18721pt too wide) has occurred while \output is active',
+                    r'Overfull \hbox (0.0001pt too wide) in paragraph at lines 1--2',
+                    r'Overfull \vbox (1.1135pt too high) detected at line 1',
+                    r'Overfull unknown box warning']
+        warnings += [r'Overfull \vbox (' + size + r'pt too high) has occurred while \output is active []'
+                     for size in ['0.1', '1', '1.2', '2']]
+        for warning in warnings:
+            with self.subTest(warning=warning), self.assertRaisesRegex(AssertionError, 'unexpected overfull'):
+                check('compact-anonymous', warning)
+        for profile, kind, dimension, sizes in [('compact', 'hbox', 'wide', ['4.1872', '4.18722']),
+                                               ('compact-anonymous', 'vbox', 'high', ['1.1519', '1.1521'])]:
+            for size in sizes:
+                warning = 'Overfull \\' + kind + ' (' + size + 'pt too ' + dimension + r') has occurred while \output is active'
+                if kind == 'vbox':
+                    warning += ' []'
+                with self.subTest(profile=profile, size=size), self.assertRaisesRegex(AssertionError, 'unexpected overfull'):
+                    check(profile, warning)
+
     def test_verified_issue_year_cannot_revert_to_online_year(self):
         def transform(path, value):
             return value.replace('year = {2025},\n  volume = {55}', 'year = {2024},\n  volume = {55}') if path.name == 'references.bib' else value
@@ -119,22 +210,57 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'pinned artifact link missing'):
             validate(transform)
 
-    def test_standard_author_source_rejects_custom_renderers_and_preserves_anonymity(self):
-        # Exercise renderer guards independently of PDFs being rebuilt.
-        tree = ast.parse(read_text(root/'validate.py', encoding='utf-8'))
-        function = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'verify_standard_author_source')
-        namespace = {'re': __import__('re')}
-        exec(compile(ast.Module(body=[function], type_ignores=[]), str(root/'validate.py'), 'exec'), namespace)
-        check = namespace['verify_standard_author_source']
-        source = r'\documentclass[sigconf,anonymous]{acmart}' + '\n' + r'\documentclass[manuscript,screen,review,anonymous]{acmart}'
+    def test_shared_author_source_rejects_custom_renderers_and_class_selection(self):
+        check = source_guard('verify_standard_author_source')
+        source = r'\author{Example}'
         check(source)
         check(source + '\n' + r'% Historical \input{author-layout} is not executed')
         for override in [r'\input{author-layout}', r'\include{author-layout.tex}', r'\def\@mkauthors{}', r'\fontsize{12}{14}', r'\fontfamily{ptm}', r'\def\UrlFont{}']:
             with self.subTest(override=override), self.assertRaises(AssertionError):
                 check(source + '\n' + override)
-        for options in ['sigconf,anonymous', 'manuscript,screen,review,anonymous']:
-            with self.subTest(options=options), self.assertRaisesRegex(AssertionError, 'anonymous class option'):
-                check(source.replace(options, options.replace(',anonymous', '')))
+        with self.assertRaisesRegex(AssertionError, 'profile entry files'):
+            check(r'\documentclass[sigconf]{acmart}' + '\n' + source)
+        for override in [r'\balance', r'\nobalance', r'\def\@BAdblcol{}']:
+            with self.subTest(override=override), self.assertRaisesRegex(AssertionError, 'documented class balancing option'):
+                check(source + '\n' + override)
+
+    def test_supplied_class_is_first_command_and_preserves_each_profile(self):
+        check = source_guard('verify_profile_entry_source')
+        profiles = {'review': 'manuscript,screen,review', 'compact': 'sigconf',
+                    'review-anonymous': 'manuscript,screen,review,anonymous',
+                    'compact-anonymous': 'sigconf,anonymous', 'supplement': 'manuscript,screen'}
+        for profile, options in profiles.items():
+            source = r'\documentclass[' + options + ']{acmart}\n' + r'\input{paper}'
+            check(profile, source)
+            check(profile, '% Opening comment\n' + source)
+            for prefix in [r'\input{texlive-compat}', r'\RequirePackage{hyperref}']:
+                with self.subTest(profile=profile, prefix=prefix), self.assertRaisesRegex(AssertionError, 'first command'):
+                    check(profile, prefix + '\n' + source)
+            with self.subTest(profile=profile), self.assertRaisesRegex(AssertionError, 'exactly one class'):
+                check(profile, source + '\n' + r'\documentclass[sigconf]{acmart}')
+            for changed in [options + ',pbalance', options.replace(',anonymous', '') if 'anonymous' in options else options + ',anonymous']:
+                with self.subTest(profile=profile, options=changed), self.assertRaisesRegex(AssertionError, 'first command'):
+                    check(profile, source.replace('[' + options + ']', '[' + changed + ']'))
+
+    def test_preload_hook_only_registers_the_package_order_fix(self):
+        check = source_guard('verify_preload_hook_source')
+        source = read_text(root/'acmart-preload-hook.tex', encoding='utf-8')
+        check(source)
+        for changed in [source + '\n' + r'\setlength{\textwidth}{6in}',
+                        source.replace('hyperxmp/before', 'hyperxmp/after'),
+                        source.replace('bookmarksnumbered,unicode', 'unicode')]:
+            with self.assertRaisesRegex(AssertionError, 'package-order compatibility'):
+                check(changed)
+
+    def test_native_layout_rejects_table_font_and_spacing_overrides(self):
+        check = source_guard('verify_standard_layout_source')
+        check(r'\begin{table}\centering\begin{tabular}{lr}A&B\end{tabular}\end{table}')
+        for override in [r'\emergencystretch=3em', r'\setlength{\tabcolsep}{3pt}', r'\fontsize{8}{9}', r'\geometry{margin=1in}']:
+            with self.subTest(override=override), self.assertRaisesRegex(AssertionError, 'layout override'):
+                check(override)
+        for size in ['small', 'footnotesize', 'scriptsize', 'tiny']:
+            with self.subTest(size=size), self.assertRaisesRegex(AssertionError, 'class font size'):
+                check(r'\begin{table*}\centering' + '\\' + size + r' Text\end{table*}')
 
     def test_current_assets_and_explicit_utf8(self):
         validate()
@@ -159,9 +285,29 @@ class VenueValidation(unittest.TestCase):
 
     def test_author_affiliation_drift_rejected(self):
         def transform(path, value):
-            return value.replace('70000', '99999') if path.name == 'submission-metadata.json' else value
+            return value.replace('Ho Chi Minh City', 'Wrong City') if path.name == 'submission-metadata.json' else value
         with self.assertRaisesRegex(AssertionError, 'author affiliation drift'):
             validate(transform)
+
+    def test_supplement_author_records_match_the_same_four_author_contract(self):
+        check = source_guard('verify_author_records_source')
+        source = read_text(root/'iciit2027-supplement.tex', encoding='utf-8')
+        authors = json.loads(read_text(root/'submission-metadata.json', encoding='utf-8'))['authors']
+        check(source, authors)
+        for old, new in [('Vo Duc Hieu', 'Generic Team'), ('voduchieu42@gmail.com', 'wrong@example.org'),
+                         ('0009-0007-5389-5177', '0000-0000-0000-0000'), ('Corresponding author.', 'Other note.')]:
+            with self.subTest(field=old), self.assertRaises(AssertionError):
+                check(source.replace(old, new), authors)
+
+    def test_supplement_uses_native_abstract_class_and_ccs_metadata(self):
+        check = source_guard('verify_supplement_source')
+        source = read_text(root/'iciit2027-supplement.tex', encoding='utf-8')
+        check(source)
+        for marker in [r'\begin{abstract}', r'\end{abstract}', r'\ccsdesc', r'\keywords{', r'\maketitle']:
+            with self.subTest(marker=marker), self.assertRaises(AssertionError):
+                check(source.replace(marker, 'removed'))
+        with self.assertRaisesRegex(AssertionError, 'renderer must not be overridden'):
+            check(source + '\n' + r'\def\@mkauthors{}')
 
     def test_correspondence_owner_cannot_change(self):
         def transform(path, value):
@@ -199,12 +345,60 @@ class VenueValidation(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'required ACM reference block'):
             validate(transform)
 
-    def test_owner_requested_publisher_phrase_omission_cannot_drift(self):
-        def transform(path, value):
-            return value.replace(r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{}',
-                                 r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{ACM, New York, NY, USA}') if path.name == 'paper.tex' else value
-        with self.assertRaisesRegex(AssertionError, 'publisher-phrase omission missing'):
-            validate(transform)
+    def test_native_acm_citation_rejects_renderer_overrides(self):
+        check = source_guard('verify_native_acm_citation_source')
+        check(r'\documentclass[sigconf]{acmart}')
+        check('% Historical \\patchcmd{\\@mkbibcitation}{ACM}{} is inactive\n')
+        for override in [r'\patchcmd{\@mkbibcitation}{ACM, New York, NY, USA}{}{}{}',
+                         r'\renewcommand{\@mkbibcitation}{}', r'\let\@mkbibcitation\relax']:
+            with self.subTest(override=override), self.assertRaisesRegex(AssertionError, 'native ACM citation renderer'):
+                check(override)
+
+    def test_native_acm_citation_rejects_reference_block_suppression(self):
+        check = source_guard('verify_native_acm_citation_source')
+        for setting in ['printacmref=false', 'printacmref = false', 'printacmref={false}']:
+            with self.subTest(setting=setting), self.assertRaisesRegex(AssertionError, 'required ACM reference block'):
+                check(r'\settopmatter{' + setting + '}')
+
+    def test_native_acm_publisher_phrase_required_in_first_page_text(self):
+        check = source_guard('verify_native_acm_citation_text')
+        check('ACM Reference Format: Title. ACM, New\nYork, NY, USA, 5 pages.')
+        for text in ['ACM Reference Format: Title. 5 pages.',
+                     'ACM Reference Format: Title. ACM, 5 pages.',
+                     'ACM Reference Format: Title. ACM, Ho Chi Minh City, Vietnam, 5 pages.']:
+            with self.subTest(text=text), self.assertRaisesRegex(AssertionError, 'publisher/address phrase missing'):
+                check(text)
+
+    def test_lead_in_headings_use_native_paragraph_sectioning(self):
+        check = source_guard('verify_standard_sectioning_source')
+        check(r'\paragraph{Methods} Text with inline \textbf{emphasis}.')
+        check('% \\textbf{Historical heading.} Inactive\n')
+        with self.assertRaisesRegex(AssertionError, 'standard paragraph sectioning'):
+            check(r'\textbf{Methods.} Text')
+
+    def test_each_figure_and_table_needs_its_own_description(self):
+        check = source_guard('verify_accessible_floats')
+        source = '\n'.join(r'\begin{' + kind + '}\n' + r'\caption{Visible caption}' + '\n' +
+                           r'\label{' + label + '}\n' + r'\Description{Details for ' + label + '}' + '\n' +
+                           r'\end{' + kind + '}'
+                           for kind, label in [('figure', 'fig:workflow'), ('table', 'tab:external'), ('table', 'tab:historic')])
+        check(source)
+        for label in ['fig:workflow', 'tab:external', 'tab:historic']:
+            description = r'\Description{Details for ' + label + '}'
+            for replacement in ['', r'\Description{   }', description + description,
+                                r'\Description{' + 'x'*2000 + '}']:
+                with self.subTest(label=label, replacement_length=len(replacement)), self.assertRaisesRegex(AssertionError, 'visual needs one nonempty'):
+                    check(source.replace(description, replacement))
+        with self.assertRaisesRegex(AssertionError, 'unique label'):
+            check(source.replace('tab:historic', 'tab:external'))
+        with self.assertRaisesRegex(AssertionError, 'inventory drift'):
+            check(source.replace('tab:historic', 'tab:other'))
+
+    def test_comment_cannot_supply_a_missing_float_description(self):
+        check = source_guard('verify_accessible_floats')
+        source = r'\begin{figure}' + '\n' + r'\label{fig:workflow}' + '\n' + r'% \Description{Comment only}' + '\n' + r'\end{figure}'
+        with self.assertRaisesRegex(AssertionError, 'visual needs one nonempty'):
+            check(source)
 
     def test_abstract_metadata_drift_rejected(self):
         def transform(path, value):

@@ -1,0 +1,47 @@
+[
+  {
+    "file": "sub.html",
+    "url": "https://www.iciit.org/sub.html",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "file": "date.html",
+    "url": "https://www.iciit.org/date.html",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "file": "reg.html",
+    "url": "https://www.iciit.org/reg.html",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "file": "cfp.html",
+    "url": "https://www.iciit.org/cfp.html",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "file": "index.html",
+    "url": "https://www.iciit.org/",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "file": "venue.html",
+    "url": "https://www.iciit.org/venue.html",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  },
+  {
+    "file": "portal.html",
+    "url": "https://confsys.iconf.org/submission/iciit2027",
+    "final_url": "https://confsys.iconf.org/submission/iciit2027",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "retrieved_at": "2026-11-05T06:33:29.429660+00:00",
+    "sha256": "f5b024f2e4c8e832774eb166a1f0b26d2a4d64d02103ff28fa5b8ced9a202726",
+    "bytes": 10807
+  },
+  {
+    "file": "LaTeX-Templates.zip",
+    "url": "https://www.iciit.org/LaTeX-Templates.zip",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+  }
+]

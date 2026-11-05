@@ -1,0 +1,84 @@
+{
+  "checked_date": "2026-11-05",
+  "snapshot_scope": "Public primary sources; complete processed snapshots retained in parent preparation folder. Prior failed direct requests preserved in direct-retrieval-failures.json.",
+  "sources": [
+    {
+      "source_url": "https://authors.acm.org/proceedings/production-information/preparing-your-article-with-latex",
+      "final_url": "https://authors.acm.org/proceedings/production-information/preparing-your-article-with-latex",
+      "status": 200,
+      "method": "Firecrawl live fetch with maxAge 0; processed main-content Markdown",
+      "checked_date": "2026-11-05",
+      "snapshot_name": "acm-latex-guide.md",
+      "sha256": "194bb9e51d55e63b23d78a6d1123785dc34c8c4110c5eae48fbec2c8842fb32b",
+      "bytes": 20243,
+      "scrape_id": "01a1aa6c-abec-77cf-9107-f779c7f79b77"
+    },
+    {
+      "source_url": "https://www.acm.org/publications/authors/submissions",
+      "final_url": "https://www.acm.org/publications/authors/submissions",
+      "status": 200,
+      "method": "Firecrawl live fetch with maxAge 0; processed main-content Markdown",
+      "checked_date": "2026-11-05",
+      "snapshot_name": "acm-submissions.md",
+      "sha256": "7b670c6914950680349f8ac20aad3ca5413c4e4731696d1d9499549dc45871ff",
+      "bytes": 19612,
+      "scrape_id": "01a1aa6c-ab2a-75fc-8102-84eb00c9b865"
+    },
+    {
+      "source_url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
+      "final_url": "https://www.acm.org/publications/policies/new-acm-policy-on-authorship",
+      "status": 200,
+      "method": "Firecrawl live fetch with maxAge 0; processed main-content Markdown",
+      "checked_date": "2026-11-05",
+      "snapshot_name": "acm-authorship.md",
+      "sha256": "d507884b3ddaa0be2be2046dad5a92e1feef6d3aa1811dfad259a7e7c3fae2bd",
+      "bytes": 15099,
+      "scrape_id": "01a1aa6c-ab3d-77bc-8840-b739cbea0b76"
+    },
+    {
+      "source_url": "https://www.iciit.org/sub.html",
+      "final_url": "https://www.iciit.org/sub.html",
+      "status": 200,
+      "method": "Firecrawl live fetch with maxAge 0; processed main-content Markdown",
+      "checked_date": "2026-11-05",
+      "snapshot_name": "iciit-submission.md",
+      "sha256": "c3c336e9c48aaa71d6a64933853a51c153f7ee52b9adff4584915a90bd4251a6",
+      "bytes": 3391,
+      "scrape_id": "01a1aa6c-ab30-7158-a50f-1b6e67c34acc"
+    },
+    {
+      "source_url": "https://www.iciit.org/date.html",
+      "final_url": "https://www.iciit.org/date.html",
+      "status": 200,
+      "method": "Firecrawl live fetch with maxAge 0; processed main-content Markdown",
+      "checked_date": "2026-11-05",
+      "snapshot_name": "iciit-dates.md",
+      "sha256": "f9100479968eb350918738d98e11c2cd9f16a4081b9e7120086835ea33a256cc",
+      "bytes": 2210,
+      "scrape_id": "01a1aa6c-acdb-71d8-987c-861cf76afa26"
+    },
+    {
+      "source_url": "https://confsys.iconf.org/submission/iciit2027",
+      "status": 200,
+      "method": "direct HTTPS",
+      "sha256": "f5b024f2e4c8e832774eb166a1f0b26d2a4d64d02103ff28fa5b8ced9a202726",
+      "bytes": 10807,
+      "observation": "Public login page; authenticated form not inspected."
+    },
+    {
+      "source_url": "https://mirrors.ctan.org/macros/latex/contrib/acmart.zip",
+      "final_url": "https://sg.mirrors.cicku.me/ctan/macros/latex/contrib/acmart.zip",
+      "status": 200,
+      "method": "direct HTTPS production ZIP download; generated with official installer",
+      "sha256": "81977a834f5cfd5302c37181ede34d2663eeea60604d1d89230e3c5e74b9a4bb",
+      "bytes": 9899159,
+      "version": "2.21"
+    },
+    {
+      "source_url": "https://www.iciit.org/LaTeX-Templates.zip",
+      "method": "direct HTTPS retry",
+      "status": "FETCH_FAILED",
+      "observation": "SSL EOF (Python and system curl). No fresh byte-equality claim is made for the venue ZIP. The current ACM production release is independently verified."
+    }
+  ]
+}

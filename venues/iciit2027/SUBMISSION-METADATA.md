@@ -10,10 +10,10 @@ Latest owner correction (2026-09-29):
 
 Vo Duc Hieu *, Tran Minh Hoang, Le Van Kiet, and Ha Hoang Bach
 
-1. Vo Duc Hieu — Software Engineering, FPT University, Ho Chi Minh City, 70000, Vietnam — voduchieu42@gmail.com; corresponding author (*); ORCID 0009-0007-5389-5177
+1. Vo Duc Hieu — Software Engineering, FPT University, Ho Chi Minh City 70000, Vietnam — voduchieu42@gmail.com; corresponding author (*); ORCID 0009-0007-5389-5177
 2. Tran Minh Hoang — Computer Science and Engineering, VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam — andyjobs2023@gmail.com; ORCID 0009-0000-0302-1841
 3. Le Van Kiet — Software Engineering, VNUK Institute for Research and Executive Education, The University of Danang, Da Nang, Vietnam — levankiet1212.2004@gmail.com; ORCID 0009-0007-8434-882X
-4. Ha Hoang Bach — Information Assurance, FPT University, Ho Chi Minh City, 70000, Vietnam — hahoangbach2005@gmail.com; ORCID 0009-0000-5118-0660
+4. Ha Hoang Bach — Information Assurance, FPT University, Ho Chi Minh City 70000, Vietnam — hahoangbach2005@gmail.com; ORCID 0009-0000-5118-0660
 The structured records use the per-author affiliations confirmed by the owner.
 Hoàng and Kiệt are at VNUK; their departments are Computer Science and
 Engineering and Software Engineering respectively. Hiếu is in Software

@@ -1,5 +1,3 @@
-% Retain the official class while satisfying newer hyperxmp loading order.
-% Use the same options acmart requests later to avoid an option clash.
-\AddToHook{package/hyperxmp/before}{%
-  \RequirePackage[bookmarksnumbered,unicode]{hyperref}%
-}
+% Historical pre-documentclass compatibility shim; not loaded by current profiles.
+% The supplied acmart 1.90a now discovers acmart-preload-hook.tex natively,
+% as documented in its bundled guide. Current entries begin with documentclass.

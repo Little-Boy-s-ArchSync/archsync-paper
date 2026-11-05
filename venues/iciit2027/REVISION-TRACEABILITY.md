@@ -1,6 +1,81 @@
 # Supervisor-request revision — 26 September 2026
 
-## Current review revision — 4 November 2026
+## Current local-template revision — 5 November 2026
+
+The user's later 5 November instruction makes the supplied workspace
+`LaTeX-Templates/` folder the template authority. Current sources use its exact
+unmodified `acmart` **v1.90a** class, DTX and bibliography files, superseding the
+earlier 2.21 production-template selection. Each build entry starts with
+`\documentclass`; review uses `manuscript,screen,review` and the proceedings
+preview uses plain `sigconf`. Manual small table fonts, `pbalance`,
+`emergencystretch` and reduced `tabcolsep` overrides are removed. Native ACM
+Reference Format and semantic paragraph headings remain. The local samples
+require descriptions for figures; the two table descriptions are retained as
+additional accessibility metadata. **All five profiles build at 10/5/10/5/4
+pages; all 40 venue tests and all 34 rendered-page inspections pass.** Fresh
+validation passes. Archive identity/reconstruction is recorded externally in
+`package-manifest.json` and `package-rebuild.json`; earlier receipts retain their
+original byte scope.
+
+The [current audit](FINAL-GUIDE-AUDIT-20261105.md) retains the five review fixes,
+four authors with Hieu correspondence, 131-word abstract, 17 citations and
+23 chosen-review papers. Conference dates remain full paper 30 November 2026,
+abstract 5 December 2026, notification 20 December 2026 and registration
+10 January 2027. Native reference text and semantic headings are retained.
+
+The [local provenance receipt](official/2026-11-05/local-template-provenance.json)
+binds all **55 supplied template files** to the original folder/ZIP. The supplied
+README/DTX identify 1.90 while the supplied class identifies 1.90a; that difference
+originates in the ZIP. The class is copied unchanged, rather than regenerated.
+
+The initial native-font build exposed body line overflows. Seven scoped
+`sloppypar` environments, permitted by the supplied `acmguide.pdf` §2.16 (p. 29),
+and native-size `table*` cells resolve them. The final build has **zero body
+overflows**. It retains one native output-routine diagnostic in each compact
+profile: named 4.18721 pt horizontal box and anonymous 1.152 pt vertical box.
+The complete last pages remain readable without overlap. Validation checks the
+exact profile, context, size and count, rejecting other overflow variations.
+
+The minimal `acmart-preload-hook.tex` resolves package loading order through the
+local guide's documented mechanism (§2.20, pp. 30–31). Supplied class bytes and
+first-command `\documentclass` entry points are preserved. Plain sample class
+options remain, with no `pbalance` or `balance=false` override. All 40 venue tests,
+fresh validation and visual review of all 34 pages pass. Archive verification
+is recorded in `package-rebuild.json`.
+
+All 34 pages are Letter with embedded native fonts and PDF creator 1.90a.
+Normalized scientific wording in paper, related work and appendix matches
+merged `586150ff30b618b5a6d8bb38a687530c3ef07b7c`; the markup-only check is
+retained at `preparation/2026-11-05-template-folder/scientific-text-check.json`
+in the parent workspace. Archive identity and reconstruction are recorded
+externally in `package-manifest.json` and `package-rebuild.json`.
+
+## Earlier production-template audit — 5 November 2026 (superseded template choice)
+
+[FINAL-GUIDE-AUDIT-20261105.md](FINAL-GUIDE-AUDIT-20261105.md) maps the current
+official guide and all five reviewer corrections. The primary review candidate
+uses `manuscript,screen,review`; compact output is a proceedings preview.
+Unmodified ACM production `acmart` 2.21 and production bibliography files replace
+the earlier template release, with [CTAN provenance](official/2026-11-05/production-template-provenance.json).
+The native ACM Reference Format is restored, superseding the publisher/address
+omission; paragraph headings use standard sectioning and both tables have text
+descriptions. Compact previews use the documented `pbalance` class option.
+The five profiles build with pdfLaTeX/TeX Live 2024 at 10/5/10/5/4 pages;
+37 venue tests and visual review of all 34 pages pass. Archive verification is
+recorded in `package-rebuild.json`. The supplement has four-author metadata,
+abstract, CCS concepts, keywords and native ACM reference text. Obsolete postal
+values are omitted because the current class ignores `postcode`; all four ORCID
+check digits are valid. Normalized scientific wording matches merged commit
+`586150ff30b618b5a6d8bb38a687530c3ef07b7c`.
+
+Current dates: full paper 30 November 2026, abstract 5 December 2026, notification
+20 December 2026 and registration 10 January 2027. Minimum pages remain 8/4
+(single/double column), with regular allowance 10/5. Anonymity and supplement
+policy remain portal/organizer questions. The four-author order with Hieu
+correspondence, 131-word abstract, 17 venue citations and active 23-paper review
+remain unchanged. The following dated records describe their original revisions.
+
+## Integrated review revision — 4 November 2026 (history)
 
 [Response to the five review comments](REVIEW-RESPONSE-20261104.md) maps the
 current contribution-first wording, real-project discussion, language/focus

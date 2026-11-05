@@ -1,3 +1,53 @@
+# Supplied-template visual audit — 5 November 2026
+
+Current authority: the user's `LaTeX-Templates` folder and its supplied `acmart` 1.90a class. All 55 reference files and the four active class/source/BST files match the supplied ZIP. Entry files start with the sample's documentclass command. The earlier production-2.21 inspection below is historical and does not identify the current PDFs.
+
+All 34 pages were rendered at 144 dpi and checked across five contact sheets, with reading-size inspection of named/anonymous first pages, the full-width comparison table, historical results table, tiny contract example, Figure 1 and final references. The current identities are in `visual-inputs.json`; rendered pages and properties are retained in the parent workspace under `preparation/2026-11-05-template-folder/`.
+
+- Named review: 10 pages; compact: 5; anonymous review: 10; anonymous compact: 5; supplement: 4.
+- All pages use Letter geometry and embedded native fonts; PDF creators identify supplied acmart 1.90a.
+- Four authors, their affiliations and Hieu's correspondence note are intact; named compact displays all four emails. Native manuscript rendering follows the supplied class. Anonymous profiles omit author identity markers.
+- Both tables use native text size. Table 1 spans the compact page width, keeping all four comparison columns readable; Table 2 wraps within its column. Captions and Figure 1 labels are clear.
+- Standard paragraph headings and seven scoped `sloppypar` environments follow the local guide. The latter resolve body line-breaking warnings without font or margin changes.
+- No body overflow, observed clipping, overlap or missing glyphs. The native output routine retains one named-compact 4.18721 pt horizontal-box diagnostic and one anonymous-compact 1.152 pt vertical-box diagnostic. Both final pages are complete and legible. Validation permits only these exact profile/context/size/count combinations and reports them explicitly; any other overflow fails.
+
+This records technical visual inspection; submission and author declarations retain their separate status.
+
+---
+
+# Final guide-current visual review — 5 November 2026
+
+All five profiles use the unmodified ACM production 2.21 class and bibliography
+style. The main review profiles have 10 pages each, compact previews 5 each,
+and the technical supplement 4: 34 rendered pages in total. All page geometries
+are standard Letter (612 by 792 PDF points); every inspected font is embedded.
+
+Full-document contacts and the changed first pages, paragraph headings, Figure 1,
+both tables, tiny example and complete references were inspected. The four-author
+order, Hieu correspondence note, native ACM Reference Format and Authors' Contact
+Information block render correctly. Standard paragraph headings are clear; table
+and figure descriptions are present in source. The documented pbalance option
+balances the compact reference columns. No clipping, overlap or missing symbols
+was observed. The supplement now uses the same four actual author records and
+complete abstract, CCS, keywords and native reference metadata.
+
+The named review has Table 1 and the tiny example on page 3, Figure 1 on page 4
+and the real-project discussion on page 6. The compact preview places the table
+and example on page 2, Figure 1 on page 3 and the real-project discussion on
+page 4. Both anonymous profiles retain all four items and pass identity checks.
+
+One 1.1135 pt anonymous-compact vertical output-box diagnostic remains on the
+balanced bibliography page. It is retained explicitly in validation.json and
+has no observed visible defect. The stricter validator rejects horizontal,
+larger vertical or other-profile overflow. No unresolved citations or references
+or ignored postal/mandatory-metadata warnings remain.
+
+The scientific wording matches merged revision 586150f after normalizing only
+heading markup and visual descriptions. The dated guide snapshots, normalization
+check and final renders are retained in the parent workspace at
+preparation/2026-11-05-final-guide-audit/. visual-inputs.json binds the current
+PDFs. Earlier records below retain their original versions and author scopes.
+
 # Integrated PR #60 / PR #61 visual review — 4 November 2026
 
 ## Current four-author review revision

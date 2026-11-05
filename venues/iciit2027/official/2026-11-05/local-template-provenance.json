@@ -1,0 +1,250 @@
+{
+  "status": "USER_SUPPLIED_TEMPLATE_COPIED_UNMODIFIED",
+  "checked_date": "2026-11-05",
+  "authority": "User instruction: CHECK THE LATEX TEMPLATE FOLDER AND FOLLOW IT",
+  "source_folder": "LaTeX-Templates",
+  "version": "1.90a",
+  "class_release_date": "2023-06-11",
+  "source_archive": {
+    "file": "LaTeX-Templates.zip",
+    "bytes": 12866639,
+    "sha256": "e0272aab662418d48c9b12df70d4815778eb1fb07f645ebbeacdcb7dded6ef44"
+  },
+  "all_copied_files_match_source_archive": true,
+  "reference_copy": "template/LaTeX-Templates",
+  "files": {
+    ".gitignore": {
+      "bytes": 293,
+      "sha256": "4c217909ab4fb1256cb066a2d8c6ced970904133621bf2113c643d60fd31fad6"
+    },
+    "ACM-Reference-Format.bst": {
+      "bytes": 90332,
+      "sha256": "6225898340ce8ca3536ab1141cfd822e4d80049bd3a19c85bd6221072e2466d0"
+    },
+    "Makefile": {
+      "bytes": 4923,
+      "sha256": "a7874e8ae445bfbbe83a180b278f76c6a10b801f7a37e71155f5d3d39d519996"
+    },
+    "README": {
+      "bytes": 12584,
+      "sha256": "b0a1c43a36cddac4635050632a955bbf6bc7de2cd2a61f29139347a6fb7c1e09"
+    },
+    "acm-jdslogo.png": {
+      "bytes": 19718,
+      "sha256": "539a878e7d7b5442591def37a29eca693dde3a789cc9f3b83c0f1aa117898219"
+    },
+    "acmart.bib": {
+      "bytes": 2773,
+      "sha256": "da283243f63178da207da639cc94652407a0fe218d3cd12b852d21de9d01c8da"
+    },
+    "acmart.cls": {
+      "bytes": 116927,
+      "sha256": "c27fec209ad1e1be8af87ffc63295c3833ba83238e34f594d36c89a4e48fa48c"
+    },
+    "acmart.dtx": {
+      "bytes": 287471,
+      "sha256": "b803357d16edcd79799f68948f841a5d0dac6bff9ad917b97eb38204160b5046"
+    },
+    "acmart.ins": {
+      "bytes": 1016,
+      "sha256": "fa7daaa9375775ce699f33f909667bdb83c0408fd8d67606926df86c346c4044"
+    },
+    "acmart.pdf": {
+      "bytes": 908288,
+      "sha256": "027938dbc822f28de001bd1959ba193e9773e030774e26d0cffe05b19e5a7bd1"
+    },
+    "acmauthoryear.bbx": {
+      "bytes": 20721,
+      "sha256": "555a33a0485d23250b7fb340dd8781b8afc91a9c71faa2a744705dd1d5d2a6e8"
+    },
+    "acmauthoryear.cbx": {
+      "bytes": 6245,
+      "sha256": "cb22394f982fcaf8ed7f0df34234696f45fc130afcf9ee3cd1260805ad2170d1"
+    },
+    "acmdatamodel.dbx": {
+      "bytes": 1093,
+      "sha256": "a5bab6fed4585780632607ef2790ee8797864244a4b80bc0c4e3bfcb76b0c2bc"
+    },
+    "acmguide.pdf": {
+      "bytes": 433127,
+      "sha256": "f98ed52a02c15a0da69aa9d00d7145f2e38ab3e1ebc7238ca0e23ae066b52607"
+    },
+    "acmnumeric.bbx": {
+      "bytes": 19840,
+      "sha256": "bbf30642de2ea8b16f2d7056f9114af7e1d29efb2293848e61197ccd9e897943"
+    },
+    "acmnumeric.cbx": {
+      "bytes": 90,
+      "sha256": "22db9dd1bcb095d8af106e6a834f0ce1f182c73eee656589043c0153f226d911"
+    },
+    "samples/abbrev.bib": {
+      "bytes": 4825,
+      "sha256": "9c7ce82da9113aa18037b9860cfe37270ec9e1cab8a9a9841e3aa730db8c6756"
+    },
+    "samples/acmart.cls~": {
+      "bytes": 117165,
+      "sha256": "30a0c9264b387c556aed4e35115591e5527313268c8c8e810910f044ce9f8a23"
+    },
+    "samples/sample-acmcp.pdf": {
+      "bytes": 214031,
+      "sha256": "1df7b29e18538522fb9ef20f26410f3ca456d4f62dd7b61275c85b732f6e24e5"
+    },
+    "samples/sample-acmcp.tex": {
+      "bytes": 6144,
+      "sha256": "95ee25a93fafde772ff655cf8b5fd8514cef65c4191d1deeff424540c8a6f896"
+    },
+    "samples/sample-acmlarge.pdf": {
+      "bytes": 606312,
+      "sha256": "881e00642be8130c0699c8378d92795fb0fb92346efa3baaeacb3adb129cf81b"
+    },
+    "samples/sample-acmlarge.tex": {
+      "bytes": 31143,
+      "sha256": "b88ccf17ef3f192f37dbf57819e3f297f36c6894f17bbab4160782da98f25754"
+    },
+    "samples/sample-acmsmall-biblatex.pdf": {
+      "bytes": 628828,
+      "sha256": "636a78aed874713d9307f3abd4cc14218e9d6e5347a73456077fd1595d4e303d"
+    },
+    "samples/sample-acmsmall-biblatex.tex": {
+      "bytes": 31692,
+      "sha256": "8738d81482eb3abc2f398ef2741121bf7ff8af385273b64c9f37232e54c6d9e7"
+    },
+    "samples/sample-acmsmall-conf.pdf": {
+      "bytes": 1050148,
+      "sha256": "d15bd94e0529a4feb2075e9ae855cddfcffa6b1601b30ff561292070a2b48fe9"
+    },
+    "samples/sample-acmsmall-conf.tex": {
+      "bytes": 31940,
+      "sha256": "0f80d24739c6bf46a0d5d34ae182bdca00693bb5f7bba9965013c44f83e142b1"
+    },
+    "samples/sample-acmsmall-submission.pdf": {
+      "bytes": 618591,
+      "sha256": "541d3ba69f0f6fe5ed2bb6f89f2cf21218a8615e473090b4eb45f7953b7c85ad"
+    },
+    "samples/sample-acmsmall-submission.tex": {
+      "bytes": 31213,
+      "sha256": "13d8cff74aef3fb71731af2d45f5e349929740d7cff1b8559d6d55eded6f3572"
+    },
+    "samples/sample-acmsmall-tagged.tex~": {
+      "bytes": 31235,
+      "sha256": "e7262f4a7d5d2dbb0967fa91ca8c7461d2b8e771897f5fb2b83b4ab5b23b2b9f"
+    },
+    "samples/sample-acmsmall.pdf": {
+      "bytes": 616120,
+      "sha256": "e6faada9992ffd2bbc098a36652040c7a3200540545aa3abf9fcb75cda694a97"
+    },
+    "samples/sample-acmsmall.tex": {
+      "bytes": 31141,
+      "sha256": "e159639a08b1d18d4eba9f8c5ddecad8fe85bf5aad053b8c5a07f429713478d4"
+    },
+    "samples/sample-acmtog.pdf": {
+      "bytes": 563627,
+      "sha256": "c35c74aa5dec43339771f183d0c93157a36cb238e63d410cd9ff371b263ae5f8"
+    },
+    "samples/sample-acmtog.tex": {
+      "bytes": 31066,
+      "sha256": "87ccbae2e5dc578f939bdd8ad6b4bf55e4947446cd3a7ca9f37bbd1cd5d8a703"
+    },
+    "samples/sample-authordraft.pdf": {
+      "bytes": 1043233,
+      "sha256": "80a2044147292813e171c7cffab44c820c96d3ea22c92e9b26785dba51935158"
+    },
+    "samples/sample-authordraft.tex": {
+      "bytes": 31954,
+      "sha256": "e9d0bc8a1fb3e9fb6f4a351d73683f04cf7899a2742879b49ad9cc556c4bf6fc"
+    },
+    "samples/sample-base.bib": {
+      "bytes": 53502,
+      "sha256": "e4bc7fab7be6200e71dab2b685bbc492b1e8188cee0b10860c1a772cbf8d0bc8"
+    },
+    "samples/sample-franklin.png": {
+      "bytes": 95030,
+      "sha256": "c3a1c87e65c70cbc5310c0212a267532a3002c685cc1bb8e3ce74c1caacd3f02"
+    },
+    "samples/sample-lualatex.pdf": {
+      "bytes": 784544,
+      "sha256": "d4cbe14bc1b294e60619d2d91f87b8849a177c672b5e28f086abfabb7afe1898"
+    },
+    "samples/sample-lualatex.tex": {
+      "bytes": 31917,
+      "sha256": "f4c63b362ac6b2b1a7e17be04272a1e1acc8e810f3cb154fcb477a2dbe5ab0c0"
+    },
+    "samples/sample-manuscript.pdf": {
+      "bytes": 618420,
+      "sha256": "392979fcfba4bf6b4d5826809f7d9aff32f77f68506c73418068c45c2c64959d"
+    },
+    "samples/sample-manuscript.tex": {
+      "bytes": 31548,
+      "sha256": "1df82f21e2030ab8872ce365f5c5bfb2111ddcb5242e8788e58e054128d628c8"
+    },
+    "samples/sample-sigconf-biblatex.pdf": {
+      "bytes": 615781,
+      "sha256": "d60e7bda67c5dd588ec5a61f1f806b8e9c0c71ff0ab28fe64462f62d889df3b0"
+    },
+    "samples/sample-sigconf-biblatex.tex": {
+      "bytes": 31559,
+      "sha256": "6e8d36ebce6ec2ba5a09a8dfd8e25b4394f15f42525fe056b510d416b53e2bdd"
+    },
+    "samples/sample-sigconf-i13n.pdf": {
+      "bytes": 1054729,
+      "sha256": "6eb05f4059ac715e3e0ee119008c7394b202ab8c59669c3e118ce619fcdcc574"
+    },
+    "samples/sample-sigconf-i13n.tex": {
+      "bytes": 34072,
+      "sha256": "bcec3356660eccdd8b6169820924627b5fe6f674aa8c0e53520542ed1bdc55fc"
+    },
+    "samples/sample-sigconf.pdf": {
+      "bytes": 1039445,
+      "sha256": "28d5776ef8c29b8eb3c626e60cbd517600417809c35726ef918a38b831c6e944"
+    },
+    "samples/sample-sigconf.tex": {
+      "bytes": 31914,
+      "sha256": "2545555d71c11aa7c3aa877ce8e59a13c2e6d9a5a9376820d873ed979352d60b"
+    },
+    "samples/sample-sigplan.pdf": {
+      "bytes": 1047831,
+      "sha256": "bd8abd69b7eef53c866f7697d3e1e523941e1761f860697421d34fc1d13c1cc9"
+    },
+    "samples/sample-sigplan.tex": {
+      "bytes": 31928,
+      "sha256": "006856001458b3163d1c8ad13e8561c6b99f40f2ac51770ea465799f37098657"
+    },
+    "samples/sample-xelatex.pdf": {
+      "bytes": 658443,
+      "sha256": "e1998bbb55dc534fb845661123ddfc14957ff170689dfacfb87b5c4c29f57e72"
+    },
+    "samples/sample-xelatex.tex": {
+      "bytes": 31914,
+      "sha256": "efee35be99ffbb27f42375e4a9378db4b7ec1fc8f57e8888fa9979840699836d"
+    },
+    "samples/samples.dtx": {
+      "bytes": 54950,
+      "sha256": "21a5c216445b8ed3f69c6a80ebc7f2b4f32c60b95488896f9f1f4e40b1e74b64"
+    },
+    "samples/samples.ins": {
+      "bytes": 1138,
+      "sha256": "d035b199f98025d11231ed562f4fd0a68eaba53bf1dbd69d10f0fc77892e9015"
+    },
+    "samples/sampleteaser.pdf": {
+      "bytes": 439021,
+      "sha256": "46154916fe8ecc9c3fae87705bfdff78e1d537fe5c4bfd74227cc338de6f2810"
+    },
+    "samples/software.bib": {
+      "bytes": 5221,
+      "sha256": "ccab561fcf9d036877bb20bd3c44718f68167f1a4350254e92acc80140d893e5"
+    }
+  },
+  "active_files": [
+    "acmart.cls",
+    "acmart.dtx",
+    "acmart.ins",
+    "ACM-Reference-Format.bst"
+  ],
+  "excluded_non_template_files": [
+    {
+      "file": ".DS_Store",
+      "reason": "operating-system metadata absent from original ZIP"
+    }
+  ],
+  "previous_template_choice": "The earlier 2.21 production-package choice is superseded by the explicit user instruction to follow the supplied folder. Its dated provenance remains historical."
+}
